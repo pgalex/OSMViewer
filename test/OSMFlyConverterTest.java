@@ -105,6 +105,5 @@ public class OSMFlyConverterTest
 		{
 			fail();
 		}
-
 	}
 }

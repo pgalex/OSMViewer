@@ -71,8 +71,11 @@ public class OSMFlyConverter
 
 		/**
 		 * Найдено начало определения элемента
+		 * @param uri
+		 * @param pLocalName
 		 * @param pName
-		 * @param pAttrs 
+		 * @param pAttributes
+		 * @throws SAXException 
 		 */
 		@Override
 		public void startElement(String uri, String pLocalName, String pName, Attributes pAttributes) throws SAXException
@@ -116,7 +119,10 @@ public class OSMFlyConverter
 
 		/**
 		 * Найден конец определения элемента
-		 * @param pName 
+		 * @param uri
+		 * @param localName
+		 * @param pName
+		 * @throws SAXException 
 		 */
 		@Override
 		public void endElement(String uri, String localName, String pName) throws SAXException
@@ -272,17 +278,10 @@ public class OSMFlyConverter
 			}
 		}
 	}
+
 	/////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Класс, строящий карту по данным после разбора .osm на лету
-	 */
-	private class OSMFlyMapBuilder
-	{
-		//
-	}
-	/////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Объект принимающий сообщения разбота
+	 * Объект принимающий сообщения разбора
 	 */
 	private SaxFlyHandler handler;
 
@@ -295,7 +294,7 @@ public class OSMFlyConverter
 	}
 
 	/**
-	 * Конвертировать .osm xml в карту
+	 * Конвертировать .osm xml в карту | должна возвращать Map
 	 * @param pSource
 	 * @throws Exception  
 	 */
@@ -324,7 +323,7 @@ public class OSMFlyConverter
 	}
 
 	/**
-	 * 
+	 * Получить точки
 	 * @return 
 	 */
 	public ArrayList<OSMFileNode> getParserNodes()
@@ -333,7 +332,7 @@ public class OSMFlyConverter
 	}
 
 	/**
-	 * 
+	 * Получить линии
 	 * @return 
 	 */
 	public ArrayList<OSMFileWay> getParserWays()
@@ -342,7 +341,7 @@ public class OSMFlyConverter
 	}
 	
 	/**
-	 * 
+	 * Получить отношения
 	 * @return 
 	 */
 	public ArrayList<OSMFileRelation> getParserRelations()

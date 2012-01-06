@@ -32,6 +32,21 @@
             </MenuItem>
           </SubComponents>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenuMap">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x41a;&#x430;&#x440;&#x442;&#x430;"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemEditStyle">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&#x41e;&#x431;&#x44a;&#x435;&#x43a;&#x442;&#x44b; &#x43a;&#x430;&#x440;&#x442;&#x44b; ..."/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemEditStyleActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="jMenuSettings">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x41d;&#x430;&#x441;&#x442;&#x43e;&#x439;&#x43a;&#x438;"/>
@@ -41,14 +56,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="&#x41e;&#x431;&#x449;&#x438;&#x435; ..."/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemEditStyle">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="&#x41e;&#x431;&#x44a;&#x435;&#x43a;&#x442;&#x44b; &#x43a;&#x430;&#x440;&#x442;&#x44b; ..."/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemEditStyleActionPerformed"/>
-              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -105,7 +112,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="456" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="458" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
