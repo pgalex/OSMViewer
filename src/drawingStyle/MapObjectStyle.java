@@ -21,7 +21,7 @@ public class MapObjectStyle
 	/**
 	 * Уникальный идентификатор типа объекта (чтобы не искать по тегам)
 	 */
-	public int id;
+	private int id;
 	/**
 	 * Может ли быть точкой
 	 */
@@ -40,7 +40,7 @@ public class MapObjectStyle
 	public String textTagKey;
 
 	/**
-	 * Конструктор
+	 * Конструктор для стиля, где id не важен
 	 */
 	public MapObjectStyle()
 	{
@@ -50,5 +50,42 @@ public class MapObjectStyle
 		canBePoint = false;
 		canBeLine = false;
 		canBePolygon = false;
+	}
+
+	/**
+	 * Конструктор стиля с id
+	 * @param pId Уникальный идентификатор, который нельзя будет изменить после создания объекта
+	 */
+	public MapObjectStyle(int pId)
+	{
+		scaledStyles = new ScaledObjectStyle[ProgramSettings.SCALE_LEVELS_COUNT];
+		defenitionTags = new ArrayList<MapTag>();
+		id = pId;
+		canBePoint = false;
+		canBeLine = false;
+		canBePolygon = false;
+	}
+
+	/**
+	 * Конструктор по копии, но с новым id
+	 * @param pId новый id
+	 * @param pSource исходный стиль
+	 */
+	public MapObjectStyle(int pId, MapObjectStyle pSource)
+	{
+		id = pId;
+		scaledStyles = pSource.scaledStyles;
+		defenitionTags = pSource.defenitionTags;
+		canBePoint = pSource.canBePoint;
+		canBeLine = pSource.canBeLine;
+		canBePolygon = pSource.canBePolygon;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public int getId()
+	{
+		return id;
 	}
 }

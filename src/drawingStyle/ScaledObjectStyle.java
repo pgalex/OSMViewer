@@ -1,5 +1,7 @@
 package drawingStyle;
 
+import sun.java2d.loops.DrawPolygons;
+
 /**
  * Параметры отображения на определенном масштабе
  * @author abc
@@ -9,15 +11,27 @@ public class ScaledObjectStyle
 	/**
 	 * стиль точки
 	 */
-	private PointDrawStyle pointStyle;
+	public PointDrawStyle pointStyle;
 	/**
 	 * стиль линии
 	 */
-	private LineDrawStyle lineStyle;
+	public LineDrawStyle lineStyle;
 	/**
 	 * стиль многоугольника
 	 */
-	private PolygonDrawStyle polygonStyle;
+	public PolygonDrawStyle polygonStyle;
+	/**
+	 * Рисовать ли точку на данном масштабе
+	 */
+	public boolean drawPoint;
+	/**
+	 * Рисовать ли линию на данном масштабе
+	 */
+	public boolean drawLine;
+	/**
+	 * Рисовать ли многоугольник на данном масштабе
+	 */
+	public boolean drawPolygon;
 
 	/**
 	 * Конструктор
@@ -27,53 +41,8 @@ public class ScaledObjectStyle
 		pointStyle = new PointDrawStyle();
 		lineStyle = new LineDrawStyle();
 		polygonStyle = new PolygonDrawStyle();
-	}
-
-	/**
-	 * @return the pointStyle
-	 */
-	public PointDrawStyle getPointStyle()
-	{
-		return pointStyle;
-	}
-
-	/**
-	 * @param pPointStyle the pPointStyle to set
-	 */
-	public void setPointStyle(PointDrawStyle pPointStyle)
-	{
-		pointStyle = pPointStyle;
-	}
-
-	/**
-	 * @return the lineStyle
-	 */
-	public LineDrawStyle getLineStyle()
-	{
-		return lineStyle;
-	}
-
-	/**
-	 * @param pLineStyle the pLineStyle to set
-	 */
-	public void setLineStyle(LineDrawStyle pLineStyle)
-	{
-		lineStyle = pLineStyle;
-	}
-
-	/**
-	 * @return the polygonStyle
-	 */
-	public PolygonDrawStyle getPolygonStyle()
-	{
-		return polygonStyle;
-	}
-
-	/**
-	 * @param pPolygonStyle the pPolygonStyle to set
-	 */
-	public void setPolygonStyle(PolygonDrawStyle pPolygonStyle)
-	{
-		polygonStyle = pPolygonStyle;
+		drawPoint = false;
+		drawLine = false;
+		drawPolygon = false;
 	}
 }
