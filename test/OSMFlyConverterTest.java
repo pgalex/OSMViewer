@@ -74,10 +74,10 @@ public class OSMFlyConverterTest
 			assertEquals(123456789, nodes.get(0).id);
 			assertEquals(55.55, nodes.get(0).latitude, 0.001);
 			assertEquals(38.38, nodes.get(0).longitude, 0.001);
-			assertEquals("name", nodes.get(0).tags.get(0).key);
-			assertEquals("Осёнка", nodes.get(0).tags.get(0).value);
-			assertEquals("railway", nodes.get(0).tags.get(1).key);
-			assertEquals("halt", nodes.get(0).tags.get(1).value);
+			assertEquals("name", nodes.get(0).tags.get(0).getKey());
+			assertEquals("Осёнка", nodes.get(0).tags.get(0).getValue());
+			assertEquals("railway", nodes.get(0).tags.get(1).getKey());
+			assertEquals("halt", nodes.get(0).tags.get(1).getValue());
 
 			//ways
 			ArrayList<OSMFileWay> ways = converter.getParserWays();
@@ -86,17 +86,17 @@ public class OSMFlyConverterTest
 			assertEquals((long) 1233435465, tempWay.nodesIds.get(0));
 			assertEquals((long) 1233435417, tempWay.nodesIds.get(1));
 			assertEquals((long) 1233435413, tempWay.nodesIds.get(2));
-			assertEquals("highway", tempWay.tags.get(0).key);
-			assertEquals("residential", tempWay.tags.get(0).value);
-			assertEquals("name", tempWay.tags.get(1).key);
-			assertEquals("Луговая улица", tempWay.tags.get(1).value);
+			assertEquals("highway", tempWay.tags.get(0).getKey());
+			assertEquals("residential", tempWay.tags.get(0).getValue());
+			assertEquals("name", tempWay.tags.get(1).getKey());
+			assertEquals("Луговая улица", tempWay.tags.get(1).getValue());
 
 			//relation
 			ArrayList<OSMFileRelation> relations = converter.getParserRelations();
 			OSMFileRelation tempRelation = relations.get(0);
 			assertEquals((long) 1693664, tempRelation.id);
-			assertEquals("type", tempRelation.tags.get(0).key);
-			assertEquals("boundary", tempRelation.tags.get(0).value);
+			assertEquals("type", tempRelation.tags.get(0).getKey());
+			assertEquals("boundary", tempRelation.tags.get(0).getValue());
 			assertEquals("node", tempRelation.members.get(0).type);
 			assertEquals((long) 123456789, tempRelation.members.get(0).ref);
 			assertEquals("admin_centre", tempRelation.members.get(0).role);
