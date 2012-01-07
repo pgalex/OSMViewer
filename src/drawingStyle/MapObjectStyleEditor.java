@@ -27,9 +27,9 @@ public class MapObjectStyleEditor
 	/**
 	 * Добавить новый стиль отображения объекта
 	 * @param pNewStyle новый стиль отображения
-	 * @return индекс добавленного стиля в массиве
+	 * @return индекс добавленного стиля в массиве (id)
 	 */
-	public int Add(MapObjectStyle pNewStyle)
+	public int AddStyle(MapObjectStyle pNewStyle)
 	{
 		styles.add(pNewStyle);
 		return styles.size() - 1;
@@ -37,13 +37,26 @@ public class MapObjectStyleEditor
 
 	/**
 	 * Редактировать стиль отображения
-	 * @param pEditedIndex индекс редактируемого стиля
+	 * @param pEditedIndex индекс редактируемого стиля (id)
 	 * @param pNewStyle новые данные
 	 */
-	public void Edit(int pEditedIndex, MapObjectStyle pNewStyle)
+	public void EditStyle(int pEditedIndex, MapObjectStyle pNewStyle)
 	{
 		if ((pEditedIndex >= 0) && (pEditedIndex < styles.size()))
 			styles.set(pEditedIndex, pNewStyle);
+	}
+
+	/**
+	 * Получить стиль отображения
+	 * @param pIndex индекс стиля (id)
+	 * @return стиль отображения
+	 */
+	public MapObjectStyle GetStyle(int pIndex)
+	{
+		if ((pIndex >= 0) && (pIndex < styles.size()))
+			return styles.get(pIndex);
+		else
+			return null;
 	}
 
 	/**
@@ -53,5 +66,13 @@ public class MapObjectStyleEditor
 	public int getStylesCount()
 	{
 		return styles.size();
+	}
+
+	/**
+	 * Очистить список стилей
+	 */
+	public void Clear()
+	{
+		styles.clear();
 	}
 }
