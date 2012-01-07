@@ -51,6 +51,35 @@ public class MapObjectStyle
 		canBePolygon = false;
 		drawPriority = -1;
 	}
-	
-	//CompareDefenitionTags
+
+	/**
+	 * Сравнить теги без учета их порядка
+	 * @param pTags теги для сравнения
+	 * @return совпадают ли теги
+	 */
+	public boolean CompareDefenitionTags(ArrayList<MapTag> pTags)
+	{
+		//заведомо несопадающие теги
+		if (pTags == null)
+			return false;
+		if (pTags.size() != defenitionTags.size())
+			return false;
+
+		for (MapTag parameterTempTag : pTags)
+		{
+			boolean tempCompareResult = false;
+			for (MapTag thisTempTag : defenitionTags)
+			{
+				//нашелся ли тег
+				if (parameterTempTag.compareTo(thisTempTag))
+				{
+					tempCompareResult = true;
+					break;
+				}
+			}
+			if (tempCompareResult == false)
+				return false;
+		}
+		return true;
+	}
 }

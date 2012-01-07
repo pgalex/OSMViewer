@@ -70,4 +70,17 @@ public class MapTag
 	{
 		value = pValue;
 	}
+
+	/**
+	 * Сравнить теги
+	 * @param pTag тег для сравнения
+	 * @return  
+	 */
+	public boolean compareTo(MapTag pTag)
+	{
+		if ((pTag.key.compareTo(key) == 0) && (pTag.value.compareTo(value) == 0))
+			return true;
+		else
+			return false;
+	}
 }
