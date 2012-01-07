@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 /**
  * Редактор стилей отображения объектов с возможностью добавления/удаления и сохранения изменений
+ * Уникальный id стиля определяется его индексом в массиве, чтобы бытро определять нужный стиль
+ * Все новые элементы идут последними - за счет этого старые отображаются корректно
  * @author abc
  */
 public class MapObjectStyleEditor
@@ -21,53 +23,35 @@ public class MapObjectStyleEditor
 		styles = new ArrayList<MapObjectStyle>();
 	}
 
+	///////// тесты
 	/**
-	 * Добавить новый объект
-	 * @param pNewStyle стиль отображения нового объекта
-	 * @return id, который был присвоен стилю добавленного объекта 
+	 * Добавить новый стиль отображения объекта
+	 * @param pNewStyle новый стиль отображения
+	 * @return индекс добавленного стиля в массиве
 	 */
 	public int Add(MapObjectStyle pNewStyle)
 	{
-		MapObjectStyle addingStyle = new MapObjectStyle(GetNextId(), pNewStyle);
-		styles.add(addingStyle);
-		return addingStyle.getId();
+		styles.add(pNewStyle);
+		return styles.size() - 1;
 	}
-	////////////////////////////  тесты для трех функ. ниже
+
+	/**
+	 * Редактировать стиль отображения
+	 * @param pEditedIndex индекс редактируемого стиля
+	 * @param pNewStyle новые данные
+	 */
+	public void Edit(int pEditedIndex, MapObjectStyle pNewStyle)
+	{
+		if ((pEditedIndex >= 0) && (pEditedIndex < styles.size()))
+			styles.set(pEditedIndex, pNewStyle);
+	}
+
 	/**
 	 * Получить кол-во стилей в массиве
-	 * @return 
+	 * @return кол-во стилей в массиве
 	 */
 	public int getStylesCount()
 	{
 		return styles.size();
-	}
-
-	/**
-	 * Получить стиль по индексу в массиве
-	 * @param pIndex
-	 * @return 
-	 */
-	public MapObjectStyle getStyle(int pIndex)
-	{
-		if ((pIndex >= 0) && (pIndex < styles.size()))
-			return styles.get(pIndex);
-		else
-			return null;
-	}
-
-	/**
-	 * Выдать новый уникальный id для объекта карты
-	 * @return id
-	 */
-	protected int GetNextId()
-	{
-		// как максимальный
-		int maxId = -1;
-		for (MapObjectStyle tempStyle : styles)
-		{
-			if (tempStyle.getId() > maxId)
-				maxId = tempStyle.getId();
-		}
-		return maxId + 1;
 	}
 }
