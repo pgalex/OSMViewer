@@ -1,21 +1,24 @@
 package drawingStyle;
 
 import java.awt.Color;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 
 /**
  * Стиль рисования линий (не замкнутых путей)
  * @author abc
  */
-public class LineDrawStyle
+public class LineDrawStyle implements Readable, Writeable
 {
 	/**
 	 * Цвет линии
 	 */
-	private Color color;
+	public Color color;
 	/**
 	 * Тольщина линии
 	 */
-	private int width;
+	public int width;
 	// стиль линии
 
 	/**
@@ -28,34 +31,48 @@ public class LineDrawStyle
 	}
 
 	/**
-	 * @return the color
+	 * Считать из файла
+	 * @param pInput поток чтения
+	 * @throws IOException чтение не удалось
 	 */
-	public Color getColor()
+	@Override
+	public void ReadFromStream(DataInputStream pInput) throws IOException
 	{
-		return color;
+		try
+		{
+			int a = pInput.readInt();
+			int r = pInput.readInt();
+			int g = pInput.readInt();
+			int b = pInput.readInt();
+			color = new Color(r, g, b, a);
+
+			width = pInput.readInt();
+		}
+		catch (Exception e)
+		{
+			throw new IOException(e);
+		}
 	}
 
 	/**
-	 * @param pСolor новый цвет
+	 * Записать в файл
+	 * @param pOutput поток вывода
+	 * @throws IOException запись не удалась
 	 */
-	public void setColor(Color pСolor)
+	@Override
+	public void WriteToStream(DataOutputStream pOutput) throws IOException
 	{
-		color = pСolor;
-	}
-
-	/**
-	 * @return the width
-	 */
-	public int getWidth()
-	{
-		return width;
-	}
-
-	/**
-	 * @param pWidth новая толщина
-	 */
-	public void setWidth(int pWidth)
-	{
-		width = pWidth;
+		try
+		{
+			pOutput.writeInt(color.getAlpha());
+			pOutput.writeInt(color.getRed());
+			pOutput.writeInt(color.getGreen());
+			pOutput.writeInt(color.getBlue());
+			pOutput.writeInt(width);
+		}
+		catch (Exception e)
+		{
+			throw new IOException(e);
+		}
 	}
 }

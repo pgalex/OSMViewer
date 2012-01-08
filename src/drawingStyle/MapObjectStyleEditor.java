@@ -1,6 +1,10 @@
 package drawingStyle;
 
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import map.ProgramSettings;
 
 /**
  * Редактор стилей отображения объектов с возможностью добавления/удаления и сохранения изменений
@@ -23,7 +27,6 @@ public class MapObjectStyleEditor
 		styles = new ArrayList<MapObjectStyle>();
 	}
 
-	///////// тесты
 	/**
 	 * Добавить новый стиль отображения объекта
 	 * @param pNewStyle новый стиль отображения
@@ -74,5 +77,45 @@ public class MapObjectStyleEditor
 	public void Clear()
 	{
 		styles.clear();
+	}
+
+	/**
+	 * Прочитать стили из файла
+	 * @param pFileName имя файла
+	 * @throws IOException чтение не удалось
+	 */
+	public void LoadFromFile(String pFileName) throws IOException
+	{
+	}
+
+	/**
+	 * Сохранить стили в файл
+	 * @param pFileName имя файла
+	 * @throws IOException запись не удалась
+	 */
+	public void SaveToFile(String pFileName) throws IOException
+	{
+		/*
+		 * Формат файла:
+		 * кол-во стилей int
+		 * кол-во уровней масштаба
+		 * 
+		 * Стиль 0:
+		 * Стиль n:...
+		 */
+		if (pFileName.isEmpty())
+			throw new IOException();
+		
+		try
+		{
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(pFileName));
+			output.writeInt(styles.size());
+			output.writeInt(ProgramSettings.SCALE_LEVELS_COUNT);
+			output.close();
+		}
+		catch (Exception e)
+		{
+			throw new IOException(e);
+		}
 	}
 }

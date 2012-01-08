@@ -11,14 +11,6 @@ import map.ProgramSettings;
 public class MapObjectStyle
 {
 	/**
-	 * Стили на каждом из уровней масштаба
-	 */
-	public ScaledObjectStyle[] scaledStyles;
-	/**
-	 * Теги, опеределяющие тип объекта
-	 */
-	public ArrayList<MapTag> defenitionTags;
-	/**
 	 * Может ли быть точкой
 	 */
 	public boolean canBePoint;
@@ -38,6 +30,14 @@ public class MapObjectStyle
 	 * Приоритет при рисовании
 	 */
 	public int drawPriority;
+	/**
+	 * Стили на каждом из уровней масштаба
+	 */
+	public ScaledObjectStyle[] scaledStyles;
+	/**
+	 * Теги, опеределяющие тип объекта
+	 */
+	public ArrayList<MapTag> defenitionTags;
 
 	/**
 	 * Конструктор

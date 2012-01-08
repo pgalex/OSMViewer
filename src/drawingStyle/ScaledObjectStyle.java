@@ -9,18 +9,6 @@ import sun.java2d.loops.DrawPolygons;
 public class ScaledObjectStyle
 {
 	/**
-	 * стиль точки
-	 */
-	public PointDrawStyle pointStyle;
-	/**
-	 * стиль линии
-	 */
-	public LineDrawStyle lineStyle;
-	/**
-	 * стиль многоугольника
-	 */
-	public PolygonDrawStyle polygonStyle;
-	/**
 	 * Рисовать ли точку на данном масштабе
 	 */
 	public boolean drawPoint;
@@ -32,6 +20,18 @@ public class ScaledObjectStyle
 	 * Рисовать ли многоугольник на данном масштабе
 	 */
 	public boolean drawPolygon;
+	/**
+	 * стиль точки
+	 */
+	public PointDrawStyle pointStyle;
+	/**
+	 * стиль линии
+	 */
+	public LineDrawStyle lineStyle;
+	/**
+	 * стиль многоугольника
+	 */
+	public PolygonDrawStyle polygonStyle;
 
 	/**
 	 * Конструктор

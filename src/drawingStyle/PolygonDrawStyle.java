@@ -1,22 +1,25 @@
 package drawingStyle;
 
 import java.awt.Color;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import org.w3c.dom.css.RGBColor;
 
 /**
  * Стиль многоугольника (замкнутой линии)
  * @author abc
  */
-public class PolygonDrawStyle
+public class PolygonDrawStyle implements Readable, Writeable
 {
 	/**
 	 * Цвет заполнения
 	 */
-	private Color fillColor;
-	// fill image
+	public Color fillColor;
 	/**
 	 * Стиль рисования границы
 	 */
-	private LineDrawStyle borderDrawStyle;
+	public LineDrawStyle borderDrawStyle;
 
 	/**
 	 * Конструктор
@@ -28,34 +31,48 @@ public class PolygonDrawStyle
 	}
 
 	/**
-	 * @return the fillColor
+	 * Считать из потока
+	 * @param pInput поток чтения
+	 * @throws IOException чтение не удалось
 	 */
-	public Color getFillColor()
+	@Override
+	public void ReadFromStream(DataInputStream pInput) throws IOException
 	{
-		return fillColor;
+		try
+		{
+			int a = pInput.readInt();
+			int r = pInput.readInt();
+			int g = pInput.readInt();
+			int b = pInput.readInt();
+			fillColor = new Color(r, g, b, a);
+			
+			borderDrawStyle.ReadFromStream(pInput);
+		}
+		catch (Exception e)
+		{
+			throw new IOException(e);
+		}
 	}
 
 	/**
-	 * @param pFillColor the fillColor to set
+	 * Записать в поток
+	 * @param pOutput поток вывода
+	 * @throws IOException запись не удалась
 	 */
-	public void setFillColor(Color pFillColor)
+	@Override
+	public void WriteToStream(DataOutputStream pOutput) throws IOException
 	{
-		fillColor = pFillColor;
-	}
-
-	/**
-	 * @return the borderDrawStyle
-	 */
-	public LineDrawStyle getBorderDrawStyle()
-	{
-		return borderDrawStyle;
-	}
-
-	/**
-	 * @param pBorderDrawStyle the borderDrawStyle to set
-	 */
-	public void setBorderDrawStyle(LineDrawStyle pBorderDrawStyle)
-	{
-		borderDrawStyle = pBorderDrawStyle;
+		try
+		{
+			pOutput.writeInt(fillColor.getAlpha());
+			pOutput.writeInt(fillColor.getRed());
+			pOutput.writeInt(fillColor.getGreen());
+			pOutput.writeInt(fillColor.getBlue());
+			borderDrawStyle.WriteToStream(pOutput);
+		}
+		catch (Exception e)
+		{
+			throw new IOException(e);
+		}
 	}
 }

@@ -1,26 +1,24 @@
 package drawingStyle;
 
 import java.awt.Image;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 
 /**
  * Класс стиля рисования точки
  * @author abc
  */
-public class PointDrawStyle
+public class PointDrawStyle implements Readable, Writeable
 {
 	/**
 	 * Значок
 	 */
-	private Image icon;
-
+	public Image icon;
 	/**
-	 * Конструктор
-	 * @param pIcon значок
+	 * Имя файла значка
 	 */
-	public PointDrawStyle(Image pIcon)
-	{
-		icon = pIcon;
-	}
+	public String iconFileName;
 
 	/**
 	 * Конструктор
@@ -28,22 +26,42 @@ public class PointDrawStyle
 	public PointDrawStyle()
 	{
 		icon = null;
+		iconFileName = "";
 	}
 
 	/**
-	 * @return the icon
+	 * Считать из файла
+	 * @param pInput поток чтения
+	 * @throws IOException чтение не удалось
 	 */
-	public Image getIcon()
+	@Override
+	public void ReadFromStream(DataInputStream pInput) throws IOException
 	{
-		return icon;
+		try
+		{
+			iconFileName = pInput.readUTF();
+		}
+		catch (Exception e)
+		{
+			throw new IOException(e);
+		}
 	}
 
 	/**
-	 * 
-	 * @param pIcon Новый значок
+	 * Записать в файл
+	 * @param pOutput поток вывода
+	 * @throws IOException запись не удалась
 	 */
-	public void setIcon(Image pIcon)
+	@Override
+	public void WriteToStream(DataOutputStream pOutput) throws IOException
 	{
-		icon = pIcon;
+		try
+		{
+			pOutput.writeUTF(iconFileName);
+		}
+		catch (Exception e)
+		{
+			throw new IOException(e);
+		}
 	}
 }
