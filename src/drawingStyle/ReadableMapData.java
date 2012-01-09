@@ -7,7 +7,7 @@ import java.io.IOException;
  * Интерфейс для класс способного считывать себя из файла
  * @author abc
  */
-public interface Readable
+public interface ReadableMapData
 {
 	/**
 	 * Считать из потока

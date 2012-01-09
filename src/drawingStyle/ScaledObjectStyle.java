@@ -1,7 +1,5 @@
 package drawingStyle;
 
-import sun.java2d.loops.DrawPolygons;
-
 /**
  * Параметры отображения на определенном масштабе
  * @author abc

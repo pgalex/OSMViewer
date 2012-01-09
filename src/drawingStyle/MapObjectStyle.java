@@ -1,5 +1,8 @@
 package drawingStyle;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import map.MapTag;
 import map.ProgramSettings;
@@ -65,6 +68,7 @@ public class MapObjectStyle
 		if (pTags.size() != defenitionTags.size())
 			return false;
 
+		//сравнение списков
 		for (MapTag parameterTempTag : pTags)
 		{
 			boolean tempCompareResult = false;

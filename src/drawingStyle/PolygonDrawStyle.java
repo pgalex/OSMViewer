@@ -10,7 +10,7 @@ import org.w3c.dom.css.RGBColor;
  * Стиль многоугольника (замкнутой линии)
  * @author abc
  */
-public class PolygonDrawStyle implements Readable, Writeable
+public class PolygonDrawStyle implements ReadableMapData, WriteableMapData
 {
 	/**
 	 * Цвет заполнения

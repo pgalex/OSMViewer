@@ -9,7 +9,7 @@ import java.io.IOException;
  * Стиль рисования линий (не замкнутых путей)
  * @author abc
  */
-public class LineDrawStyle implements Readable, Writeable
+public class LineDrawStyle implements ReadableMapData, WriteableMapData
 {
 	/**
 	 * Цвет линии

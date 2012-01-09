@@ -9,7 +9,7 @@ import java.io.IOException;
  * Класс стиля рисования точки
  * @author abc
  */
-public class PointDrawStyle implements Readable, Writeable
+public class PointDrawStyle implements ReadableMapData, WriteableMapData
 {
 	/**
 	 * Значок

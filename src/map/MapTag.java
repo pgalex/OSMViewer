@@ -4,11 +4,18 @@
  */
 package map;
 
+import drawingStyle.ReadableMapData;
+import drawingStyle.WriteableMapData;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.nio.CharBuffer;
+
 /**
  * Тэг
  * @author preobrazhentsev
  */
-public class MapTag
+public class MapTag implements WriteableMapData, ReadableMapData
 {
 	/**
 	 * ключ
@@ -82,5 +89,43 @@ public class MapTag
 			return true;
 		else
 			return false;
+	}
+
+	/**
+	 * Записать в поток
+	 * @param pOutput поток вывода
+	 * @throws IOException запись не удалась
+	 */
+	@Override
+	public void WriteToStream(DataOutputStream pOutput) throws IOException
+	{
+		try
+		{
+			pOutput.writeUTF(key);
+			pOutput.writeUTF(value);
+		}
+		catch (Exception e)
+		{
+			throw new IOException(e);
+		}
+	}
+
+	/**
+	 * Считать из потока
+	 * @param pInput поток чтения
+	 * @throws IOException чтение не удалось
+	 */
+	@Override
+	public void ReadFromStream(DataInputStream pInput) throws IOException
+	{
+		try
+		{
+			key = pInput.readUTF();
+			value = pInput.readUTF();
+		}
+		catch (Exception e)
+		{
+			throw new IOException(e);
+		}
 	}
 }

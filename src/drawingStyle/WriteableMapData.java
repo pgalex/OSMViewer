@@ -7,7 +7,7 @@ import java.io.IOException;
  * Интерфейс для класс, который может записывать себя в файл
  * @author abc
  */
-public interface Writeable
+public interface WriteableMapData
 {
 	/**
 	 * Записать в поток

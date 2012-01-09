@@ -3,6 +3,10 @@
  * and open the template in the editor.
  */
 
+import java.io.FileInputStream;
+import java.io.DataInputStream;
+import java.io.FileOutputStream;
+import java.io.DataOutputStream;
 import map.MapTag;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -15,8 +19,41 @@ import static org.junit.Assert.*;
  */
 public class MapTagTest
 {
+	private final String TEST_FILE_NAME = "testFile.txt";
+
 	public MapTagTest()
 	{
+	}
+
+	@Test
+	public void FileTest()
+	{
+		MapTag writingTag = new MapTag("key1", "v1");
+		try
+		{
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
+			writingTag.WriteToStream(output);
+			output.close();
+		}
+		catch (Exception ex)
+		{
+			fail();
+		}
+
+		//чтение
+		MapTag readingTag = new MapTag();
+		try
+		{
+			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
+			readingTag.ReadFromStream(input);
+			input.close();
+			assertEquals(writingTag.getKey(), readingTag.getKey());
+			assertEquals(writingTag.getValue(), readingTag.getValue());
+		}
+		catch (Exception ex)
+		{
+			fail();
+		}
 	}
 
 	@Test
