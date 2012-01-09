@@ -21,11 +21,11 @@ public class PointDrawStyleTest
 {
 	private final String ICON_FILE_NAME = "icon1.png";
 	private final String TEST_FILE_NAME = "testFile.txt";
-	
+
 	public PointDrawStyleTest()
 	{
 	}
-	
+
 	@Test
 	public void FileTest()
 	{
@@ -44,8 +44,7 @@ public class PointDrawStyleTest
 		{
 			fail();
 		}
-		
-		
+
 		//чтение
 		pointStyle.iconFileName = "";
 		try
@@ -60,12 +59,12 @@ public class PointDrawStyleTest
 			fail();
 		}
 	}
-	
+
 	@BeforeClass
 	public static void setUpClass() throws Exception
 	{
 	}
-	
+
 	@AfterClass
 	public static void tearDownClass() throws Exception
 	{
