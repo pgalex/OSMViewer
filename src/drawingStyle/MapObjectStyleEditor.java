@@ -95,27 +95,7 @@ public class MapObjectStyleEditor
 	 */
 	public void SaveToFile(String pFileName) throws IOException
 	{
-		/*
-		 * Формат файла:
-		 * кол-во стилей int
-		 * кол-во уровней масштаба
-		 * 
-		 * Стиль 0:
-		 * Стиль n:...
-		 */
 		if (pFileName.isEmpty())
 			throw new IOException();
-		
-		try
-		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(pFileName));
-			output.writeInt(styles.size());
-			output.writeInt(ProgramSettings.SCALE_LEVELS_COUNT);
-			output.close();
-		}
-		catch (Exception e)
-		{
-			throw new IOException(e);
-		}
 	}
 }
