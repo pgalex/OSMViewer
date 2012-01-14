@@ -3,7 +3,9 @@ package drawingStyle;
 import java.awt.Image;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  * Класс стиля рисования точки
@@ -14,19 +16,14 @@ public class PointDrawStyle implements ReadableMapData, WriteableMapData
 	/**
 	 * Значок
 	 */
-	public Image icon;
-	/**
-	 * Имя файла значка
-	 */
-	public String iconFileName;
+	public ImageFromFile icon;
 
 	/**
 	 * Конструктор
 	 */
 	public PointDrawStyle()
 	{
-		icon = null;
-		iconFileName = "";
+		icon = new ImageFromFile();
 	}
 
 	/**
@@ -37,14 +34,7 @@ public class PointDrawStyle implements ReadableMapData, WriteableMapData
 	@Override
 	public void ReadFromStream(DataInputStream pInput) throws IOException
 	{
-		try
-		{
-			iconFileName = pInput.readUTF();
-		}
-		catch (Exception e)
-		{
-			throw new IOException(e);
-		}
+		icon.ReadFromStream(pInput);
 	}
 
 	/**
@@ -55,13 +45,6 @@ public class PointDrawStyle implements ReadableMapData, WriteableMapData
 	@Override
 	public void WriteToStream(DataOutputStream pOutput) throws IOException
 	{
-		try
-		{
-			pOutput.writeUTF(iconFileName);
-		}
-		catch (Exception e)
-		{
-			throw new IOException(e);
-		}
+		icon.WriteToStream(pOutput);
 	}
 }

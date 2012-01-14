@@ -3,12 +3,11 @@
  * and open the template in the editor.
  */
 
-import drawingStyle.PolygonDrawStyle;
-import java.awt.Color;
 import java.io.FileInputStream;
 import java.io.DataInputStream;
 import java.io.FileOutputStream;
 import java.io.DataOutputStream;
+import drawingStyle.ImageFromFile;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -18,27 +17,40 @@ import static org.junit.Assert.*;
  *
  * @author abc
  */
-public class PolygonDrawStyleTest
+public class ImageFromFileTest
 {
 	private final String TEST_FILE_NAME = "testFile.txt";
-
-	public PolygonDrawStyleTest()
+	
+	public ImageFromFileTest()
 	{
 	}
 
+	/**
+	 * Тест загрузки значка
+	 */
+	@Test
+	public void getImageTest()
+	{
+		ImageFromFile testImage = new ImageFromFile();
+		testImage.imageFileName = "";
+		assertNull(testImage.getImage());
+		
+		testImage.imageFileName = "testIcon.png";
+		assertNotNull(testImage.getImage());
+	}
+	
+	/**
+	 * Загрузка/чтение
+	 */
 	@Test
 	public void FileTest()
 	{
-		PolygonDrawStyle writingStyle = new PolygonDrawStyle();
-		writingStyle.fillColor = Color.MAGENTA;
-		writingStyle.borderDrawStyle.color = Color.ORANGE;
-		writingStyle.borderDrawStyle.width = 22;
-		writingStyle.fillImage.imageFileName = "icon1.png";
-		//запись
+		ImageFromFile writingImage = new ImageFromFile();
+		writingImage.imageFileName = "icon1.png";
 		try
 		{
 			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
-			writingStyle.WriteToStream(output);
+			writingImage.WriteToStream(output);
 			output.close();
 		}
 		catch (Exception ex)
@@ -46,18 +58,13 @@ public class PolygonDrawStyleTest
 			fail();
 		}
 
-
-		//чтение
-		PolygonDrawStyle readingStyle = new PolygonDrawStyle();
+		ImageFromFile readingImage = new ImageFromFile();
 		try
 		{
 			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
-			readingStyle.ReadFromStream(input);
+			readingImage.ReadFromStream(input);
 			input.close();
-			assertEquals(writingStyle.fillColor, readingStyle.fillColor);
-			assertEquals(writingStyle.borderDrawStyle.color, readingStyle.borderDrawStyle.color);
-			assertEquals(writingStyle.borderDrawStyle.width, readingStyle.borderDrawStyle.width);
-			assertEquals(writingStyle.fillImage.imageFileName, readingStyle.fillImage.imageFileName);
+			assertEquals(writingImage.imageFileName, readingImage.imageFileName);
 		}
 		catch (Exception ex)
 		{

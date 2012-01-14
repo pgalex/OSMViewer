@@ -29,7 +29,7 @@ public class ScaledObjectStyleTest
 		writingStyle.drawLine = true;
 		writingStyle.drawPoint = false;
 		writingStyle.drawPolygon = true;
-		writingStyle.pointStyle.iconFileName = "icon1.png";
+		writingStyle.pointStyle.icon.imageFileName = "icon1.png";
 		writingStyle.lineStyle.color = Color.LIGHT_GRAY;
 		writingStyle.lineStyle.width = 11;
 		writingStyle.polygonStyle.borderDrawStyle.color = Color.GRAY;
@@ -56,7 +56,7 @@ public class ScaledObjectStyleTest
 			assertEquals(writingStyle.drawLine, readingStyle.drawLine);
 			assertEquals(writingStyle.drawPoint, readingStyle.drawPoint);
 			assertEquals(writingStyle.drawPolygon, readingStyle.drawPolygon);
-			assertEquals(writingStyle.pointStyle.iconFileName, readingStyle.pointStyle.iconFileName);
+			assertEquals(writingStyle.pointStyle.icon.imageFileName, readingStyle.pointStyle.icon.imageFileName);
 			assertEquals(writingStyle.lineStyle.color, readingStyle.lineStyle.color);
 			assertEquals(writingStyle.lineStyle.width, readingStyle.lineStyle.width);
 			assertEquals(writingStyle.polygonStyle.borderDrawStyle.color, readingStyle.polygonStyle.borderDrawStyle.color);

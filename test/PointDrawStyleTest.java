@@ -19,25 +19,26 @@ import static org.junit.Assert.*;
  */
 public class PointDrawStyleTest
 {
-	private final String ICON_FILE_NAME = "icon1.png";
 	private final String TEST_FILE_NAME = "testFile.txt";
 
 	public PointDrawStyleTest()
 	{
 	}
 
+	/**
+	 * Чтение/запись в файл
+	 */
 	@Test
 	public void FileTest()
 	{
-		PointDrawStyle pointStyle = new PointDrawStyle();
-		assertEquals(true, pointStyle.iconFileName.isEmpty());
+		PointDrawStyle writingPoint = new PointDrawStyle();
+		writingPoint.icon.imageFileName = "";
 
 		//запись
-		pointStyle.iconFileName = ICON_FILE_NAME;
 		try
 		{
 			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
-			pointStyle.WriteToStream(output);
+			writingPoint.WriteToStream(output);
 			output.close();
 		}
 		catch (Exception ex)
@@ -46,13 +47,13 @@ public class PointDrawStyleTest
 		}
 
 		//чтение
-		pointStyle.iconFileName = "";
+		PointDrawStyle readingPoint = new PointDrawStyle();
 		try
 		{
 			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
-			pointStyle.ReadFromStream(input);
+			readingPoint.ReadFromStream(input);
 			input.close();
-			assertEquals(ICON_FILE_NAME, pointStyle.iconFileName);
+			assertEquals(writingPoint.icon.imageFileName, readingPoint.icon.imageFileName);
 		}
 		catch (Exception ex)
 		{

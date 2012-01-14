@@ -20,6 +20,10 @@ public class PolygonDrawStyle implements ReadableMapData, WriteableMapData
 	 * Стиль рисования границы
 	 */
 	public LineDrawStyle borderDrawStyle;
+	/**
+	 * Текстура для заполнения
+	 */
+	public ImageFromFile fillImage;
 
 	/**
 	 * Конструктор
@@ -28,6 +32,7 @@ public class PolygonDrawStyle implements ReadableMapData, WriteableMapData
 	{
 		fillColor = Color.GRAY;
 		borderDrawStyle = new LineDrawStyle();
+		fillImage = new ImageFromFile();
 	}
 
 	/**
@@ -47,6 +52,7 @@ public class PolygonDrawStyle implements ReadableMapData, WriteableMapData
 			fillColor = new Color(r, g, b, a);
 			
 			borderDrawStyle.ReadFromStream(pInput);
+			fillImage.ReadFromStream(pInput);
 		}
 		catch (Exception e)
 		{
@@ -69,6 +75,7 @@ public class PolygonDrawStyle implements ReadableMapData, WriteableMapData
 			pOutput.writeInt(fillColor.getGreen());
 			pOutput.writeInt(fillColor.getBlue());
 			borderDrawStyle.WriteToStream(pOutput);
+			fillImage.WriteToStream(pOutput);
 		}
 		catch (Exception e)
 		{
