@@ -1,5 +1,8 @@
 package drawingStyle;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import map.MapTag;
 import map.ProgramSettings;
@@ -8,7 +11,7 @@ import map.ProgramSettings;
  * Стиль отображения объекта
  * @author abc
  */
-public class MapObjectStyle
+public class MapObjectStyle implements ReadableMapData, WriteableMapData
 {
 	/**
 	 * Может ли быть точкой
@@ -45,11 +48,14 @@ public class MapObjectStyle
 	public MapObjectStyle()
 	{
 		scaledStyles = new ScaledObjectStyle[ProgramSettings.SCALE_LEVELS_COUNT];
+		for (int i = 0; i < ProgramSettings.SCALE_LEVELS_COUNT; i++)
+			scaledStyles[i] = new ScaledObjectStyle();
 		defenitionTags = new ArrayList<MapTag>();
 		canBePoint = false;
 		canBeLine = false;
 		canBePolygon = false;
 		drawPriority = -1;
+		textTagKey = "";
 	}
 
 	/**
@@ -82,5 +88,67 @@ public class MapObjectStyle
 				return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Считать из потока
+	 * @param pInput поток чтения
+	 * @throws IOException чтение не удалось
+	 */
+	@Override
+	public void ReadFromStream(DataInputStream pInput) throws IOException
+	{
+		try
+		{
+			canBePoint = pInput.readBoolean();
+			canBeLine = pInput.readBoolean();
+			canBePolygon = pInput.readBoolean();
+			textTagKey = pInput.readUTF();
+			drawPriority = pInput.readInt();
+			
+			for (int i = 0; i < ProgramSettings.SCALE_LEVELS_COUNT; i++)
+				scaledStyles[i].ReadFromStream(pInput);
+			
+			int tagsCount = pInput.readInt();
+			for (int i = 0; i < tagsCount; i++)
+			{
+				MapTag tempTag = new MapTag();
+				tempTag.ReadFromStream(pInput);
+				defenitionTags.add(tempTag);
+			}
+		}
+		catch (Exception e)
+		{
+			throw new IOException(e);
+		}
+	}
+
+	/**
+	 * Записать в поток
+	 * @param pOutput поток вывода
+	 * @throws IOException запись не удалась
+	 */
+	@Override
+	public void WriteToStream(DataOutputStream pOutput) throws IOException
+	{
+		try
+		{
+			pOutput.writeBoolean(canBePoint);
+			pOutput.writeBoolean(canBeLine);
+			pOutput.writeBoolean(canBePolygon);
+			pOutput.writeUTF(textTagKey);
+			pOutput.writeInt(drawPriority);
+			
+			for (int i = 0; i < ProgramSettings.SCALE_LEVELS_COUNT; i++)
+				scaledStyles[i].WriteToStream(pOutput);
+		
+			pOutput.writeInt(defenitionTags.size());
+			for (MapTag tempTag : defenitionTags)
+				tempTag.WriteToStream(pOutput);
+		}
+		catch (Exception e)
+		{
+			throw new IOException(e);
+		}
 	}
 }

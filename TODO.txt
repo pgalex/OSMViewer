@@ -1,5 +1,4 @@
-1. Реализовать интерфейсы ReadableMapData, WriteableMapData у MapObjectStyle с тестами
-2. Стиль линии (пунктир и тп) в LineDrawStyle.
+- Стиль линии (пунктир и тп) в LineDrawStyle.
 	BasicStroke(float width, int cap, int join, float miter, float[] dash, float dashBegin)
 
 	задает:

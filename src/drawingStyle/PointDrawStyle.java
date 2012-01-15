@@ -1,11 +1,8 @@
 package drawingStyle;
 
-import java.awt.Image;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.File;
 import java.io.IOException;
-import javax.imageio.ImageIO;
 
 /**
  * Класс стиля рисования точки

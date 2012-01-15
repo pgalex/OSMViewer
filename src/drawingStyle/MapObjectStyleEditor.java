@@ -1,10 +1,7 @@
 package drawingStyle;
 
-import java.io.DataOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import map.ProgramSettings;
 
 /**
  * Редактор стилей отображения объектов с возможностью добавления/удаления и сохранения изменений
