@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.DataOutputStream;
 import drawingStyle.LineDrawStyle;
 import java.awt.Color;
+import java.util.regex.Pattern;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -32,6 +33,11 @@ public class LineDrawStyleTest
 		LineDrawStyle writingStyle = new LineDrawStyle();
 		writingStyle.color = Color.CYAN;
 		writingStyle.width = 11;
+		writingStyle.pattern = new float[4];
+		writingStyle.pattern[0] = 2;
+		writingStyle.pattern[1] = 3;
+		writingStyle.pattern[2] = 4;
+		writingStyle.pattern[3] = 5;
 		
 		//запись
 		try
@@ -53,6 +59,10 @@ public class LineDrawStyleTest
 			readingStyle.ReadFromStream(input);
 			input.close();
 			assertEquals(writingStyle.color, readingStyle.color);
+			assertEquals(writingStyle.width, readingStyle.width);
+			assertEquals(writingStyle.width, readingStyle.width);
+			assertArrayEquals(writingStyle.pattern, readingStyle.pattern, 0.01f);
+			assertEquals(writingStyle.width, readingStyle.width);
 			assertEquals(writingStyle.width, readingStyle.width);
 		}
 		catch (Exception ex)

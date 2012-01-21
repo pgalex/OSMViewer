@@ -19,7 +19,11 @@ public class LineDrawStyle implements ReadableMapData, WriteableMapData
 	 * Тольщина линии
 	 */
 	public int width;
-	// стиль линии
+	/**
+	 * Стиль линии (тире, точка тире) - шаблон для рисования линии.
+	 * четные индексы - длинна участка на котором линия рисуется; нечетные - длинна пустых участков
+	 */
+	public float[] pattern;
 
 	/**
 	 * Конструктор
@@ -28,6 +32,8 @@ public class LineDrawStyle implements ReadableMapData, WriteableMapData
 	{
 		color = Color.BLACK;
 		width = 1;
+		pattern = new float[1];
+		pattern[0] = 1;//сполшная линия
 	}
 
 	/**
@@ -47,6 +53,11 @@ public class LineDrawStyle implements ReadableMapData, WriteableMapData
 			color = new Color(r, g, b, a);
 
 			width = pInput.readInt();
+			
+			int patternCount = pInput.readInt();
+			pattern = new float[patternCount];
+			for (int i = 0; i < patternCount; i++)
+				pattern[i] = pInput.readFloat();
 		}
 		catch (Exception e)
 		{
@@ -69,6 +80,10 @@ public class LineDrawStyle implements ReadableMapData, WriteableMapData
 			pOutput.writeInt(color.getGreen());
 			pOutput.writeInt(color.getBlue());
 			pOutput.writeInt(width);
+			
+			pOutput.writeInt(pattern.length);
+			for (int i = 0; i < pattern.length; i++)
+				pOutput.writeFloat(pattern[i]);
 		}
 		catch (Exception e)
 		{
