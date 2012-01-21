@@ -3,6 +3,9 @@
  * and open the template in the editor.
  */
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import map.MapTag;
 import drawingStyle.MapObjectStyle;
 import drawingStyle.MapObjectStyleEditor;
@@ -17,8 +20,47 @@ import static org.junit.Assert.*;
  */
 public class MapObjectStyleEditorTest
 {
+	private final String TEST_FILE_NAME = "testFile.txt";
+	
 	public MapObjectStyleEditorTest()
 	{
+	}
+	
+	@Test
+	public void FileTest()
+	{
+		MapObjectStyle style1 = new MapObjectStyle();
+		style1.description = "style1";
+		MapObjectStyle style2 = new MapObjectStyle();
+		style2.description = "style2";
+		
+		MapObjectStyleEditor editor = new MapObjectStyleEditor();
+		
+		int style1Id = editor.AddStyle(style1);
+		int style2Id = editor.AddStyle(style2);
+		assertNotSame(style1, style2);
+		
+		try
+		{
+			editor.SaveToFile(TEST_FILE_NAME);
+		}
+		catch (IOException ex)
+		{
+			fail();
+		}
+		
+		editor = new MapObjectStyleEditor();
+		try
+		{
+			editor.LoadFromFile(TEST_FILE_NAME);
+			assertEquals(style2.description, editor.GetStyle(style2Id).description);
+			assertEquals(style1.description, editor.GetStyle(style1Id).description);
+		}
+		catch (IOException ex)
+		{
+			fail();
+		}
+		
 	}
 
 	@Test

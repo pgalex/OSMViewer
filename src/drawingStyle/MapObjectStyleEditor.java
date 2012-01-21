@@ -1,12 +1,19 @@
 package drawingStyle;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import map.ProgramSettings;
 
 /**
- * Редактор стилей отображения объектов с возможностью добавления/удаления и сохранения изменений
- * Уникальный id стиля определяется его индексом в массиве, чтобы бытро определять нужный стиль
- * Все новые элементы идут последними - за счет этого старые отображаются корректно
+ * Редактор стилей отображения объектов с возможностью добавления/удаления и сохранения изменений.
+ * Уникальный id стиля определяется его индексом в массиве, чтобы бытро определять нужный стиль.
+ * Id стиля будет использоваться для распознавания объектов вместо тегов при работе с большими картами.
+ * Все новые элементы идут последними - за счет этого старые отображаются корректно.
+ * Удаление пока не предусмотрено
  * @author abc
  */
 public class MapObjectStyleEditor
@@ -83,6 +90,33 @@ public class MapObjectStyleEditor
 	 */
 	public void LoadFromFile(String pFileName) throws IOException
 	{
+		if (pFileName.isEmpty())
+			throw new IOException();
+		
+		try
+		{
+			DataInputStream input = new DataInputStream(new FileInputStream(pFileName));
+			
+			// если вдруг в файле кол-во масштабов не равно текущему в контанте
+			int scaleLevesCount = input.readInt();
+			if (scaleLevesCount != ProgramSettings.SCALE_LEVELS_COUNT)
+				throw new IOException();
+			
+			styles.clear();
+			int styleCount = input.readInt();
+			for (int i = 0; i < styleCount; i++)
+			{
+				MapObjectStyle tempStyle = new MapObjectStyle();
+				tempStyle.ReadFromStream(input);
+				styles.add(tempStyle);
+			}
+			
+			input.close();
+		}
+		catch (Exception ex)
+		{
+			throw new IOException();
+		}
 	}
 
 	/**
@@ -94,5 +128,20 @@ public class MapObjectStyleEditor
 	{
 		if (pFileName.isEmpty())
 			throw new IOException();
+
+		try
+		{
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(pFileName));
+			output.writeInt(ProgramSettings.SCALE_LEVELS_COUNT);
+			output.writeInt(styles.size());
+			for (int i = 0; i < styles.size(); i++)
+				styles.get(i).WriteToStream(output);
+
+			output.close();
+		}
+		catch (Exception ex)
+		{
+			throw new IOException();
+		}
 	}
 }
