@@ -35,6 +35,7 @@ public class MapObjectStyleTest
 		writingStyle.canBeLine = true;
 		writingStyle.canBePoint = false;
 		writingStyle.canBePolygon = true;
+		writingStyle.description = "object1";
 		writingStyle.defenitionTags.add(new MapTag("k1","v1"));
 		writingStyle.defenitionTags.add(new MapTag("k2","v2"));
 		writingStyle.drawPriority = 10;
@@ -71,14 +72,15 @@ public class MapObjectStyleTest
 			assertEquals(writingStyle.canBePoint, readingStyle.canBePoint);
 			assertEquals(writingStyle.canBePolygon, readingStyle.canBePolygon);
 			assertEquals(true, writingStyle.CompareDefenitionTags(readingStyle.defenitionTags));
-			/*assertEquals(writingStyle.scaledStyles[0].drawLine, readingStyle.scaledStyles[0].drawLine);
+			assertEquals(writingStyle.description, readingStyle.description);
+			assertEquals(writingStyle.scaledStyles[0].drawLine, readingStyle.scaledStyles[0].drawLine);
 			assertEquals(writingStyle.scaledStyles[0].drawPoint, readingStyle.scaledStyles[0].drawPoint);
 			assertEquals(writingStyle.scaledStyles[0].drawPolygon, readingStyle.scaledStyles[0].drawPolygon);
 			assertEquals(writingStyle.scaledStyles[0].lineStyle.color, readingStyle.scaledStyles[0].lineStyle.color);
-			assertEquals(writingStyle.scaledStyles[5].drawLine, readingStyle.scaledStyles[0].drawLine);
-			assertEquals(writingStyle.scaledStyles[5].drawPoint, readingStyle.scaledStyles[0].drawPoint);
-			assertEquals(writingStyle.scaledStyles[5].drawPolygon, readingStyle.scaledStyles[0].drawPolygon);
-			assertEquals(writingStyle.scaledStyles[5].lineStyle.color, readingStyle.scaledStyles[0].lineStyle.color);*/
+			assertEquals(writingStyle.scaledStyles[5].drawLine, readingStyle.scaledStyles[5].drawLine);
+			assertEquals(writingStyle.scaledStyles[5].drawPoint, readingStyle.scaledStyles[5].drawPoint);
+			assertEquals(writingStyle.scaledStyles[5].drawPolygon, readingStyle.scaledStyles[5].drawPolygon);
+			assertEquals(writingStyle.scaledStyles[5].lineStyle.color, readingStyle.scaledStyles[5].lineStyle.color);
 		}
 		catch (Exception ex)
 		{

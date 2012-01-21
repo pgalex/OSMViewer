@@ -34,6 +34,10 @@ public class MapObjectStyle implements ReadableMapData, WriteableMapData
 	 */
 	public int drawPriority;
 	/**
+	 * Описание объекта
+	 */
+	public String description;
+	/**
 	 * Стили на каждом из уровней масштаба
 	 */
 	public ScaledObjectStyle[] scaledStyles;
@@ -56,6 +60,7 @@ public class MapObjectStyle implements ReadableMapData, WriteableMapData
 		canBePolygon = false;
 		drawPriority = -1;
 		textTagKey = "";
+		description = "";
 	}
 
 	/**
@@ -105,6 +110,7 @@ public class MapObjectStyle implements ReadableMapData, WriteableMapData
 			canBePolygon = pInput.readBoolean();
 			textTagKey = pInput.readUTF();
 			drawPriority = pInput.readInt();
+			description = pInput.readUTF();
 			
 			for (int i = 0; i < ProgramSettings.SCALE_LEVELS_COUNT; i++)
 				scaledStyles[i].ReadFromStream(pInput);
@@ -138,6 +144,7 @@ public class MapObjectStyle implements ReadableMapData, WriteableMapData
 			pOutput.writeBoolean(canBePolygon);
 			pOutput.writeUTF(textTagKey);
 			pOutput.writeInt(drawPriority);
+			pOutput.writeUTF(description);
 			
 			for (int i = 0; i < ProgramSettings.SCALE_LEVELS_COUNT; i++)
 				scaledStyles[i].WriteToStream(pOutput);
