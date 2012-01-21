@@ -85,7 +85,7 @@ public class JFrameMain extends javax.swing.JFrame
 
         jMenuMap.setText("Карта");
 
-        jMenuItemEditStyle.setText("Объекты карты ...");
+        jMenuItemEditStyle.setText("Объекты на карте ...");
         jMenuItemEditStyle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemEditStyleActionPerformed(evt);

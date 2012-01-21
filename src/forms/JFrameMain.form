@@ -39,7 +39,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemEditStyle">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&#x41e;&#x431;&#x44a;&#x435;&#x43a;&#x442;&#x44b; &#x43a;&#x430;&#x440;&#x442;&#x44b; ..."/>
+                <Property name="text" type="java.lang.String" value="&#x41e;&#x431;&#x44a;&#x435;&#x43a;&#x442;&#x44b; &#x43d;&#x430; &#x43a;&#x430;&#x440;&#x442;&#x435; ..."/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemEditStyleActionPerformed"/>
