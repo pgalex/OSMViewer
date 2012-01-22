@@ -1,5 +1,6 @@
 package drawingStyle;
 
+import java.awt.Font;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -9,6 +10,7 @@ import map.ProgramSettings;
 
 /**
  * Стиль отображения объекта
+ *
  * @author abc
  */
 public class MapObjectStyle implements ReadableMapData, WriteableMapData
@@ -26,7 +28,8 @@ public class MapObjectStyle implements ReadableMapData, WriteableMapData
 	 */
 	public boolean canBePolygon;
 	/**
-	 * Ключ тега, значение которого будет выводиться на экран как текстовая подпись
+	 * Ключ тега, значение которого будет выводиться на экран как текстовая
+	 * подпись
 	 */
 	public String textTagKey;
 	/**
@@ -37,6 +40,10 @@ public class MapObjectStyle implements ReadableMapData, WriteableMapData
 	 * Описание объекта
 	 */
 	public String description;
+	/**
+	 * Шрифт текста для имени
+	 */
+	public Font textFont;
 	/**
 	 * Стили на каждом из уровней масштаба
 	 */
@@ -61,10 +68,12 @@ public class MapObjectStyle implements ReadableMapData, WriteableMapData
 		drawPriority = -1;
 		textTagKey = "";
 		description = "";
+		textFont = ProgramSettings.DEFAULT_FONT;
 	}
 
 	/**
 	 * Сравнить теги без учета их порядка
+	 *
 	 * @param pTags теги для сравнения
 	 * @return совпадают ли теги
 	 */
@@ -97,6 +106,7 @@ public class MapObjectStyle implements ReadableMapData, WriteableMapData
 
 	/**
 	 * Считать из потока
+	 *
 	 * @param pInput поток чтения
 	 * @throws IOException чтение не удалось
 	 */
@@ -111,10 +121,15 @@ public class MapObjectStyle implements ReadableMapData, WriteableMapData
 			textTagKey = pInput.readUTF();
 			drawPriority = pInput.readInt();
 			description = pInput.readUTF();
-			
+
+			String fontFamily = pInput.readUTF();
+			int fontStyle = pInput.readInt();
+			int fontSize = pInput.readInt();
+			textFont = new Font(fontFamily, fontStyle, fontSize);
+
 			for (int i = 0; i < ProgramSettings.SCALE_LEVELS_COUNT; i++)
 				scaledStyles[i].ReadFromStream(pInput);
-			
+
 			int tagsCount = pInput.readInt();
 			for (int i = 0; i < tagsCount; i++)
 			{
@@ -131,6 +146,7 @@ public class MapObjectStyle implements ReadableMapData, WriteableMapData
 
 	/**
 	 * Записать в поток
+	 *
 	 * @param pOutput поток вывода
 	 * @throws IOException запись не удалась
 	 */
@@ -145,10 +161,14 @@ public class MapObjectStyle implements ReadableMapData, WriteableMapData
 			pOutput.writeUTF(textTagKey);
 			pOutput.writeInt(drawPriority);
 			pOutput.writeUTF(description);
-			
+
+			pOutput.writeUTF(textFont.getFamily());
+			pOutput.writeInt(textFont.getStyle());
+			pOutput.writeInt(textFont.getSize());
+
 			for (int i = 0; i < ProgramSettings.SCALE_LEVELS_COUNT; i++)
 				scaledStyles[i].WriteToStream(pOutput);
-		
+
 			pOutput.writeInt(defenitionTags.size());
 			for (MapTag tempTag : defenitionTags)
 				tempTag.WriteToStream(pOutput);

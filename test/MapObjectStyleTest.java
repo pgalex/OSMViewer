@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import drawingStyle.MapObjectStyle;
 import drawingStyle.ScaledObjectStyle;
 import java.awt.Color;
+import java.awt.Font;
 import map.MapTag;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -49,6 +50,7 @@ public class MapObjectStyleTest
 		writingStyle.scaledStyles[5].drawPoint = true;
 		writingStyle.scaledStyles[5].drawPolygon = true;
 		writingStyle.scaledStyles[5].lineStyle.color = Color.CYAN;
+		writingStyle.textFont = new Font("Arial", Font.BOLD, 16);
 		writingStyle.textTagKey = "name";
 		try
 		{
@@ -73,6 +75,7 @@ public class MapObjectStyleTest
 			assertEquals(writingStyle.canBePolygon, readingStyle.canBePolygon);
 			assertEquals(true, writingStyle.CompareDefenitionTags(readingStyle.defenitionTags));
 			assertEquals(writingStyle.description, readingStyle.description);
+			assertEquals(writingStyle.textFont, readingStyle.textFont);
 			assertEquals(writingStyle.scaledStyles[0].drawLine, readingStyle.scaledStyles[0].drawLine);
 			assertEquals(writingStyle.scaledStyles[0].drawPoint, readingStyle.scaledStyles[0].drawPoint);
 			assertEquals(writingStyle.scaledStyles[0].drawPolygon, readingStyle.scaledStyles[0].drawPolygon);
