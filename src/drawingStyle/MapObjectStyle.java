@@ -1,5 +1,6 @@
 package drawingStyle;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -45,6 +46,10 @@ public class MapObjectStyle implements ReadableMapData, WriteableMapData
 	 */
 	public Font textFont;
 	/**
+	 * Цвет текстовой подписи
+	 */
+	public Color textColor;
+	/**
 	 * Стили на каждом из уровней масштаба
 	 */
 	public ScaledObjectStyle[] scaledStyles;
@@ -68,6 +73,7 @@ public class MapObjectStyle implements ReadableMapData, WriteableMapData
 		drawPriority = -1;
 		textTagKey = "";
 		description = "";
+		textColor = Color.BLACK;
 		textFont = ProgramSettings.DEFAULT_FONT;
 	}
 
@@ -122,6 +128,13 @@ public class MapObjectStyle implements ReadableMapData, WriteableMapData
 			drawPriority = pInput.readInt();
 			description = pInput.readUTF();
 
+			int textColorA = pInput.readInt();
+			int textColorR = pInput.readInt();
+			int textColorG = pInput.readInt();
+			int textColorB = pInput.readInt();
+
+			textColor = new Color(textColorR, textColorG, textColorB, textColorA);
+
 			String fontFamily = pInput.readUTF();
 			int fontStyle = pInput.readInt();
 			int fontSize = pInput.readInt();
@@ -161,6 +174,11 @@ public class MapObjectStyle implements ReadableMapData, WriteableMapData
 			pOutput.writeUTF(textTagKey);
 			pOutput.writeInt(drawPriority);
 			pOutput.writeUTF(description);
+
+			pOutput.writeInt(textColor.getAlpha());
+			pOutput.writeInt(textColor.getRed());
+			pOutput.writeInt(textColor.getGreen());
+			pOutput.writeInt(textColor.getBlue());
 
 			pOutput.writeUTF(textFont.getFamily());
 			pOutput.writeInt(textFont.getStyle());

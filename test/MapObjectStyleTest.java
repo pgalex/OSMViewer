@@ -51,6 +51,7 @@ public class MapObjectStyleTest
 		writingStyle.scaledStyles[5].drawPolygon = true;
 		writingStyle.scaledStyles[5].lineStyle.color = Color.CYAN;
 		writingStyle.textFont = new Font("Arial", Font.BOLD, 16);
+		writingStyle.textColor = Color.MAGENTA;
 		writingStyle.textTagKey = "name";
 		try
 		{
@@ -84,6 +85,7 @@ public class MapObjectStyleTest
 			assertEquals(writingStyle.scaledStyles[5].drawPoint, readingStyle.scaledStyles[5].drawPoint);
 			assertEquals(writingStyle.scaledStyles[5].drawPolygon, readingStyle.scaledStyles[5].drawPolygon);
 			assertEquals(writingStyle.scaledStyles[5].lineStyle.color, readingStyle.scaledStyles[5].lineStyle.color);
+			assertEquals(writingStyle.textColor, readingStyle.textColor);
 		}
 		catch (Exception ex)
 		{
