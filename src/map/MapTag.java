@@ -85,7 +85,7 @@ public class MapTag implements WriteableMapData, ReadableMapData
 	 */
 	public boolean compareTo(MapTag pTag)
 	{
-		if ((pTag.key.compareTo(key) == 0) && (pTag.value.compareTo(value) == 0))
+		if ((pTag.key.compareToIgnoreCase(key) == 0) && (pTag.value.compareToIgnoreCase(value) == 0))
 			return true;
 		else
 			return false;

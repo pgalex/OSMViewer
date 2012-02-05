@@ -78,6 +78,11 @@ public class MapTagTest
 		tag2.setKey("k2");
 		tag2.setValue("v2");
 		assertEquals(false, tag1.compareTo(tag2));
+		
+		//с разным регистром
+		tag2.setKey("K1");
+		tag2.setValue("V1");
+		assertEquals(true, tag1.compareTo(tag2));
 	}
 
 	@BeforeClass
