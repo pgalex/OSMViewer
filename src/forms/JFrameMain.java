@@ -123,6 +123,7 @@ public class JFrameMain extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
 private void jMenuItemEditStyleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEditStyleActionPerformed
+	
 	JDialogEditMapObjects editStyleDialog = new JDialogEditMapObjects(this, true);
 	editStyleDialog.setVisible(true);
 }//GEN-LAST:event_jMenuItemEditStyleActionPerformed
