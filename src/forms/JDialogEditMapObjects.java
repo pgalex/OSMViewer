@@ -12,9 +12,9 @@ public class JDialogEditMapObjects extends javax.swing.JDialog
 {
 	/**
 	 * Creates new form JDialogEditMapObjects
-	 * 
+	 *
 	 * @param parent
-	 * @param modal  
+	 * @param modal
 	 */
 	public JDialogEditMapObjects(java.awt.Frame parent, boolean modal)
 	{
@@ -37,9 +37,13 @@ public class JDialogEditMapObjects extends javax.swing.JDialog
         jComboBoxObjects = new javax.swing.JComboBox();
         jButtonAdd = new javax.swing.JButton();
         jButtonAddByCopy = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jPanelObjects1 = new javax.swing.JPanel();
+        jButtonEdit = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jPanelDialogControls = new javax.swing.JPanel();
+        jButtonClose = new javax.swing.JButton();
+        jPanelObjectsDrawPriority = new javax.swing.JPanel();
+        list1 = new java.awt.List();
         jMenuBarMain = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
         jMenuItemFileOpen = new javax.swing.JMenuItem();
@@ -50,15 +54,23 @@ public class JDialogEditMapObjects extends javax.swing.JDialog
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Объекты на карте");
+        setMinimumSize(new java.awt.Dimension(375, 390));
 
         jPanelObjects.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Объекты"));
         jPanelObjects.setMinimumSize(new java.awt.Dimension(250, 100));
 
-        jComboBoxObjects.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jButtonAdd.setText("Добавить");
 
         jButtonAddByCopy.setText("Добавить копию");
+
+        jButtonEdit.setText("Редактировать");
+        jButtonEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Найти:");
 
         javax.swing.GroupLayout jPanelObjectsLayout = new javax.swing.GroupLayout(jPanelObjects);
         jPanelObjects.setLayout(jPanelObjectsLayout);
@@ -71,53 +83,76 @@ public class JDialogEditMapObjects extends javax.swing.JDialog
                         .addComponent(jComboBoxObjects, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jPanelObjectsLayout.createSequentialGroup()
-                        .addComponent(jButtonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonAddByCopy)
-                        .addGap(0, 116, Short.MAX_VALUE))))
+                        .addGroup(jPanelObjectsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelObjectsLayout.createSequentialGroup()
+                                .addComponent(jButtonEdit)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonAddByCopy)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanelObjectsLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField1)))
+                        .addGap(10, 10, 10))))
         );
         jPanelObjectsLayout.setVerticalGroup(
             jPanelObjectsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelObjectsLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGroup(jPanelObjectsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBoxObjects, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelObjectsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAdd)
-                    .addComponent(jButtonAddByCopy))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jButton1.setLabel("Закрыть");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                    .addComponent(jButtonAddByCopy)
+                    .addComponent(jButtonEdit))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jButton1)
-                .addGap(0, 12, Short.MAX_VALUE))
+
+        jButtonClose.setLabel("Закрыть");
+        jButtonClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCloseActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelDialogControlsLayout = new javax.swing.GroupLayout(jPanelDialogControls);
+        jPanelDialogControls.setLayout(jPanelDialogControlsLayout);
+        jPanelDialogControlsLayout.setHorizontalGroup(
+            jPanelDialogControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDialogControlsLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonClose)
+                .addContainerGap())
+        );
+        jPanelDialogControlsLayout.setVerticalGroup(
+            jPanelDialogControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDialogControlsLayout.createSequentialGroup()
+                .addComponent(jButtonClose)
+                .addGap(0, 7, Short.MAX_VALUE))
         );
 
-        jPanelObjects1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Приоритет отрисовки"));
-        jPanelObjects1.setMinimumSize(new java.awt.Dimension(250, 100));
+        jPanelObjectsDrawPriority.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "Приоритет отрисовки"));
+        jPanelObjectsDrawPriority.setMinimumSize(new java.awt.Dimension(250, 143));
 
-        javax.swing.GroupLayout jPanelObjects1Layout = new javax.swing.GroupLayout(jPanelObjects1);
-        jPanelObjects1.setLayout(jPanelObjects1Layout);
-        jPanelObjects1Layout.setHorizontalGroup(
-            jPanelObjects1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanelObjectsDrawPriorityLayout = new javax.swing.GroupLayout(jPanelObjectsDrawPriority);
+        jPanelObjectsDrawPriority.setLayout(jPanelObjectsDrawPriorityLayout);
+        jPanelObjectsDrawPriorityLayout.setHorizontalGroup(
+            jPanelObjectsDrawPriorityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelObjectsDrawPriorityLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(list1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
-        jPanelObjects1Layout.setVerticalGroup(
-            jPanelObjects1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 229, Short.MAX_VALUE)
+        jPanelObjectsDrawPriorityLayout.setVerticalGroup(
+            jPanelObjectsDrawPriorityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelObjectsDrawPriorityLayout.createSequentialGroup()
+                .addComponent(list1, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jMenuFile.setText("Файл");
@@ -128,12 +163,17 @@ public class JDialogEditMapObjects extends javax.swing.JDialog
         jMenuItemFileSave.setText("Сохранить");
         jMenuFile.add(jMenuItemFileSave);
 
-        jMenuItemFileSaveAs.setText("Сохранить как");
+        jMenuItemFileSaveAs.setText("Сохранить как ...");
         jMenuItemFileSaveAs.setToolTipText("");
         jMenuFile.add(jMenuItemFileSaveAs);
         jMenuFile.add(jSeparator1);
 
         jMenuItemFileExit.setText("Закрыть");
+        jMenuItemFileExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemFileExitActionPerformed(evt);
+            }
+        });
         jMenuFile.add(jMenuItemFileExit);
 
         jMenuBarMain.add(jMenuFile);
@@ -144,22 +184,39 @@ public class JDialogEditMapObjects extends javax.swing.JDialog
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelDialogControls, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanelObjects, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanelObjects1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelObjectsDrawPriority, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanelObjects, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelObjects, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelObjects1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanelObjectsDrawPriority, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanelDialogControls, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+	private void jMenuItemFileExitActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItemFileExitActionPerformed
+	{//GEN-HEADEREND:event_jMenuItemFileExitActionPerformed
+		setVisible(false);
+		dispose();
+	}//GEN-LAST:event_jMenuItemFileExitActionPerformed
+	
+	private void jButtonCloseActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonCloseActionPerformed
+	{//GEN-HEADEREND:event_jButtonCloseActionPerformed
+		jMenuItemFileExitActionPerformed(evt);
+	}//GEN-LAST:event_jButtonCloseActionPerformed
+	
+	private void jButtonEditActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonEditActionPerformed
+	{//GEN-HEADEREND:event_jButtonEditActionPerformed
+		JDialogEditMapObjectStyle editObjectStyleDialog = new JDialogEditMapObjectStyle(null, true);
+		editObjectStyleDialog.setVisible(true);
+	}//GEN-LAST:event_jButtonEditActionPerformed
 
 	/**
 	 * @param args the command line arguments
@@ -209,6 +266,7 @@ public class JDialogEditMapObjects extends javax.swing.JDialog
 		 */
 		java.awt.EventQueue.invokeLater(new Runnable()
 		{
+			@Override
 			public void run()
 			{
 				JDialogEditMapObjects dialog = new JDialogEditMapObjects(new javax.swing.JFrame(), true);
@@ -225,19 +283,23 @@ public class JDialogEditMapObjects extends javax.swing.JDialog
 		});
 	}
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAdd;
     private javax.swing.JButton jButtonAddByCopy;
+    private javax.swing.JButton jButtonClose;
+    private javax.swing.JButton jButtonEdit;
     private javax.swing.JComboBox jComboBoxObjects;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBarMain;
     private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenuItem jMenuItemFileExit;
     private javax.swing.JMenuItem jMenuItemFileOpen;
     private javax.swing.JMenuItem jMenuItemFileSave;
     private javax.swing.JMenuItem jMenuItemFileSaveAs;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanelDialogControls;
     private javax.swing.JPanel jPanelObjects;
-    private javax.swing.JPanel jPanelObjects1;
+    private javax.swing.JPanel jPanelObjectsDrawPriority;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JTextField jTextField1;
+    private java.awt.List list1;
     // End of variables declaration//GEN-END:variables
 }

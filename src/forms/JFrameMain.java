@@ -10,9 +10,6 @@
  */
 package forms;
 
-import java.awt.Font;
-import java.awt.Graphics2D;
-
 /**
  * Главное окно
  *
@@ -49,6 +46,7 @@ public class JFrameMain extends javax.swing.JFrame
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("OpenStreetMap Viewer");
 
         jMenuItemCommonSettings.setBackground(new java.awt.Color(255, 255, 255));
         jMenuItemCommonSettings.setForeground(new java.awt.Color(255, 255, 255));
@@ -123,7 +121,7 @@ public class JFrameMain extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
 private void jMenuItemEditStyleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEditStyleActionPerformed
-	
+
 	JDialogEditMapObjects editStyleDialog = new JDialogEditMapObjects(this, true);
 	editStyleDialog.setVisible(true);
 }//GEN-LAST:event_jMenuItemEditStyleActionPerformed
@@ -185,10 +183,10 @@ private void jMenuItemConvertOsmActionPerformed(java.awt.event.ActionEvent evt) 
 		 */
 		java.awt.EventQueue.invokeLater(new Runnable()
 		{
+			@Override
 			public void run()
 			{
 				JFrameMain mainFrame = new JFrameMain();
-				mainFrame.setTitle("OpenStreetMap Viewer");
 				mainFrame.setLocationRelativeTo(null);
 				mainFrame.setVisible(true);
 			}
