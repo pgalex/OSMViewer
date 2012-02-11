@@ -1,5 +1,7 @@
 package drawingStyle;
 
+import fileIO.ReadableMapData;
+import fileIO.WritableMapData;
 import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -9,7 +11,7 @@ import java.io.IOException;
  * Стиль рисования линий (не замкнутых путей)
  * @author abc
  */
-public class LineDrawStyle implements ReadableMapData, WriteableMapData
+public class LineDrawStyle implements ReadableMapData, WritableMapData
 {
 	/**
 	 * Цвет линии

@@ -1,5 +1,7 @@
 package drawingStyle;
 
+import fileIO.ReadableMapData;
+import fileIO.WritableMapData;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.DataInputStream;
@@ -7,14 +9,14 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import map.MapTag;
-import map.ProgramSettings;
+import settings.ProgramSettings;
 
 /**
  * Стиль отображения объекта
  *
  * @author abc
  */
-public class MapObjectStyle implements ReadableMapData, WriteableMapData
+public class MapObjectStyle implements ReadableMapData, WritableMapData
 {
 	/**
 	 * Может ли быть точкой

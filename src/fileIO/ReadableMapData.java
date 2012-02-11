@@ -1,4 +1,4 @@
-package drawingStyle;
+package fileIO;
 
 import java.io.DataInputStream;
 import java.io.IOException;

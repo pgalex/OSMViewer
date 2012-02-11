@@ -17,7 +17,7 @@ import osmXml.OSMFileBounds;
 import osmXml.OSMFileNode;
 import osmXml.OSMFileRelation;
 import osmXml.OSMFileWay;
-import osmXml.OSMFlyConverter;
+import flyConverter.OSMFlyConverter;
 import static org.junit.Assert.*;
 
 /**

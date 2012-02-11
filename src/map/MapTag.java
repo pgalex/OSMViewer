@@ -4,8 +4,8 @@
  */
 package map;
 
-import drawingStyle.ReadableMapData;
-import drawingStyle.WriteableMapData;
+import fileIO.ReadableMapData;
+import fileIO.WritableMapData;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import java.nio.CharBuffer;
  * Тэг
  * @author preobrazhentsev
  */
-public class MapTag implements WriteableMapData, ReadableMapData
+public class MapTag implements WritableMapData, ReadableMapData
 {
 	/**
 	 * ключ

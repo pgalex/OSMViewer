@@ -1,4 +1,4 @@
-package drawingStyle;
+package fileIO;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.io.IOException;
  * Интерфейс для класс, который может записывать себя в файл
  * @author abc
  */
-public interface WriteableMapData
+public interface WritableMapData
 {
 	/**
 	 * Записать в поток

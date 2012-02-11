@@ -10,7 +10,7 @@
  */
 package forms;
 
-import map.ProgramSettings;
+import settings.ProgramSettings;
 
 /**
  * Диалог редактировая стилей отображения объектов

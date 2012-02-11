@@ -1,5 +1,7 @@
 package drawingStyle;
 
+import fileIO.ReadableMapData;
+import fileIO.WritableMapData;
 import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -10,7 +12,7 @@ import org.w3c.dom.css.RGBColor;
  * Стиль многоугольника (замкнутой линии)
  * @author abc
  */
-public class PolygonDrawStyle implements ReadableMapData, WriteableMapData
+public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 {
 	/**
 	 * Цвет заполнения

@@ -1,5 +1,7 @@
 package drawingStyle;
 
+import fileIO.ReadableMapData;
+import fileIO.WritableMapData;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -8,7 +10,7 @@ import java.io.IOException;
  * Параметры отображения на определенном масштабе
  * @author abc
  */
-public class ScaledObjectStyle implements ReadableMapData, WriteableMapData
+public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 {
 	/**
 	 * Рисовать ли точку на данном масштабе

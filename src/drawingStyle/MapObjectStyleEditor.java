@@ -6,7 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import map.ProgramSettings;
+import settings.ProgramSettings;
 
 /**
  * Редактор стилей отображения объектов с возможностью добавления/удаления и сохранения изменений.

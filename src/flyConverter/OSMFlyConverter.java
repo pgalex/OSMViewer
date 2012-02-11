@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package osmXml;
+package flyConverter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +11,12 @@ import javax.xml.parsers.SAXParserFactory;
 import map.MapTag;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
+import osmXml.OSMFileBounds;
+import osmXml.OSMFileNode;
+import osmXml.OSMFileRelation;
+import osmXml.OSMFileRelationMember;
+import osmXml.OSMFileWay;
+import osmXml.OSMXMLNames;
 
 /**
  * Конвертер из .osm xml сразу в карту

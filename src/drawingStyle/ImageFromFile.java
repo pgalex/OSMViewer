@@ -4,6 +4,8 @@
  */
 package drawingStyle;
 
+import fileIO.ReadableMapData;
+import fileIO.WritableMapData;
 import java.awt.Image;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -15,7 +17,7 @@ import javax.imageio.ImageIO;
  * Класс изображения, при необходимости создаваемого из файла
  * @author abc
  */
-public class ImageFromFile implements ReadableMapData, WriteableMapData
+public class ImageFromFile implements ReadableMapData, WritableMapData
 {
 	/**
 	 * Объект изображения, создаваемый динамически при запросе

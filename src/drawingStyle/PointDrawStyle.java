@@ -1,5 +1,7 @@
 package drawingStyle;
 
+import fileIO.ReadableMapData;
+import fileIO.WritableMapData;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -8,7 +10,7 @@ import java.io.IOException;
  * Класс стиля рисования точки
  * @author abc
  */
-public class PointDrawStyle implements ReadableMapData, WriteableMapData
+public class PointDrawStyle implements ReadableMapData, WritableMapData
 {
 	/**
 	 * Значок

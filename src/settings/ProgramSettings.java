@@ -1,4 +1,4 @@
-package map;
+package settings;
 
 import java.awt.Font;
 
