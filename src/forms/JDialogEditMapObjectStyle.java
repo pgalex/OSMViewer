@@ -183,7 +183,7 @@ public class JDialogEditMapObjectStyle extends javax.swing.JDialog
 
         jLabel1.setText("Уровень масштаба:");
 
-        jSpinnerScaleLevel.setModel(new javax.swing.SpinnerNumberModel(0, 0, ProgramSettings.SCALE_LEVELS_COUNT - 1, 1));
+        jSpinnerScaleLevel.setModel(new javax.swing.SpinnerNumberModel(0, 0, 11, 1));
 
         jCheckBox4.setSelected(true);
         jCheckBox4.setText("Рисовать точку");

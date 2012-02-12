@@ -319,8 +319,8 @@
         </Component>
         <Component class="javax.swing.JSpinner" name="jSpinnerScaleLevel">
           <Properties>
-            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.SpinnerNumberModel(0, 0, ProgramSettings.SCALE_LEVELS_COUNT - 1, 1)" type="code"/>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="0" maximum="11" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
           </Properties>
         </Component>

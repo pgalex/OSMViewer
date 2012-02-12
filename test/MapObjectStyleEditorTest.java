@@ -3,16 +3,14 @@
  * and open the template in the editor.
  */
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import map.MapTag;
 import drawingStyle.MapObjectStyle;
 import drawingStyle.MapObjectStyleEditor;
+import java.io.IOException;
+import map.MapTag;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -21,11 +19,11 @@ import static org.junit.Assert.*;
 public class MapObjectStyleEditorTest
 {
 	private final String TEST_FILE_NAME = "testFile.txt";
-	
+
 	public MapObjectStyleEditorTest()
 	{
 	}
-	
+
 	@Test
 	public void FileTest()
 	{
@@ -33,13 +31,13 @@ public class MapObjectStyleEditorTest
 		style1.description = "style1";
 		MapObjectStyle style2 = new MapObjectStyle();
 		style2.description = "style2";
-		
+
 		MapObjectStyleEditor editor = new MapObjectStyleEditor();
-		
+
 		int style1Id = editor.AddStyle(style1);
 		int style2Id = editor.AddStyle(style2);
 		assertNotSame(style1, style2);
-		
+
 		try
 		{
 			editor.SaveToFile(TEST_FILE_NAME);
@@ -48,7 +46,7 @@ public class MapObjectStyleEditorTest
 		{
 			fail();
 		}
-		
+
 		editor = new MapObjectStyleEditor();
 		try
 		{
@@ -60,7 +58,7 @@ public class MapObjectStyleEditorTest
 		{
 			fail();
 		}
-		
+
 	}
 
 	@Test

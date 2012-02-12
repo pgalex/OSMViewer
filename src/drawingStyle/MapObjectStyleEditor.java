@@ -9,11 +9,13 @@ import java.util.ArrayList;
 import settings.ProgramSettings;
 
 /**
- * Редактор стилей отображения объектов с возможностью добавления/удаления и сохранения изменений.
- * Уникальный id стиля определяется его индексом в массиве, чтобы бытро определять нужный стиль.
- * Id стиля будет использоваться для распознавания объектов вместо тегов при работе с большими картами.
- * Все новые элементы идут последними - за счет этого старые отображаются корректно.
+ * Редактор стилей отображения объектов с возможностью добавления/удаления и
+ * сохранения изменений. Уникальный id стиля определяется его индексом в
+ * массиве, чтобы бытро определять нужный стиль. Id стиля будет использоваться
+ * для распознавания объектов вместо тегов при работе с большими картами. Все
+ * новые элементы идут последними - за счет этого старые отображаются корректно.
  * Удаление пока не предусмотрено
+ *
  * @author abc
  */
 public class MapObjectStyleEditor
@@ -33,6 +35,7 @@ public class MapObjectStyleEditor
 
 	/**
 	 * Добавить новый стиль отображения объекта
+	 *
 	 * @param pNewStyle новый стиль отображения
 	 * @return индекс добавленного стиля в массиве (id)
 	 */
@@ -44,6 +47,7 @@ public class MapObjectStyleEditor
 
 	/**
 	 * Редактировать стиль отображения
+	 *
 	 * @param pEditedIndex индекс редактируемого стиля (id)
 	 * @param pNewStyle новые данные
 	 */
@@ -55,6 +59,7 @@ public class MapObjectStyleEditor
 
 	/**
 	 * Получить стиль отображения
+	 *
 	 * @param pIndex индекс стиля (id)
 	 * @return стиль отображения
 	 */
@@ -68,6 +73,7 @@ public class MapObjectStyleEditor
 
 	/**
 	 * Получить кол-во стилей в массиве
+	 *
 	 * @return кол-во стилей в массиве
 	 */
 	public int getStylesCount()
@@ -85,6 +91,7 @@ public class MapObjectStyleEditor
 
 	/**
 	 * Прочитать стили из файла
+	 *
 	 * @param pFileName имя файла
 	 * @throws IOException чтение не удалось
 	 */
@@ -92,16 +99,11 @@ public class MapObjectStyleEditor
 	{
 		if (pFileName.isEmpty())
 			throw new IOException();
-		
+
 		try
 		{
 			DataInputStream input = new DataInputStream(new FileInputStream(pFileName));
-			
-			// если вдруг в файле кол-во масштабов не равно текущему в контанте
-			int scaleLevesCount = input.readInt();
-			if (scaleLevesCount != ProgramSettings.SCALE_LEVELS_COUNT)
-				throw new IOException();
-			
+
 			styles.clear();
 			int styleCount = input.readInt();
 			for (int i = 0; i < styleCount; i++)
@@ -110,7 +112,7 @@ public class MapObjectStyleEditor
 				tempStyle.ReadFromStream(input);
 				styles.add(tempStyle);
 			}
-			
+
 			input.close();
 		}
 		catch (Exception ex)
@@ -121,6 +123,7 @@ public class MapObjectStyleEditor
 
 	/**
 	 * Сохранить стили в файл
+	 *
 	 * @param pFileName имя файла
 	 * @throws IOException запись не удалась
 	 */
@@ -132,7 +135,6 @@ public class MapObjectStyleEditor
 		try
 		{
 			DataOutputStream output = new DataOutputStream(new FileOutputStream(pFileName));
-			output.writeInt(ProgramSettings.SCALE_LEVELS_COUNT);
 			output.writeInt(styles.size());
 			for (int i = 0; i < styles.size(); i++)
 				styles.get(i).WriteToStream(output);
