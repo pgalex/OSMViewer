@@ -1,4 +1,5 @@
 
+import drawingStyle.IOColor;
 import drawingStyle.ScaledObjectStyle;
 import java.awt.Color;
 import java.io.FileInputStream;
@@ -30,11 +31,11 @@ public class ScaledObjectStyleTest
 		writingStyle.drawPoint = false;
 		writingStyle.drawPolygon = true;
 		writingStyle.pointStyle.icon.imageFileName = "icon1.png";
-		writingStyle.lineStyle.color = Color.LIGHT_GRAY;
+		writingStyle.lineStyle.color = new IOColor(Color.LIGHT_GRAY);
 		writingStyle.lineStyle.width = 11;
-		writingStyle.polygonStyle.borderDrawStyle.color = Color.GRAY;
+		writingStyle.polygonStyle.borderDrawStyle.color = new IOColor(Color.GRAY);
 		writingStyle.polygonStyle.borderDrawStyle.width = 12;
-		writingStyle.polygonStyle.fillColor = Color.WHITE;
+		writingStyle.polygonStyle.fillColor = new IOColor(Color.WHITE);
 		try
 		{
 			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));

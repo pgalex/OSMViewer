@@ -58,7 +58,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 	/**
 	 * Цвет текстовой подписи
 	 */
-	public Color textColor;
+	public IOColor textColor;
 	/**
 	 * Стили на каждом из уровней масштаба
 	 */
@@ -84,7 +84,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 		drawPriority = -1;
 		textTagKey = "";
 		description = "";
-		textColor = Color.BLACK;
+		textColor = new IOColor(Color.BLACK);
 		textFont = DEFAULT_FONT;
 	}
 
@@ -105,12 +105,13 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 		drawPriority = -1;
 		textTagKey = "";
 		description = "";
-		textColor = Color.BLACK;
+		textColor = new IOColor(Color.BLACK);
 		textFont = DEFAULT_FONT;
 	}
 
 	/**
-	 * Сравнить теги без учета их порядка
+	 * Сравнить теги без учета их порядка. Каждый тег из defenitionTags должен
+	 * входить в pTags
 	 *
 	 * @param pTags теги для сравнения
 	 * @return совпадают ли теги
@@ -120,23 +121,27 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 		//заведомо несопадающие теги
 		if (pTags == null)
 			return false;
-		if (pTags.size() != defenitionTags.size())
+		if (defenitionTags.size() > pTags.size())
+			return false;
+		// пустые списки считаются равны
+		if (defenitionTags.isEmpty() && pTags.isEmpty())
+			return true;
+		
+		if(defenitionTags.isEmpty() && !pTags.isEmpty())
 			return false;
 
-		//сравнение списков
-		for (MapTag parameterTempTag : pTags)
+		for (MapTag defenitionTempTag : defenitionTags)
 		{
-			boolean tempCompareResult = false;
-			for (MapTag thisTempTag : defenitionTags)
+			boolean currentCompareResult = false;
+			for (MapTag parameterTempTag : pTags)
 			{
-				//нашелся ли тег
-				if (parameterTempTag.compareTo(thisTempTag))
+				if (defenitionTempTag.compareTo(parameterTempTag))
 				{
-					tempCompareResult = true;
+					currentCompareResult = true;
 					break;
 				}
 			}
-			if (tempCompareResult == false)
+			if (!currentCompareResult)
 				return false;
 		}
 		return true;
@@ -160,12 +165,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 			drawPriority = pInput.readInt();
 			description = pInput.readUTF();
 
-			int textColorA = pInput.readInt();
-			int textColorR = pInput.readInt();
-			int textColorG = pInput.readInt();
-			int textColorB = pInput.readInt();
-
-			textColor = new Color(textColorR, textColorG, textColorB, textColorA);
+			textColor = IOColor.ReadFromStream(pInput);
 
 			String fontFamily = pInput.readUTF();
 			int fontStyle = pInput.readInt();
@@ -187,7 +187,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 				tempTag.ReadFromStream(pInput);
 				defenitionTags.add(tempTag);
 			}
-			
+
 			ResetScaleLevelsCountToDefault();
 		}
 		catch (Exception e)
@@ -214,10 +214,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 			pOutput.writeInt(drawPriority);
 			pOutput.writeUTF(description);
 
-			pOutput.writeInt(textColor.getAlpha());
-			pOutput.writeInt(textColor.getRed());
-			pOutput.writeInt(textColor.getGreen());
-			pOutput.writeInt(textColor.getBlue());
+			textColor.WriteToStream(pOutput);
 
 			pOutput.writeUTF(textFont.getFamily());
 			pOutput.writeInt(textFont.getStyle());

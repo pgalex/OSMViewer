@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 
+import drawingStyle.IOColor;
 import java.io.FileInputStream;
 import java.io.DataInputStream;
 import java.io.FileOutputStream;
@@ -22,7 +23,7 @@ import static org.junit.Assert.*;
 public class LineDrawStyleTest
 {
 	private final String TEST_FILE_NAME = "testFile.txt";
-	
+
 	public LineDrawStyleTest()
 	{
 	}
@@ -31,14 +32,14 @@ public class LineDrawStyleTest
 	public void FileTest()
 	{
 		LineDrawStyle writingStyle = new LineDrawStyle();
-		writingStyle.color = Color.CYAN;
+		writingStyle.color = new IOColor(Color.CYAN);
 		writingStyle.width = 11;
 		writingStyle.pattern = new float[4];
 		writingStyle.pattern[0] = 2;
 		writingStyle.pattern[1] = 3;
 		writingStyle.pattern[2] = 4;
 		writingStyle.pattern[3] = 5;
-		
+
 		//запись
 		try
 		{
@@ -50,7 +51,7 @@ public class LineDrawStyleTest
 		{
 			fail();
 		}
-		
+
 		//чтение
 		LineDrawStyle readingStyle = new LineDrawStyle();
 		try

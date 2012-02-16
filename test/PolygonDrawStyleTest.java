@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 
+import drawingStyle.IOColor;
 import drawingStyle.PolygonDrawStyle;
 import java.awt.Color;
 import java.io.FileInputStream;
@@ -30,8 +31,8 @@ public class PolygonDrawStyleTest
 	public void FileTest()
 	{
 		PolygonDrawStyle writingStyle = new PolygonDrawStyle();
-		writingStyle.fillColor = Color.MAGENTA;
-		writingStyle.borderDrawStyle.color = Color.ORANGE;
+		writingStyle.fillColor = new IOColor(Color.MAGENTA);
+		writingStyle.borderDrawStyle.color = new IOColor(Color.ORANGE);
 		writingStyle.borderDrawStyle.width = 22;
 		writingStyle.fillImage.imageFileName = "icon1.png";
 		//запись

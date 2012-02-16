@@ -1,4 +1,5 @@
 
+import drawingStyle.IOColor;
 import drawingStyle.MapObjectStyle;
 import drawingStyle.ScaledObjectStyle;
 import java.awt.Color;
@@ -52,7 +53,7 @@ public class MapObjectStyleTest
 	{
 		MapObjectStyle style = new MapObjectStyle(8);
 		ScaledObjectStyle scaledStyle = new ScaledObjectStyle();
-		scaledStyle.lineStyle.color = Color.YELLOW;
+		scaledStyle.lineStyle.color = new IOColor(Color.YELLOW);
 		scaledStyle.drawLine = true;
 
 		// нормальный уровень
@@ -80,7 +81,7 @@ public class MapObjectStyleTest
 		// меньше того что по умолчанию - последние копируются
 		MapObjectStyle writingStyle = new MapObjectStyle(3);
 		ScaledObjectStyle scaledStyle = new ScaledObjectStyle();
-		scaledStyle.lineStyle.color = Color.RED;
+		scaledStyle.lineStyle.color = new IOColor(Color.RED);
 		writingStyle.setStyleOnScale(2, scaledStyle);
 		try
 		{
@@ -119,11 +120,11 @@ public class MapObjectStyleTest
 		MapObjectStyle writingStyle = new MapObjectStyle(30);
 		MapObjectStyle readingStyle = new MapObjectStyle();
 		ScaledObjectStyle scaledStyle1 = new ScaledObjectStyle();
-		scaledStyle1.lineStyle.color = Color.RED;
+		scaledStyle1.lineStyle.color = new IOColor(Color.RED);
 		writingStyle.setStyleOnScale(writingStyle.getCurrentScaleLevelsCount() - 1, scaledStyle1);
 
 		ScaledObjectStyle scaledStyle2 = new ScaledObjectStyle();
-		scaledStyle2.lineStyle.color = Color.GREEN;
+		scaledStyle2.lineStyle.color = new IOColor(Color.GREEN);
 		writingStyle.setStyleOnScale(readingStyle.getCurrentScaleLevelsCount() - 1, scaledStyle2);
 		writingStyle.setStyleOnScale(readingStyle.getCurrentScaleLevelsCount() - 2, scaledStyle1);
 		try
@@ -174,16 +175,16 @@ public class MapObjectStyleTest
 		scaledStyle0.drawLine = true;
 		scaledStyle0.drawPoint = false;
 		scaledStyle0.drawPolygon = true;
-		scaledStyle0.lineStyle.color = Color.CYAN;
+		scaledStyle0.lineStyle.color = new IOColor(Color.CYAN);
 		writingStyle.setStyleOnScale(0, scaledStyle0);
 		ScaledObjectStyle scaledStyle5 = new ScaledObjectStyle();
 		scaledStyle5.drawLine = false;
 		scaledStyle5.drawPoint = true;
 		scaledStyle5.drawPolygon = true;
-		scaledStyle5.lineStyle.color = Color.CYAN;
+		scaledStyle5.lineStyle.color = new IOColor(Color.CYAN);
 		writingStyle.setStyleOnScale(5, scaledStyle5);
 		writingStyle.textFont = new Font("Arial", Font.BOLD, 16);
-		writingStyle.textColor = Color.MAGENTA;
+		writingStyle.textColor = new IOColor(Color.MAGENTA);
 		writingStyle.textTagKey = "name";
 		try
 		{
@@ -209,6 +210,7 @@ public class MapObjectStyleTest
 			assertEquals(true, writingStyle.CompareDefenitionTags(readingStyle.defenitionTags));
 			assertEquals(writingStyle.description, readingStyle.description);
 			assertEquals(writingStyle.textFont, readingStyle.textFont);
+			assertEquals(writingStyle.textColor, readingStyle.textColor);
 			assertEquals(writingStyle.getStyleOnScale(0).drawLine, readingStyle.getStyleOnScale(0).drawLine);
 			assertEquals(writingStyle.getStyleOnScale(0).drawPoint, readingStyle.getStyleOnScale(0).drawPoint);
 			assertEquals(writingStyle.getStyleOnScale(0).drawPolygon, readingStyle.getStyleOnScale(0).drawPolygon);
@@ -232,53 +234,61 @@ public class MapObjectStyleTest
 	@Test
 	public void CompareDefenitionTagsTest()
 	{
-		MapObjectStyle style = new MapObjectStyle();
+		MapObjectStyle objectStyle = new MapObjectStyle();
 		ArrayList<MapTag> compareTags = new ArrayList<MapTag>();
+		
 		//пустые списки
-		assertEquals(true, style.CompareDefenitionTags(compareTags));
-
-		//один пустой
-		style.defenitionTags.add(new MapTag("key1", "value1"));
-		assertEquals(false, style.CompareDefenitionTags(compareTags));
-
-		//друго пустой
-		style.defenitionTags.clear();
-		compareTags.add(new MapTag("key1", "value1"));
-		assertEquals(false, style.CompareDefenitionTags(compareTags));
-
-		//один тег
+		objectStyle.defenitionTags.clear();
 		compareTags.clear();
-		style.defenitionTags.clear();
-		compareTags.add(new MapTag("key1", "value1"));
-		style.defenitionTags.add(new MapTag("key1", "value1"));
-		assertEquals(true, style.CompareDefenitionTags(compareTags));
+		assertEquals(true, objectStyle.CompareDefenitionTags(compareTags));
 
+		// в стиле пустой
+		objectStyle.defenitionTags.clear();
 		compareTags.clear();
-		style.defenitionTags.clear();
-		compareTags.add(new MapTag("key1", "value1"));
-		style.defenitionTags.add(new MapTag("key2", "value2"));
-		assertEquals(false, style.CompareDefenitionTags(compareTags));
+		compareTags.add(new MapTag("k1", "v1"));
+		assertEquals(false, objectStyle.CompareDefenitionTags(compareTags));
 
-		//несколько тегов
+		// в тегах пустой
+		objectStyle.defenitionTags.clear();
 		compareTags.clear();
-		style.defenitionTags.clear();
-		compareTags.add(new MapTag("key1", "value1"));
-		compareTags.add(new MapTag("key5", "value1"));
-		compareTags.add(new MapTag("key6", "value6"));
-		style.defenitionTags.add(new MapTag("key2", "value2"));
-		style.defenitionTags.add(new MapTag("key1", "value1"));
-		style.defenitionTags.add(new MapTag("key3", "value3"));
-		assertEquals(false, style.CompareDefenitionTags(compareTags));
-
+		objectStyle.defenitionTags.add(new MapTag("k1", "v1"));
+		assertEquals(false, objectStyle.CompareDefenitionTags(compareTags));
+		
+		// разный порядок
+		objectStyle.defenitionTags.clear();
 		compareTags.clear();
-		style.defenitionTags.clear();
-		compareTags.add(new MapTag("key1", "value1"));
-		compareTags.add(new MapTag("key3", "value3"));
-		compareTags.add(new MapTag("key2", "value2"));
-		style.defenitionTags.add(new MapTag("key2", "value2"));
-		style.defenitionTags.add(new MapTag("key1", "value1"));
-		style.defenitionTags.add(new MapTag("key3", "value3"));
-		assertEquals(true, style.CompareDefenitionTags(compareTags));
+		objectStyle.defenitionTags.add(new MapTag("k2", "v2"));
+		objectStyle.defenitionTags.add(new MapTag("k1", "v1"));
+		objectStyle.defenitionTags.add(new MapTag("k3", "v3"));
+		compareTags.add(new MapTag("k1", "v1"));
+		compareTags.add(new MapTag("k3", "v3"));
+		compareTags.add(new MapTag("k2", "v2"));
+		assertEquals(true, objectStyle.CompareDefenitionTags(compareTags));
+		
+		// несовпадение
+		objectStyle.defenitionTags.add(new MapTag("k4", "v4"));
+		objectStyle.defenitionTags.add(new MapTag("k1", "v1"));
+		objectStyle.defenitionTags.add(new MapTag("k3", "v3"));
+		compareTags.add(new MapTag("k1", "v1"));
+		compareTags.add(new MapTag("k3", "v3"));
+		compareTags.add(new MapTag("k2", "v2"));
+		assertEquals(false, objectStyle.CompareDefenitionTags(compareTags));
+		
+		// неравное кол-во, несовпадают
+		objectStyle.defenitionTags.add(new MapTag("k4", "v4"));
+		objectStyle.defenitionTags.add(new MapTag("k1", "v1"));
+		compareTags.add(new MapTag("k1", "v1"));
+		compareTags.add(new MapTag("k3", "v3"));
+		compareTags.add(new MapTag("k2", "v2"));
+		assertEquals(false, objectStyle.CompareDefenitionTags(compareTags));
+		
+		// неравное кол-во, совпадают
+		objectStyle.defenitionTags.add(new MapTag("k3", "v3"));
+		objectStyle.defenitionTags.add(new MapTag("k1", "v1"));
+		compareTags.add(new MapTag("k1", "v1"));
+		compareTags.add(new MapTag("k3", "v3"));
+		compareTags.add(new MapTag("k2", "v2"));
+		assertEquals(false, objectStyle.CompareDefenitionTags(compareTags));
 	}
 
 	@BeforeClass

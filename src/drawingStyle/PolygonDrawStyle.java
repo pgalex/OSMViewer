@@ -10,6 +10,7 @@ import org.w3c.dom.css.RGBColor;
 
 /**
  * Стиль многоугольника (замкнутой линии)
+ *
  * @author abc
  */
 public class PolygonDrawStyle implements ReadableMapData, WritableMapData
@@ -17,7 +18,7 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 	/**
 	 * Цвет заполнения
 	 */
-	public Color fillColor;
+	public IOColor fillColor;
 	/**
 	 * Стиль рисования границы
 	 */
@@ -32,13 +33,14 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 	 */
 	public PolygonDrawStyle()
 	{
-		fillColor = Color.GRAY;
+		fillColor = new IOColor(Color.GRAY);
 		borderDrawStyle = new LineDrawStyle();
 		fillImage = new ImageFromFile();
 	}
 
 	/**
 	 * Считать из потока
+	 *
 	 * @param pInput поток чтения
 	 * @throws IOException чтение не удалось
 	 */
@@ -47,12 +49,8 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 	{
 		try
 		{
-			int a = pInput.readInt();
-			int r = pInput.readInt();
-			int g = pInput.readInt();
-			int b = pInput.readInt();
-			fillColor = new Color(r, g, b, a);
-			
+			fillColor = IOColor.ReadFromStream(pInput);
+
 			borderDrawStyle.ReadFromStream(pInput);
 			fillImage.ReadFromStream(pInput);
 		}
@@ -64,6 +62,7 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 
 	/**
 	 * Записать в поток
+	 *
 	 * @param pOutput поток вывода
 	 * @throws IOException запись не удалась
 	 */
@@ -72,10 +71,7 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 	{
 		try
 		{
-			pOutput.writeInt(fillColor.getAlpha());
-			pOutput.writeInt(fillColor.getRed());
-			pOutput.writeInt(fillColor.getGreen());
-			pOutput.writeInt(fillColor.getBlue());
+			fillColor.WriteToStream(pOutput);
 			borderDrawStyle.WriteToStream(pOutput);
 			fillImage.WriteToStream(pOutput);
 		}
