@@ -31,13 +31,13 @@ public class IOColorTest
 	 * Тест чтения/записи в файл
 	 */
 	@Test
-	public void FileTest()
+	public void fileTest()
 	{
 		IOColor writingColor = new IOColor(Color.MAGENTA);
 		try
 		{
 			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
-			writingColor.WriteToStream(output);
+			writingColor.writeToStream(output);
 			output.close();
 		}
 		catch (Exception ex)
@@ -48,7 +48,7 @@ public class IOColorTest
 		try
 		{
 			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
-			IOColor readingColor = IOColor.ReadFromStream(input);
+			IOColor readingColor = IOColor.readFromStream(input);
 			input.close();
 			assertEquals(writingColor, readingColor);
 		}

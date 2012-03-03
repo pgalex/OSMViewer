@@ -32,7 +32,7 @@ public class MapObjectStyleTest
 	 * Тест базовых функций кол-во уровней месштаба
 	 */
 	@Test
-	public void ScaleLevelsCountTest()
+	public void scaleLevelsCountTest()
 	{
 		// кол-во по умолчанию
 		MapObjectStyle style = new MapObjectStyle();
@@ -49,7 +49,7 @@ public class MapObjectStyleTest
 	 * должны учитывать неправильные значения на входе
 	 */
 	@Test
-	public void ScaleLevelsTest()
+	public void scaleLevelsTest()
 	{
 		MapObjectStyle style = new MapObjectStyle(8);
 		ScaledObjectStyle scaledStyle = new ScaledObjectStyle();
@@ -76,7 +76,7 @@ public class MapObjectStyleTest
 	 * Тест чтения/записи с меньшими кол-вом уровней масштаба
 	 */
 	@Test
-	public void FileWithOtherScaleLevelsLessTest()
+	public void fileWithOtherScaleLevelsLessTest()
 	{
 		// меньше того что по умолчанию - последние копируются
 		MapObjectStyle writingStyle = new MapObjectStyle(3);
@@ -86,7 +86,7 @@ public class MapObjectStyleTest
 		try
 		{
 			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
-			writingStyle.WriteToStream(output);
+			writingStyle.writeToStream(output);
 			output.close();
 		}
 		catch (Exception ex)
@@ -98,7 +98,7 @@ public class MapObjectStyleTest
 		try
 		{
 			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
-			readingStyle.ReadFromStream(input);
+			readingStyle.readFromStream(input);
 			input.close();
 			assertEquals(true, readingStyle.isDefaultScaleLevelsCount());
 			for (int i = writingStyle.getCurrentScaleLevelsCount() - 1; i < readingStyle.getCurrentScaleLevelsCount(); i++)
@@ -114,7 +114,7 @@ public class MapObjectStyleTest
 	 * Тест чтения/записи с большим кол-вом уровней масштаба
 	 */
 	@Test
-	public void FileWithOtherScaleLevelsMoreTest()
+	public void fileWithOtherScaleLevelsMoreTest()
 	{
 		// больше того что по умолчанию - последние обрезаются
 		MapObjectStyle writingStyle = new MapObjectStyle(30);
@@ -130,7 +130,7 @@ public class MapObjectStyleTest
 		try
 		{
 			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
-			writingStyle.WriteToStream(output);
+			writingStyle.writeToStream(output);
 			output.close();
 		}
 		catch (Exception ex)
@@ -142,7 +142,7 @@ public class MapObjectStyleTest
 		try
 		{
 			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
-			readingStyle.ReadFromStream(input);
+			readingStyle.readFromStream(input);
 			input.close();
 			assertEquals(true, readingStyle.isDefaultScaleLevelsCount());
 			assertEquals(false, writingStyle.isDefaultScaleLevelsCount());
@@ -161,7 +161,7 @@ public class MapObjectStyleTest
 	 * Тест чтения/записи в файл
 	 */
 	@Test
-	public void FileTest()
+	public void fileTest()
 	{
 		MapObjectStyle writingStyle = new MapObjectStyle();
 		writingStyle.canBeLine = true;
@@ -190,7 +190,7 @@ public class MapObjectStyleTest
 		try
 		{
 			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
-			writingStyle.WriteToStream(output);
+			writingStyle.writeToStream(output);
 			output.close();
 		}
 		catch (Exception ex)
@@ -203,12 +203,12 @@ public class MapObjectStyleTest
 		try
 		{
 			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
-			readingStyle.ReadFromStream(input);
+			readingStyle.readFromStream(input);
 			input.close();
 			assertEquals(writingStyle.canBeLine, readingStyle.canBeLine);
 			assertEquals(writingStyle.canBePoint, readingStyle.canBePoint);
 			assertEquals(writingStyle.canBePolygon, readingStyle.canBePolygon);
-			assertEquals(true, writingStyle.CompareDefenitionTags(readingStyle.defenitionTags));
+			assertEquals(true, writingStyle.compareDefenitionTags(readingStyle.defenitionTags));
 			assertEquals(writingStyle.description, readingStyle.description);
 			assertEquals(writingStyle.textFont, readingStyle.textFont);
 			assertEquals(writingStyle.textColor, readingStyle.textColor);
@@ -236,7 +236,7 @@ public class MapObjectStyleTest
 	 * Тест сравнения по тегам
 	 */
 	@Test
-	public void CompareDefenitionTagsTest()
+	public void compareDefenitionTagsTest()
 	{
 		MapObjectStyle objectStyle = new MapObjectStyle();
 		ArrayList<MapTag> compareTags = new ArrayList<MapTag>();
@@ -244,19 +244,19 @@ public class MapObjectStyleTest
 		//пустые списки
 		objectStyle.defenitionTags.clear();
 		compareTags.clear();
-		assertEquals(true, objectStyle.CompareDefenitionTags(compareTags));
+		assertEquals(true, objectStyle.compareDefenitionTags(compareTags));
 
 		// в стиле пустой
 		objectStyle.defenitionTags.clear();
 		compareTags.clear();
 		compareTags.add(new MapTag("k1", "v1"));
-		assertEquals(false, objectStyle.CompareDefenitionTags(compareTags));
+		assertEquals(false, objectStyle.compareDefenitionTags(compareTags));
 
 		// в тегах пустой
 		objectStyle.defenitionTags.clear();
 		compareTags.clear();
 		objectStyle.defenitionTags.add(new MapTag("k1", "v1"));
-		assertEquals(false, objectStyle.CompareDefenitionTags(compareTags));
+		assertEquals(false, objectStyle.compareDefenitionTags(compareTags));
 
 		// разный порядок
 		objectStyle.defenitionTags.clear();
@@ -267,7 +267,7 @@ public class MapObjectStyleTest
 		compareTags.add(new MapTag("k1", "v1"));
 		compareTags.add(new MapTag("k3", "v3"));
 		compareTags.add(new MapTag("k2", "v2"));
-		assertEquals(true, objectStyle.CompareDefenitionTags(compareTags));
+		assertEquals(true, objectStyle.compareDefenitionTags(compareTags));
 
 		// несовпадение
 		objectStyle.defenitionTags.add(new MapTag("k4", "v4"));
@@ -276,7 +276,7 @@ public class MapObjectStyleTest
 		compareTags.add(new MapTag("k1", "v1"));
 		compareTags.add(new MapTag("k3", "v3"));
 		compareTags.add(new MapTag("k2", "v2"));
-		assertEquals(false, objectStyle.CompareDefenitionTags(compareTags));
+		assertEquals(false, objectStyle.compareDefenitionTags(compareTags));
 
 		// неравное кол-во, несовпадают
 		objectStyle.defenitionTags.add(new MapTag("k4", "v4"));
@@ -284,7 +284,7 @@ public class MapObjectStyleTest
 		compareTags.add(new MapTag("k1", "v1"));
 		compareTags.add(new MapTag("k3", "v3"));
 		compareTags.add(new MapTag("k2", "v2"));
-		assertEquals(false, objectStyle.CompareDefenitionTags(compareTags));
+		assertEquals(false, objectStyle.compareDefenitionTags(compareTags));
 
 		// неравное кол-во, совпадают
 		objectStyle.defenitionTags.add(new MapTag("k3", "v3"));
@@ -292,7 +292,7 @@ public class MapObjectStyleTest
 		compareTags.add(new MapTag("k1", "v1"));
 		compareTags.add(new MapTag("k3", "v3"));
 		compareTags.add(new MapTag("k2", "v2"));
-		assertEquals(false, objectStyle.CompareDefenitionTags(compareTags));
+		assertEquals(false, objectStyle.compareDefenitionTags(compareTags));
 	}
 
 	@BeforeClass

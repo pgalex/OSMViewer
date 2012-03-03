@@ -34,7 +34,7 @@ public class MapObjectStyleEditor
 	 * @param pNewStyle новый стиль отображения
 	 * @return индекс добавленного стиля в массиве (id)
 	 */
-	public int AddStyle(MapObjectStyle pNewStyle)
+	public int addStyle(MapObjectStyle pNewStyle)
 	{
 		styles.add(pNewStyle);
 		return styles.size() - 1;
@@ -46,7 +46,7 @@ public class MapObjectStyleEditor
 	 * @param pEditedIndex индекс редактируемого стиля (id)
 	 * @param pNewStyle новые данные
 	 */
-	public void EditStyle(int pEditedIndex, MapObjectStyle pNewStyle)
+	public void editStyle(int pEditedIndex, MapObjectStyle pNewStyle)
 	{
 		if ((pEditedIndex >= 0) && (pEditedIndex < styles.size()))
 			styles.set(pEditedIndex, pNewStyle);
@@ -58,7 +58,7 @@ public class MapObjectStyleEditor
 	 * @param pIndex индекс стиля (id)
 	 * @return стиль отображения
 	 */
-	public MapObjectStyle GetStyle(int pIndex)
+	public MapObjectStyle getStyle(int pIndex)
 	{
 		if ((pIndex >= 0) && (pIndex < styles.size()))
 			return styles.get(pIndex);
@@ -79,7 +79,7 @@ public class MapObjectStyleEditor
 	/**
 	 * Очистить список стилей
 	 */
-	public void Clear()
+	public void clear()
 	{
 		styles.clear();
 	}
@@ -90,7 +90,7 @@ public class MapObjectStyleEditor
 	 * @param pFileName имя файла
 	 * @throws IOException чтение не удалось
 	 */
-	public void LoadFromFile(String pFileName) throws IOException
+	public void loadFromFile(String pFileName) throws IOException
 	{
 		if (pFileName.isEmpty())
 			throw new IOException();
@@ -104,7 +104,7 @@ public class MapObjectStyleEditor
 			for (int i = 0; i < styleCount; i++)
 			{
 				MapObjectStyle tempStyle = new MapObjectStyle();
-				tempStyle.ReadFromStream(input);
+				tempStyle.readFromStream(input);
 				styles.add(tempStyle);
 			}
 
@@ -122,7 +122,7 @@ public class MapObjectStyleEditor
 	 * @param pFileName имя файла
 	 * @throws IOException запись не удалась
 	 */
-	public void SaveToFile(String pFileName) throws IOException
+	public void saveToFile(String pFileName) throws IOException
 	{
 		if (pFileName.isEmpty())
 			throw new IOException();
@@ -132,7 +132,7 @@ public class MapObjectStyleEditor
 			DataOutputStream output = new DataOutputStream(new FileOutputStream(pFileName));
 			output.writeInt(styles.size());
 			for (int i = 0; i < styles.size(); i++)
-				styles.get(i).WriteToStream(output);
+				styles.get(i).writeToStream(output);
 
 			output.close();
 		}

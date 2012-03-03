@@ -43,14 +43,14 @@ public class ImageFromFileTest
 	 * Загрузка/чтение
 	 */
 	@Test
-	public void FileTest()
+	public void fileTest()
 	{
 		ImageFromFile writingImage = new ImageFromFile();
 		writingImage.imageFileName = "icon1.png";
 		try
 		{
 			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
-			writingImage.WriteToStream(output);
+			writingImage.writeToStream(output);
 			output.close();
 		}
 		catch (Exception ex)
@@ -62,7 +62,7 @@ public class ImageFromFileTest
 		try
 		{
 			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
-			readingImage.ReadFromStream(input);
+			readingImage.readFromStream(input);
 			input.close();
 			assertEquals(writingImage.imageFileName, readingImage.imageFileName);
 		}

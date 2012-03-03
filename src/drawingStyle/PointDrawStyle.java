@@ -31,9 +31,9 @@ public class PointDrawStyle implements ReadableMapData, WritableMapData
 	 * @throws IOException чтение не удалось
 	 */
 	@Override
-	public void ReadFromStream(DataInputStream pInput) throws IOException
+	public void readFromStream(DataInputStream pInput) throws IOException
 	{
-		icon.ReadFromStream(pInput);
+		icon.readFromStream(pInput);
 	}
 
 	/**
@@ -42,8 +42,8 @@ public class PointDrawStyle implements ReadableMapData, WritableMapData
 	 * @throws IOException запись не удалась
 	 */
 	@Override
-	public void WriteToStream(DataOutputStream pOutput) throws IOException
+	public void writeToStream(DataOutputStream pOutput) throws IOException
 	{
-		icon.WriteToStream(pOutput);
+		icon.writeToStream(pOutput);
 	}
 }

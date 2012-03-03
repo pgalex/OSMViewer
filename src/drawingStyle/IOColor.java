@@ -50,7 +50,7 @@ public class IOColor extends Color implements WritableMapData
 	 * @throws IOException ошибка при записи
 	 */
 	@Override
-	public void WriteToStream(DataOutputStream pOutput) throws IOException
+	public void writeToStream(DataOutputStream pOutput) throws IOException
 	{
 		try
 		{
@@ -73,7 +73,7 @@ public class IOColor extends Color implements WritableMapData
 	 * @return прочитанный цвет
 	 * @throws IOException ошибка при чтении
 	 */
-	public static IOColor ReadFromStream(DataInputStream pInput) throws IOException
+	public static IOColor readFromStream(DataInputStream pInput) throws IOException
 	{
 		IOColor result = null;
 		try

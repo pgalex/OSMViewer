@@ -30,13 +30,13 @@ public class MapTagTest
 	 * Чтение запись
 	 */
 	@Test
-	public void FileTest()
+	public void fileTest()
 	{
 		MapTag writingTag = new MapTag("key1", "v1");
 		try
 		{
 			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
-			writingTag.WriteToStream(output);
+			writingTag.writeToStream(output);
 			output.close();
 		}
 		catch (Exception ex)
@@ -49,7 +49,7 @@ public class MapTagTest
 		try
 		{
 			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
-			readingTag.ReadFromStream(input);
+			readingTag.readFromStream(input);
 			input.close();
 			assertEquals(writingTag.getKey(), readingTag.getKey());
 			assertEquals(writingTag.getValue(), readingTag.getValue());

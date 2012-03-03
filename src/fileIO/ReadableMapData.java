@@ -14,5 +14,5 @@ public interface ReadableMapData
 	 * @param pInput поток чтения
 	 * @throws IOException чтение не удалось
 	 */
-	public abstract void ReadFromStream(DataInputStream pInput) throws IOException;
+	public abstract void readFromStream(DataInputStream pInput) throws IOException;
 }

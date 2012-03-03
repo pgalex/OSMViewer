@@ -43,13 +43,13 @@ public class OSMFlyConverter
 		 */
 		public SaxFlyHandler()
 		{
-			Init();
+			init();
 		}
 
 		/**
 		 * Инициализация класса
 		 */
-		private void Init()
+		private void init()
 		{
 			nodes = new ArrayList<OSMFileNode>();
 			ways = new ArrayList<OSMFileWay>();
@@ -64,7 +64,7 @@ public class OSMFlyConverter
 		@Override
 		public void startDocument()
 		{
-			Init();
+			init();
 		}
 
 		/**
@@ -90,31 +90,31 @@ public class OSMFlyConverter
 			{
 				if (pName.compareTo(OSMXMLNames.BOUNDS) == 0)
 				{
-					ParseBounds(pAttributes);
+					parseBounds(pAttributes);
 				}
 				if (pName.compareTo(OSMXMLNames.NODE) == 0)
 				{
-					ParseNode(pAttributes);
+					parseNode(pAttributes);
 				}
 				if (pName.compareTo(OSMXMLNames.WAY) == 0)
 				{
-					ParseWay(pAttributes);
+					parseWay(pAttributes);
 				}
 				if (pName.compareTo(OSMXMLNames.NODE_IN_WAY) == 0)
 				{
-					ParseWayNode(pAttributes);
+					parseWayNode(pAttributes);
 				}
 				if (pName.compareTo(OSMXMLNames.RELATION) == 0)
 				{
-					ParseRelation(pAttributes);
+					parseRelation(pAttributes);
 				}
 				if (pName.compareTo(OSMXMLNames.TAG) == 0)
 				{
-					ParseTag(pAttributes);
+					parseTag(pAttributes);
 				}
 				if (pName.compareTo(OSMXMLNames.RELATION_MEMBER) == 0)
 				{
-					ParseRelationMember(pAttributes);
+					parseRelationMember(pAttributes);
 				}
 			}
 			catch (Exception ex)
@@ -155,7 +155,7 @@ public class OSMFlyConverter
 		 * @param pAttributes
 		 * @throws Exception 
 		 */
-		private void ParseTag(Attributes pAttributes) throws Exception
+		private void parseTag(Attributes pAttributes) throws Exception
 		{
 			try
 			{
@@ -172,7 +172,7 @@ public class OSMFlyConverter
 		 * @param pAttr
 		 * @throws Exception 
 		 */
-		private void ParseBounds(Attributes pAttributes) throws Exception
+		private void parseBounds(Attributes pAttributes) throws Exception
 		{
 			try
 			{
@@ -192,7 +192,7 @@ public class OSMFlyConverter
 		 * @param pAttributes
 		 * @throws Exception 
 		 */
-		private void ParseNode(Attributes pAttributes) throws Exception
+		private void parseNode(Attributes pAttributes) throws Exception
 		{
 			try
 			{
@@ -213,7 +213,7 @@ public class OSMFlyConverter
 		 * @param pAttributes
 		 * @throws Exception 
 		 */
-		private void ParseWay(Attributes pAttributes) throws Exception
+		private void parseWay(Attributes pAttributes) throws Exception
 		{
 			try
 			{
@@ -232,7 +232,7 @@ public class OSMFlyConverter
 		 * @param pAttributes
 		 * @throws Exception 
 		 */
-		private void ParseWayNode(Attributes pAttributes) throws Exception
+		private void parseWayNode(Attributes pAttributes) throws Exception
 		{
 			try
 			{
@@ -249,7 +249,7 @@ public class OSMFlyConverter
 		 * @param pAttributes
 		 * @throws Exception 
 		 */
-		private void ParseRelation(Attributes pAttributes) throws Exception
+		private void parseRelation(Attributes pAttributes) throws Exception
 		{
 			try
 			{
@@ -268,7 +268,7 @@ public class OSMFlyConverter
 		 * @param pAttributes
 		 * @throws Exception 
 		 */
-		private void ParseRelationMember(Attributes pAttributes) throws Exception
+		private void parseRelationMember(Attributes pAttributes) throws Exception
 		{
 			try
 			{
@@ -304,7 +304,7 @@ public class OSMFlyConverter
 	 * @param pSource
 	 * @throws Exception  
 	 */
-	public void Convert(InputSource pSource) throws Exception
+	public void convert(InputSource pSource) throws Exception
 	{
 		try
 		{

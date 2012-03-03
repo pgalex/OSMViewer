@@ -44,14 +44,14 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 	 * @throws IOException чтение не удалось
 	 */
 	@Override
-	public void ReadFromStream(DataInputStream pInput) throws IOException
+	public void readFromStream(DataInputStream pInput) throws IOException
 	{
 		try
 		{
-			fillColor = IOColor.ReadFromStream(pInput);
+			fillColor = IOColor.readFromStream(pInput);
 
-			borderDrawStyle.ReadFromStream(pInput);
-			fillImage.ReadFromStream(pInput);
+			borderDrawStyle.readFromStream(pInput);
+			fillImage.readFromStream(pInput);
 		}
 		catch (Exception e)
 		{
@@ -66,13 +66,13 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 	 * @throws IOException запись не удалась
 	 */
 	@Override
-	public void WriteToStream(DataOutputStream pOutput) throws IOException
+	public void writeToStream(DataOutputStream pOutput) throws IOException
 	{
 		try
 		{
-			fillColor.WriteToStream(pOutput);
-			borderDrawStyle.WriteToStream(pOutput);
-			fillImage.WriteToStream(pOutput);
+			fillColor.writeToStream(pOutput);
+			borderDrawStyle.writeToStream(pOutput);
+			fillImage.writeToStream(pOutput);
 		}
 		catch (Exception e)
 		{

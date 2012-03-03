@@ -56,16 +56,16 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	 * @throws IOException чтение не удалось
 	 */
 	@Override
-	public void ReadFromStream(DataInputStream pInput) throws IOException
+	public void readFromStream(DataInputStream pInput) throws IOException
 	{
 		try
 		{
 			drawPoint = pInput.readBoolean();
 			drawLine = pInput.readBoolean();
 			drawPolygon = pInput.readBoolean();
-			pointStyle.ReadFromStream(pInput);
-			lineStyle.ReadFromStream(pInput);
-			polygonStyle.ReadFromStream(pInput);
+			pointStyle.readFromStream(pInput);
+			lineStyle.readFromStream(pInput);
+			polygonStyle.readFromStream(pInput);
 		}
 		catch (Exception e)
 		{
@@ -79,16 +79,16 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	 * @throws IOException запись не удалась
 	 */
 	@Override
-	public void WriteToStream(DataOutputStream pOutput) throws IOException
+	public void writeToStream(DataOutputStream pOutput) throws IOException
 	{
 		try
 		{
 			pOutput.writeBoolean(drawPoint);
 			pOutput.writeBoolean(drawLine);
 			pOutput.writeBoolean(drawPolygon);
-			pointStyle.WriteToStream(pOutput);
-			lineStyle.WriteToStream(pOutput);
-			polygonStyle.WriteToStream(pOutput);
+			pointStyle.writeToStream(pOutput);
+			lineStyle.writeToStream(pOutput);
+			polygonStyle.writeToStream(pOutput);
 		}
 		catch (Exception e)
 		{

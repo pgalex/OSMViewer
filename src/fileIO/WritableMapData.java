@@ -14,5 +14,5 @@ public interface WritableMapData
 	 * @param pOutput поток вывода
 	 * @throws IOException запись не удалась
 	 */
-	public abstract void WriteToStream(DataOutputStream pOutput) throws IOException;
+	public abstract void writeToStream(DataOutputStream pOutput) throws IOException;
 }

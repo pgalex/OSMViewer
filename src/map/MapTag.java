@@ -97,7 +97,7 @@ public class MapTag implements WritableMapData, ReadableMapData
 	 * @throws IOException запись не удалась
 	 */
 	@Override
-	public void WriteToStream(DataOutputStream pOutput) throws IOException
+	public void writeToStream(DataOutputStream pOutput) throws IOException
 	{
 		try
 		{
@@ -116,7 +116,7 @@ public class MapTag implements WritableMapData, ReadableMapData
 	 * @throws IOException чтение не удалось
 	 */
 	@Override
-	public void ReadFromStream(DataInputStream pInput) throws IOException
+	public void readFromStream(DataInputStream pInput) throws IOException
 	{
 		try
 		{

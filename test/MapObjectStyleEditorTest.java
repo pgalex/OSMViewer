@@ -25,7 +25,7 @@ public class MapObjectStyleEditorTest
 	}
 
 	@Test
-	public void FileTest()
+	public void fileTest()
 	{
 		MapObjectStyle style1 = new MapObjectStyle();
 		style1.description = "style1";
@@ -34,13 +34,13 @@ public class MapObjectStyleEditorTest
 
 		MapObjectStyleEditor editor = new MapObjectStyleEditor();
 
-		int style1Id = editor.AddStyle(style1);
-		int style2Id = editor.AddStyle(style2);
+		int style1Id = editor.addStyle(style1);
+		int style2Id = editor.addStyle(style2);
 		assertNotSame(style1, style2);
 
 		try
 		{
-			editor.SaveToFile(TEST_FILE_NAME);
+			editor.saveToFile(TEST_FILE_NAME);
 		}
 		catch (IOException ex)
 		{
@@ -50,9 +50,9 @@ public class MapObjectStyleEditorTest
 		editor = new MapObjectStyleEditor();
 		try
 		{
-			editor.LoadFromFile(TEST_FILE_NAME);
-			assertEquals(style2.description, editor.GetStyle(style2Id).description);
-			assertEquals(style1.description, editor.GetStyle(style1Id).description);
+			editor.loadFromFile(TEST_FILE_NAME);
+			assertEquals(style2.description, editor.getStyle(style2Id).description);
+			assertEquals(style1.description, editor.getStyle(style1Id).description);
 		}
 		catch (IOException ex)
 		{
@@ -62,23 +62,23 @@ public class MapObjectStyleEditorTest
 	}
 
 	@Test
-	public void AddingTest()
+	public void addingTest()
 	{
 		MapObjectStyleEditor editor = new MapObjectStyleEditor();
 		assertEquals(0, editor.getStylesCount());
 
-		assertEquals(0, editor.AddStyle(new MapObjectStyle()));
+		assertEquals(0, editor.addStyle(new MapObjectStyle()));
 		assertEquals(1, editor.getStylesCount());
 
-		assertEquals(1, editor.AddStyle(new MapObjectStyle()));
+		assertEquals(1, editor.addStyle(new MapObjectStyle()));
 		assertEquals(2, editor.getStylesCount());
 
-		editor.Clear();
+		editor.clear();
 		assertEquals(0, editor.getStylesCount());
 	}
 
 	@Test
-	public void EditTest()
+	public void editTest()
 	{
 		MapObjectStyleEditor editor = new MapObjectStyleEditor();
 		MapObjectStyle style1 = new MapObjectStyle();
@@ -99,20 +99,20 @@ public class MapObjectStyleEditorTest
 		assertEquals(0, editor.getStylesCount());
 
 		//один элемент
-		int style1Id = editor.AddStyle(style1);
+		int style1Id = editor.addStyle(style1);
 		assertEquals(1, editor.getStylesCount());
-		assertEquals(true, editor.GetStyle(style1Id).equals(style1));
+		assertEquals(true, editor.getStyle(style1Id).equals(style1));
 
 		//два
-		int style2Id = editor.AddStyle(style2);
+		int style2Id = editor.addStyle(style2);
 		assertEquals(2, editor.getStylesCount());
-		assertEquals(true, editor.GetStyle(style2Id).equals(style2));
+		assertEquals(true, editor.getStyle(style2Id).equals(style2));
 
 		//изменение
-		editor.EditStyle(style1Id, style2);
-		assertEquals(true, editor.GetStyle(style1Id).equals(style2));
+		editor.editStyle(style1Id, style2);
+		assertEquals(true, editor.getStyle(style1Id).equals(style2));
 
-		editor.Clear();
+		editor.clear();
 		assertEquals(0, editor.getStylesCount());
 	}
 

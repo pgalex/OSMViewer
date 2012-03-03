@@ -49,14 +49,14 @@ public class OSMFlyConverterTest
 	}
 
 	@Test
-	public void testParsing() throws FileNotFoundException
+	public void parsingTest() throws FileNotFoundException
 	{
 
 		try
 		{
 			OSMFlyConverter converter = new OSMFlyConverter();
 			InputSource source = new InputSource(new FileInputStream(new File(TEST_MAP_FILE_NAME)));
-			converter.Convert(source);
+			converter.convert(source);
 
 			//границы
 			OSMFileBounds bounds = converter.getParserBounds();

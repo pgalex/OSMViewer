@@ -43,7 +43,7 @@ public class LineDrawStyleTest
 		try
 		{
 			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
-			writingStyle.WriteToStream(output);
+			writingStyle.writeToStream(output);
 			output.close();
 		}
 		catch (Exception ex)
@@ -56,7 +56,7 @@ public class LineDrawStyleTest
 		try
 		{
 			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
-			readingStyle.ReadFromStream(input);
+			readingStyle.readFromStream(input);
 			input.close();
 			assertEquals(writingStyle.color, readingStyle.color);
 			assertArrayEquals(writingStyle.pattern, readingStyle.pattern, 0.01f);

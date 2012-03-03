@@ -116,7 +116,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 	 * @param pTags теги для сравнения
 	 * @return совпадают ли теги
 	 */
-	public boolean CompareDefenitionTags(ArrayList<MapTag> pTags)
+	public boolean compareDefenitionTags(ArrayList<MapTag> pTags)
 	{
 		//заведомо несопадающие теги
 		if (pTags == null)
@@ -154,7 +154,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 	 * @throws IOException чтение не удалось
 	 */
 	@Override
-	public void ReadFromStream(DataInputStream pInput) throws IOException
+	public void readFromStream(DataInputStream pInput) throws IOException
 	{
 		try
 		{
@@ -165,7 +165,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 			drawPriority = pInput.readInt();
 			description = pInput.readUTF();
 
-			textColor = IOColor.ReadFromStream(pInput);
+			textColor = IOColor.readFromStream(pInput);
 
 			String fontFamily = pInput.readUTF();
 			int fontStyle = pInput.readInt();
@@ -177,18 +177,18 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 			for (int i = 0; i < scaledStyles.length; i++)
 			{
 				scaledStyles[i] = new ScaledObjectStyle();
-				scaledStyles[i].ReadFromStream(pInput);
+				scaledStyles[i].readFromStream(pInput);
 			}
 
 			int tagsCount = pInput.readInt();
 			for (int i = 0; i < tagsCount; i++)
 			{
 				MapTag tempTag = new MapTag();
-				tempTag.ReadFromStream(pInput);
+				tempTag.readFromStream(pInput);
 				defenitionTags.add(tempTag);
 			}
 
-			ResetScaleLevelsCountToDefault();
+			resetScaleLevelsCountToDefault();
 		}
 		catch (Exception e)
 		{
@@ -203,7 +203,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 	 * @throws IOException запись не удалась
 	 */
 	@Override
-	public void WriteToStream(DataOutputStream pOutput) throws IOException
+	public void writeToStream(DataOutputStream pOutput) throws IOException
 	{
 		try
 		{
@@ -214,7 +214,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 			pOutput.writeInt(drawPriority);
 			pOutput.writeUTF(description);
 
-			textColor.WriteToStream(pOutput);
+			textColor.writeToStream(pOutput);
 
 			pOutput.writeUTF(textFont.getFamily());
 			pOutput.writeInt(textFont.getStyle());
@@ -223,11 +223,11 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 			pOutput.writeInt(scaledStyles.length);
 
 			for (int i = 0; i < scaledStyles.length; i++)
-				scaledStyles[i].WriteToStream(pOutput);
+				scaledStyles[i].writeToStream(pOutput);
 
 			pOutput.writeInt(defenitionTags.size());
 			for (MapTag tempTag : defenitionTags)
-				tempTag.WriteToStream(pOutput);
+				tempTag.writeToStream(pOutput);
 		}
 		catch (Exception e)
 		{
@@ -243,7 +243,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 	 */
 	public void setStyleOnScale(int pScaleLevel, ScaledObjectStyle pNewScaledStyle)
 	{
-		scaledStyles[NormalizeScaleLevel(pScaleLevel)] = pNewScaledStyle;
+		scaledStyles[normalizeScaleLevel(pScaleLevel)] = pNewScaledStyle;
 	}
 
 	/**
@@ -254,7 +254,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 	 */
 	public ScaledObjectStyle getStyleOnScale(int pScaleLevel)
 	{
-		return scaledStyles[NormalizeScaleLevel(pScaleLevel)];
+		return scaledStyles[normalizeScaleLevel(pScaleLevel)];
 	}
 
 	/**
@@ -281,7 +281,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 	 * Установить кол-во уровней масштаба по умолчанию. Новые стили добавляются
 	 * как копия последеного. Лишиние обрезаются
 	 */
-	private void ResetScaleLevelsCountToDefault()
+	private void resetScaleLevelsCountToDefault()
 	{
 		if (isDefaultScaleLevelsCount())
 			return;
@@ -307,7 +307,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 	 * @param pScaleLevel масштаб для нормализации
 	 * @return масштаб в пределах от 0 до текущего максимального уровня
 	 */
-	private int NormalizeScaleLevel(int pScaleLevel)
+	private int normalizeScaleLevel(int pScaleLevel)
 	{
 		int normalizedScaleLevel = pScaleLevel;
 		if (normalizedScaleLevel < 0)

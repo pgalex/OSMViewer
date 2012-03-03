@@ -24,7 +24,7 @@ public class ScaledObjectStyleTest
 	}
 
 	@Test
-	public void FileTest()
+	public void fileTest()
 	{
 		ScaledObjectStyle writingStyle = new ScaledObjectStyle();
 		writingStyle.drawLine = true;
@@ -39,7 +39,7 @@ public class ScaledObjectStyleTest
 		try
 		{
 			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
-			writingStyle.WriteToStream(output);
+			writingStyle.writeToStream(output);
 			output.close();
 		}
 		catch (Exception ex)
@@ -52,7 +52,7 @@ public class ScaledObjectStyleTest
 		try
 		{
 			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
-			readingStyle.ReadFromStream(input);
+			readingStyle.readFromStream(input);
 			input.close();
 			assertEquals(writingStyle.drawLine, readingStyle.drawLine);
 			assertEquals(writingStyle.drawPoint, readingStyle.drawPoint);

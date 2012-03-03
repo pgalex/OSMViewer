@@ -5,7 +5,6 @@
 package osmXml;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import map.MapTag;
 
 /**
