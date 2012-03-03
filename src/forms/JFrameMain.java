@@ -122,8 +122,6 @@ public class JFrameMain extends javax.swing.JFrame
 
 private void jMenuItemEditStyleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEditStyleActionPerformed
 
-	JDialogEditMapObjects editStyleDialog = new JDialogEditMapObjects(this, true);
-	editStyleDialog.setVisible(true);
 }//GEN-LAST:event_jMenuItemEditStyleActionPerformed
 
 private void jMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
