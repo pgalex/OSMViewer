@@ -6,7 +6,6 @@ import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import org.w3c.dom.css.RGBColor;
 
 /**
  * Стиль многоугольника (замкнутой линии)

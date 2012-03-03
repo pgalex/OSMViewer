@@ -9,7 +9,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import map.MapTag;
-import settings.ProgramSettings;
 
 /**
  * Стиль отображения объекта
@@ -23,7 +22,8 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 	 */
 	private static final Font DEFAULT_FONT = new Font("Arial", 0, 14);
 	/**
-	 * Текущее кол-во уровней масштаба (12 нижних уровней osm)
+	 * Текущее кол-во уровней масштаба (12 нижних уровней osm). Не писать функций
+	 * позволяющих получить эту константу вне класса
 	 */
 	private static final int DEFAULT_SCALE_LEVELS_COUNT = 12;
 	/**
@@ -126,8 +126,8 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 		// пустые списки считаются равны
 		if (defenitionTags.isEmpty() && pTags.isEmpty())
 			return true;
-		
-		if(defenitionTags.isEmpty() && !pTags.isEmpty())
+
+		if (defenitionTags.isEmpty() && !pTags.isEmpty())
 			return false;
 
 		for (MapTag defenitionTempTag : defenitionTags)

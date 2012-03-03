@@ -3,22 +3,18 @@
  * and open the template in the editor.
  */
 
-import java.util.ArrayList;
+import flyConverter.OSMFlyConverter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import java.util.ArrayList;
+import static org.junit.Assert.*;
+import org.junit.*;
 import org.xml.sax.InputSource;
 import osmXml.OSMFileBounds;
 import osmXml.OSMFileNode;
 import osmXml.OSMFileRelation;
 import osmXml.OSMFileWay;
-import flyConverter.OSMFlyConverter;
-import static org.junit.Assert.*;
 
 /**
  *

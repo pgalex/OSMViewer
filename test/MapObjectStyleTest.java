@@ -29,7 +29,7 @@ public class MapObjectStyleTest
 	}
 
 	/**
-	 * Тест базовых функция кол-во уровней месштаба
+	 * Тест базовых функций кол-во уровней месштаба
 	 */
 	@Test
 	public void ScaleLevelsCountTest()
@@ -167,10 +167,13 @@ public class MapObjectStyleTest
 		writingStyle.canBeLine = true;
 		writingStyle.canBePoint = false;
 		writingStyle.canBePolygon = true;
-		writingStyle.description = "object1";
 		writingStyle.defenitionTags.add(new MapTag("k1", "v1"));
 		writingStyle.defenitionTags.add(new MapTag("k2", "v2"));
+		writingStyle.textTagKey = "name";
 		writingStyle.drawPriority = 10;
+		writingStyle.description = "object1";
+		writingStyle.textFont = new Font("Arial", Font.BOLD, 16);
+		writingStyle.textColor = new IOColor(Color.MAGENTA);
 		ScaledObjectStyle scaledStyle0 = new ScaledObjectStyle();
 		scaledStyle0.drawLine = true;
 		scaledStyle0.drawPoint = false;
@@ -183,9 +186,7 @@ public class MapObjectStyleTest
 		scaledStyle5.drawPolygon = true;
 		scaledStyle5.lineStyle.color = new IOColor(Color.CYAN);
 		writingStyle.setStyleOnScale(5, scaledStyle5);
-		writingStyle.textFont = new Font("Arial", Font.BOLD, 16);
-		writingStyle.textColor = new IOColor(Color.MAGENTA);
-		writingStyle.textTagKey = "name";
+
 		try
 		{
 			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
@@ -211,6 +212,9 @@ public class MapObjectStyleTest
 			assertEquals(writingStyle.description, readingStyle.description);
 			assertEquals(writingStyle.textFont, readingStyle.textFont);
 			assertEquals(writingStyle.textColor, readingStyle.textColor);
+			assertEquals(writingStyle.textTagKey, readingStyle.textTagKey);
+			assertEquals(writingStyle.drawPriority, readingStyle.drawPriority);
+			assertEquals(writingStyle.description, readingStyle.description);
 			assertEquals(writingStyle.getStyleOnScale(0).drawLine, readingStyle.getStyleOnScale(0).drawLine);
 			assertEquals(writingStyle.getStyleOnScale(0).drawPoint, readingStyle.getStyleOnScale(0).drawPoint);
 			assertEquals(writingStyle.getStyleOnScale(0).drawPolygon, readingStyle.getStyleOnScale(0).drawPolygon);
@@ -236,7 +240,7 @@ public class MapObjectStyleTest
 	{
 		MapObjectStyle objectStyle = new MapObjectStyle();
 		ArrayList<MapTag> compareTags = new ArrayList<MapTag>();
-		
+
 		//пустые списки
 		objectStyle.defenitionTags.clear();
 		compareTags.clear();
@@ -253,7 +257,7 @@ public class MapObjectStyleTest
 		compareTags.clear();
 		objectStyle.defenitionTags.add(new MapTag("k1", "v1"));
 		assertEquals(false, objectStyle.CompareDefenitionTags(compareTags));
-		
+
 		// разный порядок
 		objectStyle.defenitionTags.clear();
 		compareTags.clear();
@@ -264,7 +268,7 @@ public class MapObjectStyleTest
 		compareTags.add(new MapTag("k3", "v3"));
 		compareTags.add(new MapTag("k2", "v2"));
 		assertEquals(true, objectStyle.CompareDefenitionTags(compareTags));
-		
+
 		// несовпадение
 		objectStyle.defenitionTags.add(new MapTag("k4", "v4"));
 		objectStyle.defenitionTags.add(new MapTag("k1", "v1"));
@@ -273,7 +277,7 @@ public class MapObjectStyleTest
 		compareTags.add(new MapTag("k3", "v3"));
 		compareTags.add(new MapTag("k2", "v2"));
 		assertEquals(false, objectStyle.CompareDefenitionTags(compareTags));
-		
+
 		// неравное кол-во, несовпадают
 		objectStyle.defenitionTags.add(new MapTag("k4", "v4"));
 		objectStyle.defenitionTags.add(new MapTag("k1", "v1"));
@@ -281,7 +285,7 @@ public class MapObjectStyleTest
 		compareTags.add(new MapTag("k3", "v3"));
 		compareTags.add(new MapTag("k2", "v2"));
 		assertEquals(false, objectStyle.CompareDefenitionTags(compareTags));
-		
+
 		// неравное кол-во, совпадают
 		objectStyle.defenitionTags.add(new MapTag("k3", "v3"));
 		objectStyle.defenitionTags.add(new MapTag("k1", "v1"));

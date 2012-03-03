@@ -10,9 +10,10 @@ import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import org.junit.AfterClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  *
@@ -44,11 +45,10 @@ public class IOColorTest
 			fail();
 		}
 
-		IOColor readingColor = new IOColor();
 		try
 		{
 			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
-			readingColor = IOColor.ReadFromStream(input);
+			IOColor readingColor = IOColor.ReadFromStream(input);
 			input.close();
 			assertEquals(writingColor, readingColor);
 		}

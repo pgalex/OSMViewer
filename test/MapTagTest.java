@@ -3,15 +3,16 @@
  * and open the template in the editor.
  */
 
-import java.io.FileInputStream;
 import java.io.DataInputStream;
-import java.io.FileOutputStream;
 import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import map.MapTag;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -25,6 +26,9 @@ public class MapTagTest
 	{
 	}
 
+	/**
+	 * Чтение запись
+	 */
 	@Test
 	public void FileTest()
 	{
@@ -56,6 +60,9 @@ public class MapTagTest
 		}
 	}
 
+	/**
+	 * Сравнение тегов
+	 */
 	@Test
 	public void compareToTest()
 	{

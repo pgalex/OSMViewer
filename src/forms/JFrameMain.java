@@ -121,7 +121,6 @@ public class JFrameMain extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
 private void jMenuItemEditStyleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEditStyleActionPerformed
-
 }//GEN-LAST:event_jMenuItemEditStyleActionPerformed
 
 private void jMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed

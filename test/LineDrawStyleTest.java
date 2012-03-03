@@ -4,17 +4,16 @@
  */
 
 import drawingStyle.IOColor;
-import java.io.FileInputStream;
-import java.io.DataInputStream;
-import java.io.FileOutputStream;
-import java.io.DataOutputStream;
 import drawingStyle.LineDrawStyle;
 import java.awt.Color;
-import java.util.regex.Pattern;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -60,10 +59,7 @@ public class LineDrawStyleTest
 			readingStyle.ReadFromStream(input);
 			input.close();
 			assertEquals(writingStyle.color, readingStyle.color);
-			assertEquals(writingStyle.width, readingStyle.width);
-			assertEquals(writingStyle.width, readingStyle.width);
 			assertArrayEquals(writingStyle.pattern, readingStyle.pattern, 0.01f);
-			assertEquals(writingStyle.width, readingStyle.width);
 			assertEquals(writingStyle.width, readingStyle.width);
 		}
 		catch (Exception ex)

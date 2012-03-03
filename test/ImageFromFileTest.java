@@ -3,15 +3,15 @@
  * and open the template in the editor.
  */
 
-import java.io.FileInputStream;
-import java.io.DataInputStream;
-import java.io.FileOutputStream;
-import java.io.DataOutputStream;
 import drawingStyle.ImageFromFile;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
