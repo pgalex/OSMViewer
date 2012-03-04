@@ -34,8 +34,7 @@ public class PointDrawStyle implements ReadableMapData, WritableMapData
 	public PointDrawStyle(ImageFromFile pIcon)
 	{
 		icon = pIcon;
-		if (icon == null)
-			icon = new ImageFromFile();
+		InitializeNullFields();
 	}
 
 	/**
@@ -70,5 +69,14 @@ public class PointDrawStyle implements ReadableMapData, WritableMapData
 	public ImageFromFile getIcon()
 	{
 		return icon;
+	}
+	
+	/**
+	 * Инициализировать null поля значениями по умолчанию
+	 */
+	private void InitializeNullFields()
+	{
+		if (icon == null)
+			icon = new ImageFromFile();
 	}
 }

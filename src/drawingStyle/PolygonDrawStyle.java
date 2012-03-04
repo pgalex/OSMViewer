@@ -47,16 +47,9 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 	public PolygonDrawStyle(IOColor pFillColor, LineDrawStyle pBorderDrawStyle, ImageFromFile pFillImage)
 	{
 		fillColor = pFillColor;
-		if (fillColor == null)
-			fillColor = new IOColor();
-
 		borderDrawStyle = pBorderDrawStyle;
-		if (borderDrawStyle == null)
-			borderDrawStyle = new LineDrawStyle();
-
 		fillImage = pFillImage;
-		if (fillImage == null)
-			fillImage = new ImageFromFile();
+		InitializeNullFields();
 	}
 
 	/**
@@ -129,5 +122,20 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 	public ImageFromFile getFillImage()
 	{
 		return fillImage;
+	}
+	
+	/**
+	 * Инициализировать null поля значениями по умолчанию
+	 */
+	private void InitializeNullFields()
+	{
+		if (fillColor == null)
+			fillColor = new IOColor();
+
+		if (borderDrawStyle == null)
+			borderDrawStyle = new LineDrawStyle();
+
+		if (fillImage == null)
+			fillImage = new ImageFromFile();
 	}
 }

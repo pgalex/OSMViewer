@@ -57,15 +57,9 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 	public LineDrawStyle(IOColor pColor, int pWidth, float[] pPattern)
 	{
 		color = pColor;
-		if (color == null)
-			color = new IOColor();
 		width = pWidth;
 		pattern = pPattern;
-
-		if (pattern == null)
-			pattern = SOLID_LINE_PATTERN;
-		if (pattern.length == 0)
-			pattern = SOLID_LINE_PATTERN;
+		InitializeNullFields();
 	}
 
 	/**
@@ -146,5 +140,18 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 	public float[] getPattern()
 	{
 		return pattern;
+	}
+
+	/**
+	 * Инициализировать null поля значениями по умолчанию
+	 */
+	private void InitializeNullFields()
+	{
+		if (color == null)
+			color = new IOColor();
+		if (pattern == null)
+			pattern = SOLID_LINE_PATTERN;
+		if (pattern.length == 0)
+			pattern = SOLID_LINE_PATTERN;
 	}
 }
