@@ -1,7 +1,6 @@
 
-import drawingStyle.*;
-import java.awt.Color;
-import java.awt.Font;
+import drawingStyle.MapObjectStyle;
+import drawingStyle.ScaledObjectStyle;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
@@ -9,8 +8,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import map.MapTag;
 import org.junit.AfterClass;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -50,7 +48,7 @@ public class MapObjectStyleTest
 	public void scaleLevelsTest()
 	{
 		MapObjectStyle style = new MapObjectStyle(8);
-		ScaledObjectStyle scaledStyle = new ScaledObjectStyle(true, false, true, null, null, null);
+		ScaledObjectStyle scaledStyle = new ScaledObjectStyle(true, false, true, null, null, null, null, null);
 
 		// нормальный уровень
 		style.setStyleOnScale(4, scaledStyle);
@@ -76,8 +74,8 @@ public class MapObjectStyleTest
 	{
 		// меньше того что по умолчанию - последние копируются
 		MapObjectStyle writingStyle = new MapObjectStyle(3);
-		ScaledObjectStyle scaledStyle = new ScaledObjectStyle(false, true, true, new PointDrawStyle(), new LineDrawStyle(), 
-						new PolygonDrawStyle());
+		ScaledObjectStyle scaledStyle = new ScaledObjectStyle(false, true, true, null, null, 
+						null, null, null);
 		writingStyle.setStyleOnScale(2, scaledStyle);
 		try
 		{
@@ -115,12 +113,12 @@ public class MapObjectStyleTest
 		// больше того что по умолчанию - последние обрезаются
 		MapObjectStyle writingStyle = new MapObjectStyle(30);
 		MapObjectStyle readingStyle = new MapObjectStyle();
-		ScaledObjectStyle scaledStyle1 = new ScaledObjectStyle(false, true, true, new PointDrawStyle(), new LineDrawStyle(), 
-						new PolygonDrawStyle());
+		ScaledObjectStyle scaledStyle1 = new ScaledObjectStyle(false, true, true, null, null, 
+						null, null, null);
 		writingStyle.setStyleOnScale(writingStyle.getCurrentScaleLevelsCount() - 1, scaledStyle1);
 
-		ScaledObjectStyle scaledStyle2 = new ScaledObjectStyle(false, true, false, new PointDrawStyle(), new LineDrawStyle(), 
-						new PolygonDrawStyle());
+		ScaledObjectStyle scaledStyle2 = new ScaledObjectStyle(false, true, false, null, null, 
+						null, null, null);
 		writingStyle.setStyleOnScale(readingStyle.getCurrentScaleLevelsCount() - 1, scaledStyle2);
 		writingStyle.setStyleOnScale(readingStyle.getCurrentScaleLevelsCount() - 2, scaledStyle1);
 		try
@@ -166,13 +164,11 @@ public class MapObjectStyleTest
 		writingStyle.textTagKey = "name";
 		writingStyle.drawPriority = 10;
 		writingStyle.description = "object1";
-		writingStyle.textFont = new Font("Arial", Font.BOLD, 16);
-		writingStyle.textColor = new IOColor(Color.MAGENTA);
-		ScaledObjectStyle scaledStyle0 = new ScaledObjectStyle(true, false, true, new PointDrawStyle(), new LineDrawStyle(), 
-						new PolygonDrawStyle());
+		ScaledObjectStyle scaledStyle0 = new ScaledObjectStyle(true, false, true, null, null, 
+						null, null, null);
 		writingStyle.setStyleOnScale(0, scaledStyle0);
-		ScaledObjectStyle scaledStyle5 = new ScaledObjectStyle(false, true, true, new PointDrawStyle(), new LineDrawStyle(), 
-						new PolygonDrawStyle());
+		ScaledObjectStyle scaledStyle5 = new ScaledObjectStyle(false, true, true, null, null, 
+						null, null, null);
 		writingStyle.setStyleOnScale(5, scaledStyle5);
 
 		try
@@ -198,8 +194,6 @@ public class MapObjectStyleTest
 			assertEquals(writingStyle.canBePolygon, readingStyle.canBePolygon);
 			assertEquals(true, writingStyle.compareDefenitionTags(readingStyle.defenitionTags));
 			assertEquals(writingStyle.description, readingStyle.description);
-			assertEquals(writingStyle.textFont, readingStyle.textFont);
-			assertEquals(writingStyle.textColor, readingStyle.textColor);
 			assertEquals(writingStyle.textTagKey, readingStyle.textTagKey);
 			assertEquals(writingStyle.drawPriority, readingStyle.drawPriority);
 			assertEquals(writingStyle.description, readingStyle.description);
@@ -210,7 +204,6 @@ public class MapObjectStyleTest
 			assertEquals(writingStyle.getStyleOnScale(5).isDrawPoint(), readingStyle.getStyleOnScale(5).isDrawPoint());
 			assertEquals(writingStyle.getStyleOnScale(5).isDrawPolygon(), readingStyle.getStyleOnScale(5).isDrawPolygon());
 			assertEquals(writingStyle.getCurrentScaleLevelsCount(), readingStyle.getCurrentScaleLevelsCount());
-			assertEquals(writingStyle.textColor, readingStyle.textColor);
 		}
 		catch (Exception ex)
 		{

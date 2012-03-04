@@ -1,8 +1,7 @@
 
-import drawingStyle.LineDrawStyle;
-import drawingStyle.PointDrawStyle;
-import drawingStyle.PolygonDrawStyle;
-import drawingStyle.ScaledObjectStyle;
+import drawingStyle.*;
+import java.awt.Color;
+import java.awt.Font;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
@@ -30,20 +29,22 @@ public class ScaledObjectStyleTest
 	@Test
 	public void constructorTest()
 	{
-		ScaledObjectStyle testStyle = new ScaledObjectStyle(true, true, true, null, null, null);
+		ScaledObjectStyle testStyle = new ScaledObjectStyle(true, true, true, null, null, null, null, null);
 		assertNotNull(testStyle.getPointStyle());
 		assertNotNull(testStyle.getLineStyle());
 		assertNotNull(testStyle.getPolygonStyle());
+		assertNotNull(testStyle.getTextColor());
+		assertNotNull(testStyle.getTextFont());
 	}
-	
+
 	/**
 	 * чтение запись
 	 */
 	@Test
 	public void fileTest()
 	{
-		ScaledObjectStyle writingStyle = new ScaledObjectStyle(true, false, true, new PointDrawStyle(), new LineDrawStyle(),
-						new PolygonDrawStyle());
+		ScaledObjectStyle writingStyle = new ScaledObjectStyle(true, false, true, null, null,
+						null, new IOColor(Color.RED), new Font("Arial", 0, 18));
 		try
 		{
 			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
@@ -65,12 +66,8 @@ public class ScaledObjectStyleTest
 			assertEquals(writingStyle.isDrawLine(), readingStyle.isDrawLine());
 			assertEquals(writingStyle.isDrawPoint(), readingStyle.isDrawPoint());
 			assertEquals(writingStyle.isDrawPolygon(), readingStyle.isDrawPolygon());
-			assertEquals(writingStyle.getPointStyle().getIcon().getImageFileName(), readingStyle.getPointStyle().getIcon().getImageFileName());
-			assertEquals(writingStyle.getLineStyle().getColor(), readingStyle.getLineStyle().getColor());
-			assertEquals(writingStyle.getLineStyle().getWidth(), readingStyle.getLineStyle().getWidth());
-			assertEquals(writingStyle.getPolygonStyle().getBorderDrawStyle().getColor(), readingStyle.getPolygonStyle().getBorderDrawStyle().getColor());
-			assertEquals(writingStyle.getPolygonStyle().getBorderDrawStyle().getWidth(), readingStyle.getPolygonStyle().getBorderDrawStyle().getWidth());
-			assertEquals(writingStyle.getPolygonStyle().getFillColor(), readingStyle.getPolygonStyle().getFillColor());
+			assertEquals(writingStyle.getTextColor(), readingStyle.getTextColor());
+			assertEquals(writingStyle.getTextFont(), readingStyle.getTextFont());
 		}
 		catch (Exception ex)
 		{

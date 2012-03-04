@@ -2,6 +2,8 @@ package drawingStyle;
 
 import fileIO.ReadableMapData;
 import fileIO.WritableMapData;
+import java.awt.Color;
+import java.awt.Font;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -13,6 +15,14 @@ import java.io.IOException;
  */
 public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 {
+	/**
+	 * Шрифт текстовой подписи по умолчанию
+	 */
+	private static final Font DEFAULT_FONT = new Font("Arial", 0, 14);
+	/**
+	 * Цвет текстовой подписи по умолчанию
+	 */
+	private static final Color DEFAULT_TEXT_COLOR = Color.BLACK;
 	/**
 	 * Рисовать ли точку на данном масштабе
 	 */
@@ -37,6 +47,14 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	 * стиль многоугольника
 	 */
 	private PolygonDrawStyle polygonStyle;
+	/**
+	 * Шрифт текста для имени
+	 */
+	private Font textFont;
+	/**
+	 * Цвет текстовой подписи
+	 */
+	private IOColor textColor;
 
 	/**
 	 * Конструктор
@@ -49,6 +67,9 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 		drawPoint = false;
 		drawLine = false;
 		drawPolygon = false;
+		textColor = new IOColor(DEFAULT_TEXT_COLOR);
+		textFont = DEFAULT_FONT;
+
 	}
 
 	/**
@@ -61,25 +82,23 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	 * @param pLineStyle стиль линии. При нулевом значении задается автоматически
 	 * @param pPolygonStyle стиль многоугольника. При нулевом значении задается
 	 * автоматически
+	 * @param pTextColor Цвет текстовой подписи. При нулевом значении задается автоматически
+	 * @param pTextFont Шрифт текстововй подписи. При нулевом значении задается автоматически
 	 */
 	public ScaledObjectStyle(boolean pDrawPoint, boolean pDrawLine, boolean pDrawPolygon,
-					PointDrawStyle pPointStyle, LineDrawStyle pLineStyle, PolygonDrawStyle pPolygonStyle)
+					PointDrawStyle pPointStyle, LineDrawStyle pLineStyle, PolygonDrawStyle pPolygonStyle,
+					IOColor pTextColor, Font pTextFont)
 	{
 		drawPoint = pDrawPoint;
 		drawLine = pDrawLine;
 		drawPolygon = pDrawPolygon;
-
 		pointStyle = pPointStyle;
-		if (pointStyle == null)
-			pointStyle = new PointDrawStyle();
-
 		lineStyle = pLineStyle;
-		if (lineStyle == null)
-			lineStyle = new LineDrawStyle();
-
 		polygonStyle = pPolygonStyle;
-		if (polygonStyle == null)
-			polygonStyle = new PolygonDrawStyle();
+		textColor = pTextColor;
+		textFont = pTextFont;
+		
+		InitializeNullFields();
 	}
 
 	/**
@@ -99,6 +118,13 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 			getPointStyle().readFromStream(pInput);
 			getLineStyle().readFromStream(pInput);
 			getPolygonStyle().readFromStream(pInput);
+
+			textColor = IOColor.readFromStream(pInput);
+
+			String fontFamily = pInput.readUTF();
+			int fontStyle = pInput.readInt();
+			int fontSize = pInput.readInt();
+			textFont = new Font(fontFamily, fontStyle, fontSize);
 		}
 		catch (Exception e)
 		{
@@ -123,6 +149,12 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 			getPointStyle().writeToStream(pOutput);
 			getLineStyle().writeToStream(pOutput);
 			getPolygonStyle().writeToStream(pOutput);
+
+			getTextColor().writeToStream(pOutput);
+			pOutput.writeUTF(getTextFont().getFamily());
+			pOutput.writeInt(getTextFont().getStyle());
+			pOutput.writeInt(getTextFont().getSize());
+
 		}
 		catch (Exception e)
 		{
@@ -188,5 +220,46 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	public PolygonDrawStyle getPolygonStyle()
 	{
 		return polygonStyle;
+	}
+
+	/**
+	 * Получить шрифт текста для имени
+	 *
+	 * @return шрифт текста для имени
+	 */
+	public Font getTextFont()
+	{
+		return textFont;
+	}
+
+	/**
+	 * Получить цвет текстовой подписи
+	 *
+	 * @return цвет текстовой подписи
+	 */
+	public IOColor getTextColor()
+	{
+		return textColor;
+	}
+	
+	/**
+	 * Инициализировать нулевые поля класса значениями по умолчанию
+	 */
+	private void InitializeNullFields()
+	{
+		if (pointStyle == null)
+			pointStyle = new PointDrawStyle();
+
+		if (lineStyle == null)
+			lineStyle = new LineDrawStyle();
+
+		if (polygonStyle == null)
+			polygonStyle = new PolygonDrawStyle();
+
+		if (textColor == null)
+			textColor = new IOColor(DEFAULT_TEXT_COLOR);
+
+		if (textFont == null)
+			textFont = DEFAULT_FONT;
 	}
 }

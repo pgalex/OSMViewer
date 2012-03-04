@@ -2,7 +2,6 @@ package drawingStyle;
 
 import fileIO.ReadableMapData;
 import fileIO.WritableMapData;
-import java.awt.Color;
 import java.awt.Font;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -17,10 +16,6 @@ import map.MapTag;
  */
 public class MapObjectStyle implements ReadableMapData, WritableMapData
 {
-	/**
-	 * Шрифт текстовой подписи по умолчанию
-	 */
-	private static final Font DEFAULT_FONT = new Font("Arial", 0, 14);
 	/**
 	 * Текущее кол-во уровней масштаба (12 нижних уровней osm). Не писать функций
 	 * позволяющих получить эту константу вне класса
@@ -52,14 +47,6 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 	 */
 	public String description;
 	/**
-	 * Шрифт текста для имени
-	 */
-	public Font textFont;
-	/**
-	 * Цвет текстовой подписи
-	 */
-	public IOColor textColor;
-	/**
 	 * Стили на каждом из уровней масштаба
 	 */
 	private ScaledObjectStyle[] scaledStyles;
@@ -84,8 +71,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 		drawPriority = -1;
 		textTagKey = "";
 		description = "";
-		textColor = new IOColor(Color.BLACK);
-		textFont = DEFAULT_FONT;
+		
 	}
 
 	/**
@@ -105,8 +91,6 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 		drawPriority = -1;
 		textTagKey = "";
 		description = "";
-		textColor = new IOColor(Color.BLACK);
-		textFont = DEFAULT_FONT;
 	}
 
 	/**
@@ -165,13 +149,6 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 			drawPriority = pInput.readInt();
 			description = pInput.readUTF();
 
-			textColor = IOColor.readFromStream(pInput);
-
-			String fontFamily = pInput.readUTF();
-			int fontStyle = pInput.readInt();
-			int fontSize = pInput.readInt();
-			textFont = new Font(fontFamily, fontStyle, fontSize);
-
 			int scaledStylesLength = pInput.readInt();
 			scaledStyles = new ScaledObjectStyle[scaledStylesLength];
 			for (int i = 0; i < scaledStyles.length; i++)
@@ -214,14 +191,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 			pOutput.writeInt(drawPriority);
 			pOutput.writeUTF(description);
 
-			textColor.writeToStream(pOutput);
-
-			pOutput.writeUTF(textFont.getFamily());
-			pOutput.writeInt(textFont.getStyle());
-			pOutput.writeInt(textFont.getSize());
-
 			pOutput.writeInt(scaledStyles.length);
-
 			for (int i = 0; i < scaledStyles.length; i++)
 				scaledStyles[i].writeToStream(pOutput);
 
