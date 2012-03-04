@@ -31,12 +31,18 @@ public class ImageFromFileTest
 	@Test
 	public void getImageTest()
 	{
-		ImageFromFile testImage = new ImageFromFile();
-		testImage.imageFileName = "";
+		// при нулевом имени файла изображение пустое
+		ImageFromFile testImage = new ImageFromFile("");
 		assertNull(testImage.getImage());
 		
-		testImage.imageFileName = "testIcon.png";
+		// нормальная работа - изображение загрузилось
+		testImage.setImageFileName("testIcon.png");
 		assertNotNull(testImage.getImage());
+		assertNotNull(testImage.getImage()); // изображение загружено
+		// установка пустого имени файла после загрузки изображения
+		// изображение обнуляется
+		testImage.setImageFileName("");
+		assertNull(testImage.getImage());
 	}
 	
 	/**
@@ -46,7 +52,7 @@ public class ImageFromFileTest
 	public void fileTest()
 	{
 		ImageFromFile writingImage = new ImageFromFile();
-		writingImage.imageFileName = "icon1.png";
+		writingImage.setImageFileName("icon1.png");
 		try
 		{
 			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
@@ -64,7 +70,7 @@ public class ImageFromFileTest
 			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
 			readingImage.readFromStream(input);
 			input.close();
-			assertEquals(writingImage.imageFileName, readingImage.imageFileName);
+			assertEquals(writingImage.getImageFileName(), readingImage.getImageFileName());
 		}
 		catch (Exception ex)
 		{

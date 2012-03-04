@@ -8,6 +8,7 @@ import java.io.IOException;
 
 /**
  * Параметры отображения на определенном масштабе
+ *
  * @author abc
  */
 public class ScaledObjectStyle implements ReadableMapData, WritableMapData
@@ -15,27 +16,27 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	/**
 	 * Рисовать ли точку на данном масштабе
 	 */
-	public boolean drawPoint;
+	private boolean drawPoint;
 	/**
 	 * Рисовать ли линию на данном масштабе
 	 */
-	public boolean drawLine;
+	private boolean drawLine;
 	/**
 	 * Рисовать ли многоугольник на данном масштабе
 	 */
-	public boolean drawPolygon;
+	private boolean drawPolygon;
 	/**
 	 * стиль точки
 	 */
-	public PointDrawStyle pointStyle;
+	private PointDrawStyle pointStyle;
 	/**
 	 * стиль линии
 	 */
-	public LineDrawStyle lineStyle;
+	private LineDrawStyle lineStyle;
 	/**
 	 * стиль многоугольника
 	 */
-	public PolygonDrawStyle polygonStyle;
+	private PolygonDrawStyle polygonStyle;
 
 	/**
 	 * Конструктор
@@ -51,7 +52,39 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	}
 
 	/**
+	 * Конструктор
+	 *
+	 * @param pDrawPoint Рисовать ли точку на данном масштабе
+	 * @param pDrawLine Рисовать ли линию на данном масштабе
+	 * @param pDrawPolygon Рисовать ли многоугольник на данном масштабе
+	 * @param pPointStyle стиль точки. При нулевом значении задается автоматически
+	 * @param pLineStyle стиль линии. При нулевом значении задается автоматически
+	 * @param pPolygonStyle стиль многоугольника. При нулевом значении задается
+	 * автоматически
+	 */
+	public ScaledObjectStyle(boolean pDrawPoint, boolean pDrawLine, boolean pDrawPolygon,
+					PointDrawStyle pPointStyle, LineDrawStyle pLineStyle, PolygonDrawStyle pPolygonStyle)
+	{
+		drawPoint = pDrawPoint;
+		drawLine = pDrawLine;
+		drawPolygon = pDrawPolygon;
+
+		pointStyle = pPointStyle;
+		if (pointStyle == null)
+			pointStyle = new PointDrawStyle();
+
+		lineStyle = pLineStyle;
+		if (lineStyle == null)
+			lineStyle = new LineDrawStyle();
+
+		polygonStyle = pPolygonStyle;
+		if (polygonStyle == null)
+			polygonStyle = new PolygonDrawStyle();
+	}
+
+	/**
 	 * Считать из потока
+	 *
 	 * @param pInput поток чтения
 	 * @throws IOException чтение не удалось
 	 */
@@ -63,9 +96,9 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 			drawPoint = pInput.readBoolean();
 			drawLine = pInput.readBoolean();
 			drawPolygon = pInput.readBoolean();
-			pointStyle.readFromStream(pInput);
-			lineStyle.readFromStream(pInput);
-			polygonStyle.readFromStream(pInput);
+			getPointStyle().readFromStream(pInput);
+			getLineStyle().readFromStream(pInput);
+			getPolygonStyle().readFromStream(pInput);
 		}
 		catch (Exception e)
 		{
@@ -75,6 +108,7 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 
 	/**
 	 * Записать в поток
+	 *
 	 * @param pOutput поток вывода
 	 * @throws IOException запись не удалась
 	 */
@@ -83,16 +117,76 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	{
 		try
 		{
-			pOutput.writeBoolean(drawPoint);
-			pOutput.writeBoolean(drawLine);
-			pOutput.writeBoolean(drawPolygon);
-			pointStyle.writeToStream(pOutput);
-			lineStyle.writeToStream(pOutput);
-			polygonStyle.writeToStream(pOutput);
+			pOutput.writeBoolean(isDrawPoint());
+			pOutput.writeBoolean(isDrawLine());
+			pOutput.writeBoolean(isDrawPolygon());
+			getPointStyle().writeToStream(pOutput);
+			getLineStyle().writeToStream(pOutput);
+			getPolygonStyle().writeToStream(pOutput);
 		}
 		catch (Exception e)
 		{
 			throw new IOException(e);
 		}
+	}
+
+	/**
+	 * Рисовать ли точку на данном масштабе
+	 *
+	 * @return Рисовать ли точку на данном масштабе
+	 */
+	public boolean isDrawPoint()
+	{
+		return drawPoint;
+	}
+
+	/**
+	 * Рисовать ли линию на данном масштабе
+	 *
+	 * @return Рисовать ли линию на данном масштабе
+	 */
+	public boolean isDrawLine()
+	{
+		return drawLine;
+	}
+
+	/**
+	 * Рисовать ли многоугольник на данном масштабе
+	 *
+	 * @return Рисовать ли многоугольник на данном масштабе
+	 */
+	public boolean isDrawPolygon()
+	{
+		return drawPolygon;
+	}
+
+	/**
+	 * Получить стиль точки
+	 *
+	 * @return стиль точки
+	 */
+	public PointDrawStyle getPointStyle()
+	{
+		return pointStyle;
+	}
+
+	/**
+	 * Получить стиль линии
+	 *
+	 * @return стиль линии
+	 */
+	public LineDrawStyle getLineStyle()
+	{
+		return lineStyle;
+	}
+
+	/**
+	 * Получить стиль многоугольника
+	 *
+	 * @return стиль многоугольника
+	 */
+	public PolygonDrawStyle getPolygonStyle()
+	{
+		return polygonStyle;
 	}
 }

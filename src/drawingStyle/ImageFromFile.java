@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 
 /**
  * Класс изображения, при необходимости создаваемого из файла
+ *
  * @author abc
  */
 public class ImageFromFile implements ReadableMapData, WritableMapData
@@ -26,7 +27,7 @@ public class ImageFromFile implements ReadableMapData, WritableMapData
 	/**
 	 * Имя файла изображения
 	 */
-	public String imageFileName;
+	private String imageFileName;
 
 	/**
 	 * Конструктор
@@ -38,7 +39,19 @@ public class ImageFromFile implements ReadableMapData, WritableMapData
 	}
 
 	/**
+	 * Контруктор
+	 *
+	 * @param pFileName Имя файла изображения
+	 */
+	public ImageFromFile(String pFileName)
+	{
+		image = null;
+		imageFileName = pFileName;
+	}
+
+	/**
 	 * Загрузить и выдать изображения из файла
+	 *
 	 * @return изображение
 	 */
 	public Image getImage()
@@ -47,7 +60,7 @@ public class ImageFromFile implements ReadableMapData, WritableMapData
 		{
 			try
 			{
-				image = ImageIO.read(new File(imageFileName));
+				image = ImageIO.read(new File(getImageFileName()));
 			}
 			catch (IOException ex)
 			{
@@ -59,6 +72,7 @@ public class ImageFromFile implements ReadableMapData, WritableMapData
 
 	/**
 	 * Считать из потока
+	 *
 	 * @param pInput поток чтения
 	 * @throws IOException чтение не удалось
 	 */
@@ -67,7 +81,7 @@ public class ImageFromFile implements ReadableMapData, WritableMapData
 	{
 		try
 		{
-			imageFileName = pInput.readUTF();
+			setImageFileName(pInput.readUTF());
 		}
 		catch (Exception e)
 		{
@@ -77,6 +91,7 @@ public class ImageFromFile implements ReadableMapData, WritableMapData
 
 	/**
 	 * Записать в поток
+	 *
 	 * @param pOutput поток вывода
 	 * @throws IOException запись не удалась
 	 */
@@ -85,11 +100,32 @@ public class ImageFromFile implements ReadableMapData, WritableMapData
 	{
 		try
 		{
-			pOutput.writeUTF(imageFileName);
+			pOutput.writeUTF(getImageFileName());
 		}
 		catch (Exception e)
 		{
 			throw new IOException(e);
 		}
+	}
+
+	/**
+	 * Получить имя файла изображения
+	 *
+	 * @return the imageFileName
+	 */
+	public String getImageFileName()
+	{
+		return imageFileName;
+	}
+
+	/**
+	 * Установить новое имя файла изображения
+	 *
+	 * @param pNewFileName новое имя файла изображения
+	 */
+	public void setImageFileName(String pNewFileName)
+	{
+		imageFileName = pNewFileName;
+		image = null;
 	}
 }

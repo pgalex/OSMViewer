@@ -15,19 +15,26 @@ import java.io.IOException;
 public class LineDrawStyle implements ReadableMapData, WritableMapData
 {
 	/**
+	 * Шаблон сплошной линии
+	 */
+	public static final float[] SOLID_LINE_PATTERN =
+	{
+		1
+	};
+	/**
 	 * Цвет линии
 	 */
-	public IOColor color;
+	private IOColor color;
 	/**
 	 * Тольщина линии
 	 */
-	public int width;
+	private int width;
 	/**
 	 * Стиль линии (тире, точка тире) - шаблон для рисования линии. четные индексы
 	 * - длинна участка на котором линия рисуется; нечетные - длинна пустых
 	 * участков
 	 */
-	public float[] pattern;
+	private float[] pattern;
 
 	/**
 	 * Конструктор
@@ -36,8 +43,29 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 	{
 		color = new IOColor(Color.BLACK);
 		width = 1;
-		pattern = new float[1];
-		pattern[0] = 1;//сполшная линия
+		pattern = SOLID_LINE_PATTERN;
+	}
+
+	/**
+	 * Контсруктор
+	 *
+	 * @param pColor цвет. При нулевом значении задается автоматически
+	 * @param pWidth толщина
+	 * @param pPattern шаблон рисования. При нулевом значении задается
+	 * автоматически
+	 */
+	public LineDrawStyle(IOColor pColor, int pWidth, float[] pPattern)
+	{
+		color = pColor;
+		if (color == null)
+			color = new IOColor();
+		width = pWidth;
+		pattern = pPattern;
+
+		if (pattern == null)
+			pattern = SOLID_LINE_PATTERN;
+		if (pattern.length == 0)
+			pattern = SOLID_LINE_PATTERN;
 	}
 
 	/**
@@ -77,16 +105,46 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 	{
 		try
 		{
-			color.writeToStream(pOutput);
-			pOutput.writeInt(width);
+			getColor().writeToStream(pOutput);
+			pOutput.writeInt(getWidth());
 
-			pOutput.writeInt(pattern.length);
-			for (int i = 0; i < pattern.length; i++)
-				pOutput.writeFloat(pattern[i]);
+			pOutput.writeInt(getPattern().length);
+			for (int i = 0; i < getPattern().length; i++)
+				pOutput.writeFloat(getPattern()[i]);
 		}
 		catch (Exception e)
 		{
 			throw new IOException(e);
 		}
+	}
+
+	/**
+	 * Получить цвет
+	 *
+	 * @return цвет
+	 */
+	public IOColor getColor()
+	{
+		return color;
+	}
+
+	/**
+	 * Получить толщину
+	 *
+	 * @return толщина
+	 */
+	public int getWidth()
+	{
+		return width;
+	}
+
+	/**
+	 * Получить шаблон рисования
+	 *
+	 * @return шаблон рисования
+	 */
+	public float[] getPattern()
+	{
+		return pattern;
 	}
 }

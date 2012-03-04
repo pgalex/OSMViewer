@@ -22,22 +22,39 @@ import org.junit.Test;
 public class LineDrawStyleTest
 {
 	private final String TEST_FILE_NAME = "testFile.txt";
-
+	
 	public LineDrawStyleTest()
 	{
 	}
 
+	/**
+	 * Тест контсруктора с нулевыми параметрами
+	 */
 	@Test
-	public void FileTest()
+	public void constructorTest()
 	{
-		LineDrawStyle writingStyle = new LineDrawStyle();
-		writingStyle.color = new IOColor(Color.CYAN);
-		writingStyle.width = 11;
-		writingStyle.pattern = new float[4];
-		writingStyle.pattern[0] = 2;
-		writingStyle.pattern[1] = 3;
-		writingStyle.pattern[2] = 4;
-		writingStyle.pattern[3] = 5;
+		// null шаблон
+		LineDrawStyle testStyle = new LineDrawStyle(new IOColor(Color.BLACK), 2, null);
+		assertArrayEquals(LineDrawStyle.SOLID_LINE_PATTERN, testStyle.getPattern(), 0.01f);
+
+		// пустой шаблон
+		testStyle = new LineDrawStyle(new IOColor(Color.BLACK), 2, new float[0]);
+		assertArrayEquals(LineDrawStyle.SOLID_LINE_PATTERN, testStyle.getPattern(), 0.01f);
+
+		// null цвет
+		testStyle = new LineDrawStyle(null, 1, null);
+		assertNotNull(testStyle.getColor());
+	}
+	
+	@Test
+	public void fileTest()
+	{
+		float[] pattern = new float[4];
+		pattern[0] = 2;
+		pattern[1] = 3;
+		pattern[2] = 4;
+		pattern[3] = 5;
+		LineDrawStyle writingStyle = new LineDrawStyle(new IOColor(Color.CYAN), 11, pattern);
 
 		//запись
 		try
@@ -58,21 +75,21 @@ public class LineDrawStyleTest
 			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
 			readingStyle.readFromStream(input);
 			input.close();
-			assertEquals(writingStyle.color, readingStyle.color);
-			assertArrayEquals(writingStyle.pattern, readingStyle.pattern, 0.01f);
-			assertEquals(writingStyle.width, readingStyle.width);
+			assertEquals(writingStyle.getColor(), readingStyle.getColor());
+			assertArrayEquals(writingStyle.getPattern(), readingStyle.getPattern(), 0.01f);
+			assertEquals(writingStyle.getWidth(), readingStyle.getWidth());
 		}
 		catch (Exception ex)
 		{
 			fail();
 		}
 	}
-
+	
 	@BeforeClass
 	public static void setUpClass() throws Exception
 	{
 	}
-
+	
 	@AfterClass
 	public static void tearDownClass() throws Exception
 	{

@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 
+import drawingStyle.ImageFromFile;
 import drawingStyle.PointDrawStyle;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -30,10 +31,9 @@ public class PointDrawStyleTest
 	 * Чтение/запись в файл
 	 */
 	@Test
-	public void FileTest()
+	public void fileTest()
 	{
-		PointDrawStyle writingPoint = new PointDrawStyle();
-		writingPoint.icon.imageFileName = "";
+		PointDrawStyle writingPoint = new PointDrawStyle(new ImageFromFile("icon1.png"));
 
 		//запись
 		try
@@ -54,12 +54,22 @@ public class PointDrawStyleTest
 			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
 			readingPoint.readFromStream(input);
 			input.close();
-			assertEquals(writingPoint.icon.imageFileName, readingPoint.icon.imageFileName);
+			assertEquals(writingPoint.getIcon().getImageFileName(), readingPoint.getIcon().getImageFileName());
 		}
 		catch (Exception ex)
 		{
 			fail();
 		}
+	}
+
+	/**
+	 * Тест создания с нулевым параметром
+	 */
+	@Test
+	public void constrcutorTest()
+	{
+		PointDrawStyle testStyle = new PointDrawStyle(null);
+		assertEquals(true, testStyle.getIcon() != null);
 	}
 
 	@BeforeClass

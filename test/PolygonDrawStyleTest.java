@@ -4,16 +4,18 @@
  */
 
 import drawingStyle.IOColor;
+import drawingStyle.ImageFromFile;
+import drawingStyle.LineDrawStyle;
 import drawingStyle.PolygonDrawStyle;
 import java.awt.Color;
-import java.io.FileInputStream;
 import java.io.DataInputStream;
-import java.io.FileOutputStream;
 import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -27,14 +29,27 @@ public class PolygonDrawStyleTest
 	{
 	}
 
+	/**
+	 * тест создания с нулевыми аргументами
+	 */
+	@Test
+	public void constructorTest()
+	{
+		PolygonDrawStyle testStyle = new PolygonDrawStyle(null, null, null);
+		assertNotNull(testStyle.getBorderDrawStyle());
+		assertNotNull(testStyle.getFillColor());
+		assertNotNull(testStyle.getFillImage());
+	}
+
+	/**
+	 * Чтение запись
+	 */
 	@Test
 	public void fileTest()
 	{
-		PolygonDrawStyle writingStyle = new PolygonDrawStyle();
-		writingStyle.fillColor = new IOColor(Color.MAGENTA);
-		writingStyle.borderDrawStyle.color = new IOColor(Color.ORANGE);
-		writingStyle.borderDrawStyle.width = 22;
-		writingStyle.fillImage.imageFileName = "icon1.png";
+		LineDrawStyle borderStyle = new LineDrawStyle(new IOColor(Color.CYAN), 10, LineDrawStyle.SOLID_LINE_PATTERN);
+		PolygonDrawStyle writingStyle = new PolygonDrawStyle(new IOColor(Color.MAGENTA), borderStyle,
+						new ImageFromFile("icon1.png"));
 		//запись
 		try
 		{
@@ -55,10 +70,10 @@ public class PolygonDrawStyleTest
 			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
 			readingStyle.readFromStream(input);
 			input.close();
-			assertEquals(writingStyle.fillColor, readingStyle.fillColor);
-			assertEquals(writingStyle.borderDrawStyle.color, readingStyle.borderDrawStyle.color);
-			assertEquals(writingStyle.borderDrawStyle.width, readingStyle.borderDrawStyle.width);
-			assertEquals(writingStyle.fillImage.imageFileName, readingStyle.fillImage.imageFileName);
+			assertEquals(writingStyle.getFillColor(), readingStyle.getFillColor());
+			assertEquals(writingStyle.getBorderDrawStyle().getColor(), readingStyle.getBorderDrawStyle().getColor());
+			assertEquals(writingStyle.getBorderDrawStyle().getWidth(), readingStyle.getBorderDrawStyle().getWidth());
+			assertEquals(writingStyle.getFillImage().getImageFileName(), readingStyle.getFillImage().getImageFileName());
 		}
 		catch (Exception ex)
 		{

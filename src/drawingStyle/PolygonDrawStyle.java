@@ -17,15 +17,15 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 	/**
 	 * Цвет заполнения
 	 */
-	public IOColor fillColor;
+	private IOColor fillColor;
 	/**
 	 * Стиль рисования границы
 	 */
-	public LineDrawStyle borderDrawStyle;
+	private LineDrawStyle borderDrawStyle;
 	/**
 	 * Текстура для заполнения
 	 */
-	public ImageFromFile fillImage;
+	private ImageFromFile fillImage;
 
 	/**
 	 * Конструктор
@@ -35,6 +35,28 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 		fillColor = new IOColor(Color.GRAY);
 		borderDrawStyle = new LineDrawStyle();
 		fillImage = new ImageFromFile();
+	}
+
+	/**
+	 * Конструктор
+	 *
+	 * @param pFillColor Цвет заполнения. При нулевом значении задается автоматически
+	 * @param pBorderDrawStyle Стиль рисования границы. При нулевом значении задается автоматически
+	 * @param pFillImage Текстура для заполнения. При нулевом значении задается автоматически
+	 */
+	public PolygonDrawStyle(IOColor pFillColor, LineDrawStyle pBorderDrawStyle, ImageFromFile pFillImage)
+	{
+		fillColor = pFillColor;
+		if (fillColor == null)
+			fillColor = new IOColor();
+
+		borderDrawStyle = pBorderDrawStyle;
+		if (borderDrawStyle == null)
+			borderDrawStyle = new LineDrawStyle();
+
+		fillImage = pFillImage;
+		if (fillImage == null)
+			fillImage = new ImageFromFile();
 	}
 
 	/**
@@ -49,9 +71,8 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 		try
 		{
 			fillColor = IOColor.readFromStream(pInput);
-
-			borderDrawStyle.readFromStream(pInput);
-			fillImage.readFromStream(pInput);
+			getBorderDrawStyle().readFromStream(pInput);
+			getFillImage().readFromStream(pInput);
 		}
 		catch (Exception e)
 		{
@@ -70,13 +91,43 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 	{
 		try
 		{
-			fillColor.writeToStream(pOutput);
-			borderDrawStyle.writeToStream(pOutput);
-			fillImage.writeToStream(pOutput);
+			getFillColor().writeToStream(pOutput);
+			getBorderDrawStyle().writeToStream(pOutput);
+			getFillImage().writeToStream(pOutput);
 		}
 		catch (Exception e)
 		{
 			throw new IOException(e);
 		}
+	}
+
+	/**
+	 * Получить цвет заполнения
+	 *
+	 * @return цвет заполнения
+	 */
+	public IOColor getFillColor()
+	{
+		return fillColor;
+	}
+
+	/**
+	 * Получить стиль границы
+	 *
+	 * @return стиль границы
+	 */
+	public LineDrawStyle getBorderDrawStyle()
+	{
+		return borderDrawStyle;
+	}
+
+	/**
+	 * Получить текстуру заполнения
+	 *
+	 * @return текстура заполнения
+	 */
+	public ImageFromFile getFillImage()
+	{
+		return fillImage;
 	}
 }
