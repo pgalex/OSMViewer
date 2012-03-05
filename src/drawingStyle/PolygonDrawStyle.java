@@ -49,6 +49,7 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 		fillColor = pFillColor;
 		borderDrawStyle = pBorderDrawStyle;
 		fillImage = pFillImage;
+		
 		InitializeNullFields();
 	}
 
