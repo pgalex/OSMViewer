@@ -34,7 +34,7 @@ public class JFrameMain extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuItemCommonSettings = new javax.swing.JPanel();
+        jPanelCanvas = new javax.swing.JPanel();
         jMenuBarMain = new javax.swing.JMenuBar();
         jMenuFile = new javax.swing.JMenu();
         jMenuItemOpen = new javax.swing.JMenuItem();
@@ -48,17 +48,17 @@ public class JFrameMain extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("OpenStreetMap Viewer");
 
-        jMenuItemCommonSettings.setBackground(new java.awt.Color(255, 255, 255));
-        jMenuItemCommonSettings.setForeground(new java.awt.Color(255, 255, 255));
+        jPanelCanvas.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelCanvas.setForeground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout jMenuItemCommonSettingsLayout = new javax.swing.GroupLayout(jMenuItemCommonSettings);
-        jMenuItemCommonSettings.setLayout(jMenuItemCommonSettingsLayout);
-        jMenuItemCommonSettingsLayout.setHorizontalGroup(
-            jMenuItemCommonSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanelCanvasLayout = new javax.swing.GroupLayout(jPanelCanvas);
+        jPanelCanvas.setLayout(jPanelCanvasLayout);
+        jPanelCanvasLayout.setHorizontalGroup(
+            jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 631, Short.MAX_VALUE)
         );
-        jMenuItemCommonSettingsLayout.setVerticalGroup(
-            jMenuItemCommonSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jPanelCanvasLayout.setVerticalGroup(
+            jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 458, Short.MAX_VALUE)
         );
 
@@ -100,6 +100,11 @@ public class JFrameMain extends javax.swing.JFrame
         jMenuSettings.setText("Настойки");
 
         jMenuItem1.setText("Общие ...");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenuSettings.add(jMenuItem1);
 
         jMenuBarMain.add(jMenuSettings);
@@ -110,11 +115,11 @@ public class JFrameMain extends javax.swing.JFrame
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jMenuItemCommonSettings, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelCanvas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jMenuItemCommonSettings, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelCanvas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -131,6 +136,11 @@ private void jMenuItemConvertOsmActionPerformed(java.awt.event.ActionEvent evt) 
 	JDialogConvert convertDialog = new JDialogConvert(this, true);
 	convertDialog.setVisible(true);
 }//GEN-LAST:event_jMenuItemConvertOsmActionPerformed
+
+	private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem1ActionPerformed
+	{//GEN-HEADEREND:event_jMenuItem1ActionPerformed
+
+	}//GEN-LAST:event_jMenuItem1ActionPerformed
 
 	/**
 	 * @param args the command line arguments
@@ -193,12 +203,12 @@ private void jMenuItemConvertOsmActionPerformed(java.awt.event.ActionEvent evt) 
     private javax.swing.JMenuBar jMenuBarMain;
     private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JPanel jMenuItemCommonSettings;
     private javax.swing.JMenuItem jMenuItemConvertOsm;
     private javax.swing.JMenuItem jMenuItemEditStyle;
     private javax.swing.JMenuItem jMenuItemExit;
     private javax.swing.JMenuItem jMenuItemOpen;
     private javax.swing.JMenu jMenuMap;
     private javax.swing.JMenu jMenuSettings;
+    private javax.swing.JPanel jPanelCanvas;
     // End of variables declaration//GEN-END:variables
 }

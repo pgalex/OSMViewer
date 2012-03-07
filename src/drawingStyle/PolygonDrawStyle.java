@@ -25,7 +25,7 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 	/**
 	 * Текстура для заполнения
 	 */
-	private ImageFromFile fillImage;
+	private IOIcon fillImage;
 
 	/**
 	 * Конструктор
@@ -34,7 +34,7 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 	{
 		fillColor = new IOColor(Color.GRAY);
 		borderDrawStyle = new LineDrawStyle();
-		fillImage = new ImageFromFile();
+		fillImage = new IOIcon();
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 	 * @param pBorderDrawStyle Стиль рисования границы. При нулевом значении задается автоматически
 	 * @param pFillImage Текстура для заполнения. При нулевом значении задается автоматически
 	 */
-	public PolygonDrawStyle(IOColor pFillColor, LineDrawStyle pBorderDrawStyle, ImageFromFile pFillImage)
+	public PolygonDrawStyle(IOColor pFillColor, LineDrawStyle pBorderDrawStyle, IOIcon pFillImage)
 	{
 		fillColor = pFillColor;
 		borderDrawStyle = pBorderDrawStyle;
@@ -120,7 +120,7 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 	 *
 	 * @return текстура заполнения
 	 */
-	public ImageFromFile getFillImage()
+	public IOIcon getFillImage()
 	{
 		return fillImage;
 	}
@@ -137,6 +137,6 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 			borderDrawStyle = new LineDrawStyle();
 
 		if (fillImage == null)
-			fillImage = new ImageFromFile();
+			fillImage = new IOIcon();
 	}
 }

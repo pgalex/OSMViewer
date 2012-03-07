@@ -16,14 +16,14 @@ public class PointDrawStyle implements ReadableMapData, WritableMapData
 	/**
 	 * Значок
 	 */
-	private ImageFromFile icon;
+	private IOIcon icon;
 
 	/**
 	 * Конструктор
 	 */
 	public PointDrawStyle()
 	{
-		icon = new ImageFromFile();
+		icon = new IOIcon();
 	}
 
 	/**
@@ -31,7 +31,7 @@ public class PointDrawStyle implements ReadableMapData, WritableMapData
 	 *
 	 * @param pIcon значок. Если null, то создается автоматически
 	 */
-	public PointDrawStyle(ImageFromFile pIcon)
+	public PointDrawStyle(IOIcon pIcon)
 	{
 		icon = pIcon;
 		InitializeNullFields();
@@ -66,7 +66,7 @@ public class PointDrawStyle implements ReadableMapData, WritableMapData
 	 *
 	 * @return значок
 	 */
-	public ImageFromFile getIcon()
+	public IOIcon getIcon()
 	{
 		return icon;
 	}
@@ -77,6 +77,6 @@ public class PointDrawStyle implements ReadableMapData, WritableMapData
 	private void InitializeNullFields()
 	{
 		if (icon == null)
-			icon = new ImageFromFile();
+			icon = new IOIcon();
 	}
 }
