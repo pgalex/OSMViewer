@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import drawingStyle.IOIcon;
 import drawingStyle.PointDrawStyle;
 import java.io.DataInputStream;

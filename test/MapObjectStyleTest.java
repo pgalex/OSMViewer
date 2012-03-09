@@ -1,4 +1,3 @@
-
 import drawingStyle.MapObjectStyle;
 import drawingStyle.ScaledObjectStyle;
 import java.io.DataInputStream;

@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import drawingStyle.IOColor;
 import drawingStyle.IOIcon;
 import drawingStyle.LineDrawStyle;
