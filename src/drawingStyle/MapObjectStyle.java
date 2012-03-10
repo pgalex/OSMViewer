@@ -18,28 +18,28 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 	/**
 	 * Может ли быть точкой
 	 */
-	public boolean canBePoint;
+	private boolean canBePoint;
 	/**
 	 * Может ли быть линией
 	 */
-	public boolean canBeLine;
+	private boolean canBeLine;
 	/**
 	 * Может ли быть многоугольником (замкнутая линия)
 	 */
-	public boolean canBePolygon;
+	private boolean canBePolygon;
 	/**
 	 * Ключ тега, значение которого будет выводиться на экран как текстовая
 	 * подпись
 	 */
-	public String textTagKey;
+	private String textTagKey;
 	/**
 	 * Приоритет при рисовании
 	 */
-	public int drawPriority;
+	private int drawPriority;
 	/**
 	 * Описание объекта
 	 */
-	public String description;
+	private String description;
 	/**
 	 * Стиль на каждом уровне масштаба
 	 */
@@ -60,10 +60,34 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 		canBePoint = false;
 		canBeLine = false;
 		canBePolygon = false;
-		drawPriority = -1;
+		drawPriority = 1;
 		textTagKey = "";
 		description = "";
+	}
 
+	/**
+	 * Конструктор
+	 *
+	 * @param pCanBePoint Может ли быть точкой
+	 * @param pCanBeLine Может ли быть линией
+	 * @param pCanBePolygon Может ли быть многоугольником
+	 * @param pTextTagKey Ключ тега, значение которого будет выводиться на экран
+	 * как текстовая подпись
+	 * @param pDrawPriority Приоритет при рисовании
+	 * @param pDescription Описание объекта
+	 */
+	public MapObjectStyle(boolean pCanBePoint, boolean pCanBeLine, boolean pCanBePolygon,
+					String pTextTagKey, int pDrawPriority, String pDescription)
+	{
+		canBePoint = pCanBePoint;
+		canBeLine = pCanBeLine;
+		canBePolygon = pCanBePolygon;
+		textTagKey = pTextTagKey;
+		drawPriority = pDrawPriority;
+		description = pDescription;
+		
+		scaledStyles = new ScaledObjectStyleArray();
+		defenitionTags = new ArrayList<MapTag>();
 	}
 
 	/**
@@ -121,7 +145,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 			textTagKey = pInput.readUTF();
 			drawPriority = pInput.readInt();
 			description = pInput.readUTF();
-	
+
 			scaledStyles.readFromStream(pInput);
 
 			int tagsCount = pInput.readInt();
@@ -149,12 +173,12 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 	{
 		try
 		{
-			pOutput.writeBoolean(canBePoint);
-			pOutput.writeBoolean(canBeLine);
-			pOutput.writeBoolean(canBePolygon);
-			pOutput.writeUTF(textTagKey);
-			pOutput.writeInt(drawPriority);
-			pOutput.writeUTF(description);
+			pOutput.writeBoolean(isCanBePoint());
+			pOutput.writeBoolean(isCanBeLine());
+			pOutput.writeBoolean(isCanBePolygon());
+			pOutput.writeUTF(getTextTagKey());
+			pOutput.writeInt(getDrawPriority());
+			pOutput.writeUTF(getDescription());
 
 			scaledStyles.writeToStream(pOutput);
 
@@ -166,5 +190,66 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 		{
 			throw new IOException(e);
 		}
+	}
+
+	/**
+	 * Может ли быть точкой
+	 *
+	 * @return the canBePoint
+	 */
+	public boolean isCanBePoint()
+	{
+		return canBePoint;
+	}
+
+	/**
+	 * Может ли быть линией
+	 *
+	 * @return Может ли быть линией
+	 */
+	public boolean isCanBeLine()
+	{
+		return canBeLine;
+	}
+
+	/**
+	 * Может ли быть многоугольником (замкнутая линия)
+	 *
+	 * @return Может ли быть многоугольником
+	 */
+	public boolean isCanBePolygon()
+	{
+		return canBePolygon;
+	}
+
+	/**
+	 * Получить ключ тега, значение которого будет выводиться на экран как
+	 * текстовая подпись
+	 *
+	 * @return Ключ тега
+	 */
+	public String getTextTagKey()
+	{
+		return textTagKey;
+	}
+
+	/**
+	 * Получить приоритет при рисовании
+	 *
+	 * @return приоритет при рисовании
+	 */
+	public int getDrawPriority()
+	{
+		return drawPriority;
+	}
+
+	/**
+	 * Получить описание объекта
+	 *
+	 * @return описание объекта
+	 */
+	public String getDescription()
+	{
+		return description;
 	}
 }

@@ -1,3 +1,4 @@
+
 import drawingStyle.MapObjectStyle;
 import drawingStyle.ScaledObjectStyle;
 import java.io.DataInputStream;
@@ -29,19 +30,15 @@ public class MapObjectStyleTest
 	@Test
 	public void fileTest()
 	{
-		MapObjectStyle writingStyle = new MapObjectStyle();
-		writingStyle.canBeLine = true;
-		writingStyle.canBePoint = false;
-		writingStyle.canBePolygon = true;
+		MapObjectStyle writingStyle = new MapObjectStyle(true, false,
+						true, "name", 10, "object1");
 		writingStyle.defenitionTags.add(new MapTag("k1", "v1"));
 		writingStyle.defenitionTags.add(new MapTag("k2", "v2"));
-		writingStyle.textTagKey = "name";
-		writingStyle.drawPriority = 10;
-		writingStyle.description = "object1";
-		ScaledObjectStyle scaledStyle0 = new ScaledObjectStyle(true, false, true, null, null, 
+
+		ScaledObjectStyle scaledStyle0 = new ScaledObjectStyle(true, false, true, null, null,
 						null, null, null);
 		writingStyle.scaledStyles.setStyleOnScale(0, scaledStyle0);
-		ScaledObjectStyle scaledStyle5 = new ScaledObjectStyle(false, true, true, null, null, 
+		ScaledObjectStyle scaledStyle5 = new ScaledObjectStyle(false, true, true, null, null,
 						null, null, null);
 		writingStyle.scaledStyles.setStyleOnScale(5, scaledStyle5);
 
@@ -63,14 +60,14 @@ public class MapObjectStyleTest
 			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
 			readingStyle.readFromStream(input);
 			input.close();
-			assertEquals(writingStyle.canBeLine, readingStyle.canBeLine);
-			assertEquals(writingStyle.canBePoint, readingStyle.canBePoint);
-			assertEquals(writingStyle.canBePolygon, readingStyle.canBePolygon);
+			assertEquals(writingStyle.isCanBeLine(), readingStyle.isCanBeLine());
+			assertEquals(writingStyle.isCanBePoint(), readingStyle.isCanBePoint());
+			assertEquals(writingStyle.isCanBePolygon(), readingStyle.isCanBePolygon());
 			assertEquals(true, writingStyle.compareDefenitionTags(readingStyle.defenitionTags));
-			assertEquals(writingStyle.description, readingStyle.description);
-			assertEquals(writingStyle.textTagKey, readingStyle.textTagKey);
-			assertEquals(writingStyle.drawPriority, readingStyle.drawPriority);
-			assertEquals(writingStyle.description, readingStyle.description);
+			assertEquals(writingStyle.getDescription(), readingStyle.getDescription());
+			assertEquals(writingStyle.getTextTagKey(), readingStyle.getTextTagKey());
+			assertEquals(writingStyle.getDrawPriority(), readingStyle.getDrawPriority());
+			assertEquals(writingStyle.getDescription(), readingStyle.getDescription());
 			assertEquals(writingStyle.scaledStyles.getStyleOnScale(0).isDrawLine(), readingStyle.scaledStyles.getStyleOnScale(0).isDrawLine());
 			assertEquals(writingStyle.scaledStyles.getStyleOnScale(0).isDrawPoint(), readingStyle.scaledStyles.getStyleOnScale(0).isDrawPoint());
 			assertEquals(writingStyle.scaledStyles.getStyleOnScale(0).isDrawPolygon(), readingStyle.scaledStyles.getStyleOnScale(0).isDrawPolygon());

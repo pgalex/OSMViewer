@@ -1,3 +1,4 @@
+
 import drawingStyle.MapObjectStyle;
 import drawingStyle.MapObjectStyleEditor;
 import java.io.IOException;
@@ -22,10 +23,10 @@ public class MapObjectStyleEditorTest
 	@Test
 	public void fileTest()
 	{
-		MapObjectStyle style1 = new MapObjectStyle();
-		style1.description = "style1";
-		MapObjectStyle style2 = new MapObjectStyle();
-		style2.description = "style2";
+		MapObjectStyle style1 = new MapObjectStyle(true, true,
+						true, "", 0, "style1");
+		MapObjectStyle style2 = new MapObjectStyle(true, true,
+						true, "", 0, "style2");
 
 		MapObjectStyleEditor editor = new MapObjectStyleEditor();
 
@@ -46,8 +47,8 @@ public class MapObjectStyleEditorTest
 		try
 		{
 			editor.loadFromFile(TEST_FILE_NAME);
-			assertEquals(style2.description, editor.getStyle(style2Id).description);
-			assertEquals(style1.description, editor.getStyle(style1Id).description);
+			assertEquals(style2.getDescription(), editor.getStyle(style2Id).getDescription());
+			assertEquals(style1.getDescription(), editor.getStyle(style1Id).getDescription());
 		}
 		catch (IOException ex)
 		{
@@ -76,20 +77,14 @@ public class MapObjectStyleEditorTest
 	public void editTest()
 	{
 		MapObjectStyleEditor editor = new MapObjectStyleEditor();
-		MapObjectStyle style1 = new MapObjectStyle();
-		style1.canBeLine = true;
-		style1.canBePoint = true;
-		style1.canBePolygon = true;
+
+		MapObjectStyle style1 = new MapObjectStyle(true, true,
+						true, "name", 1, "style1");
 		style1.defenitionTags.add(new MapTag("k1", "v1"));
-		style1.drawPriority = 1;
-		style1.textTagKey = "name";
-		MapObjectStyle style2 = new MapObjectStyle();
-		style2.canBeLine = false;
-		style2.canBePoint = false;
-		style2.canBePolygon = false;
+
+		MapObjectStyle style2 = new MapObjectStyle(false, false,
+						false, "", 2, "style1");
 		style2.defenitionTags.add(new MapTag("k2", "v2"));
-		style2.drawPriority = 2;
-		style2.textTagKey = "";
 
 		assertEquals(0, editor.getStylesCount());
 
