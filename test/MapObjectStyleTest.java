@@ -24,131 +24,6 @@ public class MapObjectStyleTest
 	}
 
 	/**
-	 * Тест базовых функций кол-во уровней месштаба
-	 */
-	@Test
-	public void scaleLevelsCountTest()
-	{
-		// кол-во по умолчанию
-		MapObjectStyle style = new MapObjectStyle();
-		assertEquals(true, style.isDefaultScaleLevelsCount());
-
-		//кол-во не по умолчанию
-		style = new MapObjectStyle(5);
-		assertEquals(false, style.isDefaultScaleLevelsCount());
-		assertEquals(5, style.getCurrentScaleLevelsCount());
-	}
-
-	/**
-	 * Тест работы фунций установки, получения стиля на уровне масштаба. Они
-	 * должны учитывать неправильные значения на входе
-	 */
-	@Test
-	public void scaleLevelsTest()
-	{
-		MapObjectStyle style = new MapObjectStyle(8);
-		ScaledObjectStyle scaledStyle = new ScaledObjectStyle(true, false, true, null, null, null, null, null);
-
-		// нормальный уровень
-		style.setStyleOnScale(4, scaledStyle);
-		assertEquals(scaledStyle.isDrawLine(), style.getStyleOnScale(4).isDrawLine());
-		assertEquals(scaledStyle.isDrawPoint(), style.getStyleOnScale(4).isDrawPoint());
-
-		// меньше ноля
-		style.setStyleOnScale(-1, scaledStyle);
-		assertEquals(scaledStyle.isDrawLine(), style.getStyleOnScale(0).isDrawLine());
-		assertEquals(scaledStyle.isDrawPoint(), style.getStyleOnScale(0).isDrawPoint());
-
-		// больше максимального
-		style.setStyleOnScale(style.getCurrentScaleLevelsCount() + 2, scaledStyle);
-		assertEquals(scaledStyle.isDrawLine(), style.getStyleOnScale(style.getCurrentScaleLevelsCount() - 1).isDrawLine());
-		assertEquals(scaledStyle.isDrawPoint(), style.getStyleOnScale(style.getCurrentScaleLevelsCount() - 1).isDrawPoint());
-	}
-
-	/**
-	 * Тест чтения/записи с меньшими кол-вом уровней масштаба
-	 */
-	@Test
-	public void fileWithOtherScaleLevelsLessTest()
-	{
-		// меньше того что по умолчанию - последние копируются
-		MapObjectStyle writingStyle = new MapObjectStyle(3);
-		ScaledObjectStyle scaledStyle = new ScaledObjectStyle(false, true, true, null, null, 
-						null, null, null);
-		writingStyle.setStyleOnScale(2, scaledStyle);
-		try
-		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
-			writingStyle.writeToStream(output);
-			output.close();
-		}
-		catch (Exception ex)
-		{
-			fail();
-		}
-
-		MapObjectStyle readingStyle = new MapObjectStyle();
-		try
-		{
-			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
-			readingStyle.readFromStream(input);
-			input.close();
-			assertEquals(true, readingStyle.isDefaultScaleLevelsCount());
-			for (int i = writingStyle.getCurrentScaleLevelsCount() - 1; i < readingStyle.getCurrentScaleLevelsCount(); i++)
-				assertEquals(readingStyle.getStyleOnScale(i).isDrawPolygon(), scaledStyle.isDrawPolygon());
-		}
-		catch (Exception ex)
-		{
-			fail();
-		}
-	}
-
-	/**
-	 * Тест чтения/записи с большим кол-вом уровней масштаба
-	 */
-	@Test
-	public void fileWithOtherScaleLevelsMoreTest()
-	{
-		// больше того что по умолчанию - последние обрезаются
-		MapObjectStyle writingStyle = new MapObjectStyle(30);
-		MapObjectStyle readingStyle = new MapObjectStyle();
-		ScaledObjectStyle scaledStyle1 = new ScaledObjectStyle(false, true, true, null, null, 
-						null, null, null);
-		writingStyle.setStyleOnScale(writingStyle.getCurrentScaleLevelsCount() - 1, scaledStyle1);
-
-		ScaledObjectStyle scaledStyle2 = new ScaledObjectStyle(false, true, false, null, null, 
-						null, null, null);
-		writingStyle.setStyleOnScale(readingStyle.getCurrentScaleLevelsCount() - 1, scaledStyle2);
-		writingStyle.setStyleOnScale(readingStyle.getCurrentScaleLevelsCount() - 2, scaledStyle1);
-		try
-		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
-			writingStyle.writeToStream(output);
-			output.close();
-		}
-		catch (Exception ex)
-		{
-			fail();
-		}
-
-
-		try
-		{
-			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
-			readingStyle.readFromStream(input);
-			input.close();
-			assertEquals(true, readingStyle.isDefaultScaleLevelsCount());
-			assertEquals(false, writingStyle.isDefaultScaleLevelsCount());
-			assertEquals(readingStyle.getStyleOnScale(readingStyle.getCurrentScaleLevelsCount() - 1).isDrawPolygon(), scaledStyle2.isDrawPolygon());
-			assertEquals(readingStyle.getStyleOnScale(readingStyle.getCurrentScaleLevelsCount() - 2).isDrawPolygon(), scaledStyle1.isDrawPolygon());
-		}
-		catch (Exception ex)
-		{
-			fail();
-		}
-	}
-
-	/**
 	 * Тест чтения/записи в файл
 	 */
 	@Test
@@ -165,10 +40,10 @@ public class MapObjectStyleTest
 		writingStyle.description = "object1";
 		ScaledObjectStyle scaledStyle0 = new ScaledObjectStyle(true, false, true, null, null, 
 						null, null, null);
-		writingStyle.setStyleOnScale(0, scaledStyle0);
+		writingStyle.scaledStyles.setStyleOnScale(0, scaledStyle0);
 		ScaledObjectStyle scaledStyle5 = new ScaledObjectStyle(false, true, true, null, null, 
 						null, null, null);
-		writingStyle.setStyleOnScale(5, scaledStyle5);
+		writingStyle.scaledStyles.setStyleOnScale(5, scaledStyle5);
 
 		try
 		{
@@ -196,13 +71,13 @@ public class MapObjectStyleTest
 			assertEquals(writingStyle.textTagKey, readingStyle.textTagKey);
 			assertEquals(writingStyle.drawPriority, readingStyle.drawPriority);
 			assertEquals(writingStyle.description, readingStyle.description);
-			assertEquals(writingStyle.getStyleOnScale(0).isDrawLine(), readingStyle.getStyleOnScale(0).isDrawLine());
-			assertEquals(writingStyle.getStyleOnScale(0).isDrawPoint(), readingStyle.getStyleOnScale(0).isDrawPoint());
-			assertEquals(writingStyle.getStyleOnScale(0).isDrawPolygon(), readingStyle.getStyleOnScale(0).isDrawPolygon());
-			assertEquals(writingStyle.getStyleOnScale(5).isDrawLine(), readingStyle.getStyleOnScale(5).isDrawLine());
-			assertEquals(writingStyle.getStyleOnScale(5).isDrawPoint(), readingStyle.getStyleOnScale(5).isDrawPoint());
-			assertEquals(writingStyle.getStyleOnScale(5).isDrawPolygon(), readingStyle.getStyleOnScale(5).isDrawPolygon());
-			assertEquals(writingStyle.getCurrentScaleLevelsCount(), readingStyle.getCurrentScaleLevelsCount());
+			assertEquals(writingStyle.scaledStyles.getStyleOnScale(0).isDrawLine(), readingStyle.scaledStyles.getStyleOnScale(0).isDrawLine());
+			assertEquals(writingStyle.scaledStyles.getStyleOnScale(0).isDrawPoint(), readingStyle.scaledStyles.getStyleOnScale(0).isDrawPoint());
+			assertEquals(writingStyle.scaledStyles.getStyleOnScale(0).isDrawPolygon(), readingStyle.scaledStyles.getStyleOnScale(0).isDrawPolygon());
+			assertEquals(writingStyle.scaledStyles.getStyleOnScale(5).isDrawLine(), readingStyle.scaledStyles.getStyleOnScale(5).isDrawLine());
+			assertEquals(writingStyle.scaledStyles.getStyleOnScale(5).isDrawPoint(), readingStyle.scaledStyles.getStyleOnScale(5).isDrawPoint());
+			assertEquals(writingStyle.scaledStyles.getStyleOnScale(5).isDrawPolygon(), readingStyle.scaledStyles.getStyleOnScale(5).isDrawPolygon());
+			assertEquals(writingStyle.scaledStyles.count(), readingStyle.scaledStyles.count());
 		}
 		catch (Exception ex)
 		{

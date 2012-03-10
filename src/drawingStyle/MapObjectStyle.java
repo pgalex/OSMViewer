@@ -16,11 +16,6 @@ import map.MapTag;
 public class MapObjectStyle implements ReadableMapData, WritableMapData
 {
 	/**
-	 * Текущее кол-во уровней масштаба (12 нижних уровней osm). Не писать функций
-	 * позволяющих получить эту константу вне класса
-	 */
-	private static final int DEFAULT_SCALE_LEVELS_COUNT = 12;
-	/**
 	 * Может ли быть точкой
 	 */
 	public boolean canBePoint;
@@ -46,9 +41,9 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 	 */
 	public String description;
 	/**
-	 * Стили на каждом из уровней масштаба
+	 * Стиль на каждом уровне масштаба
 	 */
-	private ScaledObjectStyle[] scaledStyles;
+	public ScaledObjectStyleArray scaledStyles;
 	/**
 	 * Теги, опеределяющие тип объекта
 	 */
@@ -60,9 +55,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 	 */
 	public MapObjectStyle()
 	{
-		scaledStyles = new ScaledObjectStyle[DEFAULT_SCALE_LEVELS_COUNT];
-		for (int i = 0; i < DEFAULT_SCALE_LEVELS_COUNT; i++)
-			scaledStyles[i] = new ScaledObjectStyle();
+		scaledStyles = new ScaledObjectStyleArray();
 		defenitionTags = new ArrayList<MapTag>();
 		canBePoint = false;
 		canBeLine = false;
@@ -70,26 +63,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 		drawPriority = -1;
 		textTagKey = "";
 		description = "";
-		
-	}
 
-	/**
-	 * Констуктор. Используется в тестах
-	 *
-	 * @param pScaleLevelsCount кол-во уровней масштаба
-	 */
-	public MapObjectStyle(int pScaleLevelsCount)
-	{
-		scaledStyles = new ScaledObjectStyle[pScaleLevelsCount];
-		for (int i = 0; i < pScaleLevelsCount; i++)
-			scaledStyles[i] = new ScaledObjectStyle();
-		defenitionTags = new ArrayList<MapTag>();
-		canBePoint = false;
-		canBeLine = false;
-		canBePolygon = false;
-		drawPriority = -1;
-		textTagKey = "";
-		description = "";
 	}
 
 	/**
@@ -147,14 +121,8 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 			textTagKey = pInput.readUTF();
 			drawPriority = pInput.readInt();
 			description = pInput.readUTF();
-
-			int scaledStylesLength = pInput.readInt();
-			scaledStyles = new ScaledObjectStyle[scaledStylesLength];
-			for (int i = 0; i < scaledStyles.length; i++)
-			{
-				scaledStyles[i] = new ScaledObjectStyle();
-				scaledStyles[i].readFromStream(pInput);
-			}
+	
+			scaledStyles.readFromStream(pInput);
 
 			int tagsCount = pInput.readInt();
 			for (int i = 0; i < tagsCount; i++)
@@ -163,8 +131,6 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 				tempTag.readFromStream(pInput);
 				defenitionTags.add(tempTag);
 			}
-
-			resetScaleLevelsCountToDefault();
 		}
 		catch (Exception e)
 		{
@@ -190,9 +156,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 			pOutput.writeInt(drawPriority);
 			pOutput.writeUTF(description);
 
-			pOutput.writeInt(scaledStyles.length);
-			for (int i = 0; i < scaledStyles.length; i++)
-				scaledStyles[i].writeToStream(pOutput);
+			scaledStyles.writeToStream(pOutput);
 
 			pOutput.writeInt(defenitionTags.size());
 			for (MapTag tempTag : defenitionTags)
@@ -202,87 +166,5 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 		{
 			throw new IOException(e);
 		}
-	}
-
-	/**
-	 * Установить новый стиль на определенном уровне масштаба
-	 *
-	 * @param pScaleLevel уровень масштаба
-	 * @param pNewScaledStyle новый стиль
-	 */
-	public void setStyleOnScale(int pScaleLevel, ScaledObjectStyle pNewScaledStyle)
-	{
-		scaledStyles[normalizeScaleLevel(pScaleLevel)] = pNewScaledStyle;
-	}
-
-	/**
-	 * Получить стиль на определонном уровне масштаба
-	 *
-	 * @param pScaleLevel уровень масштаба
-	 * @return стиль
-	 */
-	public ScaledObjectStyle getStyleOnScale(int pScaleLevel)
-	{
-		return scaledStyles[normalizeScaleLevel(pScaleLevel)];
-	}
-
-	/**
-	 * Получить текущее кол-во уровней масштаба в стиле
-	 *
-	 * @return текущее кол-во уровней масштаба
-	 */
-	public int getCurrentScaleLevelsCount()
-	{
-		return scaledStyles.length;
-	}
-
-	/**
-	 * Является ли текущее кол-во уровней масштаба кол-вом по умолчанию
-	 *
-	 * @return Является ли текущее кол-во уровней масштаба кол-вом по умолчанию
-	 */
-	public boolean isDefaultScaleLevelsCount()
-	{
-		return scaledStyles.length == DEFAULT_SCALE_LEVELS_COUNT;
-	}
-
-	/**
-	 * Установить кол-во уровней масштаба по умолчанию. Новые стили добавляются
-	 * как копия последеного. Лишиние обрезаются
-	 */
-	private void resetScaleLevelsCountToDefault()
-	{
-		if (isDefaultScaleLevelsCount())
-			return;
-		if (scaledStyles.length == 0)
-			return;
-
-		ScaledObjectStyle[] tempScaledStyles = new ScaledObjectStyle[DEFAULT_SCALE_LEVELS_COUNT];
-
-		int minLenght = Math.min(tempScaledStyles.length, scaledStyles.length);
-		System.arraycopy(scaledStyles, 0, tempScaledStyles, 0, minLenght);
-
-		if (tempScaledStyles.length > minLenght)
-		{
-			for (int i = minLenght; i < tempScaledStyles.length; i++)
-				tempScaledStyles[i] = scaledStyles[scaledStyles.length - 1];
-		}
-		scaledStyles = tempScaledStyles;
-	}
-
-	/**
-	 * Нормализовать маштаб с учетом текущего кол-ва уровней в стиле
-	 *
-	 * @param pScaleLevel масштаб для нормализации
-	 * @return масштаб в пределах от 0 до текущего максимального уровня
-	 */
-	private int normalizeScaleLevel(int pScaleLevel)
-	{
-		int normalizedScaleLevel = pScaleLevel;
-		if (normalizedScaleLevel < 0)
-			normalizedScaleLevel = 0;
-		if (normalizedScaleLevel >= scaledStyles.length)
-			normalizedScaleLevel = scaledStyles.length - 1;
-		return normalizedScaleLevel;
 	}
 }
