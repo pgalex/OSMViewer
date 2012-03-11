@@ -1,16 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 import drawingStyle.IOFont;
 import java.awt.Font;
-import org.junit.*;
-import static org.junit.Assert.*;
-import org.junit.Test;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import static org.junit.Assert.*;
+import org.junit.*;
 
 /**
  *
@@ -28,7 +23,7 @@ public class IOFontTest
 	 * Конструктор
 	 */
 	@Test
-	public void ConstructorTest()
+	public void constructorTest()
 	{
 		IOFont testFont = new IOFont(null);
 		assertNotNull(testFont.getFont());
@@ -90,9 +85,4 @@ public class IOFontTest
 	public void tearDown()
 	{
 	}
-	// TODO add test methods here.
-	// The methods must be annotated with annotation @Test. For example:
-	//
-	// @Test
-	// public void hello() {}
 }
