@@ -43,7 +43,7 @@ public class ScaledObjectStyleTest
 	public void fileTest()
 	{
 		ScaledObjectStyle writingStyle = new ScaledObjectStyle(true, false, true, null, null,
-						null, new IOColor(Color.RED), new Font("Arial", 0, 18));
+						null, new IOColor(Color.RED), new IOFont(new Font("Arial", 1, 3)) );
 		try
 		{
 			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
@@ -66,7 +66,10 @@ public class ScaledObjectStyleTest
 			assertEquals(writingStyle.isDrawPoint(), readingStyle.isDrawPoint());
 			assertEquals(writingStyle.isDrawPolygon(), readingStyle.isDrawPolygon());
 			assertEquals(writingStyle.getTextColor(), readingStyle.getTextColor());
-			assertEquals(writingStyle.getTextFont(), readingStyle.getTextFont());
+		//	assertEquals(writingStyle.getTextFont(), readingStyle.getTextFont());
+			assertEquals(writingStyle.getTextFont().getFont().getFamily(), readingStyle.getTextFont().getFont().getFamily());
+			assertEquals(writingStyle.getTextFont().getFont().getStyle(), readingStyle.getTextFont().getFont().getStyle());
+			assertEquals(writingStyle.getTextFont().getFont().getSize(), readingStyle.getTextFont().getFont().getSize());
 		}
 		catch (Exception ex)
 		{

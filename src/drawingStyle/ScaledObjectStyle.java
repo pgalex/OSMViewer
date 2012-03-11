@@ -16,10 +16,6 @@ import java.io.IOException;
 public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 {
 	/**
-	 * Шрифт текстовой подписи по умолчанию
-	 */
-	private static final Font DEFAULT_FONT = new Font("Arial", 0, 14);
-	/**
 	 * Цвет текстовой подписи по умолчанию
 	 */
 	private static final Color DEFAULT_TEXT_COLOR = Color.BLACK;
@@ -50,7 +46,7 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	/**
 	 * Шрифт текста для имени
 	 */
-	private Font textFont;
+	private IOFont textFont;
 	/**
 	 * Цвет текстовой подписи
 	 */
@@ -68,7 +64,7 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 		drawLine = false;
 		drawPolygon = false;
 		textColor = new IOColor(DEFAULT_TEXT_COLOR);
-		textFont = DEFAULT_FONT;
+		textFont = new IOFont();
 
 	}
 
@@ -87,7 +83,7 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	 */
 	public ScaledObjectStyle(boolean pDrawPoint, boolean pDrawLine, boolean pDrawPolygon,
 					PointDrawStyle pPointStyle, LineDrawStyle pLineStyle, PolygonDrawStyle pPolygonStyle,
-					IOColor pTextColor, Font pTextFont)
+					IOColor pTextColor, IOFont pTextFont)
 	{
 		drawPoint = pDrawPoint;
 		drawLine = pDrawLine;
@@ -120,11 +116,7 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 			getPolygonStyle().readFromStream(pInput);
 
 			textColor = IOColor.readFromStream(pInput);
-
-			String fontFamily = pInput.readUTF();
-			int fontStyle = pInput.readInt();
-			int fontSize = pInput.readInt();
-			textFont = new Font(fontFamily, fontStyle, fontSize);
+			textFont.readFromStream(pInput);
 		}
 		catch (Exception e)
 		{
@@ -151,9 +143,7 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 			getPolygonStyle().writeToStream(pOutput);
 
 			getTextColor().writeToStream(pOutput);
-			pOutput.writeUTF(getTextFont().getFamily());
-			pOutput.writeInt(getTextFont().getStyle());
-			pOutput.writeInt(getTextFont().getSize());
+			getTextFont().writeToStream(pOutput);
 
 		}
 		catch (Exception e)
@@ -227,7 +217,7 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	 *
 	 * @return шрифт текста для имени
 	 */
-	public Font getTextFont()
+	public IOFont getTextFont()
 	{
 		return textFont;
 	}
@@ -260,6 +250,6 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 			textColor = new IOColor(DEFAULT_TEXT_COLOR);
 
 		if (textFont == null)
-			textFont = DEFAULT_FONT;
+			textFont = new IOFont();
 	}
 }
