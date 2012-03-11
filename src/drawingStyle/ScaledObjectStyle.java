@@ -65,7 +65,6 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 		drawPolygon = false;
 		textColor = new IOColor(DEFAULT_TEXT_COLOR);
 		textFont = new IOFont();
-
 	}
 
 	/**
@@ -78,8 +77,10 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	 * @param pLineStyle стиль линии. При нулевом значении задается автоматически
 	 * @param pPolygonStyle стиль многоугольника. При нулевом значении задается
 	 * автоматически
-	 * @param pTextColor Цвет текстовой подписи. При нулевом значении задается автоматически
-	 * @param pTextFont Шрифт текстововй подписи. При нулевом значении задается автоматически
+	 * @param pTextColor Цвет текстовой подписи. При нулевом значении задается
+	 * автоматически
+	 * @param pTextFont Шрифт текстововй подписи. При нулевом значении задается
+	 * автоматически
 	 */
 	public ScaledObjectStyle(boolean pDrawPoint, boolean pDrawLine, boolean pDrawPolygon,
 					PointDrawStyle pPointStyle, LineDrawStyle pLineStyle, PolygonDrawStyle pPolygonStyle,
@@ -93,7 +94,7 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 		polygonStyle = pPolygonStyle;
 		textColor = pTextColor;
 		textFont = pTextFont;
-		
+
 		InitializeNullFields();
 	}
 
@@ -142,9 +143,8 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 			getLineStyle().writeToStream(pOutput);
 			getPolygonStyle().writeToStream(pOutput);
 
-			getTextColor().writeToStream(pOutput);
-			getTextFont().writeToStream(pOutput);
-
+			textColor.writeToStream(pOutput);
+			textFont.writeToStream(pOutput);
 		}
 		catch (Exception e)
 		{
@@ -231,7 +231,7 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	{
 		return textColor;
 	}
-	
+
 	/**
 	 * Инициализировать нулевые поля класса значениями по умолчанию
 	 */
