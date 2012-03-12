@@ -2,8 +2,6 @@ package drawingStyle;
 
 import fileIO.ReadableMapData;
 import fileIO.WritableMapData;
-import java.awt.Color;
-import java.awt.Font;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
