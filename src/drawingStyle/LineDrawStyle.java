@@ -73,7 +73,7 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 	{
 		try
 		{
-			color = IOColor.readFromStream(pInput);
+			color.readFromStream(pInput);
 
 			width = pInput.readInt();
 

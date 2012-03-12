@@ -65,8 +65,8 @@ public class PolygonDrawStyleTest
 			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
 			readingStyle.readFromStream(input);
 			input.close();
-			assertEquals(writingStyle.getFillColor(), readingStyle.getFillColor());
-			assertEquals(writingStyle.getBorderDrawStyle().getColor(), readingStyle.getBorderDrawStyle().getColor());
+			assertEquals(writingStyle.getFillColor().getColor(), readingStyle.getFillColor().getColor());
+			assertEquals(writingStyle.getBorderDrawStyle().getColor().getColor(), readingStyle.getBorderDrawStyle().getColor().getColor());
 			assertEquals(writingStyle.getBorderDrawStyle().getWidth(), readingStyle.getBorderDrawStyle().getWidth());
 			//assertEquals(writingStyle.getFillImage().getImageFileName(), readingStyle.getFillImage().getImageFileName());
 		}

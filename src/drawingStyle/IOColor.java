@@ -1,5 +1,6 @@
 package drawingStyle;
 
+import fileIO.ReadableMapData;
 import fileIO.WritableMapData;
 import java.awt.Color;
 import java.io.DataInputStream;
@@ -7,57 +8,64 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
- * Цвет, реализующий чтение/запись
- *
- * @author abc
+ * Encapsulate Color with read/write
+ * 
+ * @author Евгений
  */
-public class IOColor extends Color implements WritableMapData
+public class IOColor implements WritableMapData, ReadableMapData
 {
 	/**
-	 * Конструктор по умолчанию
+	 * Color
+	 */
+	private Color color;
+	
+	/**
+	 * Default constructor
 	 */
 	public IOColor()
 	{
-		super(0, 0, 0, 0);
-	}
-
-	/**
-	 * Конструктор
-	 *
-	 * @param pR красный
-	 * @param pG зелёный
-	 * @param pB синий
-	 * @param pA прозрачность
-	 */
-	public IOColor(int pR, int pG, int pB, int pA)
-	{
-		super(pR, pG, pB, pA);
+		color = new Color(0, 0, 0, 0);
 	}
 	
 	/**
-	 * Конструктор по стандартному цвету
-	 * @param pColor цвет
+	 * Constructor with color parameters
+	 * 
+	 * @param pR red
+	 * @param pG green
+	 * @param pB blue
+	 * @param pA alpha
+	 */
+	public IOColor(int pR, int pG, int pB, int pA)
+	{
+		color = new Color(pR, pG, pB, pA);
+	}
+	
+	/**
+	 * Constructor with color pointer
+	 * 
+	 * @param pColor color pointer
 	 */
 	public IOColor(Color pColor)
 	{
-		super(pColor.getRed(), pColor.getGreen(), pColor.getBlue(), pColor.getAlpha());
+		color = pColor;
+		InitializeNullField();
 	}
 
 	/**
-	 * Записать в поток
+	 * Write into stream
 	 *
-	 * @param pOutput поток записи
-	 * @throws IOException ошибка при записи
+	 * @param pOutput write stream
+	 * @throws IOException write error
 	 */
 	@Override
 	public void writeToStream(DataOutputStream pOutput) throws IOException
 	{
 		try
 		{
-			pOutput.writeInt(getRed());
-			pOutput.writeInt(getGreen());
-			pOutput.writeInt(getBlue());
-			pOutput.writeInt(getAlpha());
+			pOutput.writeInt(color.getRed());
+			pOutput.writeInt(color.getGreen());
+			pOutput.writeInt(color.getBlue());
+			pOutput.writeInt(color.getAlpha());
 		}
 		catch (Exception e)
 		{
@@ -66,28 +74,44 @@ public class IOColor extends Color implements WritableMapData
 	}
 
 	/**
-	 * Прочитать цвет из потока. Выделена т.к. Color не имееет функций установки
-	 * нового цвета кроме как в конструкторе
+	 * Read color from stream
 	 *
-	 * @param pInput поток для чтения
-	 * @return прочитанный цвет
-	 * @throws IOException ошибка при чтении
+	 * @param pInput stream
+	 * @throws IOException read error
 	 */
-	public static IOColor readFromStream(DataInputStream pInput) throws IOException
+	@Override
+	public void readFromStream(DataInputStream pInput) throws IOException
 	{
-		IOColor result = null;
 		try
 		{
 			int r = pInput.readInt();
 			int g = pInput.readInt();
 			int b = pInput.readInt();
 			int a = pInput.readInt();
-			result = new IOColor(r, g, b, a);
+			color = new Color(r, g, b, a);
 		}
 		catch (Exception e)
 		{
 			throw new IOException(e);
 		}
-		return result;
+	}
+	
+	/**
+	 * Default values into null fields
+	 */
+	private void InitializeNullField()
+	{
+		if (color == null)
+			color = new Color(0, 0, 0, 0);
+	}
+	
+	/**
+	 * Get color
+	 * 
+	 * @return color
+	 */
+	public Color getColor()
+	{
+		return color;
 	}
 }

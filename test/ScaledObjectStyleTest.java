@@ -65,7 +65,7 @@ public class ScaledObjectStyleTest
 			assertEquals(writingStyle.isDrawLine(), readingStyle.isDrawLine());
 			assertEquals(writingStyle.isDrawPoint(), readingStyle.isDrawPoint());
 			assertEquals(writingStyle.isDrawPolygon(), readingStyle.isDrawPolygon());
-			assertEquals(writingStyle.getTextColor(), readingStyle.getTextColor());
+			assertEquals(writingStyle.getTextColor().getColor(), readingStyle.getTextColor().getColor());
 			assertEquals(writingStyle.getTextFont().getFont(), readingStyle.getTextFont().getFont());
 			assertEquals(writingStyle.getTextFont().getFont().getFamily(), readingStyle.getTextFont().getFont().getFamily());
 			assertEquals(writingStyle.getTextFont().getFont().getStyle(), readingStyle.getTextFont().getFont().getStyle());

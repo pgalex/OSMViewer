@@ -43,9 +43,10 @@ public class IOColorTest
 		try
 		{
 			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
-			IOColor readingColor = IOColor.readFromStream(input);
+			IOColor readingColor = new IOColor();
+			readingColor.readFromStream(input);
 			input.close();
-			assertEquals(writingColor, readingColor);
+			assertEquals(writingColor.getColor(), readingColor.getColor());
 		}
 		catch (Exception ex)
 		{

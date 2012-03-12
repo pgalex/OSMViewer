@@ -70,7 +70,7 @@ public class LineDrawStyleTest
 			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
 			readingStyle.readFromStream(input);
 			input.close();
-			assertEquals(writingStyle.getColor(), readingStyle.getColor());
+			assertEquals(writingStyle.getColor().getColor(), readingStyle.getColor().getColor());
 			assertArrayEquals(writingStyle.getPattern(), readingStyle.getPattern(), 0.01f);
 			assertEquals(writingStyle.getWidth(), readingStyle.getWidth());
 		}

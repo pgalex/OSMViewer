@@ -16,10 +16,6 @@ import java.io.IOException;
 public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 {
 	/**
-	 * Цвет текстовой подписи по умолчанию
-	 */
-	private static final Color DEFAULT_TEXT_COLOR = Color.BLACK;
-	/**
 	 * Рисовать ли точку на данном масштабе
 	 */
 	private boolean drawPoint;
@@ -63,7 +59,7 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 		drawPoint = false;
 		drawLine = false;
 		drawPolygon = false;
-		textColor = new IOColor(DEFAULT_TEXT_COLOR);
+		textColor = new IOColor();
 		textFont = new IOFont();
 	}
 
@@ -116,7 +112,7 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 			getLineStyle().readFromStream(pInput);
 			getPolygonStyle().readFromStream(pInput);
 
-			textColor = IOColor.readFromStream(pInput);
+			textColor.readFromStream(pInput);
 			textFont.readFromStream(pInput);
 		}
 		catch (Exception e)
@@ -247,7 +243,7 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 			polygonStyle = new PolygonDrawStyle();
 
 		if (textColor == null)
-			textColor = new IOColor(DEFAULT_TEXT_COLOR);
+			textColor = new IOColor();
 
 		if (textFont == null)
 			textFont = new IOFont();

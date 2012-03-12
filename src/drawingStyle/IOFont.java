@@ -8,23 +8,23 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
- * Обёртка Font
+ * Encapsulate Font with read/write
  *
  * @author Евгений
  */
 public class IOFont implements ReadableMapData, WritableMapData
 {
 	/**
-	 * Шрифт по умолчанию
+	 * Default font
 	 */
 	private static final Font DEFAULT_FONT = new Font("Arial", 0, 14);
 	/**
-	 * Шрифт
+	 * Font
 	 */
 	private Font font;
 	
 	/**
-	 * Конструктор
+	 * Constructor
 	 */
 	public IOFont()
 	{
@@ -32,9 +32,9 @@ public class IOFont implements ReadableMapData, WritableMapData
 	}
 	
 	/**
-	 * Конструктор
+	 * Constructor with pointer
 	 * 
-	 * @param pFont шрифт
+	 * @param pFont font pointer
 	 */
 	public IOFont(Font pFont)
 	{
@@ -43,10 +43,10 @@ public class IOFont implements ReadableMapData, WritableMapData
 	}
 	
 	/**
-	 * Считать из потока
+	 * Read from stream
 	 * 
-	 * @param pInput поток чтения
-	 * @throws IOException чтение не удалось
+	 * @param pInput read stream
+	 * @throws IOException read error
 	 */
 	@Override
 	public void readFromStream(DataInputStream pInput) throws IOException
@@ -65,10 +65,10 @@ public class IOFont implements ReadableMapData, WritableMapData
 	}
 	
 	/**
-	 * Записать в поток
+	 * Write into stream
 	 * 
-	 * @param pOutput поток вывода
-	 * @throws IOException запись не удалась
+	 * @param pOutput write stream
+	 * @throws IOException write error
 	 */
 	@Override
 	public void writeToStream(DataOutputStream pOutput) throws IOException
@@ -86,7 +86,7 @@ public class IOFont implements ReadableMapData, WritableMapData
 	}
 	
 	/**
-	 * Инициализация null значениями по умолчанию
+	 * Default values into null fields
 	 */
 	private void InitializeNullFields()
 	{
@@ -95,9 +95,9 @@ public class IOFont implements ReadableMapData, WritableMapData
 	}
 	
 	/**
-	 * Получить шрифт
+	 * Get font
 	 * 
-	 * @return шрифт
+	 * @return font
 	 */
 	public Font getFont()
 	{

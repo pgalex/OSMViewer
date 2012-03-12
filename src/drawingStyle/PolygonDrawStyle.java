@@ -64,7 +64,7 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 	{
 		try
 		{
-			fillColor = IOColor.readFromStream(pInput);
+			fillColor.readFromStream(pInput);
 			getBorderDrawStyle().readFromStream(pInput);
 			getFillImage().readFromStream(pInput);
 		}
