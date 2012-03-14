@@ -4,15 +4,15 @@ import java.io.DataInputStream;
 import java.io.IOException;
 
 /**
- * Интерфейс для класс способного считывать себя из файла
+ * Interface for object that can read itself from file
  * @author abc
  */
 public interface ReadableMapData
 {
 	/**
-	 * Считать из потока
-	 * @param pInput поток чтения
-	 * @throws IOException чтение не удалось
+	 * Read from stream
+	 * @param pInput reading stream
+	 * @throws IOException reading error
 	 */
 	public abstract void readFromStream(DataInputStream pInput) throws IOException;
 }

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package drawingStyle;
 
 import fileIO.ReadableMapData;
@@ -14,23 +10,23 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
- * Класс оберкта изображения, с возможностью чтения записи
+ * Image with reading/writing
  *
  * @author abc
  */
 public class IOIcon implements ReadableMapData, WritableMapData
 {
 	/**
-	 * Формат в котором изображение записывается в файл
+	 * Writing format
 	 */
 	private static final String IMAGE_FORMAT = "png";
 	/**
-	 * Изображение
+	 * Image. Must be "settable" only from constructor
 	 */
 	private BufferedImage image;
 
 	/**
-	 * Конструктор
+	 * Default constructor
 	 */
 	public IOIcon()
 	{
@@ -38,9 +34,9 @@ public class IOIcon implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Контруктор
+	 * Conctructor by exists image
 	 *
-	 * @param pImage Изображение
+	 * @param pImage Image
 	 */
 	public IOIcon(BufferedImage pImage)
 	{
@@ -48,10 +44,10 @@ public class IOIcon implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Конструктор создания изображения из файла
+	 * Contructor with reading image from file
 	 *
-	 * @param pFileName имя файла
-	 * @throws IOException ошибка чтения
+	 * @param pFileName file name (.png, .jpg .. etc )
+	 * @throws IOException reading error
 	 */
 	public IOIcon(String pFileName) throws IOException
 	{
@@ -67,17 +63,17 @@ public class IOIcon implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Считать из потока
+	 * Read from stream
 	 *
-	 * @param pInput поток чтения
-	 * @throws IOException чтение не удалось
+	 * @param pInput reading stream
+	 * @throws IOException reading error
 	 */
 	@Override
 	public void readFromStream(DataInputStream pInput) throws IOException
 	{
 		try
 		{
-			boolean isValidImage = pInput.readBoolean();
+			boolean isValidImage = pInput.readBoolean(); // for null image
 			if (isValidImage)
 				image = ImageIO.read(pInput);
 			else
@@ -90,17 +86,17 @@ public class IOIcon implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Записать в поток
+	 * Write into stream
 	 *
-	 * @param pOutput поток вывода
-	 * @throws IOException запись не удалась
+	 * @param pOutput output stream
+	 * @throws IOException writing error
 	 */
 	@Override
 	public void writeToStream(DataOutputStream pOutput) throws IOException
 	{
 		try
 		{
-			boolean isValidImage = (image != null);
+			boolean isValidImage = (image != null); // for null image
 			pOutput.writeBoolean(isValidImage);
 			if (isValidImage)
 				ImageIO.write(image, IMAGE_FORMAT, pOutput);
@@ -112,9 +108,9 @@ public class IOIcon implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Получить изображение
+	 * Get image
 	 *
-	 * @return изображение
+	 * @return image
 	 */
 	public BufferedImage getImage()
 	{
