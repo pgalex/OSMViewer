@@ -9,48 +9,51 @@ import java.util.ArrayList;
 import map.MapTag;
 
 /**
- * Стиль отображения объекта
+ * How to draw any object on a map
  *
  * @author abc
  */
 public class MapObjectStyle implements ReadableMapData, WritableMapData
 {
 	/**
-	 * Может ли быть точкой
+	 * Can be object with this tags a point ( single node )
 	 */
 	private boolean canBePoint;
 	/**
-	 * Может ли быть линией
+	 * Can be object with this tags a line ( non closed way )
 	 */
 	private boolean canBeLine;
 	/**
-	 * Может ли быть многоугольником (замкнутая линия)
+	 * Can be object with this tags a polygon ( closed way )
 	 */
 	private boolean canBePolygon;
 	/**
-	 * Ключ тега, значение которого будет выводиться на экран как текстовая
-	 * подпись
+	 * "Key" of tag that "value" should be drawen on map as text under object on a
+	 * map
+	 *
+	 * (Ключ тега, значение которого будет выводиться на экран как текстовая
+	 * подпись)
 	 */
 	private String textTagKey;
 	/**
-	 * Приоритет при рисовании
+	 * Drawing priority (front back)
 	 */
 	private int drawPriority;
 	/**
-	 * Описание объекта
+	 * Description of map object
 	 */
 	private String description;
 	/**
-	 * Стиль на каждом уровне масштаба
+	 * How to draw object on each scale level
 	 */
 	public ScaledObjectStyleArray scaledStyles;
 	/**
-	 * Теги, опеределяющие тип объекта
+	 * Tags that define map object
 	 */
 	public ArrayList<MapTag> defenitionTags;
 
 	/**
-	 * Конструктор
+	 * Default constructor
 	 *
 	 */
 	public MapObjectStyle()
@@ -66,15 +69,15 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Конструктор
+	 * Constructor
 	 *
-	 * @param pCanBePoint Может ли быть точкой
-	 * @param pCanBeLine Может ли быть линией
-	 * @param pCanBePolygon Может ли быть многоугольником
-	 * @param pTextTagKey Ключ тега, значение которого будет выводиться на экран
-	 * как текстовая подпись
-	 * @param pDrawPriority Приоритет при рисовании
-	 * @param pDescription Описание объекта
+	 * @param pCanBePoint Can be object with this tags a point ( single node )
+	 * @param pCanBeLine Can be object with this tags a line ( non closed way )
+	 * @param pCanBePolygon Can be object with this tags a polygon ( closed way )
+	 * @param pTextTagKey "Key" of tag that "value" should be drawen on map as
+	 * text under object on a map
+	 * @param pDrawPriority Drawing priority
+	 * @param pDescription Description of map object
 	 */
 	public MapObjectStyle(boolean pCanBePoint, boolean pCanBeLine, boolean pCanBePolygon,
 					String pTextTagKey, int pDrawPriority, String pDescription)
@@ -85,17 +88,18 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 		textTagKey = pTextTagKey;
 		drawPriority = pDrawPriority;
 		description = pDescription;
-		
+
 		scaledStyles = new ScaledObjectStyleArray();
 		defenitionTags = new ArrayList<MapTag>();
 	}
 
 	/**
-	 * Сравнить теги без учета их порядка. Каждый тег из defenitionTags должен
-	 * входить в pTags
 	 *
-	 * @param pTags теги для сравнения
-	 * @return совпадают ли теги
+	 * Compare defenition tags. (Сравнить теги без учета их порядка. Каждый тег из
+	 * defenitionTags должен входить в pTags )
+	 *
+	 * @param pTags tags for comparing
+	 * @return is pTags defines this objects
 	 */
 	public boolean compareDefenitionTags(ArrayList<MapTag> pTags)
 	{
