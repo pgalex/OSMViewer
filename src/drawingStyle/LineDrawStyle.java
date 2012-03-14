@@ -2,7 +2,6 @@ package drawingStyle;
 
 import fileIO.ReadableMapData;
 import fileIO.WritableMapData;
-import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -41,7 +40,7 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 	 */
 	public LineDrawStyle()
 	{
-		color = new IOColor(Color.BLACK);
+		color = new IOColor();
 		width = 1;
 		pattern = SOLID_LINE_PATTERN;
 	}
@@ -99,7 +98,7 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 	{
 		try
 		{
-			getColor().writeToStream(pOutput);
+			color.writeToStream(pOutput);
 			pOutput.writeInt(getWidth());
 
 			pOutput.writeInt(getPattern().length);

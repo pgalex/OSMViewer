@@ -15,6 +15,11 @@ import java.io.IOException;
 public class IOColor implements WritableMapData, ReadableMapData
 {
 	/**
+	 * Default color
+	 */
+	private static final Color DEFAULT_COLOR = Color.BLACK;
+	
+	/**
 	 * Color
 	 */
 	private Color color;
@@ -24,7 +29,7 @@ public class IOColor implements WritableMapData, ReadableMapData
 	 */
 	public IOColor()
 	{
-		color = new Color(0, 0, 0, 0);
+		color = DEFAULT_COLOR;
 	}
 	
 	/**
@@ -102,7 +107,7 @@ public class IOColor implements WritableMapData, ReadableMapData
 	private void InitializeNullField()
 	{
 		if (color == null)
-			color = new Color(0, 0, 0, 0);
+			color = DEFAULT_COLOR;
 	}
 	
 	/**
