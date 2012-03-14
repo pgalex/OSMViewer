@@ -46,7 +46,7 @@ public class PointDrawStyle implements ReadableMapData, WritableMapData
 	@Override
 	public void readFromStream(DataInputStream pInput) throws IOException
 	{
-		getIcon().readFromStream(pInput);
+		icon.readFromStream(pInput);
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class PointDrawStyle implements ReadableMapData, WritableMapData
 	@Override
 	public void writeToStream(DataOutputStream pOutput) throws IOException
 	{
-		getIcon().writeToStream(pOutput);
+		icon.writeToStream(pOutput);
 	}
 
 	/**

@@ -106,9 +106,9 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 			drawPoint = pInput.readBoolean();
 			drawLine = pInput.readBoolean();
 			drawPolygon = pInput.readBoolean();
-			getPointStyle().readFromStream(pInput);
-			getLineStyle().readFromStream(pInput);
-			getPolygonStyle().readFromStream(pInput);
+			pointStyle.readFromStream(pInput);
+			lineStyle.readFromStream(pInput);
+			polygonStyle.readFromStream(pInput);
 
 			textColor.readFromStream(pInput);
 			textFont.readFromStream(pInput);
@@ -133,9 +133,9 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 			pOutput.writeBoolean(isDrawPoint());
 			pOutput.writeBoolean(isDrawLine());
 			pOutput.writeBoolean(isDrawPolygon());
-			getPointStyle().writeToStream(pOutput);
-			getLineStyle().writeToStream(pOutput);
-			getPolygonStyle().writeToStream(pOutput);
+			pointStyle.writeToStream(pOutput);
+			lineStyle.writeToStream(pOutput);
+			polygonStyle.writeToStream(pOutput);
 
 			textColor.writeToStream(pOutput);
 			textFont.writeToStream(pOutput);

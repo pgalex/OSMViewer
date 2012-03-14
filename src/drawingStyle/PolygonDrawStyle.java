@@ -2,7 +2,6 @@ package drawingStyle;
 
 import fileIO.ReadableMapData;
 import fileIO.WritableMapData;
-import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -32,7 +31,7 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 	 */
 	public PolygonDrawStyle()
 	{
-		fillColor = new IOColor(Color.GRAY);
+		fillColor = new IOColor();
 		borderDrawStyle = new LineDrawStyle();
 		fillImage = new IOIcon();
 	}
@@ -65,8 +64,8 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 		try
 		{
 			fillColor.readFromStream(pInput);
-			getBorderDrawStyle().readFromStream(pInput);
-			getFillImage().readFromStream(pInput);
+			borderDrawStyle.readFromStream(pInput);
+			fillImage.readFromStream(pInput);
 		}
 		catch (Exception e)
 		{
@@ -86,8 +85,8 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 		try
 		{
 			fillColor.writeToStream(pOutput);
-			getBorderDrawStyle().writeToStream(pOutput);
-			getFillImage().writeToStream(pOutput);
+			borderDrawStyle.writeToStream(pOutput);
+			fillImage.writeToStream(pOutput);
 		}
 		catch (Exception e)
 		{

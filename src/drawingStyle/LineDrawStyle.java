@@ -99,11 +99,11 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 		try
 		{
 			color.writeToStream(pOutput);
-			pOutput.writeInt(getWidth());
+			pOutput.writeInt(width);
 
-			pOutput.writeInt(getPattern().length);
-			for (int i = 0; i < getPattern().length; i++)
-				pOutput.writeFloat(getPattern()[i]);
+			pOutput.writeInt(pattern.length);
+			for (int i = 0; i < pattern.length; i++)
+				pOutput.writeFloat(pattern[i]);
 		}
 		catch (Exception e)
 		{

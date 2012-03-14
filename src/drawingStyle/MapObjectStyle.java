@@ -173,12 +173,12 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 	{
 		try
 		{
-			pOutput.writeBoolean(isCanBePoint());
-			pOutput.writeBoolean(isCanBeLine());
-			pOutput.writeBoolean(isCanBePolygon());
-			pOutput.writeUTF(getTextTagKey());
-			pOutput.writeInt(getDrawPriority());
-			pOutput.writeUTF(getDescription());
+			pOutput.writeBoolean(canBePoint);
+			pOutput.writeBoolean(canBeLine);
+			pOutput.writeBoolean(canBePolygon);
+			pOutput.writeUTF(textTagKey);
+			pOutput.writeInt(drawPriority);
+			pOutput.writeUTF(description);
 
 			scaledStyles.writeToStream(pOutput);
 
