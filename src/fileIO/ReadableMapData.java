@@ -11,6 +11,7 @@ public interface ReadableMapData
 {
 	/**
 	 * Read from stream
+	 *
 	 * @param pInput reading stream
 	 * @throws IOException reading error
 	 */

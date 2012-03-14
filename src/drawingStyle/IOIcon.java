@@ -21,7 +21,7 @@ public class IOIcon implements ReadableMapData, WritableMapData
 	 */
 	private static final String IMAGE_FORMAT = "png";
 	/**
-	 * Image. Must be "settable" only from constructor
+	 * Image. Can be null. Must be "settable" only from constructor
 	 */
 	private BufferedImage image;
 

@@ -7,36 +7,34 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
- * Стиль рисования линий (не замкнутых путей)
+ * How to draw line ( non closed way in osm )
  *
  * @author abc
  */
 public class LineDrawStyle implements ReadableMapData, WritableMapData
 {
 	/**
-	 * Шаблон сплошной линии
+	 * Solid line pattern
 	 */
 	public static final float[] SOLID_LINE_PATTERN =
 	{
 		1
 	};
 	/**
-	 * Цвет линии
+	 * Color
 	 */
 	private IOColor color;
 	/**
-	 * Тольщина линии
+	 * Width
 	 */
 	private int width;
 	/**
-	 * Стиль линии (тире, точка тире) - шаблон для рисования линии. четные индексы
-	 * - длинна участка на котором линия рисуется; нечетные - длинна пустых
-	 * участков
+	 * User defined pattern ( dash, dot etc )
 	 */
 	private float[] pattern;
 
 	/**
-	 * Конструктор
+	 * Default constructor
 	 */
 	public LineDrawStyle()
 	{
@@ -46,12 +44,11 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Контсруктор
+	 * Constrcutor
 	 *
-	 * @param pColor цвет. При нулевом значении задается автоматически
-	 * @param pWidth толщина
-	 * @param pPattern шаблон рисования. При нулевом значении задается
-	 * автоматически
+	 * @param pColor color. Autocreating if null
+	 * @param pWidth width
+	 * @param pPattern pattern. Autocreating if null
 	 */
 	public LineDrawStyle(IOColor pColor, int pWidth, float[] pPattern)
 	{
@@ -62,10 +59,10 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Считать из файла
+	 * Read from stream
 	 *
-	 * @param pInput поток чтения
-	 * @throws IOException чтение не удалось
+	 * @param pInput reading stream
+	 * @throws IOException reading error
 	 */
 	@Override
 	public void readFromStream(DataInputStream pInput) throws IOException
@@ -88,10 +85,10 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Записать в файл
+	 * Write into stream
 	 *
-	 * @param pOutput поток вывода
-	 * @throws IOException запись не удалась
+	 * @param pOutput output stream
+	 * @throws IOException writing error
 	 */
 	@Override
 	public void writeToStream(DataOutputStream pOutput) throws IOException
@@ -112,9 +109,9 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Получить цвет
+	 * Get line color
 	 *
-	 * @return цвет
+	 * @return line color
 	 */
 	public IOColor getColor()
 	{
@@ -122,9 +119,9 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Получить толщину
+	 * Get line width
 	 *
-	 * @return толщина
+	 * @return line width
 	 */
 	public int getWidth()
 	{
@@ -132,9 +129,9 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Получить шаблон рисования
+	 * Get line pattern
 	 *
-	 * @return шаблон рисования
+	 * @return pattern
 	 */
 	public float[] getPattern()
 	{
@@ -142,7 +139,7 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Инициализировать null поля значениями по умолчанию
+	 * Autocreate null fields
 	 */
 	private void InitializeNullFields()
 	{

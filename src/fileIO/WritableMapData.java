@@ -5,12 +5,14 @@ import java.io.IOException;
 
 /**
  * Interface for object that can write itself into file
+ *
  * @author abc
  */
 public interface WritableMapData
 {
 	/**
 	 * Write into stream
+	 *
 	 * @param pOutput output stream
 	 * @throws IOException writing error
 	 */
