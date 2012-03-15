@@ -16,15 +16,18 @@ import map.MapTag;
 public class MapObjectStyle implements ReadableMapData, WritableMapData
 {
 	/**
-	 * Can be object with this tags a point ( single node )
+	 * Can be object with this tags a point ( single node ). Using when finding
+	 * object style by tags
 	 */
 	private boolean canBePoint;
 	/**
-	 * Can be object with this tags a line ( non closed way )
+	 * Can be object with this tags a line ( non closed way ). Using when finding
+	 * object style by tags
 	 */
 	private boolean canBeLine;
 	/**
-	 * Can be object with this tags a polygon ( closed way )
+	 * Can be object with this tags a polygon ( closed way ). Using when finding
+	 * object style by tags
 	 */
 	private boolean canBePolygon;
 	/**
