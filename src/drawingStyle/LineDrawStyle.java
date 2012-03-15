@@ -21,6 +21,10 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 		1
 	};
 	/**
+	 * Default line width
+	 */
+	private static final int DEFAULT_WIDTH = 1;
+	/**
 	 * Color
 	 */
 	private IOColor color;
@@ -39,7 +43,7 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 	public LineDrawStyle()
 	{
 		color = new IOColor();
-		width = 1;
+		width = DEFAULT_WIDTH;
 		pattern = SOLID_LINE_PATTERN;
 	}
 
