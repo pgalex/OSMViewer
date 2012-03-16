@@ -31,8 +31,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 	 */
 	private boolean canBePolygon;
 	/**
-	 * "Key" of tag that "value" should be drawen on map as text under object on a
-	 * map
+	 * "Key" of tag that "value" should be drawen on map as text under object
 	 *
 	 * (Ключ тега, значение которого будет выводиться на экран как текстовая
 	 * подпись)

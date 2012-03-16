@@ -1,3 +1,5 @@
+package drawingStyleTests;
+
 import drawingStyle.IOColor;
 import drawingStyle.LineDrawStyle;
 import java.awt.Color;

@@ -1,3 +1,5 @@
+package drawingStyleTests;
+
 import flyConverter.OSMFlyConverter;
 import java.io.File;
 import java.io.FileInputStream;

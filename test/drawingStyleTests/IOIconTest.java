@@ -1,3 +1,5 @@
+package drawingStyleTests;
+
 import drawingStyle.IOIcon;
 import java.io.*;
 import org.junit.AfterClass;

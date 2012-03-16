@@ -1,3 +1,5 @@
+package drawingStyleTests;
+
 
 import drawingStyle.MapObjectStyle;
 import drawingStyle.ScaledObjectStyle;

@@ -1,3 +1,5 @@
+package drawingStyleTests;
+
 import drawingStyle.IOFont;
 import java.awt.Font;
 import java.io.DataInputStream;

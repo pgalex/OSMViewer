@@ -1,3 +1,5 @@
+package drawingStyleTests;
+
 import drawingStyle.IOColor;
 import drawingStyle.IOIcon;
 import drawingStyle.LineDrawStyle;

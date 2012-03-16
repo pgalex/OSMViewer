@@ -1,3 +1,5 @@
+package drawingStyleTests;
+
 import drawingStyle.*;
 import java.awt.Color;
 import java.awt.Font;

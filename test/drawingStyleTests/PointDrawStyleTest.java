@@ -1,3 +1,5 @@
+package drawingStyleTests;
+
 import drawingStyle.IOIcon;
 import drawingStyle.PointDrawStyle;
 import java.io.DataInputStream;
