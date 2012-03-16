@@ -24,9 +24,9 @@ public class MapObjectStyleEditorTest
 	public void fileTest()
 	{
 		MapObjectStyle style1 = new MapObjectStyle(true, true,
-						true, "", 0, "style1");
+						true, "", 0, "style1", null);
 		MapObjectStyle style2 = new MapObjectStyle(true, true,
-						true, "", 0, "style2");
+						true, "", 0, "style2", null);
 
 		MapObjectStyleEditor editor = new MapObjectStyleEditor();
 
@@ -79,11 +79,11 @@ public class MapObjectStyleEditorTest
 		MapObjectStyleEditor editor = new MapObjectStyleEditor();
 
 		MapObjectStyle style1 = new MapObjectStyle(true, true,
-						true, "name", 1, "style1");
+						true, "name", 1, "style1", null);
 		style1.defenitionTags.add(new MapTag("k1", "v1"));
 
 		MapObjectStyle style2 = new MapObjectStyle(false, false,
-						false, "", 2, "style1");
+						false, "", 2, "style1", null);
 		style2.defenitionTags.add(new MapTag("k2", "v2"));
 
 		assertEquals(0, editor.getStylesCount());

@@ -1,30 +1,30 @@
 package drawingStyle;
 
-import fileIO.ReadableMapData;
-import fileIO.WritableMapData;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
- * Массив стилей объекта на каждом из уровней масштаба
+ * Collection of ScaledObjectStyle
  *
  * @author pgalex
  */
-public class ScaledObjectStyleArray implements ReadableMapData, WritableMapData
+public class ScaledObjectStyleArray implements ScaledObjectStyleCollection
 {
 	/**
-	 * Текущее кол-во уровней масштаба (12 нижних уровней osm). Не писать функций
-	 * позволяющих получить эту константу вне класса
+	 * Currect default scale levels count. This scale levels are linked with OSM
+	 * scale level ( from 18 to 6 ). Contant should be used only inside this
+	 * class. Текущее кол-во уровней масштаба (12 нижних уровней osm). Не писать
+	 * функций позволяющих получить эту константу вне класса.
 	 */
 	private static final int DEFAULT_SCALE_LEVELS_COUNT = 12;
 	/**
-	 * Стили на каждом из уровней масштаба
+	 * Drawing style on each scale level. Стили на каждом из уровней масштаба
 	 */
 	private ScaledObjectStyle[] scaledStyles;
 
 	/**
-	 * Конструкор
+	 * Defaul contructor
 	 */
 	public ScaledObjectStyleArray()
 	{
@@ -34,9 +34,10 @@ public class ScaledObjectStyleArray implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Конструктор. Для тестов
+	 * Constructor with specified scale levels count. Only for tests. Конструктор.
+	 * Для тестов
 	 *
-	 * @param pScaleLevelsCount кол-во уровней масштаба
+	 * @param pScaleLevelsCount scale levels count
 	 */
 	public ScaledObjectStyleArray(int pScaleLevelsCount)
 	{
@@ -46,10 +47,10 @@ public class ScaledObjectStyleArray implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Считать из потока
+	 * Read from stream
 	 *
-	 * @param pInput поток для чтения
-	 * @throws IOException ошибка чтения
+	 * @param pInput reading stream
+	 * @throws IOException reading error
 	 */
 	@Override
 	public void readFromStream(DataInputStream pInput) throws IOException
@@ -72,10 +73,10 @@ public class ScaledObjectStyleArray implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Записать в поток
+	 * Write into stream
 	 *
-	 * @param pOutput поток для записи
-	 * @throws IOException ошибка записи
+	 * @param pOutput output stream
+	 * @throws IOException writing error
 	 */
 	@Override
 	public void writeToStream(DataOutputStream pOutput) throws IOException
@@ -93,43 +94,51 @@ public class ScaledObjectStyleArray implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Установить новый стиль на определенном уровне масштаба
+	 * Set style on specifiec scale level. If level is out of range value will not
+	 * be set
 	 *
-	 * @param pScaleLevel уровень масштаба. Значение за пределами допустимых
-	 * приводяться к граничным
-	 * @param pNewScaledStyle новый стиль
+	 * @param pScaleLevel scale level
+	 * @param pNewScaledStyle new style on scale level
+	 * @throws ArrayIndexOutOfBoundsException scale level is out of range
 	 */
-	public void setStyleOnScale(int pScaleLevel, ScaledObjectStyle pNewScaledStyle)
+	public void setStyleOnScale(int pScaleLevel, ScaledObjectStyle pNewScaledStyle) throws ArrayIndexOutOfBoundsException
 	{
-		scaledStyles[normalizeScaleLevel(pScaleLevel)] = pNewScaledStyle;
+		if (pScaleLevel < 0 || pScaleLevel >= scaledStyles.length)
+			throw new ArrayIndexOutOfBoundsException();
+
+		scaledStyles[pScaleLevel] = pNewScaledStyle;
 	}
 
 	/**
-	 * Получить стиль на определонном уровне масштаба
+	 * Get style on specifiec scale level. If level is out of range returns
+	 * nearest correct value
 	 *
-	 * @param pScaleLevel уровень масштаба. Значение за пределами допустимых
-	 * приводяться к граничным
-	 * @return стиль
+	 * @param pScaleLevel scale level
+	 * @return style on specifiec scale level
 	 */
+	@Override
 	public ScaledObjectStyle getStyleOnScale(int pScaleLevel)
 	{
 		return scaledStyles[normalizeScaleLevel(pScaleLevel)];
 	}
 
 	/**
-	 * Получить текущее кол-во уровней масштаба в стиле
+	 * Get scale levels count
 	 *
-	 * @return текущее кол-во уровней масштаба
+	 * @return currect scale levels count
 	 */
+	@Override
 	public int count()
 	{
 		return scaledStyles.length;
 	}
 
 	/**
-	 * Является ли текущее кол-во уровней масштаба кол-вом по умолчанию
+	 * Is currect scale levels count has default values. Является ли текущее
+	 * кол-во уровней масштаба кол-вом по умолчанию
 	 *
-	 * @return Является ли текущее кол-во уровней масштаба кол-вом по умолчанию
+	 * @return Is currect scale levels count has default values. Является ли
+	 * текущее кол-во уровней масштаба кол-вом по умолчанию
 	 */
 	public boolean isDefaultLevelsCount()
 	{
@@ -137,8 +146,10 @@ public class ScaledObjectStyleArray implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Установить кол-во уровней масштаба по умолчанию. Новые стили добавляются
-	 * как копия последеного. Лишиние обрезаются
+	 * Reset scaled styles array to default length. If default length is bigger
+	 * last style copies to the tail of array. If less - out of bounds values will
+	 * be deleted. Установить кол-во уровней масштаба по умолчанию. Новые стили
+	 * добавляются как копия последеного. Лишиние обрезаются
 	 */
 	private void resetToDefault()
 	{
@@ -146,7 +157,7 @@ public class ScaledObjectStyleArray implements ReadableMapData, WritableMapData
 			return;
 		if (scaledStyles.length == 0)
 			return;
-							
+
 		ScaledObjectStyle[] scaledStylesDefaultCount = new ScaledObjectStyle[DEFAULT_SCALE_LEVELS_COUNT];
 
 		int minLenght = Math.min(scaledStylesDefaultCount.length, scaledStyles.length);
@@ -161,10 +172,11 @@ public class ScaledObjectStyleArray implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Нормализовать маштаб с учетом текущего кол-ва уровней в стиле
+	 * Normalize scale level if it out of array bounds Нормализовать маштаб с
+	 * учетом текущего кол-ва уровней в стиле
 	 *
-	 * @param pScaleLevel масштаб для нормализации
-	 * @return масштаб в пределах от 0 до текущего максимального уровня
+	 * @param pScaleLevel scale level
+	 * @return scale level in array bounds
 	 */
 	private int normalizeScaleLevel(int pScaleLevel)
 	{

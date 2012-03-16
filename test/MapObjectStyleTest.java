@@ -1,6 +1,7 @@
 
 import drawingStyle.MapObjectStyle;
 import drawingStyle.ScaledObjectStyle;
+import drawingStyle.ScaledObjectStyleArray;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
@@ -25,22 +26,32 @@ public class MapObjectStyleTest
 	}
 
 	/**
-	 * Тест чтения/записи в файл
+	 * Constructor should auto-initialize null values
+	 */
+	@Test
+	public void constructorTest()
+	{
+		MapObjectStyle style = new MapObjectStyle(true, true, true, "", 0, "", null);
+		assertNotNull(style.getScaledStyles());
+	}
+
+	/**
+	 * Writing/reading test
 	 */
 	@Test
 	public void fileTest()
 	{
+		ScaledObjectStyleArray scaledStyles = new ScaledObjectStyleArray();
+		scaledStyles.setStyleOnScale(0, new ScaledObjectStyle(true, false, true, null, null,
+						null, null, null));
+		scaledStyles.setStyleOnScale(5, new ScaledObjectStyle(false, true, true, null, null,
+						null, null, null));
+
 		MapObjectStyle writingStyle = new MapObjectStyle(true, false,
-						true, "name", 10, "object1");
+						true, "name", 10, "object1", scaledStyles);
+		
 		writingStyle.defenitionTags.add(new MapTag("k1", "v1"));
 		writingStyle.defenitionTags.add(new MapTag("k2", "v2"));
-
-		ScaledObjectStyle scaledStyle0 = new ScaledObjectStyle(true, false, true, null, null,
-						null, null, null);
-		writingStyle.scaledStyles.setStyleOnScale(0, scaledStyle0);
-		ScaledObjectStyle scaledStyle5 = new ScaledObjectStyle(false, true, true, null, null,
-						null, null, null);
-		writingStyle.scaledStyles.setStyleOnScale(5, scaledStyle5);
 
 		try
 		{
@@ -68,13 +79,13 @@ public class MapObjectStyleTest
 			assertEquals(writingStyle.getTextTagKey(), readingStyle.getTextTagKey());
 			assertEquals(writingStyle.getDrawPriority(), readingStyle.getDrawPriority());
 			assertEquals(writingStyle.getDescription(), readingStyle.getDescription());
-			assertEquals(writingStyle.scaledStyles.getStyleOnScale(0).isDrawLine(), readingStyle.scaledStyles.getStyleOnScale(0).isDrawLine());
-			assertEquals(writingStyle.scaledStyles.getStyleOnScale(0).isDrawPoint(), readingStyle.scaledStyles.getStyleOnScale(0).isDrawPoint());
-			assertEquals(writingStyle.scaledStyles.getStyleOnScale(0).isDrawPolygon(), readingStyle.scaledStyles.getStyleOnScale(0).isDrawPolygon());
-			assertEquals(writingStyle.scaledStyles.getStyleOnScale(5).isDrawLine(), readingStyle.scaledStyles.getStyleOnScale(5).isDrawLine());
-			assertEquals(writingStyle.scaledStyles.getStyleOnScale(5).isDrawPoint(), readingStyle.scaledStyles.getStyleOnScale(5).isDrawPoint());
-			assertEquals(writingStyle.scaledStyles.getStyleOnScale(5).isDrawPolygon(), readingStyle.scaledStyles.getStyleOnScale(5).isDrawPolygon());
-			assertEquals(writingStyle.scaledStyles.count(), readingStyle.scaledStyles.count());
+			assertEquals(writingStyle.getScaledStyles().getStyleOnScale(0).isDrawLine(), readingStyle.getScaledStyles().getStyleOnScale(0).isDrawLine());
+			assertEquals(writingStyle.getScaledStyles().getStyleOnScale(0).isDrawPoint(), readingStyle.getScaledStyles().getStyleOnScale(0).isDrawPoint());
+			assertEquals(writingStyle.getScaledStyles().getStyleOnScale(0).isDrawPolygon(), readingStyle.getScaledStyles().getStyleOnScale(0).isDrawPolygon());
+			assertEquals(writingStyle.getScaledStyles().getStyleOnScale(5).isDrawLine(), readingStyle.getScaledStyles().getStyleOnScale(5).isDrawLine());
+			assertEquals(writingStyle.getScaledStyles().getStyleOnScale(5).isDrawPoint(), readingStyle.getScaledStyles().getStyleOnScale(5).isDrawPoint());
+			assertEquals(writingStyle.getScaledStyles().getStyleOnScale(5).isDrawPolygon(), readingStyle.getScaledStyles().getStyleOnScale(5).isDrawPolygon());
+			assertEquals(writingStyle.getScaledStyles().count(), readingStyle.getScaledStyles().count());
 		}
 		catch (Exception ex)
 		{
@@ -83,7 +94,7 @@ public class MapObjectStyleTest
 	}
 
 	/**
-	 * Тест сравнения по тегам
+	 * Comparing defenition tags test
 	 */
 	@Test
 	public void compareDefenitionTagsTest()

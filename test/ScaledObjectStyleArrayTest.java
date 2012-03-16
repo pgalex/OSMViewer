@@ -21,10 +21,11 @@ import org.junit.Test;
 public class ScaledObjectStyleArrayTest
 {
 	private final String TEST_FILE_NAME = "testFile.txt";
-	
+
 	public ScaledObjectStyleArrayTest()
 	{
 	}
+
 	/**
 	 * Тест isDefaultLevelsCount кол-во по умолчанию
 	 */
@@ -34,6 +35,7 @@ public class ScaledObjectStyleArrayTest
 		ScaledObjectStyleArray style = new ScaledObjectStyleArray();
 		assertEquals(true, style.isDefaultLevelsCount());
 	}
+
 	/**
 	 * Тест кол-во не по умолчанию
 	 */
@@ -61,14 +63,24 @@ public class ScaledObjectStyleArrayTest
 		assertEquals(scaledStyle.isDrawPoint(), style.getStyleOnScale(4).isDrawPoint());
 
 		// меньше ноля
-		style.setStyleOnScale(-1, scaledStyle);
-		assertEquals(scaledStyle.isDrawLine(), style.getStyleOnScale(0).isDrawLine());
-		assertEquals(scaledStyle.isDrawPoint(), style.getStyleOnScale(0).isDrawPoint());
+		try
+		{
+			style.setStyleOnScale(-1, scaledStyle); // there should be out of range exception
+			fail();
+		}
+		catch (ArrayIndexOutOfBoundsException ex)
+		{
+		}
 
 		// больше максимального
-		style.setStyleOnScale(style.count() + 2, scaledStyle);
-		assertEquals(scaledStyle.isDrawLine(), style.getStyleOnScale(style.count() - 1).isDrawLine());
-		assertEquals(scaledStyle.isDrawPoint(), style.getStyleOnScale(style.count() - 1).isDrawPoint());
+		try
+		{
+			style.setStyleOnScale(style.count() + 1, scaledStyle); // there should be out of range exception
+			fail();
+		}
+		catch (ArrayIndexOutOfBoundsException ex)
+		{
+		}
 	}
 
 	/**
@@ -79,7 +91,7 @@ public class ScaledObjectStyleArrayTest
 	{
 		// меньше того что по умолчанию - последние копируются
 		ScaledObjectStyleArray writingStyle = new ScaledObjectStyleArray(3);
-		ScaledObjectStyle scaledStyle = new ScaledObjectStyle(false, true, true, null, null, 
+		ScaledObjectStyle scaledStyle = new ScaledObjectStyle(false, true, true, null, null,
 						null, null, null);
 		writingStyle.setStyleOnScale(2, scaledStyle);
 		try
@@ -118,11 +130,11 @@ public class ScaledObjectStyleArrayTest
 		// больше того что по умолчанию - последние обрезаются
 		ScaledObjectStyleArray writingStyle = new ScaledObjectStyleArray(30);
 		ScaledObjectStyleArray readingStyle = new ScaledObjectStyleArray();
-		ScaledObjectStyle scaledStyle1 = new ScaledObjectStyle(false, true, true, null, null, 
+		ScaledObjectStyle scaledStyle1 = new ScaledObjectStyle(false, true, true, null, null,
 						null, null, null);
 		writingStyle.setStyleOnScale(writingStyle.count() - 1, scaledStyle1);
 
-		ScaledObjectStyle scaledStyle2 = new ScaledObjectStyle(false, true, false, null, null, 
+		ScaledObjectStyle scaledStyle2 = new ScaledObjectStyle(false, true, false, null, null,
 						null, null, null);
 		writingStyle.setStyleOnScale(readingStyle.count() - 1, scaledStyle2);
 		writingStyle.setStyleOnScale(readingStyle.count() - 2, scaledStyle1);
