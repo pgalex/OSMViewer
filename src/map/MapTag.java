@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package map;
 
 import fileIO.ReadableMapData;
@@ -9,25 +5,25 @@ import fileIO.WritableMapData;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.nio.CharBuffer;
 
 /**
- * Тэг
- * @author preobrazhentsev
+ * Tag
+ *
+ * @author pgalex
  */
 public class MapTag implements WritableMapData, ReadableMapData
 {
 	/**
-	 * ключ
+	 * key
 	 */
 	private String key;
 	/**
-	 * значение
+	 * value
 	 */
 	private String value;
 
 	/**
-	 * Конструктор
+	 * Default constructor
 	 */
 	public MapTag()
 	{
@@ -36,9 +32,10 @@ public class MapTag implements WritableMapData, ReadableMapData
 	}
 
 	/**
-	 * Контсруктор
-	 * @param pKey ключ
-	 * @param pValue значение
+	 * Constructor
+	 *
+	 * @param pKey key
+	 * @param pValue value
 	 */
 	public MapTag(String pKey, String pValue)
 	{
@@ -47,6 +44,8 @@ public class MapTag implements WritableMapData, ReadableMapData
 	}
 
 	/**
+	 * Get key
+	 *
 	 * @return the key
 	 */
 	public String getKey()
@@ -55,7 +54,9 @@ public class MapTag implements WritableMapData, ReadableMapData
 	}
 
 	/**
-	 * @param pKey the pKey to set
+	 * Set new key
+	 *
+	 * @param pKey the key to set
 	 */
 	public void setKey(String pKey)
 	{
@@ -63,6 +64,8 @@ public class MapTag implements WritableMapData, ReadableMapData
 	}
 
 	/**
+	 * Get "value"
+	 *
 	 * @return the value
 	 */
 	public String getValue()
@@ -71,6 +74,8 @@ public class MapTag implements WritableMapData, ReadableMapData
 	}
 
 	/**
+	 * Set value
+	 *
 	 * @param pValue the pValue to set
 	 */
 	public void setValue(String pValue)
@@ -79,9 +84,10 @@ public class MapTag implements WritableMapData, ReadableMapData
 	}
 
 	/**
-	 * Сравнить теги
-	 * @param pTag тег для сравнения
-	 * @return  
+	 * Compare. Ingnore case
+	 *
+	 * @param pTag tag for comparing
+	 * @return is tags eqaul
 	 */
 	public boolean compareTo(MapTag pTag)
 	{
@@ -92,9 +98,10 @@ public class MapTag implements WritableMapData, ReadableMapData
 	}
 
 	/**
-	 * Записать в поток
-	 * @param pOutput поток вывода
-	 * @throws IOException запись не удалась
+	 * Write into stream
+	 *
+	 * @param pOutput output stream
+	 * @throws IOException writing error
 	 */
 	@Override
 	public void writeToStream(DataOutputStream pOutput) throws IOException
@@ -111,9 +118,10 @@ public class MapTag implements WritableMapData, ReadableMapData
 	}
 
 	/**
-	 * Считать из потока
-	 * @param pInput поток чтения
-	 * @throws IOException чтение не удалось
+	 * Read from stream
+	 *
+	 * @param pInput reading stream
+	 * @throws IOException reading error
 	 */
 	@Override
 	public void readFromStream(DataInputStream pInput) throws IOException
