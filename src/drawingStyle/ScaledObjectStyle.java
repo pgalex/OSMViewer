@@ -14,40 +14,40 @@ import java.io.IOException;
 public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 {
 	/**
-	 * Рисовать ли точку на данном масштабе
+	 * Is need to draw point. Рисовать ли точку на данном масштабе
 	 */
 	private boolean drawPoint;
 	/**
-	 * Рисовать ли линию на данном масштабе
+	 * Is need to draw line. Рисовать ли линию на данном масштабе
 	 */
 	private boolean drawLine;
 	/**
-	 * Рисовать ли многоугольник на данном масштабе
+	 * Is need to draw polygon. Рисовать ли многоугольник на данном масштабе
 	 */
 	private boolean drawPolygon;
 	/**
-	 * стиль точки
+	 * point drawing style. стиль точки
 	 */
 	private PointDrawStyle pointStyle;
 	/**
-	 * стиль линии
+	 * line drawing style. стиль линии
 	 */
 	private LineDrawStyle lineStyle;
 	/**
-	 * стиль многоугольника
+	 * polygon drawing style. стиль многоугольника
 	 */
 	private PolygonDrawStyle polygonStyle;
 	/**
-	 * Шрифт текста для имени
+	 * Map object text(caption) font. Шрифт текста для имени
 	 */
 	private IOFont textFont;
 	/**
-	 * Цвет текстовой подписи
+	 * Text(caption) color. Цвет текстовой подписи
 	 */
 	private IOColor textColor;
 
 	/**
-	 * Конструктор
+	 * Default constructor
 	 */
 	public ScaledObjectStyle()
 	{
@@ -62,19 +62,18 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Конструктор
+	 * Constructor
 	 *
-	 * @param pDrawPoint Рисовать ли точку на данном масштабе
-	 * @param pDrawLine Рисовать ли линию на данном масштабе
-	 * @param pDrawPolygon Рисовать ли многоугольник на данном масштабе
-	 * @param pPointStyle стиль точки. При нулевом значении задается автоматически
-	 * @param pLineStyle стиль линии. При нулевом значении задается автоматически
-	 * @param pPolygonStyle стиль многоугольника. При нулевом значении задается
-	 * автоматически
-	 * @param pTextColor Цвет текстовой подписи. При нулевом значении задается
-	 * автоматически
-	 * @param pTextFont Шрифт текстововй подписи. При нулевом значении задается
-	 * автоматически
+	 * @param pDrawPoint Is need to draw point
+	 * @param pDrawLine Is need to draw line
+	 * @param pDrawPolygon Is need to draw polygon
+	 * @param pPointStyle point drawing style. Auto-initialize if null
+	 * @param pLineStyle line drawing style. Auto-initialize if null
+	 * @param pPolygonStyle polygon drawing style. Auto-initialize if null
+	 * @param pTextColor Text(caption) color. Цвет текстовой подписи.
+	 * Auto-initialize if null
+	 * @param pTextFont Map object text(caption) font. Шрифт текстововй подписи.
+	 * Auto-initialize if null
 	 */
 	public ScaledObjectStyle(boolean pDrawPoint, boolean pDrawLine, boolean pDrawPolygon,
 					PointDrawStyle pPointStyle, LineDrawStyle pLineStyle, PolygonDrawStyle pPolygonStyle,
@@ -93,10 +92,10 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Считать из потока
+	 * Read from stream
 	 *
-	 * @param pInput поток чтения
-	 * @throws IOException чтение не удалось
+	 * @param pInput reading stream
+	 * @throws IOException reading error
 	 */
 	@Override
 	public void readFromStream(DataInputStream pInput) throws IOException
@@ -120,10 +119,10 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Записать в поток
+	 * Write into stream
 	 *
-	 * @param pOutput поток вывода
-	 * @throws IOException запись не удалась
+	 * @param pOutput output stream
+	 * @throws IOException writing error
 	 */
 	@Override
 	public void writeToStream(DataOutputStream pOutput) throws IOException
@@ -147,9 +146,9 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Рисовать ли точку на данном масштабе
+	 * Is need to draw point.
 	 *
-	 * @return Рисовать ли точку на данном масштабе
+	 * @return Is need to draw point.
 	 */
 	public boolean isDrawPoint()
 	{
@@ -157,9 +156,9 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Рисовать ли линию на данном масштабе
+	 * Is need to draw line
 	 *
-	 * @return Рисовать ли линию на данном масштабе
+	 * @return Is need to draw line
 	 */
 	public boolean isDrawLine()
 	{
@@ -167,9 +166,9 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Рисовать ли многоугольник на данном масштабе
+	 * Is need to draw polygon
 	 *
-	 * @return Рисовать ли многоугольник на данном масштабе
+	 * @return Is need to draw polygon
 	 */
 	public boolean isDrawPolygon()
 	{
@@ -177,9 +176,9 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Получить стиль точки
+	 * Get point drawing style
 	 *
-	 * @return стиль точки
+	 * @return point drawing style
 	 */
 	public PointDrawStyle getPointStyle()
 	{
@@ -187,9 +186,9 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Получить стиль линии
+	 * Get line drawing style
 	 *
-	 * @return стиль линии
+	 * @return line drawing style
 	 */
 	public LineDrawStyle getLineStyle()
 	{
@@ -197,9 +196,9 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Получить стиль многоугольника
+	 * Get polygon drawing style
 	 *
-	 * @return стиль многоугольника
+	 * @return polygon drawing style
 	 */
 	public PolygonDrawStyle getPolygonStyle()
 	{
@@ -207,9 +206,9 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Получить шрифт текста для имени
+	 * Get text (caption) font
 	 *
-	 * @return шрифт текста для имени
+	 * @return text (caption) font
 	 */
 	public IOFont getTextFont()
 	{
@@ -217,9 +216,9 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Получить цвет текстовой подписи
+	 * Get text (caption) color
 	 *
-	 * @return цвет текстовой подписи
+	 * @return text (caption) color
 	 */
 	public IOColor getTextColor()
 	{
@@ -227,7 +226,7 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Инициализировать нулевые поля класса значениями по умолчанию
+	 * Auto-initialize null fields
 	 */
 	private void InitializeNullFields()
 	{
