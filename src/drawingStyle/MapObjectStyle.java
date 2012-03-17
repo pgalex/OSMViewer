@@ -5,8 +5,7 @@ import fileIO.WritableMapData;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import map.MapTag;
+import map.DefenitionTags;
 
 /**
  * How to draw any object on a map
@@ -52,7 +51,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 	/**
 	 * Tags that define map object
 	 */
-	public ArrayList<MapTag> defenitionTags;
+	private DefenitionTags defenitionTags;
 
 	/**
 	 * Default constructor
@@ -60,14 +59,14 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 	 */
 	public MapObjectStyle()
 	{
-		scaledStyles = new ScaledObjectStyleArray();
-		defenitionTags = new ArrayList<MapTag>();
 		canBePoint = false;
 		canBeLine = false;
 		canBePolygon = false;
 		drawPriority = 1;
 		textTagKey = "";
 		description = "";
+		scaledStyles = new ScaledObjectStyleArray();
+		defenitionTags = new DefenitionTags();
 	}
 
 	/**
@@ -81,9 +80,11 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 	 * @param pDrawPriority Drawing priority
 	 * @param pDescription Description of map object
 	 * @param pScaledStyles Drawing styles on each scale level
+	 * @param pDefenitionTags Map object defenition tags
 	 */
 	public MapObjectStyle(boolean pCanBePoint, boolean pCanBeLine, boolean pCanBePolygon,
-					String pTextTagKey, int pDrawPriority, String pDescription, ScaledObjectStyleCollection pScaledStyles)
+					String pTextTagKey, int pDrawPriority, String pDescription, ScaledObjectStyleCollection pScaledStyles,
+					DefenitionTags pDefenitionTags)
 	{
 		canBePoint = pCanBePoint;
 		canBeLine = pCanBeLine;
@@ -91,49 +92,9 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 		textTagKey = pTextTagKey;
 		drawPriority = pDrawPriority;
 		description = pDescription;
-
 		scaledStyles = pScaledStyles;
-		defenitionTags = new ArrayList<MapTag>();
+		defenitionTags = pDefenitionTags;
 		InitializeNullFields();
-	}
-
-	/**
-	 *
-	 * Compare defenition tags. (Сравнить теги без учета их порядка. Каждый тег из
-	 * defenitionTags должен входить в pTags )
-	 *
-	 * @param pTags tags for comparing
-	 * @return is pTags defines this objects
-	 */
-	public boolean compareDefenitionTags(ArrayList<MapTag> pTags)
-	{
-		//заведомо несопадающие теги
-		if (pTags == null)
-			return false;
-		if (defenitionTags.size() > pTags.size())
-			return false;
-		// пустые списки считаются равны
-		if (defenitionTags.isEmpty() && pTags.isEmpty())
-			return true;
-
-		if (defenitionTags.isEmpty() && !pTags.isEmpty())
-			return false;
-
-		for (MapTag defenitionTempTag : defenitionTags)
-		{
-			boolean currentCompareResult = false;
-			for (MapTag parameterTempTag : pTags)
-			{
-				if (defenitionTempTag.compareTo(parameterTempTag))
-				{
-					currentCompareResult = true;
-					break;
-				}
-			}
-			if (!currentCompareResult)
-				return false;
-		}
-		return true;
 	}
 
 	/**
@@ -153,16 +114,8 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 			textTagKey = pInput.readUTF();
 			drawPriority = pInput.readInt();
 			description = pInput.readUTF();
-
 			scaledStyles.readFromStream(pInput);
-
-			int tagsCount = pInput.readInt();
-			for (int i = 0; i < tagsCount; i++)
-			{
-				MapTag tempTag = new MapTag();
-				tempTag.readFromStream(pInput);
-				defenitionTags.add(tempTag);
-			}
+			defenitionTags.readFromStream(pInput);
 		}
 		catch (Exception e)
 		{
@@ -187,12 +140,8 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 			pOutput.writeUTF(textTagKey);
 			pOutput.writeInt(drawPriority);
 			pOutput.writeUTF(description);
-
 			scaledStyles.writeToStream(pOutput);
-
-			pOutput.writeInt(defenitionTags.size());
-			for (MapTag tempTag : defenitionTags)
-				tempTag.writeToStream(pOutput);
+			defenitionTags.writeToStream(pOutput);
 		}
 		catch (Exception e)
 		{
@@ -272,11 +221,23 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 	}
 
 	/**
+	 * Get map object defenition tags
+	 *
+	 * @return map object defenition tags
+	 */
+	public DefenitionTags getDefenitionTags()
+	{
+		return defenitionTags;
+	}
+
+	/**
 	 * Set default values into null fields
 	 */
 	private void InitializeNullFields()
 	{
 		if (scaledStyles == null)
 			scaledStyles = new ScaledObjectStyleArray();
+		if (defenitionTags == null)
+			defenitionTags = new DefenitionTags();
 	}
 }

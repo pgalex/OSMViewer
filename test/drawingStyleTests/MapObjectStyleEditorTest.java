@@ -4,6 +4,7 @@ package drawingStyleTests;
 import drawingStyle.MapObjectStyle;
 import drawingStyle.MapObjectStyleEditor;
 import java.io.IOException;
+import map.EditableDefenitionTags;
 import map.MapTag;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -26,9 +27,9 @@ public class MapObjectStyleEditorTest
 	public void fileTest()
 	{
 		MapObjectStyle style1 = new MapObjectStyle(true, true,
-						true, "", 0, "style1", null);
+						true, "", 0, "style1", null, null);
 		MapObjectStyle style2 = new MapObjectStyle(true, true,
-						true, "", 0, "style2", null);
+						true, "", 0, "style2", null, null);
 
 		MapObjectStyleEditor editor = new MapObjectStyleEditor();
 
@@ -80,13 +81,15 @@ public class MapObjectStyleEditorTest
 	{
 		MapObjectStyleEditor editor = new MapObjectStyleEditor();
 
+		EditableDefenitionTags tags1 = new EditableDefenitionTags();
+		tags1.add(new MapTag("k1", "v1"));
 		MapObjectStyle style1 = new MapObjectStyle(true, true,
-						true, "name", 1, "style1", null);
-		style1.defenitionTags.add(new MapTag("k1", "v1"));
+						true, "name", 1, "style1", null, tags1);
 
+		EditableDefenitionTags tags2 = new EditableDefenitionTags();
+		tags2.add(new MapTag("k2", "v2"));
 		MapObjectStyle style2 = new MapObjectStyle(false, false,
-						false, "", 2, "style1", null);
-		style2.defenitionTags.add(new MapTag("k2", "v2"));
+						false, "", 2, "style1", null, null);
 
 		assertEquals(0, editor.getStylesCount());
 

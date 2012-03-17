@@ -1,4 +1,4 @@
-package drawingStyleTests;
+package mapTests;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
