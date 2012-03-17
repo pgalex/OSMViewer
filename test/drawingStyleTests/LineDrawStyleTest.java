@@ -2,6 +2,7 @@ package drawingStyleTests;
 
 import drawingStyle.IOColor;
 import drawingStyle.LineDrawStyle;
+import drawingStyle.LinePattern;
 import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -31,16 +32,9 @@ public class LineDrawStyleTest
 	public void constructorTest()
 	{
 		// null шаблон
-		LineDrawStyle testStyle = new LineDrawStyle(new IOColor(Color.BLACK), 2, null);
-		assertArrayEquals(LineDrawStyle.SOLID_LINE_PATTERN, testStyle.getPattern(), 0.01f);
-
-		// пустой шаблон
-		testStyle = new LineDrawStyle(new IOColor(Color.BLACK), 2, new float[0]);
-		assertArrayEquals(LineDrawStyle.SOLID_LINE_PATTERN, testStyle.getPattern(), 0.01f);
-
-		// null цвет
-		testStyle = new LineDrawStyle(null, 1, null);
+		LineDrawStyle testStyle = new LineDrawStyle(null, 1, null);
 		assertNotNull(testStyle.getColor());
+		assertNotNull(testStyle.getLinePattern());
 	}
 	
 	@Test
@@ -51,7 +45,7 @@ public class LineDrawStyleTest
 		pattern[1] = 3;
 		pattern[2] = 4;
 		pattern[3] = 5;
-		LineDrawStyle writingStyle = new LineDrawStyle(new IOColor(Color.CYAN), 11, pattern);
+		LineDrawStyle writingStyle = new LineDrawStyle(new IOColor(Color.CYAN), 11, new LinePattern(pattern));
 
 		//запись
 		try
@@ -73,7 +67,7 @@ public class LineDrawStyleTest
 			readingStyle.readFromStream(input);
 			input.close();
 			assertEquals(writingStyle.getColor().getColor(), readingStyle.getColor().getColor());
-			assertArrayEquals(writingStyle.getPattern(), readingStyle.getPattern(), 0.01f);
+			assertArrayEquals(writingStyle.getLinePattern().getPattern(), readingStyle.getLinePattern().getPattern(), 0.01f);
 			assertEquals(writingStyle.getWidth(), readingStyle.getWidth());
 		}
 		catch (Exception ex)

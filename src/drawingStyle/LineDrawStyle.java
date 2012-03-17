@@ -14,13 +14,6 @@ import java.io.IOException;
 public class LineDrawStyle implements ReadableMapData, WritableMapData
 {
 	/**
-	 * Solid line pattern
-	 */
-	public static final float[] SOLID_LINE_PATTERN =
-	{
-		1
-	};
-	/**
 	 * Default line width
 	 */
 	private static final int DEFAULT_WIDTH = 1;
@@ -35,7 +28,7 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 	/**
 	 * User defined pattern ( dash, dot etc )
 	 */
-	private float[] pattern;
+	private LinePattern pattern;
 
 	/**
 	 * Default constructor
@@ -44,7 +37,7 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 	{
 		color = new IOColor();
 		width = DEFAULT_WIDTH;
-		pattern = SOLID_LINE_PATTERN;
+		pattern = new LinePattern();
 	}
 
 	/**
@@ -54,7 +47,7 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 	 * @param pWidth width
 	 * @param pPattern pattern. Autocreating if null
 	 */
-	public LineDrawStyle(IOColor pColor, int pWidth, float[] pPattern)
+	public LineDrawStyle(IOColor pColor, int pWidth, LinePattern pPattern)
 	{
 		color = pColor;
 		width = pWidth;
@@ -74,13 +67,8 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 		try
 		{
 			color.readFromStream(pInput);
-
 			width = pInput.readInt();
-
-			int patternCount = pInput.readInt();
-			pattern = new float[patternCount];
-			for (int i = 0; i < patternCount; i++)
-				pattern[i] = pInput.readFloat();
+			pattern.readFromStream(pInput);
 		}
 		catch (Exception e)
 		{
@@ -101,10 +89,7 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 		{
 			color.writeToStream(pOutput);
 			pOutput.writeInt(width);
-
-			pOutput.writeInt(pattern.length);
-			for (int i = 0; i < pattern.length; i++)
-				pOutput.writeFloat(pattern[i]);
+			pattern.writeToStream(pOutput);
 		}
 		catch (Exception e)
 		{
@@ -137,7 +122,7 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 	 *
 	 * @return pattern
 	 */
-	public float[] getPattern()
+	public LinePattern getLinePattern()
 	{
 		return pattern;
 	}
@@ -150,8 +135,6 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 		if (color == null)
 			color = new IOColor();
 		if (pattern == null)
-			pattern = SOLID_LINE_PATTERN;
-		if (pattern.length == 0)
-			pattern = SOLID_LINE_PATTERN;
+			pattern = new LinePattern();
 	}
 }

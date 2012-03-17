@@ -1,9 +1,6 @@
 package drawingStyleTests;
 
-import drawingStyle.IOColor;
-import drawingStyle.IOIcon;
-import drawingStyle.LineDrawStyle;
-import drawingStyle.PolygonDrawStyle;
+import drawingStyle.*;
 import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -44,7 +41,7 @@ public class PolygonDrawStyleTest
 	@Test
 	public void fileTest()
 	{
-		LineDrawStyle borderStyle = new LineDrawStyle(new IOColor(Color.CYAN), 10, LineDrawStyle.SOLID_LINE_PATTERN);
+		LineDrawStyle borderStyle = new LineDrawStyle(new IOColor(Color.CYAN), 10, new LinePattern());
 		PolygonDrawStyle writingStyle = new PolygonDrawStyle(new IOColor(Color.MAGENTA), borderStyle,
 						new IOIcon());
 		//запись
@@ -70,7 +67,6 @@ public class PolygonDrawStyleTest
 			assertEquals(writingStyle.getFillColor().getColor(), readingStyle.getFillColor().getColor());
 			assertEquals(writingStyle.getBorderDrawStyle().getColor().getColor(), readingStyle.getBorderDrawStyle().getColor().getColor());
 			assertEquals(writingStyle.getBorderDrawStyle().getWidth(), readingStyle.getBorderDrawStyle().getWidth());
-			//assertEquals(writingStyle.getFillImage().getImageFileName(), readingStyle.getFillImage().getImageFileName());
 		}
 		catch (Exception ex)
 		{
