@@ -136,6 +136,9 @@ public class MapObjectStyleEditor implements StyleEditor
 	@Override
 	public int getStyleIndex(DefenitionTags pDefenitionTags) throws ArrayStoreException
 	{
+		if (pDefenitionTags == null)
+			throw new ArrayStoreException();
+		
 		for (int i = 0; i < styles.size(); i++)
 		{
 			if (styles.get(i).getDefenitionTags().compareTo(pDefenitionTags))

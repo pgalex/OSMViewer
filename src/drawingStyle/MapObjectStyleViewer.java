@@ -82,6 +82,9 @@ public class MapObjectStyleViewer implements StyleViewer
 	@Override
 	public int getStyleIndex(DefenitionTags pDefenitionTags) throws ArrayStoreException
 	{
+		if (pDefenitionTags == null)
+			throw new ArrayStoreException();
+		
 		for (int i = 0; i < styles.length; i++)
 		{
 			if (styles[i].getDefenitionTags().compareTo(pDefenitionTags))

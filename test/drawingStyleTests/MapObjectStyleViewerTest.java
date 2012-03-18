@@ -1,16 +1,13 @@
 package drawingStyleTests;
 
 import drawingStyle.*;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import map.EditableDefenitionTags;
 import map.MapTag;
 import org.junit.AfterClass;
-import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  *
@@ -134,6 +131,18 @@ public class MapObjectStyleViewerTest
 		assertEquals(2, viewer.getStyleIndex(tags3));
 
 		// not exists
+		try
+		{
+			EditableDefenitionTags testTags = new EditableDefenitionTags();
+			testTags.add(new MapTag("k9", "v9"));
+			viewer.getStyleIndex(testTags);
+			fail();
+		}
+		catch (Exception ex)
+		{
+			// ok
+		}
+		// null
 		try
 		{
 			viewer.getStyleIndex(null);

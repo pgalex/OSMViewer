@@ -350,6 +350,16 @@ public class MapObjectStyleEditorTest
 		{
 			//ok
 		}
+		// null
+		try
+		{
+			editor.getStyleIndex(null);
+			fail();
+		}
+		catch (Exception ex)
+		{
+			//ok
+		}
 	}
 
 	/**
