@@ -3,8 +3,8 @@ package drawingStyle;
 import java.io.IOException;
 
 /**
- * Main interface of drawingStyle with "set" methods. Using in style editing
- * forms
+ * Main interface of drawingStyle with "setMapObjectStyle" methods. Using in
+ * style editing forms
  *
  * @author pgalex
  */
@@ -26,6 +26,22 @@ public interface StyleEditor extends StyleViewer
 	 * @throws ArrayIndexOutOfBoundsException style id is out of bounds
 	 */
 	public void setMapObjectStyle(int pStyleId, MapObjectStyle pNewStyle) throws ArrayIndexOutOfBoundsException;
+
+	/**
+	 * Add style
+	 *
+	 * @param pNewStyle new map object style
+	 * @return id of new style
+	 */
+	public int add(MapObjectStyle pNewStyle);
+
+	/**
+	 * Remove style with specefied id
+	 *
+	 * @param pStyleId style id
+	 * @throws ArrayIndexOutOfBoundsException id out of bounds
+	 */
+	public void remove(int pStyleId) throws ArrayIndexOutOfBoundsException;
 
 	/**
 	 * Get all style ids

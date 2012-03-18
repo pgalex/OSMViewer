@@ -36,7 +36,7 @@ public class EditableDefenitionTags extends DefenitionTags
 	{
 		tags.add(pTag);
 	}
-	
+
 	/**
 	 * Clear tags array
 	 */
@@ -49,11 +49,12 @@ public class EditableDefenitionTags extends DefenitionTags
 	 * Remove elemet with index
 	 *
 	 * @param pIndex index of element in tags array
+	 * @throws ArrayIndexOutOfBoundsException index out of bounds
 	 */
-	public void remove(int pIndex)
+	public void remove(int pIndex) throws ArrayIndexOutOfBoundsException
 	{
 		if (pIndex < 0 || pIndex >= tags.size())
-			return;
+			throw new ArrayIndexOutOfBoundsException();
 		tags.remove(pIndex);
 	}
 }

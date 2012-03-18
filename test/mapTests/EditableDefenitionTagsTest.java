@@ -74,6 +74,25 @@ public class EditableDefenitionTagsTest
 		tags.remove(0);
 		assertTrue(tags.isEmpty());
 		assertEquals(0, tags.size());
+		
+		try
+		{
+			tags.remove(-1);
+			fail();
+		}
+		catch(Exception ex)
+		{
+			//ok
+		}
+		try
+		{
+			tags.remove(1);
+			fail();
+		}
+		catch(Exception ex)
+		{
+			//ok
+		}
 	}
 	
 	@BeforeClass
