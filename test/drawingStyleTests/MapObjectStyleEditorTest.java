@@ -240,7 +240,7 @@ public class MapObjectStyleEditorTest
 			fail();
 		}
 
-		MapObjectStyleEditor readingEditor = new MapObjectStyleEditor();
+		StyleEditor readingEditor = new MapObjectStyleEditor();
 		try
 		{
 			readingEditor.loadFromFile(TEST_FILE_NAME);
@@ -310,7 +310,7 @@ public class MapObjectStyleEditorTest
 		MapObjectStyle style2 = new MapObjectStyle(true, true, true, "", 0, "style2", null, tags2);
 		MapObjectStyle style3 = new MapObjectStyle(true, true, true, "", 0, "style3", null, tags3);
 
-		MapObjectStyleEditor editor = new MapObjectStyleEditor();
+		StyleEditor editor = new MapObjectStyleEditor();
 		editor.add(style1);
 		editor.add(style2);
 		editor.add(style3); // there was auto sort
@@ -351,7 +351,7 @@ public class MapObjectStyleEditorTest
 			//ok
 		}
 	}
-	
+
 	/**
 	 * Testing sorting after adding and setting
 	 */
@@ -360,7 +360,7 @@ public class MapObjectStyleEditorTest
 	{
 		EditableDefenitionTags tags1 = new EditableDefenitionTags();
 		tags1.add(new MapTag("k8", "v8"));
-		
+
 
 		EditableDefenitionTags tags2 = new EditableDefenitionTags();
 		tags2.add(new MapTag("k1", "v1"));
@@ -376,21 +376,21 @@ public class MapObjectStyleEditorTest
 		MapObjectStyle style1 = new MapObjectStyle(true, true, true, "", 0, "style1", null, tags1);
 		MapObjectStyle style2 = new MapObjectStyle(true, true, true, "", 0, "style2", null, tags2);
 		MapObjectStyle style3 = new MapObjectStyle(true, true, true, "", 0, "style3", null, tags3);
-		
-		MapObjectStyleEditor editor = new MapObjectStyleEditor();
+
+		StyleEditor editor = new MapObjectStyleEditor();
 		editor.add(style1);
 		editor.add(style2);
 		editor.add(style3);
-		
+
 		assertEquals(style1.getDescription(), editor.getMapObjectStyle(2).getDescription());
 		assertEquals(style2.getDescription(), editor.getMapObjectStyle(1).getDescription());
 		assertEquals(style3.getDescription(), editor.getMapObjectStyle(0).getDescription());
-		
+
 		editor.set(0, style1);
 		assertEquals(style1.getDescription(), editor.getMapObjectStyle(2).getDescription());
 		assertEquals(style1.getDescription(), editor.getMapObjectStyle(1).getDescription());
 		assertEquals(style2.getDescription(), editor.getMapObjectStyle(0).getDescription());
-		
+
 		editor.set(1, style3);
 		assertEquals(style1.getDescription(), editor.getMapObjectStyle(2).getDescription());
 		assertEquals(style2.getDescription(), editor.getMapObjectStyle(1).getDescription());
