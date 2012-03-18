@@ -76,7 +76,7 @@ public class MapObjectStyleEditor implements StyleEditor
 		{
 			styles.clear();
 
-			int styleSize = 0;
+			int styleSize = input.readInt();
 			for (int i = 0; i < styleSize; i++)
 			{
 				MapObjectStyle currentStyle = new MapObjectStyle();
@@ -97,20 +97,20 @@ public class MapObjectStyleEditor implements StyleEditor
 	/**
 	 * Set new style by index
 	 *
-	 * @param pStyleId style index
+	 * @param pIndex style index
 	 * @param pNewStyle new style
 	 * @throws ArrayIndexOutOfBoundsException style index is out of bounds
 	 * @throws NullPointerException new style is null
 	 */
 	@Override
-	public void set(int pStyleId, MapObjectStyle pNewStyle) throws ArrayIndexOutOfBoundsException, NullPointerException
+	public void set(int pIndex, MapObjectStyle pNewStyle) throws ArrayIndexOutOfBoundsException, NullPointerException
 	{
-		if (pStyleId < 0 || pStyleId >= styles.size())
+		if (pIndex < 0 || pIndex >= styles.size())
 			throw new ArrayIndexOutOfBoundsException();
 		if (pNewStyle == null)
 			throw new NullPointerException();
 
-		styles.set(pStyleId, pNewStyle);
+		styles.set(pIndex, pNewStyle);
 		
 		Collections.sort(styles);
 	}
@@ -121,7 +121,7 @@ public class MapObjectStyleEditor implements StyleEditor
 	 * @return styles count
 	 */
 	@Override
-	public int size()
+	public int count()
 	{
 		return styles.size();
 	}
@@ -136,31 +136,27 @@ public class MapObjectStyleEditor implements StyleEditor
 	@Override
 	public int getStyleIndex(DefenitionTags pDefenitionTags) throws ArrayStoreException
 	{
-		int result = 0;
 		for (int i = 0; i < styles.size(); i++)
 		{
 			if (styles.get(i).getDefenitionTags().compareTo(pDefenitionTags))
-			{
-				result = i;
-				break;
-			}
+				return i;
 		}
-		return result;
+		throw new ArrayStoreException();
 	}
 
 	/**
 	 * Get map object drawing style by id
 	 *
-	 * @param pStyleId id of style
+	 * @param pIndex id of style
 	 * @return map object drawing style
 	 * @throws ArrayIndexOutOfBoundsException if style with this id not found
 	 */
 	@Override
-	public MapObjectStyle getMapObjectStyle(int pStyleId) throws ArrayIndexOutOfBoundsException
+	public MapObjectStyle getMapObjectStyle(int pIndex) throws ArrayIndexOutOfBoundsException
 	{
-		if (pStyleId < 0 || pStyleId >= styles.size())
+		if (pIndex < 0 || pIndex >= styles.size())
 			throw new ArrayIndexOutOfBoundsException();
-		return styles.get(pStyleId);
+		return styles.get(pIndex);
 	}
 
 	/**

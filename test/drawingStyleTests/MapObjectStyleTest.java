@@ -47,7 +47,7 @@ public class MapObjectStyleTest
 		tags2.add(new MapTag("k7", "v7"));
 		
 		EditableDefenitionTags tags3 = new EditableDefenitionTags();
-		tags2.add(new MapTag("k8", "v8"));
+		tags3.add(new MapTag("k8", "v8"));
 
 		ArrayList<MapObjectStyle> styles = new ArrayList<MapObjectStyle>();
 		styles.add(new MapObjectStyle(true, true, true, "", 0, "", null, tags1));

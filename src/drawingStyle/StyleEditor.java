@@ -49,5 +49,5 @@ public interface StyleEditor extends StyleViewer
 	 *
 	 * @return styles count
 	 */
-	public int size();
+	public int count();
 }
