@@ -3,8 +3,8 @@ package drawingStyle;
 import java.io.IOException;
 
 /**
- * Main interface of drawingStyle with "setMapObjectStyle" methods. Using in
- * style editing forms
+ * Main interface of drawingStyle with "set" methods. Using in style editing
+ * forms. All styles sorted by tags count
  *
  * @author pgalex
  */
@@ -19,34 +19,35 @@ public interface StyleEditor extends StyleViewer
 	public void saveToFile(String pFileName) throws IOException;
 
 	/**
-	 * Set new style for map object, by id
+	 * Set new style by index
 	 *
-	 * @param pStyleId style id
+	 * @param pIndex style index
 	 * @param pNewStyle new style
-	 * @throws ArrayIndexOutOfBoundsException style id is out of bounds
+	 * @throws ArrayIndexOutOfBoundsException style index is out of bounds
+	 * @throws NullPointerException new style is null
 	 */
-	public void setMapObjectStyle(int pStyleId, MapObjectStyle pNewStyle) throws ArrayIndexOutOfBoundsException;
+	public void set(int pIndex, MapObjectStyle pNewStyle) throws ArrayIndexOutOfBoundsException, NullPointerException;
 
 	/**
 	 * Add style
 	 *
 	 * @param pNewStyle new map object style
-	 * @return id of new style
+	 * @throws NullPointerException new style is null
 	 */
-	public int add(MapObjectStyle pNewStyle);
+	public void add(MapObjectStyle pNewStyle) throws NullPointerException;
 
 	/**
-	 * Remove style with specefied id
+	 * Remove style with specefied index
 	 *
-	 * @param pStyleId style id
-	 * @throws ArrayIndexOutOfBoundsException id out of bounds
+	 * @param pIndex style index
+	 * @throws ArrayIndexOutOfBoundsException index out of bounds
 	 */
-	public void remove(int pStyleId) throws ArrayIndexOutOfBoundsException;
+	public void remove(int pIndex) throws ArrayIndexOutOfBoundsException;
 
 	/**
-	 * Get all style ids
+	 * Get styles array size
 	 *
-	 * @return all style ids
+	 * @return styles count
 	 */
-	public int[] getIds();
+	public int size();
 }

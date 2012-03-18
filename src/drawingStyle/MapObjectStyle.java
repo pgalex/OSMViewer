@@ -12,7 +12,7 @@ import map.DefenitionTags;
  *
  * @author abc
  */
-public class MapObjectStyle implements ReadableMapData, WritableMapData
+public class MapObjectStyle implements ReadableMapData, WritableMapData, Comparable<MapObjectStyle>
 {
 	/**
 	 * Can be object with this tags a point ( single node ). Using when finding
@@ -239,5 +239,21 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData
 			scaledStyles = new ScaledObjectStyleArray();
 		if (defenitionTags == null)
 			defenitionTags = new DefenitionTags();
+	}
+
+	/**
+	 * Compare to. using for sorting
+	 *
+	 * @param pComparedStyle styled for comparing
+	 * @return this object 0 - equal, -1 - more tags count, 1 - less tags count
+	 */
+	@Override
+	public int compareTo(MapObjectStyle pComparedStyle)
+	{
+		if (defenitionTags.size() > pComparedStyle.getDefenitionTags().size())
+			return -1;
+		if (defenitionTags.size() < pComparedStyle.getDefenitionTags().size())
+			return 1;
+		return 0;
 	}
 }

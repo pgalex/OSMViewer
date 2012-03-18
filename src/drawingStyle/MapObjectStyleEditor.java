@@ -1,11 +1,12 @@
 package drawingStyle;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import map.DefenitionTags;
 
 /**
- * Gives access to drawing style with editing
+ * Gives access to drawing style with editing. All styles sorted by tags count
  *
  * @author pgalex
  */
@@ -21,6 +22,7 @@ public class MapObjectStyleEditor implements StyleEditor
 	 */
 	public MapObjectStyleEditor()
 	{
+		styles = new ArrayList<MapObjectStyle>();
 	}
 
 	/**
@@ -32,31 +34,20 @@ public class MapObjectStyleEditor implements StyleEditor
 	@Override
 	public void saveToFile(String pFileName) throws IOException
 	{
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
+		try
+		{
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(pFileName));
 
-	/**
-	 * Set new style for map object, by id
-	 *
-	 * @param pStyleId style id
-	 * @param pNewStyle new style
-	 * @throws ArrayIndexOutOfBoundsException style id is out of bounds
-	 */
-	@Override
-	public void setMapObjectStyle(int pStyleId, MapObjectStyle pNewStyle) throws ArrayIndexOutOfBoundsException
-	{
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
+			output.writeInt(styles.size());
+			for (int i = 0; i < styles.size(); i++)
+				styles.get(i).writeToStream(output);
 
-	/**
-	 * Get all style ids
-	 *
-	 * @return all style ids
-	 */
-	@Override
-	public int[] getIds()
-	{
-		throw new UnsupportedOperationException("Not supported yet.");
+			output.close();
+		}
+		catch (Exception ex)
+		{
+			throw new IOException();
+		}
 	}
 
 	/**
@@ -64,11 +55,75 @@ public class MapObjectStyleEditor implements StyleEditor
 	 *
 	 * @param pFileName file name
 	 * @throws IOException reading error
+	 * @throws FileNotFoundException can not load file
 	 */
 	@Override
-	public void loadFromFile(String pFileName) throws IOException
+	public void loadFromFile(String pFileName) throws IOException, FileNotFoundException
 	{
-		throw new UnsupportedOperationException("Not supported yet.");
+		// opening file - other exception
+		DataInputStream input = null;
+		try
+		{
+			input = new DataInputStream(new FileInputStream(pFileName));
+		}
+		catch (Exception ex)
+		{
+			throw new FileNotFoundException();
+		}
+
+		// reading styles
+		try
+		{
+			styles.clear();
+
+			int styleSize = 0;
+			for (int i = 0; i < styleSize; i++)
+			{
+				MapObjectStyle currentStyle = new MapObjectStyle();
+				currentStyle.readFromStream(input);
+				styles.add(currentStyle);
+			}
+
+			input.close();
+		}
+		catch (IOException ex)
+		{
+			throw new IOException();
+		}
+		
+		Collections.sort(styles);
+	}
+
+	/**
+	 * Set new style by index
+	 *
+	 * @param pStyleId style index
+	 * @param pNewStyle new style
+	 * @throws ArrayIndexOutOfBoundsException style index is out of bounds
+	 * @throws NullPointerException new style is null
+	 */
+	@Override
+	public void set(int pStyleId, MapObjectStyle pNewStyle) throws ArrayIndexOutOfBoundsException, NullPointerException
+	{
+		if (pStyleId < 0 || pStyleId >= styles.size())
+			throw new ArrayIndexOutOfBoundsException();
+		if (pNewStyle == null)
+			throw new NullPointerException();
+
+		styles.set(pStyleId, pNewStyle);
+		
+		Collections.sort(styles);
+	}
+
+	/**
+	 * Get styles count
+	 *
+	 * @return styles count
+	 */
+	@Override
+	public int size()
+	{
+		return styles.size();
 	}
 
 	/**
@@ -76,11 +131,21 @@ public class MapObjectStyleEditor implements StyleEditor
 	 *
 	 * @param pDefenitionTags tags of map object
 	 * @return id of style of object with that defenition tags
+	 * @throws ArrayStoreException object not found
 	 */
 	@Override
-	public int getStyleId(DefenitionTags pDefenitionTags)
+	public int getStyleIndex(DefenitionTags pDefenitionTags) throws ArrayStoreException
 	{
-		throw new UnsupportedOperationException("Not supported yet.");
+		int result = 0;
+		for (int i = 0; i < styles.size(); i++)
+		{
+			if (styles.get(i).getDefenitionTags().compareTo(pDefenitionTags))
+			{
+				result = i;
+				break;
+			}
+		}
+		return result;
 	}
 
 	/**
@@ -93,19 +158,25 @@ public class MapObjectStyleEditor implements StyleEditor
 	@Override
 	public MapObjectStyle getMapObjectStyle(int pStyleId) throws ArrayIndexOutOfBoundsException
 	{
-		throw new UnsupportedOperationException("Not supported yet.");
+		if (pStyleId < 0 || pStyleId >= styles.size())
+			throw new ArrayIndexOutOfBoundsException();
+		return styles.get(pStyleId);
 	}
 
 	/**
 	 * Add style
 	 *
 	 * @param pNewStyle new map object style
-	 * @return id of new style
+	 * @throws NullPointerException new style is null
 	 */
 	@Override
-	public int add(MapObjectStyle pNewStyle)
+	public void add(MapObjectStyle pNewStyle) throws NullPointerException
 	{
-		throw new UnsupportedOperationException("Not supported yet.");
+		if (pNewStyle == null)
+			throw new NullPointerException();
+		styles.add(pNewStyle);
+		
+		Collections.sort(styles);
 	}
 
 	/**
@@ -117,6 +188,8 @@ public class MapObjectStyleEditor implements StyleEditor
 	@Override
 	public void remove(int pStyleId) throws ArrayIndexOutOfBoundsException
 	{
-		throw new UnsupportedOperationException("Not supported yet.");
+		if (pStyleId < 0 || pStyleId >= styles.size())
+			throw new ArrayIndexOutOfBoundsException();
+		styles.remove(pStyleId);
 	}
 }
