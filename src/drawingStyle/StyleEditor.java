@@ -4,7 +4,7 @@ import java.io.IOException;
 
 /**
  * Main interface of drawingStyle with "set" methods. Using in style editing
- * forms. All styles sorted by tags count
+ * forms
  *
  * @author pgalex
  */
@@ -45,7 +45,7 @@ public interface StyleEditor extends StyleViewer
 	public void remove(int pIndex) throws ArrayIndexOutOfBoundsException;
 
 	/**
-	 * Get styles array size
+	 * Get styles count
 	 *
 	 * @return styles count
 	 */

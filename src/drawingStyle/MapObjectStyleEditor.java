@@ -13,7 +13,7 @@ import map.DefenitionTags;
 public class MapObjectStyleEditor implements StyleEditor
 {
 	/**
-	 * Array of map object styles
+	 * Array of map object styles. All styles sorted by tags count
 	 */
 	private ArrayList<MapObjectStyle> styles;
 

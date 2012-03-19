@@ -6,7 +6,7 @@ import map.DefenitionTags;
 
 /**
  * Main interface of drawingStyle without "set" methods. Optimized for runtime
- * work. Access to drawing styles only by index. All styles sorted by tags count
+ * work
  *
  * @author pgalex
  */

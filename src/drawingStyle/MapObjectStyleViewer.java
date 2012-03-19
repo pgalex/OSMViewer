@@ -10,14 +10,14 @@ import map.DefenitionTags;
 
 /**
  * Gives access to drawing style without editing but optimized for runtime map
- * drawing. All styles sorted by tags count
+ * drawing
  *
  * @author pgalex
  */
 public class MapObjectStyleViewer implements StyleViewer
 {
 	/**
-	 * Static array. Work faster
+	 * Static array. Work faster. All styles sorted by tags count
 	 */
 	private MapObjectStyle[] styles;
 
