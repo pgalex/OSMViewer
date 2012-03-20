@@ -98,7 +98,7 @@ public class MapObjectStyleViewer implements StyleViewer
 	 *
 	 * @param pIndex index of style
 	 * @return map object drawing style
-	 * @throws ArrayIndexOutOfBoundsException if style with this index not found
+	 * @throws ArrayIndexOutOfBoundsException index is out of bounds
 	 */
 	@Override
 	public MapObjectStyle getMapObjectStyle(int pIndex) throws ArrayIndexOutOfBoundsException

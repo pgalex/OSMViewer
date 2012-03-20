@@ -19,7 +19,7 @@ public interface StyleEditor extends StyleViewer
 	public void saveToFile(String pFileName) throws IOException;
 
 	/**
-	 * Set new style by index
+	 * Set style by index
 	 *
 	 * @param pIndex style index
 	 * @param pNewStyle new style
