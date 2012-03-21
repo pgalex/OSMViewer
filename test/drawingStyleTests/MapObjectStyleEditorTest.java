@@ -4,8 +4,8 @@
  */
 package drawingStyleTests;
 
+import drawingStyle.DrawingStyleFactory;
 import drawingStyle.MapObjectStyle;
-import drawingStyle.MapObjectStyleEditor;
 import drawingStyle.StyleEditor;
 import java.io.IOException;
 import map.EditableDefenitionTags;
@@ -37,7 +37,7 @@ public class MapObjectStyleEditorTest
 		MapObjectStyle style2 = new MapObjectStyle(true, false, true, "", 0, "style2", null, null);
 		MapObjectStyle style3 = new MapObjectStyle(false, true, true, "", 0, "style3", null, null);
 
-		StyleEditor editor = new MapObjectStyleEditor();
+		StyleEditor editor = DrawingStyleFactory.createStyleEditor();
 		assertEquals(0, editor.count());
 
 		editor.add(style1);
@@ -73,7 +73,7 @@ public class MapObjectStyleEditorTest
 		MapObjectStyle style1 = new MapObjectStyle(true, true, false, "", 0, "style1", null, null);
 		MapObjectStyle style2 = new MapObjectStyle(true, false, true, "", 0, "style2", null, null);
 
-		StyleEditor editor = new MapObjectStyleEditor();
+		StyleEditor editor = DrawingStyleFactory.createStyleEditor();
 		assertEquals(0, editor.count());
 
 		editor.add(style1);
@@ -123,7 +123,7 @@ public class MapObjectStyleEditorTest
 		MapObjectStyle style1 = new MapObjectStyle(true, true, false, "", 0, "style1", null, null);
 		MapObjectStyle style2 = new MapObjectStyle(true, false, true, "", 0, "style2", null, null);
 
-		StyleEditor editor = new MapObjectStyleEditor();
+		StyleEditor editor = DrawingStyleFactory.createStyleEditor();
 		editor.add(style1);
 		assertEquals(1, editor.count());
 
@@ -172,7 +172,7 @@ public class MapObjectStyleEditorTest
 		MapObjectStyle style1 = new MapObjectStyle(true, true, false, "", 0, "style1", null, null);
 		MapObjectStyle style2 = new MapObjectStyle(true, false, true, "", 0, "style2", null, null);
 
-		StyleEditor editor = new MapObjectStyleEditor();
+		StyleEditor editor = DrawingStyleFactory.createStyleEditor();
 		editor.add(style1);
 		editor.add(style2);
 		assertEquals(2, editor.count());
@@ -227,7 +227,7 @@ public class MapObjectStyleEditorTest
 		MapObjectStyle style2 = new MapObjectStyle(true, false, true, "", 0, "style2", null, null);
 		MapObjectStyle style3 = new MapObjectStyle(false, true, true, "", 0, "style3", null, null);
 
-		StyleEditor writingEditor = new MapObjectStyleEditor();
+		StyleEditor writingEditor = DrawingStyleFactory.createStyleEditor();
 		writingEditor.add(style1);
 		writingEditor.add(style2);
 		writingEditor.add(style3);
@@ -240,7 +240,7 @@ public class MapObjectStyleEditorTest
 			fail();
 		}
 
-		StyleEditor readingEditor = new MapObjectStyleEditor();
+		StyleEditor readingEditor = DrawingStyleFactory.createStyleEditor();
 		try
 		{
 			readingEditor.loadFromFile(TEST_FILE_NAME);
@@ -261,7 +261,7 @@ public class MapObjectStyleEditorTest
 	@Test
 	public void nullFileNameFileTest()
 	{
-		StyleEditor writingEditor = new MapObjectStyleEditor();
+		StyleEditor writingEditor = DrawingStyleFactory.createStyleEditor();
 		try
 		{
 			writingEditor.saveToFile(null);
@@ -271,7 +271,7 @@ public class MapObjectStyleEditorTest
 		{
 		}
 
-		MapObjectStyleEditor readingEditor = new MapObjectStyleEditor();
+		StyleEditor readingEditor = DrawingStyleFactory.createStyleEditor();
 		try
 		{
 			readingEditor.loadFromFile(null);
@@ -310,7 +310,7 @@ public class MapObjectStyleEditorTest
 		MapObjectStyle style2 = new MapObjectStyle(true, true, true, "", 0, "style2", null, tags2);
 		MapObjectStyle style3 = new MapObjectStyle(true, true, true, "", 0, "style3", null, tags3);
 
-		StyleEditor editor = new MapObjectStyleEditor();
+		StyleEditor editor = DrawingStyleFactory.createStyleEditor();
 		editor.add(style1);
 		editor.add(style2);
 		editor.add(style3); // there was auto sort
@@ -387,7 +387,7 @@ public class MapObjectStyleEditorTest
 		MapObjectStyle style2 = new MapObjectStyle(true, true, true, "", 0, "style2", null, tags2);
 		MapObjectStyle style3 = new MapObjectStyle(true, true, true, "", 0, "style3", null, tags3);
 
-		StyleEditor editor = new MapObjectStyleEditor();
+		StyleEditor editor = DrawingStyleFactory.createStyleEditor();
 		editor.add(style1);
 		editor.add(style2);
 		editor.add(style3);

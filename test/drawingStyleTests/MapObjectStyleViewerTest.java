@@ -1,6 +1,9 @@
 package drawingStyleTests;
 
-import drawingStyle.*;
+import drawingStyle.DrawingStyleFactory;
+import drawingStyle.MapObjectStyle;
+import drawingStyle.StyleEditor;
+import drawingStyle.StyleViewer;
 import java.io.IOException;
 import map.EditableDefenitionTags;
 import map.MapTag;
@@ -27,7 +30,7 @@ public class MapObjectStyleViewerTest
 	@Test
 	public void incorrectFileTest()
 	{
-		StyleViewer viewer = new MapObjectStyleViewer();
+		StyleViewer viewer = new DrawingStyleFactory().createStyleViewer();
 		try
 		{
 			viewer.loadFromFile(null);
@@ -49,7 +52,7 @@ public class MapObjectStyleViewerTest
 		MapObjectStyle style2 = new MapObjectStyle(true, false, true, "", 0, "style2", null, null);
 		MapObjectStyle style3 = new MapObjectStyle(false, true, true, "", 0, "style3", null, null);
 
-		StyleEditor writingEditor = new MapObjectStyleEditor();
+		StyleEditor writingEditor = DrawingStyleFactory.createStyleEditor();
 		writingEditor.add(style1);
 		writingEditor.add(style2);
 		writingEditor.add(style3);
@@ -62,7 +65,7 @@ public class MapObjectStyleViewerTest
 			fail();
 		}
 
-		StyleViewer readingViewer = new MapObjectStyleViewer();
+		StyleViewer readingViewer = DrawingStyleFactory.createStyleViewer();
 		try
 		{
 			readingViewer.loadFromFile(TEST_FILE_NAME);
@@ -102,7 +105,7 @@ public class MapObjectStyleViewerTest
 		MapObjectStyle style2 = new MapObjectStyle(true, true, true, "", 0, "style2", null, tags2);
 		MapObjectStyle style3 = new MapObjectStyle(true, true, true, "", 0, "style3", null, tags3);
 
-		StyleEditor editor = new MapObjectStyleEditor();
+		StyleEditor editor = DrawingStyleFactory.createStyleEditor();
 		editor.add(style1);
 		editor.add(style2);
 		editor.add(style3);
@@ -115,7 +118,7 @@ public class MapObjectStyleViewerTest
 			fail();
 		}
 
-		StyleViewer viewer = new MapObjectStyleViewer();
+		StyleViewer viewer = DrawingStyleFactory.createStyleViewer();
 		try
 		{
 			viewer.loadFromFile(TEST_FILE_NAME);
@@ -152,14 +155,12 @@ public class MapObjectStyleViewerTest
 		{
 			// ok
 		}
-		
+
 		// getMapObjectStyle
 		assertEquals(style1.getDescription(), viewer.getMapObjectStyle(0).getDescription());
 		assertEquals(style2.getDescription(), viewer.getMapObjectStyle(1).getDescription());
 		assertEquals(style3.getDescription(), viewer.getMapObjectStyle(2).getDescription());
 	}
-	
-	
 
 	@BeforeClass
 	public static void setUpClass() throws Exception

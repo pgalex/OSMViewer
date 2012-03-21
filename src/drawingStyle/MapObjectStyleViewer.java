@@ -84,7 +84,7 @@ public class MapObjectStyleViewer implements StyleViewer
 	{
 		if (pDefenitionTags == null)
 			throw new ArrayStoreException();
-		
+
 		for (int i = 0; i < styles.length; i++)
 		{
 			if (styles[i].getDefenitionTags().compareTo(pDefenitionTags))

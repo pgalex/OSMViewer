@@ -6,7 +6,7 @@ import java.util.Collections;
 import map.DefenitionTags;
 
 /**
- * Gives access to drawing style with editing. All styles sorted by tags count
+ * Gives access to drawing style with editing
  *
  * @author pgalex
  */
@@ -90,7 +90,7 @@ public class MapObjectStyleEditor implements StyleEditor
 		{
 			throw new IOException();
 		}
-		
+
 		Collections.sort(styles);
 	}
 
@@ -111,7 +111,7 @@ public class MapObjectStyleEditor implements StyleEditor
 			throw new NullPointerException();
 
 		styles.set(pIndex, pNewStyle);
-		
+
 		Collections.sort(styles);
 	}
 
@@ -138,7 +138,7 @@ public class MapObjectStyleEditor implements StyleEditor
 	{
 		if (pDefenitionTags == null)
 			throw new ArrayStoreException();
-		
+
 		for (int i = 0; i < styles.size(); i++)
 		{
 			if (styles.get(i).getDefenitionTags().compareTo(pDefenitionTags))
@@ -174,7 +174,7 @@ public class MapObjectStyleEditor implements StyleEditor
 		if (pNewStyle == null)
 			throw new NullPointerException();
 		styles.add(pNewStyle);
-		
+
 		Collections.sort(styles);
 	}
 

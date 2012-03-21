@@ -5,18 +5,14 @@
 package flyConverter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import map.MapTag;
-import org.xml.sax.*;
+import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-import osmXml.OSMFileBounds;
-import osmXml.OSMFileNode;
-import osmXml.OSMFileRelation;
-import osmXml.OSMFileRelationMember;
-import osmXml.OSMFileWay;
-import osmXml.OSMXMLNames;
+import osmXml.*;
 
 /**
  * Конвертер из .osm xml сразу в карту
