@@ -35,15 +35,6 @@ public class JFrameMain extends javax.swing.JFrame
     private void initComponents() {
 
         jPanelCanvas = new javax.swing.JPanel();
-        jMenuBarMain = new javax.swing.JMenuBar();
-        jMenuFile = new javax.swing.JMenu();
-        jMenuItemOpen = new javax.swing.JMenuItem();
-        jMenuItemConvertOsm = new javax.swing.JMenuItem();
-        jMenuItemExit = new javax.swing.JMenuItem();
-        jMenuMap = new javax.swing.JMenu();
-        jMenuItemEditStyle = new javax.swing.JMenuItem();
-        jMenuSettings = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("OpenStreetMap Viewer");
@@ -59,57 +50,8 @@ public class JFrameMain extends javax.swing.JFrame
         );
         jPanelCanvasLayout.setVerticalGroup(
             jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 458, Short.MAX_VALUE)
+            .addGap(0, 480, Short.MAX_VALUE)
         );
-
-        jMenuFile.setText("Файл");
-
-        jMenuItemOpen.setText("Открыть карту ...");
-        jMenuFile.add(jMenuItemOpen);
-
-        jMenuItemConvertOsm.setText("Конвертировать .osm ...");
-        jMenuItemConvertOsm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemConvertOsmActionPerformed(evt);
-            }
-        });
-        jMenuFile.add(jMenuItemConvertOsm);
-
-        jMenuItemExit.setText("Выход");
-        jMenuItemExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemExitActionPerformed(evt);
-            }
-        });
-        jMenuFile.add(jMenuItemExit);
-
-        jMenuBarMain.add(jMenuFile);
-
-        jMenuMap.setText("Карта");
-
-        jMenuItemEditStyle.setText("Объекты на карте ...");
-        jMenuItemEditStyle.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemEditStyleActionPerformed(evt);
-            }
-        });
-        jMenuMap.add(jMenuItemEditStyle);
-
-        jMenuBarMain.add(jMenuMap);
-
-        jMenuSettings.setText("Настойки");
-
-        jMenuItem1.setText("Общие ...");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenuSettings.add(jMenuItem1);
-
-        jMenuBarMain.add(jMenuSettings);
-
-        setJMenuBar(jMenuBarMain);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,23 +66,6 @@ public class JFrameMain extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-private void jMenuItemEditStyleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEditStyleActionPerformed
-}//GEN-LAST:event_jMenuItemEditStyleActionPerformed
-
-private void jMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
-	System.exit(0);
-}//GEN-LAST:event_jMenuItemExitActionPerformed
-
-private void jMenuItemConvertOsmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConvertOsmActionPerformed
-	JDialogConvert convertDialog = new JDialogConvert(this, true);
-	convertDialog.setVisible(true);
-}//GEN-LAST:event_jMenuItemConvertOsmActionPerformed
-
-	private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuItem1ActionPerformed
-	{//GEN-HEADEREND:event_jMenuItem1ActionPerformed
-
-	}//GEN-LAST:event_jMenuItem1ActionPerformed
 
 	/**
 	 * @param args the command line arguments
@@ -200,15 +125,6 @@ private void jMenuItemConvertOsmActionPerformed(java.awt.event.ActionEvent evt) 
 		});
 	}
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuBar jMenuBarMain;
-    private javax.swing.JMenu jMenuFile;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItemConvertOsm;
-    private javax.swing.JMenuItem jMenuItemEditStyle;
-    private javax.swing.JMenuItem jMenuItemExit;
-    private javax.swing.JMenuItem jMenuItemOpen;
-    private javax.swing.JMenu jMenuMap;
-    private javax.swing.JMenu jMenuSettings;
     private javax.swing.JPanel jPanelCanvas;
     // End of variables declaration//GEN-END:variables
 }
