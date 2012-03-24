@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package drawingStyleTests;
 
 import drawingStyle.DrawingStyleFactory;
@@ -256,7 +252,7 @@ public class MapObjectStyleEditorTest
 	}
 
 	/**
-	 * Normal reading/writing test
+	 * reading/writing test with incorrect parameters
 	 */
 	@Test
 	public void nullFileNameFileTest()
@@ -360,51 +356,6 @@ public class MapObjectStyleEditorTest
 		{
 			//ok
 		}
-	}
-
-	/**
-	 * Testing sorting after adding and setting
-	 */
-	@Test
-	public void autoSortTest()
-	{
-		EditableDefenitionTags tags1 = new EditableDefenitionTags();
-		tags1.add(new MapTag("k8", "v8"));
-
-
-		EditableDefenitionTags tags2 = new EditableDefenitionTags();
-		tags2.add(new MapTag("k1", "v1"));
-		tags2.add(new MapTag("k2", "v2"));
-		tags2.add(new MapTag("k5", "v5"));
-
-		EditableDefenitionTags tags3 = new EditableDefenitionTags();
-		tags3.add(new MapTag("k1", "v1"));
-		tags3.add(new MapTag("k2", "v2"));
-		tags3.add(new MapTag("k3", "v3"));
-		tags3.add(new MapTag("k4", "v4"));
-
-		MapObjectStyle style1 = new MapObjectStyle(true, true, true, "", 0, "style1", null, tags1);
-		MapObjectStyle style2 = new MapObjectStyle(true, true, true, "", 0, "style2", null, tags2);
-		MapObjectStyle style3 = new MapObjectStyle(true, true, true, "", 0, "style3", null, tags3);
-
-		StyleEditor editor = DrawingStyleFactory.createStyleEditor();
-		editor.add(style1);
-		editor.add(style2);
-		editor.add(style3);
-
-		assertEquals(style1.getDescription(), editor.getMapObjectStyle(2).getDescription());
-		assertEquals(style2.getDescription(), editor.getMapObjectStyle(1).getDescription());
-		assertEquals(style3.getDescription(), editor.getMapObjectStyle(0).getDescription());
-
-		editor.set(0, style1);
-		assertEquals(style1.getDescription(), editor.getMapObjectStyle(2).getDescription());
-		assertEquals(style1.getDescription(), editor.getMapObjectStyle(1).getDescription());
-		assertEquals(style2.getDescription(), editor.getMapObjectStyle(0).getDescription());
-
-		editor.set(1, style3);
-		assertEquals(style1.getDescription(), editor.getMapObjectStyle(2).getDescription());
-		assertEquals(style2.getDescription(), editor.getMapObjectStyle(1).getDescription());
-		assertEquals(style3.getDescription(), editor.getMapObjectStyle(0).getDescription());
 	}
 
 	@BeforeClass

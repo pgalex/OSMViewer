@@ -17,16 +17,24 @@ public interface StyleViewer
 	 *
 	 * @param pFileName file name
 	 * @throws IOException reading error
-	 * @throws FileNotFoundException can not load file 
+	 * @throws FileNotFoundException can not load file
 	 */
 	public void loadFromFile(String pFileName) throws IOException, FileNotFoundException;
+
+	/**
+	 * Write styles to file
+	 *
+	 * @param pFileName file name
+	 * @throws IOException writing error
+	 */
+	public void saveToFile(String pFileName) throws IOException;
 
 	/**
 	 * Get index of map object drawing style
 	 *
 	 * @param pDefenitionTags tags of map object
 	 * @return index of style of object with that defenition tags
-	 * @throws ArrayStoreException object not found 
+	 * @throws ArrayStoreException object not found
 	 */
 	public int getStyleIndex(DefenitionTags pDefenitionTags) throws ArrayStoreException;
 

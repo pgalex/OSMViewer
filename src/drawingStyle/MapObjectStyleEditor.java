@@ -38,9 +38,11 @@ public class MapObjectStyleEditor implements StyleEditor
 		{
 			DataOutputStream output = new DataOutputStream(new FileOutputStream(pFileName));
 
-			output.writeInt(styles.size());
+			MapObjectStyle[] writingStyles = new MapObjectStyle[styles.size()];
 			for (int i = 0; i < styles.size(); i++)
-				styles.get(i).writeToStream(output);
+				writingStyles[i] = styles.get(i);
+
+			StyleProcessor.writeStylesToStream(writingStyles, output);
 
 			output.close();
 		}
@@ -76,13 +78,8 @@ public class MapObjectStyleEditor implements StyleEditor
 		{
 			styles.clear();
 
-			int styleSize = input.readInt();
-			for (int i = 0; i < styleSize; i++)
-			{
-				MapObjectStyle currentStyle = new MapObjectStyle();
-				currentStyle.readFromStream(input);
-				styles.add(currentStyle);
-			}
+			MapObjectStyle[] readingStyles = StyleProcessor.readStylesFromStream(input);
+			Collections.addAll(styles, readingStyles);
 
 			input.close();
 		}
@@ -90,8 +87,6 @@ public class MapObjectStyleEditor implements StyleEditor
 		{
 			throw new IOException();
 		}
-
-		Collections.sort(styles);
 	}
 
 	/**
@@ -111,8 +106,6 @@ public class MapObjectStyleEditor implements StyleEditor
 			throw new NullPointerException();
 
 		styles.set(pIndex, pNewStyle);
-
-		Collections.sort(styles);
 	}
 
 	/**
@@ -139,12 +132,18 @@ public class MapObjectStyleEditor implements StyleEditor
 		if (pDefenitionTags == null)
 			throw new ArrayStoreException();
 
-		for (int i = 0; i < styles.size(); i++)
+		try
 		{
-			if (styles.get(i).getDefenitionTags().compareTo(pDefenitionTags))
-				return i;
+			MapObjectStyle[] stylesForSearch = new MapObjectStyle[styles.size()];
+			for (int i = 0; i < styles.size(); i++)
+				stylesForSearch[i] = styles.get(i);
+			
+			return StyleProcessor.findStyleIndex(stylesForSearch, pDefenitionTags);
 		}
-		throw new ArrayStoreException();
+		catch (Exception e)
+		{
+			throw new ArrayStoreException();
+		}
 	}
 
 	/**
@@ -174,12 +173,10 @@ public class MapObjectStyleEditor implements StyleEditor
 		if (pNewStyle == null)
 			throw new NullPointerException();
 		styles.add(pNewStyle);
-
-		Collections.sort(styles);
 	}
 
 	/**
-	 * Remove style with specefied id
+	 * Remove style by id
 	 *
 	 * @param pStyleId style id
 	 * @throws ArrayIndexOutOfBoundsException id out of bounds

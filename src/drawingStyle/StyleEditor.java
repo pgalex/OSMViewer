@@ -1,7 +1,5 @@
 package drawingStyle;
 
-import java.io.IOException;
-
 /**
  * Main interface of drawingStyle with "set" methods. Using in style editing
  * forms
@@ -10,14 +8,6 @@ import java.io.IOException;
  */
 public interface StyleEditor extends StyleViewer
 {
-	/**
-	 * Write styles to file
-	 *
-	 * @param pFileName file name
-	 * @throws IOException writing error
-	 */
-	public void saveToFile(String pFileName) throws IOException;
-
 	/**
 	 * Set style by index
 	 *
@@ -37,7 +27,7 @@ public interface StyleEditor extends StyleViewer
 	public void add(MapObjectStyle pNewStyle) throws NullPointerException;
 
 	/**
-	 * Remove style with specefied index
+	 * Remove style by index
 	 *
 	 * @param pIndex style index
 	 * @throws ArrayIndexOutOfBoundsException index out of bounds

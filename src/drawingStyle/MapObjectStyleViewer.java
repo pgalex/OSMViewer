@@ -1,11 +1,6 @@
 package drawingStyle;
 
-import java.io.DataInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.io.*;
 import map.DefenitionTags;
 
 /**
@@ -48,28 +43,16 @@ public class MapObjectStyleViewer implements StyleViewer
 		{
 			throw new FileNotFoundException();
 		}
-		// for easy sorting
-		ArrayList<MapObjectStyle> styleList = new ArrayList<MapObjectStyle>();
+
 		try
 		{
-			int styleSize = input.readInt();
-			for (int i = 0; i < styleSize; i++)
-			{
-				MapObjectStyle currentStyle = new MapObjectStyle();
-				currentStyle.readFromStream(input);
-				styleList.add(currentStyle);
-			}
+			styles = StyleProcessor.readStylesFromStream(input);
 			input.close();
 		}
 		catch (IOException ex)
 		{
 			throw new IOException();
 		}
-
-		Collections.sort(styleList);
-		styles = new MapObjectStyle[styleList.size()];
-		for (int i = 0; i < styleList.size(); i++) // toArray throws excpetion
-			styles[i] = styleList.get(i);
 	}
 
 	/**
@@ -85,12 +68,14 @@ public class MapObjectStyleViewer implements StyleViewer
 		if (pDefenitionTags == null)
 			throw new ArrayStoreException();
 
-		for (int i = 0; i < styles.length; i++)
+		try
 		{
-			if (styles[i].getDefenitionTags().compareTo(pDefenitionTags))
-				return i;
+			return StyleProcessor.findStyleIndex(styles, pDefenitionTags);
 		}
-		throw new ArrayStoreException();
+		catch (ArrayStoreException e)
+		{
+			throw new ArrayStoreException();
+		}
 	}
 
 	/**
@@ -106,5 +91,26 @@ public class MapObjectStyleViewer implements StyleViewer
 		if (pIndex < 0 || pIndex >= styles.length)
 			throw new ArrayIndexOutOfBoundsException();
 		return styles[pIndex];
+	}
+
+	/**
+	 * Write styles to file
+	 *
+	 * @param pFileName file name
+	 * @throws IOException writing error
+	 */
+	@Override
+	public void saveToFile(String pFileName) throws IOException
+	{
+		try
+		{
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(pFileName));
+			StyleProcessor.writeStylesToStream(styles, output);
+			output.close();
+		}
+		catch (Exception ex)
+		{
+			throw new IOException();
+		}
 	}
 }

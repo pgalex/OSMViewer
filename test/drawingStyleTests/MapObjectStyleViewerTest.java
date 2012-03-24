@@ -79,6 +79,7 @@ public class MapObjectStyleViewerTest
 		assertEquals(writingEditor.getMapObjectStyle(1).getDescription(), readingViewer.getMapObjectStyle(1).getDescription());
 		assertEquals(writingEditor.getMapObjectStyle(2).getDescription(), readingViewer.getMapObjectStyle(2).getDescription());
 	}
+	
 
 	/**
 	 * Test getStyleIndex and getMapObjectStyle methods
