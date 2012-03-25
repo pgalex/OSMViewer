@@ -26,25 +26,21 @@ public class MapObjectStyleEditor implements StyleEditor
 	}
 
 	/**
-	 * Write styles to file
+	 * Write into stream
 	 *
-	 * @param pFileName file name
+	 * @param pOutput output stream
 	 * @throws IOException writing error
 	 */
 	@Override
-	public void saveToFile(String pFileName) throws IOException
+	public void writeToStream(DataOutputStream pOutput) throws IOException
 	{
 		try
 		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(pFileName));
-
 			MapObjectStyle[] writingStyles = new MapObjectStyle[styles.size()];
 			for (int i = 0; i < styles.size(); i++)
 				writingStyles[i] = styles.get(i);
 
-			StyleProcessor.writeStylesToStream(writingStyles, output);
-
-			output.close();
+			StyleProcessor.writeStylesToStream(writingStyles, pOutput);
 		}
 		catch (Exception ex)
 		{
@@ -53,35 +49,19 @@ public class MapObjectStyleEditor implements StyleEditor
 	}
 
 	/**
-	 * Load drawing style information from file
+	 * Read from stream
 	 *
-	 * @param pFileName file name
+	 * @param pInput reading stream
 	 * @throws IOException reading error
-	 * @throws FileNotFoundException can not load file
 	 */
 	@Override
-	public void loadFromFile(String pFileName) throws IOException, FileNotFoundException
+	public void readFromStream(DataInputStream pInput) throws IOException
 	{
-		// opening file - other exception
-		DataInputStream input = null;
-		try
-		{
-			input = new DataInputStream(new FileInputStream(pFileName));
-		}
-		catch (Exception ex)
-		{
-			throw new FileNotFoundException();
-		}
-
-		// reading styles
 		try
 		{
 			styles.clear();
-
-			MapObjectStyle[] readingStyles = StyleProcessor.readStylesFromStream(input);
+			MapObjectStyle[] readingStyles = StyleProcessor.readStylesFromStream(pInput);
 			Collections.addAll(styles, readingStyles);
-
-			input.close();
 		}
 		catch (IOException ex)
 		{
@@ -137,7 +117,7 @@ public class MapObjectStyleEditor implements StyleEditor
 			MapObjectStyle[] stylesForSearch = new MapObjectStyle[styles.size()];
 			for (int i = 0; i < styles.size(); i++)
 				stylesForSearch[i] = styles.get(i);
-			
+
 			return StyleProcessor.findStyleIndex(stylesForSearch, pDefenitionTags);
 		}
 		catch (Exception e)

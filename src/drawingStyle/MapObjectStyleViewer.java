@@ -25,31 +25,38 @@ public class MapObjectStyleViewer implements StyleViewer
 	}
 
 	/**
-	 * Load drawing style information from file
+	 * Read from stream
 	 *
-	 * @param pFileName file name
+	 * @param pInput reading stream
 	 * @throws IOException reading error
-	 * @throws FileNotFoundException can not load file
 	 */
 	@Override
-	public void loadFromFile(String pFileName) throws IOException, FileNotFoundException
+	public void readFromStream(DataInputStream pInput) throws IOException
 	{
-		DataInputStream input = null;
 		try
 		{
-			input = new DataInputStream(new FileInputStream(pFileName));
-		}
-		catch (Exception ex)
-		{
-			throw new FileNotFoundException();
-		}
-
-		try
-		{
-			styles = StyleProcessor.readStylesFromStream(input);
-			input.close();
+			styles = StyleProcessor.readStylesFromStream(pInput);
 		}
 		catch (IOException ex)
+		{
+			throw new IOException();
+		}
+	}
+
+	/**
+	 * Write into stream
+	 *
+	 * @param pOutput output stream
+	 * @throws IOException writing error
+	 */
+	@Override
+	public void writeToStream(DataOutputStream pOutput) throws IOException
+	{
+		try
+		{
+			StyleProcessor.writeStylesToStream(styles, pOutput);
+		}
+		catch (Exception ex)
 		{
 			throw new IOException();
 		}
@@ -91,26 +98,5 @@ public class MapObjectStyleViewer implements StyleViewer
 		if (pIndex < 0 || pIndex >= styles.length)
 			throw new ArrayIndexOutOfBoundsException();
 		return styles[pIndex];
-	}
-
-	/**
-	 * Write styles to file
-	 *
-	 * @param pFileName file name
-	 * @throws IOException writing error
-	 */
-	@Override
-	public void saveToFile(String pFileName) throws IOException
-	{
-		try
-		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(pFileName));
-			StyleProcessor.writeStylesToStream(styles, output);
-			output.close();
-		}
-		catch (Exception ex)
-		{
-			throw new IOException();
-		}
 	}
 }

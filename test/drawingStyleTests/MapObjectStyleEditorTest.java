@@ -3,7 +3,7 @@ package drawingStyleTests;
 import drawingStyle.DrawingStyleFactory;
 import drawingStyle.MapObjectStyle;
 import drawingStyle.StyleEditor;
-import java.io.IOException;
+import java.io.*;
 import map.EditableDefenitionTags;
 import map.MapTag;
 import org.junit.AfterClass;
@@ -229,7 +229,9 @@ public class MapObjectStyleEditorTest
 		writingEditor.add(style3);
 		try
 		{
-			writingEditor.saveToFile("testFile.txt");
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
+			writingEditor.writeToStream(output);
+			output.close();
 		}
 		catch (IOException ex)
 		{
@@ -239,7 +241,9 @@ public class MapObjectStyleEditorTest
 		StyleEditor readingEditor = DrawingStyleFactory.createStyleEditor();
 		try
 		{
-			readingEditor.loadFromFile(TEST_FILE_NAME);
+			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
+			readingEditor.readFromStream(input);
+			input.close();
 		}
 		catch (Exception ex)
 		{
@@ -260,7 +264,7 @@ public class MapObjectStyleEditorTest
 		StyleEditor writingEditor = DrawingStyleFactory.createStyleEditor();
 		try
 		{
-			writingEditor.saveToFile(null);
+			writingEditor.writeToStream(null);
 			fail();
 		}
 		catch (IOException ex)
@@ -270,7 +274,7 @@ public class MapObjectStyleEditorTest
 		StyleEditor readingEditor = DrawingStyleFactory.createStyleEditor();
 		try
 		{
-			readingEditor.loadFromFile(null);
+			readingEditor.readFromStream(null);
 			fail();
 		}
 		catch (Exception ex)

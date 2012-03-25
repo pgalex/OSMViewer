@@ -4,7 +4,7 @@ import drawingStyle.DrawingStyleFactory;
 import drawingStyle.MapObjectStyle;
 import drawingStyle.StyleEditor;
 import drawingStyle.StyleViewer;
-import java.io.IOException;
+import java.io.*;
 import map.EditableDefenitionTags;
 import map.MapTag;
 import org.junit.AfterClass;
@@ -33,7 +33,7 @@ public class MapObjectStyleViewerTest
 		StyleViewer viewer = new DrawingStyleFactory().createStyleViewer();
 		try
 		{
-			viewer.loadFromFile(null);
+			viewer.readFromStream(null);
 			fail();
 		}
 		catch (Exception ex)
@@ -58,7 +58,9 @@ public class MapObjectStyleViewerTest
 		writingEditor.add(style3);
 		try
 		{
-			writingEditor.saveToFile(TEST_FILE_NAME);
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
+			writingEditor.writeToStream(output);
+			output.close();
 		}
 		catch (IOException ex)
 		{
@@ -68,7 +70,9 @@ public class MapObjectStyleViewerTest
 		StyleViewer readingViewer = DrawingStyleFactory.createStyleViewer();
 		try
 		{
-			readingViewer.loadFromFile(TEST_FILE_NAME);
+			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
+			readingViewer.readFromStream(input);
+			input.close();
 		}
 		catch (Exception ex)
 		{
@@ -112,7 +116,9 @@ public class MapObjectStyleViewerTest
 		editor.add(style3);
 		try
 		{
-			editor.saveToFile(TEST_FILE_NAME);
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
+			editor.writeToStream(output);
+			output.close();
 		}
 		catch (IOException ex)
 		{
@@ -122,7 +128,9 @@ public class MapObjectStyleViewerTest
 		StyleViewer viewer = DrawingStyleFactory.createStyleViewer();
 		try
 		{
-			viewer.loadFromFile(TEST_FILE_NAME);
+			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
+			viewer.readFromStream(input);
+			input.close();
 		}
 		catch (Exception ex)
 		{
