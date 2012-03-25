@@ -1,6 +1,8 @@
 package drawingStyle;
 
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import map.DefenitionTags;
@@ -36,11 +38,7 @@ public class MapObjectStyleEditor implements StyleEditor
 	{
 		try
 		{
-			MapObjectStyle[] writingStyles = new MapObjectStyle[styles.size()];
-			for (int i = 0; i < styles.size(); i++)
-				writingStyles[i] = styles.get(i);
-
-			StyleProcessor.writeStylesToStream(writingStyles, pOutput);
+			StyleProcessor.writeStylesToStream(styles.toArray(new MapObjectStyle[styles.size()]), pOutput);
 		}
 		catch (Exception ex)
 		{
@@ -114,11 +112,7 @@ public class MapObjectStyleEditor implements StyleEditor
 
 		try
 		{
-			MapObjectStyle[] stylesForSearch = new MapObjectStyle[styles.size()];
-			for (int i = 0; i < styles.size(); i++)
-				stylesForSearch[i] = styles.get(i);
-
-			return StyleProcessor.findStyleIndex(stylesForSearch, pDefenitionTags);
+			return StyleProcessor.findStyleIndex(styles.toArray(new MapObjectStyle[styles.size()]), pDefenitionTags);
 		}
 		catch (Exception e)
 		{
