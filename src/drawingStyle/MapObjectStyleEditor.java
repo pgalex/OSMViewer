@@ -124,15 +124,15 @@ public class MapObjectStyleEditor implements StyleEditor
 	 * Get map object drawing style by id
 	 *
 	 * @param pIndex id of style
-	 * @return map object drawing style
-	 * @throws ArrayIndexOutOfBoundsException if style with this id not found
+	 * @return map object drawing style. null if style with this id not found
 	 */
 	@Override
-	public MapObjectStyle getMapObjectStyle(int pIndex) throws ArrayIndexOutOfBoundsException
+	public MapObjectStyle getMapObjectStyle(int pIndex)
 	{
 		if (pIndex < 0 || pIndex >= styles.size())
-			throw new ArrayIndexOutOfBoundsException();
-		return styles.get(pIndex);
+			return null;
+		else
+			return styles.get(pIndex);
 	}
 
 	/**

@@ -88,26 +88,9 @@ public class MapObjectStyleEditorTest
 		}
 
 		// less
-		try
-		{
-			editor.getMapObjectStyle(-1);
-			fail();
-		}
-		catch (ArrayIndexOutOfBoundsException ex)
-		{
-			//ok
-		}
-
+		assertNull(editor.getMapObjectStyle(-1));
 		// more
-		try
-		{
-			editor.getMapObjectStyle(editor.count() + 1);
-			fail();
-		}
-		catch (ArrayIndexOutOfBoundsException ex)
-		{
-			//ok
-		}
+		assertNull(editor.getMapObjectStyle(editor.count() + 1));
 	}
 
 	/**

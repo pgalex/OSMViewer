@@ -30,7 +30,7 @@ public class MapObjectStyleViewerTest
 	@Test
 	public void incorrectFileTest()
 	{
-		StyleViewer viewer = new DrawingStyleFactory().createStyleViewer();
+		StyleViewer viewer = DrawingStyleFactory.createStyleViewer();
 		try
 		{
 			viewer.readFromStream(null);
@@ -169,6 +169,8 @@ public class MapObjectStyleViewerTest
 		assertEquals(style1.getDescription(), viewer.getMapObjectStyle(0).getDescription());
 		assertEquals(style2.getDescription(), viewer.getMapObjectStyle(1).getDescription());
 		assertEquals(style3.getDescription(), viewer.getMapObjectStyle(2).getDescription());
+		// not exists
+		assertNull(viewer.getMapObjectStyle(-1));
 	}
 
 	@BeforeClass

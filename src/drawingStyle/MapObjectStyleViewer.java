@@ -1,6 +1,8 @@
 package drawingStyle;
 
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import map.DefenitionTags;
 
 /**
@@ -89,14 +91,14 @@ public class MapObjectStyleViewer implements StyleViewer
 	 * Get map object drawing style by index
 	 *
 	 * @param pIndex index of style
-	 * @return map object drawing style
-	 * @throws ArrayIndexOutOfBoundsException index is out of bounds
+	 * @return map object drawing style. null if style with this index not found
 	 */
 	@Override
-	public MapObjectStyle getMapObjectStyle(int pIndex) throws ArrayIndexOutOfBoundsException
+	public MapObjectStyle getMapObjectStyle(int pIndex)
 	{
 		if (pIndex < 0 || pIndex >= styles.length)
-			throw new ArrayIndexOutOfBoundsException();
-		return styles[pIndex];
+			return null;
+		else
+			return styles[pIndex];
 	}
 }

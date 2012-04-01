@@ -25,8 +25,7 @@ public interface StyleViewer extends ReadableMapData, WritableMapData
 	 * Get map object drawing style by index
 	 *
 	 * @param pIndex index of style
-	 * @return map object drawing style
-	 * @throws ArrayIndexOutOfBoundsException if style with this index not found
+	 * @return map object drawing style. null if style with this index not found
 	 */
-	public abstract MapObjectStyle getMapObjectStyle(int pIndex) throws ArrayIndexOutOfBoundsException;
+	public abstract MapObjectStyle getMapObjectStyle(int pIndex);
 }

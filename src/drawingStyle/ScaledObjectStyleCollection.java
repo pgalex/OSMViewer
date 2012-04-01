@@ -15,7 +15,8 @@ public interface ScaledObjectStyleCollection extends ReadableMapData, WritableMa
 	 * nearest correct value (if currect scale levels count is more or less than
 	 * defined in constant)
 	 *
-	 * @param pScaleLevel scale level
+	 * @param pScaleLevel scale level.If level is out of range returns nearest
+	 * correct value
 	 * @return style on specifiec scale level
 	 */
 	ScaledObjectStyle getStyleOnScale(int pScaleLevel);
