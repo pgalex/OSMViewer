@@ -1,7 +1,7 @@
 package drawingStyle;
 
 /**
- * Using for create StyleViewer and StyleEditor for manipulating drawing styles
+ * Using for creating StyleViewer and StyleEditor
  *
  * @author pgalex
  */
