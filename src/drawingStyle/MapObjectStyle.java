@@ -30,12 +30,12 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData, Compara
 	 */
 	private boolean canBePolygon;
 	/**
-	 * "Key" of tag that "value" should be drawen on map as text under object
+	 * "Keys" of tags that "value" should be drawen on map as text under object
 	 *
-	 * (Ключ тега, значение которого будет выводиться на экран как текстовая
+	 * (Ключи тегов, значение которых должно выводиться на экран как текстовая
 	 * подпись)
 	 */
-	private String textTagKey;
+	private TextTagsKeys textTagKeys;
 	/**
 	 * Drawing priority (front back)
 	 */
@@ -63,7 +63,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData, Compara
 		canBeLine = false;
 		canBePolygon = false;
 		drawPriority = 1;
-		textTagKey = "";
+		textTagKeys = new TextTagsKeys();
 		description = "";
 		scaledStyles = new ScaledObjectStyleArray();
 		defenitionTags = new DefenitionTags();
@@ -83,13 +83,13 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData, Compara
 	 * @param pDefenitionTags Map object defenition tags
 	 */
 	public MapObjectStyle(boolean pCanBePoint, boolean pCanBeLine, boolean pCanBePolygon,
-					String pTextTagKey, int pDrawPriority, String pDescription, ScaledObjectStyleCollection pScaledStyles,
+					TextTagsKeys pTextTagKey, int pDrawPriority, String pDescription, ScaledObjectStyleCollection pScaledStyles,
 					DefenitionTags pDefenitionTags)
 	{
 		canBePoint = pCanBePoint;
 		canBeLine = pCanBeLine;
 		canBePolygon = pCanBePolygon;
-		textTagKey = pTextTagKey;
+		textTagKeys = pTextTagKey;
 		drawPriority = pDrawPriority;
 		description = pDescription;
 		scaledStyles = pScaledStyles;
@@ -111,7 +111,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData, Compara
 			canBePoint = pInput.readBoolean();
 			canBeLine = pInput.readBoolean();
 			canBePolygon = pInput.readBoolean();
-			textTagKey = pInput.readUTF();
+			textTagKeys.readFromStream(pInput);
 			drawPriority = pInput.readInt();
 			description = pInput.readUTF();
 			scaledStyles.readFromStream(pInput);
@@ -137,7 +137,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData, Compara
 			pOutput.writeBoolean(canBePoint);
 			pOutput.writeBoolean(canBeLine);
 			pOutput.writeBoolean(canBePolygon);
-			pOutput.writeUTF(textTagKey);
+			textTagKeys.writeToStream(pOutput);
 			pOutput.writeInt(drawPriority);
 			pOutput.writeUTF(description);
 			scaledStyles.writeToStream(pOutput);
@@ -180,14 +180,13 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData, Compara
 	}
 
 	/**
-	 * Получить ключ тега, значение которого будет выводиться на экран как
-	 * текстовая подпись
+	 * "Keys" of tags that "value" should be drawen on map as text under object
 	 *
-	 * @return Ключ тега
+	 * @return tags keys
 	 */
-	public String getTextTagKey()
+	public TextTagsKeys getTextTagKeys()
 	{
-		return textTagKey;
+		return textTagKeys;
 	}
 
 	/**
@@ -239,6 +238,8 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData, Compara
 			scaledStyles = new ScaledObjectStyleArray();
 		if (defenitionTags == null)
 			defenitionTags = new DefenitionTags();
+		if (textTagKeys == null)
+			textTagKeys = new TextTagsKeys();
 	}
 
 	/**

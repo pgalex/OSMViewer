@@ -81,10 +81,10 @@ public class StyleProcessorTest
 		tags3.add(new MapTag("k4", "v4"));
 
 		MapObjectStyle[] styles = new MapObjectStyle[5];
-		styles[0] = new MapObjectStyle(true, true, true, "", 0, "style1", null, tags1);
-		styles[1] = new MapObjectStyle(true, true, true, "", 0, "style2", null, tags2);
-		styles[2] = new MapObjectStyle(true, true, true, "", 0, "style3", null, tags3);
-		styles[3] = new MapObjectStyle(true, true, true, "", 0, "style4", null, null);
+		styles[0] = new MapObjectStyle(true, true, true, null, 0, "style1", null, tags1);
+		styles[1] = new MapObjectStyle(true, true, true, null, 0, "style2", null, tags2);
+		styles[2] = new MapObjectStyle(true, true, true, null, 0, "style3", null, tags3);
+		styles[3] = new MapObjectStyle(true, true, true, null, 0, "style4", null, null);
 
 		EditableDefenitionTags objectTags1 = new EditableDefenitionTags();
 		objectTags1.add(new MapTag("k1", "v1"));
@@ -202,8 +202,8 @@ public class StyleProcessorTest
 	public void normalFileTest()
 	{
 		MapObjectStyle[] writingStyles = new MapObjectStyle[2];
-		writingStyles[0] = new MapObjectStyle(true, true, true, "", 0, "style1", null, null);
-		writingStyles[1] = new MapObjectStyle(true, true, true, "", 0, "style2", null, null);
+		writingStyles[0] = new MapObjectStyle(true, true, true, null, 0, "style1", null, null);
+		writingStyles[1] = new MapObjectStyle(true, true, true, null, 0, "style2", null, null);
 
 		try
 		{

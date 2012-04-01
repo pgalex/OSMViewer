@@ -45,14 +45,14 @@ public class MapObjectStyleTest
 		tags2.add(new MapTag("k5", "v5"));
 		tags2.add(new MapTag("k6", "v6"));
 		tags2.add(new MapTag("k7", "v7"));
-		
+
 		EditableDefenitionTags tags3 = new EditableDefenitionTags();
 		tags3.add(new MapTag("k8", "v8"));
 
 		ArrayList<MapObjectStyle> styles = new ArrayList<MapObjectStyle>();
-		styles.add(new MapObjectStyle(true, true, true, "", 0, "", null, tags1));
-		styles.add(new MapObjectStyle(true, true, true, "", 0, "", null, tags2));
-		styles.add(new MapObjectStyle(true, true, true, "", 0, "", null, tags3));
+		styles.add(new MapObjectStyle(true, true, true, null, 0, "", null, tags1));
+		styles.add(new MapObjectStyle(true, true, true, null, 0, "", null, tags2));
+		styles.add(new MapObjectStyle(true, true, true, null, 0, "", null, tags3));
 		Collections.sort(styles);
 
 		assertTrue(styles.get(0).getDefenitionTags().compareTo(tags2));
@@ -66,7 +66,7 @@ public class MapObjectStyleTest
 	@Test
 	public void constructorTest()
 	{
-		MapObjectStyle style = new MapObjectStyle(true, true, true, "", 0, "", null, null);
+		MapObjectStyle style = new MapObjectStyle(true, true, true, null, 0, "", null, null);
 		assertNotNull(style.getScaledStyles());
 		assertNotNull(style.getDefenitionTags());
 	}
@@ -87,7 +87,7 @@ public class MapObjectStyleTest
 		tags.add(new MapTag("k2", "v2"));
 
 		MapObjectStyle writingStyle = new MapObjectStyle(true, false,
-						true, "name", 10, "object1", scaledStyles, tags);
+						true, null, 10, "object1", scaledStyles, tags);
 
 		try
 		{
@@ -112,7 +112,7 @@ public class MapObjectStyleTest
 			assertEquals(writingStyle.isCanBePolygon(), readingStyle.isCanBePolygon());
 			assertEquals(true, writingStyle.getDefenitionTags().compareTo(readingStyle.getDefenitionTags()));
 			assertEquals(writingStyle.getDescription(), readingStyle.getDescription());
-			assertEquals(writingStyle.getTextTagKey(), readingStyle.getTextTagKey());
+			assertArrayEquals(writingStyle.getTextTagKeys().getTagsKeys(), readingStyle.getTextTagKeys().getTagsKeys());
 			assertEquals(writingStyle.getDrawPriority(), readingStyle.getDrawPriority());
 			assertEquals(writingStyle.getDescription(), readingStyle.getDescription());
 			assertEquals(writingStyle.getScaledStyles().getStyleOnScale(0).isDrawLine(), readingStyle.getScaledStyles().getStyleOnScale(0).isDrawLine());

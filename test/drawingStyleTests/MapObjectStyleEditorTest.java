@@ -29,9 +29,9 @@ public class MapObjectStyleEditorTest
 	@Test
 	public void addTest()
 	{
-		MapObjectStyle style1 = new MapObjectStyle(true, true, false, "", 0, "style1", null, null);
-		MapObjectStyle style2 = new MapObjectStyle(true, false, true, "", 0, "style2", null, null);
-		MapObjectStyle style3 = new MapObjectStyle(false, true, true, "", 0, "style3", null, null);
+		MapObjectStyle style1 = new MapObjectStyle(true, true, false, null, 0, "style1", null, null);
+		MapObjectStyle style2 = new MapObjectStyle(true, false, true, null, 0, "style2", null, null);
+		MapObjectStyle style3 = new MapObjectStyle(false, true, true, null, 0, "style3", null, null);
 
 		StyleEditor editor = DrawingStyleFactory.createStyleEditor();
 		assertEquals(0, editor.count());
@@ -66,8 +66,8 @@ public class MapObjectStyleEditorTest
 	@Test
 	public void getTest()
 	{
-		MapObjectStyle style1 = new MapObjectStyle(true, true, false, "", 0, "style1", null, null);
-		MapObjectStyle style2 = new MapObjectStyle(true, false, true, "", 0, "style2", null, null);
+		MapObjectStyle style1 = new MapObjectStyle(true, true, false, null, 0, "style1", null, null);
+		MapObjectStyle style2 = new MapObjectStyle(true, false, true, null, 0, "style2", null, null);
 
 		StyleEditor editor = DrawingStyleFactory.createStyleEditor();
 		assertEquals(0, editor.count());
@@ -99,8 +99,8 @@ public class MapObjectStyleEditorTest
 	@Test
 	public void setTest()
 	{
-		MapObjectStyle style1 = new MapObjectStyle(true, true, false, "", 0, "style1", null, null);
-		MapObjectStyle style2 = new MapObjectStyle(true, false, true, "", 0, "style2", null, null);
+		MapObjectStyle style1 = new MapObjectStyle(true, true, false, null, 0, "style1", null, null);
+		MapObjectStyle style2 = new MapObjectStyle(true, false, true, null, 0, "style2", null, null);
 
 		StyleEditor editor = DrawingStyleFactory.createStyleEditor();
 		editor.add(style1);
@@ -148,8 +148,8 @@ public class MapObjectStyleEditorTest
 	@Test
 	public void removeTest()
 	{
-		MapObjectStyle style1 = new MapObjectStyle(true, true, false, "", 0, "style1", null, null);
-		MapObjectStyle style2 = new MapObjectStyle(true, false, true, "", 0, "style2", null, null);
+		MapObjectStyle style1 = new MapObjectStyle(true, true, false, null, 0, "style1", null, null);
+		MapObjectStyle style2 = new MapObjectStyle(true, false, true, null, 0, "style2", null, null);
 
 		StyleEditor editor = DrawingStyleFactory.createStyleEditor();
 		editor.add(style1);
@@ -202,9 +202,9 @@ public class MapObjectStyleEditorTest
 	@Test
 	public void normalFileTest()
 	{
-		MapObjectStyle style1 = new MapObjectStyle(true, true, false, "", 0, "style1", null, null);
-		MapObjectStyle style2 = new MapObjectStyle(true, false, true, "", 0, "style2", null, null);
-		MapObjectStyle style3 = new MapObjectStyle(false, true, true, "", 0, "style3", null, null);
+		MapObjectStyle style1 = new MapObjectStyle(true, true, false, null, 0, "style1", null, null);
+		MapObjectStyle style2 = new MapObjectStyle(true, false, true, null, 0, "style2", null, null);
+		MapObjectStyle style3 = new MapObjectStyle(false, true, true, null, 0, "style3", null, null);
 
 		StyleEditor writingEditor = DrawingStyleFactory.createStyleEditor();
 		writingEditor.add(style1);
@@ -289,9 +289,9 @@ public class MapObjectStyleEditorTest
 		EditableDefenitionTags tags3 = new EditableDefenitionTags();
 		tags3.add(new MapTag("k8", "v8"));
 
-		MapObjectStyle style1 = new MapObjectStyle(true, true, true, "", 0, "style1", null, tags1);
-		MapObjectStyle style2 = new MapObjectStyle(true, true, true, "", 0, "style2", null, tags2);
-		MapObjectStyle style3 = new MapObjectStyle(true, true, true, "", 0, "style3", null, tags3);
+		MapObjectStyle style1 = new MapObjectStyle(true, true, true, null, 0, "style1", null, tags1);
+		MapObjectStyle style2 = new MapObjectStyle(true, true, true, null, 0, "style2", null, tags2);
+		MapObjectStyle style3 = new MapObjectStyle(true, true, true, null, 0, "style3", null, tags3);
 
 		StyleEditor editor = DrawingStyleFactory.createStyleEditor();
 		editor.add(style1);
