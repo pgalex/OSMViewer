@@ -76,10 +76,14 @@ public class MapObjectStyleEditor implements StyleEditor
 	 * @throws NullPointerException new style is null
 	 */
 	@Override
-	public void set(int pIndex, MapObjectStyle pNewStyle) throws ArrayIndexOutOfBoundsException, NullPointerException
+	public void set(Integer pIndex, MapObjectStyle pNewStyle) throws ArrayIndexOutOfBoundsException, NullPointerException
 	{
+		if (pIndex == null)
+			throw new ArrayIndexOutOfBoundsException();
+
 		if (pIndex < 0 || pIndex >= styles.size())
 			throw new ArrayIndexOutOfBoundsException();
+
 		if (pNewStyle == null)
 			throw new NullPointerException();
 
@@ -101,23 +105,15 @@ public class MapObjectStyleEditor implements StyleEditor
 	 * Get id of map object drawing style
 	 *
 	 * @param pDefenitionTags tags of map object
-	 * @return id of style of object with that defenition tags
-	 * @throws ArrayStoreException object not found
+	 * @return id of style of object with that defenition tags. null if not found
 	 */
 	@Override
-	public int getStyleIndex(DefenitionTags pDefenitionTags) throws ArrayStoreException
+	public Integer getStyleIndex(DefenitionTags pDefenitionTags)
 	{
 		if (pDefenitionTags == null)
-			throw new ArrayStoreException();
+			return null;
 
-		try
-		{
-			return StyleProcessor.findStyleIndex(styles.toArray(new MapObjectStyle[styles.size()]), pDefenitionTags);
-		}
-		catch (Exception e)
-		{
-			throw new ArrayStoreException();
-		}
+		return StyleProcessor.findStyleIndex(styles.toArray(new MapObjectStyle[styles.size()]), pDefenitionTags);
 	}
 
 	/**
@@ -127,12 +123,14 @@ public class MapObjectStyleEditor implements StyleEditor
 	 * @return map object drawing style. null if style with this id not found
 	 */
 	@Override
-	public MapObjectStyle getMapObjectStyle(int pIndex)
+	public MapObjectStyle getMapObjectStyle(Integer pIndex)
 	{
+		if (pIndex == null)
+			return null;
 		if (pIndex < 0 || pIndex >= styles.size())
 			return null;
-		else
-			return styles.get(pIndex);
+
+		return styles.get(pIndex);
 	}
 
 	/**
@@ -152,14 +150,18 @@ public class MapObjectStyleEditor implements StyleEditor
 	/**
 	 * Remove style by id
 	 *
-	 * @param pStyleId style id
+	 * @param pIndex style id
 	 * @throws ArrayIndexOutOfBoundsException id out of bounds
 	 */
 	@Override
-	public void remove(int pStyleId) throws ArrayIndexOutOfBoundsException
+	public void remove(Integer pIndex) throws ArrayIndexOutOfBoundsException
 	{
-		if (pStyleId < 0 || pStyleId >= styles.size())
+		if( pIndex == null )
 			throw new ArrayIndexOutOfBoundsException();
-		styles.remove(pStyleId);
+		
+		if (pIndex < 0 || pIndex >= styles.size())
+			throw new ArrayIndexOutOfBoundsException();
+		
+		styles.remove((int)pIndex);
 	}
 }

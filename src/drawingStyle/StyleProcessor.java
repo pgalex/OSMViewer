@@ -75,17 +75,16 @@ public class StyleProcessor
 	 *
 	 * @param pStyles array of styles
 	 * @param pTags defenition tags for search
-	 * @return index of founded style
-	 * @throws ArrayStoreException not found
+	 * @return index of founded style. null if not found
 	 */
-	public static int findStyleIndex(MapObjectStyle[] pStyles, DefenitionTags pTags) throws ArrayStoreException
+	public static Integer findStyleIndex(MapObjectStyle[] pStyles, DefenitionTags pTags)
 	{
-		// Необходимо найти среди pStyle стиль у котороге теги будут совпадать с
+		// Необходимо найти среди pStyle стиль у котороге теги будут совпадать с pTags,
 		// количество тегов по сравнению с другими стилями(теги которых тоже совпадают) будет максимальным 
 		// style with tags like pTags and max tags count
 
 		if (pStyles == null || pTags == null)
-			throw new ArrayStoreException();
+			return null;
 
 		SortedMap<MapObjectStyle, Integer> suitableElements = new TreeMap<MapObjectStyle, Integer>();
 		for (int i = 0; i < pStyles.length; i++)
@@ -97,7 +96,7 @@ public class StyleProcessor
 		}
 
 		if (suitableElements.isEmpty())
-			throw new ArrayStoreException();
+			return null;
 		else
 			return suitableElements.get(suitableElements.firstKey());
 

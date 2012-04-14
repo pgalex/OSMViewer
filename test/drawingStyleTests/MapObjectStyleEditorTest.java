@@ -91,6 +91,8 @@ public class MapObjectStyleEditorTest
 		assertNull(editor.getMapObjectStyle(-1));
 		// more
 		assertNull(editor.getMapObjectStyle(editor.count() + 1));
+		// null
+		assertNull(editor.getMapObjectStyle(null));
 	}
 
 	/**
@@ -137,6 +139,16 @@ public class MapObjectStyleEditorTest
 			fail();
 		}
 		catch (NullPointerException ex)
+		{
+			//ok
+		}
+		// null
+		try
+		{
+			editor.set(null, style2);
+			fail();
+		}
+		catch (ArrayIndexOutOfBoundsException ex)
 		{
 			//ok
 		}
@@ -188,6 +200,16 @@ public class MapObjectStyleEditorTest
 		try
 		{
 			editor.remove(1);
+			fail();
+		}
+		catch (ArrayIndexOutOfBoundsException ex)
+		{
+			// ok
+		}
+		// null
+		try
+		{
+			editor.remove(null);
 			fail();
 		}
 		catch (ArrayIndexOutOfBoundsException ex)
@@ -299,9 +321,9 @@ public class MapObjectStyleEditorTest
 		editor.add(style3); // there was auto sort
 
 		// full equal
-		assertEquals(0, editor.getStyleIndex(tags1));
-		assertEquals(1, editor.getStyleIndex(tags2));
-		assertEquals(2, editor.getStyleIndex(tags3));
+		assertEquals(0, (int) editor.getStyleIndex(tags1));
+		assertEquals(1, (int) editor.getStyleIndex(tags2));
+		assertEquals(2, (int) editor.getStyleIndex(tags3));
 
 		// part equal
 		EditableDefenitionTags testTags1 = new EditableDefenitionTags();
@@ -311,7 +333,7 @@ public class MapObjectStyleEditorTest
 		testTags1.add(new MapTag("k4", "v4"));
 		testTags1.add(new MapTag("k5", "v5"));
 		testTags1.add(new MapTag("k6", "v6"));
-		assertEquals(0, editor.getStyleIndex(testTags1));
+		assertEquals(0, (int) editor.getStyleIndex(testTags1));
 
 		EditableDefenitionTags testTags2 = new EditableDefenitionTags();
 		testTags2.add(new MapTag("k1", "v1"));
@@ -319,30 +341,13 @@ public class MapObjectStyleEditorTest
 		testTags2.add(new MapTag("k3", "v3"));
 		testTags2.add(new MapTag("k5", "v5"));
 		testTags2.add(new MapTag("k6", "v6"));
-		assertEquals(1, editor.getStyleIndex(testTags2));
+		assertEquals(1, (int) editor.getStyleIndex(testTags2));
 
 		// not found
 		EditableDefenitionTags testTags3 = new EditableDefenitionTags();
 		testTags3.add(new MapTag("k9", "v9"));
-		try
-		{
-			editor.getStyleIndex(testTags3);
-			fail();
-		}
-		catch (Exception ex)
-		{
-			//ok
-		}
-		// null
-		try
-		{
-			editor.getStyleIndex(null);
-			fail();
-		}
-		catch (Exception ex)
-		{
-			//ok
-		}
+		assertNull(editor.getStyleIndex(testTags3));
+		assertNull(editor.getStyleIndex(null));
 	}
 
 	@BeforeClass

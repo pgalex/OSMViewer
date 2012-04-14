@@ -83,7 +83,6 @@ public class MapObjectStyleViewerTest
 		assertEquals(writingEditor.getMapObjectStyle(1).getDescription(), readingViewer.getMapObjectStyle(1).getDescription());
 		assertEquals(writingEditor.getMapObjectStyle(2).getDescription(), readingViewer.getMapObjectStyle(2).getDescription());
 	}
-	
 
 	/**
 	 * Test getStyleIndex and getMapObjectStyle methods
@@ -138,32 +137,16 @@ public class MapObjectStyleViewerTest
 		}
 
 		// normal work
-		assertEquals(0, viewer.getStyleIndex(tags1));
-		assertEquals(1, viewer.getStyleIndex(tags2));
-		assertEquals(2, viewer.getStyleIndex(tags3));
+		assertEquals(0, (int) viewer.getStyleIndex(tags1));
+		assertEquals(1, (int) viewer.getStyleIndex(tags2));
+		assertEquals(2, (int) viewer.getStyleIndex(tags3));
 
 		// not exists
-		try
-		{
-			EditableDefenitionTags testTags = new EditableDefenitionTags();
-			testTags.add(new MapTag("k9", "v9"));
-			viewer.getStyleIndex(testTags);
-			fail();
-		}
-		catch (Exception ex)
-		{
-			// ok
-		}
+		EditableDefenitionTags testTags = new EditableDefenitionTags();
+		testTags.add(new MapTag("k9", "v9"));
+		assertNull(viewer.getStyleIndex(testTags));
 		// null
-		try
-		{
-			viewer.getStyleIndex(null);
-			fail();
-		}
-		catch (Exception ex)
-		{
-			// ok
-		}
+		assertNull(viewer.getStyleIndex(null));
 
 		// getMapObjectStyle
 		assertEquals(style1.getDescription(), viewer.getMapObjectStyle(0).getDescription());
@@ -171,6 +154,7 @@ public class MapObjectStyleViewerTest
 		assertEquals(style3.getDescription(), viewer.getMapObjectStyle(2).getDescription());
 		// not exists
 		assertNull(viewer.getMapObjectStyle(-1));
+		assertNull(viewer.getMapObjectStyle(null));
 	}
 
 	@BeforeClass

@@ -68,23 +68,15 @@ public class MapObjectStyleViewer implements StyleViewer
 	 * Get index of map object drawing style
 	 *
 	 * @param pDefenitionTags tags of map object
-	 * @return index of style of object with that defenition tags
-	 * @throws ArrayStoreException object not found
+	 * @return index of style of object with that defenition tags. null if not found
 	 */
 	@Override
-	public int getStyleIndex(DefenitionTags pDefenitionTags) throws ArrayStoreException
+	public Integer getStyleIndex(DefenitionTags pDefenitionTags)
 	{
 		if (pDefenitionTags == null)
-			throw new ArrayStoreException();
+			return null;
 
-		try
-		{
-			return StyleProcessor.findStyleIndex(styles, pDefenitionTags);
-		}
-		catch (ArrayStoreException e)
-		{
-			throw new ArrayStoreException();
-		}
+		return StyleProcessor.findStyleIndex(styles, pDefenitionTags);
 	}
 
 	/**
@@ -94,11 +86,13 @@ public class MapObjectStyleViewer implements StyleViewer
 	 * @return map object drawing style. null if style with this index not found
 	 */
 	@Override
-	public MapObjectStyle getMapObjectStyle(int pIndex)
+	public MapObjectStyle getMapObjectStyle(Integer pIndex)
 	{
+		if (pIndex == null)
+			return null;
 		if (pIndex < 0 || pIndex >= styles.length)
 			return null;
-		else
-			return styles[pIndex];
+
+		return styles[pIndex];
 	}
 }

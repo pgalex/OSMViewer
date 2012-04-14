@@ -16,7 +16,7 @@ public interface StyleEditor extends StyleViewer
 	 * @throws ArrayIndexOutOfBoundsException style index is out of bounds
 	 * @throws NullPointerException new style is null
 	 */
-	public abstract void set(int pIndex, MapObjectStyle pNewStyle) throws ArrayIndexOutOfBoundsException, NullPointerException;
+	public abstract void set(Integer pIndex, MapObjectStyle pNewStyle) throws ArrayIndexOutOfBoundsException, NullPointerException;
 
 	/**
 	 * Add style
@@ -32,7 +32,7 @@ public interface StyleEditor extends StyleViewer
 	 * @param pIndex style index
 	 * @throws ArrayIndexOutOfBoundsException index out of bounds
 	 */
-	public abstract void remove(int pIndex) throws ArrayIndexOutOfBoundsException;
+	public abstract void remove(Integer pIndex) throws ArrayIndexOutOfBoundsException;
 
 	/**
 	 * Get styles count

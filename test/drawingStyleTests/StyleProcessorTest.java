@@ -32,35 +32,11 @@ public class StyleProcessorTest
 	@Test
 	public void incorrectFindStyleIndexTest()
 	{
-		try
-		{
-			StyleProcessor.findStyleIndex(null, new EditableDefenitionTags());
-			fail();
-		}
-		catch( ArrayStoreException e )
-		{
-			// ok
-		}
-		try
-		{
-			StyleProcessor.findStyleIndex(new MapObjectStyle[0], null);
-			fail();
-		}
-		catch( ArrayStoreException e )
-		{
-			// ok
-		}
-		try
-		{
-			StyleProcessor.findStyleIndex(new MapObjectStyle[0], new EditableDefenitionTags());
-			fail();
-		}
-		catch( ArrayStoreException e )
-		{
-			// ok
-		}
+		assertNull(StyleProcessor.findStyleIndex(null, new EditableDefenitionTags()));
+		assertNull(StyleProcessor.findStyleIndex(new MapObjectStyle[0], null));
+		assertNull(StyleProcessor.findStyleIndex(new MapObjectStyle[0], new EditableDefenitionTags()));
 	}
-	
+
 	/**
 	 * findStyleIndex test
 	 */
@@ -88,40 +64,32 @@ public class StyleProcessorTest
 
 		EditableDefenitionTags objectTags1 = new EditableDefenitionTags();
 		objectTags1.add(new MapTag("k1", "v1"));
-		assertEquals(1, StyleProcessor.findStyleIndex(styles, objectTags1));
-		
+		assertEquals(1, (int) StyleProcessor.findStyleIndex(styles, objectTags1));
+
 		EditableDefenitionTags objectTags2 = new EditableDefenitionTags();
 		objectTags2.add(new MapTag("k1", "v1"));
 		objectTags2.add(new MapTag("k5", "v5"));
-		assertEquals(1, StyleProcessor.findStyleIndex(styles, objectTags2));
-		
+		assertEquals(1, (int) StyleProcessor.findStyleIndex(styles, objectTags2));
+
 		EditableDefenitionTags objectTags3 = new EditableDefenitionTags();
 		objectTags3.add(new MapTag("k1", "v1"));
 		objectTags3.add(new MapTag("k5", "v5"));
 		objectTags3.add(new MapTag("k2", "v2"));
-		assertEquals(0, StyleProcessor.findStyleIndex(styles, objectTags3));
-		
+		assertEquals(0, (int) StyleProcessor.findStyleIndex(styles, objectTags3));
+
 		EditableDefenitionTags objectTags4 = new EditableDefenitionTags();
 		objectTags4.add(new MapTag("k1", "v1"));
 		objectTags4.add(new MapTag("k3", "v3"));
 		objectTags4.add(new MapTag("k5", "v5"));
 		objectTags4.add(new MapTag("k4", "v4"));
 		objectTags4.add(new MapTag("k2", "v2"));
-		assertEquals(2, StyleProcessor.findStyleIndex(styles, objectTags4));
-		
-		assertEquals(3, StyleProcessor.findStyleIndex(styles, new EditableDefenitionTags()));
-		
-		try
-		{
-			EditableDefenitionTags objectTags5 = new EditableDefenitionTags();
-			objectTags5.add(new MapTag("k5", "v5"));
-			StyleProcessor.findStyleIndex(styles, objectTags5);
-			fail();
-		}
-		catch( ArrayStoreException e )
-		{
-			// ok
-		}
+		assertEquals(2, (int) StyleProcessor.findStyleIndex(styles, objectTags4));
+
+		assertEquals(3, (int) StyleProcessor.findStyleIndex(styles, new EditableDefenitionTags()));
+
+		EditableDefenitionTags objectTags5 = new EditableDefenitionTags();
+		objectTags5.add(new MapTag("k5", "v5"));
+		assertNull(StyleProcessor.findStyleIndex(styles, objectTags5));
 	}
 
 	/**
