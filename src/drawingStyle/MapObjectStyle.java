@@ -75,7 +75,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData, Compara
 	 * @param pCanBePoint Can be object with this tags a point ( single node )
 	 * @param pCanBeLine Can be object with this tags a line ( non closed way )
 	 * @param pCanBePolygon Can be object with this tags a polygon ( closed way )
-	 * @param pTextTagKey "Key" of tag that "value" should be drawen on map as
+	 * @param pTextTagKeys "Key" of tag that "value" should be drawen on map as
 	 * text under object on a map
 	 * @param pDrawPriority Drawing priority
 	 * @param pDescription Description of map object
@@ -83,13 +83,13 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData, Compara
 	 * @param pDefenitionTags Map object defenition tags
 	 */
 	public MapObjectStyle(boolean pCanBePoint, boolean pCanBeLine, boolean pCanBePolygon,
-					TextTagsKeys pTextTagKey, int pDrawPriority, String pDescription, ScaledObjectStyleCollection pScaledStyles,
+					TextTagsKeys pTextTagKeys, int pDrawPriority, String pDescription, ScaledObjectStyleCollection pScaledStyles,
 					DefenitionTags pDefenitionTags)
 	{
 		canBePoint = pCanBePoint;
 		canBeLine = pCanBeLine;
 		canBePolygon = pCanBePolygon;
-		textTagKeys = pTextTagKey;
+		textTagKeys = pTextTagKeys;
 		drawPriority = pDrawPriority;
 		description = pDescription;
 		scaledStyles = pScaledStyles;

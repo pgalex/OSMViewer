@@ -41,6 +41,7 @@ public class TextTagsKeys implements ReadableMapData, WritableMapData
 	public TextTagsKeys(String[] pTagsKeys)
 	{
 		tagsKeys = pTagsKeys;
+		InitializeNullFields();
 	}
 
 	/**

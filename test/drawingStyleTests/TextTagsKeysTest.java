@@ -30,7 +30,7 @@ public class TextTagsKeysTest
 	public void autoInitializeTest()
 	{
 		TextTagsKeys testKeys1 = new TextTagsKeys(null);
-		assertNotNull(testKeys1);
+		assertNotNull(testKeys1.getTagsKeys());
 
 		TextTagsKeys testKeys2 = new TextTagsKeys(new String[0]);
 		assertEquals(0, testKeys2.getTagsKeys().length);
