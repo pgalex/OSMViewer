@@ -73,7 +73,7 @@ public class MapObject
 	/**
 	 * Assign style index by founding it in style viewer, using defenition tags
 	 *
-	 * @param pStyleViewer style viewer, using to fing index
+	 * @param pStyleViewer style viewer, using to find index
 	 */
 	public void assignStyleIndex(StyleViewer pStyleViewer)
 	{
