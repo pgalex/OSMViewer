@@ -3,7 +3,7 @@ package map;
 import drawingStyle.StyleViewer;
 
 /**
- * Any object on a map
+ * Any object on a map. Base class
  *
  * @author pgalex
  */
@@ -15,7 +15,7 @@ public class MapObject
 	private long id;
 	/**
 	 * Tags, describes the object. Can not be null, but can be empty ( cuz there
-	 * can be object without tags
+	 * can be object without tags )
 	 */
 	private DefenitionTags defenitionTags;
 	/**
@@ -77,7 +77,7 @@ public class MapObject
 	 */
 	public void assignStyleIndex(StyleViewer pStyleViewer)
 	{
-		if( pStyleViewer == null )
+		if (pStyleViewer == null)
 			return;
 		styleIndex = pStyleViewer.getStyleIndex(defenitionTags);
 	}
