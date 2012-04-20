@@ -2,6 +2,7 @@ package mapTests;
 
 import map.MapPoint;
 import map.MapPosition;
+import map.exceptions.PointPositionIsNullException;
 import org.junit.AfterClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -40,9 +41,10 @@ public class MapPointTest
 			MapPoint testPoint = new MapPoint(null, 12, null);
 			fail();
 		}
-		catch( NullPointerException ex )
+		catch( PointPositionIsNullException ex )
 		{
-			// ok
+			assertEquals(12, ex.getObjectId());
+			assertNull(ex.getObjecTags());
 		}
 	}
 

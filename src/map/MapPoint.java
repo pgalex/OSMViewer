@@ -1,5 +1,7 @@
 package map;
 
+import map.exceptions.PointPositionIsNullException;
+
 /**
  * Object on a map, consisting of one node
  *
@@ -25,7 +27,7 @@ public class MapPoint extends MapObject
 		super(pId, pDefenitionTags);
 
 		if (pPosition == null)
-			throw new NullPointerException();
+			throw new PointPositionIsNullException(pId, pDefenitionTags);
 
 		position = pPosition;
 	}
