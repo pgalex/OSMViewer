@@ -34,7 +34,7 @@ public class DefenitionTagsTest
 		DefenitionTags tags = new DefenitionTags(null);
 		try
 		{
-			tags.isEmpty(); // tring to use inner fields
+			tags.isEmpty(); // trying to use inner fields
 		}
 		catch (Exception e)
 		{
@@ -52,15 +52,7 @@ public class DefenitionTagsTest
 	{
 		DefenitionTags tags = new DefenitionTags();
 		// null list
-		try
-		{
-			tags.get(0);
-			fail();
-		}
-		catch (Exception e)
-		{
-			// ok
-		}
+		assertNull(tags.get(0));
 
 		// normal work
 		try
@@ -79,34 +71,18 @@ public class DefenitionTagsTest
 		}
 
 		// out of bounds
-		try
-		{
-			ArrayList<MapTag> tagsArray = new ArrayList<MapTag>();
-			tagsArray.add(new MapTag("k3", "v3"));
-			tagsArray.add(new MapTag("k1", "v1"));
-			tagsArray.add(new MapTag("k2", "v2"));
-			tags = new DefenitionTags(tagsArray);
-			tags.get(-1);
-			fail();
-		}
-		catch (Exception e)
-		{
-			// ok
-		}
-		try
-		{
-			ArrayList<MapTag> tagsArray = new ArrayList<MapTag>();
-			tagsArray.add(new MapTag("k3", "v3"));
-			tagsArray.add(new MapTag("k1", "v1"));
-			tagsArray.add(new MapTag("k2", "v2"));
-			tags = new DefenitionTags(tagsArray);
-			tags.get(tagsArray.size());
-			fail();
-		}
-		catch (Exception e)
-		{
-			// ok
-		}
+		ArrayList<MapTag> tagsArray = new ArrayList<MapTag>();
+		tagsArray.add(new MapTag("k3", "v3"));
+		tagsArray.add(new MapTag("k1", "v1"));
+		tagsArray.add(new MapTag("k2", "v2"));
+		tags = new DefenitionTags(tagsArray);
+		assertNull(tags.get(-1));
+		
+		tagsArray.add(new MapTag("k3", "v3"));
+		tagsArray.add(new MapTag("k1", "v1"));
+		tagsArray.add(new MapTag("k2", "v2"));
+		tags = new DefenitionTags(tagsArray);
+		assertNull(tags.get(tagsArray.size()));
 	}
 
 	/**

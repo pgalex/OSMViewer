@@ -62,13 +62,12 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 	 * Get tag with index
 	 *
 	 * @param pIndex index
-	 * @return tag
-	 * @throws ArrayIndexOutOfBoundsException index out of array bounds
+	 * @return tag, null if index is out of bounds
 	 */
-	public MapTag get(int pIndex) throws ArrayIndexOutOfBoundsException
+	public MapTag get(int pIndex)
 	{
 		if (pIndex < 0 || pIndex >= tags.size())
-			throw new ArrayIndexOutOfBoundsException();
+			return null;
 		return tags.get(pIndex);
 	}
 
