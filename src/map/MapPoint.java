@@ -20,9 +20,9 @@ public class MapPoint extends MapObject
 	 * @param pPosition position on a map (spheric coords)
 	 * @param pId global unique id from OpenStreetMap
 	 * @param pDefenitionTags defenition tags
-	 * @throws NullPointerException position is null 
+	 * @throws PointPositionIsNullException position is null 
 	 */
-	public MapPoint(MapPosition pPosition, long pId, DefenitionTags pDefenitionTags) throws NullPointerException
+	public MapPoint(MapPosition pPosition, long pId, DefenitionTags pDefenitionTags) throws PointPositionIsNullException
 	{
 		super(pId, pDefenitionTags);
 
