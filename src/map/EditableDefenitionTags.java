@@ -1,6 +1,7 @@
 package map;
 
 import java.util.ArrayList;
+import map.exceptions.TagIsNullException;
 
 /**
  * Defenition tags with "edit" methods
@@ -31,9 +32,12 @@ public class EditableDefenitionTags extends DefenitionTags
 	 * Add tag
 	 *
 	 * @param pTag tag
+	 * @throws TagIsNullException tag is null
 	 */
-	public void add(MapTag pTag)
+	public void add(MapTag pTag) throws TagIsNullException
 	{
+		if (pTag == null)
+			throw new TagIsNullException(this);
 		tags.add(pTag);
 	}
 
