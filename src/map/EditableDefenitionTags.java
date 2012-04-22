@@ -1,6 +1,7 @@
 package map;
 
 import java.util.ArrayList;
+import map.exceptions.TagIndexOutOfBoundsException;
 import map.exceptions.TagIsNullException;
 
 /**
@@ -53,12 +54,12 @@ public class EditableDefenitionTags extends DefenitionTags
 	 * Remove elemet with index
 	 *
 	 * @param pIndex index of element in tags array
-	 * @throws ArrayIndexOutOfBoundsException index out of bounds
+	 * @throws TagIndexOutOfBoundsException index out of bounds
 	 */
-	public void remove(int pIndex) throws ArrayIndexOutOfBoundsException
+	public void remove(int pIndex) throws TagIndexOutOfBoundsException
 	{
 		if (pIndex < 0 || pIndex >= tags.size())
-			throw new ArrayIndexOutOfBoundsException();
+			throw new TagIndexOutOfBoundsException(0, tags.size());
 		tags.remove(pIndex);
 	}
 }

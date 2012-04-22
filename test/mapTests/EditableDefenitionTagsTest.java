@@ -6,6 +6,7 @@ package mapTests;
 
 import map.EditableDefenitionTags;
 import map.MapTag;
+import map.exceptions.TagIndexOutOfBoundsException;
 import map.exceptions.TagIsNullException;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -100,7 +101,7 @@ public class EditableDefenitionTagsTest
 			tags.remove(-1);
 			fail();
 		}
-		catch (Exception ex)
+		catch (TagIndexOutOfBoundsException ex)
 		{
 			//ok
 		}
@@ -109,7 +110,7 @@ public class EditableDefenitionTagsTest
 			tags.remove(1);
 			fail();
 		}
-		catch (Exception ex)
+		catch (TagIndexOutOfBoundsException ex)
 		{
 			//ok
 		}
