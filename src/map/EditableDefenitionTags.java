@@ -59,7 +59,7 @@ public class EditableDefenitionTags extends DefenitionTags
 	public void remove(int pIndex) throws TagIndexOutOfBoundsException
 	{
 		if (pIndex < 0 || pIndex >= tags.size())
-			throw new TagIndexOutOfBoundsException(0, tags.size());
+			throw new TagIndexOutOfBoundsException(this, pIndex, 0, tags.size());
 		tags.remove(pIndex);
 	}
 }

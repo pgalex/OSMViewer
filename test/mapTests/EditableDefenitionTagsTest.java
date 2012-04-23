@@ -54,7 +54,7 @@ public class EditableDefenitionTagsTest
 		}
 		catch (TagIsNullException ex)
 		{
-			//ok
+			assertEquals(tags, ex.getEditedTags());
 		}
 	}
 
@@ -96,6 +96,7 @@ public class EditableDefenitionTagsTest
 		assertTrue(tags.isEmpty());
 		assertEquals(0, tags.size());
 
+		tags.add(new MapTag("k1", "v1"));
 		try
 		{
 			tags.remove(-1);
@@ -103,16 +104,22 @@ public class EditableDefenitionTagsTest
 		}
 		catch (TagIndexOutOfBoundsException ex)
 		{
-			//ok
+			assertEquals(tags, ex.getEditedTags());
+			assertEquals(-1, ex.getIndex());
+			assertEquals(0, ex.getBoundsMin());
+			assertEquals(tags.size(), ex.getBoundsMax());
 		}
 		try
 		{
-			tags.remove(1);
+			tags.remove(tags.size());
 			fail();
 		}
 		catch (TagIndexOutOfBoundsException ex)
 		{
-			//ok
+			assertEquals(tags, ex.getEditedTags());
+			assertEquals(1, ex.getIndex());
+			assertEquals(0, ex.getBoundsMin());
+			assertEquals(tags.size(), ex.getBoundsMax());
 		}
 	}
 

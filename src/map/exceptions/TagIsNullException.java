@@ -7,30 +7,15 @@ import map.DefenitionTags;
  *
  * @author pgalex
  */
-public class TagIsNullException extends RuntimeException
+public class TagIsNullException extends DefenitionTagsRuntimeException
 {
-	/**
-	 * Tags that was edited when exception is throws
-	 */
-	private DefenitionTags editedTags;
-
 	/**
 	 * Constructor
 	 *
-	 * @param pEditingTags Tags that was edited when exception is throws
+	 * @param pEditedTags Tags that was edited when exception is throws
 	 */
-	public TagIsNullException(DefenitionTags pEditingTags)
+	public TagIsNullException(DefenitionTags pEditedTags)
 	{
-		editedTags = pEditingTags;
-	}
-
-	/**
-	 * Get Tags that was edited when exception is throws
-	 *
-	 * @return Tags that was edited when exception is throws
-	 */
-	public DefenitionTags getEditedTags()
-	{
-		return editedTags;
+		super(pEditedTags);
 	}
 }
