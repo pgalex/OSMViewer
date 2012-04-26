@@ -100,11 +100,14 @@ public class ScaledObjectStyleArray implements ScaledObjectStyleCollection
 	 * @param pScaleLevel scale level
 	 * @param pNewScaledStyle new style on scale level
 	 * @throws ArrayIndexOutOfBoundsException scale level is out of range
+	 * @throws NullPointerException new scaled style is null 
 	 */
-	public void setStyleOnScale(int pScaleLevel, ScaledObjectStyle pNewScaledStyle) throws ArrayIndexOutOfBoundsException
+	public void setStyleOnScale(int pScaleLevel, ScaledObjectStyle pNewScaledStyle) throws ArrayIndexOutOfBoundsException, NullPointerException
 	{
 		if (pScaleLevel < 0 || pScaleLevel >= scaledStyles.length)
 			throw new ArrayIndexOutOfBoundsException();
+		if (pNewScaledStyle == null)
+			throw new NullPointerException();
 
 		scaledStyles[pScaleLevel] = pNewScaledStyle;
 	}

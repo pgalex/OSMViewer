@@ -3,6 +3,7 @@ package drawingStyleTests;
 import drawingStyle.DrawingStyleFactory;
 import drawingStyle.MapObjectStyle;
 import drawingStyle.StyleEditor;
+import drawingStyle.exceptions.StyleIndexOutOfBoundsException;
 import java.io.*;
 import map.EditableDefenitionTags;
 import map.MapTag;
@@ -118,9 +119,11 @@ public class MapObjectStyleEditorTest
 			editor.set(-1, style2);
 			fail();
 		}
-		catch (ArrayIndexOutOfBoundsException ex)
+		catch (StyleIndexOutOfBoundsException ex)
 		{
-			//ok
+			assertEquals(-1, (int)ex.getIncorrectIndex());
+			assertEquals(0, (int)ex.getBoundsMinimum());
+			assertEquals(editor.count(), (int)ex.getBoundsMaximum());
 		}
 		// more
 		try
@@ -128,9 +131,11 @@ public class MapObjectStyleEditorTest
 			editor.set(editor.count() + 1, style2);
 			fail();
 		}
-		catch (ArrayIndexOutOfBoundsException ex)
+		catch (StyleIndexOutOfBoundsException ex)
 		{
-			//ok
+			assertEquals(editor.count() + 1, (int)ex.getIncorrectIndex());
+			assertEquals(0, (int)ex.getBoundsMinimum());
+			assertEquals(editor.count(), (int)ex.getBoundsMaximum());
 		}
 		// null
 		try
@@ -148,9 +153,11 @@ public class MapObjectStyleEditorTest
 			editor.set(null, style2);
 			fail();
 		}
-		catch (ArrayIndexOutOfBoundsException ex)
+		catch (StyleIndexOutOfBoundsException ex)
 		{
-			//ok
+			assertEquals(null, ex.getIncorrectIndex());
+			assertEquals(0, (int)ex.getBoundsMinimum());
+			assertEquals(editor.count(), (int)ex.getBoundsMaximum());
 		}
 	}
 
@@ -182,7 +189,7 @@ public class MapObjectStyleEditorTest
 			editor.remove(1);
 			fail();
 		}
-		catch (ArrayIndexOutOfBoundsException ex)
+		catch (StyleIndexOutOfBoundsException ex)
 		{
 			// ok
 		}
@@ -192,9 +199,11 @@ public class MapObjectStyleEditorTest
 			editor.remove(0);
 			fail();
 		}
-		catch (ArrayIndexOutOfBoundsException ex)
+		catch (StyleIndexOutOfBoundsException ex)
 		{
-			// ok
+			assertEquals(0, (int)ex.getIncorrectIndex());
+			assertEquals(0, (int)ex.getBoundsMinimum());
+			assertEquals(editor.count(), (int)ex.getBoundsMaximum());
 		}
 		// more
 		try
@@ -202,9 +211,11 @@ public class MapObjectStyleEditorTest
 			editor.remove(1);
 			fail();
 		}
-		catch (ArrayIndexOutOfBoundsException ex)
+		catch (StyleIndexOutOfBoundsException ex)
 		{
-			// ok
+			assertEquals(1, (int)ex.getIncorrectIndex());
+			assertEquals(0, (int)ex.getBoundsMinimum());
+			assertEquals(editor.count(), (int)ex.getBoundsMaximum());
 		}
 		// null
 		try
@@ -212,9 +223,11 @@ public class MapObjectStyleEditorTest
 			editor.remove(null);
 			fail();
 		}
-		catch (ArrayIndexOutOfBoundsException ex)
+		catch (StyleIndexOutOfBoundsException ex)
 		{
-			// ok
+			assertEquals(null, ex.getIncorrectIndex());
+			assertEquals(0, (int)ex.getBoundsMinimum());
+			assertEquals(editor.count(), (int)ex.getBoundsMaximum());
 		}
 	}
 

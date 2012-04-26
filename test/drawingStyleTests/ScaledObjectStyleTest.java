@@ -1,6 +1,8 @@
 package drawingStyleTests;
 
-import drawingStyle.*;
+import drawingStyle.IOColor;
+import drawingStyle.IOFont;
+import drawingStyle.ScaledObjectStyle;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.DataInputStream;

@@ -1,10 +1,9 @@
 package drawingStyleTests;
 
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template, choose Tools | Templates and open the template in
+ * the editor.
  */
-
 import drawingStyle.ScaledObjectStyle;
 import drawingStyle.ScaledObjectStyleArray;
 import java.io.DataInputStream;
@@ -82,6 +81,25 @@ public class ScaledObjectStyleArrayTest
 		}
 		catch (ArrayIndexOutOfBoundsException ex)
 		{
+		}
+	}
+
+	/**
+	 * Test setting null style
+	 */
+	@Test
+	public void setNullStyleTest()
+	{
+		ScaledObjectStyleArray style = new ScaledObjectStyleArray(1);
+
+		try
+		{
+			style.setStyleOnScale(0, null);
+			fail();
+		}
+		catch (NullPointerException ex)
+		{
+			//ok
 		}
 	}
 

@@ -105,9 +105,9 @@ public class EditableDefenitionTagsTest
 		catch (TagIndexOutOfBoundsException ex)
 		{
 			assertEquals(tags, ex.getEditedTags());
-			assertEquals(-1, ex.getIndex());
-			assertEquals(0, ex.getBoundsMin());
-			assertEquals(tags.size(), ex.getBoundsMax());
+			assertEquals(-1, ex.getIncorrectIndex());
+			assertEquals(0, ex.getBoundsMinimum());
+			assertEquals(tags.size(), ex.getBoundsMaximum());
 		}
 		try
 		{
@@ -117,9 +117,9 @@ public class EditableDefenitionTagsTest
 		catch (TagIndexOutOfBoundsException ex)
 		{
 			assertEquals(tags, ex.getEditedTags());
-			assertEquals(1, ex.getIndex());
-			assertEquals(0, ex.getBoundsMin());
-			assertEquals(tags.size(), ex.getBoundsMax());
+			assertEquals(1, ex.getIncorrectIndex());
+			assertEquals(0, ex.getBoundsMinimum());
+			assertEquals(tags.size(), ex.getBoundsMaximum());
 		}
 	}
 

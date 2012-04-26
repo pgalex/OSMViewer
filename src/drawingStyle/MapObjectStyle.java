@@ -251,6 +251,8 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData, Compara
 	@Override
 	public int compareTo(MapObjectStyle pComparedStyle)
 	{
+		if (pComparedStyle == null)
+			return 1;
 		if (defenitionTags.size() > pComparedStyle.getDefenitionTags().size())
 			return -1;
 		if (defenitionTags.size() < pComparedStyle.getDefenitionTags().size())

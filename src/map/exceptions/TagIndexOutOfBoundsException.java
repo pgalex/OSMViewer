@@ -3,7 +3,7 @@ package map.exceptions;
 import map.DefenitionTags;
 
 /**
- * Tag index in defenition tags is out of bounds
+ * Tag incorrectIndex in defenition tags is out of bounds
  *
  * @author pgalex
  */
@@ -12,31 +12,31 @@ public class TagIndexOutOfBoundsException extends DefenitionTagsRuntimeException
 	/**
 	 * Value of index that was out of bounds
 	 */
-	private int index;
+	private int incorrectIndex;
 	/**
 	 * Bounds minimum
 	 */
-	private int boundsMin;
+	private int boundsMinimum;
 	/**
 	 * Bounds maximum
 	 */
-	private int boundsMax;
+	private int boundsMaximum;
 
 	/**
 	 * Constructor
 	 *
 	 * @param pEditedTags Tags that was edited when exception is throws
-	 * @param pIndex Value of index that was out of bounds
-	 * @param pBoundsMin Bounds minimum
-	 * @param pBoundsMax Bounds maximum
+	 * @param pIncorrectIndex Value of index that was out of bounds
+	 * @param pBoundsMinimum Bounds minimum
+	 * @param pBoundsMaximum Bounds maximum
 	 */
-	public TagIndexOutOfBoundsException(DefenitionTags pEditedTags, int pIndex, int pBoundsMin, int pBoundsMax)
+	public TagIndexOutOfBoundsException(DefenitionTags pEditedTags, int pIncorrectIndex, int pBoundsMinimum, int pBoundsMaximum)
 	{
 		super(pEditedTags);
-		
-		index = pIndex;
-		boundsMin = pBoundsMin;
-		boundsMax = pBoundsMax;
+
+		incorrectIndex = pIncorrectIndex;
+		boundsMinimum = pBoundsMinimum;
+		boundsMaximum = pBoundsMaximum;
 	}
 
 	/**
@@ -44,9 +44,9 @@ public class TagIndexOutOfBoundsException extends DefenitionTagsRuntimeException
 	 *
 	 * @return Bounds minimum
 	 */
-	public int getBoundsMin()
+	public int getBoundsMinimum()
 	{
-		return boundsMin;
+		return boundsMinimum;
 	}
 
 	/**
@@ -54,18 +54,18 @@ public class TagIndexOutOfBoundsException extends DefenitionTagsRuntimeException
 	 *
 	 * @return Bounds maximum
 	 */
-	public int getBoundsMax()
+	public int getBoundsMaximum()
 	{
-		return boundsMax;
+		return boundsMaximum;
 	}
 
 	/**
-	 * Get Value of index that was out of bounds
+	 * Get Value of incorrectIndex that was out of bounds
 	 *
-	 * @return Value of index that was out of bounds
+	 * @return Value of incorrectIndex that was out of bounds
 	 */
-	public int getIndex()
+	public int getIncorrectIndex()
 	{
-		return index;
+		return incorrectIndex;
 	}
 }

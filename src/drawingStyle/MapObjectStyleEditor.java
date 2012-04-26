@@ -1,5 +1,6 @@
 package drawingStyle;
 
+import drawingStyle.exceptions.StyleIndexOutOfBoundsException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -72,17 +73,17 @@ public class MapObjectStyleEditor implements StyleEditor
 	 *
 	 * @param pIndex style index
 	 * @param pNewStyle new style
-	 * @throws ArrayIndexOutOfBoundsException style index is out of bounds
+	 * @throws StyleIndexOutOfBoundsException style index is out of bounds
 	 * @throws NullPointerException new style is null
 	 */
 	@Override
-	public void set(Integer pIndex, MapObjectStyle pNewStyle) throws ArrayIndexOutOfBoundsException, NullPointerException
+	public void set(Integer pIndex, MapObjectStyle pNewStyle) throws StyleIndexOutOfBoundsException, NullPointerException
 	{
 		if (pIndex == null)
-			throw new ArrayIndexOutOfBoundsException();
+			throw new StyleIndexOutOfBoundsException(pIndex, 0, styles.size());
 
 		if (pIndex < 0 || pIndex >= styles.size())
-			throw new ArrayIndexOutOfBoundsException();
+			throw new StyleIndexOutOfBoundsException(pIndex, 0, styles.size());
 
 		if (pNewStyle == null)
 			throw new NullPointerException();
@@ -151,16 +152,16 @@ public class MapObjectStyleEditor implements StyleEditor
 	 * Remove style by id
 	 *
 	 * @param pIndex style id
-	 * @throws ArrayIndexOutOfBoundsException id out of bounds
+	 * @throws StyleIndexOutOfBoundsException id out of bounds
 	 */
 	@Override
-	public void remove(Integer pIndex) throws ArrayIndexOutOfBoundsException
+	public void remove(Integer pIndex) throws StyleIndexOutOfBoundsException
 	{
 		if( pIndex == null )
-			throw new ArrayIndexOutOfBoundsException();
+			throw new StyleIndexOutOfBoundsException(pIndex, 0, styles.size());
 		
 		if (pIndex < 0 || pIndex >= styles.size())
-			throw new ArrayIndexOutOfBoundsException();
+			throw new StyleIndexOutOfBoundsException(pIndex, 0, styles.size());
 		
 		styles.remove((int)pIndex);
 	}

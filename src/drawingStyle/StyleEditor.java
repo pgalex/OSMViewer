@@ -1,5 +1,7 @@
 package drawingStyle;
 
+import drawingStyle.exceptions.StyleIndexOutOfBoundsException;
+
 /**
  * Main interface of drawingStyle with "set" methods. Using in style editing
  * forms
@@ -13,10 +15,10 @@ public interface StyleEditor extends StyleViewer
 	 *
 	 * @param pIndex style index
 	 * @param pNewStyle new style
-	 * @throws ArrayIndexOutOfBoundsException style index is out of bounds
+	 * @throws StyleIndexOutOfBoundsException style index is out of bounds
 	 * @throws NullPointerException new style is null
 	 */
-	public abstract void set(Integer pIndex, MapObjectStyle pNewStyle) throws ArrayIndexOutOfBoundsException, NullPointerException;
+	public abstract void set(Integer pIndex, MapObjectStyle pNewStyle) throws StyleIndexOutOfBoundsException, NullPointerException;
 
 	/**
 	 * Add style
@@ -30,9 +32,9 @@ public interface StyleEditor extends StyleViewer
 	 * Remove style by index
 	 *
 	 * @param pIndex style index
-	 * @throws ArrayIndexOutOfBoundsException index out of bounds
+	 * @throws StyleIndexOutOfBoundsException index out of bounds
 	 */
-	public abstract void remove(Integer pIndex) throws ArrayIndexOutOfBoundsException;
+	public abstract void remove(Integer pIndex) throws StyleIndexOutOfBoundsException;
 
 	/**
 	 * Get styles count
