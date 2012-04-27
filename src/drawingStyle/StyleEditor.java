@@ -1,5 +1,6 @@
 package drawingStyle;
 
+import drawingStyle.exceptions.MapObjectStyleIsNullException;
 import drawingStyle.exceptions.StyleIndexOutOfBoundsException;
 
 /**
@@ -16,17 +17,17 @@ public interface StyleEditor extends StyleViewer
 	 * @param pIndex style index
 	 * @param pNewStyle new style
 	 * @throws StyleIndexOutOfBoundsException style index is out of bounds
-	 * @throws NullPointerException new style is null
+	 * @throws MapObjectStyleIsNullException new style is null
 	 */
-	public abstract void set(Integer pIndex, MapObjectStyle pNewStyle) throws StyleIndexOutOfBoundsException, NullPointerException;
+	public abstract void set(Integer pIndex, MapObjectStyle pNewStyle) throws StyleIndexOutOfBoundsException, MapObjectStyleIsNullException;
 
 	/**
 	 * Add style
 	 *
 	 * @param pNewStyle new map object style
-	 * @throws NullPointerException new style is null
+	 * @throws MapObjectStyleIsNullException new style is null
 	 */
-	public abstract void add(MapObjectStyle pNewStyle) throws NullPointerException;
+	public abstract void add(MapObjectStyle pNewStyle) throws MapObjectStyleIsNullException;
 
 	/**
 	 * Remove style by index

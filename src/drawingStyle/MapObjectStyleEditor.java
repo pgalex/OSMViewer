@@ -1,5 +1,6 @@
 package drawingStyle;
 
+import drawingStyle.exceptions.MapObjectStyleIsNullException;
 import drawingStyle.exceptions.StyleIndexOutOfBoundsException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -74,10 +75,10 @@ public class MapObjectStyleEditor implements StyleEditor
 	 * @param pIndex style index
 	 * @param pNewStyle new style
 	 * @throws StyleIndexOutOfBoundsException style index is out of bounds
-	 * @throws NullPointerException new style is null
+	 * @throws MapObjectStyleIsNullException new style is null
 	 */
 	@Override
-	public void set(Integer pIndex, MapObjectStyle pNewStyle) throws StyleIndexOutOfBoundsException, NullPointerException
+	public void set(Integer pIndex, MapObjectStyle pNewStyle) throws StyleIndexOutOfBoundsException, MapObjectStyleIsNullException
 	{
 		if (pIndex == null)
 			throw new StyleIndexOutOfBoundsException(pIndex, 0, styles.size());
@@ -86,7 +87,7 @@ public class MapObjectStyleEditor implements StyleEditor
 			throw new StyleIndexOutOfBoundsException(pIndex, 0, styles.size());
 
 		if (pNewStyle == null)
-			throw new NullPointerException();
+			throw new MapObjectStyleIsNullException(this);
 
 		styles.set(pIndex, pNewStyle);
 	}
@@ -141,10 +142,11 @@ public class MapObjectStyleEditor implements StyleEditor
 	 * @throws NullPointerException new style is null
 	 */
 	@Override
-	public void add(MapObjectStyle pNewStyle) throws NullPointerException
+	public void add(MapObjectStyle pNewStyle) throws MapObjectStyleIsNullException
 	{
 		if (pNewStyle == null)
-			throw new NullPointerException();
+			throw new MapObjectStyleIsNullException(this);
+		
 		styles.add(pNewStyle);
 	}
 
@@ -157,12 +159,12 @@ public class MapObjectStyleEditor implements StyleEditor
 	@Override
 	public void remove(Integer pIndex) throws StyleIndexOutOfBoundsException
 	{
-		if( pIndex == null )
+		if (pIndex == null)
 			throw new StyleIndexOutOfBoundsException(pIndex, 0, styles.size());
-		
+
 		if (pIndex < 0 || pIndex >= styles.size())
 			throw new StyleIndexOutOfBoundsException(pIndex, 0, styles.size());
-		
-		styles.remove((int)pIndex);
+
+		styles.remove((int) pIndex);
 	}
 }
