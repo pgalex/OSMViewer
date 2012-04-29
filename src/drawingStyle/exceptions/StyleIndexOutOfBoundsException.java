@@ -1,11 +1,13 @@
 package drawingStyle.exceptions;
 
+import drawingStyle.StyleEditor;
+
 /**
  * Style index of map object is out of bounds
  *
  * @author pgalex
  */
-public class StyleIndexOutOfBoundsException extends RuntimeException
+public class StyleIndexOutOfBoundsException extends StyleEditorRuntimeException
 {
 	/**
 	 * Incorrect style index
@@ -23,12 +25,14 @@ public class StyleIndexOutOfBoundsException extends RuntimeException
 	/**
 	 * Constructor
 	 *
+	 * @param pEditorThrowedException Style editor that throwed exception
 	 * @param pIncorrectStyleIndex Style index that was incorrect
 	 * @param pBoundsMinimum Minimun value of style index
 	 * @param pBoundsMaximum Maximum value of style index
 	 */
-	public StyleIndexOutOfBoundsException(Integer pIncorrectStyleIndex, Integer pBoundsMinimum, Integer pBoundsMaximum)
+	public StyleIndexOutOfBoundsException(StyleEditor pEditorThrowedException, Integer pIncorrectStyleIndex, Integer pBoundsMinimum, Integer pBoundsMaximum)
 	{
+		super(pEditorThrowedException);
 		incorrectStyleIndex = pIncorrectStyleIndex;
 		boundsMinimum = pBoundsMinimum;
 		boundsMaximum = pBoundsMaximum;

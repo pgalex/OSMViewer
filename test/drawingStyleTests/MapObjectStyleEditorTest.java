@@ -122,6 +122,7 @@ public class MapObjectStyleEditorTest
 		}
 		catch (StyleIndexOutOfBoundsException ex)
 		{
+			assertEquals(editor, ex.getEditorThrowedException());
 			assertEquals(-1, (int) ex.getIncorrectStyleIndex());
 			assertEquals(0, (int) ex.getBoundsMinimum());
 			assertEquals(editor.count(), (int) ex.getBoundsMaximum());
@@ -134,6 +135,7 @@ public class MapObjectStyleEditorTest
 		}
 		catch (StyleIndexOutOfBoundsException ex)
 		{
+			assertEquals(editor, ex.getEditorThrowedException());
 			assertEquals(editor.count() + 1, (int) ex.getIncorrectStyleIndex());
 			assertEquals(0, (int) ex.getBoundsMinimum());
 			assertEquals(editor.count(), (int) ex.getBoundsMaximum());
@@ -156,6 +158,7 @@ public class MapObjectStyleEditorTest
 		}
 		catch (StyleIndexOutOfBoundsException ex)
 		{
+			assertEquals(editor, ex.getEditorThrowedException());
 			assertEquals(null, ex.getIncorrectStyleIndex());
 			assertEquals(0, (int) ex.getBoundsMinimum());
 			assertEquals(editor.count(), (int) ex.getBoundsMaximum());

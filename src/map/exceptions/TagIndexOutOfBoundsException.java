@@ -25,14 +25,14 @@ public class TagIndexOutOfBoundsException extends DefenitionTagsRuntimeException
 	/**
 	 * Constructor
 	 *
-	 * @param pEditedTags Tags that was edited when exception is throws
+	 * @param pTagsThrowedException Tags that was edited when exception is throws
 	 * @param pIncorrectTagIndex Value of index that was out of bounds
 	 * @param pBoundsMinimum Bounds minimum
 	 * @param pBoundsMaximum Bounds maximum
 	 */
-	public TagIndexOutOfBoundsException(DefenitionTags pEditedTags, int pIncorrectTagIndex, int pBoundsMinimum, int pBoundsMaximum)
+	public TagIndexOutOfBoundsException(DefenitionTags pTagsThrowedException, int pIncorrectTagIndex, int pBoundsMinimum, int pBoundsMaximum)
 	{
-		super(pEditedTags);
+		super(pTagsThrowedException);
 
 		incorrectTagIndex = pIncorrectTagIndex;
 		boundsMinimum = pBoundsMinimum;

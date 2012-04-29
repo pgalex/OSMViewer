@@ -81,10 +81,10 @@ public class MapObjectStyleEditor implements StyleEditor
 	public void set(Integer pIndex, MapObjectStyle pNewStyle) throws StyleIndexOutOfBoundsException, MapObjectStyleIsNullException
 	{
 		if (pIndex == null)
-			throw new StyleIndexOutOfBoundsException(pIndex, 0, styles.size());
+			throw new StyleIndexOutOfBoundsException(this, pIndex, 0, styles.size());
 
 		if (pIndex < 0 || pIndex >= styles.size())
-			throw new StyleIndexOutOfBoundsException(pIndex, 0, styles.size());
+			throw new StyleIndexOutOfBoundsException(this, pIndex, 0, styles.size());
 
 		if (pNewStyle == null)
 			throw new MapObjectStyleIsNullException(this);
@@ -160,10 +160,10 @@ public class MapObjectStyleEditor implements StyleEditor
 	public void remove(Integer pIndex) throws StyleIndexOutOfBoundsException
 	{
 		if (pIndex == null)
-			throw new StyleIndexOutOfBoundsException(pIndex, 0, styles.size());
+			throw new StyleIndexOutOfBoundsException(this, pIndex, 0, styles.size());
 
 		if (pIndex < 0 || pIndex >= styles.size())
-			throw new StyleIndexOutOfBoundsException(pIndex, 0, styles.size());
+			throw new StyleIndexOutOfBoundsException(this, pIndex, 0, styles.size());
 
 		styles.remove((int) pIndex);
 	}

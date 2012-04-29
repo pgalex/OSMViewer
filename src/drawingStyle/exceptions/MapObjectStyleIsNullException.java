@@ -7,13 +7,8 @@ import drawingStyle.StyleEditor;
  *
  * @author pgalex
  */
-public class MapObjectStyleIsNullException extends RuntimeException
+public class MapObjectStyleIsNullException extends StyleEditorRuntimeException
 {
-	/**
-	 * Style editor that throwed exception
-	 */
-	private StyleEditor editorThrowedException;
-
 	/**
 	 * Constructor
 	 *
@@ -21,16 +16,6 @@ public class MapObjectStyleIsNullException extends RuntimeException
 	 */
 	public MapObjectStyleIsNullException(StyleEditor pEditorThrowedException)
 	{
-		editorThrowedException = pEditorThrowedException;
-	}
-
-	/**
-	 * Get style editor that throwed exception
-	 *
-	 * @return Style editor that throwed exception
-	 */
-	public StyleEditor getEditorThrowedException()
-	{
-		return editorThrowedException;
+		super(pEditorThrowedException);
 	}
 }

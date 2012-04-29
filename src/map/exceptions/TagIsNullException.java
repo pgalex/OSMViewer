@@ -12,10 +12,10 @@ public class TagIsNullException extends DefenitionTagsRuntimeException
 	/**
 	 * Constructor
 	 *
-	 * @param pEditedTags Tags that was edited when exception is throws
+	 * @param pTagsThrowedException Tags that was edited when exception is throws
 	 */
-	public TagIsNullException(DefenitionTags pEditedTags)
+	public TagIsNullException(DefenitionTags pTagsThrowedException)
 	{
-		super(pEditedTags);
+		super(pTagsThrowedException);
 	}
 }
