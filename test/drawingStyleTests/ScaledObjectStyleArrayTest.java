@@ -3,6 +3,7 @@ package drawingStyleTests;
 import drawingStyle.ScaledObjectStyle;
 import drawingStyle.ScaledObjectStyleArray;
 import drawingStyle.exceptions.ScaleLevelOutOfBoundsException;
+import drawingStyle.exceptions.ScaledStyleIsNullException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
@@ -68,6 +69,7 @@ public class ScaledObjectStyleArrayTest
 		}
 		catch (ScaleLevelOutOfBoundsException ex)
 		{
+			assertEquals(style, ex.getArrayThrowedException());
 			assertEquals(-1, ex.getIncorrectScaleLevel());
 			assertEquals(0, ex.getBoundsMinimum());
 			assertEquals(style.count(), ex.getBoundsMaximum());
@@ -81,6 +83,7 @@ public class ScaledObjectStyleArrayTest
 		}
 		catch (ScaleLevelOutOfBoundsException ex)
 		{
+			assertEquals(style, ex.getArrayThrowedException());
 			assertEquals(style.count() + 1, ex.getIncorrectScaleLevel());
 			assertEquals(0, ex.getBoundsMinimum());
 			assertEquals(style.count(), ex.getBoundsMaximum());
@@ -100,9 +103,9 @@ public class ScaledObjectStyleArrayTest
 			style.setStyleOnScale(0, null);
 			fail();
 		}
-		catch (NullPointerException ex)
+		catch (ScaledStyleIsNullException ex)
 		{
-			//ok
+			assertEquals(style, ex.getArrayThrowedException());
 		}
 	}
 

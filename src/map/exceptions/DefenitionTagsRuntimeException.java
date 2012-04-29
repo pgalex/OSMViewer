@@ -12,16 +12,16 @@ public class DefenitionTagsRuntimeException extends RuntimeException
 	/**
 	 * Tags that was edited when exception is throws
 	 */
-	private DefenitionTags editedTags;
+	private DefenitionTags tagsThrowedException;
 
 	/**
 	 * Constructor
 	 *
-	 * @param pEditedTags Tags that was edited when exception is throws
+	 * @param pTagsThrowedException Tags that was edited when exception is throws
 	 */
-	public DefenitionTagsRuntimeException(DefenitionTags pEditedTags)
+	public DefenitionTagsRuntimeException(DefenitionTags pTagsThrowedException)
 	{
-		editedTags = pEditedTags;
+		tagsThrowedException = pTagsThrowedException;
 	}
 
 	/**
@@ -29,8 +29,8 @@ public class DefenitionTagsRuntimeException extends RuntimeException
 	 *
 	 * @return Tags that was edited when exception is throws
 	 */
-	public DefenitionTags getEditedTags()
+	public DefenitionTags getTagsThrowedException()
 	{
-		return editedTags;
+		return tagsThrowedException;
 	}
 }
