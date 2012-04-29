@@ -25,7 +25,7 @@ public class DefenitionTagsRuntimeException extends RuntimeException
 	}
 
 	/**
-	 * Get Tags that was edited when exception is throws
+	 * Get tags that was edited when exception is throws
 	 *
 	 * @return Tags that was edited when exception is throws
 	 */

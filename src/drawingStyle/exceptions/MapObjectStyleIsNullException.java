@@ -25,7 +25,7 @@ public class MapObjectStyleIsNullException extends RuntimeException
 	}
 
 	/**
-	 * Get Style editor that throwed exception
+	 * Get style editor that throwed exception
 	 *
 	 * @return Style editor that throwed exception
 	 */

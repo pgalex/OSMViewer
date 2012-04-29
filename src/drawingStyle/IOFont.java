@@ -22,7 +22,7 @@ public class IOFont implements ReadableMapData, WritableMapData
 	 * Font
 	 */
 	private Font font;
-	
+
 	/**
 	 * Constructor
 	 */
@@ -30,10 +30,10 @@ public class IOFont implements ReadableMapData, WritableMapData
 	{
 		font = DEFAULT_FONT;
 	}
-	
+
 	/**
 	 * Constructor with pointer
-	 * 
+	 *
 	 * @param pFont font pointer
 	 */
 	public IOFont(Font pFont)
@@ -41,10 +41,10 @@ public class IOFont implements ReadableMapData, WritableMapData
 		font = pFont;
 		InitializeNullFields();
 	}
-	
+
 	/**
 	 * Read from stream
-	 * 
+	 *
 	 * @param pInput read stream
 	 * @throws IOException read error
 	 */
@@ -52,21 +52,21 @@ public class IOFont implements ReadableMapData, WritableMapData
 	public void readFromStream(DataInputStream pInput) throws IOException
 	{
 		try
-		{			
+		{
 			String fontFamily = pInput.readUTF();
 			int fontStyle = pInput.readInt();
 			int fontSize = pInput.readInt();
 			font = new Font(fontFamily, fontStyle, fontSize);
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			throw new IOException(e);
-		}		
+		}
 	}
-	
+
 	/**
 	 * Write into stream
-	 * 
+	 *
 	 * @param pOutput write stream
 	 * @throws IOException write error
 	 */
@@ -84,7 +84,7 @@ public class IOFont implements ReadableMapData, WritableMapData
 			throw new IOException(e);
 		}
 	}
-	
+
 	/**
 	 * Default values into null fields
 	 */
@@ -93,10 +93,10 @@ public class IOFont implements ReadableMapData, WritableMapData
 		if (font == null)
 			font = DEFAULT_FONT;
 	}
-	
+
 	/**
 	 * Get font
-	 * 
+	 *
 	 * @return font
 	 */
 	public Font getFont()

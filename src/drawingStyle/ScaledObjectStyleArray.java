@@ -1,5 +1,6 @@
 package drawingStyle;
 
+import drawingStyle.exceptions.ScaleLevelOutOfBoundsException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -99,13 +100,13 @@ public class ScaledObjectStyleArray implements ScaledObjectStyleCollection
 	 *
 	 * @param pScaleLevel scale level
 	 * @param pNewScaledStyle new style on scale level
-	 * @throws ArrayIndexOutOfBoundsException scale level is out of range
+	 * @throws ScaleLevelOutOfBoundsException scale level is out of range
 	 * @throws NullPointerException new scaled style is null 
 	 */
-	public void setStyleOnScale(int pScaleLevel, ScaledObjectStyle pNewScaledStyle) throws ArrayIndexOutOfBoundsException, NullPointerException
+	public void setStyleOnScale(int pScaleLevel, ScaledObjectStyle pNewScaledStyle) throws ScaleLevelOutOfBoundsException, NullPointerException
 	{
 		if (pScaleLevel < 0 || pScaleLevel >= scaledStyles.length)
-			throw new ArrayIndexOutOfBoundsException();
+			throw new ScaleLevelOutOfBoundsException(pScaleLevel, 0, scaledStyles.length);
 		if (pNewScaledStyle == null)
 			throw new NullPointerException();
 

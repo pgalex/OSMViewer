@@ -146,7 +146,7 @@ public class MapObjectStyleEditor implements StyleEditor
 	{
 		if (pNewStyle == null)
 			throw new MapObjectStyleIsNullException(this);
-		
+
 		styles.add(pNewStyle);
 	}
 

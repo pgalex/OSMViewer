@@ -31,7 +31,7 @@ public class PointPositionIsNullException extends RuntimeException
 	}
 
 	/**
-	 * Get Id of created point
+	 * Get id of created point
 	 *
 	 * @return Id of created point
 	 */

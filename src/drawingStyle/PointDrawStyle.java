@@ -70,7 +70,7 @@ public class PointDrawStyle implements ReadableMapData, WritableMapData
 	{
 		return icon;
 	}
-	
+
 	/**
 	 * Инициализировать null поля значениями по умолчанию
 	 */

@@ -40,7 +40,7 @@ public class TagIndexOutOfBoundsException extends DefenitionTagsRuntimeException
 	}
 
 	/**
-	 * Get Bounds minimum
+	 * Get bounds minimum
 	 *
 	 * @return Bounds minimum
 	 */
@@ -50,7 +50,7 @@ public class TagIndexOutOfBoundsException extends DefenitionTagsRuntimeException
 	}
 
 	/**
-	 * Get Bounds maximum
+	 * Get bounds maximum
 	 *
 	 * @return Bounds maximum
 	 */
@@ -60,7 +60,7 @@ public class TagIndexOutOfBoundsException extends DefenitionTagsRuntimeException
 	}
 
 	/**
-	 * Get Value of incorrectIndex that was out of bounds
+	 * Get value of incorrectIndex that was out of bounds
 	 *
 	 * @return Value of incorrectIndex that was out of bounds
 	 */

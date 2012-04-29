@@ -39,16 +39,19 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 	/**
 	 * Конструктор
 	 *
-	 * @param pFillColor Цвет заполнения. При нулевом значении задается автоматически
-	 * @param pBorderDrawStyle Стиль рисования границы. При нулевом значении задается автоматически
-	 * @param pFillImage Текстура для заполнения. При нулевом значении задается автоматически
+	 * @param pFillColor Цвет заполнения. При нулевом значении задается
+	 * автоматически
+	 * @param pBorderDrawStyle Стиль рисования границы. При нулевом значении
+	 * задается автоматически
+	 * @param pFillImage Текстура для заполнения. При нулевом значении задается
+	 * автоматически
 	 */
 	public PolygonDrawStyle(IOColor pFillColor, LineDrawStyle pBorderDrawStyle, IOIcon pFillImage)
 	{
 		fillColor = pFillColor;
 		borderDrawStyle = pBorderDrawStyle;
 		fillImage = pFillImage;
-		
+
 		InitializeNullFields();
 	}
 
@@ -123,7 +126,7 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 	{
 		return fillImage;
 	}
-	
+
 	/**
 	 * Инициализировать null поля значениями по умолчанию
 	 */

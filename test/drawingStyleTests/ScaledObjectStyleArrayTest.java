@@ -1,11 +1,8 @@
 package drawingStyleTests;
 
-/*
- * To change this template, choose Tools | Templates and open the template in
- * the editor.
- */
 import drawingStyle.ScaledObjectStyle;
 import drawingStyle.ScaledObjectStyleArray;
+import drawingStyle.exceptions.ScaleLevelOutOfBoundsException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
@@ -69,8 +66,11 @@ public class ScaledObjectStyleArrayTest
 			style.setStyleOnScale(-1, scaledStyle); // there should be out of range exception
 			fail();
 		}
-		catch (ArrayIndexOutOfBoundsException ex)
+		catch (ScaleLevelOutOfBoundsException ex)
 		{
+			assertEquals(-1, ex.getIncorrectScaleLevel());
+			assertEquals(0, ex.getBoundsMinimum());
+			assertEquals(style.count(), ex.getBoundsMaximum());
 		}
 
 		// больше максимального
@@ -79,8 +79,11 @@ public class ScaledObjectStyleArrayTest
 			style.setStyleOnScale(style.count() + 1, scaledStyle); // there should be out of range exception
 			fail();
 		}
-		catch (ArrayIndexOutOfBoundsException ex)
+		catch (ScaleLevelOutOfBoundsException ex)
 		{
+			assertEquals(style.count() + 1, ex.getIncorrectScaleLevel());
+			assertEquals(0, ex.getBoundsMinimum());
+			assertEquals(style.count(), ex.getBoundsMaximum());
 		}
 	}
 

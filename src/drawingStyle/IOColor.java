@@ -9,7 +9,7 @@ import java.io.IOException;
 
 /**
  * Encapsulate Color with read/write
- * 
+ *
  * @author Евгений
  */
 public class IOColor implements WritableMapData, ReadableMapData
@@ -18,12 +18,11 @@ public class IOColor implements WritableMapData, ReadableMapData
 	 * Default color
 	 */
 	private static final Color DEFAULT_COLOR = Color.BLACK;
-	
 	/**
 	 * Color
 	 */
 	private Color color;
-	
+
 	/**
 	 * Default constructor
 	 */
@@ -31,10 +30,10 @@ public class IOColor implements WritableMapData, ReadableMapData
 	{
 		color = DEFAULT_COLOR;
 	}
-	
+
 	/**
 	 * Constructor with color parameters
-	 * 
+	 *
 	 * @param pR red
 	 * @param pG green
 	 * @param pB blue
@@ -44,10 +43,10 @@ public class IOColor implements WritableMapData, ReadableMapData
 	{
 		color = new Color(pR, pG, pB, pA);
 	}
-	
+
 	/**
 	 * Constructor with color pointer
-	 * 
+	 *
 	 * @param pColor color pointer
 	 */
 	public IOColor(Color pColor)
@@ -100,7 +99,7 @@ public class IOColor implements WritableMapData, ReadableMapData
 			throw new IOException(e);
 		}
 	}
-	
+
 	/**
 	 * Default values into null fields
 	 */
@@ -109,10 +108,10 @@ public class IOColor implements WritableMapData, ReadableMapData
 		if (color == null)
 			color = DEFAULT_COLOR;
 	}
-	
+
 	/**
 	 * Get color
-	 * 
+	 *
 	 * @return color
 	 */
 	public Color getColor()

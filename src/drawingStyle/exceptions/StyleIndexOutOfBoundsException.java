@@ -23,7 +23,7 @@ public class StyleIndexOutOfBoundsException extends RuntimeException
 	/**
 	 * Constructor
 	 *
-	 * @param pIncorrectIndex Incorrect style index
+	 * @param pIncorrectIndex Style index that was incorrect
 	 * @param pBoundsMinimum Minimun value of style index
 	 * @param pBoundsMaximum Maximum value of style index
 	 */
@@ -35,7 +35,7 @@ public class StyleIndexOutOfBoundsException extends RuntimeException
 	}
 
 	/**
-	 * Get Incorrect style index
+	 * Get style index that was incorrect
 	 *
 	 * @return Incorrect style index
 	 */
@@ -45,7 +45,7 @@ public class StyleIndexOutOfBoundsException extends RuntimeException
 	}
 
 	/**
-	 * Get Minimun value of style index
+	 * Get minimun value of style index
 	 *
 	 * @return Minimun value of style index
 	 */
@@ -55,7 +55,7 @@ public class StyleIndexOutOfBoundsException extends RuntimeException
 	}
 
 	/**
-	 * Get Maximum value of style index
+	 * Get maximum value of style index
 	 *
 	 * @return Maximum value of style index
 	 */
