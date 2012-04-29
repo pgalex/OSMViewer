@@ -10,7 +10,7 @@ public class StyleIndexOutOfBoundsException extends RuntimeException
 	/**
 	 * Incorrect style index
 	 */
-	private Integer incorrectIndex;
+	private Integer incorrectStyleIndex;
 	/**
 	 * Minimun value of style index
 	 */
@@ -23,13 +23,13 @@ public class StyleIndexOutOfBoundsException extends RuntimeException
 	/**
 	 * Constructor
 	 *
-	 * @param pIncorrectIndex Style index that was incorrect
+	 * @param pIncorrectStyleIndex Style index that was incorrect
 	 * @param pBoundsMinimum Minimun value of style index
 	 * @param pBoundsMaximum Maximum value of style index
 	 */
-	public StyleIndexOutOfBoundsException(Integer pIncorrectIndex, Integer pBoundsMinimum, Integer pBoundsMaximum)
+	public StyleIndexOutOfBoundsException(Integer pIncorrectStyleIndex, Integer pBoundsMinimum, Integer pBoundsMaximum)
 	{
-		incorrectIndex = pIncorrectIndex;
+		incorrectStyleIndex = pIncorrectStyleIndex;
 		boundsMinimum = pBoundsMinimum;
 		boundsMaximum = pBoundsMaximum;
 	}
@@ -39,9 +39,9 @@ public class StyleIndexOutOfBoundsException extends RuntimeException
 	 *
 	 * @return Incorrect style index
 	 */
-	public Integer getIncorrectIndex()
+	public Integer getIncorrectStyleIndex()
 	{
-		return incorrectIndex;
+		return incorrectStyleIndex;
 	}
 
 	/**

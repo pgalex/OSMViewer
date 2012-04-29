@@ -12,22 +12,22 @@ public class PointPositionIsNullException extends RuntimeException
 	/**
 	 * Id of created point
 	 */
-	private long objectId;
+	private long pointId;
 	/**
 	 * tags of created point
 	 */
-	private DefenitionTags objectTags;
+	private DefenitionTags pointTags;
 
 	/**
 	 * Constructor
 	 *
-	 * @param pObjectId Id of created point
-	 * @param pObjecTags tags of created point
+	 * @param pPointId Id of created point
+	 * @param pPointTags tags of created point
 	 */
-	public PointPositionIsNullException(long pObjectId, DefenitionTags pObjecTags)
+	public PointPositionIsNullException(long pPointId, DefenitionTags pPointTags)
 	{
-		objectId = pObjectId;
-		objectTags = pObjecTags;
+		pointId = pPointId;
+		pointTags = pPointTags;
 	}
 
 	/**
@@ -35,9 +35,9 @@ public class PointPositionIsNullException extends RuntimeException
 	 *
 	 * @return Id of created point
 	 */
-	public long getObjectId()
+	public long getPointId()
 	{
-		return objectId;
+		return pointId;
 	}
 
 	/**
@@ -45,8 +45,8 @@ public class PointPositionIsNullException extends RuntimeException
 	 *
 	 * @return tags of created point
 	 */
-	public DefenitionTags getObjecTags()
+	public DefenitionTags getPointTags()
 	{
-		return objectTags;
+		return pointTags;
 	}
 }

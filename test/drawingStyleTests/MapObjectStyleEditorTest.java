@@ -122,7 +122,7 @@ public class MapObjectStyleEditorTest
 		}
 		catch (StyleIndexOutOfBoundsException ex)
 		{
-			assertEquals(-1, (int) ex.getIncorrectIndex());
+			assertEquals(-1, (int) ex.getIncorrectStyleIndex());
 			assertEquals(0, (int) ex.getBoundsMinimum());
 			assertEquals(editor.count(), (int) ex.getBoundsMaximum());
 		}
@@ -134,7 +134,7 @@ public class MapObjectStyleEditorTest
 		}
 		catch (StyleIndexOutOfBoundsException ex)
 		{
-			assertEquals(editor.count() + 1, (int) ex.getIncorrectIndex());
+			assertEquals(editor.count() + 1, (int) ex.getIncorrectStyleIndex());
 			assertEquals(0, (int) ex.getBoundsMinimum());
 			assertEquals(editor.count(), (int) ex.getBoundsMaximum());
 		}
@@ -156,7 +156,7 @@ public class MapObjectStyleEditorTest
 		}
 		catch (StyleIndexOutOfBoundsException ex)
 		{
-			assertEquals(null, ex.getIncorrectIndex());
+			assertEquals(null, ex.getIncorrectStyleIndex());
 			assertEquals(0, (int) ex.getBoundsMinimum());
 			assertEquals(editor.count(), (int) ex.getBoundsMaximum());
 		}
@@ -202,7 +202,7 @@ public class MapObjectStyleEditorTest
 		}
 		catch (StyleIndexOutOfBoundsException ex)
 		{
-			assertEquals(0, (int) ex.getIncorrectIndex());
+			assertEquals(0, (int) ex.getIncorrectStyleIndex());
 			assertEquals(0, (int) ex.getBoundsMinimum());
 			assertEquals(editor.count(), (int) ex.getBoundsMaximum());
 		}
@@ -214,7 +214,7 @@ public class MapObjectStyleEditorTest
 		}
 		catch (StyleIndexOutOfBoundsException ex)
 		{
-			assertEquals(1, (int) ex.getIncorrectIndex());
+			assertEquals(1, (int) ex.getIncorrectStyleIndex());
 			assertEquals(0, (int) ex.getBoundsMinimum());
 			assertEquals(editor.count(), (int) ex.getBoundsMaximum());
 		}
@@ -226,7 +226,7 @@ public class MapObjectStyleEditorTest
 		}
 		catch (StyleIndexOutOfBoundsException ex)
 		{
-			assertEquals(null, ex.getIncorrectIndex());
+			assertEquals(null, ex.getIncorrectStyleIndex());
 			assertEquals(0, (int) ex.getBoundsMinimum());
 			assertEquals(editor.count(), (int) ex.getBoundsMaximum());
 		}

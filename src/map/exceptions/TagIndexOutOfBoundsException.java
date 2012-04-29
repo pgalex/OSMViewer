@@ -3,7 +3,7 @@ package map.exceptions;
 import map.DefenitionTags;
 
 /**
- * Tag incorrectIndex in defenition tags is out of bounds
+ * Tag incorrectTagIndex in defenition tags is out of bounds
  *
  * @author pgalex
  */
@@ -12,7 +12,7 @@ public class TagIndexOutOfBoundsException extends DefenitionTagsRuntimeException
 	/**
 	 * Value of index that was out of bounds
 	 */
-	private int incorrectIndex;
+	private int incorrectTagIndex;
 	/**
 	 * Bounds minimum
 	 */
@@ -26,15 +26,15 @@ public class TagIndexOutOfBoundsException extends DefenitionTagsRuntimeException
 	 * Constructor
 	 *
 	 * @param pEditedTags Tags that was edited when exception is throws
-	 * @param pIncorrectIndex Value of index that was out of bounds
+	 * @param pIncorrectTagIndex Value of index that was out of bounds
 	 * @param pBoundsMinimum Bounds minimum
 	 * @param pBoundsMaximum Bounds maximum
 	 */
-	public TagIndexOutOfBoundsException(DefenitionTags pEditedTags, int pIncorrectIndex, int pBoundsMinimum, int pBoundsMaximum)
+	public TagIndexOutOfBoundsException(DefenitionTags pEditedTags, int pIncorrectTagIndex, int pBoundsMinimum, int pBoundsMaximum)
 	{
 		super(pEditedTags);
 
-		incorrectIndex = pIncorrectIndex;
+		incorrectTagIndex = pIncorrectTagIndex;
 		boundsMinimum = pBoundsMinimum;
 		boundsMaximum = pBoundsMaximum;
 	}
@@ -60,12 +60,12 @@ public class TagIndexOutOfBoundsException extends DefenitionTagsRuntimeException
 	}
 
 	/**
-	 * Get value of incorrectIndex that was out of bounds
+	 * Get value of incorrectTagIndex that was out of bounds
 	 *
-	 * @return Value of incorrectIndex that was out of bounds
+	 * @return Value of incorrectTagIndex that was out of bounds
 	 */
-	public int getIncorrectIndex()
+	public int getIncorrectTagIndex()
 	{
-		return incorrectIndex;
+		return incorrectTagIndex;
 	}
 }
