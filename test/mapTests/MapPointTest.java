@@ -43,8 +43,8 @@ public class MapPointTest
 		}
 		catch( PointPositionIsNullException ex )
 		{
-			assertEquals(12, ex.getPointId());
-			assertNull(ex.getPointTags());
+			assertEquals(12, ex.getCreatedObjectId());
+			assertNull(ex.getCreatedObjectTags());
 		}
 	}
 

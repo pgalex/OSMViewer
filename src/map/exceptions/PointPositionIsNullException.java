@@ -7,46 +7,15 @@ import map.DefenitionTags;
  *
  * @author pgalex
  */
-public class PointPositionIsNullException extends RuntimeException
+public class PointPositionIsNullException extends MapObjectCreatingException
 {
 	/**
-	 * Id of created point
-	 */
-	private long pointId;
-	/**
-	 * tags of created point
-	 */
-	private DefenitionTags pointTags;
-
-	/**
 	 * Constructor
-	 *
-	 * @param pPointId Id of created point
-	 * @param pPointTags tags of created point
+	 * @param pCreatedPointId id of created point
+	 * @param pCreatedPointTags tags of created point
 	 */
-	public PointPositionIsNullException(long pPointId, DefenitionTags pPointTags)
+	public PointPositionIsNullException(long pCreatedPointId, DefenitionTags pCreatedPointTags)
 	{
-		pointId = pPointId;
-		pointTags = pPointTags;
-	}
-
-	/**
-	 * Get id of created point
-	 *
-	 * @return Id of created point
-	 */
-	public long getPointId()
-	{
-		return pointId;
-	}
-
-	/**
-	 * Get tags of created point
-	 *
-	 * @return tags of created point
-	 */
-	public DefenitionTags getPointTags()
-	{
-		return pointTags;
+		super(pCreatedPointId, pCreatedPointTags);
 	}
 }
