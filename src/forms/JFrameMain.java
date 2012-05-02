@@ -10,6 +10,10 @@
  */
 package forms;
 
+import drawingStyle.*;
+import map.EditableDefenitionTags;
+import map.MapTag;
+
 /**
  * Главное окно
  *
@@ -18,10 +22,32 @@ package forms;
 public class JFrameMain extends javax.swing.JFrame
 {
 	/**
+	 * Style editor for testing
+	 */
+	private StyleEditor testStyleEditor;
+
+	/**
 	 * Creates new form JFrameMain
 	 */
 	public JFrameMain()
 	{
+		EditableDefenitionTags highwayTertiaryTags = new EditableDefenitionTags();
+		highwayTertiaryTags.add(new MapTag("highway", "tertiary"));
+
+		ScaledObjectStyle highwayTertiaryStyle = new ScaledObjectStyle(false, true,
+						false, null, new LineDrawStyle(new IOColor(255, 255, 0, 255), 4, null), null,
+						new IOColor(0, 0, 0, 255), new IOFont());
+
+		ScaledObjectStyleArray highwayTertiaryScaledStyles = new ScaledObjectStyleArray();
+		for (int i = 0; i < highwayTertiaryScaledStyles.count(); i++)
+			highwayTertiaryScaledStyles.setStyleOnScale(i, highwayTertiaryStyle);
+
+		MapObjectStyle highwayTertiary = new MapObjectStyle(false, true, false, null,
+						10, "Дорога местного значения", highwayTertiaryScaledStyles, highwayTertiaryTags);
+
+		testStyleEditor = DrawingStyleFactory.createStyleEditor();
+		testStyleEditor.add(highwayTertiary);
+
 		initComponents();
 	}
 
