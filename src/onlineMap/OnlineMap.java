@@ -6,7 +6,6 @@ import java.util.Collections;
 import map.Map;
 import map.MapObject;
 import map.MapObjectDrawPriorityComparator;
-import map.exceptions.MapObjectIsNullException;
 
 /**
  * Map that contains not much objects and using for online rendering
@@ -16,7 +15,7 @@ import map.exceptions.MapObjectIsNullException;
 public class OnlineMap implements Map
 {
 	/**
-	 * Objects of map
+	 * Objects on a map
 	 */
 	private ArrayList<MapObject> objects;
 
@@ -29,17 +28,14 @@ public class OnlineMap implements Map
 	}
 
 	/**
-	 * Add object to map
+	 * Add object to map. If object is null it will not be added
 	 *
 	 * @param pObject object for adding
-	 * @throws MapObjectIsNullException adding object is null
 	 */
-	public void addObject(MapObject pObject) throws MapObjectIsNullException
+	public void addObject(MapObject pObject)
 	{
-		if (pObject == null)
-			throw new MapObjectIsNullException();
-
-		objects.add(pObject);
+		if (pObject != null)
+			objects.add(pObject);
 	}
 
 	/**
