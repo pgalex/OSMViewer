@@ -24,8 +24,8 @@ public class MapLineTest
 	@Test
 	public void constructorNormalTest()
 	{
-		ArrayList<MapPoint> points = new ArrayList<MapPoint>();
-		points.add(new MapPoint(new MapPosition(), 1, new DefenitionTags()));
+		ArrayList<MapPosition> points = new ArrayList<MapPosition>();
+		points.add(new MapPosition(1, 2));
 
 		EditableDefenitionTags lineTags = new EditableDefenitionTags();
 		lineTags.add(new MapTag("k1", "v1"));
@@ -34,7 +34,8 @@ public class MapLineTest
 		assertEquals(12, testLine.getId());
 		assertTrue(lineTags.compareTo(testLine.getDefenitionTags()));
 		assertEquals(points.size(), testLine.getPoints().size());
-		assertEquals(points.get(0).getId(), testLine.getPoints().get(0).getId());
+		assertEquals(points.get(0).getLatitude(), testLine.getPoints().get(0).getLatitude(), 0.01);
+		assertEquals(points.get(0).getLongitude(), testLine.getPoints().get(0).getLongitude(), 0.01);
 	}
 
 	/**
@@ -43,8 +44,8 @@ public class MapLineTest
 	@Test
 	public void constructorNullTagsTest()
 	{
-		ArrayList<MapPoint> points = new ArrayList<MapPoint>();
-		points.add(new MapPoint(new MapPosition(), 1, new DefenitionTags()));
+		ArrayList<MapPosition> points = new ArrayList<MapPosition>();
+		points.add(new MapPosition(1, 2));
 		MapLine testLine = new MapLine(0, null, points);
 		assertNotNull(testLine.getDefenitionTags());
 	}
@@ -69,7 +70,7 @@ public class MapLineTest
 		// empty
 		try
 		{
-			MapLine testLine = new MapLine(12, null, new ArrayList<MapPoint>());
+			MapLine testLine = new MapLine(12, null, new ArrayList<MapPosition>());
 			assertNotNull(testLine.getDefenitionTags());
 			fail();
 		}
@@ -81,8 +82,8 @@ public class MapLineTest
 		// contains null
 		try
 		{
-			ArrayList<MapPoint> points = new ArrayList<MapPoint>();
-			points.add(new MapPoint(new MapPosition(), 1, new DefenitionTags()));
+			ArrayList<MapPosition> points = new ArrayList<MapPosition>();
+			points.add(new MapPosition());
 			points.add(null);
 			MapLine testLine = new MapLine(10, null, points);
 			fail();

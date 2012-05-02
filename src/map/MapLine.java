@@ -11,9 +11,9 @@ import map.exceptions.LinePointsIsIncorrectException;
 public class MapLine extends MapObject
 {
 	/**
-	 * Points of line (each point is a map object too)
+	 * Points of line
 	 */
-	private ArrayList<MapPoint> points;
+	private ArrayList<MapPosition> points;
 
 	/**
 	 * Constructor
@@ -24,7 +24,7 @@ public class MapLine extends MapObject
 	 * @throws LinePointsIsIncorrectException line points array is null, empty or
 	 * contains null elements
 	 */
-	public MapLine(long pId, DefenitionTags pDefenitionTags, ArrayList<MapPoint> pPoints) throws LinePointsIsIncorrectException
+	public MapLine(long pId, DefenitionTags pDefenitionTags, ArrayList<MapPosition> pPoints) throws LinePointsIsIncorrectException
 	{
 		super(pId, pDefenitionTags);
 
@@ -43,7 +43,7 @@ public class MapLine extends MapObject
 	 *
 	 * @return points of line
 	 */
-	public ArrayList<MapPoint> getPoints()
+	public ArrayList<MapPosition> getPoints()
 	{
 		return points;
 	}
