@@ -1,6 +1,5 @@
 package map;
 
-import java.util.ArrayList;
 import map.exceptions.LinePointsIsIncorrectException;
 
 /**
@@ -19,7 +18,7 @@ public class MapPolygon extends MapLine
 	 * @throws LinePointsIsIncorrectException polygon points array is null, empty or
 	 * contains null elements
 	 */
-	public MapPolygon(long pId, DefenitionTags pDefenitionTags, ArrayList<MapPosition> pPoints) throws LinePointsIsIncorrectException
+	public MapPolygon(long pId, DefenitionTags pDefenitionTags, MapPosition[] pPoints) throws LinePointsIsIncorrectException
 	{
 		super(pId, pDefenitionTags, pPoints);
 	}

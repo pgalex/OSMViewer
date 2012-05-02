@@ -1,11 +1,11 @@
 package map;
 
-import java.util.ArrayList;
 import map.exceptions.LinePointsIsIncorrectException;
 
 /**
  * Line (way) on a map. If point of line describes any object on map it will be
- * another object (not linked with line)
+ * another object (not linked with line) cuz they can have another draw
+ * priority, selecting etc
  *
  * @author pgalex
  */
@@ -14,7 +14,7 @@ public class MapLine extends MapObject
 	/**
 	 * Points of line
 	 */
-	private ArrayList<MapPosition> points;
+	private MapPosition[] points;
 
 	/**
 	 * Constructor
@@ -25,15 +25,11 @@ public class MapLine extends MapObject
 	 * @throws LinePointsIsIncorrectException line points array is null, empty or
 	 * contains null elements
 	 */
-	public MapLine(long pId, DefenitionTags pDefenitionTags, ArrayList<MapPosition> pPoints) throws LinePointsIsIncorrectException
+	public MapLine(long pId, DefenitionTags pDefenitionTags, MapPosition[] pPoints) throws LinePointsIsIncorrectException
 	{
 		super(pId, pDefenitionTags);
 
-		if (pPoints == null)
-			throw new LinePointsIsIncorrectException(pId, pDefenitionTags);
-		if (pPoints.isEmpty())
-			throw new LinePointsIsIncorrectException(pId, pDefenitionTags);
-		if (pPoints.contains(null))
+		if (isPointsIncorrect(pPoints))
 			throw new LinePointsIsIncorrectException(pId, pDefenitionTags);
 
 		points = pPoints;
@@ -44,8 +40,29 @@ public class MapLine extends MapObject
 	 *
 	 * @return points of line
 	 */
-	public ArrayList<MapPosition> getPoints()
+	public MapPosition[] getPoints()
 	{
 		return points;
+	}
+
+	/**
+	 * Is array of points incorrect
+	 *
+	 * @param pPoints points of line
+	 * @return is array of points incorrect
+	 */
+	private boolean isPointsIncorrect(MapPosition[] pPoints)
+	{
+		if (pPoints == null)
+			return true;
+		if (pPoints.length == 0)
+			return true;
+		for (int i = 0; i < pPoints.length; i++)
+		{
+			if (pPoints[i] == null)
+				return true;
+		}
+
+		return false;
 	}
 }

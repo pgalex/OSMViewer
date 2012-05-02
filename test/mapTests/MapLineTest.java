@@ -1,12 +1,14 @@
 package mapTests;
 
-import java.util.ArrayList;
-import map.*;
+import map.EditableDefenitionTags;
+import map.MapLine;
+import map.MapPosition;
+import map.MapTag;
 import map.exceptions.LinePointsIsIncorrectException;
 import org.junit.AfterClass;
-import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  *
@@ -24,8 +26,8 @@ public class MapLineTest
 	@Test
 	public void constructorNormalTest()
 	{
-		ArrayList<MapPosition> points = new ArrayList<MapPosition>();
-		points.add(new MapPosition(1, 2));
+		MapPosition[] points = new MapPosition[1];
+		points[0] = new MapPosition(1, 2);
 
 		EditableDefenitionTags lineTags = new EditableDefenitionTags();
 		lineTags.add(new MapTag("k1", "v1"));
@@ -33,9 +35,7 @@ public class MapLineTest
 
 		assertEquals(12, testLine.getId());
 		assertTrue(lineTags.compareTo(testLine.getDefenitionTags()));
-		assertEquals(points.size(), testLine.getPoints().size());
-		assertEquals(points.get(0).getLatitude(), testLine.getPoints().get(0).getLatitude(), 0.01);
-		assertEquals(points.get(0).getLongitude(), testLine.getPoints().get(0).getLongitude(), 0.01);
+		assertArrayEquals(points, testLine.getPoints());
 	}
 
 	/**
@@ -44,8 +44,8 @@ public class MapLineTest
 	@Test
 	public void constructorNullTagsTest()
 	{
-		ArrayList<MapPosition> points = new ArrayList<MapPosition>();
-		points.add(new MapPosition(1, 2));
+		MapPosition[] points = new MapPosition[1];
+		points[0] = new MapPosition(1, 2);
 		MapLine testLine = new MapLine(0, null, points);
 		assertNotNull(testLine.getDefenitionTags());
 	}
@@ -70,7 +70,7 @@ public class MapLineTest
 		// empty
 		try
 		{
-			MapLine testLine = new MapLine(12, null, new ArrayList<MapPosition>());
+			MapLine testLine = new MapLine(12, null, new MapPosition[1]);
 			assertNotNull(testLine.getDefenitionTags());
 			fail();
 		}
@@ -82,9 +82,9 @@ public class MapLineTest
 		// contains null
 		try
 		{
-			ArrayList<MapPosition> points = new ArrayList<MapPosition>();
-			points.add(new MapPosition());
-			points.add(null);
+			MapPosition[] points = new MapPosition[2];
+			points[0] = new MapPosition();
+			points[1] = null;
 			MapLine testLine = new MapLine(10, null, points);
 			fail();
 		}
