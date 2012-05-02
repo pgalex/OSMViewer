@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import map.exceptions.LinePointsIsIncorrectException;
 
 /**
- * Line (way) on a map
+ * Line (way) on a map. If point of line describes any object on map it will be
+ * another object (not linked with line)
  *
  * @author pgalex
  */
