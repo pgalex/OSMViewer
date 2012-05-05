@@ -30,7 +30,7 @@ public class MapPolygon extends MapLine
 	 */
 	@Override
 	public void acceptRenderer(MapObjectsRenderer pObjectsRenderer)
-	{
+	{	
 		if (pObjectsRenderer == null)
 			return;
 		

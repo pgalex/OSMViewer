@@ -27,7 +27,14 @@ public class MapRenderer
 		if (pMap == null || pStyleViewer == null)
 			return;
 		
+		// clear canvas
+		
 		pMap.sortObjectsByDrawPriority(pStyleViewer);
 
+		//MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText();
+		//pMap.acceptObjectsRenderer(objectsRenderer);
+		
+		// draw objects canvas
+		// draw text canvas
 	}
 }

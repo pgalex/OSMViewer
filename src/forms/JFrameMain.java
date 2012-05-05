@@ -65,8 +65,8 @@ public class JFrameMain extends javax.swing.JFrame
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("OpenStreetMap Viewer");
 
-        jPanelCanvas.setBackground(new java.awt.Color(255, 255, 255));
-        jPanelCanvas.setForeground(new java.awt.Color(255, 255, 255));
+        jPanelCanvas.setBackground(new java.awt.Color(255, 204, 153));
+        jPanelCanvas.setForeground(new java.awt.Color(153, 255, 153));
 
         javax.swing.GroupLayout jPanelCanvasLayout = new javax.swing.GroupLayout(jPanelCanvas);
         jPanelCanvas.setLayout(jPanelCanvasLayout);

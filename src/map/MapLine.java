@@ -44,7 +44,7 @@ public class MapLine extends MapObject
 	{
 		return points;
 	}
-	
+
 	/**
 	 * Render with objects render visitor
 	 *
