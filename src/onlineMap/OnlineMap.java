@@ -6,6 +6,7 @@ import java.util.Collections;
 import map.Map;
 import map.MapObject;
 import map.MapObjectDrawPriorityComparator;
+import map.MapObjectsRenderer;
 
 /**
  * Map that contains not much objects and using for online rendering
@@ -44,9 +45,24 @@ public class OnlineMap implements Map
 	 * @param pStyleViewer Style viewer to find object draw priority
 	 */
 	@Override
-	public void sortObjectByDrawPriority(StyleViewer pStyleViewer)
+	public void sortObjectsByDrawPriority(StyleViewer pStyleViewer)
 	{
 		MapObjectDrawPriorityComparator objectsComparator = new MapObjectDrawPriorityComparator(pStyleViewer);
 		Collections.sort(objects, objectsComparator);
+	}
+
+	/**
+	 * Accept objects renderer visitor. Render every object of map
+	 *
+	 * @param pObjectsRenderer objects renderer
+	 */
+	@Override
+	public void acceptObjectsRenderer(MapObjectsRenderer pObjectsRenderer)
+	{
+		if (pObjectsRenderer == null)
+			return;
+
+		for (int i = 0; i < objects.size(); i++)
+			objects.get(i).acceptRenderer(pObjectsRenderer);
 	}
 }

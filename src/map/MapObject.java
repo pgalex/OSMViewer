@@ -83,6 +83,15 @@ public class MapObject
 	}
 
 	/**
+	 * Render with objects render visitor
+	 *
+	 * @param pObjectsRenderer objects renderer
+	 */
+	public void acceptRenderer(MapObjectsRenderer pObjectsRenderer)
+	{
+	}
+
+	/**
 	 * Auto-initialize null fields
 	 */
 	private void InitializeNullFields()

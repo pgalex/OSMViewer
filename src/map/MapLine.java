@@ -44,6 +44,20 @@ public class MapLine extends MapObject
 	{
 		return points;
 	}
+	
+	/**
+	 * Render with objects render visitor
+	 *
+	 * @param pObjectsRenderer objects renderer
+	 */
+	@Override
+	public void acceptRenderer(MapObjectsRenderer pObjectsRenderer)
+	{
+		if (pObjectsRenderer == null)
+			return;
+		
+		pObjectsRenderer.renderLine(this);
+	}
 
 	/**
 	 * Is array of points incorrect

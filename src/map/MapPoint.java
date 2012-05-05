@@ -20,7 +20,7 @@ public class MapPoint extends MapObject
 	 * @param pPosition position on a map (spheric coords)
 	 * @param pId global unique id from OpenStreetMap
 	 * @param pDefenitionTags defenition tags
-	 * @throws PointPositionIsNullException position is null 
+	 * @throws PointPositionIsNullException position is null
 	 */
 	public MapPoint(MapPosition pPosition, long pId, DefenitionTags pDefenitionTags) throws PointPositionIsNullException
 	{
@@ -40,5 +40,19 @@ public class MapPoint extends MapObject
 	public MapPosition getPosition()
 	{
 		return position;
+	}
+
+	/**
+	 * Render with objects render visitor
+	 *
+	 * @param pObjectsRenderer objects renderer
+	 */
+	@Override
+	public void acceptRenderer(MapObjectsRenderer pObjectsRenderer)
+	{
+		if (pObjectsRenderer == null)
+			return;
+		
+		pObjectsRenderer.renderPoint(this);
 	}
 }

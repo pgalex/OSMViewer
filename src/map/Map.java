@@ -11,9 +11,15 @@ public interface Map
 {
 	/**
 	 * Sort all objects by draw priority
-	 * 
+	 *
 	 * @param pStyleViewer Style viewer to find object draw priority
 	 */
-	public abstract void sortObjectByDrawPriority(StyleViewer pStyleViewer);
-	
+	public abstract void sortObjectsByDrawPriority(StyleViewer pStyleViewer);
+
+	/**
+	 * Accept objects renderer visitor. Render every object of map
+	 *
+	 * @param pObjectsRenderer objects renderer
+	 */
+	public void acceptObjectsRenderer(MapObjectsRenderer pObjectsRenderer);
 }
