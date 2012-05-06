@@ -1,8 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package flyConverter;
+package onlineMap;
 
 import java.util.ArrayList;
 import javax.xml.parsers.SAXParser;
@@ -15,15 +11,16 @@ import org.xml.sax.helpers.DefaultHandler;
 import osmXml.*;
 
 /**
- * Конвертер из .osm xml сразу в карту
+ * Reads .osm data and converts it to OnlineMap
+ *
  * @author preobrazhentsev
  */
-public class OSMFlyConverter
+public class OnlineOSMParser
 {
 	/**
-	 * Класс приема событий разбора .osm на лету
+	 * Xml parsing events handler for online work
 	 */
-	private class SaxFlyHandler extends DefaultHandler
+	private class OnlineSaxHandler extends DefaultHandler
 	{
 		private ArrayList<OSMFileNode> nodes;
 		private ArrayList<OSMFileWay> ways;
@@ -35,17 +32,9 @@ public class OSMFlyConverter
 		public ArrayList<MapTag> tempTags;
 
 		/**
-		 * Конструктор
+		 * Constructor
 		 */
-		public SaxFlyHandler()
-		{
-			init();
-		}
-
-		/**
-		 * Инициализация класса
-		 */
-		private void init()
+		public OnlineSaxHandler()
 		{
 			nodes = new ArrayList<OSMFileNode>();
 			ways = new ArrayList<OSMFileWay>();
@@ -55,29 +44,29 @@ public class OSMFlyConverter
 		}
 
 		/**
-		 * Найдено начало документа
+		 * XML document begining founded
 		 */
 		@Override
 		public void startDocument()
 		{
-			init();
+			nodes.clear();
+			ways.clear();
+			relations.clear();
+			tempTags.clear();
+			bounds.setLatitudeMaximum(0);
+			bounds.setLatitudeMinimum(0);
+			bounds.setLongitudeMaximum(0);
+			bounds.setLongitudeMinimum(0);
 		}
 
 		/**
-		 * Найден конец документа
-		 */
-		@Override
-		public void endDocument()
-		{
-		}
-
-		/**
-		 * Найдено начало определения элемента
+		 * Defenition of xml element founded. Найдено начало определения элемента
+		 *
 		 * @param uri
 		 * @param pLocalName
-		 * @param pName
-		 * @param pAttributes
-		 * @throws SAXException 
+		 * @param pName element name
+		 * @param pAttributes element attributes
+		 * @throws SAXException
 		 */
 		@Override
 		public void startElement(String uri, String pLocalName, String pName, Attributes pAttributes) throws SAXException
@@ -120,36 +109,45 @@ public class OSMFlyConverter
 		}
 
 		/**
-		 * Найден конец определения элемента
+		 * Xml element end founded. Найден конец определения элемента
+		 *
 		 * @param uri
 		 * @param localName
-		 * @param pName
-		 * @throws SAXException 
+		 * @param pName element name
+		 * @throws SAXException
 		 */
 		@Override
 		public void endElement(String uri, String localName, String pName) throws SAXException
 		{
-			if (pName.compareTo(OSMXMLNames.NODE) == 0)
+			try
 			{
-				tempNode.tags = tempTags;
-				nodes.add(tempNode);
+				if (pName.compareTo(OSMXMLNames.NODE) == 0)
+				{
+					tempNode.tags = tempTags;
+					nodes.add(tempNode);
+				}
+				if (pName.compareTo(OSMXMLNames.WAY) == 0)
+				{
+					tempWay.tags = tempTags;
+					ways.add(tempWay);
+				}
+				if (pName.compareTo(OSMXMLNames.RELATION) == 0)
+				{
+					tempRelation.tags = tempTags;
+					relations.add(tempRelation);
+				}
 			}
-			if (pName.compareTo(OSMXMLNames.WAY) == 0)
+			catch (Exception ex)
 			{
-				tempWay.tags = tempTags;
-				ways.add(tempWay);
-			}
-			if (pName.compareTo(OSMXMLNames.RELATION) == 0)
-			{
-				tempRelation.tags = tempTags;
-				relations.add(tempRelation);
+				throw new SAXException();
 			}
 		}
 
 		/**
-		 * Разбор тега
-		 * @param pAttributes
-		 * @throws Exception 
+		 * Paring osm tag. Разбор тега
+		 *
+		 * @param pAttributes attributes of "tag" element
+		 * @throws Exception error while parsing
 		 */
 		private void parseTag(Attributes pAttributes) throws Exception
 		{
@@ -157,36 +155,38 @@ public class OSMFlyConverter
 			{
 				tempTags.add(new MapTag(pAttributes.getValue("k"), pAttributes.getValue("v")));
 			}
-			catch (Exception e)
+			catch (Exception ex)
 			{
-				throw e;
+				throw ex;
 			}
 		}
 
 		/**
-		 * Разобрать аттрибуты границ
-		 * @param pAttr
-		 * @throws Exception 
+		 * Parse bounds element. Разобрать аттрибуты границ
+		 *
+		 * @param pAttributes "bounds" element attributes
+		 * @throws Exception error while parsing
 		 */
 		private void parseBounds(Attributes pAttributes) throws Exception
 		{
 			try
 			{
-				bounds.minLatitude = Double.valueOf(pAttributes.getValue("minlat"));
-				bounds.minLongitude = Double.valueOf(pAttributes.getValue("minlon"));
-				bounds.maxLatitude = Double.valueOf(pAttributes.getValue("maxlat"));
-				bounds.maxLongitude = Double.valueOf(pAttributes.getValue("maxlon"));
+				bounds.setLatitudeMinimum(Double.valueOf(pAttributes.getValue("minlat")));
+				bounds.setLongitudeMinimum(Double.valueOf(pAttributes.getValue("minlon")));
+				bounds.setLatitudeMaximum(Double.valueOf(pAttributes.getValue("maxlat")));
+				bounds.setLongitudeMaximum(Double.valueOf(pAttributes.getValue("maxlon")));
 			}
-			catch (Exception e)
+			catch (Exception ex)
 			{
-				throw e;
+				throw ex;
 			}
 		}
 
 		/**
-		 * Разбор точки
-		 * @param pAttributes
-		 * @throws Exception 
+		 * Parsing osm xml "node". Разбор точки
+		 *
+		 * @param pAttributes "node" element attributes
+		 * @throws Exception error while parsing
 		 */
 		private void parseNode(Attributes pAttributes) throws Exception
 		{
@@ -198,16 +198,17 @@ public class OSMFlyConverter
 				tempNode.longitude = Double.valueOf(pAttributes.getValue("lon"));
 				tempTags = new ArrayList<MapTag>();
 			}
-			catch (Exception e)
+			catch (Exception ex)
 			{
-				throw e;
+				throw ex;
 			}
 		}
 
 		/**
 		 * Разбор Way
+		 *
 		 * @param pAttributes
-		 * @throws Exception 
+		 * @throws Exception
 		 */
 		private void parseWay(Attributes pAttributes) throws Exception
 		{
@@ -225,8 +226,9 @@ public class OSMFlyConverter
 
 		/**
 		 * Разбор id точки в составе линии
+		 *
 		 * @param pAttributes
-		 * @throws Exception 
+		 * @throws Exception
 		 */
 		private void parseWayNode(Attributes pAttributes) throws Exception
 		{
@@ -242,8 +244,9 @@ public class OSMFlyConverter
 
 		/**
 		 * Разбор отношения
+		 *
 		 * @param pAttributes
-		 * @throws Exception 
+		 * @throws Exception
 		 */
 		private void parseRelation(Attributes pAttributes) throws Exception
 		{
@@ -261,8 +264,9 @@ public class OSMFlyConverter
 
 		/**
 		 * Разбор member из relation
+		 *
 		 * @param pAttributes
-		 * @throws Exception 
+		 * @throws Exception
 		 */
 		private void parseRelationMember(Attributes pAttributes) throws Exception
 		{
@@ -280,25 +284,25 @@ public class OSMFlyConverter
 			}
 		}
 	}
-
 	/////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Объект принимающий сообщения разбора
 	 */
-	private SaxFlyHandler handler;
+	private OnlineSaxHandler handler;
 
 	/**
 	 * Конструктор
 	 */
-	public OSMFlyConverter()
+	public OnlineOSMParser()
 	{
-		handler = new SaxFlyHandler();
+		handler = new OnlineSaxHandler();
 	}
 
 	/**
 	 * Конвертировать .osm xml в карту | должна возвращать Map
+	 *
 	 * @param pSource
-	 * @throws Exception  
+	 * @throws Exception
 	 */
 	public void convert(InputSource pSource) throws Exception
 	{
@@ -317,7 +321,8 @@ public class OSMFlyConverter
 
 	/**
 	 * Получить считанные границы карты
-	 * @return 
+	 *
+	 * @return
 	 */
 	public OSMFileBounds getParserBounds()
 	{
@@ -326,28 +331,31 @@ public class OSMFlyConverter
 
 	/**
 	 * Получить точки
-	 * @return 
+	 *
+	 * @return
 	 */
 	public ArrayList<OSMFileNode> getParserNodes()
 	{
-		return (ArrayList<OSMFileNode>) handler.nodes.clone();
+		return handler.nodes;
 	}
 
 	/**
 	 * Получить линии
-	 * @return 
+	 *
+	 * @return
 	 */
 	public ArrayList<OSMFileWay> getParserWays()
 	{
-		return (ArrayList<OSMFileWay>) handler.ways.clone();
+		return handler.ways;
 	}
-	
+
 	/**
 	 * Получить отношения
-	 * @return 
+	 *
+	 * @return
 	 */
 	public ArrayList<OSMFileRelation> getParserRelations()
 	{
-		return (ArrayList<OSMFileRelation>) handler.relations.clone();
+		return handler.relations;
 	}
 }

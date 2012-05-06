@@ -1,6 +1,6 @@
 package drawingStyleTests;
 
-import flyConverter.OSMFlyConverter;
+import onlineMap.OnlineOSMParser;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -51,16 +51,16 @@ public class OSMFlyConverterTest
 
 		try
 		{
-			OSMFlyConverter converter = new OSMFlyConverter();
+			OnlineOSMParser converter = new OnlineOSMParser();
 			InputSource source = new InputSource(new FileInputStream(new File(TEST_MAP_FILE_NAME)));
 			converter.convert(source);
 
 			//границы
 			OSMFileBounds bounds = converter.getParserBounds();
-			assertEquals(10.1, bounds.minLatitude, 0.001);
-			assertEquals(20.1, bounds.minLongitude, 0.001);
-			assertEquals(10.3, bounds.maxLatitude, 0.001);
-			assertEquals(20.3, bounds.maxLongitude, 0.001);
+			assertEquals(10.1, bounds.getLatitudeMinimum(), 0.001);
+			assertEquals(20.1, bounds.getLongitudeMinimum(), 0.001);
+			assertEquals(10.3, bounds.getLatitudeMaximum(), 0.001);
+			assertEquals(20.3, bounds.getLongitudeMaximum(), 0.001);
 
 			//точка
 			ArrayList<OSMFileNode> nodes = converter.getParserNodes();
