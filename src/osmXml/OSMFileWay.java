@@ -1,25 +1,45 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package osmXml;
 
 import java.util.ArrayList;
-import map.MapTag;
 
 /**
- * Way .osm файла
+ * Way in .osm file
+ *
  * @author preobrazhentsev
  */
-public class OSMFileWay
+public class OSMFileWay extends OsmFileMapObject
 {
-	public long id;
-	public ArrayList<MapTag> tags;
-	public ArrayList nodesIds;
+	/**
+	 * Ids of nodes of way
+	 */
+	private ArrayList nodesIds;
 
+	/**
+	 * Default constructor
+	 */
 	public OSMFileWay()
 	{
-		tags = new ArrayList<MapTag>();
+		super();
 		nodesIds = new ArrayList();
+	}
+
+	/**
+	 * Set ids of nodes of way
+	 *
+	 * @param pNodesIds ids of nodes
+	 */
+	public void setNodesIds(ArrayList pNodesIds)
+	{
+		nodesIds = pNodesIds;
+	}
+
+	/**
+	 * Get ids of nodes of way
+	 *
+	 * @return ids of nodes
+	 */
+	public ArrayList getNodesIds()
+	{
+		return nodesIds;
 	}
 }

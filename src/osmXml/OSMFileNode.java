@@ -1,25 +1,66 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package osmXml;
 
-import java.util.ArrayList;
-import map.MapTag;
-
 /**
- * Node из файла .osm
+ * Osm node (one point)
+ *
  * @author preobrazhentsev
  */
-public class OSMFileNode
+public class OSMFileNode extends OsmFileMapObject
 {
-	public long id;
-	public double latitude;
-	public double longitude;
-	public ArrayList<MapTag> tags;
+	/**
+	 * Position - latitude
+	 */
+	private double latitude;
+	/**
+	 * Position - longitude
+	 */
+	private double longitude;
 
+	/**
+	 * Default constructor
+	 */
 	public OSMFileNode()
 	{
-		tags = new ArrayList<MapTag>();
+		super();
+	}
+
+	/**
+	 * Set node position latitude
+	 *
+	 * @param pLatitude position latitude
+	 */
+	public void setLatitude(double pLatitude)
+	{
+		latitude = pLatitude;
+	}
+
+	/**
+	 * Get node position latitude
+	 *
+	 * @return position latitude
+	 */
+	public double getLatitude()
+	{
+		return latitude;
+	}
+
+	/**
+	 * Set node position longitude
+	 *
+	 * @param pLongitude position longitude
+	 */
+	public void setLongitude(double pLongitude)
+	{
+		longitude = pLongitude;
+	}
+
+	/**
+	 * Get node position longitude
+	 *
+	 * @return position longitude
+	 */
+	public double getLongitude()
+	{
+		return longitude;
 	}
 }

@@ -64,25 +64,25 @@ public class OSMFlyConverterTest
 
 			//точка
 			ArrayList<OSMFileNode> nodes = converter.getParserNodes();
-			assertEquals(123456789, nodes.get(0).id);
-			assertEquals(55.55, nodes.get(0).latitude, 0.001);
-			assertEquals(38.38, nodes.get(0).longitude, 0.001);
-			assertEquals("name", nodes.get(0).tags.get(0).getKey());
-			assertEquals("Осёнка", nodes.get(0).tags.get(0).getValue());
-			assertEquals("railway", nodes.get(0).tags.get(1).getKey());
-			assertEquals("halt", nodes.get(0).tags.get(1).getValue());
+			assertEquals(123456789, nodes.get(0).getId());
+			assertEquals(55.55, nodes.get(0).getLatitude(), 0.001);
+			assertEquals(38.38, nodes.get(0).getLongitude(), 0.001);
+			assertEquals("name", nodes.get(0).getTags().get(0).getKey());
+			assertEquals("Осёнка", nodes.get(0).getTags().get(0).getValue());
+			assertEquals("railway", nodes.get(0).getTags().get(1).getKey());
+			assertEquals("halt", nodes.get(0).getTags().get(1).getValue());
 
 			//ways
 			ArrayList<OSMFileWay> ways = converter.getParserWays();
 			OSMFileWay tempWay = ways.get(0);
-			assertEquals((long) 107289909, tempWay.id);
-			assertEquals((long) 1233435465, tempWay.nodesIds.get(0));
-			assertEquals((long) 1233435417, tempWay.nodesIds.get(1));
-			assertEquals((long) 1233435413, tempWay.nodesIds.get(2));
-			assertEquals("highway", tempWay.tags.get(0).getKey());
-			assertEquals("residential", tempWay.tags.get(0).getValue());
-			assertEquals("name", tempWay.tags.get(1).getKey());
-			assertEquals("Луговая улица", tempWay.tags.get(1).getValue());
+			assertEquals((long) 107289909, tempWay.getId());
+			assertEquals((long) 1233435465, tempWay.getNodesIds().get(0));
+			assertEquals((long) 1233435417, tempWay.getNodesIds().get(1));
+			assertEquals((long) 1233435413, tempWay.getNodesIds().get(2));
+			assertEquals("highway", tempWay.getTags().get(0).getKey());
+			assertEquals("residential", tempWay.getTags().get(0).getValue());
+			assertEquals("name", tempWay.getTags().get(1).getKey());
+			assertEquals("Луговая улица", tempWay.getTags().get(1).getValue());
 
 			//relation
 			ArrayList<OSMFileRelation> relations = converter.getParserRelations();

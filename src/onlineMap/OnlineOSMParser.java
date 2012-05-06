@@ -123,12 +123,12 @@ public class OnlineOSMParser
 			{
 				if (pName.compareTo(OSMXMLNames.NODE) == 0)
 				{
-					tempNode.tags = tempTags;
+					tempNode.setTags(tempTags);
 					nodes.add(tempNode);
 				}
 				if (pName.compareTo(OSMXMLNames.WAY) == 0)
 				{
-					tempWay.tags = tempTags;
+					tempWay.setTags(tempTags);
 					ways.add(tempWay);
 				}
 				if (pName.compareTo(OSMXMLNames.RELATION) == 0)
@@ -193,9 +193,9 @@ public class OnlineOSMParser
 			try
 			{
 				tempNode = new OSMFileNode();
-				tempNode.id = Long.valueOf(pAttributes.getValue("id"));
-				tempNode.latitude = Double.valueOf(pAttributes.getValue("lat"));
-				tempNode.longitude = Double.valueOf(pAttributes.getValue("lon"));
+				tempNode.setId(Long.valueOf(pAttributes.getValue("id")));
+				tempNode.setLatitude(Double.valueOf(pAttributes.getValue("lat")));
+				tempNode.setLongitude(Double.valueOf(pAttributes.getValue("lon")));
 				tempTags = new ArrayList<MapTag>();
 			}
 			catch (Exception ex)
@@ -215,7 +215,7 @@ public class OnlineOSMParser
 			try
 			{
 				tempWay = new OSMFileWay();
-				tempWay.id = Long.valueOf(pAttributes.getValue("id"));
+				tempWay.setId(Long.valueOf(pAttributes.getValue("id")));
 				tempTags = new ArrayList<MapTag>();
 			}
 			catch (Exception e)
@@ -234,7 +234,7 @@ public class OnlineOSMParser
 		{
 			try
 			{
-				tempWay.nodesIds.add(Long.valueOf(pAttributes.getValue("ref")));
+				tempWay.getNodesIds().add(Long.valueOf(pAttributes.getValue("ref")));
 			}
 			catch (Exception e)
 			{
