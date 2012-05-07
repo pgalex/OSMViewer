@@ -1,4 +1,4 @@
-package drawingStyleTests;
+package onlineMapTests;
 
 import onlineMap.OnlineOSMParser;
 import java.io.File;
@@ -17,11 +17,11 @@ import osmXml.OSMFileWay;
  *
  * @author preobrazhentsev
  */
-public class OSMFlyConverterTest
+public class OnlineOSMParserTest
 {
 	private static final String TEST_MAP_FILE_NAME = "testmap.osm";
 
-	public OSMFlyConverterTest()
+	public OnlineOSMParserTest()
 	{
 	}
 
@@ -75,10 +75,10 @@ public class OSMFlyConverterTest
 			//ways
 			ArrayList<OSMFileWay> ways = converter.getParserWays();
 			OSMFileWay tempWay = ways.get(0);
-			assertEquals((long) 107289909, tempWay.getId());
-			assertEquals((long) 1233435465, tempWay.getNodesIds().get(0));
-			assertEquals((long) 1233435417, tempWay.getNodesIds().get(1));
-			assertEquals((long) 1233435413, tempWay.getNodesIds().get(2));
+			assertEquals(107289909, tempWay.getId());
+			assertEquals(1233435465, (long) tempWay.getNodesIds().get(0));
+			assertEquals(1233435417, (long) tempWay.getNodesIds().get(1));
+			assertEquals(1233435413, (long) tempWay.getNodesIds().get(2));
 			assertEquals("highway", tempWay.getTags().get(0).getKey());
 			assertEquals("residential", tempWay.getTags().get(0).getValue());
 			assertEquals("name", tempWay.getTags().get(1).getKey());

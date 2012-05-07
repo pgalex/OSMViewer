@@ -234,7 +234,7 @@ public class OnlineOSMParser
 		{
 			try
 			{
-				tempWay.getNodesIds().add(Long.valueOf(pAttributes.getValue("ref")));
+				tempWay.addNodeId(Long.valueOf(pAttributes.getValue("ref")));
 			}
 			catch (Exception e)
 			{

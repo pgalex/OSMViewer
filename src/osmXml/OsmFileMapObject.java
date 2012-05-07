@@ -55,7 +55,8 @@ public class OsmFileMapObject
 	 */
 	public void setTags(ArrayList<MapTag> pTags)
 	{
-		tags = pTags;
+		tags.clear();
+		tags.addAll(pTags);
 	}
 
 	/**

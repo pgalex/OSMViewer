@@ -12,7 +12,7 @@ public class OSMFileWay extends OsmFileMapObject
 	/**
 	 * Ids of nodes of way
 	 */
-	private ArrayList nodesIds;
+	private ArrayList<Long> nodesIds;
 
 	/**
 	 * Default constructor
@@ -20,17 +20,17 @@ public class OSMFileWay extends OsmFileMapObject
 	public OSMFileWay()
 	{
 		super();
-		nodesIds = new ArrayList();
+		nodesIds = new ArrayList<Long>();
 	}
 
 	/**
-	 * Set ids of nodes of way
+	 * Add id of node of way
 	 *
-	 * @param pNodesIds ids of nodes
+	 * @param pNodeId id of way's node
 	 */
-	public void setNodesIds(ArrayList pNodesIds)
+	public void addNodeId(long pNodeId)
 	{
-		nodesIds = pNodesIds;
+		nodesIds.add(pNodeId);
 	}
 
 	/**
@@ -38,7 +38,7 @@ public class OSMFileWay extends OsmFileMapObject
 	 *
 	 * @return ids of nodes
 	 */
-	public ArrayList getNodesIds()
+	public ArrayList<Long> getNodesIds()
 	{
 		return nodesIds;
 	}
