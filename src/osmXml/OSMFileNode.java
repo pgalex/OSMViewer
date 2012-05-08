@@ -1,5 +1,9 @@
 package osmXml;
 
+import map.DefenitionTags;
+import map.MapPoint;
+import map.MapPosition;
+
 /**
  * Osm node (one point)
  *
@@ -62,5 +66,17 @@ public class OSMFileNode extends OsmFileMapObject
 	public double getLongitude()
 	{
 		return longitude;
+	}
+	
+	/**
+	 * Create point on a map by this node data
+	 * 
+	 * @return point on a map by this node 
+	 */
+	public MapPoint createMapPoint()
+	{
+		DefenitionTags pointTags = new DefenitionTags(getTags());
+		MapPoint resultPoint = new MapPoint(new MapPosition(latitude, longitude), getId(), pointTags);
+		return resultPoint;
 	}
 }
