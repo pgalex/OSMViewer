@@ -65,21 +65,4 @@ public class OsmNode extends OsmMapObject
 	{
 		return longitude;
 	}
-	
-	/**
-	 * Create point on a map by this node data
-	 * 
-	 * @return point on a map by this node 
-	 */
-	public MapPoint createMapPoint()
-	{
-		EditableDefenitionTags pointTags = new EditableDefenitionTags();
-		for (MapTag nodeTags : getTags())
-		{
-			if(nodeTags!=null)
-				pointTags.add(nodeTags);
-		}
-		MapPoint resultPoint = new MapPoint(new MapPosition(latitude, longitude), getId(), pointTags);
-		return resultPoint;
-	}
 }
