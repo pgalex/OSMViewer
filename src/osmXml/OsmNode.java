@@ -1,8 +1,6 @@
 package osmXml;
 
-import map.DefenitionTags;
-import map.MapPoint;
-import map.MapPosition;
+import map.*;
 
 /**
  * Osm node (one point)
@@ -75,7 +73,12 @@ public class OsmNode extends OsmMapObject
 	 */
 	public MapPoint createMapPoint()
 	{
-		DefenitionTags pointTags = new DefenitionTags(getTags());
+		EditableDefenitionTags pointTags = new EditableDefenitionTags();
+		for (MapTag nodeTags : getTags())
+		{
+			if(nodeTags!=null)
+				pointTags.add(nodeTags);
+		}
 		MapPoint resultPoint = new MapPoint(new MapPosition(latitude, longitude), getId(), pointTags);
 		return resultPoint;
 	}

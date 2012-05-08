@@ -1,6 +1,5 @@
 package map;
 
-import java.util.ArrayList;
 import map.exceptions.TagIndexOutOfBoundsException;
 import map.exceptions.TagIsNullException;
 
@@ -17,16 +16,6 @@ public class EditableDefenitionTags extends DefenitionTags
 	public EditableDefenitionTags()
 	{
 		super();
-	}
-
-	/**
-	 * Constructor
-	 *
-	 * @param pTags array of tags
-	 */
-	public EditableDefenitionTags(ArrayList<MapTag> pTags)
-	{
-		super(pTags);
 	}
 
 	/**

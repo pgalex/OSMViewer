@@ -14,7 +14,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- *
+ * Testing methods of Defenition by using EditableDefenitionTags
  * @author pgalex
  */
 public class DefenitionTagsTest
@@ -25,45 +25,26 @@ public class DefenitionTagsTest
 	{
 	}
 
-	/**
-	 * Auto initialize null fields in constructor
-	 */
-	@Test
-	public void constructorTest()
-	{
-		DefenitionTags tags = new DefenitionTags(null);
-		try
-		{
-			tags.isEmpty(); // trying to use inner fields
-		}
-		catch (Exception e)
-		{
-			fail();
-		}
-		assertTrue(tags.isEmpty());
-		assertEquals(0, tags.size());
-	}
-
+	
 	/**
 	 * get method test
 	 */
 	@Test
 	public void getTest()
 	{
-		DefenitionTags tags = new DefenitionTags();
+		EditableDefenitionTags tags = new EditableDefenitionTags();
 		// null list
 		assertNull(tags.get(0));
 
 		// normal work
 		try
 		{
-			ArrayList<MapTag> tagsArray = new ArrayList<MapTag>();
-			tagsArray.add(new MapTag("k3", "v3"));
-			tagsArray.add(new MapTag("k1", "v1"));
-			tagsArray.add(new MapTag("k2", "v2"));
-			tags = new DefenitionTags(tagsArray);
-			for (int i = 0; i < tagsArray.size(); i++)
-				assertTrue(tagsArray.get(i).compareTo(tags.get(i)));
+			tags.add(new MapTag("k3", "v3"));
+			tags.add(new MapTag("k1", "v1"));
+			tags.add(new MapTag("k2", "v2"));
+			
+			for (int i = 0; i < tags.size(); i++)
+				assertTrue(tags.get(i).compareTo(tags.get(i)));
 		}
 		catch (Exception e)
 		{
@@ -71,18 +52,17 @@ public class DefenitionTagsTest
 		}
 
 		// out of bounds
-		ArrayList<MapTag> tagsArray = new ArrayList<MapTag>();
-		tagsArray.add(new MapTag("k3", "v3"));
-		tagsArray.add(new MapTag("k1", "v1"));
-		tagsArray.add(new MapTag("k2", "v2"));
-		tags = new DefenitionTags(tagsArray);
+		tags = new EditableDefenitionTags();
+		tags.add(new MapTag("k3", "v3"));
+		tags.add(new MapTag("k1", "v1"));
+		tags.add(new MapTag("k2", "v2"));
 		assertNull(tags.get(-1));
 		
-		tagsArray.add(new MapTag("k3", "v3"));
-		tagsArray.add(new MapTag("k1", "v1"));
-		tagsArray.add(new MapTag("k2", "v2"));
-		tags = new DefenitionTags(tagsArray);
-		assertNull(tags.get(tagsArray.size()));
+		tags = new EditableDefenitionTags();
+		tags.add(new MapTag("k3", "v3"));
+		tags.add(new MapTag("k1", "v1"));
+		tags.add(new MapTag("k2", "v2"));
+		assertNull(tags.get(tags.size()));
 	}
 
 	/**
@@ -154,11 +134,10 @@ public class DefenitionTagsTest
 	@Test
 	public void fileTest()
 	{
-		ArrayList<MapTag> tagsArray = new ArrayList<MapTag>();
-		tagsArray.add(new MapTag("k3", "v3"));
-		tagsArray.add(new MapTag("k1", "v1"));
-		tagsArray.add(new MapTag("k2", "v2"));
-		DefenitionTags writingTags = new DefenitionTags(tagsArray);
+		EditableDefenitionTags writingTags = new EditableDefenitionTags();
+		writingTags.add(new MapTag("k3", "v3"));
+		writingTags.add(new MapTag("k1", "v1"));
+		writingTags.add(new MapTag("k2", "v2"));
 		//запись
 		try
 		{

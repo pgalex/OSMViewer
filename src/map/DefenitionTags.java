@@ -28,17 +28,6 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Constructor
-	 *
-	 * @param pTags array of tags
-	 */
-	public DefenitionTags(ArrayList<MapTag> pTags)
-	{
-		tags = pTags;
-		InitializeNullFields();
-	}
-
-	/**
 	 * Get tags count
 	 *
 	 * @return tags count
@@ -108,15 +97,6 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 				return false;
 		}
 		return true;
-	}
-
-	/**
-	 * Set default values into null fields
-	 */
-	private void InitializeNullFields()
-	{
-		if (tags == null)
-			tags = new ArrayList<MapTag>();
 	}
 
 	/**
