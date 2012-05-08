@@ -8,7 +8,7 @@ package osmXml;
  * Имена тегов xml в .osm файле
  * @author preobrazhentsev
  */
-public class OSMXMLNames
+public class OsmXMLNames
 {
 	public static final String TAG = "tag";
 	public static final String BOUNDS = "bounds";

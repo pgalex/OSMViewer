@@ -22,13 +22,13 @@ public class OnlineOSMParser
 	 */
 	private class OnlineSaxHandler extends DefaultHandler
 	{
-		private ArrayList<OSMFileNode> nodes;
-		private ArrayList<OSMFileWay> ways;
-		private ArrayList<OSMFileRelation> relations;
-		private OSMFileBounds bounds;
-		private OSMFileNode tempNode;
-		private OSMFileWay tempWay;
-		private OSMFileRelation tempRelation;
+		private ArrayList<OsmNode> nodes;
+		private ArrayList<OsmWay> ways;
+		private ArrayList<OsmRelation> relations;
+		private OsmBounds bounds;
+		private OsmNode tempNode;
+		private OsmWay tempWay;
+		private OsmRelation tempRelation;
 		public ArrayList<MapTag> tempTags;
 
 		/**
@@ -36,10 +36,10 @@ public class OnlineOSMParser
 		 */
 		public OnlineSaxHandler()
 		{
-			nodes = new ArrayList<OSMFileNode>();
-			ways = new ArrayList<OSMFileWay>();
-			relations = new ArrayList<OSMFileRelation>();
-			bounds = new OSMFileBounds();
+			nodes = new ArrayList<OsmNode>();
+			ways = new ArrayList<OsmWay>();
+			relations = new ArrayList<OsmRelation>();
+			bounds = new OsmBounds();
 			tempTags = new ArrayList<MapTag>();
 		}
 
@@ -73,31 +73,31 @@ public class OnlineOSMParser
 		{
 			try
 			{
-				if (pName.compareTo(OSMXMLNames.BOUNDS) == 0)
+				if (pName.compareTo(OsmXMLNames.BOUNDS) == 0)
 				{
 					parseBounds(pAttributes);
 				}
-				if (pName.compareTo(OSMXMLNames.NODE) == 0)
+				if (pName.compareTo(OsmXMLNames.NODE) == 0)
 				{
 					parseNode(pAttributes);
 				}
-				if (pName.compareTo(OSMXMLNames.WAY) == 0)
+				if (pName.compareTo(OsmXMLNames.WAY) == 0)
 				{
 					parseWay(pAttributes);
 				}
-				if (pName.compareTo(OSMXMLNames.NODE_IN_WAY) == 0)
+				if (pName.compareTo(OsmXMLNames.NODE_IN_WAY) == 0)
 				{
 					parseWayNode(pAttributes);
 				}
-				if (pName.compareTo(OSMXMLNames.RELATION) == 0)
+				if (pName.compareTo(OsmXMLNames.RELATION) == 0)
 				{
 					parseRelation(pAttributes);
 				}
-				if (pName.compareTo(OSMXMLNames.TAG) == 0)
+				if (pName.compareTo(OsmXMLNames.TAG) == 0)
 				{
 					parseTag(pAttributes);
 				}
-				if (pName.compareTo(OSMXMLNames.RELATION_MEMBER) == 0)
+				if (pName.compareTo(OsmXMLNames.RELATION_MEMBER) == 0)
 				{
 					parseRelationMember(pAttributes);
 				}
@@ -121,17 +121,17 @@ public class OnlineOSMParser
 		{
 			try
 			{
-				if (pName.compareTo(OSMXMLNames.NODE) == 0)
+				if (pName.compareTo(OsmXMLNames.NODE) == 0)
 				{
 					tempNode.setTags(tempTags);
 					nodes.add(tempNode);
 				}
-				if (pName.compareTo(OSMXMLNames.WAY) == 0)
+				if (pName.compareTo(OsmXMLNames.WAY) == 0)
 				{
 					tempWay.setTags(tempTags);
 					ways.add(tempWay);
 				}
-				if (pName.compareTo(OSMXMLNames.RELATION) == 0)
+				if (pName.compareTo(OsmXMLNames.RELATION) == 0)
 				{
 					tempRelation.tags = tempTags;
 					relations.add(tempRelation);
@@ -192,7 +192,7 @@ public class OnlineOSMParser
 		{
 			try
 			{
-				tempNode = new OSMFileNode();
+				tempNode = new OsmNode();
 				tempNode.setId(Long.valueOf(pAttributes.getValue("id")));
 				tempNode.setLatitude(Double.valueOf(pAttributes.getValue("lat")));
 				tempNode.setLongitude(Double.valueOf(pAttributes.getValue("lon")));
@@ -214,7 +214,7 @@ public class OnlineOSMParser
 		{
 			try
 			{
-				tempWay = new OSMFileWay();
+				tempWay = new OsmWay();
 				tempWay.setId(Long.valueOf(pAttributes.getValue("id")));
 				tempTags = new ArrayList<MapTag>();
 			}
@@ -252,7 +252,7 @@ public class OnlineOSMParser
 		{
 			try
 			{
-				tempRelation = new OSMFileRelation();
+				tempRelation = new OsmRelation();
 				tempRelation.id = Long.valueOf(pAttributes.getValue("id"));
 				tempTags = new ArrayList<MapTag>();
 			}
@@ -272,7 +272,7 @@ public class OnlineOSMParser
 		{
 			try
 			{
-				OSMFileRelationMember tempRelationMember = new OSMFileRelationMember();
+				OsmRelationMember tempRelationMember = new OsmRelationMember();
 				tempRelationMember.ref = Long.valueOf(pAttributes.getValue("ref"));
 				tempRelationMember.type = pAttributes.getValue("type");
 				tempRelationMember.role = pAttributes.getValue("role");
@@ -324,7 +324,7 @@ public class OnlineOSMParser
 	 *
 	 * @return
 	 */
-	public OSMFileBounds getParserBounds()
+	public OsmBounds getParserBounds()
 	{
 		return handler.bounds;
 	}
@@ -334,7 +334,7 @@ public class OnlineOSMParser
 	 *
 	 * @return
 	 */
-	public ArrayList<OSMFileNode> getParserNodes()
+	public ArrayList<OsmNode> getParserNodes()
 	{
 		return handler.nodes;
 	}
@@ -344,7 +344,7 @@ public class OnlineOSMParser
 	 *
 	 * @return
 	 */
-	public ArrayList<OSMFileWay> getParserWays()
+	public ArrayList<OsmWay> getParserWays()
 	{
 		return handler.ways;
 	}
@@ -354,7 +354,7 @@ public class OnlineOSMParser
 	 *
 	 * @return
 	 */
-	public ArrayList<OSMFileRelation> getParserRelations()
+	public ArrayList<OsmRelation> getParserRelations()
 	{
 		return handler.relations;
 	}

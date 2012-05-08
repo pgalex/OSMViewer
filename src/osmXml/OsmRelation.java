@@ -11,15 +11,15 @@ import map.MapTag;
  * Отношение в файле .osm (пока не используется)
  * @author preobrazhentsev
  */
-public class OSMFileRelation
+public class OsmRelation
 {
 	public long id;
 	public ArrayList<MapTag> tags;
-	public ArrayList<OSMFileRelationMember> members;
+	public ArrayList<OsmRelationMember> members;
 
-	public OSMFileRelation()
+	public OsmRelation()
 	{
 		tags = new ArrayList<MapTag>();
-		members = new ArrayList<OSMFileRelationMember>();
+		members = new ArrayList<OsmRelationMember>();
 	}
 }

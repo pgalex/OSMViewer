@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import static org.junit.Assert.*;
 import org.junit.*;
 import org.xml.sax.InputSource;
-import osmXml.OSMFileBounds;
-import osmXml.OSMFileNode;
-import osmXml.OSMFileRelation;
-import osmXml.OSMFileWay;
+import osmXml.OsmBounds;
+import osmXml.OsmNode;
+import osmXml.OsmRelation;
+import osmXml.OsmWay;
 
 /**
  *
@@ -56,14 +56,14 @@ public class OnlineOSMParserTest
 			converter.convert(source);
 
 			//границы
-			OSMFileBounds bounds = converter.getParserBounds();
+			OsmBounds bounds = converter.getParserBounds();
 			assertEquals(10.1, bounds.getLatitudeMinimum(), 0.001);
 			assertEquals(20.1, bounds.getLongitudeMinimum(), 0.001);
 			assertEquals(10.3, bounds.getLatitudeMaximum(), 0.001);
 			assertEquals(20.3, bounds.getLongitudeMaximum(), 0.001);
 
 			//точка
-			ArrayList<OSMFileNode> nodes = converter.getParserNodes();
+			ArrayList<OsmNode> nodes = converter.getParserNodes();
 			assertEquals(123456789, nodes.get(0).getId());
 			assertEquals(55.55, nodes.get(0).getLatitude(), 0.001);
 			assertEquals(38.38, nodes.get(0).getLongitude(), 0.001);
@@ -73,8 +73,8 @@ public class OnlineOSMParserTest
 			assertEquals("halt", nodes.get(0).getTags().get(1).getValue());
 
 			//ways
-			ArrayList<OSMFileWay> ways = converter.getParserWays();
-			OSMFileWay tempWay = ways.get(0);
+			ArrayList<OsmWay> ways = converter.getParserWays();
+			OsmWay tempWay = ways.get(0);
 			assertEquals(107289909, tempWay.getId());
 			assertEquals(1233435465, (long) tempWay.getNodesIds().get(0));
 			assertEquals(1233435417, (long) tempWay.getNodesIds().get(1));
@@ -85,8 +85,8 @@ public class OnlineOSMParserTest
 			assertEquals("Луговая улица", tempWay.getTags().get(1).getValue());
 
 			//relation
-			ArrayList<OSMFileRelation> relations = converter.getParserRelations();
-			OSMFileRelation tempRelation = relations.get(0);
+			ArrayList<OsmRelation> relations = converter.getParserRelations();
+			OsmRelation tempRelation = relations.get(0);
 			assertEquals((long) 1693664, tempRelation.id);
 			assertEquals("type", tempRelation.tags.get(0).getKey());
 			assertEquals("boundary", tempRelation.tags.get(0).getValue());

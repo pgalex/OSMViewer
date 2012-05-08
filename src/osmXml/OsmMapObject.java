@@ -8,7 +8,7 @@ import map.MapTag;
  *
  * @author pgalex
  */
-public class OsmFileMapObject
+public class OsmMapObject
 {
 	/**
 	 * Unique global osm id of object
@@ -22,7 +22,7 @@ public class OsmFileMapObject
 	/**
 	 * Default constructor
 	 */
-	public OsmFileMapObject()
+	public OsmMapObject()
 	{
 		id = 0;
 		tags = new ArrayList<MapTag>();

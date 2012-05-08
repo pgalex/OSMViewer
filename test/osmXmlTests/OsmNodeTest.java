@@ -7,15 +7,15 @@ import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import osmXml.OSMFileNode;
+import osmXml.OsmNode;
 
 /**
  *
  * @author pgalex
  */
-public class OsmFileNodeTest
+public class OsmNodeTest
 {
-	public OsmFileNodeTest()
+	public OsmNodeTest()
 	{
 	}
 
@@ -25,7 +25,7 @@ public class OsmFileNodeTest
 	@Test
 	public void creatingPointNormalWorkTest()
 	{
-		OSMFileNode testNode = new OSMFileNode();
+		OsmNode testNode = new OsmNode();
 		testNode.setId(123456789);
 		ArrayList<MapTag> pointTags = new ArrayList<MapTag>();
 		pointTags.add(new MapTag("k1", "v1"));
@@ -51,7 +51,7 @@ public class OsmFileNodeTest
 	@Test
 	public void creatingPointNullTagsTest()
 	{
-		OSMFileNode testNode = new OSMFileNode();
+		OsmNode testNode = new OsmNode();
 		testNode.setTags(null);
 		
 		MapPoint pointByNode = testNode.createMapPoint();
@@ -65,7 +65,7 @@ public class OsmFileNodeTest
 	@Test
 	public void creatingPointEmptyTagsTest()
 	{
-		OSMFileNode testNode = new OSMFileNode();
+		OsmNode testNode = new OsmNode();
 		testNode.setTags(new ArrayList<MapTag>());
 		
 		MapPoint pointByNode = testNode.createMapPoint();

@@ -9,7 +9,7 @@ import map.MapPosition;
  *
  * @author preobrazhentsev
  */
-public class OSMFileNode extends OsmFileMapObject
+public class OsmNode extends OsmMapObject
 {
 	/**
 	 * Position - latitude
@@ -23,7 +23,7 @@ public class OSMFileNode extends OsmFileMapObject
 	/**
 	 * Default constructor
 	 */
-	public OSMFileNode()
+	public OsmNode()
 	{
 		super();
 	}

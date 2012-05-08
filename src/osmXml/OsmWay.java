@@ -7,7 +7,7 @@ import java.util.ArrayList;
  *
  * @author preobrazhentsev
  */
-public class OSMFileWay extends OsmFileMapObject
+public class OsmWay extends OsmMapObject
 {
 	/**
 	 * Ids of nodes of way
@@ -17,7 +17,7 @@ public class OSMFileWay extends OsmFileMapObject
 	/**
 	 * Default constructor
 	 */
-	public OSMFileWay()
+	public OsmWay()
 	{
 		super();
 		nodesIds = new ArrayList<Long>();

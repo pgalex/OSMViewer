@@ -6,15 +6,15 @@ import org.junit.AfterClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;
-import osmXml.OsmFileMapObject;
+import osmXml.OsmMapObject;
 
 /**
  *
  * @author pgalex
  */
-public class OsmFileMapObjectTest
+public class OsmMapObjectTest
 {
-	public OsmFileMapObjectTest()
+	public OsmMapObjectTest()
 	{
 	}
 
@@ -24,7 +24,7 @@ public class OsmFileMapObjectTest
 	@Test
 	public void setNullTagsTest()
 	{
-		OsmFileMapObject testObject = new OsmFileMapObject();
+		OsmMapObject testObject = new OsmMapObject();
 		ArrayList<MapTag> someTags = new ArrayList<MapTag>();
 		someTags.add(new MapTag());
 		try

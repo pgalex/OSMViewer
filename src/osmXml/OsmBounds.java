@@ -5,7 +5,7 @@ package osmXml;
  *
  * @author preobrazhentsev
  */
-public class OSMFileBounds
+public class OsmBounds
 {
 	/**
 	 * Latitude minimum
@@ -27,7 +27,7 @@ public class OSMFileBounds
 	/**
 	 * Default constructor
 	 */
-	public OSMFileBounds()
+	public OsmBounds()
 	{
 		latitudeMinimum = 0;
 		latitudeMaximum = 0;
