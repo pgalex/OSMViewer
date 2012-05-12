@@ -1,7 +1,6 @@
 package osmXml;
 
 import java.util.ArrayList;
-import map.MapTag;
 
 /**
  * Some object of osm map. Common part of nodes and ways
@@ -17,7 +16,7 @@ public class OsmMapObject
 	/**
 	 * Object tags
 	 */
-	private ArrayList<MapTag> tags;
+	private ArrayList<OsmTag> tags;
 
 	/**
 	 * Default constructor
@@ -25,7 +24,7 @@ public class OsmMapObject
 	public OsmMapObject()
 	{
 		id = 0;
-		tags = new ArrayList<MapTag>();
+		tags = new ArrayList<OsmTag>();
 	}
 
 	/**
@@ -53,7 +52,7 @@ public class OsmMapObject
 	 *
 	 * @param pTags Object tags
 	 */
-	public void setTags(ArrayList<MapTag> pTags)
+	public void setTags(ArrayList<OsmTag> pTags)
 	{
 		tags.clear();
 
@@ -66,7 +65,7 @@ public class OsmMapObject
 	 *
 	 * @return Object tags
 	 */
-	public ArrayList<MapTag> getTags()
+	public ArrayList<OsmTag> getTags()
 	{
 		return tags;
 	}
