@@ -54,10 +54,7 @@ public class OsmMapObject
 	 */
 	public void setTags(ArrayList<OsmTag> pTags)
 	{
-		tags.clear();
-
-		if (pTags != null)
-			tags.addAll(pTags);
+		tags = pTags;
 	}
 
 	/**

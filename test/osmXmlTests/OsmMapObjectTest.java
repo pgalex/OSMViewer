@@ -3,9 +3,10 @@ package osmXmlTests;
 import java.util.ArrayList;
 import map.MapTag;
 import org.junit.AfterClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 import org.junit.BeforeClass;
+import org.junit.Test;
 import osmXml.OsmMapObject;
 
 /**
@@ -31,8 +32,7 @@ public class OsmMapObjectTest
 		{
 			testObject.setTags(null);
 			//ok
-			assertNotNull(testObject.getTags());
-			assertTrue(testObject.getTags().isEmpty());
+			assertNull(testObject.getTags());
 		}
 		catch (Exception ex)
 		{

@@ -1,7 +1,5 @@
 package osmXml;
 
-import map.*;
-
 /**
  * Osm node (one point)
  *
