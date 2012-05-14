@@ -29,7 +29,7 @@ public class OnlineOSMParser
 		private OsmNode tempNode;
 		private OsmWay tempWay;
 		private OsmRelation tempRelation;
-		public ArrayList<MapTag> tempTags;
+		public ArrayList<OsmTag> tempTags;
 
 		/**
 		 * Constructor
@@ -40,7 +40,7 @@ public class OnlineOSMParser
 			ways = new ArrayList<OsmWay>();
 			relations = new ArrayList<OsmRelation>();
 			bounds = new OsmBounds();
-			tempTags = new ArrayList<MapTag>();
+			tempTags = new ArrayList<OsmTag>();
 		}
 
 		/**
@@ -153,7 +153,7 @@ public class OnlineOSMParser
 		{
 			try
 			{
-				tempTags.add(new MapTag(pAttributes.getValue("k"), pAttributes.getValue("v")));
+				tempTags.add(new OsmTag(pAttributes.getValue("k"), pAttributes.getValue("v")));
 			}
 			catch (Exception ex)
 			{
@@ -196,7 +196,7 @@ public class OnlineOSMParser
 				tempNode.setId(Long.valueOf(pAttributes.getValue("id")));
 				tempNode.setLatitude(Double.valueOf(pAttributes.getValue("lat")));
 				tempNode.setLongitude(Double.valueOf(pAttributes.getValue("lon")));
-				tempTags = new ArrayList<MapTag>();
+				tempTags = new ArrayList<OsmTag>();
 			}
 			catch (Exception ex)
 			{
@@ -216,7 +216,7 @@ public class OnlineOSMParser
 			{
 				tempWay = new OsmWay();
 				tempWay.setId(Long.valueOf(pAttributes.getValue("id")));
-				tempTags = new ArrayList<MapTag>();
+				tempTags = new ArrayList<OsmTag>();
 			}
 			catch (Exception e)
 			{
@@ -254,7 +254,7 @@ public class OnlineOSMParser
 			{
 				tempRelation = new OsmRelation();
 				tempRelation.id = Long.valueOf(pAttributes.getValue("id"));
-				tempTags = new ArrayList<MapTag>();
+				tempTags = new ArrayList<OsmTag>();
 			}
 			catch (Exception e)
 			{

@@ -17,12 +17,15 @@ public class OsmTag
 	private String value;
 
 	/**
-	 * Default constructor
+	 * Cconstructor
+	 * 
+	 * @param pKey Key of tag
+	 * @param pValue Value of tag
 	 */
-	public OsmTag()
+	public OsmTag(String pKey, String pValue)
 	{
-		key = "";
-		value = "";
+		key = pKey;
+		value = pValue;
 	}
 
 	/**

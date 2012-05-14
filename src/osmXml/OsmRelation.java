@@ -14,12 +14,12 @@ import map.MapTag;
 public class OsmRelation
 {
 	public long id;
-	public ArrayList<MapTag> tags;
+	public ArrayList<OsmTag> tags;
 	public ArrayList<OsmRelationMember> members;
 
 	public OsmRelation()
 	{
-		tags = new ArrayList<MapTag>();
+		tags = new ArrayList<OsmTag>();
 		members = new ArrayList<OsmRelationMember>();
 	}
 }
