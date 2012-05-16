@@ -52,8 +52,7 @@ public class OnlineOSMParserTest
 		try
 		{
 			OnlineOSMParser converter = new OnlineOSMParser();
-			InputSource source = new InputSource(new FileInputStream(new File(TEST_MAP_FILE_NAME)));
-			converter.convert(source);
+			converter.convert(new FileInputStream(new File(TEST_MAP_FILE_NAME)));
 
 			//границы
 			OsmBounds bounds = converter.getParserBounds();

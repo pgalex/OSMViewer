@@ -1,5 +1,6 @@
 package onlineMap;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -301,17 +302,17 @@ public class OnlineOSMParser
 	/**
 	 * Конвертировать .osm xml в карту | должна возвращать Map
 	 *
-	 * @param pSource
+	 * @param pInput
 	 * @throws Exception
 	 */
-	public void convert(InputSource pSource) throws Exception
+	public void convert(InputStream pInput) throws Exception
 	{
 		try
 		{
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			SAXParser parser = factory.newSAXParser();
 
-			parser.parse(pSource, handler);
+			parser.parse(pInput, handler);
 		}
 		catch (Exception e)
 		{
