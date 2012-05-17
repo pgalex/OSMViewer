@@ -5,7 +5,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import map.exceptions.MapBounds;
+import map.MapBounds;
 import map.exceptions.MapBoundsIsNullRuntimeException;
 import map.exceptions.MapIsNullRutimeException;
 import map.exceptions.StyleViewerIsNullException;

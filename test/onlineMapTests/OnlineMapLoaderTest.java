@@ -2,7 +2,7 @@ package onlineMapTests;
 
 import drawingStyle.DrawingStyleFactory;
 import drawingStyle.StyleViewer;
-import map.exceptions.MapBounds;
+import map.MapBounds;
 import map.exceptions.MapBoundsIsNullRuntimeException;
 import map.exceptions.MapIsNullRutimeException;
 import map.exceptions.StyleViewerIsNullException;

@@ -1,4 +1,4 @@
-package map.exceptions;
+package map;
 
 /**
  * Describes area in spheric coordinates by latitude/longitude bounds
