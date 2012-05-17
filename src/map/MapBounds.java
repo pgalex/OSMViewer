@@ -80,4 +80,20 @@ public class MapBounds
 	{
 		return longitudeMaximum;
 	}
+
+	/**
+	 * Is rectangle defines zero area. Some min/max pair of coordinates is equals
+	 *
+	 * @return Is rectangle defines zero area
+	 */
+	public boolean isZero()
+	{
+		boolean isLatitudeEquals = Double.compare(latitudeMinimum, latitudeMaximum) == 0;
+		boolean isLongitudeEquals = Double.compare(longitudeMinimum, longitudeMaximum) == 0;
+
+		if (isLatitudeEquals || isLongitudeEquals)
+			return true;
+		else
+			return false;
+	}
 }
