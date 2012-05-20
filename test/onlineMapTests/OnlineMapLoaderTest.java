@@ -1,6 +1,8 @@
 package onlineMapTests;
 
 import drawingStyle.DrawingStyleFactory;
+import java.util.ArrayList;
+import map.DefenitionTags;
 import map.MapBounds;
 import map.MapTag;
 import map.exceptions.MapBoundsIsNullRuntimeException;
@@ -10,7 +12,6 @@ import onlineMap.OnlineMap;
 import onlineMap.OnlineMapLoader;
 import static org.junit.Assert.*;
 import org.junit.*;
-import osmXml.OsmNode;
 import osmXml.OsmTag;
 
 /**
@@ -31,6 +32,8 @@ public class OnlineMapLoaderTest
 		{
 			createMapTagNormalWorkTest();
 			createMapTagIncorrectParametersTest();
+			createDefenitionTagsNormalWorkTest();
+			createDefenitionTagsIncorrectParametersTest();
 		}
 
 		/**
@@ -67,6 +70,52 @@ public class OnlineMapLoaderTest
 				fail();
 				// not need an exceptions
 			}
+		}
+
+		/**
+		 * Testing creating defenition tags by osm tag array normal work
+		 */
+		private void createDefenitionTagsNormalWorkTest()
+		{
+			ArrayList<OsmTag> osmTags = new ArrayList<OsmTag>();
+			osmTags.add(new OsmTag("k1", "v1"));
+			osmTags.add(new OsmTag("k2", "v2"));
+			osmTags.add(new OsmTag("k3", "v3"));
+			osmTags.add(new OsmTag("k5", "v5"));
+
+			DefenitionTags defenitionTags = createDefentionTagsByOsmTags(osmTags);
+			assertNotNull(defenitionTags);
+			assertEquals(osmTags.size(), defenitionTags.size());
+			for (int i = 0; i < defenitionTags.size(); i++)
+			{
+				assertEquals(osmTags.get(i).getKey(), defenitionTags.get(i).getKey());
+				assertEquals(osmTags.get(i).getValue(), defenitionTags.get(i).getValue());
+			}
+		}
+
+		/**
+		 * Testing creating defenition tags by osm tag array with
+		 * incorrectParameters
+		 */
+		private void createDefenitionTagsIncorrectParametersTest()
+		{
+			assertNull(createDefentionTagsByOsmTags(null));
+
+			DefenitionTags tagByEmptyArray = createDefentionTagsByOsmTags(new ArrayList<OsmTag>());
+			assertNotNull(tagByEmptyArray);
+			assertTrue(tagByEmptyArray.isEmpty());
+
+			ArrayList<OsmTag> osmTags = new ArrayList<OsmTag>();
+			osmTags.add(new OsmTag("", ""));
+			osmTags.add(null);
+			osmTags.add(new OsmTag("k3", "v3"));
+			osmTags.add(null);
+			osmTags.add(new OsmTag("", ""));
+
+			DefenitionTags tagsByByContainsNull = createDefentionTagsByOsmTags(osmTags);
+			assertNotNull(tagsByByContainsNull);
+			assertEquals(1, tagsByByContainsNull.size());
+			assertNotNull(tagsByByContainsNull.get(0));
 		}
 	}
 
