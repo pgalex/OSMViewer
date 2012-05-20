@@ -1,17 +1,17 @@
 package onlineMapTests;
 
 import drawingStyle.DrawingStyleFactory;
-import drawingStyle.StyleViewer;
 import map.MapBounds;
+import map.MapTag;
 import map.exceptions.MapBoundsIsNullRuntimeException;
 import map.exceptions.MapIsNullRutimeException;
 import map.exceptions.StyleViewerIsNullException;
 import onlineMap.OnlineMap;
 import onlineMap.OnlineMapLoader;
-import org.junit.AfterClass;
-import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
+import org.junit.*;
+import osmXml.OsmNode;
+import osmXml.OsmTag;
 
 /**
  *
@@ -19,8 +19,55 @@ import org.junit.BeforeClass;
  */
 public class OnlineMapLoaderTest
 {
-	public OnlineMapLoaderTest()
+	/**
+	 * Uses to get access to protected methods of OnlineMapLoader for testing
+	 */
+	private class TestOnlineMapLoader extends OnlineMapLoader
 	{
+		/**
+		 * Run testing of protected methods of OnlineMapLoader
+		 */
+		public void testProtectedMethod()
+		{
+			createMapTagNormalWorkTest();
+			createMapTagIncorrectParametersTest();
+		}
+
+		/**
+		 * Testing creating map tag by osm tag normal work
+		 */
+		private void createMapTagNormalWorkTest()
+		{
+			OsmTag osmTag = new OsmTag("k1", "v1");
+			MapTag mapTag = createMapTagByOsmTag(osmTag);
+			assertNotNull(mapTag);
+			assertEquals(mapTag.getKey(), osmTag.getKey());
+			assertEquals(mapTag.getValue(), osmTag.getValue());
+
+			osmTag = new OsmTag("k1", "");
+			mapTag = createMapTagByOsmTag(osmTag);
+			assertNotNull(mapTag);
+			assertEquals(mapTag.getKey(), osmTag.getKey());
+			assertEquals(mapTag.getValue(), osmTag.getValue());
+		}
+
+		/**
+		 * Testing creating map tag by osm tag with incorrect parameters
+		 */
+		private void createMapTagIncorrectParametersTest()
+		{
+			try
+			{
+				assertNull(createMapTagByOsmTag(null));
+				assertNull(createMapTagByOsmTag(new OsmTag("", "")));
+				assertNull(createMapTagByOsmTag(new OsmTag("", "v1")));
+			}
+			catch (Exception ex)
+			{
+				fail();
+				// not need an exceptions
+			}
+		}
 	}
 
 	/**
@@ -77,13 +124,13 @@ public class OnlineMapLoaderTest
 		}
 	}
 
-	@BeforeClass
-	public static void setUpClass() throws Exception
+	/**
+	 * Test map loading with incorrect map
+	 */
+	@Test
+	public void protectedMethodsTest()
 	{
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception
-	{
+		TestOnlineMapLoader testLoader = new TestOnlineMapLoader();
+		testLoader.testProtectedMethod();
 	}
 }

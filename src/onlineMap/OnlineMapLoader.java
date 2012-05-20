@@ -89,7 +89,7 @@ public class OnlineMapLoader
 	 * @param pNodes array of nodes, readed from .osm
 	 * @param pFillingMap map, filling with map points, created by osm nodes
 	 */
-	private void fillMapWithPoints(ArrayList<OsmNode> pNodes, OnlineMap pFillingMap)
+	protected void fillMapWithPoints(ArrayList<OsmNode> pNodes, OnlineMap pFillingMap)
 	{
 		if (pFillingMap == null)
 			return;
@@ -112,7 +112,7 @@ public class OnlineMapLoader
 	 * @param pNode osm node
 	 * @return map point created by osm node
 	 */
-	private MapPoint createMapPointByOsmNode(OsmNode pNode)
+	protected MapPoint createMapPointByOsmNode(OsmNode pNode)
 	{
 
 		if (pNode == null)
@@ -138,7 +138,7 @@ public class OnlineMapLoader
 	 * @param pOsmTags array of osm tags
 	 * @return defenition tags created by osm tags array
 	 */
-	private DefenitionTags createDefentionTagsByOsmTags(ArrayList<OsmTag> pOsmTags)
+	protected DefenitionTags createDefentionTagsByOsmTags(ArrayList<OsmTag> pOsmTags)
 	{
 		if (pOsmTags == null)
 			return null;
@@ -159,11 +159,11 @@ public class OnlineMapLoader
 	 * @param pOsmTag osm tag
 	 * @return map tag created by osm tag
 	 */
-	private MapTag createMapTagByOsmTag(OsmTag pOsmTag)
+	protected MapTag createMapTagByOsmTag(OsmTag pOsmTag)
 	{
 		if (pOsmTag == null)
 			return null;
-		if (pOsmTag.getKey().isEmpty() || pOsmTag.getValue().isEmpty())
+		if (pOsmTag.getKey().isEmpty())
 			return null;
 
 		return new MapTag(pOsmTag.getKey(), pOsmTag.getValue());
