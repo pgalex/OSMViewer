@@ -7,6 +7,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import map.*;
+import map.exceptions.ConnectionErrorException;
 import map.exceptions.MapBoundsIsNullRuntimeException;
 import map.exceptions.MapIsNullRutimeException;
 import map.exceptions.StyleViewerIsNullException;
@@ -43,10 +44,12 @@ public class OnlineMapLoader
 	 * @throws StyleViewerIsNullException style viewer is null
 	 * @throws MapIsNullRutimeException online map is null
 	 * @throws MapBoundsIsNullRuntimeException loading sector bounds is null
+	 * @throws ConnectionErrorException error while connecting to osm server
 	 * @throws NullPointerException some parameters are null
 	 */
 	public void loadToMap(MapBounds pLoadingSectorBounds, StyleViewer pStyleViewer,
-					OnlineMap pFillingMap) throws StyleViewerIsNullException, MapIsNullRutimeException, MapBoundsIsNullRuntimeException
+					OnlineMap pFillingMap) throws StyleViewerIsNullException, MapIsNullRutimeException, MapBoundsIsNullRuntimeException,
+					ConnectionErrorException
 	{
 		if (pLoadingSectorBounds == null)
 			throw new MapBoundsIsNullRuntimeException();
@@ -58,16 +61,17 @@ public class OnlineMapLoader
 		if (pLoadingSectorBounds.isZero())
 			return;
 
+		String connectionString = "http://api.openstreetmap.org/api/0.6/map?bbox=35.7155,53.9239,35.7811,53.971";
 		try
 		{
-			URL openStreetMapURL = new URL("http://api.openstreetmap.org/api/0.6/map?bbox=35.7155,53.9239,35.7811,53.971");;
+			URL openStreetMapURL = new URL(connectionString);
 			URLConnection openStreetMapConnection = openStreetMapURL.openConnection();
 			onlineParser.convert(openStreetMapConnection.getInputStream());
-			fillMapWithPoints(onlineParser.getParserNodes(), pFillingMap);
+			fillMapWithPoints(onlineParser.getParserNodes(), pStyleViewer, pFillingMap);
 		}
 		catch (MalformedURLException ex)
 		{
-			// connection error
+			throw new ConnectionErrorException(connectionString);
 		}
 		catch (IOException ex)
 		{
@@ -87,11 +91,15 @@ public class OnlineMapLoader
 	 * Create map points from osm nodes and add them to map
 	 *
 	 * @param pNodes array of nodes, readed from .osm
+	 * @param pStyleViewer style viewer for assigning style index for creating map
+	 * points
 	 * @param pFillingMap map, filling with map points, created by osm nodes
 	 */
-	protected void fillMapWithPoints(ArrayList<OsmNode> pNodes, OnlineMap pFillingMap)
+	protected void fillMapWithPoints(ArrayList<OsmNode> pNodes, StyleViewer pStyleViewer, OnlineMap pFillingMap)
 	{
 		if (pFillingMap == null)
+			return;
+		if (pStyleViewer == null)
 			return;
 		if (pNodes == null)
 			return;
@@ -102,7 +110,10 @@ public class OnlineMapLoader
 		{
 			MapPoint newPoint = createMapPointByOsmNode(currentNode);
 			if (newPoint != null)
+			{
+				newPoint.assignStyleIndex(pStyleViewer);
 				pFillingMap.addObject(newPoint);
+			}
 		}
 	}
 
