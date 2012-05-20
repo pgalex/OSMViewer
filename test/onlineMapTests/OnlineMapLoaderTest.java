@@ -38,6 +38,8 @@ public class OnlineMapLoaderTest
 			createDefenitionTagsIncorrectParametersTest();
 			createMapPointNormalWorkTest();
 			createMapPointIncorrectParametersTest();
+			fillMapWithPointsIncorrectParametersTest();
+			fillMapWithPointsNormalWorkTest();
 		}
 
 		/**
@@ -151,21 +153,69 @@ public class OnlineMapLoaderTest
 				assertEquals(osmNode.getTags().get(i).getValue(), pointByNode.getDefenitionTags().get(i).getValue());
 			}
 		}
-		
+
 		/**
 		 * Test creating map point by osm node with incorrect parameters
 		 */
 		private void createMapPointIncorrectParametersTest()
 		{
 			assertNull(createMapPointByOsmNode(null));
-			
+
 			OsmNode nodeWithoutTags = new OsmNode();
 			nodeWithoutTags.setTags(null);
 			assertNull(createMapPointByOsmNode(nodeWithoutTags));
-			
+
 			OsmNode nodeWithEmptyTags = new OsmNode();
 			nodeWithoutTags.setTags(new ArrayList<OsmTag>());
 			assertNull(createMapPointByOsmNode(nodeWithEmptyTags));
+		}
+
+		/**
+		 * Testing fillMapWithPoints with incorrect parameters
+		 */
+		private void fillMapWithPointsIncorrectParametersTest()
+		{
+			try
+			{
+				OnlineMapLoader testLoader = new OnlineMapLoader();
+				testLoader.loadToMap(null, null, null);
+				testLoader.loadToMap(new MapBounds(0, 0, 0, 0), null, null);
+				testLoader.loadToMap(new MapBounds(1, 2, 3, 4), DrawingStyleFactory.createStyleViewer(), null);
+				testLoader.loadToMap(new MapBounds(1, 2, 3, 4), null, new OnlineMap());
+				testLoader.loadToMap(new MapBounds(1, 2, 3, 4), DrawingStyleFactory.createStyleViewer(), new OnlineMap());
+			}
+			catch (Exception ex)
+			{
+				// not need exceptions
+				fail();
+			}
+		}
+		
+		/**
+		 * Testing fillMapWithPoints with incorrect parameters
+		 */
+		private void fillMapWithPointsNormalWorkTest()
+		{
+			/*try
+			{
+				StyleEditor styleEditor = DrawingStyleFactory.createStyleEditor();
+				EditableDefenitionTags testStyleTags = new EditableDefenitionTags();
+				testStyleTags.add(new MapTag("k1", "v1"));
+				MapObjectStyle testStyle = new MapObjectStyle(true, true, true, null, 0, "", null, testStyleTags);
+				styleEditor.add(testStyle);
+				
+				
+				OsmNode node = new OsmNode();
+				node.setLatitude(11);
+				node.setLongitude(12);
+				node.setId(123456789);
+				
+			}
+			catch (Exception ex)
+			{
+				// not need exceptions
+				fail();
+			}*/
 		}
 	}
 
@@ -185,6 +235,10 @@ public class OnlineMapLoaderTest
 		{
 			// ok
 		}
+		catch(Exception ex)
+		{
+			fail();
+		}
 	}
 
 	/**
@@ -203,6 +257,10 @@ public class OnlineMapLoaderTest
 		{
 			// ok
 		}
+		catch(Exception ex)
+		{
+			fail();
+		}
 	}
 
 	/**
@@ -220,6 +278,10 @@ public class OnlineMapLoaderTest
 		catch (MapIsNullRutimeException ex)
 		{
 			// ok
+		}
+		catch(Exception ex)
+		{
+			fail();
 		}
 	}
 
