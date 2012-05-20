@@ -4,6 +4,7 @@ import drawingStyle.DrawingStyleFactory;
 import java.util.ArrayList;
 import map.DefenitionTags;
 import map.MapBounds;
+import map.MapPoint;
 import map.MapTag;
 import map.exceptions.MapBoundsIsNullRuntimeException;
 import map.exceptions.MapIsNullRutimeException;
@@ -11,7 +12,8 @@ import map.exceptions.StyleViewerIsNullException;
 import onlineMap.OnlineMap;
 import onlineMap.OnlineMapLoader;
 import static org.junit.Assert.*;
-import org.junit.*;
+import org.junit.Test;
+import osmXml.OsmNode;
 import osmXml.OsmTag;
 
 /**
@@ -34,6 +36,8 @@ public class OnlineMapLoaderTest
 			createMapTagIncorrectParametersTest();
 			createDefenitionTagsNormalWorkTest();
 			createDefenitionTagsIncorrectParametersTest();
+			createMapPointNormalWorkTest();
+			createMapPointIncorrectParametersTest();
 		}
 
 		/**
@@ -44,14 +48,14 @@ public class OnlineMapLoaderTest
 			OsmTag osmTag = new OsmTag("k1", "v1");
 			MapTag mapTag = createMapTagByOsmTag(osmTag);
 			assertNotNull(mapTag);
-			assertEquals(mapTag.getKey(), osmTag.getKey());
-			assertEquals(mapTag.getValue(), osmTag.getValue());
+			assertEquals(osmTag.getKey(), mapTag.getKey());
+			assertEquals(osmTag.getValue(), mapTag.getValue());
 
 			osmTag = new OsmTag("k1", "");
 			mapTag = createMapTagByOsmTag(osmTag);
 			assertNotNull(mapTag);
-			assertEquals(mapTag.getKey(), osmTag.getKey());
-			assertEquals(mapTag.getValue(), osmTag.getValue());
+			assertEquals(osmTag.getKey(), mapTag.getKey());
+			assertEquals(osmTag.getValue(), mapTag.getValue());
 		}
 
 		/**
@@ -116,6 +120,52 @@ public class OnlineMapLoaderTest
 			assertNotNull(tagsByByContainsNull);
 			assertEquals(1, tagsByByContainsNull.size());
 			assertNotNull(tagsByByContainsNull.get(0));
+		}
+
+		/**
+		 * Test creating map point by osm node normal work
+		 */
+		private void createMapPointNormalWorkTest()
+		{
+			ArrayList<OsmTag> nodeTags = new ArrayList<OsmTag>();
+			nodeTags.add(new OsmTag("k1", "v1"));
+			nodeTags.add(new OsmTag("k2", "v2"));
+			nodeTags.add(new OsmTag("k3", "v3"));
+
+			OsmNode osmNode = new OsmNode();
+			osmNode.setTags(nodeTags);
+			osmNode.setId(123456789);
+			osmNode.setLatitude(Math.random() * 10);
+			osmNode.setLongitude(Math.random() * -10);
+
+			MapPoint pointByNode = createMapPointByOsmNode(osmNode);
+			assertNotNull(pointByNode);
+			assertNull(pointByNode.getStyleIndex());
+			assertEquals(osmNode.getId(), pointByNode.getId());
+			assertEquals(osmNode.getLatitude(), pointByNode.getPosition().getLatitude(), 0.00001);
+			assertEquals(osmNode.getLongitude(), pointByNode.getPosition().getLongitude(), 0.00001);
+			assertEquals(osmNode.getTags().size(), pointByNode.getDefenitionTags().size());
+			for (int i = 0; i < pointByNode.getDefenitionTags().size(); i++)
+			{
+				assertEquals(osmNode.getTags().get(i).getKey(), pointByNode.getDefenitionTags().get(i).getKey());
+				assertEquals(osmNode.getTags().get(i).getValue(), pointByNode.getDefenitionTags().get(i).getValue());
+			}
+		}
+		
+		/**
+		 * Test creating map point by osm node with incorrect parameters
+		 */
+		private void createMapPointIncorrectParametersTest()
+		{
+			assertNull(createMapPointByOsmNode(null));
+			
+			OsmNode nodeWithoutTags = new OsmNode();
+			nodeWithoutTags.setTags(null);
+			assertNull(createMapPointByOsmNode(nodeWithoutTags));
+			
+			OsmNode nodeWithEmptyTags = new OsmNode();
+			nodeWithoutTags.setTags(new ArrayList<OsmTag>());
+			assertNull(createMapPointByOsmNode(nodeWithEmptyTags));
 		}
 	}
 

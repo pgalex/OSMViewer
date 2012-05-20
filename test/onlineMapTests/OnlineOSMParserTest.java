@@ -1,13 +1,12 @@
 package onlineMapTests;
 
-import onlineMap.OnlineOSMParser;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import onlineMap.OnlineOSMParser;
 import static org.junit.Assert.*;
 import org.junit.*;
-import org.xml.sax.InputSource;
 import osmXml.OsmBounds;
 import osmXml.OsmNode;
 import osmXml.OsmRelation;
