@@ -54,10 +54,10 @@ public class OnlineMapLoader
 			throw new StyleViewerIsNullException();
 		if (pFillingMap == null)
 			throw new MapIsNullRutimeException();
-		
+
 		if (pLoadingSectorBounds.isZero())
 			return;
-		
+
 		try
 		{
 			URL openStreetMapURL = new URL("http://api.openstreetmap.org/api/0.6/map?bbox=35.7155,53.9239,35.7811,53.971");;
@@ -97,7 +97,7 @@ public class OnlineMapLoader
 			return;
 		if (pNodes.isEmpty())
 			return;
-		
+
 		for (OsmNode currentNode : pNodes)
 		{
 			MapPoint newPoint = createMapPointByOsmNode(currentNode);
@@ -121,14 +121,14 @@ public class OnlineMapLoader
 			return null;
 		if (pNode.getTags().isEmpty())
 			return null;
-		
+
 		DefenitionTags creatingPointTags = createDefentionTagsByOsmTags(pNode.getTags());
 		if (creatingPointTags == null)
 			return null;
-		
+
 		MapPoint creatingPoint = new MapPoint(new MapPosition(pNode.getLatitude(), pNode.getLongitude()),
 						pNode.getId(), creatingPointTags);
-		
+
 		return creatingPoint;
 	}
 
@@ -142,7 +142,7 @@ public class OnlineMapLoader
 	{
 		if (pOsmTags == null)
 			return null;
-		
+
 		EditableDefenitionTags creatingTags = new EditableDefenitionTags();
 		for (int i = 0; i < pOsmTags.size(); i++)
 		{
@@ -165,7 +165,7 @@ public class OnlineMapLoader
 			return null;
 		if (pOsmTag.getKey().isEmpty() || pOsmTag.getValue().isEmpty())
 			return null;
-		
+
 		return new MapTag(pOsmTag.getKey(), pOsmTag.getValue());
 	}
 }
