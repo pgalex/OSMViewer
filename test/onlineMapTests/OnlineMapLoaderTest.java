@@ -178,11 +178,11 @@ public class OnlineMapLoaderTest
 			try
 			{
 				OnlineMapLoader testLoader = new OnlineMapLoader();
-				testLoader.loadToMap(null, null, null);
-				testLoader.loadToMap(new MapBounds(0, 0, 0, 0), null, null);
-				testLoader.loadToMap(new MapBounds(1, 2, 3, 4), DrawingStyleFactory.createStyleViewer(), null);
-				testLoader.loadToMap(new MapBounds(1, 2, 3, 4), null, new OnlineMap());
-				testLoader.loadToMap(new MapBounds(1, 2, 3, 4), DrawingStyleFactory.createStyleViewer(), new OnlineMap());
+				fillMapWithPoints(null, null, null);
+				fillMapWithPoints(new ArrayList<OsmNode>(), null, null);
+				fillMapWithPoints(new ArrayList<OsmNode>(1), DrawingStyleFactory.createStyleViewer(), null);
+				fillMapWithPoints(new ArrayList<OsmNode>(2), null, new OnlineMap());
+				fillMapWithPoints(new ArrayList<OsmNode>(3), DrawingStyleFactory.createStyleViewer(), new OnlineMap());
 			}
 			catch (Exception ex)
 			{
