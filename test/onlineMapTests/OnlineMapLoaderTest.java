@@ -177,7 +177,6 @@ public class OnlineMapLoaderTest
 		{
 			try
 			{
-				OnlineMapLoader testLoader = new OnlineMapLoader();
 				fillMapWithPoints(null, null, null);
 				fillMapWithPoints(new ArrayList<OsmNode>(), null, null);
 				fillMapWithPoints(new ArrayList<OsmNode>(1), DrawingStyleFactory.createStyleViewer(), null);
