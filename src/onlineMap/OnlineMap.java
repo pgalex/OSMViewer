@@ -18,7 +18,7 @@ public class OnlineMap implements Map
 	/**
 	 * Objects on a map
 	 */
-	private ArrayList<MapObject> objects;
+	protected ArrayList<MapObject> objects;
 
 	/**
 	 * Default constructor

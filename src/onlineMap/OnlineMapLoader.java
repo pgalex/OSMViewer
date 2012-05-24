@@ -67,6 +67,7 @@ public class OnlineMapLoader
 			URL openStreetMapURL = new URL(connectionString);
 			URLConnection openStreetMapConnection = openStreetMapURL.openConnection();
 			onlineParser.convert(openStreetMapConnection.getInputStream());
+			
 			fillMapWithPoints(onlineParser.getParserNodes(), pStyleViewer, pFillingMap);
 		}
 		catch (MalformedURLException ex)

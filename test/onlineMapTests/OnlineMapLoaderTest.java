@@ -1,11 +1,11 @@
 package onlineMapTests;
 
+import com.sun.tools.internal.xjc.generator.bean.field.NoExtendedContentField;
 import drawingStyle.DrawingStyleFactory;
+import drawingStyle.MapObjectStyle;
+import drawingStyle.StyleEditor;
 import java.util.ArrayList;
-import map.DefenitionTags;
-import map.MapBounds;
-import map.MapPoint;
-import map.MapTag;
+import map.*;
 import map.exceptions.MapBoundsIsNullRuntimeException;
 import map.exceptions.MapIsNullRutimeException;
 import map.exceptions.StyleViewerIsNullException;
@@ -22,6 +22,22 @@ import osmXml.OsmTag;
  */
 public class OnlineMapLoaderTest
 {
+	/**
+	 * Uses to get access to private section of OnlineMap
+	 */
+	private class TestOnlineMap extends OnlineMap
+	{
+		/**
+		 * Get stored map objects
+		 *
+		 * @return array of stored map objects
+		 */
+		public ArrayList<MapObject> getObjects()
+		{
+			return objects;
+		}
+	}
+
 	/**
 	 * Uses to get access to protected methods of OnlineMapLoader for testing
 	 */
@@ -189,32 +205,51 @@ public class OnlineMapLoaderTest
 				fail();
 			}
 		}
-		
+
 		/**
 		 * Testing fillMapWithPoints with incorrect parameters
 		 */
 		private void fillMapWithPointsNormalWorkTest()
 		{
-			/*try
+
+			try
 			{
 				StyleEditor styleEditor = DrawingStyleFactory.createStyleEditor();
 				EditableDefenitionTags testStyleTags = new EditableDefenitionTags();
 				testStyleTags.add(new MapTag("k1", "v1"));
 				MapObjectStyle testStyle = new MapObjectStyle(true, true, true, null, 0, "", null, testStyleTags);
 				styleEditor.add(testStyle);
-				
-				
+
+
+				ArrayList<OsmTag> nodeTags = new ArrayList<OsmTag>();
+				nodeTags.add(new OsmTag("k1", "v1"));
 				OsmNode node = new OsmNode();
 				node.setLatitude(11);
 				node.setLongitude(12);
 				node.setId(123456789);
-				
+				node.setTags(nodeTags);
+
+
+				ArrayList<OsmNode> osmNodes = new ArrayList<OsmNode>();
+				osmNodes.add(node);
+
+				TestOnlineMap testMap = new TestOnlineMap();
+				fillMapWithPoints(osmNodes, styleEditor, testMap);
+
+				assertEquals(1, testMap.getObjects().size());
+				assertEquals(node.getId(), testMap.getObjects().get(0).getId());
+				assertEquals((Integer) 0, testMap.getObjects().get(0).getStyleIndex());
+				for (int i = 0; i < nodeTags.size(); i++)
+				{
+					assertEquals(nodeTags.get(i).getKey(), testMap.getObjects().get(0).getDefenitionTags().get(i).getKey());
+					assertEquals(nodeTags.get(i).getValue(), testMap.getObjects().get(0).getDefenitionTags().get(i).getValue());
+				}
 			}
 			catch (Exception ex)
 			{
-				// not need exceptions
 				fail();
-			}*/
+			}
+
 		}
 	}
 
@@ -234,7 +269,7 @@ public class OnlineMapLoaderTest
 		{
 			// ok
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			fail();
 		}
@@ -256,7 +291,7 @@ public class OnlineMapLoaderTest
 		{
 			// ok
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			fail();
 		}
@@ -278,7 +313,7 @@ public class OnlineMapLoaderTest
 		{
 			// ok
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			fail();
 		}
