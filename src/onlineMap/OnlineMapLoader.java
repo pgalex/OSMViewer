@@ -78,10 +78,6 @@ public class OnlineMapLoader
 		{
 			throw new ReadingFromServerErrorException();
 		}
-		catch (OutOfMemoryError ex)
-		{
-			throw ex;
-		}
 		catch (Exception ex)
 		{
 			throw new OsmParsingErrorException();
