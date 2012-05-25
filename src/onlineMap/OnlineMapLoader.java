@@ -41,6 +41,7 @@ public class OnlineMapLoader
 	 * @throws StyleViewerIsNullException style viewer is null
 	 * @throws MapIsNullRutimeException online map is null
 	 * @throws MapBoundsIsNullRuntimeException loading sector bounds is null
+	 * @throws OutOfMemoryError out of memory
 	 * @throws ConnectionErrorException error while connecting to osm server
 	 * @throws ReadingFromServerErrorException error while reading .osm from
 	 * server
@@ -49,7 +50,7 @@ public class OnlineMapLoader
 	 */
 	public void loadToMap(MapBounds pLoadingSectorBounds, StyleViewer pStyleViewer,
 					OnlineMap pFillingMap) throws StyleViewerIsNullException, MapIsNullRutimeException, MapBoundsIsNullRuntimeException,
-					ConnectionErrorException, ReadingFromServerErrorException, OsmParsingErrorException
+					OutOfMemoryError, ConnectionErrorException, ReadingFromServerErrorException, OsmParsingErrorException
 	{
 		if (pLoadingSectorBounds == null)
 			throw new MapBoundsIsNullRuntimeException();
@@ -77,6 +78,10 @@ public class OnlineMapLoader
 		catch (IOException ex)
 		{
 			throw new ReadingFromServerErrorException();
+		}
+		catch (OutOfMemoryError ex)
+		{
+			throw ex;
 		}
 		catch (Exception ex)
 		{
