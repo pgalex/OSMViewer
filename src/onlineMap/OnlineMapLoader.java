@@ -7,10 +7,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import map.*;
-import map.exceptions.ConnectionErrorException;
-import map.exceptions.MapBoundsIsNullRuntimeException;
-import map.exceptions.MapIsNullRutimeException;
-import map.exceptions.StyleViewerIsNullException;
+import map.exceptions.*;
 import osmXml.OsmNode;
 import osmXml.OsmTag;
 
@@ -45,11 +42,14 @@ public class OnlineMapLoader
 	 * @throws MapIsNullRutimeException online map is null
 	 * @throws MapBoundsIsNullRuntimeException loading sector bounds is null
 	 * @throws ConnectionErrorException error while connecting to osm server
+	 * @throws ReadingFromServerErrorException error while reading .osm from
+	 * server
+	 * @throws OsmParsingErrorException error while parsing readed .osm xml data
 	 * @throws NullPointerException some parameters are null
 	 */
 	public void loadToMap(MapBounds pLoadingSectorBounds, StyleViewer pStyleViewer,
 					OnlineMap pFillingMap) throws StyleViewerIsNullException, MapIsNullRutimeException, MapBoundsIsNullRuntimeException,
-					ConnectionErrorException
+					ConnectionErrorException, ReadingFromServerErrorException, OsmParsingErrorException
 	{
 		if (pLoadingSectorBounds == null)
 			throw new MapBoundsIsNullRuntimeException();
@@ -67,7 +67,7 @@ public class OnlineMapLoader
 			URL openStreetMapURL = new URL(connectionString);
 			URLConnection openStreetMapConnection = openStreetMapURL.openConnection();
 			onlineParser.convert(openStreetMapConnection.getInputStream());
-			
+
 			fillMapWithPoints(onlineParser.getParserNodes(), pStyleViewer, pFillingMap);
 		}
 		catch (MalformedURLException ex)
@@ -76,15 +76,15 @@ public class OnlineMapLoader
 		}
 		catch (IOException ex)
 		{
-			// getting data error
+			throw new ReadingFromServerErrorException();
 		}
 		catch (OutOfMemoryError ex)
 		{
-			// out of memory error
+			throw ex;
 		}
 		catch (Exception ex)
 		{
-			// parsing error
+			throw new OsmParsingErrorException();
 		}
 	}
 
