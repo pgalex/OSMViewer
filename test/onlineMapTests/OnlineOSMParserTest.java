@@ -54,14 +54,14 @@ public class OnlineOSMParserTest
 			converter.convert(new FileInputStream(new File(TEST_MAP_FILE_NAME)));
 
 			//границы
-			OsmBounds bounds = converter.getParserBounds();
+			OsmBounds bounds = converter.getBounds();
 			assertEquals(10.1, bounds.getLatitudeMinimum(), 0.001);
 			assertEquals(20.1, bounds.getLongitudeMinimum(), 0.001);
 			assertEquals(10.3, bounds.getLatitudeMaximum(), 0.001);
 			assertEquals(20.3, bounds.getLongitudeMaximum(), 0.001);
 
 			//точка
-			ArrayList<OsmNode> nodes = converter.getParserNodes();
+			ArrayList<OsmNode> nodes = converter.getNodes();
 			assertEquals(123456789, nodes.get(0).getId());
 			assertEquals(55.55, nodes.get(0).getLatitude(), 0.001);
 			assertEquals(38.38, nodes.get(0).getLongitude(), 0.001);
@@ -71,7 +71,7 @@ public class OnlineOSMParserTest
 			assertEquals("halt", nodes.get(0).getTags().get(1).getValue());
 
 			//ways
-			ArrayList<OsmWay> ways = converter.getParserWays();
+			ArrayList<OsmWay> ways = converter.getWays();
 			OsmWay tempWay = ways.get(0);
 			assertEquals(107289909, tempWay.getId());
 			assertEquals(1233435465, (long) tempWay.getNodesIds().get(0));
@@ -83,7 +83,7 @@ public class OnlineOSMParserTest
 			assertEquals("Луговая улица", tempWay.getTags().get(1).getValue());
 
 			//relation
-			ArrayList<OsmRelation> relations = converter.getParserRelations();
+			ArrayList<OsmRelation> relations = converter.getRelations();
 			OsmRelation tempRelation = relations.get(0);
 			assertEquals((long) 1693664, tempRelation.id);
 			assertEquals("type", tempRelation.tags.get(0).getKey());

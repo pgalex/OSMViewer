@@ -323,7 +323,7 @@ public class OnlineOSMParser
 	 *
 	 * @return
 	 */
-	public OsmBounds getParserBounds()
+	public OsmBounds getBounds()
 	{
 		return handler.bounds;
 	}
@@ -333,7 +333,7 @@ public class OnlineOSMParser
 	 *
 	 * @return
 	 */
-	public ArrayList<OsmNode> getParserNodes()
+	public ArrayList<OsmNode> getNodes()
 	{
 		return handler.nodes;
 	}
@@ -343,7 +343,7 @@ public class OnlineOSMParser
 	 *
 	 * @return
 	 */
-	public ArrayList<OsmWay> getParserWays()
+	public ArrayList<OsmWay> getWays()
 	{
 		return handler.ways;
 	}
@@ -353,7 +353,7 @@ public class OnlineOSMParser
 	 *
 	 * @return
 	 */
-	public ArrayList<OsmRelation> getParserRelations()
+	public ArrayList<OsmRelation> getRelations()
 	{
 		return handler.relations;
 	}

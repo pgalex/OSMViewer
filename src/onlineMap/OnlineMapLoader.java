@@ -12,8 +12,8 @@ import osmXml.OsmNode;
 import osmXml.OsmTag;
 
 /**
- * Creates connection to openstreetmap.org and loads map data and convertes it
- * to online map for rendering. Knows how to fill Map by osm objects
+ * Creates connection to openstreetmap.org, loads map data and convertes it to
+ * online map for rendering. Knows how to fill Map by osm objects
  *
  * @author pgalex
  */
@@ -59,6 +59,7 @@ public class OnlineMapLoader
 		if (pFillingMap == null)
 			throw new MapIsNullRutimeException();
 
+		// nothing to load
 		if (pLoadingSectorBounds.isZero())
 			return;
 
@@ -69,7 +70,7 @@ public class OnlineMapLoader
 			URLConnection openStreetMapConnection = openStreetMapURL.openConnection();
 			onlineParser.convert(openStreetMapConnection.getInputStream());
 
-			fillMapWithPoints(onlineParser.getParserNodes(), pStyleViewer, pFillingMap);
+			fillMapWithPoints(onlineParser.getNodes(), pStyleViewer, pFillingMap);
 		}
 		catch (MalformedURLException ex)
 		{
@@ -137,6 +138,8 @@ public class OnlineMapLoader
 
 		DefenitionTags creatingPointTags = createDefentionTagsByOsmTags(pNode.getTags());
 		if (creatingPointTags == null)
+			return null;
+		if(creatingPointTags.isEmpty())
 			return null;
 
 		MapPoint creatingPoint = new MapPoint(new MapPosition(pNode.getLatitude(), pNode.getLongitude()),
