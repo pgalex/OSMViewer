@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import onlineMap.OnlineOSMParser;
+import onlineMap.OnlineOsmParser;
 import static org.junit.Assert.*;
 import org.junit.*;
 import osmXml.OsmBounds;
@@ -50,7 +50,7 @@ public class OnlineOSMParserTest
 
 		try
 		{
-			OnlineOSMParser converter = new OnlineOSMParser();
+			OnlineOsmParser converter = new OnlineOsmParser();
 			converter.convert(new FileInputStream(new File(TEST_MAP_FILE_NAME)));
 
 			//границы

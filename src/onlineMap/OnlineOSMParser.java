@@ -14,7 +14,7 @@ import osmXml.*;
  *
  * @author preobrazhentsev
  */
-public class OnlineOSMParser
+public class OnlineOsmParser
 {
 	/**
 	 * Xml parsing events handler for online work
@@ -292,7 +292,7 @@ public class OnlineOSMParser
 	/**
 	 * Конструктор
 	 */
-	public OnlineOSMParser()
+	public OnlineOsmParser()
 	{
 		handler = new OnlineSaxHandler();
 	}

@@ -22,14 +22,14 @@ public class OnlineMapLoader
 	/**
 	 * Parser for converting .osm xml data to map objects
 	 */
-	private OnlineOSMParser onlineParser;
+	private OnlineOsmParser onlineParser;
 
 	/**
 	 * Default constructor
 	 */
 	public OnlineMapLoader()
 	{
-		onlineParser = new OnlineOSMParser();
+		onlineParser = new OnlineOsmParser();
 	}
 
 	/**
