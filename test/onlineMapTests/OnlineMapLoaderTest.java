@@ -1,6 +1,5 @@
 package onlineMapTests;
 
-import com.sun.tools.internal.xjc.generator.bean.field.NoExtendedContentField;
 import drawingStyle.DrawingStyleFactory;
 import drawingStyle.MapObjectStyle;
 import drawingStyle.StyleEditor;
@@ -184,8 +183,17 @@ public class OnlineMapLoaderTest
 			OsmNode nodeWithEmptyTags = new OsmNode();
 			nodeWithoutTags.setTags(new ArrayList<OsmTag>());
 			assertNull(createMapPointByOsmNode(nodeWithEmptyTags));
+			
+			OsmNode nodeContainsNullTags = new OsmNode();
+			ArrayList<OsmTag> tagsContiansNull = new ArrayList<OsmTag>(4);
+			tagsContiansNull.add(null);
+			tagsContiansNull.add(null);
+			tagsContiansNull.add(null);
+			tagsContiansNull.add(null);
+			nodeContainsNullTags.setTags(tagsContiansNull);
+			assertNull(createMapPointByOsmNode(nodeContainsNullTags));
 		}
-
+		
 		/**
 		 * Testing fillMapWithPoints with incorrect parameters
 		 */

@@ -128,18 +128,15 @@ public class OnlineMapLoader
 	 */
 	protected MapPoint createMapPointByOsmNode(OsmNode pNode)
 	{
-
 		if (pNode == null)
-			return null;
-		if (pNode.getTags() == null)
-			return null;
-		if (pNode.getTags().isEmpty())
 			return null;
 
 		DefenitionTags creatingPointTags = createDefentionTagsByOsmTags(pNode.getTags());
+		// node without tag is not a MapPoint (can not be displayed), 
+		// it will be included in MapLine only like MapPosition
 		if (creatingPointTags == null)
 			return null;
-		if(creatingPointTags.isEmpty())
+		if (creatingPointTags.isEmpty())
 			return null;
 
 		MapPoint creatingPoint = new MapPoint(new MapPosition(pNode.getLatitude(), pNode.getLongitude()),
