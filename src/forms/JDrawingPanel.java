@@ -18,12 +18,25 @@ public class JDrawingPanel extends JPanel
 
 	/**
 	 * Default constructor
+	 *
 	 */
 	public JDrawingPanel()
 	{
 		super();
 
 		painter = null;
+	}
+
+	/**
+	 * Constructor
+	 *
+	 * @param pPainter object that will draw on panel
+	 */
+	public JDrawingPanel(DrawableOnPanel pPainter)
+	{
+		super();
+
+		painter = pPainter;
 	}
 
 	/**

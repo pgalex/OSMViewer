@@ -60,13 +60,13 @@ public class JFrameMain extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanelCanvas = new javax.swing.JPanel();
+        jPanelCanvas = new JDrawingPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("OpenStreetMap Viewer");
 
-        jPanelCanvas.setBackground(new java.awt.Color(255, 204, 153));
-        jPanelCanvas.setForeground(new java.awt.Color(153, 255, 153));
+        jPanelCanvas.setBackground(new java.awt.Color(204, 204, 204));
+        jPanelCanvas.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanelCanvasLayout = new javax.swing.GroupLayout(jPanelCanvas);
         jPanelCanvas.setLayout(jPanelCanvasLayout);
