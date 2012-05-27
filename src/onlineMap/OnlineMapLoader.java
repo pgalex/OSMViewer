@@ -46,7 +46,6 @@ public class OnlineMapLoader
 	 * @throws ReadingFromServerErrorException error while reading .osm from
 	 * server
 	 * @throws OsmParsingErrorException error while parsing readed .osm xml data
-	 * @throws NullPointerException some parameters are null
 	 */
 	public void loadToMap(MapBounds pLoadingSectorBounds, StyleViewer pStyleViewer,
 					OnlineMap pFillingMap) throws StyleViewerIsNullException, MapIsNullRutimeException, MapBoundsIsNullRuntimeException,
