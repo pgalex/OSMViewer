@@ -34,7 +34,7 @@ public class PointDrawStyle implements ReadableMapData, WritableMapData
 	public PointDrawStyle(IOIcon pIcon)
 	{
 		icon = pIcon;
-		InitializeNullFields();
+		initializeNullFields();
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class PointDrawStyle implements ReadableMapData, WritableMapData
 	/**
 	 * Инициализировать null поля значениями по умолчанию
 	 */
-	private void InitializeNullFields()
+	private void initializeNullFields()
 	{
 		if (icon == null)
 			icon = new IOIcon();

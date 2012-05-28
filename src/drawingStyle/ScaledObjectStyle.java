@@ -88,7 +88,7 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 		textColor = pTextColor;
 		textFont = pTextFont;
 
-		InitializeNullFields();
+		initializeNullFields();
 	}
 
 	/**
@@ -228,7 +228,7 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	/**
 	 * Auto-initialize null fields
 	 */
-	private void InitializeNullFields()
+	private void initializeNullFields()
 	{
 		if (pointStyle == null)
 			pointStyle = new PointDrawStyle();

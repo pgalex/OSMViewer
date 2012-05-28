@@ -52,7 +52,7 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 		borderDrawStyle = pBorderDrawStyle;
 		fillImage = pFillImage;
 
-		InitializeNullFields();
+		initializeNullFields();
 	}
 
 	/**
@@ -130,7 +130,7 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 	/**
 	 * Инициализировать null поля значениями по умолчанию
 	 */
-	private void InitializeNullFields()
+	private void initializeNullFields()
 	{
 		if (fillColor == null)
 			fillColor = new IOColor();

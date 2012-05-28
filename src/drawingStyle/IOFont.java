@@ -39,7 +39,7 @@ public class IOFont implements ReadableMapData, WritableMapData
 	public IOFont(Font pFont)
 	{
 		font = pFont;
-		InitializeNullFields();
+		initializeNullFields();
 	}
 
 	/**
@@ -88,7 +88,7 @@ public class IOFont implements ReadableMapData, WritableMapData
 	/**
 	 * Default values into null fields
 	 */
-	private void InitializeNullFields()
+	private void initializeNullFields()
 	{
 		if (font == null)
 			font = DEFAULT_FONT;

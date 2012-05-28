@@ -62,7 +62,7 @@ public class OnlineMapLoader
 		if (pLoadingSectorBounds.isZero())
 			return;
 
-		String connectionString = "http://api.openstreetmap.org/api/0.6/map?bbox=35.7155,53.9239,35.7811,53.971";
+		String connectionString = "http://api.openstreetmap.org/api/0.6/map?bbox=38.58592,55.18779,38.61875,55.21061";
 		try
 		{
 			URL openStreetMapURL = new URL(connectionString);

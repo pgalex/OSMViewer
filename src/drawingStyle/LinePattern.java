@@ -41,7 +41,7 @@ public class LinePattern implements ReadableMapData, WritableMapData
 	public LinePattern(float[] pPattern)
 	{
 		pattern = pPattern;
-		InitializeNullFields();
+		initializeNullFields();
 	}
 
 	/**
@@ -100,7 +100,7 @@ public class LinePattern implements ReadableMapData, WritableMapData
 	/**
 	 * Autocreate null fields with default values
 	 */
-	private void InitializeNullFields()
+	private void initializeNullFields()
 	{
 		if (pattern == null)
 			pattern = SOLID_LINE_PATTERN;

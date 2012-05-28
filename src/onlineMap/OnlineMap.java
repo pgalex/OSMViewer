@@ -35,8 +35,11 @@ public class OnlineMap implements Map
 	 */
 	public void addObject(MapObject pObject)
 	{
-		if (pObject != null)
-			objects.add(pObject);
+		if (pObject == null)
+			return;
+
+		//if (pObject.getStyleIndex() != null)
+		objects.add(pObject);
 	}
 
 	/**

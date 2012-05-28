@@ -94,7 +94,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData, Compara
 		description = pDescription;
 		scaledStyles = pScaledStyles;
 		defenitionTags = pDefenitionTags;
-		InitializeNullFields();
+		initializeNullFields();
 	}
 
 	/**
@@ -232,7 +232,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData, Compara
 	/**
 	 * Set default values into null fields
 	 */
-	private void InitializeNullFields()
+	private void initializeNullFields()
 	{
 		if (scaledStyles == null)
 			scaledStyles = new ScaledObjectStyleArray();

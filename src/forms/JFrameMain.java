@@ -1,18 +1,11 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * JFrameMain.java
  *
  * Created on 28.11.2011, 8:12:47
  */
 package forms;
 
-import drawingStyle.*;
-import map.EditableDefenitionTags;
-import map.MapTag;
+import onlineMap.OnlineMapProcessor;
 
 /**
  * Главное окно
@@ -22,33 +15,20 @@ import map.MapTag;
 public class JFrameMain extends javax.swing.JFrame
 {
 	/**
-	 * Style editor for testing
+	 * Current map processor
 	 */
-	private StyleEditor testStyleEditor;
+	private OnlineMapProcessor mapProcessor;
 
 	/**
 	 * Creates new form JFrameMain
 	 */
 	public JFrameMain()
 	{
-		EditableDefenitionTags highwayTertiaryTags = new EditableDefenitionTags();
-		highwayTertiaryTags.add(new MapTag("highway", "tertiary"));
-
-		ScaledObjectStyle highwayTertiaryStyle = new ScaledObjectStyle(false, true,
-						false, null, new LineDrawStyle(new IOColor(255, 255, 0, 255), 4, null), null,
-						new IOColor(0, 0, 0, 255), new IOFont());
-
-		ScaledObjectStyleArray highwayTertiaryScaledStyles = new ScaledObjectStyleArray();
-		for (int i = 0; i < highwayTertiaryScaledStyles.count(); i++)
-			highwayTertiaryScaledStyles.setStyleOnScale(i, highwayTertiaryStyle);
-
-		MapObjectStyle highwayTertiary = new MapObjectStyle(false, true, false, null,
-						10, "Дорога местного значения", highwayTertiaryScaledStyles, highwayTertiaryTags);
-
-		testStyleEditor = DrawingStyleFactory.createStyleEditor();
-		testStyleEditor.add(highwayTertiary);
+		mapProcessor = new OnlineMapProcessor();
 
 		initComponents();
+
+		mapProcessor.resizeCanvas(jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
 	}
 
 	/**
@@ -60,7 +40,7 @@ public class JFrameMain extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanelCanvas = new JDrawingPanel();
+        jPanelCanvas = new JDrawingPanel(mapProcessor);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("OpenStreetMap Viewer");

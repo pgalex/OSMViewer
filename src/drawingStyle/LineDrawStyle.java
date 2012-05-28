@@ -52,7 +52,7 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 		color = pColor;
 		width = pWidth;
 		pattern = pPattern;
-		InitializeNullFields();
+		initializeNullFields();
 	}
 
 	/**
@@ -130,7 +130,7 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 	/**
 	 * Autocreate null fields
 	 */
-	private void InitializeNullFields()
+	private void initializeNullFields()
 	{
 		if (color == null)
 			color = new IOColor();

@@ -52,7 +52,7 @@ public class IOColor implements WritableMapData, ReadableMapData
 	public IOColor(Color pColor)
 	{
 		color = pColor;
-		InitializeNullField();
+		initializeNullField();
 	}
 
 	/**
@@ -103,7 +103,7 @@ public class IOColor implements WritableMapData, ReadableMapData
 	/**
 	 * Default values into null fields
 	 */
-	private void InitializeNullField()
+	private void initializeNullField()
 	{
 		if (color == null)
 			color = DEFAULT_COLOR;
