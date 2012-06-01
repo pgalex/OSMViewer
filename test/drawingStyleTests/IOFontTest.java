@@ -7,32 +7,27 @@ import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import static org.junit.Assert.*;
-import org.junit.*;
+import org.junit.Test;
 
 /**
+ * Testing IOFont class
  *
  * @author Евгений
  */
 public class IOFontTest
 {
-	private final String TEST_FILE_NAME = "testFile.txt";
-	
-	public IOFontTest()
-	{
-	}
-
 	/**
-	 * Конструктор
+	 * Test auto initialize in contructor
 	 */
 	@Test
-	public void constructorTest()
+	public void autoInitializeTest()
 	{
 		IOFont testFont = new IOFont(null);
 		assertNotNull(testFont.getFont());
 	}
-	
+
 	/**
-	 * Чтение запись
+	 * Reading/writing test
 	 */
 	@Test
 	public void fileTest()
@@ -41,7 +36,7 @@ public class IOFontTest
 		//запись
 		try
 		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			writeFont.writeToStream(output);
 			output.close();
 		}
@@ -55,7 +50,7 @@ public class IOFontTest
 		IOFont readFont = new IOFont();
 		try
 		{
-			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
+			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			readFont.readFromStream(input);
 			input.close();
 			assertEquals(readFont.getFont().getFamily(), writeFont.getFont().getFamily());
@@ -66,25 +61,5 @@ public class IOFontTest
 		{
 			fail();
 		}
-	}
-	
-	@BeforeClass
-	public static void setUpClass() throws Exception
-	{
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception
-	{
-	}
-	
-	@Before
-	public void setUp()
-	{
-	}
-	
-	@After
-	public void tearDown()
-	{
 	}
 }

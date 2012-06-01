@@ -11,9 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import map.EditableDefenitionTags;
 import map.MapTag;
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -22,12 +20,6 @@ import org.junit.Test;
  */
 public class MapObjectStyleTest
 {
-	private final String TEST_FILE_NAME = "testFile.txt";
-
-	public MapObjectStyleTest()
-	{
-	}
-
 	/**
 	 * Test sorting, cuz its comparable. Sorting by tags count. More tags - less
 	 * index
@@ -91,7 +83,7 @@ public class MapObjectStyleTest
 
 		try
 		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			writingStyle.writeToStream(output);
 			output.close();
 		}
@@ -104,7 +96,7 @@ public class MapObjectStyleTest
 		MapObjectStyle readingStyle = new MapObjectStyle();
 		try
 		{
-			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
+			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			readingStyle.readFromStream(input);
 			input.close();
 			assertEquals(writingStyle.isCanBeLine(), readingStyle.isCanBeLine());
@@ -127,15 +119,5 @@ public class MapObjectStyleTest
 		{
 			fail();
 		}
-	}
-
-	@BeforeClass
-	public static void setUpClass() throws Exception
-	{
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception
-	{
 	}
 }

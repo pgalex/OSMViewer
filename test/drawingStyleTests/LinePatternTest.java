@@ -5,9 +5,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -17,12 +15,6 @@ import org.junit.Test;
  */
 public class LinePatternTest
 {
-	private final String TEST_FILE_NAME = "testFile.txt";
-
-	public LinePatternTest()
-	{
-	}
-
 	/**
 	 * Default value in constructor
 	 */
@@ -48,7 +40,7 @@ public class LinePatternTest
 		LinePattern writingPattern = new LinePattern(pattern);
 		try
 		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			writingPattern.writeToStream(output);
 			output.close();
 		}
@@ -61,7 +53,7 @@ public class LinePatternTest
 		LinePattern readingPattern = new LinePattern();
 		try
 		{
-			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
+			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			readingPattern.readFromStream(input);
 			input.close();
 			assertArrayEquals(writingPattern.getPattern(), readingPattern.getPattern(), 0.01f);
@@ -70,15 +62,5 @@ public class LinePatternTest
 		{
 			fail();
 		}
-	}
-
-	@BeforeClass
-	public static void setUpClass() throws Exception
-	{
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception
-	{
 	}
 }

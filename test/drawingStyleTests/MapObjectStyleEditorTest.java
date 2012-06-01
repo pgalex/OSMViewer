@@ -8,9 +8,7 @@ import drawingStyle.exceptions.StyleIndexOutOfBoundsException;
 import java.io.*;
 import map.EditableDefenitionTags;
 import map.MapTag;
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -19,12 +17,6 @@ import org.junit.Test;
  */
 public class MapObjectStyleEditorTest
 {
-	private final String TEST_FILE_NAME = "testFile.txt";
-
-	public MapObjectStyleEditorTest()
-	{
-	}
-
 	/**
 	 * Test adding style
 	 */
@@ -251,7 +243,7 @@ public class MapObjectStyleEditorTest
 		writingEditor.add(style3);
 		try
 		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			writingEditor.writeToStream(output);
 			output.close();
 		}
@@ -263,7 +255,7 @@ public class MapObjectStyleEditorTest
 		StyleEditor readingEditor = DrawingStyleFactory.createStyleEditor();
 		try
 		{
-			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
+			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			readingEditor.readFromStream(input);
 			input.close();
 		}
@@ -365,15 +357,5 @@ public class MapObjectStyleEditorTest
 		testTags3.add(new MapTag("k9", "v9"));
 		assertNull(editor.getStyleIndex(testTags3));
 		assertNull(editor.getStyleIndex(null));
-	}
-
-	@BeforeClass
-	public static void setUpClass() throws Exception
-	{
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception
-	{
 	}
 }

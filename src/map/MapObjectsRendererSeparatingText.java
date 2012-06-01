@@ -59,8 +59,10 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			return;
 		if (pPoint.getStyleIndex() == null)
 			return;
-		canvas.drawRect((int)Math.round(pPoint.getPosition().getLatitude()),
-						(int)Math.round(pPoint.getPosition().getLongitude()), 4, 4);
+		// получение настрооек отрисвки (PointDrawStyle, текста и т.п.) сделать как метод 
+		// MapObjectStyle, который будет получен по индексу
+		canvas.drawRect((int) Math.round(pPoint.getPosition().getLatitude()),
+						(int) Math.round(pPoint.getPosition().getLongitude()), 4, 4);
 	}
 
 	/**
@@ -73,33 +75,6 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	{
 		if (pLine == null)
 			return;
-		/*
-		 * if (pLine.getStyleIndex() == null) return;
-		 *
-		 * MapObjectStyle drawingStyle =
-		 * styleViewer.getMapObjectStyle(pLine.getStyleIndex()); if (drawingStyle ==
-		 * null) return; if (!drawingStyle.isCanBeLine()) return;
-		 *
-		 * ScaledObjectStyleCollection scaledStyles =
-		 * drawingStyle.getScaledStyles(); if (scaledStyles == null) return;
-		 *
-		 * ScaledObjectStyle styleOnCurrentScale =
-		 * scaledStyles.getStyleOnScale(currentScaleLevel); if (styleOnCurrentScale
-		 * == null) return; if (!styleOnCurrentScale.isDrawLine()) return;
-		 *
-		 * LineDrawStyle lineStyle = styleOnCurrentScale.getLineStyle(); if
-		 * (lineStyle == null) return;
-		 *
-		 * MapPosition[] linePoints = pLine.getPoints(); if (linePoints == null)
-		 * return;
-		 *
-		 * for (int i = 0; i < linePoints.length - 1; i++) {
-		 * canvas.setColor(lineStyle.getColor().getColor()); canvas.drawLine((int)
-		 * linePoints[i].getLatitude(), (int) linePoints[i].getLongitude(), (int)
-		 * linePoints[i + 1].getLatitude(), (int) linePoints[i + 1].getLongitude());
-		 * }
-		 */
-
 	}
 
 	/**

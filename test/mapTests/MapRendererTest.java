@@ -3,10 +3,9 @@ package mapTests;
 import java.awt.Color;
 import java.awt.Rectangle;
 import map.MapRenderer;
-import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.BeforeClass;
 
 /**
  *

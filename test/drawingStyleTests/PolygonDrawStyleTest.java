@@ -6,9 +6,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -17,12 +15,6 @@ import org.junit.Test;
  */
 public class PolygonDrawStyleTest
 {
-	private final String TEST_FILE_NAME = "testFile.txt";
-
-	public PolygonDrawStyleTest()
-	{
-	}
-
 	/**
 	 * тест создания с нулевыми аргументами
 	 */
@@ -47,7 +39,7 @@ public class PolygonDrawStyleTest
 		//запись
 		try
 		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			writingStyle.writeToStream(output);
 			output.close();
 		}
@@ -61,7 +53,7 @@ public class PolygonDrawStyleTest
 		PolygonDrawStyle readingStyle = new PolygonDrawStyle();
 		try
 		{
-			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
+			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			readingStyle.readFromStream(input);
 			input.close();
 			assertEquals(writingStyle.getFillColor().getColor(), readingStyle.getFillColor().getColor());
@@ -72,15 +64,5 @@ public class PolygonDrawStyleTest
 		{
 			fail();
 		}
-	}
-
-	@BeforeClass
-	public static void setUpClass() throws Exception
-	{
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception
-	{
 	}
 }

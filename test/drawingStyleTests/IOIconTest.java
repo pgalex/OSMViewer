@@ -2,43 +2,39 @@ package drawingStyleTests;
 
 import drawingStyle.IOIcon;
 import java.io.*;
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
+ * Testing IOIcon class
  *
  * @author abc
  */
 public class IOIconTest
 {
-	private final String TEST_FILE_NAME = "testFile.txt";
+	/**
+	 * Name of icon file using for testing loading image file in IOIcon class.
+	 * Should exists in main folder
+	 */
 	private final String ICON_FILE_NAME = "testIcon.png";
 
-	public IOIconTest()
-	{
-	}
-
 	/**
-	 * Тест конструктор
+	 * Testing default constructor for not creating image ( null and not loaded
+	 * are not the same )
 	 */
 	@Test
-	public void defaulContructorTest()
+	public void defaultContructorTest()
 	{
-		// при нулевом имени файла изображение пустое
 		IOIcon testImage = new IOIcon();
 		assertNull(testImage.getImage());
 	}
 
 	/**
-	 * Тест загрузки значка
+	 * Test loading image in constructor
 	 */
 	@Test
-	public void getImageTest()
+	public void loadingImageTest()
 	{
-
-		// нормальная работа - изображение загрузилось
 		IOIcon testImage = null;
 		try
 		{
@@ -53,26 +49,7 @@ public class IOIconTest
 	}
 
 	/**
-	 * Тест чтения записи пустого изображения
-	 */
-	@Test
-	public void fileNullImageTest()
-	{
-		IOIcon testImage = new IOIcon();
-		try
-		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
-			testImage.writeToStream(output);
-		}
-		catch (IOException ex)
-		{
-			fail();
-		}
-	}
-
-	/**
-	 * Тест чтения записи нормального (существующего) изображения. При изменение
-	 * необходима проверка в окне
+	 * Test reading/writing loaded image (not null)
 	 */
 	@Test
 	public void normalImageTest()
@@ -80,7 +57,7 @@ public class IOIconTest
 		try
 		{
 			IOIcon writingImage = new IOIcon(ICON_FILE_NAME);
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			writingImage.writeToStream(output);
 		}
 		catch (IOException ex)
@@ -91,7 +68,7 @@ public class IOIconTest
 		IOIcon readingImage = new IOIcon();
 		try
 		{
-			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
+			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			readingImage.readFromStream(input);
 			assertNotNull(readingImage.getImage());
 		}
@@ -99,16 +76,5 @@ public class IOIconTest
 		{
 			fail();
 		}
-
-	}
-
-	@BeforeClass
-	public static void setUpClass() throws Exception
-	{
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception
-	{
 	}
 }

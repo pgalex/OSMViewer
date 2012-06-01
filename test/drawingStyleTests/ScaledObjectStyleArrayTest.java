@@ -8,9 +8,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -19,12 +17,6 @@ import org.junit.Test;
  */
 public class ScaledObjectStyleArrayTest
 {
-	private final String TEST_FILE_NAME = "testFile.txt";
-
-	public ScaledObjectStyleArrayTest()
-	{
-	}
-
 	/**
 	 * Тест isDefaultLevelsCount кол-во по умолчанию
 	 */
@@ -122,7 +114,7 @@ public class ScaledObjectStyleArrayTest
 		writingStyle.setStyleOnScale(2, scaledStyle);
 		try
 		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			writingStyle.writeToStream(output);
 			output.close();
 		}
@@ -134,7 +126,7 @@ public class ScaledObjectStyleArrayTest
 		ScaledObjectStyleArray readingStyle = new ScaledObjectStyleArray();
 		try
 		{
-			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
+			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			readingStyle.readFromStream(input);
 			input.close();
 			assertEquals(true, readingStyle.isDefaultLevelsCount());
@@ -166,7 +158,7 @@ public class ScaledObjectStyleArrayTest
 		writingStyle.setStyleOnScale(readingStyle.count() - 2, scaledStyle1);
 		try
 		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			writingStyle.writeToStream(output);
 			output.close();
 		}
@@ -178,7 +170,7 @@ public class ScaledObjectStyleArrayTest
 
 		try
 		{
-			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
+			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			readingStyle.readFromStream(input);
 			input.close();
 			assertEquals(true, readingStyle.isDefaultLevelsCount());
@@ -190,15 +182,5 @@ public class ScaledObjectStyleArrayTest
 		{
 			fail();
 		}
-	}
-
-	@BeforeClass
-	public static void setUpClass() throws Exception
-	{
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception
-	{
 	}
 }

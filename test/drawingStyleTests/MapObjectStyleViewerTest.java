@@ -18,12 +18,6 @@ import org.junit.Test;
  */
 public class MapObjectStyleViewerTest
 {
-	private final String TEST_FILE_NAME = "testFile.txt";
-
-	public MapObjectStyleViewerTest()
-	{
-	}
-
 	/**
 	 * Loading file with incorrect name
 	 */
@@ -58,7 +52,7 @@ public class MapObjectStyleViewerTest
 		writingEditor.add(style3);
 		try
 		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			writingEditor.writeToStream(output);
 			output.close();
 		}
@@ -70,7 +64,7 @@ public class MapObjectStyleViewerTest
 		StyleViewer readingViewer = DrawingStyleFactory.createStyleViewer();
 		try
 		{
-			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
+			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			readingViewer.readFromStream(input);
 			input.close();
 		}
@@ -115,7 +109,7 @@ public class MapObjectStyleViewerTest
 		editor.add(style3);
 		try
 		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			editor.writeToStream(output);
 			output.close();
 		}
@@ -127,7 +121,7 @@ public class MapObjectStyleViewerTest
 		StyleViewer viewer = DrawingStyleFactory.createStyleViewer();
 		try
 		{
-			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
+			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			viewer.readFromStream(input);
 			input.close();
 		}
@@ -155,15 +149,5 @@ public class MapObjectStyleViewerTest
 		// not exists
 		assertNull(viewer.getMapObjectStyle(-1));
 		assertNull(viewer.getMapObjectStyle(null));
-	}
-
-	@BeforeClass
-	public static void setUpClass() throws Exception
-	{
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception
-	{
 	}
 }

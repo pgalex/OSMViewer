@@ -1,15 +1,12 @@
 package drawingStyleTests;
 
-import drawingStyle.LinePattern;
 import drawingStyle.TextTagsKeys;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import org.junit.AfterClass;
-import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  *
@@ -17,12 +14,6 @@ import org.junit.BeforeClass;
  */
 public class TextTagsKeysTest
 {
-	private final String TEST_FILE_NAME = "testFile.txt";
-
-	public TextTagsKeysTest()
-	{
-	}
-
 	/**
 	 * Test auto initialize in contructor
 	 */
@@ -59,7 +50,7 @@ public class TextTagsKeysTest
 		TextTagsKeys writingTagsKeys = new TextTagsKeys(keys);
 		try
 		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			writingTagsKeys.writeToStream(output);
 			output.close();
 		}
@@ -67,11 +58,11 @@ public class TextTagsKeysTest
 		{
 			fail();
 		}
-		
+
 		TextTagsKeys readingTagsKeys = new TextTagsKeys();
 		try
 		{
-			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
+			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			readingTagsKeys.readFromStream(input);
 			input.close();
 			assertArrayEquals(writingTagsKeys.getTagsKeys(), readingTagsKeys.getTagsKeys());
@@ -80,16 +71,5 @@ public class TextTagsKeysTest
 		{
 			fail();
 		}
-	}
-	
-
-	@BeforeClass
-	public static void setUpClass() throws Exception
-	{
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception
-	{
 	}
 }

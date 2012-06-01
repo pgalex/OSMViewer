@@ -8,9 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import map.EditableDefenitionTags;
 import map.MapTag;
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -20,12 +18,6 @@ import org.junit.Test;
  */
 public class StyleProcessorTest
 {
-	private final String TEST_FILE_NAME = "testFile.txt";
-
-	public StyleProcessorTest()
-	{
-	}
-
 	/**
 	 * findStyleIndex test with incorrect parameters
 	 */
@@ -102,7 +94,7 @@ public class StyleProcessorTest
 
 		try
 		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			StyleProcessor.writeStylesToStream(writingStyles, output);
 			output.close();
 		}
@@ -113,7 +105,7 @@ public class StyleProcessorTest
 
 		try
 		{
-			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
+			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			MapObjectStyle[] readingStyles = StyleProcessor.readStylesFromStream(input);
 			input.close();
 
@@ -134,7 +126,7 @@ public class StyleProcessorTest
 		// null objects in array
 		try
 		{
-			StyleProcessor.writeStylesToStream(new MapObjectStyle[2], new DataOutputStream(new FileOutputStream(TEST_FILE_NAME)));
+			StyleProcessor.writeStylesToStream(new MapObjectStyle[2], new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME)));
 			fail();
 		}
 		catch (Exception e)
@@ -175,7 +167,7 @@ public class StyleProcessorTest
 
 		try
 		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			StyleProcessor.writeStylesToStream(writingStyles, output);
 			output.close();
 		}
@@ -186,7 +178,7 @@ public class StyleProcessorTest
 
 		try
 		{
-			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
+			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 			MapObjectStyle[] readingStyles = StyleProcessor.readStylesFromStream(input);
 			input.close();
 
@@ -198,15 +190,5 @@ public class StyleProcessorTest
 		{
 			fail();
 		}
-	}
-
-	@BeforeClass
-	public static void setUpClass() throws Exception
-	{
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception
-	{
 	}
 }
