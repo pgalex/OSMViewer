@@ -37,6 +37,9 @@ public class IOColorTest
 
 	private void writeColorToTestFile(IOColor pWritingColor) throws IOException
 	{
+		if (pWritingColor == null)
+			fail();
+
 		DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
 		pWritingColor.writeToStream(output);
 		output.close();
