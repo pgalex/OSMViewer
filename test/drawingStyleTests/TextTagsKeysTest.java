@@ -12,14 +12,21 @@ import org.junit.Test;
 public class TextTagsKeysTest
 {
 	/**
-	 * Test auto initialize in contructor
+	 * Test auto initialize in contructor with null array
 	 */
 	@Test
-	public void autoInitializeTest()
+	public void autoInitializeByNullTest()
 	{
 		TextTagsKeys testKeys1 = new TextTagsKeys(null);
 		assertNotNull(testKeys1.getTagsKeys());
+	}
 
+	/**
+	 * Test auto initialize in contructor with empty array
+	 */
+	@Test
+	public void autoInitializeByEmptyTest()
+	{
 		TextTagsKeys testKeys2 = new TextTagsKeys(new String[0]);
 		assertEquals(0, testKeys2.getTagsKeys().length);
 	}
@@ -47,7 +54,6 @@ public class TextTagsKeysTest
 				"k1", "k2"
 			};
 			TextTagsKeys writingTagsKeys = new TextTagsKeys(keys);
-
 			DrawingStyleIOTester.writeToTestFile(writingTagsKeys);
 
 			TextTagsKeys readingTagsKeys = new TextTagsKeys();
