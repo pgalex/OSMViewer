@@ -2,10 +2,7 @@ package drawingStyleTests;
 
 import drawingStyle.IOColor;
 import java.awt.Color;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import org.junit.Test;
@@ -21,31 +18,37 @@ public class IOColorTest
 	 * Reading/writing test
 	 */
 	@Test
-	public void fileTest()
+	public void readingWritingTest()
 	{
-		IOColor writingColor = new IOColor(Color.MAGENTA);
 		try
 		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
-			writingColor.writeToStream(output);
-			output.close();
-		}
-		catch (Exception ex)
-		{
-			fail();
-		}
+			IOColor writedColor = new IOColor(Color.MAGENTA);
+			writeColorToTestFile(writedColor);
 
-		try
-		{
-			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
-			IOColor readingColor = new IOColor();
-			readingColor.readFromStream(input);
-			input.close();
-			assertEquals(writingColor.getColor(), readingColor.getColor());
+			IOColor readedColor = readColorFromTestFile();
+
+			assertEquals(writedColor.getColor(), readedColor.getColor());
 		}
 		catch (Exception ex)
 		{
 			fail();
 		}
+	}
+
+	private void writeColorToTestFile(IOColor pWritingColor) throws IOException
+	{
+		DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
+		pWritingColor.writeToStream(output);
+		output.close();
+	}
+
+	private IOColor readColorFromTestFile() throws IOException
+	{
+		DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
+		IOColor readedColor = new IOColor();
+		readedColor.readFromStream(input);
+		input.close();
+
+		return readedColor;
 	}
 }
