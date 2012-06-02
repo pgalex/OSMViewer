@@ -4,14 +4,11 @@ import drawingStyle.ScaledObjectStyle;
 import drawingStyle.ScaledObjectStyleArray;
 import drawingStyle.exceptions.ScaleLevelOutOfBoundsException;
 import drawingStyle.exceptions.ScaledStyleIsNullException;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
+ * ScaledObjectStyleArray tests
  *
  * @author pgalex
  */
@@ -105,33 +102,25 @@ public class ScaledObjectStyleArrayTest
 	 * Тест чтения/записи с меньшими кол-вом уровней масштаба
 	 */
 	@Test
-	public void fileWithOtherScaleLevelsLessTest()
+	public void writingWithLessScaleAndReadingLevelsTest()
 	{
-		// меньше того что по умолчанию - последние копируются
-		ScaledObjectStyleArray writingStyle = new ScaledObjectStyleArray(3);
-		ScaledObjectStyle scaledStyle = new ScaledObjectStyle(false, true, true, null, null,
-						null, null, null);
-		writingStyle.setStyleOnScale(2, scaledStyle);
 		try
 		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
-			writingStyle.writeToStream(output);
-			output.close();
-		}
-		catch (Exception ex)
-		{
-			fail();
-		}
+			// меньше того что по умолчанию - последние копируются
+			ScaledObjectStyle scaledStyle = new ScaledObjectStyle(false, true, true, null, null,
+							null, null, null);
 
-		ScaledObjectStyleArray readingStyle = new ScaledObjectStyleArray();
-		try
-		{
-			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
-			readingStyle.readFromStream(input);
-			input.close();
-			assertEquals(true, readingStyle.isDefaultLevelsCount());
-			for (int i = writingStyle.count() - 1; i < readingStyle.count(); i++)
-				assertEquals(readingStyle.getStyleOnScale(i).isDrawPolygon(), scaledStyle.isDrawPolygon());
+			ScaledObjectStyleArray writedStyle = new ScaledObjectStyleArray(3);
+			writedStyle.setStyleOnScale(2, scaledStyle);
+
+			DrawingStyleIOTester.writeToTestFile(writedStyle);
+
+			ScaledObjectStyleArray readStyle = new ScaledObjectStyleArray();
+			DrawingStyleIOTester.readFromTestFile(readStyle);
+
+			assertEquals(true, readStyle.isDefaultLevelsCount());
+			for (int i = writedStyle.count() - 1; i < readStyle.count(); i++)
+				assertEquals(readStyle.getStyleOnScale(i).isDrawPolygon(), scaledStyle.isDrawPolygon());
 		}
 		catch (Exception ex)
 		{
@@ -143,40 +132,32 @@ public class ScaledObjectStyleArrayTest
 	 * Тест чтения/записи с большим кол-вом уровней масштаба
 	 */
 	@Test
-	public void fileWithOtherScaleLevelsMoreTest()
+	public void writingWithMoreScaleLevelsAndReadingTest()
 	{
-		// больше того что по умолчанию - последние обрезаются
-		ScaledObjectStyleArray writingStyle = new ScaledObjectStyleArray(30);
-		ScaledObjectStyleArray readingStyle = new ScaledObjectStyleArray();
-		ScaledObjectStyle scaledStyle1 = new ScaledObjectStyle(false, true, true, null, null,
-						null, null, null);
-		writingStyle.setStyleOnScale(writingStyle.count() - 1, scaledStyle1);
-
-		ScaledObjectStyle scaledStyle2 = new ScaledObjectStyle(false, true, false, null, null,
-						null, null, null);
-		writingStyle.setStyleOnScale(readingStyle.count() - 1, scaledStyle2);
-		writingStyle.setStyleOnScale(readingStyle.count() - 2, scaledStyle1);
 		try
 		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
-			writingStyle.writeToStream(output);
-			output.close();
-		}
-		catch (Exception ex)
-		{
-			fail();
-		}
+			final int WRITING_ARRAY_SIZE = 30;
+			final int READING_ARRAY_SIZE = 12;
+			// больше того что по умолчанию - последние обрезаются
+			ScaledObjectStyle scaledStyle1 = new ScaledObjectStyle(false, true, true, null, null,
+							null, null, null);
+			ScaledObjectStyle scaledStyle2 = new ScaledObjectStyle(false, true, false, null, null,
+							null, null, null);
 
+			ScaledObjectStyleArray writedStyleArray = new ScaledObjectStyleArray(WRITING_ARRAY_SIZE);
+			writedStyleArray.setStyleOnScale(WRITING_ARRAY_SIZE - 1, scaledStyle1);
+			writedStyleArray.setStyleOnScale(READING_ARRAY_SIZE - 1, scaledStyle2);
+			writedStyleArray.setStyleOnScale(READING_ARRAY_SIZE - 2, scaledStyle1);
+			
+			DrawingStyleIOTester.writeToTestFile(writedStyleArray);
+			
+			ScaledObjectStyleArray readStyleArray = new ScaledObjectStyleArray(READING_ARRAY_SIZE);
+			DrawingStyleIOTester.readFromTestFile(readStyleArray);
 
-		try
-		{
-			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
-			readingStyle.readFromStream(input);
-			input.close();
-			assertEquals(true, readingStyle.isDefaultLevelsCount());
-			assertEquals(false, writingStyle.isDefaultLevelsCount());
-			assertEquals(readingStyle.getStyleOnScale(readingStyle.count() - 1).isDrawPolygon(), scaledStyle2.isDrawPolygon());
-			assertEquals(readingStyle.getStyleOnScale(readingStyle.count() - 2).isDrawPolygon(), scaledStyle1.isDrawPolygon());
+			assertEquals(true, readStyleArray.isDefaultLevelsCount());
+			assertEquals(false, writedStyleArray.isDefaultLevelsCount());
+			assertEquals(readStyleArray.getStyleOnScale(readStyleArray.count() - 1).isDrawPolygon(), scaledStyle2.isDrawPolygon());
+			assertEquals(readStyleArray.getStyleOnScale(readStyleArray.count() - 2).isDrawPolygon(), scaledStyle1.isDrawPolygon());
 		}
 		catch (Exception ex)
 		{

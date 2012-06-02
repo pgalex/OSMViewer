@@ -5,7 +5,6 @@ import drawingStyle.MapObjectStyle;
 import drawingStyle.StyleEditor;
 import drawingStyle.exceptions.MapObjectStyleIsNullException;
 import drawingStyle.exceptions.StyleIndexOutOfBoundsException;
-import java.io.*;
 import map.EditableDefenitionTags;
 import map.MapTag;
 import static org.junit.Assert.*;
@@ -18,10 +17,10 @@ import org.junit.Test;
 public class MapObjectStyleEditorTest
 {
 	/**
-	 * Test adding style
+	 * Test adding valid (not null ) styles. New style adds to the end
 	 */
 	@Test
-	public void addTest()
+	public void addingValidStylesTest()
 	{
 		MapObjectStyle style1 = new MapObjectStyle(true, true, false, null, 0, "style1", null, null);
 		MapObjectStyle style2 = new MapObjectStyle(true, false, true, null, 0, "style2", null, null);
@@ -42,7 +41,15 @@ public class MapObjectStyleEditorTest
 		assertEquals(style1.getDescription(), editor.getMapObjectStyle(0).getDescription());
 		assertEquals(style2.getDescription(), editor.getMapObjectStyle(1).getDescription());
 		assertEquals(style3.getDescription(), editor.getMapObjectStyle(2).getDescription());
+	}
 
+	/**
+	 * Test adding null style
+	 */
+	@Test
+	public void addingNullStyleTest()
+	{
+		StyleEditor editor = DrawingStyleFactory.createStyleEditor();
 		try
 		{
 			editor.add(null);
@@ -55,24 +62,21 @@ public class MapObjectStyleEditorTest
 	}
 
 	/**
-	 * Test get method
+	 * Test get styles by valid index
 	 */
 	@Test
-	public void getTest()
+	public void getWithCorrectIndexTest()
 	{
-		MapObjectStyle style1 = new MapObjectStyle(true, true, false, null, 0, "style1", null, null);
-		MapObjectStyle style2 = new MapObjectStyle(true, false, true, null, 0, "style2", null, null);
-
-		StyleEditor editor = DrawingStyleFactory.createStyleEditor();
-		assertEquals(0, editor.count());
-
-		editor.add(style1);
-		editor.add(style2);
-		assertEquals(2, editor.count());
-
-		// normal work
 		try
 		{
+			MapObjectStyle style1 = new MapObjectStyle(true, true, false, null, 0, "style1", null, null);
+			MapObjectStyle style2 = new MapObjectStyle(true, false, true, null, 0, "style2", null, null);
+
+			StyleEditor editor = DrawingStyleFactory.createStyleEditor();
+			editor.add(style1);
+			editor.add(style2);
+
+			assertEquals(2, editor.count());
 			assertEquals(style1.getDescription(), editor.getMapObjectStyle(0).getDescription());
 			assertEquals(style2.getDescription(), editor.getMapObjectStyle(1).getDescription());
 		}
@@ -80,12 +84,20 @@ public class MapObjectStyleEditorTest
 		{
 			fail();
 		}
+	}
 
-		// less
+	/**
+	 * Test get style be incorrect index
+	 */
+	@Test
+	public void getWithIncorrectIndexTest()
+	{
+		MapObjectStyle style1 = new MapObjectStyle(true, true, false, null, 0, "style1", null, null);
+		StyleEditor editor = DrawingStyleFactory.createStyleEditor();
+		editor.add(style1);
+
 		assertNull(editor.getMapObjectStyle(-1));
-		// more
 		assertNull(editor.getMapObjectStyle(editor.count() + 1));
-		// null
 		assertNull(editor.getMapObjectStyle(null));
 	}
 
@@ -231,73 +243,32 @@ public class MapObjectStyleEditorTest
 	 * Normal reading/writing test
 	 */
 	@Test
-	public void normalFileTest()
+	public void readingWritingTest()
 	{
-		MapObjectStyle style1 = new MapObjectStyle(true, true, false, null, 0, "style1", null, null);
-		MapObjectStyle style2 = new MapObjectStyle(true, false, true, null, 0, "style2", null, null);
-		MapObjectStyle style3 = new MapObjectStyle(false, true, true, null, 0, "style3", null, null);
-
-		StyleEditor writingEditor = DrawingStyleFactory.createStyleEditor();
-		writingEditor.add(style1);
-		writingEditor.add(style2);
-		writingEditor.add(style3);
 		try
 		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
-			writingEditor.writeToStream(output);
-			output.close();
-		}
-		catch (IOException ex)
-		{
-			fail();
-		}
+			MapObjectStyle style1 = new MapObjectStyle(true, true, false, null, 0, "style1", null, null);
+			MapObjectStyle style2 = new MapObjectStyle(true, false, true, null, 0, "style2", null, null);
+			MapObjectStyle style3 = new MapObjectStyle(false, true, true, null, 0, "style3", null, null);
 
-		StyleEditor readingEditor = DrawingStyleFactory.createStyleEditor();
-		try
-		{
-			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
-			readingEditor.readFromStream(input);
-			input.close();
+			StyleEditor writedEditor = DrawingStyleFactory.createStyleEditor();
+			writedEditor.add(style1);
+			writedEditor.add(style2);
+			writedEditor.add(style3);
+			DrawingStyleIOTester.writeToTestFile(writedEditor);
+
+			StyleEditor readEditor = DrawingStyleFactory.createStyleEditor();
+			DrawingStyleIOTester.readFromTestFile(readEditor);
+
+			// comparing only by description. full test in map object style tests
+			assertEquals(writedEditor.count(), readEditor.count());
+			for (int i = 0; i < writedEditor.count(); i++)
+				assertEquals(writedEditor.getMapObjectStyle(i).getDescription(), readEditor.getMapObjectStyle(i).getDescription());
 		}
 		catch (Exception ex)
 		{
 			fail();
 		}
-
-		assertEquals(writingEditor.count(), readingEditor.count());
-		for (int i = 0; i < writingEditor.count(); i++)
-			assertEquals(writingEditor.getMapObjectStyle(i).getDescription(), readingEditor.getMapObjectStyle(i).getDescription());
-	}
-
-	/**
-	 * reading/writing test with incorrect parameters
-	 */
-	@Test
-	public void nullFileNameFileTest()
-	{
-		StyleEditor writingEditor = DrawingStyleFactory.createStyleEditor();
-		try
-		{
-			writingEditor.writeToStream(null);
-			fail();
-		}
-		catch (IOException ex)
-		{
-		}
-
-		StyleEditor readingEditor = DrawingStyleFactory.createStyleEditor();
-		try
-		{
-			readingEditor.readFromStream(null);
-			fail();
-		}
-		catch (Exception ex)
-		{
-		}
-
-		assertEquals(writingEditor.count(), readingEditor.count());
-		for (int i = 0; i < writingEditor.count(); i++)
-			assertEquals(writingEditor.getMapObjectStyle(i).getDescription(), readingEditor.getMapObjectStyle(i).getDescription());
 	}
 
 	/**

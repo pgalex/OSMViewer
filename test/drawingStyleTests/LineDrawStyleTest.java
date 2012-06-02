@@ -4,63 +4,49 @@ import drawingStyle.IOColor;
 import drawingStyle.LineDrawStyle;
 import drawingStyle.LinePattern;
 import java.awt.Color;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
+ * LineDrawStyle class tests
  *
  * @author abc
  */
 public class LineDrawStyleTest
 {
 	/**
-	 * Тест контсруктора с нулевыми параметрами
+	 * Test auto initialize in constructor
 	 */
 	@Test
-	public void constructorTest()
+	public void autoInitializeTest()
 	{
-		// null шаблон
 		LineDrawStyle testStyle = new LineDrawStyle(null, 1, null);
 		assertNotNull(testStyle.getColor());
 		assertNotNull(testStyle.getLinePattern());
 	}
 
+	/**
+	 * Reading/writing test
+	 */
 	@Test
-	public void fileTest()
+	public void readingWritingTest()
 	{
-		float[] pattern = new float[4];
-		pattern[0] = 2;
-		pattern[1] = 3;
-		pattern[2] = 4;
-		pattern[3] = 5;
-		LineDrawStyle writingStyle = new LineDrawStyle(new IOColor(Color.CYAN), 11, new LinePattern(pattern));
-
-		//запись
 		try
 		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
-			writingStyle.writeToStream(output);
-			output.close();
-		}
-		catch (Exception ex)
-		{
-			fail();
-		}
+			float[] pattern = new float[4];
+			pattern[0] = 2;
+			pattern[1] = 3;
+			pattern[2] = 4;
+			pattern[3] = 5;
+			LineDrawStyle writedStyle = new LineDrawStyle(new IOColor(Color.CYAN), 11, new LinePattern(pattern));
+			DrawingStyleIOTester.writeToTestFile(writedStyle);
 
-		//чтение
-		LineDrawStyle readingStyle = new LineDrawStyle();
-		try
-		{
-			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
-			readingStyle.readFromStream(input);
-			input.close();
-			assertEquals(writingStyle.getColor().getColor(), readingStyle.getColor().getColor());
-			assertArrayEquals(writingStyle.getLinePattern().getPattern(), readingStyle.getLinePattern().getPattern(), 0.01f);
-			assertEquals(writingStyle.getWidth(), readingStyle.getWidth());
+			LineDrawStyle readStyle = new LineDrawStyle();
+			DrawingStyleIOTester.readFromTestFile(readStyle);
+
+			assertEquals(writedStyle.getColor().getColor(), readStyle.getColor().getColor());
+			assertEquals(writedStyle.getWidth(), readStyle.getWidth());
+			assertArrayEquals(writedStyle.getLinePattern().getPattern(), readStyle.getLinePattern().getPattern(), 0.01f);
 		}
 		catch (Exception ex)
 		{

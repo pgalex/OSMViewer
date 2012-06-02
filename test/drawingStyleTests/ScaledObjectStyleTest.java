@@ -5,24 +5,21 @@ import drawingStyle.IOFont;
 import drawingStyle.ScaledObjectStyle;
 import java.awt.Color;
 import java.awt.Font;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
+ * ScaledObjectStyle class tests
  *
  * @author abc
  */
 public class ScaledObjectStyleTest
 {
 	/**
-	 * тест создания с нулевыми аргументами
+	 * Auto initialize in constructor test
 	 */
 	@Test
-	public void constructorTest()
+	public void autoInitializeTest()
 	{
 		ScaledObjectStyle testStyle = new ScaledObjectStyle(true, true, true, null, null, null, null, null);
 		assertNotNull(testStyle.getPointStyle());
@@ -33,39 +30,29 @@ public class ScaledObjectStyleTest
 	}
 
 	/**
-	 * чтение запись
+	 * Reading/writing test
 	 */
 	@Test
-	public void fileTest()
+	public void readingWritingTest()
 	{
-		ScaledObjectStyle writingStyle = new ScaledObjectStyle(true, false, true, null, null,
-						null, new IOColor(Color.RED), new IOFont(new Font("Arial", 1, 3)));
 		try
 		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
-			writingStyle.writeToStream(output);
-			output.close();
-		}
-		catch (Exception ex)
-		{
-			fail();
-		}
+			ScaledObjectStyle writedStyle = new ScaledObjectStyle(true, false, true, null, null,
+							null, new IOColor(Color.RED), new IOFont(new Font("Arial", 1, 3)));
 
-		//чтение
-		ScaledObjectStyle readingStyle = new ScaledObjectStyle();
-		try
-		{
-			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
-			readingStyle.readFromStream(input);
-			input.close();
-			assertEquals(writingStyle.isDrawLine(), readingStyle.isDrawLine());
-			assertEquals(writingStyle.isDrawPoint(), readingStyle.isDrawPoint());
-			assertEquals(writingStyle.isDrawPolygon(), readingStyle.isDrawPolygon());
-			assertEquals(writingStyle.getTextColor().getColor(), readingStyle.getTextColor().getColor());
-			assertEquals(writingStyle.getTextFont().getFont(), readingStyle.getTextFont().getFont());
-			assertEquals(writingStyle.getTextFont().getFont().getFamily(), readingStyle.getTextFont().getFont().getFamily());
-			assertEquals(writingStyle.getTextFont().getFont().getStyle(), readingStyle.getTextFont().getFont().getStyle());
-			assertEquals(writingStyle.getTextFont().getFont().getSize(), readingStyle.getTextFont().getFont().getSize());
+			DrawingStyleIOTester.writeToTestFile(writedStyle);
+
+			ScaledObjectStyle readStyle = new ScaledObjectStyle();
+			DrawingStyleIOTester.readFromTestFile(readStyle);
+
+			assertEquals(writedStyle.isDrawLine(), readStyle.isDrawLine());
+			assertEquals(writedStyle.isDrawPoint(), readStyle.isDrawPoint());
+			assertEquals(writedStyle.isDrawPolygon(), readStyle.isDrawPolygon());
+			assertEquals(writedStyle.getTextColor().getColor(), readStyle.getTextColor().getColor());
+			assertEquals(writedStyle.getTextFont().getFont(), readStyle.getTextFont().getFont());
+			assertEquals(writedStyle.getTextFont().getFont().getFamily(), readStyle.getTextFont().getFont().getFamily());
+			assertEquals(writedStyle.getTextFont().getFont().getStyle(), readStyle.getTextFont().getFont().getStyle());
+			assertEquals(writedStyle.getTextFont().getFont().getSize(), readStyle.getTextFont().getFont().getSize());
 		}
 		catch (Exception ex)
 		{

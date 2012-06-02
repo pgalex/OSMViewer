@@ -1,14 +1,11 @@
 package drawingStyleTests;
 
 import drawingStyle.TextTagsKeys;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
+ * TextTagsKeys class tests
  *
  * @author pgalex
  */
@@ -31,7 +28,7 @@ public class TextTagsKeysTest
 	 * Default constructor test
 	 */
 	@Test
-	public void defaultConstructorTest()
+	public void defaultConstructorInitializeTest()
 	{
 		TextTagsKeys testKeys = new TextTagsKeys();
 		assertNotNull(testKeys.getTagsKeys());
@@ -41,30 +38,21 @@ public class TextTagsKeysTest
 	 * Reading/writing test
 	 */
 	@Test
-	public void fileTest()
+	public void readingWritingTest()
 	{
-		String[] keys =
-		{
-			"k1", "k2"
-		};
-		TextTagsKeys writingTagsKeys = new TextTagsKeys(keys);
 		try
 		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
-			writingTagsKeys.writeToStream(output);
-			output.close();
-		}
-		catch (Exception ex)
-		{
-			fail();
-		}
+			String[] keys =
+			{
+				"k1", "k2"
+			};
+			TextTagsKeys writingTagsKeys = new TextTagsKeys(keys);
 
-		TextTagsKeys readingTagsKeys = new TextTagsKeys();
-		try
-		{
-			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
-			readingTagsKeys.readFromStream(input);
-			input.close();
+			DrawingStyleIOTester.writeToTestFile(writingTagsKeys);
+
+			TextTagsKeys readingTagsKeys = new TextTagsKeys();
+			DrawingStyleIOTester.readFromTestFile(readingTagsKeys);
+
 			assertArrayEquals(writingTagsKeys.getTagsKeys(), readingTagsKeys.getTagsKeys());
 		}
 		catch (Exception ex)

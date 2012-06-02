@@ -1,10 +1,6 @@
 package drawingStyleTests;
 
 import drawingStyle.LinePattern;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -16,12 +12,13 @@ import org.junit.Test;
 public class LinePatternTest
 {
 	/**
-	 * Default value in constructor
+	 * Testing auto initialize in constructor
 	 */
 	@Test
-	public void constructorTest()
+	public void autoInitializeTest()
 	{
 		LinePattern pattern = new LinePattern(null);
+
 		assertNotNull(pattern.getPattern());
 		assertTrue(pattern.getPattern().length > 0);
 	}
@@ -30,33 +27,22 @@ public class LinePatternTest
 	 * Reading/writing test
 	 */
 	@Test
-	public void fileTest()
+	public void readingWritingTest()
 	{
-		float[] pattern = new float[4];
-		pattern[0] = 2;
-		pattern[1] = 3;
-		pattern[2] = 4;
-		pattern[3] = 5;
-		LinePattern writingPattern = new LinePattern(pattern);
 		try
 		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
-			writingPattern.writeToStream(output);
-			output.close();
-		}
-		catch (Exception ex)
-		{
-			fail();
-		}
+			float[] pattern = new float[4];
+			pattern[0] = 2;
+			pattern[1] = 3;
+			pattern[2] = 4;
+			pattern[3] = 5;
+			LinePattern writedPattern = new LinePattern(pattern);
+			DrawingStyleIOTester.writeToTestFile(writedPattern);
 
-		//чтение
-		LinePattern readingPattern = new LinePattern();
-		try
-		{
-			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
-			readingPattern.readFromStream(input);
-			input.close();
-			assertArrayEquals(writingPattern.getPattern(), readingPattern.getPattern(), 0.01f);
+			LinePattern readPattern = new LinePattern();
+			DrawingStyleIOTester.readFromTestFile(readPattern);
+
+			assertArrayEquals(writedPattern.getPattern(), readPattern.getPattern(), 0.0001f);
 		}
 		catch (Exception ex)
 		{

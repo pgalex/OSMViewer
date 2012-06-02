@@ -1,7 +1,7 @@
 package drawingStyleTests;
 
 import drawingStyle.IOIcon;
-import java.io.*;
+import java.io.IOException;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -35,44 +35,56 @@ public class IOIconTest
 	@Test
 	public void loadingImageTest()
 	{
-		IOIcon testImage = null;
 		try
 		{
-			testImage = new IOIcon(ICON_FILE_NAME);
+			IOIcon testImage = new IOIcon(ICON_FILE_NAME);
+			assertNotNull(testImage.getImage());
 		}
 		catch (IOException ex)
 		{
 			fail();
 		}
-
-		assertNotNull(testImage.getImage());
 	}
 
 	/**
 	 * Test reading/writing loaded image (not null)
 	 */
 	@Test
-	public void normalImageTest()
+	public void readingWritingLoadedImageTest()
 	{
 		try
 		{
-			IOIcon writingImage = new IOIcon(ICON_FILE_NAME);
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
-			writingImage.writeToStream(output);
+			IOIcon writedImage = new IOIcon(ICON_FILE_NAME);
+			DrawingStyleIOTester.writeToTestFile(writedImage);
+
+			IOIcon readImage = new IOIcon();
+			DrawingStyleIOTester.readFromTestFile(readImage);
+
+			assertNotNull(readImage.getImage());
 		}
-		catch (IOException ex)
+		catch (Exception ex)
 		{
 			fail();
 		}
+	}
 
-		IOIcon readingImage = new IOIcon();
+	/**
+	 * Test reading/writing null image
+	 */
+	@Test
+	public void readingWritingNullImageTest()
+	{
 		try
 		{
-			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
-			readingImage.readFromStream(input);
-			assertNotNull(readingImage.getImage());
+			IOIcon writedImage = new IOIcon();
+			DrawingStyleIOTester.writeToTestFile(writedImage);
+
+			IOIcon readImage = new IOIcon();
+			DrawingStyleIOTester.readFromTestFile(readImage);
+
+			assertNull(readImage.getImage());
 		}
-		catch (IOException ex)
+		catch (Exception ex)
 		{
 			fail();
 		}

@@ -2,7 +2,6 @@ package drawingStyleTests;
 
 import drawingStyle.IOColor;
 import java.awt.Color;
-import java.io.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import org.junit.Test;
@@ -23,35 +22,16 @@ public class IOColorTest
 		try
 		{
 			IOColor writedColor = new IOColor(Color.MAGENTA);
-			writeColorToTestFile(writedColor);
+			DrawingStyleIOTester.writeToTestFile(writedColor);
 
-			IOColor readedColor = readColorFromTestFile();
+			IOColor readColor = new IOColor();
+			DrawingStyleIOTester.readFromTestFile(readColor);
 
-			assertEquals(writedColor.getColor(), readedColor.getColor());
+			assertEquals(writedColor.getColor(), readColor.getColor());
 		}
 		catch (Exception ex)
 		{
 			fail();
 		}
-	}
-
-	private void writeColorToTestFile(IOColor pWritingColor) throws IOException
-	{
-		if (pWritingColor == null)
-			fail();
-
-		DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
-		pWritingColor.writeToStream(output);
-		output.close();
-	}
-
-	private IOColor readColorFromTestFile() throws IOException
-	{
-		DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
-		IOColor readedColor = new IOColor();
-		readedColor.readFromStream(input);
-		input.close();
-
-		return readedColor;
 	}
 }

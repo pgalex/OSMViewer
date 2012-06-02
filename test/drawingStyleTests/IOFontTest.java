@@ -2,10 +2,6 @@ package drawingStyleTests;
 
 import drawingStyle.IOFont;
 import java.awt.Font;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -30,32 +26,19 @@ public class IOFontTest
 	 * Reading/writing test
 	 */
 	@Test
-	public void fileTest()
+	public void readingWritingTest()
 	{
-		IOFont writeFont = new IOFont(new Font("Arial", 0, 15));
-		//запись
 		try
 		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
-			writeFont.writeToStream(output);
-			output.close();
-		}
-		catch (Exception ex)
-		{
-			fail();
-		}
+			IOFont writedFont = new IOFont(new Font("Arial", 0, 15));
+			DrawingStyleIOTester.writeToTestFile(writedFont);
 
+			IOFont readFont = new IOFont();
+			DrawingStyleIOTester.readFromTestFile(readFont);
 
-		//чтение
-		IOFont readFont = new IOFont();
-		try
-		{
-			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
-			readFont.readFromStream(input);
-			input.close();
-			assertEquals(readFont.getFont().getFamily(), writeFont.getFont().getFamily());
-			assertEquals(readFont.getFont().getStyle(), writeFont.getFont().getStyle());
-			assertEquals(readFont.getFont().getSize(), writeFont.getFont().getSize());
+			assertEquals(writedFont.getFont().getFamily(), readFont.getFont().getFamily());
+			assertEquals(writedFont.getFont().getStyle(), readFont.getFont().getStyle());
+			assertEquals(writedFont.getFont().getSize(), readFont.getFont().getSize());
 		}
 		catch (Exception ex)
 		{

@@ -22,7 +22,7 @@ public class StyleProcessorTest
 	 * findStyleIndex test with incorrect parameters
 	 */
 	@Test
-	public void incorrectFindStyleIndexTest()
+	public void FindStyleIndexIncorrectParametersTest()
 	{
 		assertNull(StyleProcessor.findStyleIndex(null, new EditableDefenitionTags()));
 		assertNull(StyleProcessor.findStyleIndex(new MapObjectStyle[0], null));
@@ -30,10 +30,10 @@ public class StyleProcessorTest
 	}
 
 	/**
-	 * findStyleIndex test
+	 * findStyleIndex normal work test
 	 */
 	@Test
-	public void findStyleIndexTest()
+	public void findStyleIndexNormalWorkTest()
 	{
 		EditableDefenitionTags tags1 = new EditableDefenitionTags();
 		tags1.add(new MapTag("k1", "v1"));
@@ -88,24 +88,17 @@ public class StyleProcessorTest
 	 * Reading/writing test 0 styles count
 	 */
 	@Test
-	public void nullLengthFileTest()
+	public void nullLengthReadingWritingTest()
 	{
-		MapObjectStyle[] writingStyles = new MapObjectStyle[0];
-
 		try
 		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
+			MapObjectStyle[] writingStyles = new MapObjectStyle[0];
+
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleIOTester.TEST_FILE_NAME));
 			StyleProcessor.writeStylesToStream(writingStyles, output);
 			output.close();
-		}
-		catch (Exception ex)
-		{
-			fail();
-		}
 
-		try
-		{
-			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
+			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleIOTester.TEST_FILE_NAME));
 			MapObjectStyle[] readingStyles = StyleProcessor.readStylesFromStream(input);
 			input.close();
 
@@ -126,7 +119,7 @@ public class StyleProcessorTest
 		// null objects in array
 		try
 		{
-			StyleProcessor.writeStylesToStream(new MapObjectStyle[2], new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME)));
+			StyleProcessor.writeStylesToStream(new MapObjectStyle[2], new DataOutputStream(new FileOutputStream(DrawingStyleIOTester.TEST_FILE_NAME)));
 			fail();
 		}
 		catch (Exception e)
@@ -167,7 +160,7 @@ public class StyleProcessorTest
 
 		try
 		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleIOTester.TEST_FILE_NAME));
 			StyleProcessor.writeStylesToStream(writingStyles, output);
 			output.close();
 		}
@@ -178,7 +171,7 @@ public class StyleProcessorTest
 
 		try
 		{
-			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleTestsParameters.TEST_FILE_NAME));
+			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleIOTester.TEST_FILE_NAME));
 			MapObjectStyle[] readingStyles = StyleProcessor.readStylesFromStream(input);
 			input.close();
 
