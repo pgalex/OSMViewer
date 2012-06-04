@@ -18,7 +18,7 @@ import org.junit.Test;
 public class MapObjectStyleTest
 {
 	/**
-	 * Test sorting, cuz its comparable. Sorting by tags count. More tags - less
+	 * Test sorting. Sorting by tags count. More tags - less
 	 * index
 	 */
 	@Test

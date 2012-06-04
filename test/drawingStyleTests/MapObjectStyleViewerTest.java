@@ -11,15 +11,16 @@ import org.junit.Test;
 
 /**
  * MapObjectStyleViewer (like StyleViewer ) tests
+ *
  * @author pgalex
  */
 public class MapObjectStyleViewerTest
 {
 	/**
-	 * Loading file with incorrect name
+	 * Loading form null stream
 	 */
 	@Test
-	public void incorrectFileTest()
+	public void readingFromNullStreamTest()
 	{
 		StyleViewer viewer = DrawingStyleFactory.createStyleViewer();
 		try
@@ -67,10 +68,10 @@ public class MapObjectStyleViewerTest
 	}
 
 	/**
-	 * Test getStyleIndex and getMapObjectStyle methods
+	 * Test getStyleIndex - founding index by tags
 	 */
 	@Test
-	public void getTest()
+	public void getStyleIndexWorkTest()
 	{
 		try
 		{
@@ -103,24 +104,118 @@ public class MapObjectStyleViewerTest
 			StyleViewer viewer = DrawingStyleFactory.createStyleViewer();
 			DrawingStyleIOTester.readFromTestFile(viewer);
 
-			// normal work
 			assertEquals(0, (int) viewer.getStyleIndex(tags1));
 			assertEquals(1, (int) viewer.getStyleIndex(tags2));
 			assertEquals(2, (int) viewer.getStyleIndex(tags3));
+		}
+		catch (Exception ex)
+		{
+			fail();
+		}
+	}
 
-			// not exists
+	/**
+	 * Testing getStyleIndex method if style with given tags not exists
+	 */
+	@Test
+	public void getStyleIndexNotFoundTest()
+	{
+		try
+		{
+			StyleViewer viewer = DrawingStyleFactory.createStyleViewer();
+
 			EditableDefenitionTags testTags = new EditableDefenitionTags();
 			testTags.add(new MapTag("k9", "v9"));
 			assertNull(viewer.getStyleIndex(testTags));
-			// null
-			assertNull(viewer.getStyleIndex(null));
+		}
+		catch (Exception ex)
+		{
+			fail();
+		}
+	}
 
-			// getMapObjectStyle
+	/**
+	 * Testing getStyleIndex method by null tags
+	 */
+	@Test
+	public void getStyleIndexByNullTagsTest()
+	{
+		try
+		{
+			StyleViewer viewer = DrawingStyleFactory.createStyleViewer();
+
+			assertNull(viewer.getStyleIndex(null));
+		}
+		catch (Exception ex)
+		{
+			fail();
+		}
+	}
+
+	/**
+	 * Testing getMapObjectStyle in normal work
+	 */
+	@Test
+	public void getMapObjectStyleNormalWorkTest()
+	{
+		try
+		{
+			// for test normal work need to save some styles
+			EditableDefenitionTags tags1 = new EditableDefenitionTags();
+			tags1.add(new MapTag("k1", "v1"));
+			MapObjectStyle style1 = new MapObjectStyle(true, true, true, null, 0, "style1", null, tags1);
+
+			EditableDefenitionTags tags2 = new EditableDefenitionTags();
+			tags2.add(new MapTag("k2", "v2"));
+			MapObjectStyle style2 = new MapObjectStyle(true, true, true, null, 0, "style2", null, tags2);
+
+			StyleEditor editor = DrawingStyleFactory.createStyleEditor();
+			editor.add(style1);
+			editor.add(style2);
+			DrawingStyleIOTester.writeToTestFile(editor);
+
+			StyleViewer viewer = DrawingStyleFactory.createStyleViewer();
+			DrawingStyleIOTester.readFromTestFile(viewer);
+
 			assertEquals(style1.getDescription(), viewer.getMapObjectStyle(0).getDescription());
 			assertEquals(style2.getDescription(), viewer.getMapObjectStyle(1).getDescription());
-			assertEquals(style3.getDescription(), viewer.getMapObjectStyle(2).getDescription());
-			// not exists
+		}
+		catch (Exception ex)
+		{
+			fail();
+		}
+	}
+
+	/**
+	 * Testing getMapObjectStyle by index not assisiated with style
+	 */
+	@Test
+	public void getMapObjectStyleNotExistsTest()
+	{
+		try
+		{
+			StyleViewer viewer = DrawingStyleFactory.createStyleViewer();
+
 			assertNull(viewer.getMapObjectStyle(-1));
+			assertNull(viewer.getMapObjectStyle(0));
+			assertNull(viewer.getMapObjectStyle(1));
+		}
+		catch (Exception ex)
+		{
+			fail();
+		}
+	}
+
+	/**
+	 * Testing getMapObjectStyle by null index
+	 */
+	@Test
+	public void getMapObjectStyleByNullIndexTest()
+	{
+		try
+		{
+			StyleViewer viewer = DrawingStyleFactory.createStyleViewer();
+
 			assertNull(viewer.getMapObjectStyle(null));
 		}
 		catch (Exception ex)
