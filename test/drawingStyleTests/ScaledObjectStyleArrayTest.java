@@ -15,67 +15,82 @@ import org.junit.Test;
 public class ScaledObjectStyleArrayTest
 {
 	/**
-	 * Тест isDefaultLevelsCount кол-во по умолчанию
+	 * Testing creating with default scale levels count
 	 */
 	@Test
-	public void defaultScaleLevelsCountTest()
+	public void creatingWithDefaultScaleLevelsCountTest()
 	{
-		ScaledObjectStyleArray style = new ScaledObjectStyleArray();
-		assertEquals(true, style.isDefaultLevelsCount());
+		ScaledObjectStyleArray stylesArray = new ScaledObjectStyleArray();
+		assertEquals(true, stylesArray.isDefaultLevelsCount());
 	}
 
 	/**
-	 * Тест кол-во не по умолчанию
+	 * Testing creating with not default scale levels count
 	 */
 	@Test
-	public void notDefaultScaleLevelsCountTest()
+	public void creatingWithNotDefaultScaleLevelsCountTest()
 	{
-		ScaledObjectStyleArray style = new ScaledObjectStyleArray(5);
-		assertEquals(false, style.isDefaultLevelsCount());
-		assertEquals(5, style.count());
+		ScaledObjectStyleArray stylesArray = new ScaledObjectStyleArray(5);
+		assertEquals(false, stylesArray.isDefaultLevelsCount());
+		assertEquals(5, stylesArray.count());
 	}
 
 	/**
-	 * Тест работы фунций установки, получения стиля на уровне масштаба. Они
-	 * должны учитывать неправильные значения на входе
+	 * Testing setStyleOnScale normal work
 	 */
 	@Test
-	public void scaleLevelsTest()
+	public void setStyleOnScaleWithCorrectParametersTest()
 	{
-		ScaledObjectStyleArray style = new ScaledObjectStyleArray(8);
+		ScaledObjectStyleArray stylesArray = new ScaledObjectStyleArray(8);
 		ScaledObjectStyle scaledStyle = new ScaledObjectStyle(true, false, true, null, null, null, null, null);
 
-		// нормальный уровень
-		style.setStyleOnScale(4, scaledStyle);
-		assertEquals(scaledStyle.isDrawLine(), style.getStyleOnScale(4).isDrawLine());
-		assertEquals(scaledStyle.isDrawPoint(), style.getStyleOnScale(4).isDrawPoint());
+		stylesArray.setStyleOnScale(4, scaledStyle);
 
-		// меньше ноля
+		assertEquals(scaledStyle.isDrawLine(), stylesArray.getStyleOnScale(4).isDrawLine());
+		assertEquals(scaledStyle.isDrawPoint(), stylesArray.getStyleOnScale(4).isDrawPoint());
+	}
+
+	/**
+	 * Testing setStyleOnScale on scale less than 0
+	 */
+	@Test
+	public void setStyleOnScaleLessThanBounds()
+	{
+		ScaledObjectStyleArray stylesArray = new ScaledObjectStyleArray(8);
+		ScaledObjectStyle scaledStyle = new ScaledObjectStyle(true, false, true, null, null, null, null, null);
 		try
 		{
-			style.setStyleOnScale(-1, scaledStyle); // there should be out of range exception
+			stylesArray.setStyleOnScale(-1, scaledStyle); // there should be out of range exception
 			fail();
 		}
 		catch (ScaleLevelOutOfBoundsException ex)
 		{
-			assertEquals(style, ex.getArrayThrowedException());
+			assertEquals(stylesArray, ex.getArrayThrowedException());
 			assertEquals(-1, ex.getIncorrectScaleLevel());
 			assertEquals(0, ex.getBoundsMinimum());
-			assertEquals(style.count(), ex.getBoundsMaximum());
+			assertEquals(stylesArray.count(), ex.getBoundsMaximum());
 		}
+	}
 
-		// больше максимального
+	/**
+	 * Testing setStyleOnScale on scale more than maximum
+	 */
+	@Test
+	public void setStyleOnScaleMoreThanBounds()
+	{
+		ScaledObjectStyleArray stylesArray = new ScaledObjectStyleArray(8);
+		ScaledObjectStyle scaledStyle = new ScaledObjectStyle(true, false, true, null, null, null, null, null);
 		try
 		{
-			style.setStyleOnScale(style.count() + 1, scaledStyle); // there should be out of range exception
+			stylesArray.setStyleOnScale(stylesArray.count() + 1, scaledStyle); // there should be out of range exception
 			fail();
 		}
 		catch (ScaleLevelOutOfBoundsException ex)
 		{
-			assertEquals(style, ex.getArrayThrowedException());
-			assertEquals(style.count() + 1, ex.getIncorrectScaleLevel());
+			assertEquals(stylesArray, ex.getArrayThrowedException());
+			assertEquals(stylesArray.count() + 1, ex.getIncorrectScaleLevel());
 			assertEquals(0, ex.getBoundsMinimum());
-			assertEquals(style.count(), ex.getBoundsMaximum());
+			assertEquals(stylesArray.count(), ex.getBoundsMaximum());
 		}
 	}
 
@@ -148,9 +163,9 @@ public class ScaledObjectStyleArrayTest
 			writedStyleArray.setStyleOnScale(WRITING_ARRAY_SIZE - 1, scaledStyle1);
 			writedStyleArray.setStyleOnScale(READING_ARRAY_SIZE - 1, scaledStyle2);
 			writedStyleArray.setStyleOnScale(READING_ARRAY_SIZE - 2, scaledStyle1);
-			
+
 			DrawingStyleIOTester.writeToTestFile(writedStyleArray);
-			
+
 			ScaledObjectStyleArray readStyleArray = new ScaledObjectStyleArray(READING_ARRAY_SIZE);
 			DrawingStyleIOTester.readFromTestFile(readStyleArray);
 
