@@ -154,23 +154,16 @@ public class StyleProcessorTest
 	@Test
 	public void normalFileTest()
 	{
-		MapObjectStyle[] writingStyles = new MapObjectStyle[2];
-		writingStyles[0] = new MapObjectStyle(true, true, true, null, 0, "style1", null, null);
-		writingStyles[1] = new MapObjectStyle(true, true, true, null, 0, "style2", null, null);
-
 		try
 		{
+			MapObjectStyle[] writingStyles = new MapObjectStyle[2];
+			writingStyles[0] = new MapObjectStyle(true, true, true, null, 0, "style1", null, null);
+			writingStyles[1] = new MapObjectStyle(true, true, true, null, 0, "style2", null, null);
+
 			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleIOTester.TEST_FILE_NAME));
 			StyleProcessor.writeStylesToStream(writingStyles, output);
 			output.close();
-		}
-		catch (Exception ex)
-		{
-			fail();
-		}
 
-		try
-		{
 			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleIOTester.TEST_FILE_NAME));
 			MapObjectStyle[] readingStyles = StyleProcessor.readStylesFromStream(input);
 			input.close();
