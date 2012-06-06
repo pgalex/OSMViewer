@@ -1,4 +1,4 @@
-package drawingStyleTests;
+package IOTesting;
 
 import fileIO.ReadableMapData;
 import fileIO.WritableMapData;
@@ -9,7 +9,7 @@ import java.io.*;
  *
  * @author pgalex
  */
-public class DrawingStyleIOTester
+public class IOTester
 {
 	/**
 	 * Name of file used of reading/writing testing
@@ -27,7 +27,7 @@ public class DrawingStyleIOTester
 		if (pWritingObject == null)
 			throw new NullPointerException();
 
-		DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleIOTester.TEST_FILE_NAME));
+		DataOutputStream output = new DataOutputStream(new FileOutputStream(IOTester.TEST_FILE_NAME));
 		pWritingObject.writeToStream(output);
 		output.close();
 	}
@@ -43,7 +43,7 @@ public class DrawingStyleIOTester
 		if (pReadingObject == null)
 			throw new NullPointerException();
 
-		DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleIOTester.TEST_FILE_NAME));
+		DataInputStream input = new DataInputStream(new FileInputStream(IOTester.TEST_FILE_NAME));
 		pReadingObject.readFromStream(input);
 		input.close();
 	}

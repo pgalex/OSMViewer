@@ -1,5 +1,6 @@
 package drawingStyleTests;
 
+import IOTesting.IOTester;
 import drawingStyle.IOFont;
 import java.awt.Font;
 import static org.junit.Assert.*;
@@ -31,10 +32,10 @@ public class IOFontTest
 		try
 		{
 			IOFont writedFont = new IOFont(new Font("Arial", 0, 15));
-			DrawingStyleIOTester.writeToTestFile(writedFont);
+			IOTester.writeToTestFile(writedFont);
 
 			IOFont readFont = new IOFont();
-			DrawingStyleIOTester.readFromTestFile(readFont);
+			IOTester.readFromTestFile(readFont);
 
 			assertEquals(writedFont.getFont().getFamily(), readFont.getFont().getFamily());
 			assertEquals(writedFont.getFont().getStyle(), readFont.getFont().getStyle());

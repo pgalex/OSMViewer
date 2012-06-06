@@ -1,5 +1,6 @@
 package drawingStyleTests;
 
+import IOTesting.IOTester;
 import drawingStyle.MapObjectStyle;
 import drawingStyle.StyleProcessor;
 import java.io.DataInputStream;
@@ -94,11 +95,11 @@ public class StyleProcessorTest
 		{
 			MapObjectStyle[] writingStyles = new MapObjectStyle[0];
 
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleIOTester.TEST_FILE_NAME));
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(IOTester.TEST_FILE_NAME));
 			StyleProcessor.writeStylesToStream(writingStyles, output);
 			output.close();
 
-			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleIOTester.TEST_FILE_NAME));
+			DataInputStream input = new DataInputStream(new FileInputStream(IOTester.TEST_FILE_NAME));
 			MapObjectStyle[] readingStyles = StyleProcessor.readStylesFromStream(input);
 			input.close();
 
@@ -119,7 +120,7 @@ public class StyleProcessorTest
 		// null objects in array
 		try
 		{
-			StyleProcessor.writeStylesToStream(new MapObjectStyle[2], new DataOutputStream(new FileOutputStream(DrawingStyleIOTester.TEST_FILE_NAME)));
+			StyleProcessor.writeStylesToStream(new MapObjectStyle[2], new DataOutputStream(new FileOutputStream(IOTester.TEST_FILE_NAME)));
 			fail();
 		}
 		catch (Exception e)
@@ -160,11 +161,11 @@ public class StyleProcessorTest
 			writingStyles[0] = new MapObjectStyle(true, true, true, null, 0, "style1", null, null);
 			writingStyles[1] = new MapObjectStyle(true, true, true, null, 0, "style2", null, null);
 
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(DrawingStyleIOTester.TEST_FILE_NAME));
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(IOTester.TEST_FILE_NAME));
 			StyleProcessor.writeStylesToStream(writingStyles, output);
 			output.close();
 
-			DataInputStream input = new DataInputStream(new FileInputStream(DrawingStyleIOTester.TEST_FILE_NAME));
+			DataInputStream input = new DataInputStream(new FileInputStream(IOTester.TEST_FILE_NAME));
 			MapObjectStyle[] readingStyles = StyleProcessor.readStylesFromStream(input);
 			input.close();
 

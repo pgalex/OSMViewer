@@ -1,5 +1,6 @@
 package drawingStyleTests;
 
+import IOTesting.IOTester;
 import drawingStyle.MapObjectStyle;
 import drawingStyle.ScaledObjectStyle;
 import drawingStyle.ScaledObjectStyleArray;
@@ -79,10 +80,10 @@ public class MapObjectStyleTest
 
 			MapObjectStyle writedStyle = new MapObjectStyle(true, false,
 							true, null, 10, "object1", scaledStyles, tags);
-			DrawingStyleIOTester.writeToTestFile(writedStyle);
+			IOTester.writeToTestFile(writedStyle);
 
 			MapObjectStyle readStyle = new MapObjectStyle();
-			DrawingStyleIOTester.readFromTestFile(readStyle);
+			IOTester.readFromTestFile(readStyle);
 
 			assertEquals(writedStyle.isCanBeLine(), readStyle.isCanBeLine());
 			assertEquals(writedStyle.isCanBePoint(), readStyle.isCanBePoint());

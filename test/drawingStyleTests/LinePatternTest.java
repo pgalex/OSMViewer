@@ -1,5 +1,6 @@
 package drawingStyleTests;
 
+import IOTesting.IOTester;
 import drawingStyle.LinePattern;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -37,10 +38,10 @@ public class LinePatternTest
 			pattern[2] = 4;
 			pattern[3] = 5;
 			LinePattern writedPattern = new LinePattern(pattern);
-			DrawingStyleIOTester.writeToTestFile(writedPattern);
+			IOTester.writeToTestFile(writedPattern);
 
 			LinePattern readPattern = new LinePattern();
-			DrawingStyleIOTester.readFromTestFile(readPattern);
+			IOTester.readFromTestFile(readPattern);
 
 			assertArrayEquals(writedPattern.getPattern(), readPattern.getPattern(), 0.0001f);
 		}

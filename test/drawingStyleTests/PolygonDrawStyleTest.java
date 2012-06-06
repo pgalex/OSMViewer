@@ -1,5 +1,6 @@
 package drawingStyleTests;
 
+import IOTesting.IOTester;
 import drawingStyle.*;
 import java.awt.Color;
 import static org.junit.Assert.*;
@@ -37,10 +38,10 @@ public class PolygonDrawStyleTest
 			PolygonDrawStyle writedStyle = new PolygonDrawStyle(new IOColor(Color.MAGENTA), borderStyle,
 							new IOIcon());
 
-			DrawingStyleIOTester.writeToTestFile(writedStyle);
+			IOTester.writeToTestFile(writedStyle);
 
 			PolygonDrawStyle readStyle = new PolygonDrawStyle();
-			DrawingStyleIOTester.readFromTestFile(readStyle);
+			IOTester.readFromTestFile(readStyle);
 
 			assertEquals(writedStyle.getFillColor().getColor(), readStyle.getFillColor().getColor());
 			assertEquals(writedStyle.getBorderDrawStyle().getColor().getColor(), readStyle.getBorderDrawStyle().getColor().getColor());

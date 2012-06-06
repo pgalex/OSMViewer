@@ -1,5 +1,6 @@
 package drawingStyleTests;
 
+import IOTesting.IOTester;
 import drawingStyle.IOColor;
 import java.awt.Color;
 import static org.junit.Assert.assertEquals;
@@ -22,10 +23,10 @@ public class IOColorTest
 		try
 		{
 			IOColor writedColor = new IOColor(Color.MAGENTA);
-			DrawingStyleIOTester.writeToTestFile(writedColor);
+			IOTester.writeToTestFile(writedColor);
 
 			IOColor readColor = new IOColor();
-			DrawingStyleIOTester.readFromTestFile(readColor);
+			IOTester.readFromTestFile(readColor);
 
 			assertEquals(writedColor.getColor(), readColor.getColor());
 		}

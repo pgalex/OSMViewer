@@ -1,5 +1,6 @@
 package drawingStyleTests;
 
+import IOTesting.IOTester;
 import drawingStyle.DrawingStyleFactory;
 import drawingStyle.MapObjectStyle;
 import drawingStyle.StyleEditor;
@@ -51,10 +52,10 @@ public class MapObjectStyleViewerTest
 			writedEditor.add(style2);
 			writedEditor.add(style3);
 
-			DrawingStyleIOTester.writeToTestFile(writedEditor);
+			IOTester.writeToTestFile(writedEditor);
 
 			StyleViewer readViewer = DrawingStyleFactory.createStyleViewer();
-			DrawingStyleIOTester.readFromTestFile(readViewer);
+			IOTester.readFromTestFile(readViewer);
 
 			assertEquals(writedEditor.getMapObjectStyle(0).getDescription(), readViewer.getMapObjectStyle(0).getDescription());
 			assertEquals(writedEditor.getMapObjectStyle(1).getDescription(), readViewer.getMapObjectStyle(1).getDescription());
@@ -99,10 +100,10 @@ public class MapObjectStyleViewerTest
 			editor.add(style2);
 			editor.add(style3);
 
-			DrawingStyleIOTester.writeToTestFile(editor);
+			IOTester.writeToTestFile(editor);
 
 			StyleViewer viewer = DrawingStyleFactory.createStyleViewer();
-			DrawingStyleIOTester.readFromTestFile(viewer);
+			IOTester.readFromTestFile(viewer);
 
 			assertEquals(0, (int) viewer.getStyleIndex(tags1));
 			assertEquals(1, (int) viewer.getStyleIndex(tags2));
@@ -172,10 +173,10 @@ public class MapObjectStyleViewerTest
 			StyleEditor editor = DrawingStyleFactory.createStyleEditor();
 			editor.add(style1);
 			editor.add(style2);
-			DrawingStyleIOTester.writeToTestFile(editor);
+			IOTester.writeToTestFile(editor);
 
 			StyleViewer viewer = DrawingStyleFactory.createStyleViewer();
-			DrawingStyleIOTester.readFromTestFile(viewer);
+			IOTester.readFromTestFile(viewer);
 
 			assertEquals(style1.getDescription(), viewer.getMapObjectStyle(0).getDescription());
 			assertEquals(style2.getDescription(), viewer.getMapObjectStyle(1).getDescription());

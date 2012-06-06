@@ -1,5 +1,6 @@
 package drawingStyleTests;
 
+import IOTesting.IOTester;
 import drawingStyle.TextTagsKeys;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -54,10 +55,10 @@ public class TextTagsKeysTest
 				"k1", "k2"
 			};
 			TextTagsKeys writingTagsKeys = new TextTagsKeys(keys);
-			DrawingStyleIOTester.writeToTestFile(writingTagsKeys);
+			IOTester.writeToTestFile(writingTagsKeys);
 
 			TextTagsKeys readingTagsKeys = new TextTagsKeys();
-			DrawingStyleIOTester.readFromTestFile(readingTagsKeys);
+			IOTester.readFromTestFile(readingTagsKeys);
 
 			assertArrayEquals(writingTagsKeys.getTagsKeys(), readingTagsKeys.getTagsKeys());
 		}

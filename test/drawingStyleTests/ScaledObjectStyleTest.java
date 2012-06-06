@@ -1,5 +1,6 @@
 package drawingStyleTests;
 
+import IOTesting.IOTester;
 import drawingStyle.IOColor;
 import drawingStyle.IOFont;
 import drawingStyle.ScaledObjectStyle;
@@ -40,10 +41,10 @@ public class ScaledObjectStyleTest
 			ScaledObjectStyle writedStyle = new ScaledObjectStyle(true, false, true, null, null,
 							null, new IOColor(Color.RED), new IOFont(new Font("Arial", 1, 3)));
 
-			DrawingStyleIOTester.writeToTestFile(writedStyle);
+			IOTester.writeToTestFile(writedStyle);
 
 			ScaledObjectStyle readStyle = new ScaledObjectStyle();
-			DrawingStyleIOTester.readFromTestFile(readStyle);
+			IOTester.readFromTestFile(readStyle);
 
 			assertEquals(writedStyle.isDrawLine(), readStyle.isDrawLine());
 			assertEquals(writedStyle.isDrawPoint(), readStyle.isDrawPoint());

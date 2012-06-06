@@ -1,5 +1,6 @@
 package drawingStyleTests;
 
+import IOTesting.IOTester;
 import drawingStyle.ScaledObjectStyle;
 import drawingStyle.ScaledObjectStyleArray;
 import drawingStyle.exceptions.ScaleLevelOutOfBoundsException;
@@ -128,10 +129,10 @@ public class ScaledObjectStyleArrayTest
 			ScaledObjectStyleArray writedStyle = new ScaledObjectStyleArray(3);
 			writedStyle.setStyleOnScale(2, scaledStyle);
 
-			DrawingStyleIOTester.writeToTestFile(writedStyle);
+			IOTester.writeToTestFile(writedStyle);
 
 			ScaledObjectStyleArray readStyle = new ScaledObjectStyleArray();
-			DrawingStyleIOTester.readFromTestFile(readStyle);
+			IOTester.readFromTestFile(readStyle);
 
 			assertEquals(true, readStyle.isDefaultLevelsCount());
 			for (int i = writedStyle.count() - 1; i < readStyle.count(); i++)
@@ -164,10 +165,10 @@ public class ScaledObjectStyleArrayTest
 			writedStyleArray.setStyleOnScale(READING_ARRAY_SIZE - 1, scaledStyle2);
 			writedStyleArray.setStyleOnScale(READING_ARRAY_SIZE - 2, scaledStyle1);
 
-			DrawingStyleIOTester.writeToTestFile(writedStyleArray);
+			IOTester.writeToTestFile(writedStyleArray);
 
 			ScaledObjectStyleArray readStyleArray = new ScaledObjectStyleArray(READING_ARRAY_SIZE);
-			DrawingStyleIOTester.readFromTestFile(readStyleArray);
+			IOTester.readFromTestFile(readStyleArray);
 
 			assertEquals(true, readStyleArray.isDefaultLevelsCount());
 			assertEquals(false, writedStyleArray.isDefaultLevelsCount());

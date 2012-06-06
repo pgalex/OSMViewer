@@ -1,5 +1,6 @@
 package drawingStyleTests;
 
+import IOTesting.IOTester;
 import drawingStyle.IOColor;
 import drawingStyle.LineDrawStyle;
 import drawingStyle.LinePattern;
@@ -39,10 +40,10 @@ public class LineDrawStyleTest
 			pattern[2] = 4;
 			pattern[3] = 5;
 			LineDrawStyle writedStyle = new LineDrawStyle(new IOColor(Color.CYAN), 11, new LinePattern(pattern));
-			DrawingStyleIOTester.writeToTestFile(writedStyle);
+			IOTester.writeToTestFile(writedStyle);
 
 			LineDrawStyle readStyle = new LineDrawStyle();
-			DrawingStyleIOTester.readFromTestFile(readStyle);
+			IOTester.readFromTestFile(readStyle);
 
 			assertEquals(writedStyle.getColor().getColor(), readStyle.getColor().getColor());
 			assertEquals(writedStyle.getWidth(), readStyle.getWidth());

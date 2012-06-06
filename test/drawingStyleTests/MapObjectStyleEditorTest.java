@@ -1,5 +1,6 @@
 package drawingStyleTests;
 
+import IOTesting.IOTester;
 import drawingStyle.DrawingStyleFactory;
 import drawingStyle.MapObjectStyle;
 import drawingStyle.StyleEditor;
@@ -312,10 +313,10 @@ public class MapObjectStyleEditorTest
 			writedEditor.add(style1);
 			writedEditor.add(style2);
 			writedEditor.add(style3);
-			DrawingStyleIOTester.writeToTestFile(writedEditor);
+			IOTester.writeToTestFile(writedEditor);
 
 			StyleEditor readEditor = DrawingStyleFactory.createStyleEditor();
-			DrawingStyleIOTester.readFromTestFile(readEditor);
+			IOTester.readFromTestFile(readEditor);
 
 			// comparing only by description. full test in map object style tests
 			assertEquals(writedEditor.count(), readEditor.count());

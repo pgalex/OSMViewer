@@ -1,5 +1,6 @@
 package drawingStyleTests;
 
+import IOTesting.IOTester;
 import drawingStyle.IOIcon;
 import java.io.IOException;
 import static org.junit.Assert.*;
@@ -55,10 +56,10 @@ public class IOIconTest
 		try
 		{
 			IOIcon writedImage = new IOIcon(ICON_FILE_NAME);
-			DrawingStyleIOTester.writeToTestFile(writedImage);
+			IOTester.writeToTestFile(writedImage);
 
 			IOIcon readImage = new IOIcon();
-			DrawingStyleIOTester.readFromTestFile(readImage);
+			IOTester.readFromTestFile(readImage);
 
 			assertNotNull(readImage.getImage());
 		}
@@ -77,10 +78,10 @@ public class IOIconTest
 		try
 		{
 			IOIcon writedImage = new IOIcon();
-			DrawingStyleIOTester.writeToTestFile(writedImage);
+			IOTester.writeToTestFile(writedImage);
 
 			IOIcon readImage = new IOIcon();
-			DrawingStyleIOTester.readFromTestFile(readImage);
+			IOTester.readFromTestFile(readImage);
 
 			assertNull(readImage.getImage());
 		}
