@@ -1,53 +1,31 @@
 package mapTests;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import IOTesting.IOTester;
 import map.MapTag;
-import org.junit.AfterClass;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-import org.junit.BeforeClass;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
+ * MapTag class tests
  *
  * @author abc
  */
 public class MapTagTest
 {
-	private final String TEST_FILE_NAME = "testFile.txt";
-
-	public MapTagTest()
-	{
-	}
-
 	/**
-	 * Чтение запись
+	 * Reading/writing test
 	 */
 	@Test
-	public void fileTest()
+	public void readingWritingTest()
 	{
-		MapTag writingTag = new MapTag("key1", "v1");
 		try
 		{
-			DataOutputStream output = new DataOutputStream(new FileOutputStream(TEST_FILE_NAME));
-			writingTag.writeToStream(output);
-			output.close();
-		}
-		catch (Exception ex)
-		{
-			fail();
-		}
+			MapTag writingTag = new MapTag("key1", "value1");
+			IOTester.writeToTestFile(writingTag);
 
-		//чтение
-		MapTag readingTag = new MapTag();
-		try
-		{
-			DataInputStream input = new DataInputStream(new FileInputStream(TEST_FILE_NAME));
-			readingTag.readFromStream(input);
-			input.close();
+			MapTag readingTag = new MapTag();
+			IOTester.readFromTestFile(readingTag);
+
 			assertEquals(writingTag.getKey(), readingTag.getKey());
 			assertEquals(writingTag.getValue(), readingTag.getValue());
 		}
@@ -58,44 +36,57 @@ public class MapTagTest
 	}
 
 	/**
-	 * Сравнение тегов
+	 * Testing compare two empty tags
 	 */
 	@Test
-	public void compareToTest()
+	public void comparingTwoEmptyTagsTest()
 	{
 		MapTag tag1 = new MapTag();
 		MapTag tag2 = new MapTag();
-		//пустые
-		assertEquals(true, tag1.compareTo(tag2));
-
-		//один пустой
-		tag1.setKey("k1");
-		tag1.setValue("v1");
-		assertEquals(false, tag1.compareTo(tag2));
-
-		//одинаковые
-		tag2.setKey("k1");
-		tag2.setValue("v1");
-		assertEquals(true, tag1.compareTo(tag2));
-
-		//разные
-		tag2.setKey("k2");
-		tag2.setValue("v2");
-		assertEquals(false, tag1.compareTo(tag2));
-		
-		//с разным регистром
-		tag2.setKey("K1");
-		tag2.setValue("V1");
-		assertEquals(true, tag1.compareTo(tag2));
+		assertTrue(tag1.compareTo(tag2));
 	}
 
-	@BeforeClass
-	public static void setUpClass() throws Exception
+	/**
+	 * Testing compare with one empty tag
+	 */
+	@Test
+	public void compareWithOneEmptyTagTest()
 	{
+		MapTag tag1 = new MapTag("k1", "v1");
+		MapTag tag2 = new MapTag();
+		assertFalse(tag1.compareTo(tag2));
 	}
 
-	@AfterClass
-	public static void tearDownClass() throws Exception
+	/**
+	 * Testing compare equal tags
+	 */
+	@Test
+	public void compareEqualTagsTest()
 	{
+		MapTag tag1 = new MapTag("k1", "v1");
+		MapTag tag2 = new MapTag("k1", "v1");
+		assertTrue(tag1.compareTo(tag2));
+	}
+
+	/**
+	 * Testing compare not equal tags
+	 */
+	@Test
+	public void compareNotEqualTagsTest()
+	{
+		MapTag tag1 = new MapTag("k1", "v1");
+		MapTag tag2 = new MapTag("k2", "v2");
+		assertFalse(tag1.compareTo(tag2));
+	}
+
+	/**
+	 * Testing compare equal tags with different case
+	 */
+	@Test
+	public void compareEqualWithDifferentCaseTagsTest()
+	{
+		MapTag tag1 = new MapTag("k1", "v1");
+		MapTag tag2 = new MapTag("K1", "V1");
+		assertTrue(tag1.compareTo(tag2));
 	}
 }
