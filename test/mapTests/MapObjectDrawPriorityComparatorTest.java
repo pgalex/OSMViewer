@@ -10,27 +10,22 @@ import map.MapObject;
 import map.MapObjectDrawPriorityComparator;
 import map.MapTag;
 import map.exceptions.StyleViewerIsNullException;
-import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
+ * MapObjectDrawPriorityComparator tests
  *
  * @author pgalex
  */
 public class MapObjectDrawPriorityComparatorTest
 {
-	public MapObjectDrawPriorityComparatorTest()
-	{
-	}
-
 	/**
 	 * Testing constructor with null style viewer
 	 */
 	@Test
-	public void constructorTest()
+	public void creatingWithNullStyleViewerTest()
 	{
 		try
 		{
@@ -47,15 +42,17 @@ public class MapObjectDrawPriorityComparatorTest
 	 * Testing sorting with comparator
 	 */
 	@Test
-	public void sortingTest()
+	public void sortingWithComparatorTest()
 	{
 		StyleEditor editor = DrawingStyleFactory.createStyleEditor();
 		EditableDefenitionTags tags1 = new EditableDefenitionTags();
 		tags1.add(new MapTag("k1", "v1"));
 		editor.add(new MapObjectStyle(false, false, false, null, 10, "", null, tags1));
+		
 		EditableDefenitionTags tags2 = new EditableDefenitionTags();
 		tags2.add(new MapTag("k2", "v2"));
 		editor.add(new MapObjectStyle(false, false, false, null, 11, "", null, tags2));
+		
 		EditableDefenitionTags tags3 = new EditableDefenitionTags();
 		tags3.add(new MapTag("k3", "v3"));
 		editor.add(new MapObjectStyle(false, false, false, null, -10, "", null, tags3));
@@ -64,12 +61,12 @@ public class MapObjectDrawPriorityComparatorTest
 		MapObject object1 = new MapObject(1, tags1);
 		object1.assignStyleIndex(editor);
 		objects.add(object1);
-		
+
 		MapObject object2 = new MapObject(2, tags2);
 		object2.assignStyleIndex(editor);
 		objects.add(object2);
-		
-		
+
+
 		MapObject object3 = new MapObject(3, tags3);
 		object3.assignStyleIndex(editor);
 		objects.add(object3);
@@ -79,15 +76,5 @@ public class MapObjectDrawPriorityComparatorTest
 		assertEquals(3, objects.get(0).getId());
 		assertEquals(1, objects.get(1).getId());
 		assertEquals(2, objects.get(2).getId());
-	}
-
-	@BeforeClass
-	public static void setUpClass() throws Exception
-	{
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception
-	{
 	}
 }
