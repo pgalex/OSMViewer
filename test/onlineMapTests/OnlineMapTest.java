@@ -1,58 +1,21 @@
 package onlineMapTests;
 
-import map.*;
+import map.MapLine;
+import map.MapPoint;
+import map.MapPolygon;
+import map.MapPosition;
 import onlineMap.OnlineMap;
-import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
+ * OnlineMap class tests
  *
  * @author pgalex
  */
 public class OnlineMapTest
 {
-	/**
-	 * Mock class of objects renderer, using for testing
-	 */
-	private class MapObjectsRendererMock implements MapObjectsRenderer
-	{
-		public int pointsRendered;
-		public int linesRendered;
-		public int polygonsRendered;
-
-		public MapObjectsRendererMock()
-		{
-			pointsRendered = 0;
-			linesRendered = 0;
-			polygonsRendered = 0;
-		}
-
-		@Override
-		public void renderPoint(MapPoint pPoint)
-		{
-			pointsRendered++;
-		}
-
-		@Override
-		public void renderLine(MapLine pLine)
-		{
-			linesRendered++;
-		}
-
-		@Override
-		public void renderPolygon(MapPolygon pPolygon)
-		{
-			polygonsRendered++;
-		}
-	}
-
-	public OnlineMapTest()
-	{
-	}
-
 	/**
 	 * Test rendering visitor work, normal work
 	 */
@@ -79,10 +42,10 @@ public class OnlineMapTest
 	}
 
 	/**
-	 * Renderer is null
+	 * Renderer is null. Should not be any exception
 	 */
 	@Test
-	public void renderingIncorrectRendererTest()
+	public void renderingWithNullRendererTest()
 	{
 		OnlineMap testMap = new OnlineMap();
 		try
@@ -94,15 +57,5 @@ public class OnlineMapTest
 		{
 			fail();
 		}
-	}
-
-	@BeforeClass
-	public static void setUpClass() throws Exception
-	{
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception
-	{
 	}
 }
