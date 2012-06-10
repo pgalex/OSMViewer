@@ -1,33 +1,24 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package mapTests;
 
 import map.EditableDefenitionTags;
 import map.MapTag;
 import map.exceptions.TagIndexOutOfBoundsException;
 import map.exceptions.TagIsNullException;
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
+ * EditableDefenitionTags tests
  *
  * @author pgalex
  */
 public class EditableDefenitionTagsTest
 {
-	public EditableDefenitionTagsTest()
-	{
-	}
-
 	/**
-	 * Testing add method - normal work
+	 * Testing adding new tags - normal work
 	 */
 	@Test
-	public void addingNormalTest()
+	public void addingTagsTest()
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
 		tags.add(new MapTag("k1", "v1"));
@@ -40,10 +31,10 @@ public class EditableDefenitionTagsTest
 	}
 
 	/**
-	 * Testing add method - map tag is null
+	 * Testing adding null tag
 	 */
 	@Test
-	public void addingNullParameterTest()
+	public void addingNullTagTest()
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
 		tags.add(new MapTag("k1", "v1"));
@@ -68,15 +59,13 @@ public class EditableDefenitionTagsTest
 		tags.add(new MapTag("k1", "v1"));
 		tags.add(new MapTag("k2", "v2"));
 
-		assertFalse(tags.isEmpty());
-		assertEquals(2, tags.size());
 		tags.clear();
 		assertTrue(tags.isEmpty());
 		assertEquals(0, tags.size());
 	}
 
 	/**
-	 * Testing remove method
+	 * Test removing tags
 	 */
 	@Test
 	public void removeTest()
@@ -85,9 +74,6 @@ public class EditableDefenitionTagsTest
 		tags.add(new MapTag("k1", "v1"));
 		tags.add(new MapTag("k2", "v2"));
 
-		assertFalse(tags.isEmpty());
-		assertEquals(2, tags.size());
-
 		tags.remove(1);
 		assertEquals(1, tags.size());
 		assertTrue(tags.get(0).compareTo(new MapTag("k1", "v1")));
@@ -95,7 +81,15 @@ public class EditableDefenitionTagsTest
 		tags.remove(0);
 		assertTrue(tags.isEmpty());
 		assertEquals(0, tags.size());
+	}
 
+	/**
+	 * Test removing tag with index less then bounds
+	 */
+	@Test
+	public void removeWithIndexLessThanBoundsTest()
+	{
+		EditableDefenitionTags tags = new EditableDefenitionTags();
 		tags.add(new MapTag("k1", "v1"));
 		try
 		{
@@ -109,6 +103,16 @@ public class EditableDefenitionTagsTest
 			assertEquals(0, ex.getBoundsMinimum());
 			assertEquals(tags.size(), ex.getBoundsMaximum());
 		}
+	}
+
+	/**
+	 * Test removing tag with index more then bounds
+	 */
+	@Test
+	public void removeWithIndexMoreThanBoundsTest()
+	{
+		EditableDefenitionTags tags = new EditableDefenitionTags();
+		tags.add(new MapTag("k1", "v1"));
 		try
 		{
 			tags.remove(tags.size());
@@ -121,15 +125,5 @@ public class EditableDefenitionTagsTest
 			assertEquals(0, ex.getBoundsMinimum());
 			assertEquals(tags.size(), ex.getBoundsMaximum());
 		}
-	}
-
-	@BeforeClass
-	public static void setUpClass() throws Exception
-	{
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception
-	{
 	}
 }
