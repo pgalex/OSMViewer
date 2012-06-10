@@ -1,96 +1,84 @@
 package mapTests;
 
-import com.sun.imageio.spi.RAFImageInputStreamSpi;
 import map.MapBounds;
-import org.junit.AfterClass;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.BeforeClass;
 
 /**
+ * MapBounds tests
  *
  * @author pgalex
  */
 public class MapBoundsTest
 {
-	public MapBoundsTest()
+	/**
+	 * Testing isZero method with all bounds equals
+	 */
+	@Test
+	public void isZeroAllBoundsEqualTest()
 	{
+		MapBounds testBounds = new MapBounds(0.00001, 0.00001, 0.00001, 0.00001);
+		assertTrue(testBounds.isZero());
 	}
 
 	/**
-	 * Testing isZero method with zero area coordinates
+	 * Testing isZero method with longitude maximum/minimum equals, more zero
 	 */
 	@Test
-	public void isZeroTrueTest()
+	public void isZeroLongitudeBoundsEqualMoreZeroTest()
 	{
-		// not random often values
-		MapBounds testBounds = new MapBounds(0, 0, 0, 0);
-		assertTrue(testBounds.isZero());
-		
-		testBounds = new MapBounds(0.00001, 0.00001, 0.00001, 0.00001);
-		assertTrue(testBounds.isZero());
-		
-		testBounds = new MapBounds(1, 2, 3, 3);
-		assertTrue(testBounds.isZero());
-		
-		testBounds = new MapBounds(1, 1, 2, 3);
-		assertTrue(testBounds.isZero());
-		
-		testBounds = new MapBounds(-1, -1, 2, 3);
-		assertTrue(testBounds.isZero());
-		
-		testBounds = new MapBounds(1, 2, -5, -5);
-		assertTrue(testBounds.isZero());
-		
-		// some random zero area values
-		for (int i = 0; i < 10; i++)
-		{
-			double random1 = Math.random() * i;
-			double random2 = Math.random() * i;
-			double random3 = Math.random() * i;
-			
-			MapBounds zeroLatitudeBounds = new MapBounds(random1, random1, random2, random3);
-			assertTrue(zeroLatitudeBounds.isZero());
-			
-			MapBounds zeroLongitudeBounds = new MapBounds(random2, random3, random1, random1);
-			assertTrue(zeroLongitudeBounds.isZero());
-		}
+		MapBounds testBoundsMoreZero = new MapBounds(1, 2, 3, 3);
+		assertTrue(testBoundsMoreZero.isZero());
 	}
-	
-	
+
+	/**
+	 * Testing isZero method with longitude maximum/minimum equals, less zero
+	 */
+	@Test
+	public void isZeroLongitudeBoundsEqualLessZeroTest()
+	{
+		MapBounds testBoundsLessZero = new MapBounds(1, 2, -3, -3);
+		assertTrue(testBoundsLessZero.isZero());
+	}
+
+	/**
+	 * Testing isZero method with latitude maximum/minimum equals, more zero
+	 */
+	@Test
+	public void isZeroLatitudeBoundsEqualMoreZeroTest()
+	{
+		MapBounds testBoundsMoreZero = new MapBounds(-1, -1, 2, 3);
+		assertTrue(testBoundsMoreZero.isZero());
+	}
+
+	/**
+	 * Testing isZero method with latitude maximum/minimum equals, less zero
+	 */
+	@Test
+	public void isZeroLatitudeBoundsEqualLessZeroTest()
+	{
+		MapBounds testBoundsLessZero = new MapBounds(-1, -1, 2, 3);
+		assertTrue(testBoundsLessZero.isZero());
+	}
+
 	/**
 	 * Testing isZero method with non zero area coordinates
 	 */
 	@Test
-	public void isZeroFalseTest()
+	public void isZeroAllBoundsNotEqualTest()
 	{
-		// not random often values
-		MapBounds testBounds = new MapBounds(1, 2, 3, 4);
-		assertFalse(testBounds.isZero());
-		
-		testBounds = new MapBounds(0.00002, 0.00001, 0.00003, 0.00004);
-		assertFalse(testBounds.isZero());
-		
-		testBounds = new MapBounds(1, 0, 1, 0);
-		assertFalse(testBounds.isZero());
-		
-		testBounds = new MapBounds(0, 1, 0, 1);
-		assertFalse(testBounds.isZero());
-		
-		testBounds = new MapBounds(-1, -2, -2, -1);
-		assertFalse(testBounds.isZero());
-		
-		testBounds = new MapBounds(-2, -1, -1, -2);
+		MapBounds testBounds = new MapBounds(0.00002, 0.00001, 0.00003, 0.00004);
 		assertFalse(testBounds.isZero());
 	}
 
-	@BeforeClass
-	public static void setUpClass() throws Exception
+	/**
+	 * Testing isZero method with longitude max/min and latitude max/min as same
+	 */
+	@Test
+	public void isZeroLatitudeAndLongitudeBoundsSameTest()
 	{
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception
-	{
+		MapBounds testBounds = new MapBounds(1, 0, 1, 0);
+		assertFalse(testBounds.isZero());
 	}
 }
