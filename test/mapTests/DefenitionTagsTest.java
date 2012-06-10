@@ -15,112 +15,160 @@ import org.junit.Test;
 public class DefenitionTagsTest
 {
 	/**
-	 * get method test
+	 * Test getting tag from empty EditableDefenitionTags
 	 */
 	@Test
-	public void getTest()
+	public void gettingTagFromEmptyListTest()
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
-		// null list
+
 		assertNull(tags.get(0));
+	}
 
-		// normal work
-		try
-		{
-			tags.add(new MapTag("k3", "v3"));
-			tags.add(new MapTag("k1", "v1"));
-			tags.add(new MapTag("k2", "v2"));
-
-			for (int i = 0; i < tags.size(); i++)
-				assertTrue(tags.get(i).compareTo(tags.get(i)));
-		}
-		catch (Exception e)
-		{
-			fail();
-		}
-
-		// out of bounds
-		tags = new EditableDefenitionTags();
-		tags.add(new MapTag("k3", "v3"));
-		tags.add(new MapTag("k1", "v1"));
+	/**
+	 * Test getting tag by index less then bounds
+	 */
+	@Test
+	public void gettingTagLessThenBoundsTest()
+	{
+		EditableDefenitionTags tags = new EditableDefenitionTags();
 		tags.add(new MapTag("k2", "v2"));
+
 		assertNull(tags.get(-1));
+	}
 
-		tags = new EditableDefenitionTags();
-		tags.add(new MapTag("k3", "v3"));
-		tags.add(new MapTag("k1", "v1"));
+	/**
+	 * Test getting tag by index more then bounds
+	 */
+	@Test
+	public void gettingTagMoreThenBoundsTest()
+	{
+		EditableDefenitionTags tags = new EditableDefenitionTags();
 		tags.add(new MapTag("k2", "v2"));
+
 		assertNull(tags.get(tags.size()));
 	}
 
 	/**
-	 * Comparing defenition tags test
+	 * Comparing defenition when both defenition tags are empty
 	 */
 	@Test
-	public void compareToTest()
+	public void comparingAllTagsEmptyTest()
 	{
 		EditableDefenitionTags compareTags = new EditableDefenitionTags();
 		EditableDefenitionTags objectTags = new EditableDefenitionTags();
 
-		//пустые списки
-		objectTags.clear();
-		compareTags.clear();
-		assertEquals(true, objectTags.compareTo(compareTags));
+		assertTrue(objectTags.compareTo(compareTags));
+	}
 
-		// в стиле пустой
-		objectTags.clear();
-		compareTags.clear();
+	/**
+	 * Comparing defenition not empty with empty tags
+	 */
+	@Test
+	public void comparingNotEmptyWithEmptyTest()
+	{
+		EditableDefenitionTags compareTags = new EditableDefenitionTags();
+		EditableDefenitionTags objectTags = new EditableDefenitionTags();
+
 		compareTags.add(new MapTag("k1", "v1"));
-		assertEquals(false, objectTags.compareTo(compareTags));
 
-		// в тегах пустой
-		objectTags.clear();
-		compareTags.clear();
+		assertFalse(objectTags.compareTo(compareTags));
+	}
+
+	/**
+	 * Comparing defenition empty with not empty tags
+	 */
+	@Test
+	public void comparingEmptyWithNotEmptyTest()
+	{
+		EditableDefenitionTags compareTags = new EditableDefenitionTags();
+		EditableDefenitionTags objectTags = new EditableDefenitionTags();
+
 		objectTags.add(new MapTag("k1", "v1"));
-		assertEquals(false, objectTags.compareTo(compareTags));
 
-		// разный порядок
-		objectTags.clear();
-		compareTags.clear();
+		assertFalse(objectTags.compareTo(compareTags));
+	}
+
+	/**
+	 * Comparing defenition equal tags (comparing should not be depends on order
+	 * of tags)
+	 */
+	@Test
+	public void comparingEqualTagsTest()
+	{
+		EditableDefenitionTags compareTags = new EditableDefenitionTags();
+		EditableDefenitionTags objectTags = new EditableDefenitionTags();
+
 		objectTags.add(new MapTag("k2", "v2"));
 		objectTags.add(new MapTag("k1", "v1"));
 		objectTags.add(new MapTag("k3", "v3"));
 		compareTags.add(new MapTag("k1", "v1"));
 		compareTags.add(new MapTag("k3", "v3"));
 		compareTags.add(new MapTag("k2", "v2"));
-		assertEquals(true, objectTags.compareTo(compareTags));
 
-		// несовпадение
+		assertTrue(objectTags.compareTo(compareTags));
+	}
+
+	/**
+	 * Comparing defenition not equal tags
+	 */
+	@Test
+	public void comparingNotEqualTagsTest()
+	{
+		EditableDefenitionTags compareTags = new EditableDefenitionTags();
+		EditableDefenitionTags objectTags = new EditableDefenitionTags();
+
 		objectTags.add(new MapTag("k4", "v4"));
 		objectTags.add(new MapTag("k1", "v1"));
 		objectTags.add(new MapTag("k3", "v3"));
 		compareTags.add(new MapTag("k1", "v1"));
 		compareTags.add(new MapTag("k3", "v3"));
 		compareTags.add(new MapTag("k2", "v2"));
-		assertEquals(false, objectTags.compareTo(compareTags));
 
-		// неравное кол-во, несовпадают
+		assertFalse(objectTags.compareTo(compareTags));
+	}
+
+	/**
+	 * Comparing defenition tags not equal and count of tags are different
+	 */
+	@Test
+	public void comparingNotEqualWithDifferentCountTest()
+	{
+		EditableDefenitionTags compareTags = new EditableDefenitionTags();
+		EditableDefenitionTags objectTags = new EditableDefenitionTags();
+
 		objectTags.add(new MapTag("k4", "v4"));
 		objectTags.add(new MapTag("k1", "v1"));
 		compareTags.add(new MapTag("k1", "v1"));
 		compareTags.add(new MapTag("k3", "v3"));
 		compareTags.add(new MapTag("k2", "v2"));
-		assertEquals(false, objectTags.compareTo(compareTags));
 
-		// неравное кол-во, совпадают
+		assertFalse(objectTags.compareTo(compareTags));
+	}
+
+	/**
+	 * Comparing defenition tags, some tags are not exists
+	 */
+	@Test
+	public void comparingNotFullEqualsTest()
+	{
+		EditableDefenitionTags compareTags = new EditableDefenitionTags();
+		EditableDefenitionTags objectTags = new EditableDefenitionTags();
+
 		objectTags.add(new MapTag("k3", "v3"));
 		objectTags.add(new MapTag("k1", "v1"));
 		compareTags.add(new MapTag("k1", "v1"));
 		compareTags.add(new MapTag("k3", "v3"));
 		compareTags.add(new MapTag("k2", "v2"));
-		assertEquals(false, objectTags.compareTo(compareTags));
+
+		assertTrue(objectTags.compareTo(compareTags));
 	}
 
 	/**
 	 * Reading/writing test
 	 */
 	@Test
-	public void fileTest()
+	public void readingWritingTest()
 	{
 		try
 		{
