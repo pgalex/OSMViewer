@@ -1,7 +1,7 @@
 package drawingStyle;
 
-import fileIO.ReadableMapData;
-import fileIO.WritableMapData;
+import IO.ReadableMapData;
+import IO.WritableMapData;
 
 /**
  * Interface of ScaledObjectStyle array. Gives only get methods

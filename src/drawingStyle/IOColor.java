@@ -1,7 +1,7 @@
 package drawingStyle;
 
-import fileIO.ReadableMapData;
-import fileIO.WritableMapData;
+import IO.ReadableMapData;
+import IO.WritableMapData;
 import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -52,7 +52,7 @@ public class IOColor implements WritableMapData, ReadableMapData
 	public IOColor(Color pColor)
 	{
 		color = pColor;
-		initializeNullField();
+		initializeNullFields();
 	}
 
 	/**
@@ -103,7 +103,7 @@ public class IOColor implements WritableMapData, ReadableMapData
 	/**
 	 * Default values into null fields
 	 */
-	private void initializeNullField()
+	private void initializeNullFields()
 	{
 		if (color == null)
 			color = DEFAULT_COLOR;

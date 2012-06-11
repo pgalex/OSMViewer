@@ -1,7 +1,7 @@
 package drawingStyle;
 
-import fileIO.ReadableMapData;
-import fileIO.WritableMapData;
+import IO.ReadableMapData;
+import IO.WritableMapData;
 import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

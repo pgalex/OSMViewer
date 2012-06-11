@@ -1,7 +1,7 @@
 package IOTesting;
 
-import fileIO.ReadableMapData;
-import fileIO.WritableMapData;
+import IO.ReadableMapData;
+import IO.WritableMapData;
 import java.io.*;
 
 /**
