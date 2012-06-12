@@ -67,6 +67,7 @@ public class OnlineMapProcessor implements DrawableOnPanel
 
 	private void testSetupStyleViewer()
 	{
+		styleViewer.setMapDrawingSettings(new MapDrawingSettings(new IOColor(Color.LIGHT_GRAY)));
 		PointDrawStyle pointStyle = new PointDrawStyle(null);
 
 		ScaledObjectStyle scaledStyle = new ScaledObjectStyle(true, false, false, pointStyle, null, null, new IOColor(Color.BLACK), new IOFont());
