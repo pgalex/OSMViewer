@@ -1,10 +1,8 @@
 package drawingStyleTests;
 
 import IOTesting.IOTester;
-import drawingStyle.DrawingStyleFactory;
-import drawingStyle.MapObjectStyle;
-import drawingStyle.StyleEditor;
-import drawingStyle.StyleViewer;
+import drawingStyle.*;
+import java.awt.Color;
 import map.EditableDefenitionTags;
 import map.MapTag;
 import static org.junit.Assert.*;
@@ -17,6 +15,16 @@ import org.junit.Test;
  */
 public class MapObjectStyleViewerTest
 {
+	/**
+	 * Initializing fields of StyleProcessor test
+	 */
+	@Test
+	public void initializingStyleProcessorTest()
+	{
+		StyleViewer testViewer = DrawingStyleFactory.createStyleViewer();
+		assertNotNull(testViewer.getMapDrawingSettings());
+	}
+
 	/**
 	 * Loading form null stream
 	 */
@@ -48,9 +56,10 @@ public class MapObjectStyleViewerTest
 			MapObjectStyle style3 = new MapObjectStyle(false, true, true, null, 0, "style3", null, null);
 
 			StyleEditor writedEditor = DrawingStyleFactory.createStyleEditor();
-			writedEditor.add(style1);
-			writedEditor.add(style2);
-			writedEditor.add(style3);
+			writedEditor.addMapObjectStyle(style1);
+			writedEditor.addMapObjectStyle(style2);
+			writedEditor.addMapObjectStyle(style3);
+			writedEditor.setMapDrawingSettings(new MapDrawingSettings(new IOColor(Color.red)));
 
 			IOTester.writeToTestFile(writedEditor);
 
@@ -60,7 +69,8 @@ public class MapObjectStyleViewerTest
 			assertEquals(writedEditor.getMapObjectStyle(0).getDescription(), readViewer.getMapObjectStyle(0).getDescription());
 			assertEquals(writedEditor.getMapObjectStyle(1).getDescription(), readViewer.getMapObjectStyle(1).getDescription());
 			assertEquals(writedEditor.getMapObjectStyle(2).getDescription(), readViewer.getMapObjectStyle(2).getDescription());
-
+			assertEquals(writedEditor.getMapDrawingSettings().getMapBackgroundColor().getColor(), 
+							readViewer.getMapDrawingSettings().getMapBackgroundColor().getColor());
 		}
 		catch (Exception ex)
 		{
@@ -96,9 +106,9 @@ public class MapObjectStyleViewerTest
 			MapObjectStyle style3 = new MapObjectStyle(true, true, true, null, 0, "style3", null, tags3);
 
 			StyleEditor editor = DrawingStyleFactory.createStyleEditor();
-			editor.add(style1);
-			editor.add(style2);
-			editor.add(style3);
+			editor.addMapObjectStyle(style1);
+			editor.addMapObjectStyle(style2);
+			editor.addMapObjectStyle(style3);
 
 			IOTester.writeToTestFile(editor);
 
@@ -171,8 +181,8 @@ public class MapObjectStyleViewerTest
 			MapObjectStyle style2 = new MapObjectStyle(true, true, true, null, 0, "style2", null, tags2);
 
 			StyleEditor editor = DrawingStyleFactory.createStyleEditor();
-			editor.add(style1);
-			editor.add(style2);
+			editor.addMapObjectStyle(style1);
+			editor.addMapObjectStyle(style2);
 			IOTester.writeToTestFile(editor);
 
 			StyleViewer viewer = DrawingStyleFactory.createStyleViewer();

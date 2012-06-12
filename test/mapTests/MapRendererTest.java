@@ -15,40 +15,6 @@ import org.junit.Test;
 public class MapRendererTest
 {
 	/**
-	 * Testing initializing background color with default value in default
-	 * constructor
-	 */
-	@Test
-	public void initializingBackgroundColorTest()
-	{
-		MapRenderer testRenderer = new MapRenderer();
-		assertNotNull(testRenderer.getBackgroundColor());
-	}
-
-	/**
-	 * Test setting new background color
-	 */
-	@Test
-	public void setNewBackgroundColorTest()
-	{
-		MapRenderer testRenderer = new MapRenderer();
-		testRenderer.setBackgroundColor(Color.RED);
-		assertEquals(Color.RED, testRenderer.getBackgroundColor());
-	}
-
-	/**
-	 * Test setting null background color
-	 */
-	@Test
-	public void setNullBackgroundColorTest()
-	{
-		MapRenderer testRenderer = new MapRenderer();
-		testRenderer.setBackgroundColor(Color.GREEN);
-		testRenderer.setBackgroundColor(null);
-		assertEquals(Color.GREEN, testRenderer.getBackgroundColor());
-	}
-
-	/**
 	 * Testing initializing drawing area with default value in default constructor
 	 */
 	@Test

@@ -1,5 +1,7 @@
 package drawingStyle;
 
+import IO.ReadableMapData;
+import IO.WritableMapData;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -8,12 +10,25 @@ import java.util.TreeMap;
 import map.DefenitionTags;
 
 /**
- * Common methods used in Editor and Viewer.
+ * Common part of MapObjectStyleViewer and Editor.
  *
  * @author pgalex
  */
-public class StyleProcessor
+public class StyleProcessor implements ReadableMapData, WritableMapData
 {
+	/**
+	 * Information about map drawing
+	 */
+	protected MapDrawingSettings mapDrawingSettings;
+
+	/**
+	 * Default constructor
+	 */
+	public StyleProcessor()
+	{
+		mapDrawingSettings = new MapDrawingSettings(null);
+	}
+
 	/**
 	 * Write styles to stream
 	 *
@@ -21,7 +36,7 @@ public class StyleProcessor
 	 * @param pOutput output stream
 	 * @throws IOException writing error
 	 */
-	public static void writeStylesToStream(MapObjectStyle[] pStyles, DataOutputStream pOutput) throws IOException
+	protected void writeStylesToStream(MapObjectStyle[] pStyles, DataOutputStream pOutput) throws IOException
 	{
 		if (pStyles == null || pOutput == null)
 			throw new IOException();
@@ -45,7 +60,7 @@ public class StyleProcessor
 	 * @return readed styles
 	 * @throws IOException reading error
 	 */
-	public static MapObjectStyle[] readStylesFromStream(DataInputStream pInput) throws IOException
+	protected MapObjectStyle[] readStylesFromStream(DataInputStream pInput) throws IOException
 	{
 		if (pInput == null)
 			throw new IOException();
@@ -77,7 +92,7 @@ public class StyleProcessor
 	 * @param pTags defenition tags for search
 	 * @return index of founded style. null if not found
 	 */
-	public static Integer findStyleIndex(MapObjectStyle[] pStyles, DefenitionTags pTags)
+	protected Integer findStyleIndex(MapObjectStyle[] pStyles, DefenitionTags pTags)
 	{
 		// Необходимо найти среди pStyle стиль у котороге теги будут совпадать с pTags,
 		// количество тегов по сравнению с другими стилями(теги которых тоже совпадают) будет максимальным 
@@ -100,5 +115,43 @@ public class StyleProcessor
 		else
 			return suitableElements.get(suitableElements.firstKey());
 
+	}
+
+	/**
+	 * Read from stream
+	 *
+	 * @param pInput reading stream
+	 * @throws IOException reading error
+	 */
+	@Override
+	public void readFromStream(DataInputStream pInput) throws IOException
+	{
+		try
+		{
+			mapDrawingSettings.readFromStream(pInput);
+		}
+		catch (Exception ex)
+		{
+			throw new IOException();
+		}
+	}
+
+	/**
+	 * Write into stream
+	 *
+	 * @param pOutput output stream
+	 * @throws IOException writing error
+	 */
+	@Override
+	public void writeToStream(DataOutputStream pOutput) throws IOException
+	{
+		try
+		{
+			mapDrawingSettings.writeToStream(pOutput);
+		}
+		catch (Exception ex)
+		{
+			throw new IOException();
+		}
 	}
 }

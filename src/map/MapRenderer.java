@@ -1,7 +1,7 @@
 package map;
 
+import drawingStyle.MapDrawingSettings;
 import drawingStyle.StyleViewer;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
@@ -13,17 +13,9 @@ import java.awt.Rectangle;
 public class MapRenderer
 {
 	/**
-	 * Default background color
-	 */
-	private static final Color DEFAULT_BACKGROUND_COLOR = Color.GRAY;
-	/**
 	 * Default drawing area
 	 */
 	private static final Rectangle DEFAULT_DRAWING_AREA = new Rectangle(0, 0, 100, 100);
-	/**
-	 * Map background color
-	 */
-	private Color backgroundColor;
 	/**
 	 * Rectangle that define area where map will be drawen
 	 */
@@ -35,29 +27,7 @@ public class MapRenderer
 	 */
 	public MapRenderer()
 	{
-		backgroundColor = DEFAULT_BACKGROUND_COLOR;
 		drawingArea = DEFAULT_DRAWING_AREA;
-	}
-
-	/**
-	 * Set map background color
-	 *
-	 * @param pBackgroundColor new background color
-	 */
-	public void setBackgroundColor(Color pBackgroundColor)
-	{
-		if (pBackgroundColor != null)
-			backgroundColor = pBackgroundColor;
-	}
-
-	/**
-	 * Get map background color
-	 *
-	 * @return background color
-	 */
-	public Color getBackgroundColor()
-	{
-		return backgroundColor;
 	}
 
 	/**
@@ -92,8 +62,10 @@ public class MapRenderer
 	{
 		if (pMap == null || pStyleViewer == null)
 			return;
-
-		pCanvas.setBackground(backgroundColor);
+		
+		MapDrawingSettings mapDrawingSettings = pStyleViewer.getMapDrawingSettings();
+		pCanvas.setBackground(mapDrawingSettings.getMapBackgroundColor().getColor());
+		
 		pCanvas.clearRect(drawingArea.x, drawingArea.y, drawingArea.width, drawingArea.height);
 
 		pMap.sortObjectsByDrawPriority(pStyleViewer);

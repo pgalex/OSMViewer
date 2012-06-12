@@ -1,5 +1,6 @@
 package drawingStyle;
 
+import drawingStyle.exceptions.MapDrawingSettingsIsNullException;
 import drawingStyle.exceptions.MapObjectStyleIsNullException;
 import drawingStyle.exceptions.StyleIndexOutOfBoundsException;
 import java.io.DataInputStream;
@@ -14,10 +15,11 @@ import map.DefenitionTags;
  *
  * @author pgalex
  */
-public class MapObjectStyleEditor implements StyleEditor
+public class MapObjectStyleEditor extends StyleProcessor implements StyleEditor
 {
 	/**
-	 * Array of map object styles. All styles sorted by tags count
+	 * Array of map object styles. All styles sorted by tags
+	 * countOfMapObjectStyles
 	 */
 	private ArrayList<MapObjectStyle> styles;
 
@@ -26,6 +28,8 @@ public class MapObjectStyleEditor implements StyleEditor
 	 */
 	public MapObjectStyleEditor()
 	{
+		super();
+
 		styles = new ArrayList<MapObjectStyle>();
 	}
 
@@ -40,7 +44,9 @@ public class MapObjectStyleEditor implements StyleEditor
 	{
 		try
 		{
-			StyleProcessor.writeStylesToStream(styles.toArray(new MapObjectStyle[styles.size()]), pOutput);
+			super.writeToStream(pOutput);
+
+			writeStylesToStream(styles.toArray(new MapObjectStyle[styles.size()]), pOutput);
 		}
 		catch (Exception ex)
 		{
@@ -59,8 +65,10 @@ public class MapObjectStyleEditor implements StyleEditor
 	{
 		try
 		{
+			super.readFromStream(pInput);
+
 			styles.clear();
-			MapObjectStyle[] readingStyles = StyleProcessor.readStylesFromStream(pInput);
+			MapObjectStyle[] readingStyles = readStylesFromStream(pInput);
 			Collections.addAll(styles, readingStyles);
 		}
 		catch (IOException ex)
@@ -78,7 +86,7 @@ public class MapObjectStyleEditor implements StyleEditor
 	 * @throws MapObjectStyleIsNullException new style is null
 	 */
 	@Override
-	public void set(Integer pIndex, MapObjectStyle pNewStyle) throws StyleIndexOutOfBoundsException, MapObjectStyleIsNullException
+	public void setMapObjectStyle(Integer pIndex, MapObjectStyle pNewStyle) throws StyleIndexOutOfBoundsException, MapObjectStyleIsNullException
 	{
 		if (pIndex == null)
 			throw new StyleIndexOutOfBoundsException(this, pIndex, 0, styles.size());
@@ -93,12 +101,12 @@ public class MapObjectStyleEditor implements StyleEditor
 	}
 
 	/**
-	 * Get styles count
+	 * Get styles countOfMapObjectStyles
 	 *
-	 * @return styles count
+	 * @return styles countOfMapObjectStyles
 	 */
 	@Override
-	public int count()
+	public int countOfMapObjectStyles()
 	{
 		return styles.size();
 	}
@@ -115,7 +123,7 @@ public class MapObjectStyleEditor implements StyleEditor
 		if (pDefenitionTags == null)
 			return null;
 
-		return StyleProcessor.findStyleIndex(styles.toArray(new MapObjectStyle[styles.size()]), pDefenitionTags);
+		return findStyleIndex(styles.toArray(new MapObjectStyle[styles.size()]), pDefenitionTags);
 	}
 
 	/**
@@ -139,10 +147,10 @@ public class MapObjectStyleEditor implements StyleEditor
 	 * Add style
 	 *
 	 * @param pNewStyle new map object style
-	 * @throws NullPointerException new style is null
+	 * @throws MapObjectStyleIsNullException new style is null
 	 */
 	@Override
-	public void add(MapObjectStyle pNewStyle) throws MapObjectStyleIsNullException
+	public void addMapObjectStyle(MapObjectStyle pNewStyle) throws MapObjectStyleIsNullException
 	{
 		if (pNewStyle == null)
 			throw new MapObjectStyleIsNullException(this);
@@ -157,7 +165,7 @@ public class MapObjectStyleEditor implements StyleEditor
 	 * @throws StyleIndexOutOfBoundsException id out of bounds
 	 */
 	@Override
-	public void remove(Integer pIndex) throws StyleIndexOutOfBoundsException
+	public void removeMapObjectStyle(Integer pIndex) throws StyleIndexOutOfBoundsException
 	{
 		if (pIndex == null)
 			throw new StyleIndexOutOfBoundsException(this, pIndex, 0, styles.size());
@@ -166,5 +174,31 @@ public class MapObjectStyleEditor implements StyleEditor
 			throw new StyleIndexOutOfBoundsException(this, pIndex, 0, styles.size());
 
 		styles.remove((int) pIndex);
+	}
+
+	/**
+	 * Get map drawing settings
+	 *
+	 * @return map drawing settings
+	 */
+	@Override
+	public MapDrawingSettings getMapDrawingSettings()
+	{
+		return mapDrawingSettings;
+	}
+
+	/**
+	 * Set new map drawing settings
+	 *
+	 * @param pMapDrawingSettings new map drawing settings
+	 * @throws MapDrawingSettingsIsNullException new settins is null
+	 */
+	@Override
+	public void setMapDrawingSettings(MapDrawingSettings pMapDrawingSettings) throws MapDrawingSettingsIsNullException
+	{
+		if (pMapDrawingSettings == null)
+			throw new MapDrawingSettingsIsNullException(this);
+
+		mapDrawingSettings = pMapDrawingSettings;
 	}
 }

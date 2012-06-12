@@ -47,7 +47,6 @@ public class OnlineMapProcessor implements DrawableOnPanel
 		mapLoader = new OnlineMapLoader();
 		
 		renderer = new MapRenderer();
-		renderer.setBackgroundColor(Color.LIGHT_GRAY);
 						
 		styleViewer = DrawingStyleFactory.createStyleEditor();
 
@@ -84,7 +83,7 @@ public class OnlineMapProcessor implements DrawableOnPanel
 		MapObjectStyle placeVillageStyle = new MapObjectStyle(true, false, false,
 						new TextTagsKeys(textTagKeys), 0, "Village", placeVillageScaledStyles, placeVillageTags);
 
-		styleViewer.add(placeVillageStyle);
+		styleViewer.addMapObjectStyle(placeVillageStyle);
 	}
 
 	private void testLoadMap()

@@ -11,7 +11,7 @@ import map.DefenitionTags;
  *
  * @author pgalex
  */
-public class MapObjectStyleViewer implements StyleViewer
+public class MapObjectStyleViewer extends StyleProcessor implements StyleViewer
 {
 	/**
 	 * Static array. Work faster. All styles sorted by tags count
@@ -23,6 +23,8 @@ public class MapObjectStyleViewer implements StyleViewer
 	 */
 	public MapObjectStyleViewer()
 	{
+		super();
+		
 		styles = new MapObjectStyle[0];
 	}
 
@@ -37,7 +39,9 @@ public class MapObjectStyleViewer implements StyleViewer
 	{
 		try
 		{
-			styles = StyleProcessor.readStylesFromStream(pInput);
+			super.readFromStream(pInput);
+			
+			styles = readStylesFromStream(pInput);
 		}
 		catch (IOException ex)
 		{
@@ -56,7 +60,9 @@ public class MapObjectStyleViewer implements StyleViewer
 	{
 		try
 		{
-			StyleProcessor.writeStylesToStream(styles, pOutput);
+			super.writeToStream(pOutput);
+			
+			writeStylesToStream(styles, pOutput);
 		}
 		catch (Exception ex)
 		{
@@ -68,7 +74,8 @@ public class MapObjectStyleViewer implements StyleViewer
 	 * Get index of map object drawing style
 	 *
 	 * @param pDefenitionTags tags of map object
-	 * @return index of style of object with that defenition tags. null if not found
+	 * @return index of style of object with that defenition tags. null if not
+	 * found
 	 */
 	@Override
 	public Integer getStyleIndex(DefenitionTags pDefenitionTags)
@@ -76,7 +83,7 @@ public class MapObjectStyleViewer implements StyleViewer
 		if (pDefenitionTags == null)
 			return null;
 
-		return StyleProcessor.findStyleIndex(styles, pDefenitionTags);
+		return findStyleIndex(styles, pDefenitionTags);
 	}
 
 	/**
@@ -94,5 +101,16 @@ public class MapObjectStyleViewer implements StyleViewer
 			return null;
 
 		return styles[pIndex];
+	}
+
+	/**
+	 * Get map drawing settings
+	 *
+	 * @return map drawing settings
+	 */
+	@Override
+	public MapDrawingSettings getMapDrawingSettings()
+	{
+		return mapDrawingSettings;
 	}
 }
