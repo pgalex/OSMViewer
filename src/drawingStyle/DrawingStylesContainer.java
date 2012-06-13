@@ -14,7 +14,7 @@ import map.DefenitionTags;
  *
  * @author pgalex
  */
-public class StyleProcessor implements ReadableMapData, WritableMapData
+public class DrawingStylesContainer implements ReadableMapData, WritableMapData
 {
 	/**
 	 * Information about map drawing
@@ -24,7 +24,7 @@ public class StyleProcessor implements ReadableMapData, WritableMapData
 	/**
 	 * Default constructor
 	 */
-	public StyleProcessor()
+	public DrawingStylesContainer()
 	{
 		mapDrawingSettings = new MapDrawingSettings(null);
 	}

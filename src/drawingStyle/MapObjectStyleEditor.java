@@ -15,7 +15,7 @@ import map.DefenitionTags;
  *
  * @author pgalex
  */
-public class MapObjectStyleEditor extends StyleProcessor implements StyleEditor
+public class MapObjectStyleEditor extends DrawingStylesContainer implements StyleEditor
 {
 	/**
 	 * Array of map object styles. All styles sorted by tags

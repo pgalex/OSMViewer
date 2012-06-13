@@ -11,7 +11,7 @@ import map.DefenitionTags;
  *
  * @author pgalex
  */
-public class MapObjectStyleViewer extends StyleProcessor implements StyleViewer
+public class MapObjectStyleViewer extends DrawingStylesContainer implements StyleViewer
 {
 	/**
 	 * Static array. Work faster. All styles sorted by tags count

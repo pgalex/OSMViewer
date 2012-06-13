@@ -1,8 +1,8 @@
 package drawingStyleTests;
 
 import IOTesting.IOTester;
+import drawingStyle.DrawingStylesContainer;
 import drawingStyle.MapObjectStyle;
-import drawingStyle.StyleProcessor;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
@@ -12,14 +12,14 @@ import map.MapTag;
 import static org.junit.Assert.*;
 
 /**
- * Using for testing protected methods of StyleProcessor
+ * Using for testing protected methods of DrawingStylesContainer
  *
  * @author pgalex
  */
-public class TestStyleProcessor extends StyleProcessor
+public class TestDrawingStylesContainer extends DrawingStylesContainer
 {
 	/**
-	 * Run tests of protected methods of StyleProcessor
+	 * Run tests of protected methods of DrawingStylesContainer
 	 */
 	public void runProtectedMethodsTests()
 	{

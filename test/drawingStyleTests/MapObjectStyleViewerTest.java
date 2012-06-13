@@ -16,10 +16,10 @@ import org.junit.Test;
 public class MapObjectStyleViewerTest
 {
 	/**
-	 * Initializing fields of StyleProcessor test
+	 * Initializing all fields test
 	 */
 	@Test
-	public void initializingStyleProcessorTest()
+	public void initializingTest()
 	{
 		StyleViewer testViewer = DrawingStyleFactory.createStyleViewer();
 		assertNotNull(testViewer.getMapDrawingSettings());

@@ -6,7 +6,6 @@ import drawingStyle.exceptions.MapDrawingSettingsIsNullException;
 import drawingStyle.exceptions.MapObjectStyleIsNullException;
 import drawingStyle.exceptions.StyleIndexOutOfBoundsException;
 import java.awt.Color;
-import javax.vecmath.Color3b;
 import map.EditableDefenitionTags;
 import map.MapTag;
 import static org.junit.Assert.*;
@@ -20,10 +19,10 @@ import org.junit.Test;
 public class MapObjectStyleEditorTest
 {
 	/**
-	 * Initializing fields of StyleProcessor test
+	 * Initializing all fields test
 	 */
 	@Test
-	public void initializingStyleProcessorTest()
+	public void initializingTest()
 	{
 		StyleEditor testEditor = DrawingStyleFactory.createStyleEditor();
 		assertNotNull(testEditor.getMapDrawingSettings());
