@@ -1,7 +1,8 @@
 package map;
 
-import map.rendering.MapObjectsRenderer;
+import drawingStyles.MapObjectStyle;
 import drawingStyles.StyleViewer;
+import map.rendering.MapObjectsRenderer;
 
 /**
  * Any object on a map. Base class
@@ -73,6 +74,7 @@ public class MapObject
 
 	/**
 	 * Assign style index by founding it in style viewer, using defenition tags
+	 * and canBeDrawenWithStyle method
 	 *
 	 * @param pStyleViewer style viewer, using to find index
 	 */
@@ -80,7 +82,27 @@ public class MapObject
 	{
 		if (pStyleViewer == null)
 			return;
-		styleIndex = pStyleViewer.getStyleIndex(defenitionTags);
+
+		Integer foundedIndex = pStyleViewer.getStyleIndex(defenitionTags);
+		MapObjectStyle foundedStyle = pStyleViewer.getMapObjectStyle(foundedIndex);
+		if (canBeDrawenWithStyle(foundedStyle))
+			styleIndex = foundedIndex;
+		else
+			styleIndex = null;
+	}
+
+	/**
+	 * Can this type of map object be drawen with this style
+	 *
+	 * @param pStyle drawing style of object
+	 * @return Can this type of map object be drawen with this style
+	 */
+	protected boolean canBeDrawenWithStyle(MapObjectStyle pStyle)
+	{
+		if (pStyle == null)
+			return false;
+		else
+			return true;
 	}
 
 	/**

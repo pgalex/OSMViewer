@@ -1,5 +1,6 @@
 package map;
 
+import drawingStyles.MapObjectStyle;
 import map.rendering.MapObjectsRenderer;
 import map.exceptions.PointPositionIsNullException;
 
@@ -53,7 +54,22 @@ public class MapPoint extends MapObject
 	{
 		if (pObjectsRenderer == null)
 			return;
-		
+
 		pObjectsRenderer.renderPoint(this);
+	}
+
+	/**
+	 * Can this type of map object be drawen with this style
+	 *
+	 * @param pStyle drawing style of object
+	 * @return Can this type of map object be drawen with this style
+	 */
+	@Override
+	protected boolean canBeDrawenWithStyle(MapObjectStyle pStyle)
+	{
+		if (pStyle == null)
+			return false;
+
+		return pStyle.isCanBePoint();
 	}
 }

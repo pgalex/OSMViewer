@@ -1,7 +1,8 @@
 package map;
 
-import map.rendering.MapObjectsRenderer;
+import drawingStyles.MapObjectStyle;
 import map.exceptions.LinePointsIsIncorrectException;
+import map.rendering.MapObjectsRenderer;
 
 /**
  * Closed line(way) on a map
@@ -31,10 +32,25 @@ public class MapPolygon extends MapLine
 	 */
 	@Override
 	public void acceptRenderer(MapObjectsRenderer pObjectsRenderer)
-	{	
+	{
 		if (pObjectsRenderer == null)
 			return;
-		
+
 		pObjectsRenderer.renderPolygon(this);
+	}
+
+	/**
+	 * Can this type of map object be drawen with this style
+	 *
+	 * @param pStyle drawing style of object
+	 * @return Can this type of map object be drawen with this style
+	 */
+	@Override
+	protected boolean canBeDrawenWithStyle(MapObjectStyle pStyle)
+	{
+		if (pStyle == null)
+			return false;
+
+		return pStyle.isCanBePolygon();
 	}
 }

@@ -1,7 +1,12 @@
 package mapTests;
 
+import drawingStyles.DrawingStylesFactory;
+import drawingStyles.MapObjectStyle;
+import drawingStyles.StyleEditor;
+import map.EditableDefenitionTags;
 import map.MapLine;
 import map.MapPosition;
+import map.MapTag;
 import map.exceptions.LinePointsIsIncorrectException;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -80,5 +85,52 @@ public class MapLineTest
 		{
 			assertEquals(10, ex.getCreatedObjectId());
 		}
+	}
+
+	/**
+	 * Testing assigning style index and canBeDrawenWithStyle work if object can
+	 * be line
+	 */
+	@Test
+	public void assigningStyleIndexCanBeLineTest()
+	{
+		EditableDefenitionTags tags = new EditableDefenitionTags();
+		tags.add(new MapTag("k1", "v1"));
+		MapObjectStyle style = new MapObjectStyle(false, true, false, null, 0, "line style", null, tags);
+
+		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
+		testEditor.addMapObjectStyle(style);
+
+		MapPosition[] points = new MapPosition[2];
+		points[0] = new MapPosition(1, 2);
+		points[1] = new MapPosition(2, 3);
+		MapLine testLine = new MapLine(1, tags, points);
+		testLine.assignStyleIndex(testEditor);
+
+		assertNotNull(testLine.getStyleIndex());
+		assertEquals(style.getDescription(), testEditor.getMapObjectStyle(testLine.getStyleIndex()).getDescription());
+	}
+
+	/**
+	 * Testing assigning style index and canBeDrawenWithStyle work if object can
+	 * not be line
+	 */
+	@Test
+	public void assigningStyleIndexCanNotBeLineTest()
+	{
+		EditableDefenitionTags tags = new EditableDefenitionTags();
+		tags.add(new MapTag("k1", "v1"));
+		MapObjectStyle style = new MapObjectStyle(false, false, false, null, 0, "line style", null, tags);
+
+		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
+		testEditor.addMapObjectStyle(style);
+
+		MapPosition[] points = new MapPosition[2];
+		points[0] = new MapPosition(1, 2);
+		points[1] = new MapPosition(2, 3);
+		MapLine testLine = new MapLine(1, tags, points);
+		testLine.assignStyleIndex(testEditor);
+
+		assertNull(testLine.getStyleIndex());
 	}
 }
