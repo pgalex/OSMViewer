@@ -38,8 +38,8 @@ public class OnlineMap implements Map
 		if (pObject == null)
 			return;
 
-		//if (pObject.getStyleIndex() != null)
-		objects.add(pObject);
+		if (pObject.getStyleIndex() != null)
+			objects.add(pObject);
 	}
 
 	/**

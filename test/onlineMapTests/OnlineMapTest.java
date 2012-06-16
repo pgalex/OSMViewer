@@ -1,12 +1,11 @@
 package onlineMapTests;
 
-import map.MapLine;
-import map.MapPoint;
-import map.MapPolygon;
-import map.MapPosition;
+import drawingStyles.DrawingStylesFactory;
+import drawingStyles.MapObjectStyle;
+import drawingStyles.StyleEditor;
+import map.*;
 import onlineMap.OnlineMap;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
@@ -17,21 +16,56 @@ import org.junit.Test;
 public class OnlineMapTest
 {
 	/**
+	 * Test adding object without style index
+	 */
+	@Test
+	public void addingMapObjectWithoutStyleIndexTest()
+	{
+		MapPoint pointWithoutStyleIndex = new MapPoint(new MapPosition(), 1, null);
+		
+		TestOnlineMap testMap = new TestOnlineMap();
+		testMap.addObject(pointWithoutStyleIndex);
+		
+		assertTrue(testMap.getObjects().isEmpty());
+	}
+	
+	/**
 	 * Test rendering visitor work, normal work
 	 */
 	@Test
 	public void renderingNormalWorkTest()
 	{
+		EditableDefenitionTags someTags = new EditableDefenitionTags();
+		someTags.add(new MapTag("k1", "v1"));
+		
+		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
+		testEditor.addMapObjectStyle(new MapObjectStyle(true, true, true, null, 0, "", null, someTags));
+		
 		MapPosition[] somePoints = new MapPosition[2];
 		somePoints[0] = new MapPosition();
 		somePoints[1] = new MapPosition();
+		
+		MapLine line1 = new MapLine(0, someTags, somePoints);
+		line1.assignStyleIndex(testEditor);
+		
+		MapPoint point1 = new MapPoint(new MapPosition(), 1, someTags);
+		point1.assignStyleIndex(testEditor);
+		
+		MapPolygon polygon1 = new MapPolygon(0, someTags, somePoints);
+		polygon1.assignStyleIndex(testEditor);
+		
+		MapPoint point2 = new MapPoint(new MapPosition(), 1, someTags);
+		point2.assignStyleIndex(testEditor);
+		
+		MapPoint point3 = new MapPoint(new MapPosition(), 1, someTags);
+		point3.assignStyleIndex(testEditor);
 
 		OnlineMap testMap = new OnlineMap();
-		testMap.addObject(new MapLine(0, null, somePoints));
-		testMap.addObject(new MapPoint(new MapPosition(), 1, null));
-		testMap.addObject(new MapPolygon(0, null, somePoints));
-		testMap.addObject(new MapPoint(new MapPosition(), 1, null));
-		testMap.addObject(new MapPoint(new MapPosition(), 1, null));
+		testMap.addObject(line1);
+		testMap.addObject(point1);
+		testMap.addObject(polygon1);
+		testMap.addObject(point2);
+		testMap.addObject(point3);
 
 		MapObjectsRendererMock objectsRendererMock = new MapObjectsRendererMock();
 		testMap.acceptObjectsRenderer(objectsRendererMock);
