@@ -1,9 +1,10 @@
-package map;
+package map.rendering;
 
 import drawingStyles.MapDrawingSettings;
 import drawingStyles.StyleViewer;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import map.Map;
 
 /**
  * Uses to render Map in right order

@@ -18,7 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import map.EditableDefenitionTags;
 import map.MapBounds;
-import map.MapRenderer;
+import map.rendering.MapRenderer;
 import map.MapTag;
 
 /**

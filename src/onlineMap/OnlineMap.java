@@ -6,7 +6,7 @@ import java.util.Collections;
 import map.Map;
 import map.MapObject;
 import map.MapObjectDrawPriorityComparator;
-import map.MapObjectsRenderer;
+import map.rendering.MapObjectsRenderer;
 
 /**
  * Map that contains not much objects and using for online rendering

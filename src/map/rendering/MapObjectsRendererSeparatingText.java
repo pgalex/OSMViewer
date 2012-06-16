@@ -1,7 +1,10 @@
-package map;
+package map.rendering;
 
 import drawingStyles.StyleViewer;
 import java.awt.Graphics2D;
+import map.MapLine;
+import map.MapPoint;
+import map.MapPolygon;
 import map.exceptions.CanvasIsNullException;
 import map.exceptions.StyleViewerIsNullException;
 

@@ -1,5 +1,6 @@
 package map;
 
+import map.rendering.MapObjectsRenderer;
 import drawingStyles.StyleViewer;
 
 /**

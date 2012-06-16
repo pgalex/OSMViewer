@@ -1,4 +1,8 @@
-package map;
+package map.rendering;
+
+import map.MapLine;
+import map.MapPoint;
+import map.MapPolygon;
 
 /**
  * Interface of visitor, using for draw objects of map. Uses to hide additional
