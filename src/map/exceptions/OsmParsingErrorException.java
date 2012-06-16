@@ -5,6 +5,6 @@ package map.exceptions;
  *
  * @author pgalex
  */
-public class OsmParsingErrorException extends Exception
+public class OsmParsingErrorException extends MapException
 {
 }

@@ -5,7 +5,7 @@ package map.exceptions;
  *
  * @author pgalex
  */
-public class ConnectionErrorException extends Exception
+public class ConnectionErrorException extends MapException
 {
 	/**
 	 * String used for connecting

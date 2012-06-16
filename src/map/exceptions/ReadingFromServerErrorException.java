@@ -5,6 +5,6 @@ package map.exceptions;
  *
  * @author pgalex
  */
-public class ReadingFromServerErrorException extends Exception
+public class ReadingFromServerErrorException extends MapException
 {
 }

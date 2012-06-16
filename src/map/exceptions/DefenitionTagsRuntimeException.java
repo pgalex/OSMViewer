@@ -7,7 +7,7 @@ import map.DefenitionTags;
  *
  * @author pgalex
  */
-public class DefenitionTagsRuntimeException extends RuntimeException
+public class DefenitionTagsRuntimeException extends MapRuntimeException
 {
 	/**
 	 * Tags that was edited when exception is throws

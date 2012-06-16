@@ -5,6 +5,6 @@ package map.exceptions;
  *
  * @author pgalex
  */
-public class MapBoundsIsNullRuntimeException extends RuntimeException
+public class MapBoundsIsNullRuntimeException extends MapRuntimeException
 {
 }

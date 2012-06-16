@@ -7,7 +7,7 @@ import map.DefenitionTags;
  *
  * @author pgalex
  */
-public class PointPositionIsNullException extends MapObjectCreatingException
+public class PointPositionIsNullException extends MapObjectCreatingRuntimeException
 {
 	/**
 	 * Constructor

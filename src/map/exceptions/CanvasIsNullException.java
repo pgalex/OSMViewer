@@ -5,6 +5,6 @@ package map.exceptions;
  *
  * @author pgalex
  */
-public class CanvasIsNullException extends RuntimeException
+public class CanvasIsNullException extends MapRuntimeException
 {
 }

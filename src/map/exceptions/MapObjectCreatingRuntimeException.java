@@ -7,7 +7,7 @@ import map.DefenitionTags;
  *
  * @author pgalex
  */
-public class MapObjectCreatingException extends RuntimeException
+public class MapObjectCreatingRuntimeException extends MapRuntimeException
 {
 	/**
 	 * Id of created point
@@ -24,7 +24,7 @@ public class MapObjectCreatingException extends RuntimeException
 	 * @param pCreatedObjectId Id of created object
 	 * @param pCreatedObjectTags tags of created object
 	 */
-	public MapObjectCreatingException(long pCreatedObjectId, DefenitionTags pCreatedObjectTags)
+	public MapObjectCreatingRuntimeException(long pCreatedObjectId, DefenitionTags pCreatedObjectTags)
 	{
 		createdObjectId = pCreatedObjectId;
 		createdObjectTags = pCreatedObjectTags;

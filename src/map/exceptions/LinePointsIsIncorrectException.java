@@ -7,7 +7,7 @@ import map.DefenitionTags;
  *
  * @author pgalex
  */
-public class LinePointsIsIncorrectException extends MapObjectCreatingException
+public class LinePointsIsIncorrectException extends MapObjectCreatingRuntimeException
 {
 	/**
 	 * Constructor
