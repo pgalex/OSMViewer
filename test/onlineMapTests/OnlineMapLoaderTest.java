@@ -1,6 +1,6 @@
 package onlineMapTests;
 
-import drawingStyle.DrawingStyleFactory;
+import drawingStyles.DrawingStylesFactory;
 import map.MapBounds;
 import map.exceptions.MapBoundsIsNullRuntimeException;
 import map.exceptions.MapIsNullRutimeException;
@@ -26,7 +26,7 @@ public class OnlineMapLoaderTest
 		OnlineMapLoader testLoader = new OnlineMapLoader();
 		try
 		{
-			testLoader.loadToMap(null, DrawingStyleFactory.createStyleViewer(), new OnlineMap());
+			testLoader.loadToMap(null, DrawingStylesFactory.createStyleViewer(), new OnlineMap());
 			fail();
 		}
 		catch (MapBoundsIsNullRuntimeException ex)
@@ -70,7 +70,7 @@ public class OnlineMapLoaderTest
 		OnlineMapLoader testLoader = new OnlineMapLoader();
 		try
 		{
-			testLoader.loadToMap(new MapBounds(-1, 1, -1, 1), DrawingStyleFactory.createStyleViewer(), null);
+			testLoader.loadToMap(new MapBounds(-1, 1, -1, 1), DrawingStylesFactory.createStyleViewer(), null);
 			fail();
 		}
 		catch (MapIsNullRutimeException ex)

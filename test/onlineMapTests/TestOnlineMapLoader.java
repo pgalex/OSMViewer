@@ -1,8 +1,8 @@
 package onlineMapTests;
 
-import drawingStyle.DrawingStyleFactory;
-import drawingStyle.MapObjectStyle;
-import drawingStyle.StyleEditor;
+import drawingStyles.DrawingStylesFactory;
+import drawingStyles.MapObjectStyle;
+import drawingStyles.StyleEditor;
 import java.util.ArrayList;
 import map.DefenitionTags;
 import map.EditableDefenitionTags;
@@ -179,9 +179,9 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 		{
 			fillMapWithPoints(null, null, null);
 			fillMapWithPoints(new ArrayList<OsmNode>(), null, null);
-			fillMapWithPoints(new ArrayList<OsmNode>(1), DrawingStyleFactory.createStyleViewer(), null);
+			fillMapWithPoints(new ArrayList<OsmNode>(1), DrawingStylesFactory.createStyleViewer(), null);
 			fillMapWithPoints(new ArrayList<OsmNode>(2), null, new OnlineMap());
-			fillMapWithPoints(new ArrayList<OsmNode>(3), DrawingStyleFactory.createStyleViewer(), new OnlineMap());
+			fillMapWithPoints(new ArrayList<OsmNode>(3), DrawingStylesFactory.createStyleViewer(), new OnlineMap());
 		}
 		catch (Exception ex)
 		{
@@ -198,7 +198,7 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 
 		try
 		{
-			StyleEditor styleEditor = DrawingStyleFactory.createStyleEditor();
+			StyleEditor styleEditor = DrawingStylesFactory.createStyleEditor();
 			EditableDefenitionTags testStyleTags = new EditableDefenitionTags();
 			testStyleTags.add(new MapTag("k1", "v1"));
 			MapObjectStyle testStyle = new MapObjectStyle(true, true, true, null, 0, "", null, testStyleTags);

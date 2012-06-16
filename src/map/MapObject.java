@@ -1,6 +1,6 @@
 package map;
 
-import drawingStyle.StyleViewer;
+import drawingStyles.StyleViewer;
 
 /**
  * Any object on a map. Base class

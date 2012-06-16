@@ -1,8 +1,8 @@
 package mapTests;
 
-import drawingStyle.DrawingStyleFactory;
-import drawingStyle.MapObjectStyle;
-import drawingStyle.StyleEditor;
+import drawingStyles.DrawingStylesFactory;
+import drawingStyles.MapObjectStyle;
+import drawingStyles.StyleEditor;
 import java.util.ArrayList;
 import java.util.Collections;
 import map.EditableDefenitionTags;
@@ -44,7 +44,7 @@ public class MapObjectDrawPriorityComparatorTest
 	@Test
 	public void sortingWithComparatorTest()
 	{
-		StyleEditor editor = DrawingStyleFactory.createStyleEditor();
+		StyleEditor editor = DrawingStylesFactory.createStyleEditor();
 		EditableDefenitionTags tags1 = new EditableDefenitionTags();
 		tags1.add(new MapTag("k1", "v1"));
 		editor.addMapObjectStyle(new MapObjectStyle(false, false, false, null, 10, "", null, tags1));

@@ -1,6 +1,6 @@
 package onlineMap;
 
-import drawingStyle.StyleViewer;
+import drawingStyles.StyleViewer;
 import java.util.ArrayList;
 import java.util.Collections;
 import map.Map;

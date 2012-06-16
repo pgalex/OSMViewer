@@ -1,6 +1,6 @@
 package map;
 
-import drawingStyle.StyleViewer;
+import drawingStyles.StyleViewer;
 
 /**
  * Interface of map - container of map objects

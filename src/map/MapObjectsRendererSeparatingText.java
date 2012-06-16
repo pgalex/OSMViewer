@@ -1,6 +1,6 @@
 package map;
 
-import drawingStyle.StyleViewer;
+import drawingStyles.StyleViewer;
 import java.awt.Graphics2D;
 import map.exceptions.CanvasIsNullException;
 import map.exceptions.StyleViewerIsNullException;

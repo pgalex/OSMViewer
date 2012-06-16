@@ -1,6 +1,15 @@
 package onlineMap;
 
-import drawingStyle.*;
+import drawingStyles.DrawingStylesFactory;
+import drawingStyles.MapObjectStyle;
+import drawingStyles.StyleEditor;
+import drawingStyles.IOColor;
+import drawingStyles.PointDrawStyle;
+import drawingStyles.IOFont;
+import drawingStyles.ScaledObjectStyle;
+import drawingStyles.TextTagsKeys;
+import drawingStyles.MapDrawingSettings;
+import drawingStyles.ScaledObjectStyleArray;
 import forms.DrawableOnPanel;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -48,7 +57,7 @@ public class OnlineMapProcessor implements DrawableOnPanel
 		
 		renderer = new MapRenderer();
 						
-		styleViewer = DrawingStyleFactory.createStyleEditor();
+		styleViewer = DrawingStylesFactory.createStyleEditor();
 
 		testSetupStyleViewer();
 		testLoadMap();

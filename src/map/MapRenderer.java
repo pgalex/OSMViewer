@@ -1,7 +1,7 @@
 package map;
 
-import drawingStyle.MapDrawingSettings;
-import drawingStyle.StyleViewer;
+import drawingStyles.MapDrawingSettings;
+import drawingStyles.StyleViewer;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 

@@ -1,7 +1,7 @@
 package map;
 
-import drawingStyle.MapObjectStyle;
-import drawingStyle.StyleViewer;
+import drawingStyles.MapObjectStyle;
+import drawingStyles.StyleViewer;
 import java.util.Comparator;
 import map.exceptions.StyleViewerIsNullException;
 

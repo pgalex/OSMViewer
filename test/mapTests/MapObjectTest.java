@@ -1,8 +1,8 @@
 package mapTests;
 
-import drawingStyle.DrawingStyleFactory;
-import drawingStyle.MapObjectStyle;
-import drawingStyle.StyleEditor;
+import drawingStyles.DrawingStylesFactory;
+import drawingStyles.MapObjectStyle;
+import drawingStyles.StyleEditor;
 import map.EditableDefenitionTags;
 import map.MapObject;
 import map.MapTag;
@@ -33,7 +33,7 @@ public class MapObjectTest
 	@Test
 	public void assigningStyleIndexTest()
 	{
-		StyleEditor styleEditor = DrawingStyleFactory.createStyleEditor();
+		StyleEditor styleEditor = DrawingStylesFactory.createStyleEditor();
 
 		EditableDefenitionTags tags1 = new EditableDefenitionTags();
 		tags1.add(new MapTag("k1", "v1"));
@@ -70,7 +70,7 @@ public class MapObjectTest
 	@Test
 	public void assigningStyleIndexByNullViewerTest()
 	{
-		StyleEditor styleEditor = DrawingStyleFactory.createStyleEditor();
+		StyleEditor styleEditor = DrawingStylesFactory.createStyleEditor();
 
 		EditableDefenitionTags tags1 = new EditableDefenitionTags();
 		tags1.add(new MapTag("k1", "v1"));
@@ -92,7 +92,7 @@ public class MapObjectTest
 	@Test
 	public void styleIndexNotFoundTest()
 	{
-		StyleEditor styleEditor = DrawingStyleFactory.createStyleEditor();
+		StyleEditor styleEditor = DrawingStylesFactory.createStyleEditor();
 
 		EditableDefenitionTags tags1 = new EditableDefenitionTags();
 		tags1.add(new MapTag("k1", "v1"));
