@@ -7,10 +7,4 @@ package map.exceptions;
  */
 public class StyleViewerIsNullException extends RuntimeException
 {
-	/**
-	 * Constructor
-	 */
-	public StyleViewerIsNullException()
-	{
-	}
 }

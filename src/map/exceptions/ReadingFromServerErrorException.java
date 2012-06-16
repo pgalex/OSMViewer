@@ -7,10 +7,4 @@ package map.exceptions;
  */
 public class ReadingFromServerErrorException extends Exception
 {
-	/**
-	 * Default constructor
-	 */
-	public ReadingFromServerErrorException()
-	{
-	}
 }

@@ -7,10 +7,4 @@ package map.exceptions;
  */
 public class MapIsNullRutimeException extends RuntimeException
 {
-	/**
-	 * Default constructor
-	 */
-	public MapIsNullRutimeException()
-	{
-	}
 }

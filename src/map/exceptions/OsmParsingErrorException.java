@@ -7,10 +7,4 @@ package map.exceptions;
  */
 public class OsmParsingErrorException extends Exception
 {
-	/**
-	 * Default constructor
-	 */
-	public OsmParsingErrorException()
-	{
-	}
 }
