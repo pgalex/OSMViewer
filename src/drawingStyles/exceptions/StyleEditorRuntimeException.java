@@ -6,7 +6,7 @@ import drawingStyles.StyleEditor;
  * Runtime exception in style editor
  * @author pgalex
  */
-public class StyleEditorRuntimeException extends RuntimeException
+public class StyleEditorRuntimeException extends DrawingStylesRuntimeException
 {
 		/**
 	 * Style editor that throwed exception

@@ -7,7 +7,7 @@ import drawingStyles.ScaledObjectStyleArray;
  *
  * @author pgalex
  */
-public class ScaledObjectStyleArrayRuntimeException extends RuntimeException
+public class ScaledObjectStyleArrayRuntimeException extends DrawingStylesRuntimeException
 {
 	/**
 	 * Scaled object style array throwed this exception
