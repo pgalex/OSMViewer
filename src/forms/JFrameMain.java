@@ -28,7 +28,7 @@ public class JFrameMain extends javax.swing.JFrame
 
 		initComponents();
 
-		mapProcessor.resizeCanvas(jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
+		mapProcessor.setCanvasSize(jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
 	}
 
 	/**

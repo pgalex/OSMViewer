@@ -69,7 +69,7 @@ public class OnlineMapProcessor implements DrawableOnPanel
 	 * @param pWidth new width
 	 * @param pHeight new height
 	 */
-	public void resizeCanvas(int pWidth, int pHeight)
+	public void setCanvasSize(int pWidth, int pHeight)
 	{
 		renderer.setDrawingArea(new Rectangle(0, 0, pWidth, pHeight));
 	}
