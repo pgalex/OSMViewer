@@ -1,8 +1,7 @@
 package mapTests;
 
 import map.MapBounds;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
@@ -12,6 +11,32 @@ import org.junit.Test;
  */
 public class MapBoundsTest
 {
+	/**
+	 * Testing not swapping minimum and maximum if bounds are not inverted
+	 */
+	@Test
+	public void notSwappingNormalBoundsTest()
+	{
+		MapBounds testBounds = new MapBounds(1, 2, 3, 4);
+		assertEquals(1, testBounds.getLatitudeMinimum(), 0.0001);
+		assertEquals(2, testBounds.getLatitudeMaximum(), 0.0001);
+		assertEquals(3, testBounds.getLongitudeMinimum(), 0.0001);
+		assertEquals(4, testBounds.getLongitudeMaximum(), 0.0001);
+	}
+
+	/**
+	 * Testing swapping minimum and maximum if bounds are inverted
+	 */
+	@Test
+	public void swappingInvertedBoundsTest()
+	{
+		MapBounds testBounds = new MapBounds(2, 1, 4, 3);
+		assertEquals(1, testBounds.getLatitudeMinimum(), 0.0001);
+		assertEquals(2, testBounds.getLatitudeMaximum(), 0.0001);
+		assertEquals(3, testBounds.getLongitudeMinimum(), 0.0001);
+		assertEquals(4, testBounds.getLongitudeMaximum(), 0.0001);
+	}
+
 	/**
 	 * Testing isZero method with all bounds equals
 	 */

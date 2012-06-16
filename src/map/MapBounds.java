@@ -1,5 +1,7 @@
 package map;
 
+import com.sun.org.apache.bcel.internal.generic.SWAP;
+
 /**
  * Describes area in spheric coordinates by latitude/longitude bounds
  *
@@ -39,6 +41,39 @@ public class MapBounds
 		latitudeMaximum = pLatitudeMaximum;
 		longitudeMinimum = pLongitudeMinimum;
 		longitudeMaximum = pLongitudeMaximum;
+		invertBoundsIfNeed();
+	}
+
+	/**
+	 * Swap minimum and maximum values if bounds are inverted
+	 */
+	private void invertBoundsIfNeed()
+	{
+		if (latitudeMinimum > latitudeMaximum)
+			swapLatitude();
+
+		if (longitudeMinimum > longitudeMaximum)
+			swapLongitude();
+	}
+
+	/**
+	 * Swap latitude maximum and minimum
+	 */
+	private void swapLatitude()
+	{
+		double temp = latitudeMaximum;
+		latitudeMaximum = latitudeMinimum;
+		latitudeMinimum = temp;
+	}
+
+	/**
+	 * Swap longitude maximum and minimum
+	 */
+	private void swapLongitude()
+	{
+		double temp = longitudeMaximum;
+		longitudeMaximum = longitudeMinimum;
+		longitudeMinimum = temp;
 	}
 
 	/**

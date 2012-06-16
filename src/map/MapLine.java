@@ -1,8 +1,8 @@
 package map;
 
 import drawingStyles.MapObjectStyle;
-import map.rendering.MapObjectsRenderer;
 import map.exceptions.LinePointsIsIncorrectException;
+import map.rendering.MapObjectsRenderer;
 
 /**
  * Line (way) on a map. If point of line describes any object on map it will be
