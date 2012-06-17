@@ -3,7 +3,8 @@ package map.exceptions;
 import map.DefenitionTags;
 
 /**
- * Points of line are null, empty or contains null elements
+ * line points array is null, not contains needed points count or contains null
+ * elements
  *
  * @author pgalex
  */

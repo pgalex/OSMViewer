@@ -25,8 +25,9 @@ public class MapLineTest
 	@Test
 	public void autoInitializingNullTagsTest()
 	{
-		MapPosition[] points = new MapPosition[1];
+		MapPosition[] points = new MapPosition[2];
 		points[0] = new MapPosition(1, 2);
+		points[1] = new MapPosition(2, 3);
 		MapLine testLine = new MapLine(0, null, points);
 
 		assertNotNull(testLine.getDefenitionTags());
@@ -48,22 +49,23 @@ public class MapLineTest
 			assertEquals(11, ex.getCreatedObjectId());
 		}
 	}
-
+	
 	/**
-	 * Creating MapLine by one point
+	 * Creating MapLine by points contaning null elemetets
 	 */
 	@Test
-	public void creatingWithOnePointsTest()
+	public void creatingWithOnePointTest()
 	{
 		try
 		{
-			MapLine testLine = new MapLine(12, null, new MapPosition[1]);
-			assertNotNull(testLine.getDefenitionTags());
+			MapPosition[] points = new MapPosition[1];
+			points[0] = new MapPosition();
+			MapLine testLine = new MapLine(10, null, points);
 			fail();
 		}
 		catch (LinePointsIsIncorrectException ex)
 		{
-			assertEquals(12, ex.getCreatedObjectId());
+			assertEquals(10, ex.getCreatedObjectId());
 		}
 	}
 

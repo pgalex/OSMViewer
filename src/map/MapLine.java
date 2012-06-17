@@ -14,6 +14,10 @@ import map.rendering.MapObjectsRenderer;
 public class MapLine extends MapObject
 {
 	/**
+	 * Minimum point count to define that line is correct
+	 */
+	private static final int MINIMUM_POINTS_COUNT = 2;
+	/**
 	 * Points of line
 	 */
 	private MapPosition[] points;
@@ -24,8 +28,8 @@ public class MapLine extends MapObject
 	 * @param pId global OpenStreetMap id of object
 	 * @param pDefenitionTags Tags, describes the line
 	 * @param pPoints points of line
-	 * @throws LinePointsIsIncorrectException line points array is null, empty or
-	 * contains null elements
+	 * @throws LinePointsIsIncorrectException line points array is null, not
+	 * contains needed points count or contains null elements
 	 */
 	public MapLine(long pId, DefenitionTags pDefenitionTags, MapPosition[] pPoints) throws LinePointsIsIncorrectException
 	{
@@ -71,7 +75,7 @@ public class MapLine extends MapObject
 	{
 		if (pPoints == null)
 			return true;
-		if (pPoints.length == 0)
+		if (pPoints.length < MINIMUM_POINTS_COUNT)
 			return true;
 		for (int i = 0; i < pPoints.length; i++)
 		{
