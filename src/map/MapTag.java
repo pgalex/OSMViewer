@@ -54,16 +54,6 @@ public class MapTag implements WritableMapData, ReadableMapData
 	}
 
 	/**
-	 * Set new key
-	 *
-	 * @param pKey the key to set
-	 */
-	public void setKey(String pKey)
-	{
-		key = pKey;
-	}
-
-	/**
 	 * Get "value"
 	 *
 	 * @return the value
@@ -71,16 +61,6 @@ public class MapTag implements WritableMapData, ReadableMapData
 	public String getValue()
 	{
 		return value;
-	}
-
-	/**
-	 * Set value
-	 *
-	 * @param pValue the pValue to set
-	 */
-	public void setValue(String pValue)
-	{
-		value = pValue;
 	}
 
 	/**
