@@ -1,7 +1,5 @@
 package map;
 
-import com.sun.org.apache.bcel.internal.generic.SWAP;
-
 /**
  * Describes area in spheric coordinates by latitude/longitude bounds
  *

@@ -135,4 +135,26 @@ public class MapLineTest
 
 		assertNull(testLine.getStyleIndex());
 	}
+	
+	/**
+	 * Testing assigning style index if style not
+	 */
+	@Test
+	public void assigningStyleNotFoundTest()
+	{
+		EditableDefenitionTags tags = new EditableDefenitionTags();
+		tags.add(new MapTag("k1", "v1"));
+		MapObjectStyle style = new MapObjectStyle(false, false, false, null, 0, "line style", null, tags);
+
+		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
+		testEditor.addMapObjectStyle(style);
+
+		MapPosition[] points = new MapPosition[2];
+		points[0] = new MapPosition(1, 2);
+		points[1] = new MapPosition(2, 3);
+		MapLine testLine = new MapLine(1, null, points);
+		testLine.assignStyleIndex(testEditor);
+
+		assertNull(testLine.getStyleIndex());
+	}
 }

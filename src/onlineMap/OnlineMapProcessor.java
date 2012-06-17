@@ -1,15 +1,6 @@
 package onlineMap;
 
-import drawingStyles.DrawingStylesFactory;
-import drawingStyles.MapObjectStyle;
-import drawingStyles.StyleEditor;
-import drawingStyles.IOColor;
-import drawingStyles.PointDrawStyle;
-import drawingStyles.IOFont;
-import drawingStyles.ScaledObjectStyle;
-import drawingStyles.TextTagsKeys;
-import drawingStyles.MapDrawingSettings;
-import drawingStyles.ScaledObjectStyleArray;
+import drawingStyles.*;
 import forms.DrawableOnPanel;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -18,8 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import map.EditableDefenitionTags;
 import map.MapBounds;
-import map.rendering.MapRenderer;
 import map.MapTag;
+import map.rendering.MapRenderer;
 
 /**
  * Organize work between other classes and process user's input

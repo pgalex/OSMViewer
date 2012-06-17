@@ -132,7 +132,7 @@ public class OnlineMapLoader
 
 		DefenitionTags creatingPointTags = createDefentionTagsByOsmTags(pNode.getTags());
 		// node without tag is not a MapPoint (can not be displayed), 
-		// it will be included in MapLine only like MapPosition
+		// it will be included in MapLine like MapPosition
 		if (creatingPointTags == null)
 			return null;
 		if (creatingPointTags.isEmpty())

@@ -81,8 +81,6 @@ public class DrawingStylesContainer implements ReadableMapData, WritableMapData
 		{
 			throw new IOException();
 		}
-
-
 	}
 
 	/**

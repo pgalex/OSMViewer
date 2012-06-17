@@ -34,16 +34,6 @@ public class IOIcon implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Conctructor by exists image
-	 *
-	 * @param pImage Image
-	 */
-	public IOIcon(BufferedImage pImage)
-	{
-		image = pImage;
-	}
-
-	/**
 	 * Contructor with reading image from file
 	 *
 	 * @param pFileName file name (.png, .jpg .. etc )

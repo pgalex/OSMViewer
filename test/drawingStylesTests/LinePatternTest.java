@@ -13,13 +13,25 @@ import org.junit.Test;
 public class LinePatternTest
 {
 	/**
-	 * Testing auto initialize in constructor
+	 * Testing auto initialize in constructor if pattern null
 	 */
 	@Test
-	public void autoInitializeTest()
+	public void autoInitializeNullPatternTest()
 	{
 		LinePattern pattern = new LinePattern(null);
+		
+		assertNotNull(pattern.getPattern());
+		assertTrue(pattern.getPattern().length > 0);
+	}
 
+	/**
+	 * Testing auto initialize in constructor if pattern empty
+	 */
+	@Test
+	public void autoInitializeEmptyPatternTest()
+	{
+		LinePattern pattern = new LinePattern(new float[0]);
+		
 		assertNotNull(pattern.getPattern());
 		assertTrue(pattern.getPattern().length > 0);
 	}
@@ -39,10 +51,10 @@ public class LinePatternTest
 			pattern[3] = 5;
 			LinePattern writedPattern = new LinePattern(pattern);
 			IOTester.writeToTestFile(writedPattern);
-
+			
 			LinePattern readPattern = new LinePattern();
 			IOTester.readFromTestFile(readPattern);
-
+			
 			assertArrayEquals(writedPattern.getPattern(), readPattern.getPattern(), 0.0001f);
 		}
 		catch (Exception ex)

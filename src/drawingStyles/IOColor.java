@@ -32,19 +32,6 @@ public class IOColor implements WritableMapData, ReadableMapData
 	}
 
 	/**
-	 * Constructor with color parameters
-	 *
-	 * @param pR red
-	 * @param pG green
-	 * @param pB blue
-	 * @param pA alpha
-	 */
-	public IOColor(int pR, int pG, int pB, int pA)
-	{
-		color = new Color(pR, pG, pB, pA);
-	}
-
-	/**
 	 * Constructor with color pointer
 	 *
 	 * @param pColor color pointer

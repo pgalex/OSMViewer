@@ -3,9 +3,12 @@ package mapTests;
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.MapObjectStyle;
 import drawingStyles.StyleEditor;
-import map.*;
-import org.junit.Test;
+import map.EditableDefenitionTags;
+import map.MapPolygon;
+import map.MapPosition;
+import map.MapTag;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  * MapPolygon tests
@@ -56,6 +59,28 @@ public class MapPolygonTest
 		points[0] = new MapPosition(1, 2);
 		points[1] = new MapPosition(2, 3);
 		MapPolygon testPolygon = new MapPolygon(1, tags, points);
+		testPolygon.assignStyleIndex(testEditor);
+
+		assertNull(testPolygon.getStyleIndex());
+	}
+	
+	/**
+	 * Testing assigning style index if style not found
+	 */
+	@Test
+	public void assigningStyleIndexNotFoundTest()
+	{
+		EditableDefenitionTags tags = new EditableDefenitionTags();
+		tags.add(new MapTag("k1", "v1"));
+		MapObjectStyle style = new MapObjectStyle(false, false, false, null, 0, "pokygon style", null, tags);
+
+		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
+		testEditor.addMapObjectStyle(style);
+
+		MapPosition[] points = new MapPosition[2];
+		points[0] = new MapPosition(1, 2);
+		points[1] = new MapPosition(2, 3);
+		MapPolygon testPolygon = new MapPolygon(1, null, points);
 		testPolygon.assignStyleIndex(testEditor);
 
 		assertNull(testPolygon.getStyleIndex());

@@ -3,8 +3,7 @@ package drawingStylesTests;
 import IOTesting.IOTester;
 import drawingStyles.IOColor;
 import java.awt.Color;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
@@ -14,6 +13,16 @@ import org.junit.Test;
  */
 public class IOColorTest
 {
+	/**
+	 * Auto initialize null color in constructor
+	 */
+	@Test
+	public void autoInitializeTest()
+	{
+		IOColor testColor = new IOColor(null);
+		assertNotNull(testColor.getColor());
+	}
+
 	/**
 	 * Reading/writing test
 	 */

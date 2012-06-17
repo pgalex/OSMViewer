@@ -89,4 +89,23 @@ public class MapPointTest
 
 		assertNull(testPoint.getStyleIndex());
 	}
+	
+	/**
+	 * Testing assigning style index if style not found
+	 */
+	@Test
+	public void assigningStyleIndexNotFoundTest()
+	{
+		EditableDefenitionTags tags = new EditableDefenitionTags();
+		tags.add(new MapTag("k1", "v1"));
+		MapObjectStyle style = new MapObjectStyle(false, false, false, null, 0, "point style", null, tags);
+
+		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
+		testEditor.addMapObjectStyle(style);
+
+		MapPoint testPoint = new MapPoint(new MapPosition(0, 0), 0, null);
+		testPoint.assignStyleIndex(testEditor);
+
+		assertNull(testPoint.getStyleIndex());
+	}
 }
