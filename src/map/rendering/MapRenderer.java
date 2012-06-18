@@ -5,6 +5,7 @@ import drawingStyles.StyleViewer;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import map.Map;
+import map.MapBounds;
 import map.MapPosition;
 
 /**
@@ -14,6 +15,29 @@ import map.MapPosition;
  */
 public class MapRenderer
 {
+	/**
+	 * openstreetmap like scale on each scale level in meters per pixel in equator
+	 */
+	private static final double scaleByScaleLevel[] =
+	{
+		1.0 / 111000000.0,
+		1.0 / 55000000,
+		1.0 / 28000000,
+		1.0 / 14000000,
+		1.0 / 7000000,
+		1.0 / 3000000,
+		1.0 / 2000000,
+		1.0 / 867.000,
+		1.0 / 433.000,
+		1.0 / 217.000,
+		1.0 / 108.000,
+		1.0 / 54.000,
+		1.0 / 27.000,
+		1.0 / 14.000,
+		1.0 / 6.771,
+		1.0 / 3.385,
+		1.0 / 1.693
+	};
 	/**
 	 * Default drawing area
 	 */
@@ -53,6 +77,20 @@ public class MapRenderer
 		scaleLevel = 0;
 		minimumScaleLevel = pMinimumScaleLevel;
 		maximumScaleLevel = pMaximumScaleLevel;
+	}
+
+	/**
+	 * Get scale by scale level.
+	 *
+	 * @param pScaleLevel scale level.
+	 * @param pLatitude latitude where need find scale
+	 * @return scale by scale level in meters per pixel. If scale level more than
+	 * maximum of less than minimum will be return value on each bound
+	 */
+	public static double getScaleByScaleLevel(int pScaleLevel, double pLatitude)
+	{
+		// scaleOnScaleLevel[normalizeScaleLevel]*cos(pLatitude)
+		return 0;
 	}
 
 	/**
