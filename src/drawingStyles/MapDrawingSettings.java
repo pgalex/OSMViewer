@@ -36,6 +36,16 @@ public class MapDrawingSettings implements ReadableMapData, WritableMapData
 	}
 
 	/**
+	 * Get current default scale levels count
+	 *
+	 * @return current default scale levels count
+	 */
+	public static int getStyleLevelsCount()
+	{
+		return ScaledObjectStyleArray.DEFAULT_SCALE_LEVELS_COUNT;
+	}
+
+	/**
 	 * Get map background color
 	 *
 	 * @return map background color
