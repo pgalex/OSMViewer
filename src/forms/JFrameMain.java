@@ -8,7 +8,7 @@ package forms;
 import onlineMap.OnlineMapProcessor;
 
 /**
- * Главное окно
+ * Main form. Главное окно
  *
  * @author preobrazhentsev
  */
@@ -47,6 +47,11 @@ public class JFrameMain extends javax.swing.JFrame
 
         jPanelCanvas.setBackground(new java.awt.Color(204, 204, 204));
         jPanelCanvas.setForeground(new java.awt.Color(255, 255, 255));
+        jPanelCanvas.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                jPanelCanvasComponentResized(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelCanvasLayout = new javax.swing.GroupLayout(jPanelCanvas);
         jPanelCanvas.setLayout(jPanelCanvasLayout);
@@ -72,6 +77,11 @@ public class JFrameMain extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+	private void jPanelCanvasComponentResized(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_jPanelCanvasComponentResized
+	{//GEN-HEADEREND:event_jPanelCanvasComponentResized
+		mapProcessor.setCanvasSize(jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
+	}//GEN-LAST:event_jPanelCanvasComponentResized
 
 	/**
 	 * @param args the command line arguments

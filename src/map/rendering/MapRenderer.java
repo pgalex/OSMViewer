@@ -5,6 +5,7 @@ import drawingStyles.StyleViewer;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import map.Map;
+import map.MapPosition;
 
 /**
  * Uses to render Map in right order
@@ -20,7 +21,11 @@ public class MapRenderer
 	/**
 	 * Rectangle that define area where map will be drawen
 	 */
-	private Rectangle drawingArea;
+	private Rectangle targetCanvasDrawingArea;
+	/**
+	 * Current view position. Center point of area on a map that will be drawen
+	 */
+	private MapPosition viewPosition;
 
 	/**
 	 * Default constructor
@@ -28,18 +33,20 @@ public class MapRenderer
 	 */
 	public MapRenderer()
 	{
-		drawingArea = DEFAULT_DRAWING_AREA;
+		targetCanvasDrawingArea = DEFAULT_DRAWING_AREA;
+		viewPosition = new MapPosition();
 	}
 
 	/**
-	 * Set new rectangle that define area where map will be drawen
+	 * Set new rectangle that define area where map will be drawen (on destenation
+	 * graphics)
 	 *
 	 * @param pDrawingArea rectangle that define area where map will be drawen
 	 */
-	public void setDrawingArea(Rectangle pDrawingArea)
+	public void setTargetCanvasDrawingArea(Rectangle pDrawingArea)
 	{
 		if (pDrawingArea != null)
-			drawingArea = pDrawingArea;
+			targetCanvasDrawingArea = pDrawingArea;
 	}
 
 	/**
@@ -47,9 +54,31 @@ public class MapRenderer
 	 *
 	 * @return rectangle that define area where map will be drawen
 	 */
-	public Rectangle getDrawingArea()
+	public Rectangle getTargetCanvasDrawingArea()
 	{
-		return drawingArea;
+		return targetCanvasDrawingArea;
+	}
+
+	/**
+	 * Set new view positoin
+	 *
+	 * @param pViewPosition New view position. Center point of area on a map that
+	 * will be drawen
+	 */
+	public void setViewPosition(MapPosition pViewPosition)
+	{
+		if (pViewPosition != null)
+			viewPosition = pViewPosition;
+	}
+
+	/**
+	 * Get view position
+	 *
+	 * @return current view position
+	 */
+	public MapPosition getViewPosition()
+	{
+		return viewPosition;
 	}
 
 	/**
@@ -61,16 +90,14 @@ public class MapRenderer
 	 */
 	public void renderMap(Graphics2D pCanvas, Map pMap, StyleViewer pStyleViewer)
 	{
-		if (pMap == null || pStyleViewer == null)
+		if (pMap == null || pStyleViewer == null || pCanvas == null)
 			return;
-		
+
 		MapDrawingSettings mapDrawingSettings = pStyleViewer.getMapDrawingSettings();
 		pCanvas.setBackground(mapDrawingSettings.getMapBackgroundColor().getColor());
-		
-		pCanvas.clearRect(drawingArea.x, drawingArea.y, drawingArea.width, drawingArea.height);
+		pCanvas.clearRect(targetCanvasDrawingArea.x, targetCanvasDrawingArea.y, targetCanvasDrawingArea.width, targetCanvasDrawingArea.height);
 
 		pMap.sortObjectsByDrawPriority(pStyleViewer);
-
 		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(pCanvas, pStyleViewer, 0);
 		pMap.acceptObjectsRenderer(objectsRenderer);
 

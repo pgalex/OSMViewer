@@ -43,11 +43,8 @@ public class OnlineMapProcessor implements DrawableOnPanel
 	public OnlineMapProcessor()
 	{
 		map = new OnlineMap();
-		
 		mapLoader = new OnlineMapLoader();
-		
 		renderer = new MapRenderer();
-						
 		styleViewer = DrawingStylesFactory.createStyleEditor();
 
 		testSetupStyleViewer();
@@ -62,7 +59,7 @@ public class OnlineMapProcessor implements DrawableOnPanel
 	 */
 	public void setCanvasSize(int pWidth, int pHeight)
 	{
-		renderer.setDrawingArea(new Rectangle(0, 0, pWidth, pHeight));
+		renderer.setTargetCanvasDrawingArea(new Rectangle(0, 0, pWidth, pHeight));
 	}
 
 	private void testSetupStyleViewer()
