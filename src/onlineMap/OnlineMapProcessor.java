@@ -20,6 +20,14 @@ import map.rendering.MapRenderer;
 public class OnlineMapProcessor implements DrawableOnPanel
 {
 	/**
+	 * Minimum scale level for viewing online map
+	 */
+	private static final int ONLINE_MAP_MINIMUM_SCALE_LEVEL = 0;
+	/**
+	 * Maximum scale level for viewing online map
+	 */
+	private static final int ONLINE_MAP_MAXIMUM_SCALE_LEVEL = 6;
+	/**
 	 * Map - stored map objects
 	 */
 	private OnlineMap map;
@@ -44,7 +52,7 @@ public class OnlineMapProcessor implements DrawableOnPanel
 	{
 		map = new OnlineMap();
 		mapLoader = new OnlineMapLoader();
-		renderer = new MapRenderer();
+		renderer = new MapRenderer(ONLINE_MAP_MINIMUM_SCALE_LEVEL, ONLINE_MAP_MAXIMUM_SCALE_LEVEL);
 		styleViewer = DrawingStylesFactory.createStyleEditor();
 
 		testSetupStyleViewer();

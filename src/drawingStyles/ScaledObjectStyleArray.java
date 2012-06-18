@@ -17,7 +17,7 @@ public class ScaledObjectStyleArray implements ScaledObjectStyleCollection
 	 * Currect default scale levels count. This scale levels are linked with OSM
 	 * scale level ( from 18 to 6 ).
 	 */
-	protected static final int DEFAULT_SCALE_LEVELS_COUNT = 12;
+	private static final int DEFAULT_SCALE_LEVELS_COUNT = 12;
 	/**
 	 * Drawing style on each scale level. Стили на каждом из уровней масштаба
 	 */

@@ -26,15 +26,33 @@ public class MapRenderer
 	 * Current view position. Center point of area on a map that will be drawen
 	 */
 	private MapPosition viewPosition;
+	/**
+	 * Current scale level
+	 */
+	private int scaleLevel;
+	/**
+	 * Minimun scale level
+	 */
+	private int minimumScaleLevel;
+	/**
+	 * Maximum scale level
+	 */
+	private int maximumScaleLevel;
 
 	/**
-	 * Default constructor
+	 * Constructor
 	 *
+	 *
+	 * @param pMinimumScaleLevel Minimun scale level
+	 * @param pMaximumScaleLevel Maximum scale level
 	 */
-	public MapRenderer()
+	public MapRenderer(int pMinimumScaleLevel, int pMaximumScaleLevel)
 	{
 		targetCanvasDrawingArea = DEFAULT_DRAWING_AREA;
 		viewPosition = new MapPosition();
+		scaleLevel = 0;
+		minimumScaleLevel = pMinimumScaleLevel;
+		maximumScaleLevel = pMaximumScaleLevel;
 	}
 
 	/**
@@ -79,6 +97,29 @@ public class MapRenderer
 	public MapPosition getViewPosition()
 	{
 		return viewPosition;
+	}
+
+	/**
+	 * Set new scale level
+	 *
+	 * @param pScaleLevel new scale level
+	 */
+	public void setScaleLevel(int pScaleLevel)
+	{
+		if (pScaleLevel < minimumScaleLevel || pScaleLevel > maximumScaleLevel)
+			return;
+
+		scaleLevel = pScaleLevel;
+	}
+
+	/**
+	 * Get current scale level
+	 *
+	 * @return currect scale level
+	 */
+	public int getScaleLevel()
+	{
+		return scaleLevel;
 	}
 
 	/**
