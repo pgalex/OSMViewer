@@ -40,7 +40,7 @@ public class MapDrawingSettings implements ReadableMapData, WritableMapData
 	 *
 	 * @return current default scale levels count
 	 */
-	public static int getStyleLevelsCount()
+	public static int getScaleLevelsCount()
 	{
 		return ScaledObjectStyleArray.DEFAULT_SCALE_LEVELS_COUNT;
 	}
