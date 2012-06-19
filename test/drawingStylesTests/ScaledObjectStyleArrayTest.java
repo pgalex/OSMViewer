@@ -153,7 +153,7 @@ public class ScaledObjectStyleArrayTest
 		try
 		{
 			final int WRITING_ARRAY_SIZE = 30;
-			final int READING_ARRAY_SIZE = 12;
+			final int READING_ARRAY_SIZE = 16;
 			// больше того что по умолчанию - последние обрезаются
 			ScaledObjectStyle scaledStyle1 = new ScaledObjectStyle(false, true, true, null, null,
 							null, null, null);

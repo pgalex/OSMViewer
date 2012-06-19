@@ -5,7 +5,6 @@ import drawingStyles.StyleViewer;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import map.Map;
-import map.MapBounds;
 import map.MapPosition;
 
 /**

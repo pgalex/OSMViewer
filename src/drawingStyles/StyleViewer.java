@@ -2,7 +2,6 @@ package drawingStyles;
 
 import IO.ReadableMapData;
 import IO.WritableMapData;
-import map.DefenitionTags;
 
 /**
  * Main interface of drawingStyles without "set" methods. Optimized for runtime

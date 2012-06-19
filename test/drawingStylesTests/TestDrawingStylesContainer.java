@@ -7,7 +7,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import map.EditableDefenitionTags;
+import drawingStyles.EditableDefenitionTags;
 import map.MapTag;
 import static org.junit.Assert.*;
 

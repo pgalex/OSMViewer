@@ -1,4 +1,4 @@
-package map;
+package drawingStyles;
 
 import IO.ReadableMapData;
 import IO.WritableMapData;
@@ -6,6 +6,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import map.MapTag;
 
 /**
  * Map object tags

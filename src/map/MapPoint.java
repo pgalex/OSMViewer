@@ -1,5 +1,6 @@
 package map;
 
+import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectStyle;
 import map.rendering.MapObjectsRenderer;
 import map.exceptions.PointPositionIsNullException;

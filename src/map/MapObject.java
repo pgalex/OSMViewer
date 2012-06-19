@@ -1,5 +1,6 @@
 package map;
 
+import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectStyle;
 import drawingStyles.StyleViewer;
 import map.rendering.MapObjectsRenderer;

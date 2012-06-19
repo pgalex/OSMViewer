@@ -3,7 +3,7 @@ package mapTests;
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.MapObjectStyle;
 import drawingStyles.StyleEditor;
-import map.EditableDefenitionTags;
+import drawingStyles.EditableDefenitionTags;
 import map.MapObject;
 import map.MapTag;
 import static org.junit.Assert.assertEquals;

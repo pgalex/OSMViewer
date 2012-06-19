@@ -1,6 +1,6 @@
 package map.exceptions;
 
-import map.DefenitionTags;
+import drawingStyles.DefenitionTags;
 
 /**
  * position gives to MapPoint constructor is null

@@ -3,7 +3,6 @@ package drawingStyles;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import map.DefenitionTags;
 
 /**
  * Gives access to drawing style without editing but optimized for runtime map

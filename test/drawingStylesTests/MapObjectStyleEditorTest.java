@@ -10,7 +10,7 @@ import drawingStyles.exceptions.MapDrawingSettingsIsNullException;
 import drawingStyles.exceptions.MapObjectStyleIsNullException;
 import drawingStyles.exceptions.StyleIndexOutOfBoundsException;
 import java.awt.Color;
-import map.EditableDefenitionTags;
+import drawingStyles.EditableDefenitionTags;
 import map.MapTag;
 import static org.junit.Assert.*;
 import org.junit.Test;

@@ -3,7 +3,7 @@ package mapTests;
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.MapObjectStyle;
 import drawingStyles.StyleEditor;
-import map.EditableDefenitionTags;
+import drawingStyles.EditableDefenitionTags;
 import map.MapLine;
 import map.MapPosition;
 import map.MapTag;

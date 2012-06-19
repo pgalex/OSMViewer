@@ -8,7 +8,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import map.DefenitionTags;
 
 /**
  * Gives access to drawing style with editing

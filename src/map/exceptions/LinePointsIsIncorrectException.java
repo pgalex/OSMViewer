@@ -1,6 +1,6 @@
 package map.exceptions;
 
-import map.DefenitionTags;
+import drawingStyles.DefenitionTags;
 
 /**
  * line points array is null, not contains needed points count or contains null

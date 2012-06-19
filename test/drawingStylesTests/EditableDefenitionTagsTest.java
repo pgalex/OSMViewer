@@ -1,6 +1,6 @@
-package mapTests;
+package drawingStylesTests;
 
-import map.EditableDefenitionTags;
+import drawingStyles.EditableDefenitionTags;
 import map.MapTag;
 import map.exceptions.TagIndexOutOfBoundsException;
 import map.exceptions.TagIsNullException;

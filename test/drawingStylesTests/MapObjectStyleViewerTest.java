@@ -8,7 +8,7 @@ import drawingStyles.DrawingStylesFactory;
 import drawingStyles.StyleEditor;
 import IOTesting.IOTester;
 import java.awt.Color;
-import map.EditableDefenitionTags;
+import drawingStyles.EditableDefenitionTags;
 import map.MapTag;
 import static org.junit.Assert.*;
 import org.junit.Test;

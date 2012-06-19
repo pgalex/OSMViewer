@@ -7,7 +7,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import map.DefenitionTags;
 
 /**
  * Common part of MapObjectStyleViewer and Editor.

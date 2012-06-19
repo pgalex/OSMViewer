@@ -1,6 +1,6 @@
 package map.exceptions;
 
-import map.DefenitionTags;
+import drawingStyles.DefenitionTags;
 
 /**
  * Exception throwed while created any object on a map

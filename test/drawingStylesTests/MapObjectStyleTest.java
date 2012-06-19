@@ -6,7 +6,7 @@ import drawingStyles.ScaledObjectStyle;
 import drawingStyles.ScaledObjectStyleArray;
 import java.util.ArrayList;
 import java.util.Collections;
-import map.EditableDefenitionTags;
+import drawingStyles.EditableDefenitionTags;
 import map.MapTag;
 import static org.junit.Assert.*;
 import org.junit.Test;

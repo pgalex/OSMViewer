@@ -1,5 +1,6 @@
 package map;
 
+import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectStyle;
 import map.exceptions.LinePointsIsIncorrectException;
 import map.rendering.MapObjectsRenderer;

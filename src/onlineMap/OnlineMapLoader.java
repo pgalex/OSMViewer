@@ -1,5 +1,7 @@
 package onlineMap;
 
+import drawingStyles.EditableDefenitionTags;
+import drawingStyles.DefenitionTags;
 import drawingStyles.StyleViewer;
 import java.io.IOException;
 import java.net.MalformedURLException;

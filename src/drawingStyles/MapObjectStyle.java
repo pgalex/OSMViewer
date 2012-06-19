@@ -5,7 +5,6 @@ import IO.WritableMapData;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import map.DefenitionTags;
 
 /**
  * How to draw any object on a map

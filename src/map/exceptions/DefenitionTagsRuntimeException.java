@@ -1,6 +1,6 @@
 package map.exceptions;
 
-import map.DefenitionTags;
+import drawingStyles.DefenitionTags;
 
 /**
  * Runtime exception throws in one defenition tags class

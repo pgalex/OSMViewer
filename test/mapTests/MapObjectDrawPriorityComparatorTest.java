@@ -5,7 +5,7 @@ import drawingStyles.MapObjectStyle;
 import drawingStyles.StyleEditor;
 import java.util.ArrayList;
 import java.util.Collections;
-import map.EditableDefenitionTags;
+import drawingStyles.EditableDefenitionTags;
 import map.MapObject;
 import map.MapObjectDrawPriorityComparator;
 import map.MapTag;

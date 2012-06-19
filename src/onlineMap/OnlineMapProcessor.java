@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import map.EditableDefenitionTags;
+import drawingStyles.EditableDefenitionTags;
 import map.MapBounds;
 import map.MapTag;
 import map.rendering.MapRenderer;

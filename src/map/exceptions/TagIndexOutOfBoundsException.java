@@ -1,6 +1,6 @@
 package map.exceptions;
 
-import map.DefenitionTags;
+import drawingStyles.DefenitionTags;
 
 /**
  * Tag incorrectTagIndex in defenition tags is out of bounds
