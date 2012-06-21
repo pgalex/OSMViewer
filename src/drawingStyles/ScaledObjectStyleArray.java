@@ -7,42 +7,142 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
- * Collection of ScaledObjectStyle
+ * Array of ScaledObjectStyle
  *
  * @author pgalex
  */
 public class ScaledObjectStyleArray implements ScaledObjectStyleCollection
 {
 	/**
-	 * Currect default scale levels count
+	 * Default minimum scale level of array
 	 */
-	private static final int DEFAULT_SCALE_LEVELS_COUNT = 16;
+	private static final int DEFAULT_MINIMUM_SCALE_LEVEL = 2;
+	/**
+	 * Default maximum scale level of array
+	 */
+	private static final int DEFAULT_MAXIUMUM_SCALE_LEVEL = 18;
 	/**
 	 * Drawing style on each scale level. Стили на каждом из уровней масштаба
 	 */
 	private ScaledObjectStyle[] scaledStyles;
+	/**
+	 * Minimum scale level in array
+	 */
+	private int minimumScaleLevel;
+	/**
+	 * Maximum (valid) scale level in array
+	 */
+	private int maximumScaleLevel;
 
 	/**
 	 * Defaul contructor
 	 */
 	public ScaledObjectStyleArray()
 	{
-		scaledStyles = new ScaledObjectStyle[DEFAULT_SCALE_LEVELS_COUNT];
-		for (int i = 0; i < DEFAULT_SCALE_LEVELS_COUNT; i++)
+		minimumScaleLevel = DEFAULT_MINIMUM_SCALE_LEVEL;
+		maximumScaleLevel = DEFAULT_MAXIUMUM_SCALE_LEVEL;
+
+		scaledStyles = new ScaledObjectStyle[ccomputeStylesArrayLengthByScaleLevelBounds()];
+
+		for (int i = 0; i < scaledStyles.length; i++)
 			scaledStyles[i] = new ScaledObjectStyle();
+	}
+	
+	/**
+	 * Compute style array length by minimum and maximum scale level
+	 * @return style array length
+	 */
+	private int ccomputeStylesArrayLengthByScaleLevelBounds()
+	{
+		return maximumScaleLevel - minimumScaleLevel + 1;
+	}
+	
+	/**
+	 * Set style on specifiec scale level. If level is out of range value will not
+	 * be set
+	 *
+	 * @param pScaleLevel scale level
+	 * @param pNewScaledStyle new style on scale level
+	 * @throws ScaleLevelOutOfBoundsException scale level is out of range
+	 * @throws ScaledStyleIsNullException new scaled style is null
+	 */
+	public void setStyleOnScale(int pScaleLevel, ScaledObjectStyle pNewScaledStyle) throws ScaleLevelOutOfBoundsException, ScaledStyleIsNullException
+	{
+		if (pNewScaledStyle == null)
+			throw new ScaledStyleIsNullException(this);
+
+		scaledStyles[convertScaleLevelToArrayIndex(pScaleLevel)] = pNewScaledStyle;
 	}
 
 	/**
-	 * Constructor with specified scale levels count. Only for tests. Конструктор.
-	 * Для тестов
+	 * Convert scale level (defines by minimumScaleLevel and maximumScaleLevel) to
+	 * scaledStyles array (from 0 to length)
 	 *
-	 * @param pScaleLevelsCount scale levels count
+	 * @param pScaleLevel
 	 */
-	public ScaledObjectStyleArray(int pScaleLevelsCount)
+	private int convertScaleLevelToArrayIndex(int pScaleLevel) throws ScaleLevelOutOfBoundsException
 	{
-		scaledStyles = new ScaledObjectStyle[pScaleLevelsCount];
-		for (int i = 0; i < pScaleLevelsCount; i++)
-			scaledStyles[i] = new ScaledObjectStyle();
+		if (pScaleLevel < minimumScaleLevel || pScaleLevel > maximumScaleLevel)
+			throw new ScaleLevelOutOfBoundsException(this, pScaleLevel, minimumScaleLevel, maximumScaleLevel);
+
+		return pScaleLevel - minimumScaleLevel;
+	}
+
+	/**
+	 * Get style on specifiec scale level. If level is out of range returns
+	 * nearest correct value
+	 *
+	 * @param pScaleLevel scale level
+	 * @return style on specifiec scale level
+	 */
+	@Override
+	public ScaledObjectStyle getStyleOnScale(int pScaleLevel)
+	{
+		int normalizedScaleLevel = normalizeScaleLevel(pScaleLevel);
+
+		return scaledStyles[convertScaleLevelToArrayIndex(normalizedScaleLevel)];
+	}
+
+	/**
+	 * Normalize scale level if it out of array bounds and convert it for using in
+	 * scaledStyles (from minimumLevel..maximumLevel to 0..scaledStyles.length)
+	 *
+	 * @param pScaleLevel scale level
+	 * @return scale level in array bounds
+	 */
+	private int normalizeScaleLevel(int pScaleLevel)
+	{
+		int normalizedScaleLevel = pScaleLevel;
+
+		if (normalizedScaleLevel < minimumScaleLevel)
+			normalizedScaleLevel = minimumScaleLevel;
+
+		if (normalizedScaleLevel > maximumScaleLevel)
+			normalizedScaleLevel = maximumScaleLevel;
+
+		return normalizedScaleLevel;
+	}
+
+	/**
+	 * Get minimum scale levels
+	 *
+	 * @return minimum scale levels
+	 */
+	@Override
+	public int getMinimumScaleLevel()
+	{
+		return minimumScaleLevel;
+	}
+
+	/**
+	 * Get maximum scale level
+	 *
+	 * @return maximum scale level
+	 */
+	@Override
+	public int getMaximumScaleLevel()
+	{
+		return maximumScaleLevel;
 	}
 
 	/**
@@ -56,14 +156,15 @@ public class ScaledObjectStyleArray implements ScaledObjectStyleCollection
 	{
 		try
 		{
-			int scaledStylesLength = pInput.readInt();
-			scaledStyles = new ScaledObjectStyle[scaledStylesLength];
+			minimumScaleLevel = pInput.readInt();
+			maximumScaleLevel = pInput.readInt();
+
+			scaledStyles = new ScaledObjectStyle[ccomputeStylesArrayLengthByScaleLevelBounds()];
 			for (int i = 0; i < scaledStyles.length; i++)
 			{
 				scaledStyles[i] = new ScaledObjectStyle();
 				scaledStyles[i].readFromStream(pInput);
 			}
-			resetToDefault();
 		}
 		catch (Exception e)
 		{
@@ -82,7 +183,8 @@ public class ScaledObjectStyleArray implements ScaledObjectStyleCollection
 	{
 		try
 		{
-			pOutput.writeInt(scaledStyles.length);
+			pOutput.writeInt(minimumScaleLevel);
+			pOutput.writeInt(maximumScaleLevel);
 			for (int i = 0; i < scaledStyles.length; i++)
 				scaledStyles[i].writeToStream(pOutput);
 		}
@@ -90,106 +192,5 @@ public class ScaledObjectStyleArray implements ScaledObjectStyleCollection
 		{
 			throw new IOException(e);
 		}
-	}
-
-	/**
-	 * Set style on specifiec scale level. If level is out of range value will not
-	 * be set
-	 *
-	 * @param pScaleLevel scale level
-	 * @param pNewScaledStyle new style on scale level
-	 * @throws ScaleLevelOutOfBoundsException scale level is out of range
-	 * @throws ScaledStyleIsNullException new scaled style is null
-	 */
-	public void setStyleOnScale(int pScaleLevel, ScaledObjectStyle pNewScaledStyle) throws ScaleLevelOutOfBoundsException, ScaledStyleIsNullException
-	{
-		if (pScaleLevel < 0 || pScaleLevel >= scaledStyles.length)
-			throw new ScaleLevelOutOfBoundsException(this, pScaleLevel, 0, scaledStyles.length);
-		if (pNewScaledStyle == null)
-			throw new ScaledStyleIsNullException(this);
-
-		scaledStyles[pScaleLevel] = pNewScaledStyle;
-	}
-
-	/**
-	 * Get style on specifiec scale level. If level is out of range returns
-	 * nearest correct value
-	 *
-	 * @param pScaleLevel scale level
-	 * @return style on specifiec scale level
-	 */
-	@Override
-	public ScaledObjectStyle getStyleOnScale(int pScaleLevel)
-	{
-		return scaledStyles[normalizeScaleLevel(pScaleLevel)];
-	}
-
-	/**
-	 * Get scale levels count
-	 *
-	 * @return currect scale levels count
-	 */
-	@Override
-	public int count()
-	{
-		return scaledStyles.length;
-	}
-
-	/**
-	 * Is currect scale levels count has default values. Является ли текущее
-	 * кол-во уровней масштаба кол-вом по умолчанию
-	 *
-	 * @return Is currect scale levels count has default values. Является ли
-	 * текущее кол-во уровней масштаба кол-вом по умолчанию
-	 */
-	public boolean isDefaultLevelsCount()
-	{
-		return scaledStyles.length == DEFAULT_SCALE_LEVELS_COUNT;
-	}
-
-	/**
-	 * Reset scaled styles array to default length. If default length is bigger
-	 * last style copies to the tail of array. If less - out of bounds values will
-	 * be deleted. Установить кол-во уровней масштаба по умолчанию. Новые стили
-	 * добавляются как копия последеного. Лишиние обрезаются
-	 */
-	private void resetToDefault()
-	{
-		if (isDefaultLevelsCount())
-			return;
-		if (scaledStyles.length == 0)
-			return;
-
-		ScaledObjectStyle[] scaledStylesDefaultCount = new ScaledObjectStyle[DEFAULT_SCALE_LEVELS_COUNT];
-
-		int minLenght = Math.min(scaledStylesDefaultCount.length, scaledStyles.length);
-		System.arraycopy(scaledStyles, 0, scaledStylesDefaultCount, 0, minLenght);
-
-		if (scaledStylesDefaultCount.length > minLenght)
-		{
-			for (int i = minLenght; i < scaledStylesDefaultCount.length; i++)
-				scaledStylesDefaultCount[i] = scaledStyles[scaledStyles.length - 1];
-		}
-		scaledStyles = scaledStylesDefaultCount;
-	}
-
-	/**
-	 * Normalize scale level if it out of array bounds Нормализовать маштаб с
-	 * учетом текущего кол-ва уровней в стиле
-	 *
-	 * @param pScaleLevel scale level
-	 * @return scale level in array bounds
-	 */
-	private int normalizeScaleLevel(int pScaleLevel)
-	{
-		int normalizedScaleLevel = pScaleLevel;
-
-		if (normalizedScaleLevel < 0)
-			normalizedScaleLevel = 0;
-
-		if (normalizedScaleLevel >= scaledStyles.length)
-			normalizedScaleLevel = scaledStyles.length - 1;
-
-		return normalizedScaleLevel;
 	}
 }

@@ -19,8 +19,7 @@ import org.junit.Test;
 public class MapObjectStyleTest
 {
 	/**
-	 * Test sorting. Sorting by tags count. More tags - less
-	 * index
+	 * Test sorting. Sorting by tags count. More tags - less index
 	 */
 	@Test
 	public void sortingTest()
@@ -69,10 +68,13 @@ public class MapObjectStyleTest
 	{
 		try
 		{
+			final int someScaleLevelAtBegin = 3;
+			final int someScaleLevelAtMiddle = 8;
+			
 			ScaledObjectStyleArray scaledStyles = new ScaledObjectStyleArray();
-			scaledStyles.setStyleOnScale(0, new ScaledObjectStyle(true, false, true, null, null,
+			scaledStyles.setStyleOnScale(someScaleLevelAtBegin, new ScaledObjectStyle(true, false, true, null, null,
 							null, null, null));
-			scaledStyles.setStyleOnScale(5, new ScaledObjectStyle(false, true, true, null, null,
+			scaledStyles.setStyleOnScale(someScaleLevelAtMiddle, new ScaledObjectStyle(false, true, true, null, null,
 							null, null, null));
 			EditableDefenitionTags tags = new EditableDefenitionTags();
 			tags.add(new MapTag("k1", "v1"));
@@ -93,13 +95,12 @@ public class MapObjectStyleTest
 			assertArrayEquals(writedStyle.getTextTagKeys().getTagsKeys(), readStyle.getTextTagKeys().getTagsKeys());
 			assertEquals(writedStyle.getDrawPriority(), readStyle.getDrawPriority());
 			assertEquals(writedStyle.getDescription(), readStyle.getDescription());
-			assertEquals(writedStyle.getScaledStyles().getStyleOnScale(0).isDrawLine(), readStyle.getScaledStyles().getStyleOnScale(0).isDrawLine());
-			assertEquals(writedStyle.getScaledStyles().getStyleOnScale(0).isDrawPoint(), readStyle.getScaledStyles().getStyleOnScale(0).isDrawPoint());
-			assertEquals(writedStyle.getScaledStyles().getStyleOnScale(0).isDrawPolygon(), readStyle.getScaledStyles().getStyleOnScale(0).isDrawPolygon());
-			assertEquals(writedStyle.getScaledStyles().getStyleOnScale(5).isDrawLine(), readStyle.getScaledStyles().getStyleOnScale(5).isDrawLine());
-			assertEquals(writedStyle.getScaledStyles().getStyleOnScale(5).isDrawPoint(), readStyle.getScaledStyles().getStyleOnScale(5).isDrawPoint());
-			assertEquals(writedStyle.getScaledStyles().getStyleOnScale(5).isDrawPolygon(), readStyle.getScaledStyles().getStyleOnScale(5).isDrawPolygon());
-			assertEquals(writedStyle.getScaledStyles().count(), readStyle.getScaledStyles().count());
+			assertEquals(writedStyle.getScaledStyles().getStyleOnScale(someScaleLevelAtBegin).isDrawLine(), readStyle.getScaledStyles().getStyleOnScale(someScaleLevelAtBegin).isDrawLine());
+			assertEquals(writedStyle.getScaledStyles().getStyleOnScale(someScaleLevelAtBegin).isDrawPoint(), readStyle.getScaledStyles().getStyleOnScale(someScaleLevelAtBegin).isDrawPoint());
+			assertEquals(writedStyle.getScaledStyles().getStyleOnScale(someScaleLevelAtBegin).isDrawPolygon(), readStyle.getScaledStyles().getStyleOnScale(someScaleLevelAtBegin).isDrawPolygon());
+			assertEquals(writedStyle.getScaledStyles().getStyleOnScale(someScaleLevelAtMiddle).isDrawLine(), readStyle.getScaledStyles().getStyleOnScale(someScaleLevelAtMiddle).isDrawLine());
+			assertEquals(writedStyle.getScaledStyles().getStyleOnScale(someScaleLevelAtMiddle).isDrawPoint(), readStyle.getScaledStyles().getStyleOnScale(someScaleLevelAtMiddle).isDrawPoint());
+			assertEquals(writedStyle.getScaledStyles().getStyleOnScale(someScaleLevelAtMiddle).isDrawPolygon(), readStyle.getScaledStyles().getStyleOnScale(someScaleLevelAtMiddle).isDrawPolygon());
 		}
 		catch (Exception ex)
 		{

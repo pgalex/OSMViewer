@@ -16,24 +16,13 @@ import org.junit.Test;
 public class ScaledObjectStyleArrayTest
 {
 	/**
-	 * Testing creating with default scale levels count
+	 * Testing correction of default maximum/minimum scale level values
 	 */
 	@Test
-	public void creatingWithDefaultScaleLevelsCountTest()
+	public void creatingWithCorrectScaleLevelsCountTest()
 	{
 		ScaledObjectStyleArray stylesArray = new ScaledObjectStyleArray();
-		assertEquals(true, stylesArray.isDefaultLevelsCount());
-	}
-
-	/**
-	 * Testing creating with not default scale levels count
-	 */
-	@Test
-	public void creatingWithNotDefaultScaleLevelsCountTest()
-	{
-		ScaledObjectStyleArray stylesArray = new ScaledObjectStyleArray(5);
-		assertEquals(false, stylesArray.isDefaultLevelsCount());
-		assertEquals(5, stylesArray.count());
+		assertTrue(stylesArray.getMaximumScaleLevel() > stylesArray.getMinimumScaleLevel());
 	}
 
 	/**
@@ -42,13 +31,29 @@ public class ScaledObjectStyleArrayTest
 	@Test
 	public void setStyleOnScaleWithCorrectParametersTest()
 	{
-		ScaledObjectStyleArray stylesArray = new ScaledObjectStyleArray(8);
+		ScaledObjectStyleArray stylesArray = new ScaledObjectStyleArray();
 		ScaledObjectStyle scaledStyle = new ScaledObjectStyle(true, false, true, null, null, null, null, null);
 
-		stylesArray.setStyleOnScale(4, scaledStyle);
+		final int correctScaleLevelAtBegin = stylesArray.getMinimumScaleLevel();
+		stylesArray.setStyleOnScale(correctScaleLevelAtBegin, scaledStyle);
+		
+		final int correctScaleLevelAtMiddle = stylesArray.getMinimumScaleLevel() + 5;
+		stylesArray.setStyleOnScale(correctScaleLevelAtMiddle, scaledStyle);
+		
+		final int correctScaleLevelAtEnd = stylesArray.getMaximumScaleLevel();
+		stylesArray.setStyleOnScale(correctScaleLevelAtEnd, scaledStyle);
 
-		assertEquals(scaledStyle.isDrawLine(), stylesArray.getStyleOnScale(4).isDrawLine());
-		assertEquals(scaledStyle.isDrawPoint(), stylesArray.getStyleOnScale(4).isDrawPoint());
+		assertEquals(scaledStyle.isDrawPoint(), stylesArray.getStyleOnScale(correctScaleLevelAtBegin).isDrawPoint());
+		assertEquals(scaledStyle.isDrawLine(), stylesArray.getStyleOnScale(correctScaleLevelAtBegin).isDrawLine());
+		assertEquals(scaledStyle.isDrawPolygon(), stylesArray.getStyleOnScale(correctScaleLevelAtBegin).isDrawPolygon());
+		
+		assertEquals(scaledStyle.isDrawPoint(), stylesArray.getStyleOnScale(correctScaleLevelAtMiddle).isDrawPoint());
+		assertEquals(scaledStyle.isDrawLine(), stylesArray.getStyleOnScale(correctScaleLevelAtMiddle).isDrawLine());
+		assertEquals(scaledStyle.isDrawPolygon(), stylesArray.getStyleOnScale(correctScaleLevelAtMiddle).isDrawPolygon());
+		
+		assertEquals(scaledStyle.isDrawPoint(), stylesArray.getStyleOnScale(correctScaleLevelAtEnd).isDrawPoint());
+		assertEquals(scaledStyle.isDrawLine(), stylesArray.getStyleOnScale(correctScaleLevelAtEnd).isDrawLine());
+		assertEquals(scaledStyle.isDrawPolygon(), stylesArray.getStyleOnScale(correctScaleLevelAtEnd).isDrawPolygon());
 	}
 
 	/**
@@ -57,19 +62,19 @@ public class ScaledObjectStyleArrayTest
 	@Test
 	public void setStyleOnScaleLessThanBounds()
 	{
-		ScaledObjectStyleArray stylesArray = new ScaledObjectStyleArray(8);
+		ScaledObjectStyleArray stylesArray = new ScaledObjectStyleArray();
 		ScaledObjectStyle scaledStyle = new ScaledObjectStyle(true, false, true, null, null, null, null, null);
 		try
 		{
-			stylesArray.setStyleOnScale(-1, scaledStyle); // there should be out of range exception
+			stylesArray.setStyleOnScale(stylesArray.getMinimumScaleLevel() - 1, scaledStyle); // there should be out of range exception
 			fail();
 		}
 		catch (ScaleLevelOutOfBoundsException ex)
 		{
 			assertEquals(stylesArray, ex.getArrayThrowedException());
-			assertEquals(-1, ex.getIncorrectScaleLevel());
-			assertEquals(0, ex.getBoundsMinimum());
-			assertEquals(stylesArray.count(), ex.getBoundsMaximum());
+			assertEquals(stylesArray.getMinimumScaleLevel() - 1, ex.getIncorrectScaleLevel());
+			assertEquals(stylesArray.getMinimumScaleLevel(), ex.getBoundsMinimum());
+			assertEquals(stylesArray.getMaximumScaleLevel(), ex.getBoundsMaximum());
 		}
 	}
 
@@ -79,64 +84,83 @@ public class ScaledObjectStyleArrayTest
 	@Test
 	public void setStyleOnScaleMoreThanBounds()
 	{
-		ScaledObjectStyleArray stylesArray = new ScaledObjectStyleArray(8);
+		ScaledObjectStyleArray stylesArray = new ScaledObjectStyleArray();
 		ScaledObjectStyle scaledStyle = new ScaledObjectStyle(true, false, true, null, null, null, null, null);
 		try
 		{
-			stylesArray.setStyleOnScale(stylesArray.count() + 1, scaledStyle); // there should be out of range exception
+			stylesArray.setStyleOnScale(stylesArray.getMaximumScaleLevel() + 1, scaledStyle); // there should be out of range exception
 			fail();
 		}
 		catch (ScaleLevelOutOfBoundsException ex)
 		{
 			assertEquals(stylesArray, ex.getArrayThrowedException());
-			assertEquals(stylesArray.count() + 1, ex.getIncorrectScaleLevel());
-			assertEquals(0, ex.getBoundsMinimum());
-			assertEquals(stylesArray.count(), ex.getBoundsMaximum());
+			assertEquals(stylesArray.getMaximumScaleLevel() + 1, ex.getIncorrectScaleLevel());
+			assertEquals(stylesArray.getMinimumScaleLevel(), ex.getBoundsMinimum());
+			assertEquals(stylesArray.getMaximumScaleLevel(), ex.getBoundsMaximum());
 		}
 	}
 
 	/**
-	 * Test setting null style
+	 * Test setting null stylesArray
 	 */
 	@Test
 	public void setNullStyleTest()
 	{
-		ScaledObjectStyleArray style = new ScaledObjectStyleArray(1);
+		ScaledObjectStyleArray stylesArray = new ScaledObjectStyleArray();
 
 		try
 		{
-			style.setStyleOnScale(0, null);
+			stylesArray.setStyleOnScale(stylesArray.getMinimumScaleLevel(), null);
 			fail();
 		}
 		catch (ScaledStyleIsNullException ex)
 		{
-			assertEquals(style, ex.getArrayThrowedException());
+			assertEquals(stylesArray, ex.getArrayThrowedException());
 		}
 	}
 
 	/**
-	 * Тест чтения/записи с меньшими кол-вом уровней масштаба
+	 * Reading/writing test
 	 */
 	@Test
-	public void writingWithLessScaleAndReadingLevelsTest()
+	public void readingWritingTest()
 	{
 		try
 		{
-			// меньше того что по умолчанию - последние копируются
-			ScaledObjectStyle scaledStyle = new ScaledObjectStyle(false, true, true, null, null,
+			ScaledObjectStyle styleAtBegin = new ScaledObjectStyle(true, false, false, null, null,
+							null, null, null);
+			ScaledObjectStyle styleAtMiddle = new ScaledObjectStyle(false, true, false, null, null,
+							null, null, null);
+			ScaledObjectStyle styleAtEnd = new ScaledObjectStyle(false, false, true, null, null,
 							null, null, null);
 
-			ScaledObjectStyleArray writedStyle = new ScaledObjectStyleArray(3);
-			writedStyle.setStyleOnScale(2, scaledStyle);
+			ScaledObjectStyleArray writingStyles = new ScaledObjectStyleArray();
+			
+			final int scaleLevelAtBegin = writingStyles.getMinimumScaleLevel();
+			writingStyles.setStyleOnScale(scaleLevelAtBegin, styleAtBegin);
+			
+			final int scaleLevelAtMiddle = writingStyles.getMinimumScaleLevel() + 5;
+			writingStyles.setStyleOnScale(scaleLevelAtMiddle, styleAtMiddle);
+			
+			final int scaleLevelAtEnd = writingStyles.getMaximumScaleLevel();
+			writingStyles.setStyleOnScale(scaleLevelAtEnd, styleAtEnd);
+			
+			IOTester.writeToTestFile(writingStyles);
 
-			IOTester.writeToTestFile(writedStyle);
-
-			ScaledObjectStyleArray readStyle = new ScaledObjectStyleArray();
-			IOTester.readFromTestFile(readStyle);
-
-			assertEquals(true, readStyle.isDefaultLevelsCount());
-			for (int i = writedStyle.count() - 1; i < readStyle.count(); i++)
-				assertEquals(readStyle.getStyleOnScale(i).isDrawPolygon(), scaledStyle.isDrawPolygon());
+			ScaledObjectStyleArray readingStyle = new ScaledObjectStyleArray();
+			IOTester.readFromTestFile(readingStyle);
+			
+			assertEquals(readingStyle.getStyleOnScale(scaleLevelAtBegin).isDrawPoint(), styleAtBegin.isDrawPoint());
+			assertEquals(readingStyle.getStyleOnScale(scaleLevelAtBegin).isDrawLine(), styleAtBegin.isDrawLine());
+			assertEquals(readingStyle.getStyleOnScale(scaleLevelAtBegin).isDrawPolygon(), styleAtBegin.isDrawPolygon());
+			
+			assertEquals(readingStyle.getStyleOnScale(scaleLevelAtMiddle).isDrawPoint(), styleAtMiddle.isDrawPoint());
+			assertEquals(readingStyle.getStyleOnScale(scaleLevelAtMiddle).isDrawLine(), styleAtMiddle.isDrawLine());
+			assertEquals(readingStyle.getStyleOnScale(scaleLevelAtMiddle).isDrawPolygon(), styleAtMiddle.isDrawPolygon());
+			
+			assertEquals(readingStyle.getStyleOnScale(scaleLevelAtEnd).isDrawPoint(), styleAtEnd.isDrawPoint());
+			assertEquals(readingStyle.getStyleOnScale(scaleLevelAtEnd).isDrawLine(), styleAtEnd.isDrawLine());
+			assertEquals(readingStyle.getStyleOnScale(scaleLevelAtEnd).isDrawPolygon(), styleAtEnd.isDrawPolygon());
 		}
 		catch (Exception ex)
 		{
@@ -147,7 +171,7 @@ public class ScaledObjectStyleArrayTest
 	/**
 	 * Тест чтения/записи с большим кол-вом уровней масштаба
 	 */
-	@Test
+	/*@Test
 	public void writingWithMoreScaleLevelsAndReadingTest()
 	{
 		try
@@ -179,5 +203,5 @@ public class ScaledObjectStyleArrayTest
 		{
 			fail();
 		}
-	}
+	}*/
 }
