@@ -167,41 +167,4 @@ public class ScaledObjectStyleArrayTest
 			fail();
 		}
 	}
-
-	/**
-	 * Тест чтения/записи с большим кол-вом уровней масштаба
-	 */
-	/*@Test
-	public void writingWithMoreScaleLevelsAndReadingTest()
-	{
-		try
-		{
-			final int WRITING_ARRAY_SIZE = 30;
-			final int READING_ARRAY_SIZE = 16;
-			// больше того что по умолчанию - последние обрезаются
-			ScaledObjectStyle scaledStyle1 = new ScaledObjectStyle(false, true, true, null, null,
-							null, null, null);
-			ScaledObjectStyle scaledStyle2 = new ScaledObjectStyle(false, true, false, null, null,
-							null, null, null);
-
-			ScaledObjectStyleArray writedStyleArray = new ScaledObjectStyleArray(WRITING_ARRAY_SIZE);
-			writedStyleArray.setStyleOnScale(WRITING_ARRAY_SIZE - 1, scaledStyle1);
-			writedStyleArray.setStyleOnScale(READING_ARRAY_SIZE - 1, scaledStyle2);
-			writedStyleArray.setStyleOnScale(READING_ARRAY_SIZE - 2, scaledStyle1);
-
-			IOTester.writeToTestFile(writedStyleArray);
-
-			ScaledObjectStyleArray readStyleArray = new ScaledObjectStyleArray(READING_ARRAY_SIZE);
-			IOTester.readFromTestFile(readStyleArray);
-
-			assertEquals(true, readStyleArray.isDefaultLevelsCount());
-			assertEquals(false, writedStyleArray.isDefaultLevelsCount());
-			assertEquals(readStyleArray.getStyleOnScale(readStyleArray.count() - 1).isDrawPolygon(), scaledStyle2.isDrawPolygon());
-			assertEquals(readStyleArray.getStyleOnScale(readStyleArray.count() - 2).isDrawPolygon(), scaledStyle1.isDrawPolygon());
-		}
-		catch (Exception ex)
-		{
-			fail();
-		}
-	}*/
 }
