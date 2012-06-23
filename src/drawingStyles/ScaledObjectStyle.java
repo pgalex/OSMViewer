@@ -7,7 +7,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
- * Параметры отображения на определенном масштабе
+ * How to draw object on specified scale level. Параметры отображения на
+ * определенном масштабе
  *
  * @author abc
  */

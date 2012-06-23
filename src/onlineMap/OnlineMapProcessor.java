@@ -7,7 +7,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import drawingStyles.EditableDefenitionTags;
 import map.MapBounds;
 import map.MapTag;
 import map.rendering.MapRenderer;
@@ -20,13 +19,13 @@ import map.rendering.MapRenderer;
 public class OnlineMapProcessor implements DrawableOnPanel
 {
 	/**
-	 * Minimum scale level for viewing online map
+	 * Minimum scale level for viewing online map. First render that can be exported in openstreetmap.org
 	 */
-	private static final int ONLINE_MAP_MINIMUM_SCALE_LEVEL = 0;
+	private static final int ONLINE_MAP_MINIMUM_SCALE_LEVEL = 10;
 	/**
-	 * Maximum scale level for viewing online map
+	 * Maximum scale level for viewing online map. Maximum scale of openstreetmap.org
 	 */
-	private static final int ONLINE_MAP_MAXIMUM_SCALE_LEVEL = 6;
+	private static final int ONLINE_MAP_MAXIMUM_SCALE_LEVEL = 18;
 	/**
 	 * Map - stored map objects
 	 */

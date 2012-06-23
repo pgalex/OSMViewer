@@ -14,11 +14,13 @@ import java.io.IOException;
 public class ScaledObjectStyleArray implements ScaledObjectStyleCollection
 {
 	/**
-	 * Default minimum scale level of array
+	 * Default minimum scale level of array. Scale levels that used to store
+	 * information how to object (not drawing)
 	 */
 	private static final int DEFAULT_MINIMUM_SCALE_LEVEL = 2;
 	/**
-	 * Default maximum scale level of array
+	 * Default maximum scale level of array. Scale levels that used to store
+	 * information how to object (not drawing)
 	 */
 	private static final int DEFAULT_MAXIUMUM_SCALE_LEVEL = 18;
 	/**
@@ -47,16 +49,17 @@ public class ScaledObjectStyleArray implements ScaledObjectStyleCollection
 		for (int i = 0; i < scaledStyles.length; i++)
 			scaledStyles[i] = new ScaledObjectStyle();
 	}
-	
+
 	/**
 	 * Compute style array length by minimum and maximum scale level
+	 *
 	 * @return style array length
 	 */
 	private int ccomputeStylesArrayLengthByScaleLevelBounds()
 	{
 		return maximumScaleLevel - minimumScaleLevel + 1;
 	}
-	
+
 	/**
 	 * Set style on specifiec scale level. If level is out of range value will not
 	 * be set
