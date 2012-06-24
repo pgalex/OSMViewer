@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import map.MapBounds;
+import map.MapPosition;
 import map.MapTag;
 import map.rendering.MapRenderer;
 
@@ -19,11 +19,13 @@ import map.rendering.MapRenderer;
 public class OnlineMapProcessor implements DrawableOnPanel
 {
 	/**
-	 * Minimum scale level for viewing online map. First render that can be exported in openstreetmap.org
+	 * Minimum scale level for viewing online map. First render that can be
+	 * exported in openstreetmap.org
 	 */
 	private static final int ONLINE_MAP_MINIMUM_SCALE_LEVEL = 10;
 	/**
-	 * Maximum scale level for viewing online map. Maximum scale of openstreetmap.org
+	 * Maximum scale level for viewing online map. Maximum scale of
+	 * openstreetmap.org
 	 */
 	private static final int ONLINE_MAP_MAXIMUM_SCALE_LEVEL = 18;
 	/**
@@ -51,8 +53,11 @@ public class OnlineMapProcessor implements DrawableOnPanel
 	{
 		map = new OnlineMap();
 		mapLoader = new OnlineMapLoader();
-		renderer = new MapRenderer(ONLINE_MAP_MINIMUM_SCALE_LEVEL, ONLINE_MAP_MAXIMUM_SCALE_LEVEL);
+		renderer = new MapRenderer(ONLINE_MAP_MINIMUM_SCALE_LEVEL, ONLINE_MAP_MAXIMUM_SCALE_LEVEL,
+						ONLINE_MAP_MAXIMUM_SCALE_LEVEL);
 		styleViewer = DrawingStylesFactory.createStyleEditor();
+
+		renderer.setViewPosition(new MapPosition(54.34, 38.26));
 
 		testSetupStyleViewer();
 		testLoadMap();
@@ -77,7 +82,7 @@ public class OnlineMapProcessor implements DrawableOnPanel
 		ScaledObjectStyle scaledStyle = new ScaledObjectStyle(true, false, false, pointStyle, null, null, new IOColor(Color.BLACK), new IOFont());
 
 		ScaledObjectStyleArray placeVillageScaledStyles = new ScaledObjectStyleArray();
-		placeVillageScaledStyles.setStyleOnScale(0, scaledStyle);
+		placeVillageScaledStyles.setStyleOnScale(ONLINE_MAP_MAXIMUM_SCALE_LEVEL, scaledStyle);
 
 		String[] textTagKeys = new String[1];
 		textTagKeys[0] = "name";
@@ -95,7 +100,7 @@ public class OnlineMapProcessor implements DrawableOnPanel
 	{
 		try
 		{
-			mapLoader.loadToMap(new MapBounds(1, 2, 3, 4), styleViewer, map);
+			mapLoader.loadToMap(renderer.getViewArea(), styleViewer, map);
 		}
 		catch (Exception ex)
 		{

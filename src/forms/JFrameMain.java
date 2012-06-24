@@ -5,6 +5,7 @@
  */
 package forms;
 
+import java.awt.Graphics;
 import onlineMap.OnlineMapProcessor;
 
 /**
@@ -29,6 +30,12 @@ public class JFrameMain extends javax.swing.JFrame
 		initComponents();
 
 		mapProcessor.setCanvasSize(jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
+	}
+
+	@Override
+	public void print(Graphics grphcs)
+	{
+		super.print(grphcs);
 	}
 
 	/**
