@@ -15,9 +15,9 @@ import java.io.IOException;
 public class MapDrawingSettings implements ReadableMapData, WritableMapData
 {
 	/**
-	 * Default map background color
+	 * Default map background color. (osm like)
 	 */
-	private static final IOColor DEFAULT_MAP_BACKGROUND_COLOR = new IOColor(Color.GRAY);
+	private static final IOColor DEFAULT_MAP_BACKGROUND_COLOR = new IOColor(new Color(242, 239, 233));
 	/**
 	 * Map background color
 	 */

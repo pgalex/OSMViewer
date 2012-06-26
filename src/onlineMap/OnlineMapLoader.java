@@ -1,14 +1,17 @@
 package onlineMap;
 
-import drawingStyles.EditableDefenitionTags;
 import drawingStyles.DefenitionTags;
+import drawingStyles.EditableDefenitionTags;
 import drawingStyles.StyleViewer;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import map.*;
+import map.MapBounds;
+import map.MapPoint;
+import map.MapPosition;
+import map.MapTag;
 import map.exceptions.*;
 import osmXml.OsmNode;
 import osmXml.OsmTag;
@@ -64,7 +67,11 @@ public class OnlineMapLoader
 		if (pLoadingSectorBounds.isZero())
 			return;
 
-		String connectionString = "http://api.openstreetmap.org/api/0.6/map?bbox=38.58592,55.18779,38.61875,55.21061";
+		String connectionString = "http://api.openstreetmap.org/api/0.6/map?bbox="
+						+ pLoadingSectorBounds.getLongitudeMinimum() + ","
+						+ pLoadingSectorBounds.getLatitudeMinimum() + ","
+						+ pLoadingSectorBounds.getLongitudeMaximum() + ","
+						+ pLoadingSectorBounds.getLatitudeMaximum();
 		try
 		{
 			URL openStreetMapURL = new URL(connectionString);

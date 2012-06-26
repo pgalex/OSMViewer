@@ -54,10 +54,10 @@ public class OnlineMapProcessor implements DrawableOnPanel
 		map = new OnlineMap();
 		mapLoader = new OnlineMapLoader();
 		renderer = new MapRenderer(ONLINE_MAP_MINIMUM_SCALE_LEVEL, ONLINE_MAP_MAXIMUM_SCALE_LEVEL,
-						ONLINE_MAP_MAXIMUM_SCALE_LEVEL);
+						15);
 		styleViewer = DrawingStylesFactory.createStyleEditor();
 
-		renderer.setViewPosition(new MapPosition(54.34, 38.26));
+		renderer.setViewPosition(new MapPosition(55.1716, 38.644));
 
 		testSetupStyleViewer();
 		testLoadMap();
@@ -76,7 +76,7 @@ public class OnlineMapProcessor implements DrawableOnPanel
 
 	private void testSetupStyleViewer()
 	{
-		styleViewer.setMapDrawingSettings(new MapDrawingSettings(new IOColor(Color.LIGHT_GRAY)));
+		styleViewer.setMapDrawingSettings(new MapDrawingSettings(null));
 		PointDrawStyle pointStyle = new PointDrawStyle(null);
 
 		ScaledObjectStyle scaledStyle = new ScaledObjectStyle(true, false, false, pointStyle, null, null, new IOColor(Color.BLACK), new IOFont());

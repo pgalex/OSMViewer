@@ -8,7 +8,6 @@ import java.awt.geom.Point2D;
 import map.Map;
 import map.MapBounds;
 import map.MapPosition;
-import quicktime.qd3d.math.Point3D;
 
 /**
  * Uses to render Map in right order

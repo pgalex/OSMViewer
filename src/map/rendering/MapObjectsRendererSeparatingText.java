@@ -1,10 +1,12 @@
 package map.rendering;
 
+import drawingStyles.DefenitionTags;
 import drawingStyles.StyleViewer;
 import java.awt.Graphics2D;
 import map.MapLine;
 import map.MapPoint;
 import map.MapPolygon;
+import map.MapTag;
 import map.exceptions.CanvasIsNullException;
 import map.exceptions.StyleViewerIsNullException;
 
@@ -62,10 +64,14 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			return;
 		if (pPoint.getStyleIndex() == null)
 			return;
-		// получение настрооек отрисвки (PointDrawStyle, текста и т.п.) сделать как метод 
-		// MapObjectStyle, который будет получен по индексу
-		canvas.drawRect((int) Math.round(pPoint.getPosition().getLatitude()),
-						(int) Math.round(pPoint.getPosition().getLongitude()), 4, 4);
+		System.out.println("Point: " + pPoint.getPosition().getLatitude() + ", " + pPoint.getPosition().getLongitude());
+
+		DefenitionTags pointDefenitionTags = pPoint.getDefenitionTags();
+		for (int i = 0; i < pointDefenitionTags.size(); i++)
+		{
+			MapTag tag = pointDefenitionTags.get(i);
+			System.out.println("  " + tag.getKey() + " - " + tag.getValue());
+		}
 	}
 
 	/**
