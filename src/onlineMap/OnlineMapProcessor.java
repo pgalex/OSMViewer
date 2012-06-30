@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import map.MapPosition;
 import map.MapTag;
 import map.rendering.MapRenderer;
+import map.rendering.ScalesArray;
 
 /**
  * Organize work between other classes and process user's input
@@ -54,7 +55,7 @@ public class OnlineMapProcessor implements DrawableOnPanel
 		map = new OnlineMap();
 		mapLoader = new OnlineMapLoader();
 		renderer = new MapRenderer(ONLINE_MAP_MINIMUM_SCALE_LEVEL, ONLINE_MAP_MAXIMUM_SCALE_LEVEL,
-						13);
+						12);
 		styleViewer = DrawingStylesFactory.createStyleEditor();
 
 		renderer.setViewPosition(new MapPosition(55.188, 38.612));

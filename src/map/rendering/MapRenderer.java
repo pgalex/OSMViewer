@@ -175,46 +175,17 @@ public class MapRenderer implements CoordinatesConverter
 		if (pPositionOnMap == null)
 			return null;
 
-		Point2D metricPosition = geographicsToMetric(pPositionOnMap);
-		Point2D viewPositionMetric = geographicsToMetric(viewPosition);
+		double pointMercatorX = Mercator.mercX(pPositionOnMap.getLongitude());
+		double pointMercatorY = Mercator.mercY(pPositionOnMap.getLatitude());
+		double pointScale = ScalesArray.getScaleByScaleLevel(scaleLevel, pPositionOnMap.getLatitude());
 
-		double scale = ScalesArray.getScaleByScaleLevel(scaleLevel, viewPosition.getLatitude());
+		double viewMercatorX = Mercator.mercX(viewPosition.getLongitude());
+		double viewMercatorY = Mercator.mercY(viewPosition.getLatitude());
+		double viewScale = ScalesArray.getScaleByScaleLevel(scaleLevel, pPositionOnMap.getLatitude());
 
-		double canvasX = (metricPosition.getX() - viewPositionMetric.getX()) * scale
-						+ targetCanvasDrawingArea.getCenterX();
-		double canvasY = (viewPositionMetric.getY() - metricPosition.getY()) * scale
-						+ targetCanvasDrawingArea.getCenterY();
+		double pointCanvasX = (pointMercatorX * pointScale - viewMercatorX * viewScale) + targetCanvasDrawingArea.getCenterX();
+		double pointCanvasY = (viewMercatorY * viewScale - pointMercatorY * pointScale) + targetCanvasDrawingArea.getCenterY();
 
-		return new Point2D.Double(canvasX, canvasY);
-	}
-
-	/**
-	 * Convert geographics (spheric) coordinates to metric (rectangle)
-	 *
-	 * @param pPositionOnMap position of point in geographics coordinates
-	 * @return point in metric coordinates
-	 */
-	private Point2D geographicsToMetric(MapPosition pPositionOnMap)
-	{
-		double x = pPositionOnMap.getLongitude() * 20037508.34 / 180.0;
-		double y = Math.log(Math.tan((90.0 + pPositionOnMap.getLatitude()) * Math.PI / 360.0)) / (Math.PI / 180.0);
-		y = y * 20037508.34 / 180.0;
-
-		return new Point2D.Double(x, y);
-	}
-
-	/**
-	 * Convert metric coordinates to geographics
-	 *
-	 * @param pMetricPoint point with metric coordinates
-	 * @return position of point in geographics coordinates
-	 */
-	private MapPosition metricToGeographics(Point2D pMetricPoint)
-	{
-		double lon = pMetricPoint.getX() / 20037508.34 * 180.0;
-		double p = Math.pow(Math.E, pMetricPoint.getY() * Math.PI / 20037508.34);
-		double lat = Math.atan(p) * 360.0 / Math.PI - 90.0;
-
-		return new MapPosition(lat, lon);
+		return new Point2D.Double(pointCanvasX, pointCanvasY);
 	}
 }

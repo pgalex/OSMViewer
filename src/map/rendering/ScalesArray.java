@@ -22,23 +22,23 @@ public class ScalesArray
 	 */
 	private static final double scaleByScaleLevel[] =
 	{
-		1.0 / 111000000.0, // MINIMUM_SCALE_LEVEL
-		1.0 / 55000000,
-		1.0 / 28000000,
-		1.0 / 14000000,
-		1.0 / 7000000,
-		1.0 / 3000000,
-		1.0 / 2000000,
-		1.0 / 867.000,
-		1.0 / 433.000,
-		1.0 / 217.000,
-		1.0 / 108.000,
-		1.0 / 54.000,
-		1.0 / 27.000,
-		1.0 / 14.000,
-		1.0 / 6.771,
-		1.0 / 3.385,
-		1.0 / 1.693 // MAXIMUM_SCALE_LEVEL
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
+		0.014,
+		1,
+		1,
+		1,
+		1,
+		1,
+		1,
 	};
 
 	/**
@@ -55,7 +55,8 @@ public class ScalesArray
 		int normalizedScaleLevel = normalizeScaleLevel(pScaleLevel);
 		int scaleLevelInStaticArrayBounds = normalizedScaleLevel - MINIMUM_SCALE_LEVEL;
 
-		return scaleByScaleLevel[scaleLevelInStaticArrayBounds] * Math.cos(pLatitude * Math.PI / 180.0);
+		// провекру деления на ноль
+		return scaleByScaleLevel[scaleLevelInStaticArrayBounds] / Math.cos(pLatitude * Math.PI / 180.0);
 	}
 
 	/**

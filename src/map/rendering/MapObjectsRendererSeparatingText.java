@@ -46,7 +46,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			throw new CanvasIsNullException();
 		if (pStyleViewer == null)
 			throw new StyleViewerIsNullException();
-		
+
 		canvas = pCanvas;
 		styleViewer = pStyleViewer;
 		coordinatesConverter = pCoordinatesConverter;
@@ -65,11 +65,11 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		if (pPoint.getStyleIndex() == null)
 			return;
 		Point2D positionOnDrawingCanvas = coordinatesConverter.goegraphicsToCanvas(pPoint.getPosition());
-		
+
 		canvas.setColor(Color.RED);
 		canvas.drawRect((int) positionOnDrawingCanvas.getX(), (int) positionOnDrawingCanvas.getY(),
 						2, 2);
-		
+
 		DefenitionTags tags = pPoint.getDefenitionTags();
 		for (int i = 0; i < tags.size(); i++)
 		{
