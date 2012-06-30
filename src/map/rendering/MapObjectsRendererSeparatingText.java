@@ -2,7 +2,9 @@ package map.rendering;
 
 import drawingStyles.DefenitionTags;
 import drawingStyles.StyleViewer;
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
 import map.MapLine;
 import map.MapPoint;
 import map.MapPolygon;
@@ -25,31 +27,29 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * Style viewer using to find drawing style of object
 	 */
 	private StyleViewer styleViewer;
-	/**
-	 * Scale level using for drawing
-	 */
-	private int currentScaleLevel;
+	private CoordinatesConverter coordinatesConverter;
 
 	/**
 	 * Constructor
 	 *
 	 * @param pCanvas Canvas to draw map objects
 	 * @param pStyleViewer Style viewer using to find drawing style of object
-	 * @param pScaleLevel start scale level using for drawing
+	 * @param pCoordinatesConverter object that will be using for coordinates
+	 * converting while drawing
 	 * @throws CanvasIsNullException object canvas is null
 	 * @throws StyleViewerIsNullException style viewer is null
 	 */
 	public MapObjectsRendererSeparatingText(Graphics2D pCanvas, StyleViewer pStyleViewer,
-					int pScaleLevel) throws CanvasIsNullException, StyleViewerIsNullException
+					CoordinatesConverter pCoordinatesConverter) throws CanvasIsNullException, StyleViewerIsNullException
 	{
 		if (pCanvas == null)
 			throw new CanvasIsNullException();
 		if (pStyleViewer == null)
 			throw new StyleViewerIsNullException();
-
+		
 		canvas = pCanvas;
 		styleViewer = pStyleViewer;
-		currentScaleLevel = pScaleLevel;
+		coordinatesConverter = pCoordinatesConverter;
 	}
 
 	/**
@@ -64,13 +64,18 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			return;
 		if (pPoint.getStyleIndex() == null)
 			return;
-		System.out.println("Point: " + pPoint.getPosition().getLatitude() + ", " + pPoint.getPosition().getLongitude());
-
-		DefenitionTags pointDefenitionTags = pPoint.getDefenitionTags();
-		for (int i = 0; i < pointDefenitionTags.size(); i++)
+		Point2D positionOnDrawingCanvas = coordinatesConverter.goegraphicsToCanvas(pPoint.getPosition());
+		
+		canvas.setColor(Color.RED);
+		canvas.drawRect((int) positionOnDrawingCanvas.getX(), (int) positionOnDrawingCanvas.getY(),
+						2, 2);
+		
+		DefenitionTags tags = pPoint.getDefenitionTags();
+		for (int i = 0; i < tags.size(); i++)
 		{
-			MapTag tag = pointDefenitionTags.get(i);
-			System.out.println("  " + tag.getKey() + " - " + tag.getValue());
+			MapTag tag = tags.get(i);
+			if (tag.getKey().equals("name"))
+				canvas.drawString(tag.getValue(), (int) positionOnDrawingCanvas.getX(), (int) positionOnDrawingCanvas.getY());
 		}
 	}
 

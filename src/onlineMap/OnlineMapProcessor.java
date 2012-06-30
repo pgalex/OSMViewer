@@ -54,10 +54,10 @@ public class OnlineMapProcessor implements DrawableOnPanel
 		map = new OnlineMap();
 		mapLoader = new OnlineMapLoader();
 		renderer = new MapRenderer(ONLINE_MAP_MINIMUM_SCALE_LEVEL, ONLINE_MAP_MAXIMUM_SCALE_LEVEL,
-						15);
+						13);
 		styleViewer = DrawingStylesFactory.createStyleEditor();
 
-		renderer.setViewPosition(new MapPosition(55.1716, 38.644));
+		renderer.setViewPosition(new MapPosition(55.188, 38.612));
 
 		testSetupStyleViewer();
 		testLoadMap();

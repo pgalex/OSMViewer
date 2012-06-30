@@ -10,11 +10,12 @@ import map.MapBounds;
 import map.MapPosition;
 
 /**
- * Uses to render Map in right order
+ * Uses to render Map. Defines order of rendering and container rendring
+ * parameters
  *
  * @author pgalex
  */
-public class MapRenderer
+public class MapRenderer implements CoordinatesConverter
 {
 	/**
 	 * Default drawing area
@@ -128,69 +129,6 @@ public class MapRenderer
 	}
 
 	/**
-	 * Get rectangle of map around view position that currently displayed. Size of
-	 * rectangle determines by target canvas drawing area size
-	 *
-	 * @return view area
-	 */
-	public MapBounds getViewArea()
-	{
-		Point2D viewPositionMetric = geoToMetric(viewPosition);
-		Point2D viewPositionOnCanvas = new Point2D.Double(viewPositionMetric.getX() * ScalesArray.getScaleByScaleLevel(scaleLevel, viewPosition.getLatitude()),
-						viewPositionMetric.getY() * ScalesArray.getScaleByScaleLevel(scaleLevel, viewPosition.getLatitude()));
-
-		Point2D viewAreaTopLeftOnCanvas = new Point2D.Double(viewPositionOnCanvas.getX() - targetCanvasDrawingArea.getWidth() / 2,
-						viewPositionOnCanvas.getY() - targetCanvasDrawingArea.getHeight() / 2);
-		Point2D viewAreaTopLeftMetric = new Point2D.Double(viewAreaTopLeftOnCanvas.getX() / ScalesArray.getScaleByScaleLevel(scaleLevel, viewPosition.getLatitude()),
-						viewAreaTopLeftOnCanvas.getY() / ScalesArray.getScaleByScaleLevel(scaleLevel, viewPosition.getLatitude()));
-
-		MapPosition viewAreaTopLeft = metricToGeo(viewAreaTopLeftMetric);
-
-
-		Point2D viewAreaRightBottomOnCanvas = new Point2D.Double(viewPositionOnCanvas.getX() + targetCanvasDrawingArea.getWidth() / 2,
-						viewPositionOnCanvas.getY() + targetCanvasDrawingArea.getHeight() / 2);
-		Point2D viewAreaRightBottomMetric = new Point2D.Double(viewAreaRightBottomOnCanvas.getX() / ScalesArray.getScaleByScaleLevel(scaleLevel, viewPosition.getLatitude()),
-						viewAreaRightBottomOnCanvas.getY() / ScalesArray.getScaleByScaleLevel(scaleLevel, viewPosition.getLatitude()));
-
-		MapPosition viewAreaRightBottom = metricToGeo(viewAreaRightBottomMetric);
-
-		return new MapBounds(viewAreaTopLeft.getLatitude(),
-						viewAreaRightBottom.getLatitude(),
-						viewAreaTopLeft.getLongitude(),
-						viewAreaRightBottom.getLongitude());
-	}
-
-	/**
-	 * Convert geographics (spheric) coordinates to metric
-	 *
-	 * @param pPositionOnMap
-	 * @return point in metric coordinates
-	 */
-	private Point2D geoToMetric(MapPosition pPositionOnMap)
-	{
-		double x = pPositionOnMap.getLongitude() * 20037508.34 / 180.0;
-		double y = Math.log(Math.tan((90.0 + pPositionOnMap.getLatitude()) * Math.PI / 360.0)) / (Math.PI / 180.0);
-		y = y * 20037508.34 / 180.0;
-
-		return new Point2D.Double(x, y);
-	}
-
-	/**
-	 * Convert metric coordinates to geographics
-	 *
-	 * @param pPoint point with metric coordinates
-	 * @return point with geographics coordinates
-	 */
-	private MapPosition metricToGeo(Point2D pPoint)
-	{
-		double lon = pPoint.getX() / 20037508.34 * 180.0;
-		double p = Math.pow(Math.E, pPoint.getY() * Math.PI / 20037508.34);
-		double lat = Math.atan(p) * 360.0 / Math.PI - 90.0;
-
-		return new MapPosition(lat, lon);
-	}
-
-	/**
 	 * Render map
 	 *
 	 * @param pCanvas canvas to draw map
@@ -207,9 +145,76 @@ public class MapRenderer
 		pCanvas.clearRect(targetCanvasDrawingArea.x, targetCanvasDrawingArea.y, targetCanvasDrawingArea.width, targetCanvasDrawingArea.height);
 
 		pMap.sortObjectsByDrawPriority(pStyleViewer);
-		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(pCanvas, pStyleViewer, 0);
+		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(pCanvas, pStyleViewer, this);
 		pMap.acceptObjectsRenderer(objectsRenderer);
 
 		// draw text canvas
+	}
+
+	/**
+	 * Get rectangle of map around view position that currently displayed. Size of
+	 * rectangle determines by target canvas drawing area size
+	 *
+	 * @return view area
+	 */
+	public MapBounds getViewArea()
+	{
+		return new MapBounds(55.1423, 55.2336, 38.5189, 38.7067);
+	}
+
+	/**
+	 * Convert point in geographics coordinates on a map to point on drawing
+	 * canvas (using current scale and view position)
+	 *
+	 * @param pPositionOnMap position of point on a map
+	 * @return position of point on drawing canvas
+	 */
+	@Override
+	public Point2D goegraphicsToCanvas(MapPosition pPositionOnMap)
+	{
+		if (pPositionOnMap == null)
+			return null;
+
+		Point2D metricPosition = geographicsToMetric(pPositionOnMap);
+		Point2D viewPositionMetric = geographicsToMetric(viewPosition);
+
+		double scale = ScalesArray.getScaleByScaleLevel(scaleLevel, viewPosition.getLatitude());
+
+		double canvasX = (metricPosition.getX() - viewPositionMetric.getX()) * scale
+						+ targetCanvasDrawingArea.getCenterX();
+		double canvasY = (viewPositionMetric.getY() - metricPosition.getY()) * scale
+						+ targetCanvasDrawingArea.getCenterY();
+
+		return new Point2D.Double(canvasX, canvasY);
+	}
+
+	/**
+	 * Convert geographics (spheric) coordinates to metric (rectangle)
+	 *
+	 * @param pPositionOnMap position of point in geographics coordinates
+	 * @return point in metric coordinates
+	 */
+	private Point2D geographicsToMetric(MapPosition pPositionOnMap)
+	{
+		double x = pPositionOnMap.getLongitude() * 20037508.34 / 180.0;
+		double y = Math.log(Math.tan((90.0 + pPositionOnMap.getLatitude()) * Math.PI / 360.0)) / (Math.PI / 180.0);
+		y = y * 20037508.34 / 180.0;
+
+		return new Point2D.Double(x, y);
+	}
+
+	/**
+	 * Convert metric coordinates to geographics
+	 *
+	 * @param pMetricPoint point with metric coordinates
+	 * @return position of point in geographics coordinates
+	 */
+	private MapPosition metricToGeographics(Point2D pMetricPoint)
+	{
+		double lon = pMetricPoint.getX() / 20037508.34 * 180.0;
+		double p = Math.pow(Math.E, pMetricPoint.getY() * Math.PI / 20037508.34);
+		double lat = Math.atan(p) * 360.0 / Math.PI - 90.0;
+
+		return new MapPosition(lat, lon);
 	}
 }

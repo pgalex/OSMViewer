@@ -1,7 +1,7 @@
 package map;
 
-import map.rendering.MapObjectsRenderer;
 import drawingStyles.StyleViewer;
+import map.rendering.MapObjectsRenderer;
 
 /**
  * Interface of map - container of map objects
@@ -15,7 +15,7 @@ public interface Map
 	 *
 	 * @param pStyleViewer Style viewer to find object draw priority
 	 */
-	public abstract void sortObjectsByDrawPriority(StyleViewer pStyleViewer);
+	public void sortObjectsByDrawPriority(StyleViewer pStyleViewer);
 
 	/**
 	 * Accept objects renderer visitor. Render every object of map

@@ -1,11 +1,11 @@
 package mapTests;
 
 import drawingStyles.DrawingStylesFactory;
+import drawingStyles.EditableDefenitionTags;
 import drawingStyles.MapObjectStyle;
 import drawingStyles.StyleEditor;
 import java.util.ArrayList;
 import java.util.Collections;
-import drawingStyles.EditableDefenitionTags;
 import map.MapObject;
 import map.MapObjectDrawPriorityComparator;
 import map.MapTag;

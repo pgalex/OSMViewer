@@ -1,6 +1,8 @@
 package mapTests;
 
 import java.awt.Rectangle;
+import java.awt.geom.Point2D;
+import map.MapPosition;
 import map.rendering.MapRenderer;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

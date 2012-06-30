@@ -53,8 +53,9 @@ public class ScalesArray
 	public static double getScaleByScaleLevel(int pScaleLevel, double pLatitude)
 	{
 		int normalizedScaleLevel = normalizeScaleLevel(pScaleLevel);
+		int scaleLevelInStaticArrayBounds = normalizedScaleLevel - MINIMUM_SCALE_LEVEL;
 
-		return scaleByScaleLevel[normalizedScaleLevel - MINIMUM_SCALE_LEVEL] * Math.cos(pLatitude);
+		return scaleByScaleLevel[scaleLevelInStaticArrayBounds] / Math.cos(pLatitude * Math.PI / 180.0);
 	}
 
 	/**
