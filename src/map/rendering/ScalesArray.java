@@ -55,7 +55,7 @@ public class ScalesArray
 		int normalizedScaleLevel = normalizeScaleLevel(pScaleLevel);
 		int scaleLevelInStaticArrayBounds = normalizedScaleLevel - MINIMUM_SCALE_LEVEL;
 
-		return scaleByScaleLevel[scaleLevelInStaticArrayBounds] / Math.cos(pLatitude * Math.PI / 180.0);
+		return scaleByScaleLevel[scaleLevelInStaticArrayBounds] * Math.cos(pLatitude * Math.PI / 180.0);
 	}
 
 	/**
