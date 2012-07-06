@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 import map.MapPosition;
 import map.MapTag;
 import map.rendering.MapRenderer;
-import map.rendering.ScalesArray;
 
 /**
  * Organize work between other classes and process user's input
@@ -54,14 +53,8 @@ public class OnlineMapProcessor implements DrawableOnPanel
 	{
 		map = new OnlineMap();
 		mapLoader = new OnlineMapLoader();
-		renderer = new MapRenderer(ONLINE_MAP_MINIMUM_SCALE_LEVEL, ONLINE_MAP_MAXIMUM_SCALE_LEVEL,
-						12);
+		renderer = new MapRenderer(ONLINE_MAP_MINIMUM_SCALE_LEVEL, ONLINE_MAP_MAXIMUM_SCALE_LEVEL, 12);
 		styleViewer = DrawingStylesFactory.createStyleEditor();
-
-		renderer.setViewPosition(new MapPosition(55.188, 38.612));
-
-		testSetupStyleViewer();
-		testLoadMap();
 	}
 
 	/**
@@ -75,38 +68,25 @@ public class OnlineMapProcessor implements DrawableOnPanel
 		renderer.setTargetCanvasDrawingArea(new Rectangle(0, 0, pWidth, pHeight));
 	}
 
-	private void testSetupStyleViewer()
+	/**
+	 * Set new view position (center point of rendering map area)
+	 *
+	 * @param pLatitude new latitude of view point
+	 * @param pLongitude new longitude of view point
+	 */
+	public void setViewPosition(double pLatitude, double pLongitude)
 	{
-		styleViewer.setMapDrawingSettings(new MapDrawingSettings(null));
-		PointDrawStyle pointStyle = new PointDrawStyle(null);
-
-		ScaledObjectStyle scaledStyle = new ScaledObjectStyle(true, false, false, pointStyle, null, null, new IOColor(Color.BLACK), new IOFont());
-
-		ScaledObjectStyleArray placeVillageScaledStyles = new ScaledObjectStyleArray();
-		placeVillageScaledStyles.setStyleOnScale(ONLINE_MAP_MAXIMUM_SCALE_LEVEL, scaledStyle);
-
-		String[] textTagKeys = new String[1];
-		textTagKeys[0] = "name";
-
-		EditableDefenitionTags placeVillageTags = new EditableDefenitionTags();
-		placeVillageTags.add(new MapTag("place", "village"));
-
-		MapObjectStyle placeVillageStyle = new MapObjectStyle(true, false, false,
-						new TextTagsKeys(textTagKeys), 0, "Village", placeVillageScaledStyles, placeVillageTags);
-
-		styleViewer.addMapObjectStyle(placeVillageStyle);
+		renderer.setViewPosition(new MapPosition(pLatitude, pLongitude));
 	}
 
-	private void testLoadMap()
+	/**
+	 * Set new scale level
+	 *
+	 * @param pScaleLevel new scale level
+	 */
+	public void setScaleLevel(int pScaleLevel)
 	{
-		try
-		{
-			mapLoader.loadToMap(renderer.getViewArea(), styleViewer, map);
-		}
-		catch (Exception ex)
-		{
-			Logger.getLogger(OnlineMapProcessor.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		renderer.setScaleLevel(pScaleLevel);
 	}
 
 	/**
@@ -118,5 +98,39 @@ public class OnlineMapProcessor implements DrawableOnPanel
 	public void drawOnPanel(Graphics2D pPanelGraphics)
 	{
 		renderer.renderMap(pPanelGraphics, map, styleViewer);
+	}
+	
+	public void testSetupStyleViewer()
+	{
+		styleViewer.setMapDrawingSettings(new MapDrawingSettings(null));
+		PointDrawStyle pointStyle = new PointDrawStyle(null);
+		
+		ScaledObjectStyle scaledStyle = new ScaledObjectStyle(true, false, false, pointStyle, null, null, new IOColor(Color.BLACK), new IOFont());
+		
+		ScaledObjectStyleArray placeVillageScaledStyles = new ScaledObjectStyleArray();
+		placeVillageScaledStyles.setStyleOnScale(ONLINE_MAP_MAXIMUM_SCALE_LEVEL, scaledStyle);
+		
+		String[] textTagKeys = new String[1];
+		textTagKeys[0] = "name";
+		
+		EditableDefenitionTags placeVillageTags = new EditableDefenitionTags();
+		placeVillageTags.add(new MapTag("place", "village"));
+		
+		MapObjectStyle placeVillageStyle = new MapObjectStyle(true, false, false,
+						new TextTagsKeys(textTagKeys), 0, "Village", placeVillageScaledStyles, placeVillageTags);
+		
+		styleViewer.addMapObjectStyle(placeVillageStyle);
+	}
+	
+	public void testLoadMap()
+	{
+		try
+		{
+			mapLoader.loadToMap(renderer.getViewArea(), styleViewer, map);
+		}
+		catch (Exception ex)
+		{
+			Logger.getLogger(OnlineMapProcessor.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 }

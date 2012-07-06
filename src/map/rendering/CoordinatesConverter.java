@@ -4,7 +4,8 @@ import java.awt.geom.Point2D;
 import map.MapPosition;
 
 /**
- * Interface of object that using to convert coordinates
+ * Interface of object that using to convert coordinates in current view
+ * position
  *
  * @author pgalex
  */
@@ -18,4 +19,13 @@ public interface CoordinatesConverter
 	 * @return position of point on drawing canvas
 	 */
 	public Point2D goegraphicsToCanvas(MapPosition pPositionOnMap);
+
+	/**
+	 * Convert point on drawing canvas to point on a map, using current scale and
+	 * view position
+	 *
+	 * @param pPositionOnCanvas position of point on drawing canvas
+	 * @return position of point on map
+	 */
+	public MapPosition canvasToGeographics(Point2D pPositionOnCanvas);
 }

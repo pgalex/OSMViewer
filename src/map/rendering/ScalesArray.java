@@ -1,8 +1,8 @@
 package map.rendering;
 
 /**
- * Array of scales(in meters per pixel) by scale level. Used to incapluste
- * access to array of scale by scale level. For drawing
+ * Array of scales by scale level. Used to incapluste access to array of scale
+ * by scale level. For drawing
  *
  * @author pgalex
  */
@@ -17,28 +17,28 @@ public class ScalesArray
 	 */
 	public static final int MAXIMUM_SCALE_LEVEL = 18;
 	/**
-	 * openstreetmap like scale on each scale level in meters per pixel in
-	 * equator. Array size is from MINIMUM_SCALE_LEVEL to MAXIMUM_SCALE_LEVEL
+	 * Scale on each scale level. Array size is from MINIMUM_SCALE_LEVEL to
+	 * MAXIMUM_SCALE_LEVEL
 	 */
 	private static final double scaleByScaleLevel[] =
 	{
-		1,
-		1,
-		1,
-		1,
-		1,
-		1,
-		1,
-		1,
-		1,
-		1,
-		0.014,
-		1,
-		1,
-		1,
-		1,
-		1,
-		1,
+		1.0 / 70656.0,
+		1.0 / 35328.0,
+		1.0 / 17664.0,
+		1.0 / 8832.0,
+		1.0 / 4416.0,
+		1.0 / 2204.0,
+		1.0 / 1014.0,
+		1.0 / 552.0,
+		1.0 / 276.0,
+		1.0 / 74.0,
+		1.0 / 37.0,
+		1.0 / 18.5,
+		1.0 / 9.0, 
+		1.0 / 7.5,
+		1.0 / 4.0,
+		1.0 / 2.0,
+		1.0,
 	};
 
 	/**
@@ -46,17 +46,15 @@ public class ScalesArray
 	 *
 	 * @param pScaleLevel scale level. if its out of bounds will be used nearest
 	 * correct scale level (maximum or minimum)
-	 * @param pLatitude latitude where need find scale
-	 * @return scale by scale level in meters per pixel. If scale level more than
-	 * maximum of less than minimum will be return value on each bound
+	 * @return scale by scale level. If scale level more than maximum of less than
+	 * minimum will be return value on bound
 	 */
-	public static double getScaleByScaleLevel(int pScaleLevel, double pLatitude)
+	public static double getScaleByScaleLevel(int pScaleLevel)
 	{
 		int normalizedScaleLevel = normalizeScaleLevel(pScaleLevel);
 		int scaleLevelInStaticArrayBounds = normalizedScaleLevel - MINIMUM_SCALE_LEVEL;
 
-		// провекру деления на ноль
-		return scaleByScaleLevel[scaleLevelInStaticArrayBounds] / Math.cos(pLatitude * Math.PI / 180.0);
+		return scaleByScaleLevel[scaleLevelInStaticArrayBounds];
 	}
 
 	/**

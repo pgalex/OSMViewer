@@ -1,8 +1,3 @@
-/*
- * JFrameMain.java
- *
- * Created on 28.11.2011, 8:12:47
- */
 package forms;
 
 import java.awt.Graphics;
@@ -26,10 +21,14 @@ public class JFrameMain extends javax.swing.JFrame
 	public JFrameMain()
 	{
 		mapProcessor = new OnlineMapProcessor();
-
+		
 		initComponents();
-
+		
+		mapProcessor.setViewPosition(55.1990, 38.60329);
+		mapProcessor.setScaleLevel(12);
 		mapProcessor.setCanvasSize(jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
+		mapProcessor.testSetupStyleViewer();
+		mapProcessor.testLoadMap();
 	}
 
 	@Override

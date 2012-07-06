@@ -1,7 +1,5 @@
 package mapTests;
 
-import java.awt.geom.Point2D;
-import map.MapPosition;
 import map.rendering.ScalesArray;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -31,21 +29,10 @@ public class ScalesArrayTest
 	{
 		for (int i = ScalesArray.MINIMUM_SCALE_LEVEL; i <= ScalesArray.MAXIMUM_SCALE_LEVEL - 1; i++)
 		{
-			double currentScale = ScalesArray.getScaleByScaleLevel(i, 0.0);
-			double nextScale = ScalesArray.getScaleByScaleLevel(i + 1, 0.0);
+			double currentScale = ScalesArray.getScaleByScaleLevel(i);
+			double nextScale = ScalesArray.getScaleByScaleLevel(i + 1);
 			assertTrue(currentScale < nextScale);
 		}
-	}
-
-	/**
-	 * Testing that scale changes when latitude is changed
-	 */
-	@Test
-	public void scaleChangesWithLatitudeTest()
-	{
-		double scaleOnEquator = ScalesArray.getScaleByScaleLevel(ScalesArray.MAXIMUM_SCALE_LEVEL, 0.0);
-		double scaleOn45 = ScalesArray.getScaleByScaleLevel(ScalesArray.MAXIMUM_SCALE_LEVEL, Math.PI / 4.0);
-		assertTrue(scaleOnEquator > scaleOn45);
 	}
 
 	/**
@@ -54,8 +41,8 @@ public class ScalesArrayTest
 	@Test
 	public void scaleLevelLessThanMinimumTest()
 	{
-		double scaleOnMinimum = ScalesArray.getScaleByScaleLevel(ScalesArray.MINIMUM_SCALE_LEVEL, 0.0);
-		double scaleOnLessThanMinimum = ScalesArray.getScaleByScaleLevel(ScalesArray.MINIMUM_SCALE_LEVEL - 1, 0.0);
+		double scaleOnMinimum = ScalesArray.getScaleByScaleLevel(ScalesArray.MINIMUM_SCALE_LEVEL);
+		double scaleOnLessThanMinimum = ScalesArray.getScaleByScaleLevel(ScalesArray.MINIMUM_SCALE_LEVEL - 1);
 		assertEquals(scaleOnMinimum, scaleOnLessThanMinimum, 0.00001);
 	}
 
@@ -65,8 +52,8 @@ public class ScalesArrayTest
 	@Test
 	public void scaleLevelMoreThanMaximumTest()
 	{
-		double scaleOnMaximum = ScalesArray.getScaleByScaleLevel(ScalesArray.MAXIMUM_SCALE_LEVEL, 0.0);
-		double scaleOnMoreThanMaximum = ScalesArray.getScaleByScaleLevel(ScalesArray.MAXIMUM_SCALE_LEVEL + 1, 0.0);
+		double scaleOnMaximum = ScalesArray.getScaleByScaleLevel(ScalesArray.MAXIMUM_SCALE_LEVEL);
+		double scaleOnMoreThanMaximum = ScalesArray.getScaleByScaleLevel(ScalesArray.MAXIMUM_SCALE_LEVEL + 1);
 		assertEquals(scaleOnMaximum, scaleOnMoreThanMaximum, 0.00001);
 	}
 }

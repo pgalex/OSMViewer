@@ -20,7 +20,7 @@ public class MapRenderer implements CoordinatesConverter
 	/**
 	 * Default drawing area
 	 */
-	private static final Rectangle DEFAULT_DRAWING_AREA = new Rectangle(0, 0, 100, 100);
+	private static final Rectangle DEFAULT_DRAWING_AREA = new Rectangle(50, 50, 150, 150);
 	/**
 	 * Rectangle that define area where map will be drawen
 	 */
@@ -129,6 +129,21 @@ public class MapRenderer implements CoordinatesConverter
 	}
 
 	/**
+	 * Get rectangle of map around view position that currently displayed. Size of
+	 * rectangle determines by target canvas drawing area size
+	 *
+	 * @return view area
+	 */
+	public MapBounds getViewArea()
+	{
+		MapPosition positionOfTopLeft = canvasToGeographics(new Point2D.Double(targetCanvasDrawingArea.getMinX(), targetCanvasDrawingArea.getMinY()));
+		MapPosition positionOfBottomRight = canvasToGeographics(new Point2D.Double(targetCanvasDrawingArea.getMaxX(), targetCanvasDrawingArea.getMaxY()));
+
+		return new MapBounds(positionOfTopLeft.getLatitude(), positionOfBottomRight.getLatitude(),
+						positionOfTopLeft.getLongitude(), positionOfBottomRight.getLongitude());
+	}
+
+	/**
 	 * Render map
 	 *
 	 * @param pCanvas canvas to draw map
@@ -152,17 +167,6 @@ public class MapRenderer implements CoordinatesConverter
 	}
 
 	/**
-	 * Get rectangle of map around view position that currently displayed. Size of
-	 * rectangle determines by target canvas drawing area size
-	 *
-	 * @return view area
-	 */
-	public MapBounds getViewArea()
-	{
-		return new MapBounds(55.1423, 55.2336, 38.5189, 38.7067);
-	}
-
-	/**
 	 * Convert point in geographics coordinates on a map to point on drawing
 	 * canvas (using current scale and view position)
 	 *
@@ -172,20 +176,35 @@ public class MapRenderer implements CoordinatesConverter
 	@Override
 	public Point2D goegraphicsToCanvas(MapPosition pPositionOnMap)
 	{
-		if (pPositionOnMap == null)
-			return null;
+		Point2D pointInMeractor = MercatorSphericProjection.geographicsToMercator(pPositionOnMap,
+						ScalesArray.getScaleByScaleLevel(scaleLevel));
 
-		double pointMercatorX = Mercator.mercX(pPositionOnMap.getLongitude());
-		double pointMercatorY = Mercator.mercY(pPositionOnMap.getLatitude());
-		double pointScale = ScalesArray.getScaleByScaleLevel(scaleLevel, pPositionOnMap.getLatitude());
+		Point2D viewInMercator = MercatorSphericProjection.geographicsToMercator(viewPosition,
+						ScalesArray.getScaleByScaleLevel(scaleLevel));
 
-		double viewMercatorX = Mercator.mercX(viewPosition.getLongitude());
-		double viewMercatorY = Mercator.mercY(viewPosition.getLatitude());
-		double viewScale = ScalesArray.getScaleByScaleLevel(scaleLevel, pPositionOnMap.getLatitude());
+		double pointInCanvasX = (pointInMeractor.getX() - viewInMercator.getX()) + targetCanvasDrawingArea.getCenterX();
+		double pointInCanvasY = (viewInMercator.getY() - pointInMeractor.getY()) + targetCanvasDrawingArea.getCenterY();
 
-		double pointCanvasX = (pointMercatorX * pointScale - viewMercatorX * viewScale) + targetCanvasDrawingArea.getCenterX();
-		double pointCanvasY = (viewMercatorY * viewScale - pointMercatorY * pointScale) + targetCanvasDrawingArea.getCenterY();
+		return new Point2D.Double(pointInCanvasX, pointInCanvasY);
+	}
 
-		return new Point2D.Double(pointCanvasX, pointCanvasY);
+	/**
+	 * Convert point on drawing canvas to point on a map, using current scale and
+	 * view position
+	 *
+	 * @param pPositionOnCanvas position of point on drawing canvas
+	 * @return position of point on map
+	 */
+	@Override
+	public MapPosition canvasToGeographics(Point2D pPositionOnCanvas)
+	{
+		Point2D viewInMercator = MercatorSphericProjection.geographicsToMercator(viewPosition,
+						ScalesArray.getScaleByScaleLevel(scaleLevel));
+
+		double pointInMercatorX = pPositionOnCanvas.getX() + viewInMercator.getX() - targetCanvasDrawingArea.getCenterX();
+		double pointInMercatorY = viewInMercator.getY() - pPositionOnCanvas.getY() + targetCanvasDrawingArea.getCenterY();
+
+		return MercatorSphericProjection.mercatorToGeographics(new Point2D.Double(pointInMercatorX, pointInMercatorY),
+						ScalesArray.getScaleByScaleLevel(scaleLevel));
 	}
 }
