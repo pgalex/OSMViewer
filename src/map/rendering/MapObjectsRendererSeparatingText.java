@@ -1,15 +1,17 @@
 package map.rendering;
 
-import drawingStyles.DefenitionTags;
-import drawingStyles.StyleViewer;
+import drawingStyles.*;
 import java.awt.Color;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
 import map.MapLine;
 import map.MapPoint;
 import map.MapPolygon;
 import map.MapTag;
 import map.exceptions.CanvasIsNullException;
+import map.exceptions.CoordinatesConverterIsNullException;
 import map.exceptions.StyleViewerIsNullException;
 
 /**
@@ -27,7 +29,14 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * Style viewer using to find drawing style of object
 	 */
 	private StyleViewer styleViewer;
+	/**
+	 * Coordinates converter using for rendering
+	 */
 	private CoordinatesConverter coordinatesConverter;
+	/**
+	 * Scale level using for rendering
+	 */
+	private int scaleLevel;
 
 	/**
 	 * Constructor
@@ -36,20 +45,25 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * @param pStyleViewer Style viewer using to find drawing style of object
 	 * @param pCoordinatesConverter object that will be using for coordinates
 	 * converting while drawing
+	 * @param pScaleLevel scale level using for rendering
 	 * @throws CanvasIsNullException object canvas is null
 	 * @throws StyleViewerIsNullException style viewer is null
+	 * @throws CoordinatesConverterIsNullException coordinates converter is null
 	 */
 	public MapObjectsRendererSeparatingText(Graphics2D pCanvas, StyleViewer pStyleViewer,
-					CoordinatesConverter pCoordinatesConverter) throws CanvasIsNullException, StyleViewerIsNullException
+					CoordinatesConverter pCoordinatesConverter, int pScaleLevel) throws CanvasIsNullException, StyleViewerIsNullException, CoordinatesConverterIsNullException
 	{
 		if (pCanvas == null)
 			throw new CanvasIsNullException();
 		if (pStyleViewer == null)
 			throw new StyleViewerIsNullException();
+		if (pCoordinatesConverter == null)
+			throw new CoordinatesConverterIsNullException();
 
 		canvas = pCanvas;
 		styleViewer = pStyleViewer;
 		coordinatesConverter = pCoordinatesConverter;
+		scaleLevel = pScaleLevel;
 	}
 
 	/**
@@ -62,21 +76,61 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	{
 		if (pPoint == null)
 			return;
-		if (pPoint.getStyleIndex() == null)
+
+		// получить параметры отрисовки точки
+		// получить из параметров значок
+		// если значок есть нарисовать значок
+		// получить параметры для отображения текста
+		// найти в тегах текст который может отображать как подпись
+		// отобразить текст
+
+		MapObjectStyle pointObjectStyle = styleViewer.getMapObjectStyle(pPoint.getStyleIndex());
+		if (pointObjectStyle == null)
 			return;
-		Point2D positionOnDrawingCanvas = coordinatesConverter.goegraphicsToCanvas(pPoint.getPosition());
 
-		canvas.setColor(Color.RED);
-		canvas.drawRect((int) positionOnDrawingCanvas.getX(), (int) positionOnDrawingCanvas.getY(),
-						2, 2);
+		if (!pointObjectStyle.isCanBePoint())
+			return;
 
+		ScaledObjectStyleCollection scaledStyles = pointObjectStyle.getScaledStyles();
+		if (scaledStyles == null)
+			return;
+
+		ScaledObjectStyle styleOnCurrentScale = scaledStyles.getStyleOnScale(scaleLevel);
+		if (styleOnCurrentScale == null)
+			return;
+
+		if (!styleOnCurrentScale.isDrawPoint())
+			return;
+
+		PointDrawStyle pointStyle = styleOnCurrentScale.getPointStyle();
+		if (pointStyle == null)
+			return;
+
+		Point2D pointPositionOnCanvas = coordinatesConverter.goegraphicsToCanvas(pPoint.getPosition());
+
+		IOIcon pointIOIcon = pointStyle.getIcon();
+		BufferedImage pointImage = pointIOIcon.getImage();
+		if (pointImage != null)
+		{
+			canvas.drawImage(pointImage, (int) (pointPositionOnCanvas.getX() - pointImage.getWidth() / 2),
+							(int) (pointPositionOnCanvas.getY() - pointImage.getHeight() / 2), null);
+		}
+
+		canvas.setColor(styleOnCurrentScale.getTextColor().getColor());
+		canvas.setFont(styleOnCurrentScale.getTextFont().getFont());
 		DefenitionTags tags = pPoint.getDefenitionTags();
 		for (int i = 0; i < tags.size(); i++)
 		{
 			MapTag tag = tags.get(i);
 			if (tag.getKey().equals("name"))
-				canvas.drawString(tag.getValue(), (int) positionOnDrawingCanvas.getX(), (int) positionOnDrawingCanvas.getY());
+			{
+				FontMetrics textFontMetrics = canvas.getFontMetrics(styleOnCurrentScale.getTextFont().getFont());
+				int textWidth = textFontMetrics.stringWidth(tag.getValue());
+
+				canvas.drawString(tag.getValue(), (int) pointPositionOnCanvas.getX() - textWidth / 2, (int) pointPositionOnCanvas.getY());
+			}
 		}
+
 	}
 
 	/**

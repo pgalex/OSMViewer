@@ -25,7 +25,7 @@ public class JFrameMain extends javax.swing.JFrame
 		initComponents();
 		
 		mapProcessor.setViewPosition(55.1990, 38.60329);
-		mapProcessor.setScaleLevel(12);
+		mapProcessor.setScaleLevel(15);
 		mapProcessor.setCanvasSize(jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
 		mapProcessor.testSetupStyleViewer();
 		mapProcessor.testLoadMap();

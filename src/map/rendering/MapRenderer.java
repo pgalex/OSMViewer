@@ -160,7 +160,7 @@ public class MapRenderer implements CoordinatesConverter
 		pCanvas.clearRect(targetCanvasDrawingArea.x, targetCanvasDrawingArea.y, targetCanvasDrawingArea.width, targetCanvasDrawingArea.height);
 
 		pMap.sortObjectsByDrawPriority(pStyleViewer);
-		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(pCanvas, pStyleViewer, this);
+		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(pCanvas, pStyleViewer, this, scaleLevel);
 		pMap.acceptObjectsRenderer(objectsRenderer);
 
 		// draw text canvas
