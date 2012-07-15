@@ -5,7 +5,7 @@
 package osmXml;
 
 import java.util.ArrayList;
-import map.MapTag;
+import drawingStyles.MapTag;
 
 /**
  * Отношение в файле .osm (пока не используется)

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import map.MapBounds;
 import map.MapPoint;
 import map.MapPosition;
-import map.MapTag;
+import drawingStyles.MapTag;
 import map.exceptions.*;
 import osmXml.OsmNode;
 import osmXml.OsmTag;

@@ -1,7 +1,7 @@
-package mapTests;
+package drawingStylesTests;
 
 import IOTesting.IOTester;
-import map.MapTag;
+import drawingStyles.MapTag;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

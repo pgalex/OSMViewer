@@ -6,7 +6,7 @@ import drawingStyles.StyleEditor;
 import drawingStyles.EditableDefenitionTags;
 import map.MapPolygon;
 import map.MapPosition;
-import map.MapTag;
+import drawingStyles.MapTag;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

@@ -1,7 +1,6 @@
 package drawingStyles;
 
 import drawingStyles.DefenitionTags;
-import map.MapTag;
 import map.exceptions.TagIndexOutOfBoundsException;
 import map.exceptions.TagIsNullException;
 

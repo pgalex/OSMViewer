@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import map.MapObject;
 import map.MapObjectDrawPriorityComparator;
-import map.MapTag;
+import drawingStyles.MapTag;
 import map.exceptions.StyleViewerIsNullException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

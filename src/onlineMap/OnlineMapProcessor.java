@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import map.MapPosition;
-import map.MapTag;
+import drawingStyles.MapTag;
 import map.rendering.MapRenderer;
 
 /**

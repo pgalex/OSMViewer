@@ -6,7 +6,7 @@ import drawingStyles.StyleEditor;
 import drawingStyles.EditableDefenitionTags;
 import map.MapLine;
 import map.MapPosition;
-import map.MapTag;
+import drawingStyles.MapTag;
 import map.exceptions.LinePointsIsIncorrectException;
 import static org.junit.Assert.*;
 import org.junit.Test;

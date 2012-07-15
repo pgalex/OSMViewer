@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import map.MapLine;
 import map.MapPoint;
 import map.MapPolygon;
-import map.MapTag;
+import drawingStyles.MapTag;
 import map.exceptions.CanvasIsNullException;
 import map.exceptions.CoordinatesConverterIsNullException;
 import map.exceptions.StyleViewerIsNullException;
@@ -118,17 +118,14 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 
 		canvas.setColor(styleOnCurrentScale.getTextColor().getColor());
 		canvas.setFont(styleOnCurrentScale.getTextFont().getFont());
-		DefenitionTags tags = pPoint.getDefenitionTags();
-		for (int i = 0; i < tags.size(); i++)
-		{
-			MapTag tag = tags.get(i);
-			if (tag.getKey().equals("name"))
-			{
-				FontMetrics textFontMetrics = canvas.getFontMetrics(styleOnCurrentScale.getTextFont().getFont());
-				int textWidth = textFontMetrics.stringWidth(tag.getValue());
 
-				canvas.drawString(tag.getValue(), (int) pointPositionOnCanvas.getX() - textWidth / 2, (int) pointPositionOnCanvas.getY());
-			}
+		String text = pointObjectStyle.getTextTagKeys().findTextInTags(pPoint.getDefenitionTags());
+		if (!text.isEmpty())
+		{
+			FontMetrics textFontMetrics = canvas.getFontMetrics(styleOnCurrentScale.getTextFont().getFont());
+			int textWidth = textFontMetrics.stringWidth(text);
+
+			canvas.drawString(text, (int) pointPositionOnCanvas.getX() - textWidth / 2, (int) pointPositionOnCanvas.getY());
 		}
 
 	}

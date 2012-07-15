@@ -5,7 +5,7 @@ import drawingStyles.MapObjectStyle;
 import drawingStyles.StyleEditor;
 import drawingStyles.EditableDefenitionTags;
 import map.MapObject;
-import map.MapTag;
+import drawingStyles.MapTag;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;

@@ -11,7 +11,7 @@ import drawingStyles.exceptions.MapObjectStyleIsNullException;
 import drawingStyles.exceptions.StyleIndexOutOfBoundsException;
 import java.awt.Color;
 import drawingStyles.EditableDefenitionTags;
-import map.MapTag;
+import drawingStyles.MapTag;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

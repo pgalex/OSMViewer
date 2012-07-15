@@ -36,12 +36,23 @@ public class TextTagsKeys implements ReadableMapData, WritableMapData
 	/**
 	 * Contructor
 	 *
-	 * @param pTagsKeys
+	 * @param pTagsKeys array of tag keys that can be use as text (object
+	 * description)
 	 */
 	public TextTagsKeys(String[] pTagsKeys)
 	{
 		tagsKeys = pTagsKeys;
 		initializeNullFields();
+	}
+
+	/**
+	 * Auto initialize null fields
+	 */
+	private void initializeNullFields()
+	{
+		if (tagsKeys == null)
+			tagsKeys = DEFAULT_TEXT_TAGS_KEYS;
+		// length can be == 0
 	}
 
 	/**
@@ -55,13 +66,29 @@ public class TextTagsKeys implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Auto initialize null fields
+	 * Find value of tag that means text description of object. Priority
+	 * determines by keys indexes
+	 *
+	 * @param pTags tags of object
+	 * @return text description of object founded in tag. Empty if not found
 	 */
-	private void initializeNullFields()
+	public String findTextInTags(DefenitionTags pTags)
 	{
-		if (tagsKeys == null)
-			tagsKeys = DEFAULT_TEXT_TAGS_KEYS;
-		// length can be == 0
+		// Keys priority - from begin to end of tagsKeys
+		if (pTags == null)
+			return "";
+
+		for (int keyIndex = 0; keyIndex < tagsKeys.length; keyIndex++)
+		{
+			for (int tagIndex = 0; tagIndex < pTags.size(); tagIndex++)
+			{
+				MapTag tag = pTags.get(tagIndex);
+				if (tag.getKey().equals(tagsKeys[keyIndex]))
+					return tag.getValue();
+			}
+		}
+
+		return "";
 	}
 
 	/**

@@ -3,7 +3,7 @@ package drawingStylesTests;
 import IOTesting.IOTester;
 import drawingStyles.DefenitionTags;
 import drawingStyles.EditableDefenitionTags;
-import map.MapTag;
+import drawingStyles.MapTag;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

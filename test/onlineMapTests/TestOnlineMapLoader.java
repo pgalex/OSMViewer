@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import drawingStyles.DefenitionTags;
 import drawingStyles.EditableDefenitionTags;
 import map.MapPoint;
-import map.MapTag;
+import drawingStyles.MapTag;
 import onlineMap.OnlineMap;
 import onlineMap.OnlineMapLoader;
 import osmXml.OsmNode;

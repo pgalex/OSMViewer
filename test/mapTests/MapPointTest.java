@@ -6,7 +6,7 @@ import drawingStyles.StyleEditor;
 import drawingStyles.EditableDefenitionTags;
 import map.MapPoint;
 import map.MapPosition;
-import map.MapTag;
+import drawingStyles.MapTag;
 import map.exceptions.PointPositionIsNullException;
 import static org.junit.Assert.*;
 import org.junit.Test;

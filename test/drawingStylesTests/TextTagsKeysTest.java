@@ -1,6 +1,9 @@
 package drawingStylesTests;
 
 import IOTesting.IOTester;
+import drawingStyles.DefenitionTags;
+import drawingStyles.EditableDefenitionTags;
+import drawingStyles.MapTag;
 import drawingStyles.TextTagsKeys;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -40,6 +43,97 @@ public class TextTagsKeysTest
 	{
 		TextTagsKeys testKeys = new TextTagsKeys();
 		assertNotNull(testKeys.getTagsKeys());
+	}
+
+	/**
+	 * Test finding text in null tags
+	 */
+	@Test
+	public void foundTextInNullTagsTest()
+	{
+		TextTagsKeys textTagsKeys = new TextTagsKeys();
+		assertEquals("", textTagsKeys.findTextInTags(null));
+	}
+
+	/**
+	 * Test finding text in empty tags
+	 */
+	@Test
+	public void foundTextInEmptyTagsTest()
+	{
+		TextTagsKeys textTagsKeys = new TextTagsKeys();
+		assertEquals("", textTagsKeys.findTextInTags(new DefenitionTags()));
+	}
+
+	/**
+	 * Test finding text in empty tags
+	 */
+	@Test
+	public void foundTextWithEmptyKeysTest()
+	{
+		String[] keys = new String[0];
+		TextTagsKeys textTagsKeys = new TextTagsKeys(keys);
+
+		EditableDefenitionTags tags = new EditableDefenitionTags();
+		tags.add(new MapTag("name", "testName"));
+		tags.add(new MapTag("highway", "residential"));
+
+		assertEquals("", textTagsKeys.findTextInTags(tags));
+	}
+
+	/**
+	 * Test keys priority in text finding. Priority determines by key index
+	 */
+	@Test
+	public void foundTextKeysPriorityTest()
+	{
+		String[] keys = new String[2];
+		keys[0] = "description";
+		keys[1] = "name";
+		TextTagsKeys textTagsKeys = new TextTagsKeys(keys);
+
+		EditableDefenitionTags tags = new EditableDefenitionTags();
+		tags.add(new MapTag("name", "testName"));
+		tags.add(new MapTag("description", "testDescription"));
+
+		assertEquals("testDescription", textTagsKeys.findTextInTags(tags));
+	}
+
+	/**
+	 * Test finding if no keys found in tags
+	 */
+	@Test
+	public void foundTextNotFoundTest()
+	{
+		String[] keys = new String[2];
+		keys[0] = "name";
+		keys[1] = "description";
+		TextTagsKeys textTagsKeys = new TextTagsKeys(keys);
+
+		EditableDefenitionTags tags = new EditableDefenitionTags();
+		tags.add(new MapTag("highway", "residential"));
+		tags.add(new MapTag("source", "gps"));
+		tags.add(new MapTag("name", "testName"));
+
+		assertEquals("testName", textTagsKeys.findTextInTags(tags));
+	}
+
+	/**
+	 * Test finding often work
+	 */
+	@Test
+	public void foundTextFoundingTest()
+	{
+		String[] keys = new String[2];
+		keys[0] = "description";
+		keys[1] = "name";
+		TextTagsKeys textTagsKeys = new TextTagsKeys(keys);
+
+		EditableDefenitionTags tags = new EditableDefenitionTags();
+		tags.add(new MapTag("highway", "residential"));
+		tags.add(new MapTag("source", "gps"));
+
+		assertEquals("", textTagsKeys.findTextInTags(tags));
 	}
 
 	/**
