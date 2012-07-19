@@ -12,7 +12,7 @@ import java.io.IOException;
  *
  * @author abc
  */
-public class ScaledObjectStyle implements ReadableMapData, WritableMapData
+public class DrawStyleOnScale implements ReadableMapData, WritableMapData
 {
 	/**
 	 * Is need to draw point. Рисовать ли точку на данном масштабе
@@ -50,7 +50,7 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	/**
 	 * Default constructor
 	 */
-	public ScaledObjectStyle()
+	public DrawStyleOnScale()
 	{
 		pointStyle = new PointDrawStyle();
 		lineStyle = new LineDrawStyle();
@@ -76,7 +76,7 @@ public class ScaledObjectStyle implements ReadableMapData, WritableMapData
 	 * @param pTextFont Map object text(caption) font. Шрифт текстововй подписи.
 	 * Auto-initialize if null
 	 */
-	public ScaledObjectStyle(boolean pDrawPoint, boolean pDrawLine, boolean pDrawPolygon,
+	public DrawStyleOnScale(boolean pDrawPoint, boolean pDrawLine, boolean pDrawPolygon,
 					PointDrawStyle pPointStyle, LineDrawStyle pLineStyle, PolygonDrawStyle pPolygonStyle,
 					IOColor pTextColor, IOFont pTextFont)
 	{

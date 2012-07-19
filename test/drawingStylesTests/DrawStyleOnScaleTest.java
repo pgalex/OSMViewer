@@ -3,18 +3,18 @@ package drawingStylesTests;
 import IOTesting.IOTester;
 import drawingStyles.IOColor;
 import drawingStyles.IOFont;
-import drawingStyles.ScaledObjectStyle;
+import drawingStyles.DrawStyleOnScale;
 import java.awt.Color;
 import java.awt.Font;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * ScaledObjectStyle class tests
+ * DrawStyleOnScale class tests
  *
  * @author abc
  */
-public class ScaledObjectStyleTest
+public class DrawStyleOnScaleTest
 {
 	/**
 	 * Auto initialize in constructor test
@@ -22,7 +22,7 @@ public class ScaledObjectStyleTest
 	@Test
 	public void autoInitializeTest()
 	{
-		ScaledObjectStyle testStyle = new ScaledObjectStyle(true, true, true, null, null, null, null, null);
+		DrawStyleOnScale testStyle = new DrawStyleOnScale(true, true, true, null, null, null, null, null);
 		assertNotNull(testStyle.getPointStyle());
 		assertNotNull(testStyle.getLineStyle());
 		assertNotNull(testStyle.getPolygonStyle());
@@ -38,12 +38,12 @@ public class ScaledObjectStyleTest
 	{
 		try
 		{
-			ScaledObjectStyle writedStyle = new ScaledObjectStyle(true, false, true, null, null,
+			DrawStyleOnScale writedStyle = new DrawStyleOnScale(true, false, true, null, null,
 							null, new IOColor(Color.RED), new IOFont(new Font("Arial", 1, 3)));
 
 			IOTester.writeToTestFile(writedStyle);
 
-			ScaledObjectStyle readStyle = new ScaledObjectStyle();
+			DrawStyleOnScale readStyle = new DrawStyleOnScale();
 			IOTester.readFromTestFile(readStyle);
 
 			assertEquals(writedStyle.isDrawLine(), readStyle.isDrawLine());

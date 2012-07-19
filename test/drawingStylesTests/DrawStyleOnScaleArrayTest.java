@@ -1,19 +1,19 @@
 package drawingStylesTests;
 
 import IOTesting.IOTester;
-import drawingStyles.ScaledObjectStyle;
-import drawingStyles.ScaledObjectStyleArray;
+import drawingStyles.DrawStyleOnScale;
+import drawingStyles.DrawStyleOnScaleArray;
 import drawingStyles.exceptions.ScaleLevelOutOfBoundsException;
 import drawingStyles.exceptions.ScaledStyleIsNullException;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * ScaledObjectStyleArray tests
+ * DrawStyleOnScaleArray tests
  *
  * @author pgalex
  */
-public class ScaledObjectStyleArrayTest
+public class DrawStyleOnScaleArrayTest
 {
 	/**
 	 * Testing correction of default maximum/minimum scale level values
@@ -21,7 +21,7 @@ public class ScaledObjectStyleArrayTest
 	@Test
 	public void creatingWithCorrectScaleLevelsCountTest()
 	{
-		ScaledObjectStyleArray stylesArray = new ScaledObjectStyleArray();
+		DrawStyleOnScaleArray stylesArray = new DrawStyleOnScaleArray();
 		assertTrue(stylesArray.getMaximumScaleLevel() > stylesArray.getMinimumScaleLevel());
 	}
 
@@ -31,8 +31,8 @@ public class ScaledObjectStyleArrayTest
 	@Test
 	public void setStyleOnScaleWithCorrectParametersTest()
 	{
-		ScaledObjectStyleArray stylesArray = new ScaledObjectStyleArray();
-		ScaledObjectStyle scaledStyle = new ScaledObjectStyle(true, false, true, null, null, null, null, null);
+		DrawStyleOnScaleArray stylesArray = new DrawStyleOnScaleArray();
+		DrawStyleOnScale scaledStyle = new DrawStyleOnScale(true, false, true, null, null, null, null, null);
 
 		final int correctScaleLevelAtBegin = stylesArray.getMinimumScaleLevel();
 		stylesArray.setStyleOnScale(correctScaleLevelAtBegin, scaledStyle);
@@ -62,8 +62,8 @@ public class ScaledObjectStyleArrayTest
 	@Test
 	public void setStyleOnScaleLessThanBounds()
 	{
-		ScaledObjectStyleArray stylesArray = new ScaledObjectStyleArray();
-		ScaledObjectStyle scaledStyle = new ScaledObjectStyle(true, false, true, null, null, null, null, null);
+		DrawStyleOnScaleArray stylesArray = new DrawStyleOnScaleArray();
+		DrawStyleOnScale scaledStyle = new DrawStyleOnScale(true, false, true, null, null, null, null, null);
 		try
 		{
 			stylesArray.setStyleOnScale(stylesArray.getMinimumScaleLevel() - 1, scaledStyle); // there should be out of range exception
@@ -84,8 +84,8 @@ public class ScaledObjectStyleArrayTest
 	@Test
 	public void setStyleOnScaleMoreThanBounds()
 	{
-		ScaledObjectStyleArray stylesArray = new ScaledObjectStyleArray();
-		ScaledObjectStyle scaledStyle = new ScaledObjectStyle(true, false, true, null, null, null, null, null);
+		DrawStyleOnScaleArray stylesArray = new DrawStyleOnScaleArray();
+		DrawStyleOnScale scaledStyle = new DrawStyleOnScale(true, false, true, null, null, null, null, null);
 		try
 		{
 			stylesArray.setStyleOnScale(stylesArray.getMaximumScaleLevel() + 1, scaledStyle); // there should be out of range exception
@@ -106,7 +106,7 @@ public class ScaledObjectStyleArrayTest
 	@Test
 	public void setNullStyleTest()
 	{
-		ScaledObjectStyleArray stylesArray = new ScaledObjectStyleArray();
+		DrawStyleOnScaleArray stylesArray = new DrawStyleOnScaleArray();
 
 		try
 		{
@@ -127,14 +127,14 @@ public class ScaledObjectStyleArrayTest
 	{
 		try
 		{
-			ScaledObjectStyle styleAtBegin = new ScaledObjectStyle(true, false, false, null, null,
+			DrawStyleOnScale styleAtBegin = new DrawStyleOnScale(true, false, false, null, null,
 							null, null, null);
-			ScaledObjectStyle styleAtMiddle = new ScaledObjectStyle(false, true, false, null, null,
+			DrawStyleOnScale styleAtMiddle = new DrawStyleOnScale(false, true, false, null, null,
 							null, null, null);
-			ScaledObjectStyle styleAtEnd = new ScaledObjectStyle(false, false, true, null, null,
+			DrawStyleOnScale styleAtEnd = new DrawStyleOnScale(false, false, true, null, null,
 							null, null, null);
 
-			ScaledObjectStyleArray writingStyles = new ScaledObjectStyleArray();
+			DrawStyleOnScaleArray writingStyles = new DrawStyleOnScaleArray();
 			
 			final int scaleLevelAtBegin = writingStyles.getMinimumScaleLevel();
 			writingStyles.setStyleOnScale(scaleLevelAtBegin, styleAtBegin);
@@ -147,7 +147,7 @@ public class ScaledObjectStyleArrayTest
 			
 			IOTester.writeToTestFile(writingStyles);
 
-			ScaledObjectStyleArray readingStyle = new ScaledObjectStyleArray();
+			DrawStyleOnScaleArray readingStyle = new DrawStyleOnScaleArray();
 			IOTester.readFromTestFile(readingStyle);
 			
 			assertEquals(readingStyle.getStyleOnScale(scaleLevelAtBegin).isDrawPoint(), styleAtBegin.isDrawPoint());

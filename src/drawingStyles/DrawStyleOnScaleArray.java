@@ -9,11 +9,11 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
- * Array of ScaledObjectStyle
+ * Array of DrawStyleOnScale
  *
  * @author pgalex
  */
-public class ScaledObjectStyleArray implements ReadableMapData, WritableMapData
+public class DrawStyleOnScaleArray implements ReadableMapData, WritableMapData
 {
 	/**
 	 * Default minimum scale level of array. Scale levels that used to store
@@ -28,7 +28,7 @@ public class ScaledObjectStyleArray implements ReadableMapData, WritableMapData
 	/**
 	 * Drawing style on each scale level. Стили на каждом из уровней масштаба
 	 */
-	private ScaledObjectStyle[] scaledStyles;
+	private DrawStyleOnScale[] scaledStyles;
 	/**
 	 * Minimum scale level in array
 	 */
@@ -41,15 +41,15 @@ public class ScaledObjectStyleArray implements ReadableMapData, WritableMapData
 	/**
 	 * Defaul contructor
 	 */
-	public ScaledObjectStyleArray()
+	public DrawStyleOnScaleArray()
 	{
 		minimumScaleLevel = DEFAULT_MINIMUM_SCALE_LEVEL;
 		maximumScaleLevel = DEFAULT_MAXIUMUM_SCALE_LEVEL;
 
-		scaledStyles = new ScaledObjectStyle[ccomputeStylesArrayLengthByScaleLevelBounds()];
+		scaledStyles = new DrawStyleOnScale[ccomputeStylesArrayLengthByScaleLevelBounds()];
 
 		for (int i = 0; i < scaledStyles.length; i++)
-			scaledStyles[i] = new ScaledObjectStyle();
+			scaledStyles[i] = new DrawStyleOnScale();
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class ScaledObjectStyleArray implements ReadableMapData, WritableMapData
 	 * @throws ScaleLevelOutOfBoundsException scale level is out of range
 	 * @throws ScaledStyleIsNullException new scaled style is null
 	 */
-	public void setStyleOnScale(int pScaleLevel, ScaledObjectStyle pNewScaledStyle) throws ScaleLevelOutOfBoundsException, ScaledStyleIsNullException
+	public void setStyleOnScale(int pScaleLevel, DrawStyleOnScale pNewScaledStyle) throws ScaleLevelOutOfBoundsException, ScaledStyleIsNullException
 	{
 		if (pNewScaledStyle == null)
 			throw new ScaledStyleIsNullException(this);
@@ -100,7 +100,7 @@ public class ScaledObjectStyleArray implements ReadableMapData, WritableMapData
 	 * @param pScaleLevel scale level
 	 * @return style on specifiec scale level
 	 */
-	public ScaledObjectStyle getStyleOnScale(int pScaleLevel)
+	public DrawStyleOnScale getStyleOnScale(int pScaleLevel)
 	{
 		int normalizedScaleLevel = normalizeScaleLevel(pScaleLevel);
 
@@ -160,10 +160,10 @@ public class ScaledObjectStyleArray implements ReadableMapData, WritableMapData
 			minimumScaleLevel = pInput.readInt();
 			maximumScaleLevel = pInput.readInt();
 
-			scaledStyles = new ScaledObjectStyle[ccomputeStylesArrayLengthByScaleLevelBounds()];
+			scaledStyles = new DrawStyleOnScale[ccomputeStylesArrayLengthByScaleLevelBounds()];
 			for (int i = 0; i < scaledStyles.length; i++)
 			{
-				scaledStyles[i] = new ScaledObjectStyle();
+				scaledStyles[i] = new DrawStyleOnScale();
 				scaledStyles[i].readFromStream(pInput);
 			}
 		}

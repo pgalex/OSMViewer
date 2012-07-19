@@ -1,6 +1,6 @@
 package drawingStyles.exceptions;
 
-import drawingStyles.ScaledObjectStyleArray;
+import drawingStyles.DrawStyleOnScaleArray;
 
 /**
  * drawing style on a scale level is null
@@ -15,7 +15,7 @@ public class ScaledStyleIsNullException extends ScaledObjectStyleArrayRuntimeExc
 	 * @param pArrayThrowedException scaled object style array throwed this
 	 * exception
 	 */
-	public ScaledStyleIsNullException(ScaledObjectStyleArray pArrayThrowedException)
+	public ScaledStyleIsNullException(DrawStyleOnScaleArray pArrayThrowedException)
 	{
 		super(pArrayThrowedException);
 	}

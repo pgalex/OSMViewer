@@ -89,11 +89,11 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		if (!pointObjectStyle.canBePoint())
 			return;
 
-		ScaledObjectStyleArray scaledStyles = pointObjectStyle.getScaledStyles();
+		DrawStyleOnScaleArray scaledStyles = pointObjectStyle.getScaledStyles();
 		if (scaledStyles == null)
 			return;
 
-		ScaledObjectStyle styleOnCurrentScale = scaledStyles.getStyleOnScale(scaleLevel);
+		DrawStyleOnScale styleOnCurrentScale = scaledStyles.getStyleOnScale(scaleLevel);
 		if (styleOnCurrentScale == null)
 			return;
 

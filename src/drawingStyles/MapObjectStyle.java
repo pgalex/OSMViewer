@@ -43,7 +43,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData, Compara
 	/**
 	 * How to draw object on each scale level
 	 */
-	private ScaledObjectStyleArray scaledStyles;
+	private DrawStyleOnScaleArray scaledStyles;
 	/**
 	 * Tags that define map object
 	 */
@@ -61,7 +61,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData, Compara
 		drawPriority = 1;
 		textTagKeys = new TextTagsKeys();
 		description = "";
-		scaledStyles = new ScaledObjectStyleArray();
+		scaledStyles = new DrawStyleOnScaleArray();
 		defenitionTags = new DefenitionTags();
 	}
 
@@ -79,7 +79,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData, Compara
 	 * @param pDefenitionTags Map object defenition tags
 	 */
 	public MapObjectStyle(boolean pCanBePoint, boolean pCanBeLine, boolean pCanBePolygon,
-					TextTagsKeys pTextTagKeys, int pDrawPriority, String pDescription, ScaledObjectStyleArray pScaledStyles,
+					TextTagsKeys pTextTagKeys, int pDrawPriority, String pDescription, DrawStyleOnScaleArray pScaledStyles,
 					DefenitionTags pDefenitionTags)
 	{
 		canBePoint = pCanBePoint;
@@ -210,7 +210,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData, Compara
 	 *
 	 * @return scaled drawing styles
 	 */
-	public ScaledObjectStyleArray getScaledStyles()
+	public DrawStyleOnScaleArray getScaledStyles()
 	{
 		return scaledStyles;
 	}
@@ -231,7 +231,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData, Compara
 	private void initializeNullFields()
 	{
 		if (scaledStyles == null)
-			scaledStyles = new ScaledObjectStyleArray();
+			scaledStyles = new DrawStyleOnScaleArray();
 		if (defenitionTags == null)
 			defenitionTags = new DefenitionTags();
 		if (textTagKeys == null)
