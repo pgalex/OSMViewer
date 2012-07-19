@@ -71,6 +71,6 @@ public class MapPoint extends MapObject
 		if (pStyle == null)
 			return false;
 
-		return pStyle.isCanBePoint();
+		return pStyle.canBePoint();
 	}
 }

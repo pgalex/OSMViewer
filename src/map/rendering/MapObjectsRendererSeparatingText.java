@@ -1,7 +1,6 @@
 package map.rendering;
 
 import drawingStyles.*;
-import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
@@ -9,7 +8,6 @@ import java.awt.image.BufferedImage;
 import map.MapLine;
 import map.MapPoint;
 import map.MapPolygon;
-import drawingStyles.MapTag;
 import map.exceptions.CanvasIsNullException;
 import map.exceptions.CoordinatesConverterIsNullException;
 import map.exceptions.StyleViewerIsNullException;
@@ -88,7 +86,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		if (pointObjectStyle == null)
 			return;
 
-		if (!pointObjectStyle.isCanBePoint())
+		if (!pointObjectStyle.canBePoint())
 			return;
 
 		ScaledObjectStyleCollection scaledStyles = pointObjectStyle.getScaledStyles();

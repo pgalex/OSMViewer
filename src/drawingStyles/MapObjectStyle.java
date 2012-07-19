@@ -14,18 +14,15 @@ import java.io.IOException;
 public class MapObjectStyle implements ReadableMapData, WritableMapData, Comparable<MapObjectStyle>
 {
 	/**
-	 * Can be object with this tags a point ( single node ). Using when finding
-	 * object style by tags
+	 * Can be object with this tags a point ( single node )
 	 */
 	private boolean canBePoint;
 	/**
-	 * Can be object with this tags a line ( non closed way ). Using when finding
-	 * object style by tags
+	 * Can be object with this tags a line ( non closed way )
 	 */
 	private boolean canBeLine;
 	/**
-	 * Can be object with this tags a polygon ( closed way ). Using when finding
-	 * object style by tags
+	 * Can be object with this tags a polygon ( closed way )
 	 */
 	private boolean canBePolygon;
 	/**
@@ -149,31 +146,31 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData, Compara
 	}
 
 	/**
-	 * Может ли быть точкой
+	 * Can object be a point (one node) on a map
 	 *
-	 * @return the canBePoint
+	 * @return Can object be a point on a map
 	 */
-	public boolean isCanBePoint()
+	public boolean canBePoint()
 	{
 		return canBePoint;
 	}
 
 	/**
-	 * Может ли быть линией
+	 * Can object be a line(non-closed way) on a map
 	 *
-	 * @return Может ли быть линией
+	 * @return Can object be a line(non-closed way) on a map
 	 */
-	public boolean isCanBeLine()
+	public boolean canBeLine()
 	{
 		return canBeLine;
 	}
 
 	/**
-	 * Может ли быть многоугольником (замкнутая линия)
+	 * Can object be a polygon(closed way) on a map
 	 *
-	 * @return Может ли быть многоугольником
+	 * @return Can object be a polygon(closed way) on a map
 	 */
-	public boolean isCanBePolygon()
+	public boolean canBePolygon()
 	{
 		return canBePolygon;
 	}

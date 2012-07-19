@@ -87,9 +87,9 @@ public class MapObjectStyleTest
 			MapObjectStyle readStyle = new MapObjectStyle();
 			IOTester.readFromTestFile(readStyle);
 
-			assertEquals(writedStyle.isCanBeLine(), readStyle.isCanBeLine());
-			assertEquals(writedStyle.isCanBePoint(), readStyle.isCanBePoint());
-			assertEquals(writedStyle.isCanBePolygon(), readStyle.isCanBePolygon());
+			assertEquals(writedStyle.canBeLine(), readStyle.canBeLine());
+			assertEquals(writedStyle.canBePoint(), readStyle.canBePoint());
+			assertEquals(writedStyle.canBePolygon(), readStyle.canBePolygon());
 			assertEquals(true, writedStyle.getDefenitionTags().compareTo(readStyle.getDefenitionTags()));
 			assertEquals(writedStyle.getDescription(), readStyle.getDescription());
 			assertArrayEquals(writedStyle.getTextTagKeys().getTagsKeys(), readStyle.getTextTagKeys().getTagsKeys());

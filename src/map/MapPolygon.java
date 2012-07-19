@@ -52,6 +52,6 @@ public class MapPolygon extends MapLine
 		if (pStyle == null)
 			return false;
 
-		return pStyle.isCanBePolygon();
+		return pStyle.canBePolygon();
 	}
 }

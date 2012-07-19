@@ -99,6 +99,6 @@ public class MapLine extends MapObject
 		if (pStyle == null)
 			return false;
 
-		return pStyle.isCanBeLine();
+		return pStyle.canBeLine();
 	}
 }
