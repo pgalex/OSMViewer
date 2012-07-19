@@ -14,7 +14,7 @@ public class DrawingStylesFactory
 	 */
 	static public StyleViewer createStyleViewer()
 	{
-		return new MapObjectStyleViewer();
+		return new MapObjectStylesViewer();
 	}
 
 	/**
@@ -24,6 +24,6 @@ public class DrawingStylesFactory
 	 */
 	static public StyleEditor createStyleEditor()
 	{
-		return new MapObjectStyleEditor();
+		return new MapObjectStylesEditor();
 	}
 }
