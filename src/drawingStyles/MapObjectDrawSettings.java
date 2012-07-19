@@ -26,10 +26,8 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData, 
 	 */
 	private boolean canBePolygon;
 	/**
-	 * "Keys" of tags that "value" should be drawen on map as text under object
+	 * "Keys" of tags that "value" can be drawen on map as text under object
 	 *
-	 * (Ключи тегов, значение которых должно выводиться на экран как текстовая
-	 * подпись)
 	 */
 	private TextTagsKeys textTagKeys;
 	/**

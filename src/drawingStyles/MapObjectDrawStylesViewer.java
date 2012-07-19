@@ -10,7 +10,7 @@ import java.io.IOException;
  *
  * @author pgalex
  */
-public class MapObjectStylesViewer extends MapObjectDrawStylesContainer implements StyleViewer
+public class MapObjectDrawStylesViewer extends MapObjectDrawStylesContainer implements StyleViewer
 {
 	/**
 	 * Static array. Work faster. All styles sorted by tags count
@@ -20,7 +20,7 @@ public class MapObjectStylesViewer extends MapObjectDrawStylesContainer implemen
 	/**
 	 * Default constructor
 	 */
-	public MapObjectStylesViewer()
+	public MapObjectDrawStylesViewer()
 	{
 		super();
 		

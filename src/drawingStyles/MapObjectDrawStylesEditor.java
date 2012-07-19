@@ -14,7 +14,7 @@ import java.util.Collections;
  *
  * @author pgalex
  */
-public class MapObjectStylesEditor extends MapObjectDrawStylesContainer implements StyleEditor
+public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer implements StyleEditor
 {
 	/**
 	 * Array of map object styles. All styles sorted by tags
@@ -25,7 +25,7 @@ public class MapObjectStylesEditor extends MapObjectDrawStylesContainer implemen
 	/**
 	 * Default constructor
 	 */
-	public MapObjectStylesEditor()
+	public MapObjectDrawStylesEditor()
 	{
 		super();
 

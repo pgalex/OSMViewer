@@ -18,7 +18,7 @@ import org.junit.Test;
  *
  * @author pgalex
  */
-public class MapObjectStylesViewerTest
+public class MapObjectDrawStylesViewerTest
 {
 	/**
 	 * Initializing all fields test
