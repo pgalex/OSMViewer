@@ -11,7 +11,7 @@ import java.io.IOException;
  *
  * @author abc
  */
-public class MapObjectStyle implements ReadableMapData, WritableMapData, Comparable<MapObjectStyle>
+public class MapObjectDrawSettings implements ReadableMapData, WritableMapData, Comparable<MapObjectDrawSettings>
 {
 	/**
 	 * Can be object with this tags a point ( single node )
@@ -53,7 +53,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData, Compara
 	 * Default constructor
 	 *
 	 */
-	public MapObjectStyle()
+	public MapObjectDrawSettings()
 	{
 		canBePoint = false;
 		canBeLine = false;
@@ -78,7 +78,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData, Compara
 	 * @param pScaledStyles Drawing styles on each scale level
 	 * @param pDefenitionTags Map object defenition tags
 	 */
-	public MapObjectStyle(boolean pCanBePoint, boolean pCanBeLine, boolean pCanBePolygon,
+	public MapObjectDrawSettings(boolean pCanBePoint, boolean pCanBeLine, boolean pCanBePolygon,
 					TextTagsKeys pTextTagKeys, int pDrawPriority, String pDescription, DrawStyleOnScaleArray pScaledStyles,
 					DefenitionTags pDefenitionTags)
 	{
@@ -245,7 +245,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData, Compara
 	 * @return this object 0 - equal, -1 - more tags count, 1 - less tags count
 	 */
 	@Override
-	public int compareTo(MapObjectStyle pComparedStyle)
+	public int compareTo(MapObjectDrawSettings pComparedStyle)
 	{
 		if (pComparedStyle == null)
 			return 1;

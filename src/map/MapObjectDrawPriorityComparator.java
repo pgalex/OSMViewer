@@ -1,6 +1,6 @@
 package map;
 
-import drawingStyles.MapObjectStyle;
+import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleViewer;
 import java.util.Comparator;
 import map.exceptions.StyleViewerIsNullException;
@@ -48,8 +48,8 @@ public class MapObjectDrawPriorityComparator implements Comparator<MapObject>
 		if (pObject1.getStyleIndex() == null || pObject2.getStyleIndex() == null)
 			return 0;
 
-		MapObjectStyle object1Style = styleViewer.getMapObjectStyle(pObject1.getStyleIndex());
-		MapObjectStyle object2Style = styleViewer.getMapObjectStyle(pObject2.getStyleIndex());
+		MapObjectDrawSettings object1Style = styleViewer.getMapObjectStyle(pObject1.getStyleIndex());
+		MapObjectDrawSettings object2Style = styleViewer.getMapObjectStyle(pObject2.getStyleIndex());
 		if (object1Style == null || object2Style == null)
 			return 0;
 

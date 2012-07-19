@@ -3,7 +3,7 @@ package onlineMapTests;
 import drawingStyles.MapTag;
 import drawingStyles.EditableDefenitionTags;
 import drawingStyles.DrawingStylesFactory;
-import drawingStyles.MapObjectStyle;
+import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleEditor;
 import map.*;
 import onlineMap.OnlineMap;
@@ -41,7 +41,7 @@ public class OnlineMapTest
 		someTags.add(new MapTag("k1", "v1"));
 		
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
-		testEditor.addMapObjectStyle(new MapObjectStyle(true, true, true, null, 0, "", null, someTags));
+		testEditor.addMapObjectStyle(new MapObjectDrawSettings(true, true, true, null, 0, "", null, someTags));
 		
 		MapPosition[] somePoints = new MapPosition[2];
 		somePoints[0] = new MapPosition();

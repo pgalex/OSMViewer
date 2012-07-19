@@ -35,7 +35,7 @@ public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMa
 	 * @param pOutput output stream
 	 * @throws IOException writing error
 	 */
-	protected void writeStylesToStream(MapObjectStyle[] pStyles, DataOutputStream pOutput) throws IOException
+	protected void writeStylesToStream(MapObjectDrawSettings[] pStyles, DataOutputStream pOutput) throws IOException
 	{
 		if (pStyles == null || pOutput == null)
 			throw new IOException();
@@ -59,7 +59,7 @@ public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMa
 	 * @return readed styles
 	 * @throws IOException reading error
 	 */
-	protected MapObjectStyle[] readStylesFromStream(DataInputStream pInput) throws IOException
+	protected MapObjectDrawSettings[] readStylesFromStream(DataInputStream pInput) throws IOException
 	{
 		if (pInput == null)
 			throw new IOException();
@@ -67,10 +67,10 @@ public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMa
 		try
 		{
 			int stylesLength = pInput.readInt();
-			MapObjectStyle[] readingStyles = new MapObjectStyle[stylesLength];
+			MapObjectDrawSettings[] readingStyles = new MapObjectDrawSettings[stylesLength];
 			for (int i = 0; i < stylesLength; i++)
 			{
-				readingStyles[i] = new MapObjectStyle();
+				readingStyles[i] = new MapObjectDrawSettings();
 				readingStyles[i].readFromStream(pInput);
 			}
 
@@ -89,7 +89,7 @@ public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMa
 	 * @param pTags defenition tags for search
 	 * @return index of founded style. null if not found
 	 */
-	protected Integer findStyleIndex(MapObjectStyle[] pStyles, DefenitionTags pTags)
+	protected Integer findStyleIndex(MapObjectDrawSettings[] pStyles, DefenitionTags pTags)
 	{
 		// Необходимо найти среди pStyle стиль у котороге теги будут совпадать с pTags,
 		// количество тегов по сравнению с другими стилями(теги которых тоже совпадают) будет максимальным 
@@ -98,7 +98,7 @@ public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMa
 		if (pStyles == null || pTags == null)
 			return null;
 
-		SortedMap<MapObjectStyle, Integer> suitableElements = new TreeMap<MapObjectStyle, Integer>();
+		SortedMap<MapObjectDrawSettings, Integer> suitableElements = new TreeMap<MapObjectDrawSettings, Integer>();
 		for (int i = 0; i < pStyles.length; i++)
 		{
 			if (pStyles[i] == null)

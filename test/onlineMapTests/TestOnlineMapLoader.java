@@ -1,7 +1,7 @@
 package onlineMapTests;
 
 import drawingStyles.DrawingStylesFactory;
-import drawingStyles.MapObjectStyle;
+import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleEditor;
 import java.util.ArrayList;
 import drawingStyles.DefenitionTags;
@@ -201,7 +201,7 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 			StyleEditor styleEditor = DrawingStylesFactory.createStyleEditor();
 			EditableDefenitionTags testStyleTags = new EditableDefenitionTags();
 			testStyleTags.add(new MapTag("k1", "v1"));
-			MapObjectStyle testStyle = new MapObjectStyle(true, true, true, null, 0, "", null, testStyleTags);
+			MapObjectDrawSettings testStyle = new MapObjectDrawSettings(true, true, true, null, 0, "", null, testStyleTags);
 			styleEditor.addMapObjectStyle(testStyle);
 
 

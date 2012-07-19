@@ -20,7 +20,7 @@ public interface StyleEditor extends StyleViewer
 	 * @throws StyleIndexOutOfBoundsException style index is out of bounds
 	 * @throws MapObjectStyleIsNullException new style is null
 	 */
-	public abstract void setMapObjectStyle(Integer pIndex, MapObjectStyle pNewStyle) throws StyleIndexOutOfBoundsException, MapObjectStyleIsNullException;
+	public abstract void setMapObjectStyle(Integer pIndex, MapObjectDrawSettings pNewStyle) throws StyleIndexOutOfBoundsException, MapObjectStyleIsNullException;
 
 	/**
 	 * Add style
@@ -28,7 +28,7 @@ public interface StyleEditor extends StyleViewer
 	 * @param pNewStyle new map object style
 	 * @throws MapObjectStyleIsNullException new style is null
 	 */
-	public abstract void addMapObjectStyle(MapObjectStyle pNewStyle) throws MapObjectStyleIsNullException;
+	public abstract void addMapObjectStyle(MapObjectDrawSettings pNewStyle) throws MapObjectStyleIsNullException;
 
 	/**
 	 * Remove style by index

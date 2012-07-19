@@ -119,7 +119,7 @@ public class OnlineMapProcessor implements DrawableOnPanel
 			EditableDefenitionTags objectDefenitionTags = new EditableDefenitionTags();
 			objectDefenitionTags.add(new MapTag("shop", "convenience"));
 
-			MapObjectStyle placeVillageStyle = new MapObjectStyle(true, false, false,
+			MapObjectDrawSettings placeVillageStyle = new MapObjectDrawSettings(true, false, false,
 							new TextTagsKeys(textTagKeys), 0, "convenience shop", scaleStylesArray, objectDefenitionTags);
 
 			styleViewer.addMapObjectStyle(placeVillageStyle);

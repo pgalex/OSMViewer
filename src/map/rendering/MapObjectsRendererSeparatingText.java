@@ -82,7 +82,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		// найти в тегах текст который может отображать как подпись
 		// отобразить текст
 
-		MapObjectStyle pointObjectStyle = styleViewer.getMapObjectStyle(pPoint.getStyleIndex());
+		MapObjectDrawSettings pointObjectStyle = styleViewer.getMapObjectStyle(pPoint.getStyleIndex());
 		if (pointObjectStyle == null)
 			return;
 

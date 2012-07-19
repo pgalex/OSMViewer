@@ -1,7 +1,7 @@
 package mapTests;
 
 import drawingStyles.DrawingStylesFactory;
-import drawingStyles.MapObjectStyle;
+import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleEditor;
 import drawingStyles.EditableDefenitionTags;
 import map.MapPolygon;
@@ -26,7 +26,7 @@ public class MapPolygonTest
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
 		tags.add(new MapTag("k1", "v1"));
-		MapObjectStyle style = new MapObjectStyle(false, false, true, null, 0, "pokygon style", null, tags);
+		MapObjectDrawSettings style = new MapObjectDrawSettings(false, false, true, null, 0, "pokygon style", null, tags);
 
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectStyle(style);
@@ -50,7 +50,7 @@ public class MapPolygonTest
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
 		tags.add(new MapTag("k1", "v1"));
-		MapObjectStyle style = new MapObjectStyle(false, false, false, null, 0, "pokygon style", null, tags);
+		MapObjectDrawSettings style = new MapObjectDrawSettings(false, false, false, null, 0, "pokygon style", null, tags);
 
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectStyle(style);
@@ -72,7 +72,7 @@ public class MapPolygonTest
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
 		tags.add(new MapTag("k1", "v1"));
-		MapObjectStyle style = new MapObjectStyle(false, false, false, null, 0, "pokygon style", null, tags);
+		MapObjectDrawSettings style = new MapObjectDrawSettings(false, false, false, null, 0, "pokygon style", null, tags);
 
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectStyle(style);

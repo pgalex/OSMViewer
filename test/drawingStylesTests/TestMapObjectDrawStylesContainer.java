@@ -3,7 +3,7 @@ package drawingStylesTests;
 import IOTesting.IOTester;
 import drawingStyles.EditableDefenitionTags;
 import drawingStyles.MapObjectDrawStylesContainer;
-import drawingStyles.MapObjectStyle;
+import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.MapTag;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -36,8 +36,8 @@ public class TestMapObjectDrawStylesContainer extends MapObjectDrawStylesContain
 	private void findStyleIndexIncorrectParametersTest()
 	{
 		assertNull(findStyleIndex(null, new EditableDefenitionTags()));
-		assertNull(findStyleIndex(new MapObjectStyle[0], null));
-		assertNull(findStyleIndex(new MapObjectStyle[0], new EditableDefenitionTags()));
+		assertNull(findStyleIndex(new MapObjectDrawSettings[0], null));
+		assertNull(findStyleIndex(new MapObjectDrawSettings[0], new EditableDefenitionTags()));
 	}
 
 	/**
@@ -58,11 +58,11 @@ public class TestMapObjectDrawStylesContainer extends MapObjectDrawStylesContain
 		tags3.add(new MapTag("k3", "v3"));
 		tags3.add(new MapTag("k4", "v4"));
 
-		MapObjectStyle[] styles = new MapObjectStyle[5];
-		styles[0] = new MapObjectStyle(true, true, true, null, 0, "style1", null, tags1);
-		styles[1] = new MapObjectStyle(true, true, true, null, 0, "style2", null, tags2);
-		styles[2] = new MapObjectStyle(true, true, true, null, 0, "style3", null, tags3);
-		styles[3] = new MapObjectStyle(true, true, true, null, 0, "style4", null, null);
+		MapObjectDrawSettings[] styles = new MapObjectDrawSettings[5];
+		styles[0] = new MapObjectDrawSettings(true, true, true, null, 0, "style1", null, tags1);
+		styles[1] = new MapObjectDrawSettings(true, true, true, null, 0, "style2", null, tags2);
+		styles[2] = new MapObjectDrawSettings(true, true, true, null, 0, "style3", null, tags3);
+		styles[3] = new MapObjectDrawSettings(true, true, true, null, 0, "style4", null, null);
 
 		EditableDefenitionTags objectTags1 = new EditableDefenitionTags();
 		objectTags1.add(new MapTag("k1", "v1"));
@@ -101,14 +101,14 @@ public class TestMapObjectDrawStylesContainer extends MapObjectDrawStylesContain
 	{
 		try
 		{
-			MapObjectStyle[] writingStyles = new MapObjectStyle[0];
+			MapObjectDrawSettings[] writingStyles = new MapObjectDrawSettings[0];
 
 			DataOutputStream output = new DataOutputStream(new FileOutputStream(IOTester.TEST_FILE_NAME));
 			writeStylesToStream(writingStyles, output);
 			output.close();
 
 			DataInputStream input = new DataInputStream(new FileInputStream(IOTester.TEST_FILE_NAME));
-			MapObjectStyle[] readingStyles = readStylesFromStream(input);
+			MapObjectDrawSettings[] readingStyles = readStylesFromStream(input);
 			input.close();
 
 			assertEquals(writingStyles.length, readingStyles.length);
@@ -127,7 +127,7 @@ public class TestMapObjectDrawStylesContainer extends MapObjectDrawStylesContain
 		// null objects in array
 		try
 		{
-			writeStylesToStream(new MapObjectStyle[2], new DataOutputStream(new FileOutputStream(IOTester.TEST_FILE_NAME)));
+			writeStylesToStream(new MapObjectDrawSettings[2], new DataOutputStream(new FileOutputStream(IOTester.TEST_FILE_NAME)));
 			fail();
 		}
 		catch (Exception e)
@@ -163,16 +163,16 @@ public class TestMapObjectDrawStylesContainer extends MapObjectDrawStylesContain
 	{
 		try
 		{
-			MapObjectStyle[] writingStyles = new MapObjectStyle[2];
-			writingStyles[0] = new MapObjectStyle(true, true, true, null, 0, "style1", null, null);
-			writingStyles[1] = new MapObjectStyle(true, true, true, null, 0, "style2", null, null);
+			MapObjectDrawSettings[] writingStyles = new MapObjectDrawSettings[2];
+			writingStyles[0] = new MapObjectDrawSettings(true, true, true, null, 0, "style1", null, null);
+			writingStyles[1] = new MapObjectDrawSettings(true, true, true, null, 0, "style2", null, null);
 
 			DataOutputStream output = new DataOutputStream(new FileOutputStream(IOTester.TEST_FILE_NAME));
 			writeStylesToStream(writingStyles, output);
 			output.close();
 
 			DataInputStream input = new DataInputStream(new FileInputStream(IOTester.TEST_FILE_NAME));
-			MapObjectStyle[] readingStyles = readStylesFromStream(input);
+			MapObjectDrawSettings[] readingStyles = readStylesFromStream(input);
 			input.close();
 
 			assertEquals(writingStyles.length, readingStyles.length);

@@ -1,7 +1,7 @@
 package map;
 
 import drawingStyles.DefenitionTags;
-import drawingStyles.MapObjectStyle;
+import drawingStyles.MapObjectDrawSettings;
 import map.exceptions.LinePointsIsIncorrectException;
 import map.rendering.MapObjectsRenderer;
 
@@ -47,7 +47,7 @@ public class MapPolygon extends MapLine
 	 * @return Can this type of map object be drawen with this style
 	 */
 	@Override
-	protected boolean canBeDrawenWithStyle(MapObjectStyle pStyle)
+	protected boolean canBeDrawenWithStyle(MapObjectDrawSettings pStyle)
 	{
 		if (pStyle == null)
 			return false;

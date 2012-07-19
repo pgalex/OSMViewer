@@ -2,7 +2,7 @@ package mapTests;
 
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.EditableDefenitionTags;
-import drawingStyles.MapObjectStyle;
+import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleEditor;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,15 +47,15 @@ public class MapObjectDrawPriorityComparatorTest
 		StyleEditor editor = DrawingStylesFactory.createStyleEditor();
 		EditableDefenitionTags tags1 = new EditableDefenitionTags();
 		tags1.add(new MapTag("k1", "v1"));
-		editor.addMapObjectStyle(new MapObjectStyle(false, false, false, null, 10, "", null, tags1));
+		editor.addMapObjectStyle(new MapObjectDrawSettings(false, false, false, null, 10, "", null, tags1));
 		
 		EditableDefenitionTags tags2 = new EditableDefenitionTags();
 		tags2.add(new MapTag("k2", "v2"));
-		editor.addMapObjectStyle(new MapObjectStyle(false, false, false, null, 11, "", null, tags2));
+		editor.addMapObjectStyle(new MapObjectDrawSettings(false, false, false, null, 11, "", null, tags2));
 		
 		EditableDefenitionTags tags3 = new EditableDefenitionTags();
 		tags3.add(new MapTag("k3", "v3"));
-		editor.addMapObjectStyle(new MapObjectStyle(false, false, false, null, -10, "", null, tags3));
+		editor.addMapObjectStyle(new MapObjectDrawSettings(false, false, false, null, -10, "", null, tags3));
 
 		ArrayList<MapObject> objects = new ArrayList<MapObject>();
 		MapObject object1 = new MapObject(1, tags1);

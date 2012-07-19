@@ -1,7 +1,7 @@
 package drawingStylesTests;
 
 import IOTesting.IOTester;
-import drawingStyles.MapObjectStyle;
+import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.DrawStyleOnScale;
 import drawingStyles.DrawStyleOnScaleArray;
 import java.util.ArrayList;
@@ -12,11 +12,11 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * MapObjectStyle class tests
+ * MapObjectDrawSettings class tests
  *
  * @author abc
  */
-public class MapObjectStyleTest
+public class MapObjectDrawSettingsTest
 {
 	/**
 	 * Test sorting. Sorting by tags count. More tags - less index
@@ -38,10 +38,10 @@ public class MapObjectStyleTest
 		EditableDefenitionTags tags3 = new EditableDefenitionTags();
 		tags3.add(new MapTag("k8", "v8"));
 
-		ArrayList<MapObjectStyle> styles = new ArrayList<MapObjectStyle>();
-		styles.add(new MapObjectStyle(true, true, true, null, 0, "", null, tags1));
-		styles.add(new MapObjectStyle(true, true, true, null, 0, "", null, tags2));
-		styles.add(new MapObjectStyle(true, true, true, null, 0, "", null, tags3));
+		ArrayList<MapObjectDrawSettings> styles = new ArrayList<MapObjectDrawSettings>();
+		styles.add(new MapObjectDrawSettings(true, true, true, null, 0, "", null, tags1));
+		styles.add(new MapObjectDrawSettings(true, true, true, null, 0, "", null, tags2));
+		styles.add(new MapObjectDrawSettings(true, true, true, null, 0, "", null, tags3));
 		Collections.sort(styles);
 
 		assertTrue(styles.get(0).getDefenitionTags().compareTo(tags2));
@@ -55,7 +55,7 @@ public class MapObjectStyleTest
 	@Test
 	public void autoInitializeTest()
 	{
-		MapObjectStyle style = new MapObjectStyle(true, true, true, null, 0, "", null, null);
+		MapObjectDrawSettings style = new MapObjectDrawSettings(true, true, true, null, 0, "", null, null);
 		assertNotNull(style.getScaledStyles());
 		assertNotNull(style.getDefenitionTags());
 	}
@@ -80,11 +80,11 @@ public class MapObjectStyleTest
 			tags.add(new MapTag("k1", "v1"));
 			tags.add(new MapTag("k2", "v2"));
 
-			MapObjectStyle writedStyle = new MapObjectStyle(true, false,
+			MapObjectDrawSettings writedStyle = new MapObjectDrawSettings(true, false,
 							true, null, 10, "object1", scaledStyles, tags);
 			IOTester.writeToTestFile(writedStyle);
 
-			MapObjectStyle readStyle = new MapObjectStyle();
+			MapObjectDrawSettings readStyle = new MapObjectDrawSettings();
 			IOTester.readFromTestFile(readStyle);
 
 			assertEquals(writedStyle.canBeLine(), readStyle.canBeLine());

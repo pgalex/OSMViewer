@@ -15,7 +15,7 @@ public class MapObjectStylesViewer extends MapObjectDrawStylesContainer implemen
 	/**
 	 * Static array. Work faster. All styles sorted by tags count
 	 */
-	private MapObjectStyle[] styles;
+	private MapObjectDrawSettings[] styles;
 
 	/**
 	 * Default constructor
@@ -24,7 +24,7 @@ public class MapObjectStylesViewer extends MapObjectDrawStylesContainer implemen
 	{
 		super();
 		
-		styles = new MapObjectStyle[0];
+		styles = new MapObjectDrawSettings[0];
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class MapObjectStylesViewer extends MapObjectDrawStylesContainer implemen
 	 * @return map object drawing style. null if style with this index not found
 	 */
 	@Override
-	public MapObjectStyle getMapObjectStyle(Integer pIndex)
+	public MapObjectDrawSettings getMapObjectStyle(Integer pIndex)
 	{
 		if (pIndex == null)
 			return null;

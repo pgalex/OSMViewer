@@ -1,7 +1,7 @@
 package mapTests;
 
 import drawingStyles.DrawingStylesFactory;
-import drawingStyles.MapObjectStyle;
+import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleEditor;
 import drawingStyles.EditableDefenitionTags;
 import map.MapObject;
@@ -38,14 +38,14 @@ public class MapObjectTest
 		EditableDefenitionTags tags1 = new EditableDefenitionTags();
 		tags1.add(new MapTag("k1", "v1"));
 		tags1.add(new MapTag("k2", "v2"));
-		MapObjectStyle style1 = new MapObjectStyle(true, true, true, null, 0, "style1", null, tags1);
+		MapObjectDrawSettings style1 = new MapObjectDrawSettings(true, true, true, null, 0, "style1", null, tags1);
 		styleEditor.addMapObjectStyle(style1);
 
 		EditableDefenitionTags tags2 = new EditableDefenitionTags();
 		tags2.add(new MapTag("k3", "v3"));
 		tags2.add(new MapTag("k4", "v4"));
 		tags2.add(new MapTag("k5", "v5"));
-		MapObjectStyle style2 = new MapObjectStyle(false, false, false, null, 0, "style2", null, tags2);
+		MapObjectDrawSettings style2 = new MapObjectDrawSettings(false, false, false, null, 0, "style2", null, tags2);
 		styleEditor.addMapObjectStyle(style2);
 
 		EditableDefenitionTags objectTags = new EditableDefenitionTags();
@@ -74,7 +74,7 @@ public class MapObjectTest
 
 		EditableDefenitionTags tags1 = new EditableDefenitionTags();
 		tags1.add(new MapTag("k1", "v1"));
-		MapObjectStyle style1 = new MapObjectStyle(true, true, true, null, 0, "style1", null, tags1);
+		MapObjectDrawSettings style1 = new MapObjectDrawSettings(true, true, true, null, 0, "style1", null, tags1);
 		styleEditor.addMapObjectStyle(style1);
 
 		EditableDefenitionTags objectTags = new EditableDefenitionTags();
@@ -97,14 +97,14 @@ public class MapObjectTest
 		EditableDefenitionTags tags1 = new EditableDefenitionTags();
 		tags1.add(new MapTag("k1", "v1"));
 		tags1.add(new MapTag("k2", "v2"));
-		MapObjectStyle style1 = new MapObjectStyle(true, true, true, null, 0, "style1", null, tags1);
+		MapObjectDrawSettings style1 = new MapObjectDrawSettings(true, true, true, null, 0, "style1", null, tags1);
 		styleEditor.addMapObjectStyle(style1);
 
 		EditableDefenitionTags tags2 = new EditableDefenitionTags();
 		tags2.add(new MapTag("k3", "v3"));
 		tags2.add(new MapTag("k4", "v4"));
 		tags2.add(new MapTag("k5", "v5"));
-		MapObjectStyle style2 = new MapObjectStyle(false, false, false, null, 0, "style2", null, tags2);
+		MapObjectDrawSettings style2 = new MapObjectDrawSettings(false, false, false, null, 0, "style2", null, tags2);
 		styleEditor.addMapObjectStyle(style2);
 
 		EditableDefenitionTags objectTags = new EditableDefenitionTags();

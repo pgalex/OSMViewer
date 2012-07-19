@@ -20,7 +20,7 @@ public class MapObjectStylesEditor extends MapObjectDrawStylesContainer implemen
 	 * Array of map object styles. All styles sorted by tags
 	 * countOfMapObjectStyles
 	 */
-	private ArrayList<MapObjectStyle> styles;
+	private ArrayList<MapObjectDrawSettings> styles;
 
 	/**
 	 * Default constructor
@@ -29,7 +29,7 @@ public class MapObjectStylesEditor extends MapObjectDrawStylesContainer implemen
 	{
 		super();
 
-		styles = new ArrayList<MapObjectStyle>();
+		styles = new ArrayList<MapObjectDrawSettings>();
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class MapObjectStylesEditor extends MapObjectDrawStylesContainer implemen
 		{
 			super.writeToStream(pOutput);
 
-			writeStylesToStream(styles.toArray(new MapObjectStyle[styles.size()]), pOutput);
+			writeStylesToStream(styles.toArray(new MapObjectDrawSettings[styles.size()]), pOutput);
 		}
 		catch (Exception ex)
 		{
@@ -67,7 +67,7 @@ public class MapObjectStylesEditor extends MapObjectDrawStylesContainer implemen
 			super.readFromStream(pInput);
 
 			styles.clear();
-			MapObjectStyle[] readingStyles = readStylesFromStream(pInput);
+			MapObjectDrawSettings[] readingStyles = readStylesFromStream(pInput);
 			Collections.addAll(styles, readingStyles);
 		}
 		catch (IOException ex)
@@ -85,7 +85,7 @@ public class MapObjectStylesEditor extends MapObjectDrawStylesContainer implemen
 	 * @throws MapObjectStyleIsNullException new style is null
 	 */
 	@Override
-	public void setMapObjectStyle(Integer pIndex, MapObjectStyle pNewStyle) throws StyleIndexOutOfBoundsException, MapObjectStyleIsNullException
+	public void setMapObjectStyle(Integer pIndex, MapObjectDrawSettings pNewStyle) throws StyleIndexOutOfBoundsException, MapObjectStyleIsNullException
 	{
 		if (pIndex == null)
 			throw new StyleIndexOutOfBoundsException(this, pIndex, 0, styles.size());
@@ -122,7 +122,7 @@ public class MapObjectStylesEditor extends MapObjectDrawStylesContainer implemen
 		if (pDefenitionTags == null)
 			return null;
 
-		return findStyleIndex(styles.toArray(new MapObjectStyle[styles.size()]), pDefenitionTags);
+		return findStyleIndex(styles.toArray(new MapObjectDrawSettings[styles.size()]), pDefenitionTags);
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class MapObjectStylesEditor extends MapObjectDrawStylesContainer implemen
 	 * @return map object drawing style. null if style with this id not found
 	 */
 	@Override
-	public MapObjectStyle getMapObjectStyle(Integer pIndex)
+	public MapObjectDrawSettings getMapObjectStyle(Integer pIndex)
 	{
 		if (pIndex == null)
 			return null;
@@ -149,7 +149,7 @@ public class MapObjectStylesEditor extends MapObjectDrawStylesContainer implemen
 	 * @throws MapObjectStyleIsNullException new style is null
 	 */
 	@Override
-	public void addMapObjectStyle(MapObjectStyle pNewStyle) throws MapObjectStyleIsNullException
+	public void addMapObjectStyle(MapObjectDrawSettings pNewStyle) throws MapObjectStyleIsNullException
 	{
 		if (pNewStyle == null)
 			throw new MapObjectStyleIsNullException(this);

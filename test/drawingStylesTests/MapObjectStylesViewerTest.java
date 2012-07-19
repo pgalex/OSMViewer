@@ -1,6 +1,6 @@
 package drawingStylesTests;
 
-import drawingStyles.MapObjectStyle;
+import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.MapDrawingSettings;
 import drawingStyles.IOColor;
 import drawingStyles.StyleViewer;
@@ -56,9 +56,9 @@ public class MapObjectStylesViewerTest
 	{
 		try
 		{
-			MapObjectStyle style1 = new MapObjectStyle(true, true, false, null, 0, "style1", null, null);
-			MapObjectStyle style2 = new MapObjectStyle(true, false, true, null, 0, "style2", null, null);
-			MapObjectStyle style3 = new MapObjectStyle(false, true, true, null, 0, "style3", null, null);
+			MapObjectDrawSettings style1 = new MapObjectDrawSettings(true, true, false, null, 0, "style1", null, null);
+			MapObjectDrawSettings style2 = new MapObjectDrawSettings(true, false, true, null, 0, "style2", null, null);
+			MapObjectDrawSettings style3 = new MapObjectDrawSettings(false, true, true, null, 0, "style3", null, null);
 
 			StyleEditor writedEditor = DrawingStylesFactory.createStyleEditor();
 			writedEditor.addMapObjectStyle(style1);
@@ -106,9 +106,9 @@ public class MapObjectStylesViewerTest
 			EditableDefenitionTags tags3 = new EditableDefenitionTags();
 			tags3.add(new MapTag("k8", "v8"));
 
-			MapObjectStyle style1 = new MapObjectStyle(true, true, true, null, 0, "style1", null, tags1);
-			MapObjectStyle style2 = new MapObjectStyle(true, true, true, null, 0, "style2", null, tags2);
-			MapObjectStyle style3 = new MapObjectStyle(true, true, true, null, 0, "style3", null, tags3);
+			MapObjectDrawSettings style1 = new MapObjectDrawSettings(true, true, true, null, 0, "style1", null, tags1);
+			MapObjectDrawSettings style2 = new MapObjectDrawSettings(true, true, true, null, 0, "style2", null, tags2);
+			MapObjectDrawSettings style3 = new MapObjectDrawSettings(true, true, true, null, 0, "style3", null, tags3);
 
 			StyleEditor editor = DrawingStylesFactory.createStyleEditor();
 			editor.addMapObjectStyle(style1);
@@ -179,11 +179,11 @@ public class MapObjectStylesViewerTest
 			// for test normal work need to save some styles
 			EditableDefenitionTags tags1 = new EditableDefenitionTags();
 			tags1.add(new MapTag("k1", "v1"));
-			MapObjectStyle style1 = new MapObjectStyle(true, true, true, null, 0, "style1", null, tags1);
+			MapObjectDrawSettings style1 = new MapObjectDrawSettings(true, true, true, null, 0, "style1", null, tags1);
 
 			EditableDefenitionTags tags2 = new EditableDefenitionTags();
 			tags2.add(new MapTag("k2", "v2"));
-			MapObjectStyle style2 = new MapObjectStyle(true, true, true, null, 0, "style2", null, tags2);
+			MapObjectDrawSettings style2 = new MapObjectDrawSettings(true, true, true, null, 0, "style2", null, tags2);
 
 			StyleEditor editor = DrawingStylesFactory.createStyleEditor();
 			editor.addMapObjectStyle(style1);
