@@ -33,7 +33,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData, Compara
 	 */
 	private TextTagsKeys textTagKeys;
 	/**
-	 * Drawing priority (front back)
+	 * Drawing priority
 	 */
 	private int drawPriority;
 	/**
@@ -43,7 +43,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData, Compara
 	/**
 	 * How to draw object on each scale level
 	 */
-	private ScaledObjectStyleCollection scaledStyles;
+	private ScaledObjectStyleArray scaledStyles;
 	/**
 	 * Tags that define map object
 	 */
@@ -79,7 +79,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData, Compara
 	 * @param pDefenitionTags Map object defenition tags
 	 */
 	public MapObjectStyle(boolean pCanBePoint, boolean pCanBeLine, boolean pCanBePolygon,
-					TextTagsKeys pTextTagKeys, int pDrawPriority, String pDescription, ScaledObjectStyleCollection pScaledStyles,
+					TextTagsKeys pTextTagKeys, int pDrawPriority, String pDescription, ScaledObjectStyleArray pScaledStyles,
 					DefenitionTags pDefenitionTags)
 	{
 		canBePoint = pCanBePoint;
@@ -210,7 +210,7 @@ public class MapObjectStyle implements ReadableMapData, WritableMapData, Compara
 	 *
 	 * @return scaled drawing styles
 	 */
-	public ScaledObjectStyleCollection getScaledStyles()
+	public ScaledObjectStyleArray getScaledStyles()
 	{
 		return scaledStyles;
 	}

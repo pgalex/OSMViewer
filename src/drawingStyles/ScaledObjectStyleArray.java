@@ -1,5 +1,7 @@
 package drawingStyles;
 
+import IO.ReadableMapData;
+import IO.WritableMapData;
 import drawingStyles.exceptions.ScaleLevelOutOfBoundsException;
 import drawingStyles.exceptions.ScaledStyleIsNullException;
 import java.io.DataInputStream;
@@ -11,7 +13,7 @@ import java.io.IOException;
  *
  * @author pgalex
  */
-public class ScaledObjectStyleArray implements ScaledObjectStyleCollection
+public class ScaledObjectStyleArray implements ReadableMapData, WritableMapData
 {
 	/**
 	 * Default minimum scale level of array. Scale levels that used to store
@@ -98,7 +100,6 @@ public class ScaledObjectStyleArray implements ScaledObjectStyleCollection
 	 * @param pScaleLevel scale level
 	 * @return style on specifiec scale level
 	 */
-	@Override
 	public ScaledObjectStyle getStyleOnScale(int pScaleLevel)
 	{
 		int normalizedScaleLevel = normalizeScaleLevel(pScaleLevel);
@@ -131,7 +132,6 @@ public class ScaledObjectStyleArray implements ScaledObjectStyleCollection
 	 *
 	 * @return minimum scale levels
 	 */
-	@Override
 	public int getMinimumScaleLevel()
 	{
 		return minimumScaleLevel;
@@ -142,7 +142,6 @@ public class ScaledObjectStyleArray implements ScaledObjectStyleCollection
 	 *
 	 * @return maximum scale level
 	 */
-	@Override
 	public int getMaximumScaleLevel()
 	{
 		return maximumScaleLevel;
@@ -154,7 +153,6 @@ public class ScaledObjectStyleArray implements ScaledObjectStyleCollection
 	 * @param pInput reading stream
 	 * @throws IOException reading error
 	 */
-	@Override
 	public void readFromStream(DataInputStream pInput) throws IOException
 	{
 		try

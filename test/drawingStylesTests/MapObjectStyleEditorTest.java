@@ -1,17 +1,11 @@
 package drawingStylesTests;
 
-import drawingStyles.MapObjectStyle;
-import drawingStyles.MapDrawingSettings;
-import drawingStyles.IOColor;
-import drawingStyles.DrawingStylesFactory;
-import drawingStyles.StyleEditor;
 import IOTesting.IOTester;
+import drawingStyles.*;
 import drawingStyles.exceptions.MapDrawingSettingsIsNullException;
 import drawingStyles.exceptions.MapObjectStyleIsNullException;
 import drawingStyles.exceptions.StyleIndexOutOfBoundsException;
 import java.awt.Color;
-import drawingStyles.EditableDefenitionTags;
-import drawingStyles.MapTag;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

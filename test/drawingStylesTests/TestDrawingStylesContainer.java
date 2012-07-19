@@ -2,13 +2,13 @@ package drawingStylesTests;
 
 import IOTesting.IOTester;
 import drawingStyles.DrawingStylesContainer;
+import drawingStyles.EditableDefenitionTags;
 import drawingStyles.MapObjectStyle;
+import drawingStyles.MapTag;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import drawingStyles.EditableDefenitionTags;
-import drawingStyles.MapTag;
 import static org.junit.Assert.*;
 
 /**
