@@ -13,7 +13,7 @@ import java.util.TreeMap;
  *
  * @author pgalex
  */
-public class DrawingStylesContainer implements ReadableMapData, WritableMapData
+public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMapData
 {
 	/**
 	 * Information about map drawing
@@ -23,7 +23,7 @@ public class DrawingStylesContainer implements ReadableMapData, WritableMapData
 	/**
 	 * Default constructor
 	 */
-	public DrawingStylesContainer()
+	public MapObjectDrawStylesContainer()
 	{
 		mapDrawingSettings = new MapDrawingSettings(null);
 	}

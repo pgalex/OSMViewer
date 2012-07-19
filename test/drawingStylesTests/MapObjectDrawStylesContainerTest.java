@@ -7,7 +7,7 @@ import org.junit.Test;
  *
  * @author pgalex
  */
-public class DrawingStylesContainerTest
+public class MapObjectDrawStylesContainerTest
 {
 	/**
 	 * Testing protected methods
@@ -15,7 +15,7 @@ public class DrawingStylesContainerTest
 	@Test
 	public void protectedMethodsTest()
 	{
-		TestDrawingStylesContainer testStylesContainer = new TestDrawingStylesContainer();
+		TestMapObjectDrawStylesContainer testStylesContainer = new TestMapObjectDrawStylesContainer();
 		testStylesContainer.runProtectedMethodsTests();
 	}
 }
