@@ -2,6 +2,7 @@ package drawingStyles;
 
 import IO.ReadableMapData;
 import IO.WritableMapData;
+import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -11,7 +12,7 @@ import java.io.IOException;
  *
  * @author abc
  */
-public class PointDrawSettings implements ReadableMapData, WritableMapData
+public class PointDrawSettings implements PointDrawStyle, ReadableMapData, WritableMapData
 {
 	/**
 	 * Icon
@@ -29,12 +30,11 @@ public class PointDrawSettings implements ReadableMapData, WritableMapData
 	/**
 	 * Contructor
 	 *
-	 * @param pIcon icon
+	 * @param pIcon icon. Can be null
 	 */
-	public PointDrawSettings(IOIcon pIcon)
+	public PointDrawSettings(BufferedImage pIcon)
 	{
-		icon = pIcon;
-		initializeNullFields();
+		icon = new IOIcon(pIcon);
 	}
 
 	/**
@@ -80,17 +80,19 @@ public class PointDrawSettings implements ReadableMapData, WritableMapData
 	 *
 	 * @return icon
 	 */
-	public IOIcon getIcon()
+	@Override
+	public BufferedImage getIcon()
 	{
-		return icon;
+		return icon.getImage();
 	}
 
 	/**
-	 * Auto initialize null fields
+	 * Set new icon
+	 *
+	 * @param pIcon new icon
 	 */
-	private void initializeNullFields()
+	public void setIcon(BufferedImage pIcon)
 	{
-		if (icon == null)
-			icon = new IOIcon();
+		icon.setImage(pIcon);
 	}
 }

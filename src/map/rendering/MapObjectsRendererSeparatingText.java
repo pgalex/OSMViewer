@@ -106,8 +106,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 
 		Point2D pointPositionOnCanvas = coordinatesConverter.goegraphicsToCanvas(pPoint.getPosition());
 
-		IOIcon pointIOIcon = pointStyle.getIcon();
-		BufferedImage pointImage = pointIOIcon.getImage();
+		BufferedImage pointImage = pointStyle.getIcon();
 		if (pointImage != null)
 		{
 			canvas.drawImage(pointImage, (int) (pointPositionOnCanvas.getX() - pointImage.getWidth() / 2),
