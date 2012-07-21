@@ -19,7 +19,7 @@ public class PointDrawSettings implements ReadableMapData, WritableMapData
 	private IOIcon icon;
 
 	/**
-	 * Default onstructor
+	 * Default constructor
 	 */
 	public PointDrawSettings()
 	{

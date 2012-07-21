@@ -17,11 +17,11 @@ import javax.imageio.ImageIO;
 public class IOIcon implements ReadableMapData, WritableMapData
 {
 	/**
-	 * Writing format
+	 * Writing/reading format
 	 */
 	private static final String IMAGE_FORMAT = "png";
 	/**
-	 * Image. Can be null. Must be "settable" only from constructor
+	 * Image. Can be null
 	 */
 	private BufferedImage image;
 
@@ -31,6 +31,16 @@ public class IOIcon implements ReadableMapData, WritableMapData
 	public IOIcon()
 	{
 		image = null;
+	}
+
+	/**
+	 * Constructor
+	 *
+	 * @param pImage image
+	 */
+	public IOIcon(BufferedImage pImage)
+	{
+		image = pImage;
 	}
 
 	/**
@@ -105,5 +115,15 @@ public class IOIcon implements ReadableMapData, WritableMapData
 	public BufferedImage getImage()
 	{
 		return image;
+	}
+
+	/**
+	 * Set new image
+	 *
+	 * @param pImage new image
+	 */
+	public void setImage(BufferedImage pImage)
+	{
+		image = pImage;
 	}
 }
