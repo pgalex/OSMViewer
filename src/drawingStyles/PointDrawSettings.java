@@ -7,19 +7,19 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
- * Класс стиля рисования точки
+ * How to object if its one node
  *
  * @author abc
  */
 public class PointDrawSettings implements ReadableMapData, WritableMapData
 {
 	/**
-	 * Значок
+	 * Icon
 	 */
 	private IOIcon icon;
 
 	/**
-	 * Конструктор
+	 * Default onstructor
 	 */
 	public PointDrawSettings()
 	{
@@ -27,9 +27,9 @@ public class PointDrawSettings implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Конструктор
+	 * Contructor
 	 *
-	 * @param pIcon значок. Если null, то создается автоматически
+	 * @param pIcon icon
 	 */
 	public PointDrawSettings(IOIcon pIcon)
 	{
@@ -38,10 +38,10 @@ public class PointDrawSettings implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Считать из файла
+	 * Read from stream
 	 *
-	 * @param pInput поток чтения
-	 * @throws IOException чтение не удалось
+	 * @param pInput reading stream
+	 * @throws IOException reading error
 	 */
 	@Override
 	public void readFromStream(DataInputStream pInput) throws IOException
@@ -57,10 +57,10 @@ public class PointDrawSettings implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Записать в файл
+	 * Write into stream
 	 *
-	 * @param pOutput поток вывода
-	 * @throws IOException запись не удалась
+	 * @param pOutput output stream
+	 * @throws IOException writing error
 	 */
 	@Override
 	public void writeToStream(DataOutputStream pOutput) throws IOException
@@ -76,9 +76,9 @@ public class PointDrawSettings implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Получить значок
+	 * Get icon
 	 *
-	 * @return значок
+	 * @return icon
 	 */
 	public IOIcon getIcon()
 	{
@@ -86,7 +86,7 @@ public class PointDrawSettings implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Инициализировать null поля значениями по умолчанию
+	 * Auto initialize null fields
 	 */
 	private void initializeNullFields()
 	{
