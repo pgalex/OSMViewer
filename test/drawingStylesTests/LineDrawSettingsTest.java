@@ -2,18 +2,18 @@ package drawingStylesTests;
 
 import IOTesting.IOTester;
 import drawingStyles.IOColor;
-import drawingStyles.LineDrawStyle;
+import drawingStyles.LineDrawSettings;
 import drawingStyles.LinePattern;
 import java.awt.Color;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * LineDrawStyle class tests
+ * LineDrawSettings class tests
  *
  * @author abc
  */
-public class LineDrawStyleTest
+public class LineDrawSettingsTest
 {
 	/**
 	 * Test auto initialize in constructor
@@ -21,7 +21,7 @@ public class LineDrawStyleTest
 	@Test
 	public void autoInitializeTest()
 	{
-		LineDrawStyle testStyle = new LineDrawStyle(null, 1, null);
+		LineDrawSettings testStyle = new LineDrawSettings(null, 1, null);
 		assertNotNull(testStyle.getColor());
 		assertNotNull(testStyle.getLinePattern());
 	}
@@ -39,10 +39,10 @@ public class LineDrawStyleTest
 			pattern[1] = 3;
 			pattern[2] = 4;
 			pattern[3] = 5;
-			LineDrawStyle writedStyle = new LineDrawStyle(new IOColor(Color.CYAN), 11, new LinePattern(pattern));
+			LineDrawSettings writedStyle = new LineDrawSettings(new IOColor(Color.CYAN), 11, new LinePattern(pattern));
 			IOTester.writeToTestFile(writedStyle);
 
-			LineDrawStyle readStyle = new LineDrawStyle();
+			LineDrawSettings readStyle = new LineDrawSettings();
 			IOTester.readFromTestFile(readStyle);
 
 			assertEquals(writedStyle.getColor().getColor(), readStyle.getColor().getColor());

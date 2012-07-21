@@ -11,7 +11,7 @@ import java.io.IOException;
  *
  * @author abc
  */
-public class LineDrawStyle implements ReadableMapData, WritableMapData
+public class LineDrawSettings implements ReadableMapData, WritableMapData
 {
 	/**
 	 * Default line width
@@ -33,7 +33,7 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 	/**
 	 * Default constructor
 	 */
-	public LineDrawStyle()
+	public LineDrawSettings()
 	{
 		color = new IOColor();
 		width = DEFAULT_WIDTH;
@@ -47,7 +47,7 @@ public class LineDrawStyle implements ReadableMapData, WritableMapData
 	 * @param pWidth width
 	 * @param pPattern pattern. Autocreating if null
 	 */
-	public LineDrawStyle(IOColor pColor, int pWidth, LinePattern pPattern)
+	public LineDrawSettings(IOColor pColor, int pWidth, LinePattern pPattern)
 	{
 		color = pColor;
 		width = pWidth;

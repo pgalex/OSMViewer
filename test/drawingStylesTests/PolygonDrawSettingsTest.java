@@ -1,9 +1,9 @@
 package drawingStylesTests;
 
-import drawingStyles.LineDrawStyle;
+import drawingStyles.LineDrawSettings;
 import drawingStyles.IOColor;
 import drawingStyles.LinePattern;
-import drawingStyles.PolygonDrawStyle;
+import drawingStyles.PolygonDrawSettings;
 import drawingStyles.IOIcon;
 import IOTesting.IOTester;
 import java.awt.Color;
@@ -11,11 +11,11 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * PolygonDrawStyle class tests
+ * PolygonDrawSettings class tests
  *
  * @author abc
  */
-public class PolygonDrawStyleTest
+public class PolygonDrawSettingsTest
 {
 	/**
 	 * Test auto initialize in constructor
@@ -23,7 +23,7 @@ public class PolygonDrawStyleTest
 	@Test
 	public void autoInitializeTest()
 	{
-		PolygonDrawStyle testStyle = new PolygonDrawStyle(null, null, null);
+		PolygonDrawSettings testStyle = new PolygonDrawSettings(null, null, null);
 
 		assertNotNull(testStyle.getBorderDrawStyle());
 		assertNotNull(testStyle.getFillColor());
@@ -38,13 +38,13 @@ public class PolygonDrawStyleTest
 	{
 		try
 		{
-			LineDrawStyle borderStyle = new LineDrawStyle(new IOColor(Color.CYAN), 10, new LinePattern());
-			PolygonDrawStyle writedStyle = new PolygonDrawStyle(new IOColor(Color.MAGENTA), borderStyle,
+			LineDrawSettings borderStyle = new LineDrawSettings(new IOColor(Color.CYAN), 10, new LinePattern());
+			PolygonDrawSettings writedStyle = new PolygonDrawSettings(new IOColor(Color.MAGENTA), borderStyle,
 							new IOIcon());
 
 			IOTester.writeToTestFile(writedStyle);
 
-			PolygonDrawStyle readStyle = new PolygonDrawStyle();
+			PolygonDrawSettings readStyle = new PolygonDrawSettings();
 			IOTester.readFromTestFile(readStyle);
 
 			assertEquals(writedStyle.getFillColor().getColor(), readStyle.getFillColor().getColor());

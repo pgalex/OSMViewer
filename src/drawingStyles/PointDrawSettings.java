@@ -7,11 +7,11 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
- * Класс стиля рисования точки. Установка значений полей только из конструктора
+ * Класс стиля рисования точки
  *
  * @author abc
  */
-public class PointDrawStyle implements ReadableMapData, WritableMapData
+public class PointDrawSettings implements ReadableMapData, WritableMapData
 {
 	/**
 	 * Значок
@@ -21,7 +21,7 @@ public class PointDrawStyle implements ReadableMapData, WritableMapData
 	/**
 	 * Конструктор
 	 */
-	public PointDrawStyle()
+	public PointDrawSettings()
 	{
 		icon = new IOIcon();
 	}
@@ -31,7 +31,7 @@ public class PointDrawStyle implements ReadableMapData, WritableMapData
 	 *
 	 * @param pIcon значок. Если null, то создается автоматически
 	 */
-	public PointDrawStyle(IOIcon pIcon)
+	public PointDrawSettings(IOIcon pIcon)
 	{
 		icon = pIcon;
 		initializeNullFields();
@@ -46,7 +46,14 @@ public class PointDrawStyle implements ReadableMapData, WritableMapData
 	@Override
 	public void readFromStream(DataInputStream pInput) throws IOException
 	{
-		icon.readFromStream(pInput);
+		try
+		{
+			icon.readFromStream(pInput);
+		}
+		catch (Exception ex)
+		{
+			throw new IOException();
+		}
 	}
 
 	/**
@@ -58,7 +65,14 @@ public class PointDrawStyle implements ReadableMapData, WritableMapData
 	@Override
 	public void writeToStream(DataOutputStream pOutput) throws IOException
 	{
-		icon.writeToStream(pOutput);
+		try
+		{
+			icon.writeToStream(pOutput);
+		}
+		catch (Exception ex)
+		{
+			throw new IOException();
+		}
 	}
 
 	/**

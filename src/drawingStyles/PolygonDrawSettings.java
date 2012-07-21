@@ -11,7 +11,7 @@ import java.io.IOException;
  *
  * @author abc
  */
-public class PolygonDrawStyle implements ReadableMapData, WritableMapData
+public class PolygonDrawSettings implements ReadableMapData, WritableMapData
 {
 	/**
 	 * Цвет заполнения
@@ -20,7 +20,7 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 	/**
 	 * Стиль рисования границы
 	 */
-	private LineDrawStyle borderDrawStyle;
+	private LineDrawSettings borderDrawStyle;
 	/**
 	 * Текстура для заполнения
 	 */
@@ -29,10 +29,10 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 	/**
 	 * Конструктор
 	 */
-	public PolygonDrawStyle()
+	public PolygonDrawSettings()
 	{
 		fillColor = new IOColor();
-		borderDrawStyle = new LineDrawStyle();
+		borderDrawStyle = new LineDrawSettings();
 		fillImage = new IOIcon();
 	}
 
@@ -46,7 +46,7 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 	 * @param pFillImage Текстура для заполнения. При нулевом значении задается
 	 * автоматически
 	 */
-	public PolygonDrawStyle(IOColor pFillColor, LineDrawStyle pBorderDrawStyle, IOIcon pFillImage)
+	public PolygonDrawSettings(IOColor pFillColor, LineDrawSettings pBorderDrawStyle, IOIcon pFillImage)
 	{
 		fillColor = pFillColor;
 		borderDrawStyle = pBorderDrawStyle;
@@ -112,7 +112,7 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 	 *
 	 * @return стиль границы
 	 */
-	public LineDrawStyle getBorderDrawStyle()
+	public LineDrawSettings getBorderDrawStyle()
 	{
 		return borderDrawStyle;
 	}
@@ -136,7 +136,7 @@ public class PolygonDrawStyle implements ReadableMapData, WritableMapData
 			fillColor = new IOColor();
 
 		if (borderDrawStyle == null)
-			borderDrawStyle = new LineDrawStyle();
+			borderDrawStyle = new LineDrawSettings();
 
 		if (fillImage == null)
 			fillImage = new IOIcon();

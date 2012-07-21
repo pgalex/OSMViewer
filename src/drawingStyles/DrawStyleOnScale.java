@@ -29,15 +29,15 @@ public class DrawStyleOnScale implements ReadableMapData, WritableMapData
 	/**
 	 * point drawing style. стиль точки
 	 */
-	private PointDrawStyle pointStyle;
+	private PointDrawSettings pointStyle;
 	/**
 	 * line drawing style. стиль линии
 	 */
-	private LineDrawStyle lineStyle;
+	private LineDrawSettings lineStyle;
 	/**
 	 * polygon drawing style. стиль многоугольника
 	 */
-	private PolygonDrawStyle polygonStyle;
+	private PolygonDrawSettings polygonStyle;
 	/**
 	 * Map object text(caption) font. Шрифт текста для имени
 	 */
@@ -52,9 +52,9 @@ public class DrawStyleOnScale implements ReadableMapData, WritableMapData
 	 */
 	public DrawStyleOnScale()
 	{
-		pointStyle = new PointDrawStyle();
-		lineStyle = new LineDrawStyle();
-		polygonStyle = new PolygonDrawStyle();
+		pointStyle = new PointDrawSettings();
+		lineStyle = new LineDrawSettings();
+		polygonStyle = new PolygonDrawSettings();
 		drawPoint = false;
 		drawLine = false;
 		drawPolygon = false;
@@ -77,7 +77,7 @@ public class DrawStyleOnScale implements ReadableMapData, WritableMapData
 	 * Auto-initialize if null
 	 */
 	public DrawStyleOnScale(boolean pDrawPoint, boolean pDrawLine, boolean pDrawPolygon,
-					PointDrawStyle pPointStyle, LineDrawStyle pLineStyle, PolygonDrawStyle pPolygonStyle,
+					PointDrawSettings pPointStyle, LineDrawSettings pLineStyle, PolygonDrawSettings pPolygonStyle,
 					IOColor pTextColor, IOFont pTextFont)
 	{
 		drawPoint = pDrawPoint;
@@ -181,7 +181,7 @@ public class DrawStyleOnScale implements ReadableMapData, WritableMapData
 	 *
 	 * @return point drawing style
 	 */
-	public PointDrawStyle getPointStyle()
+	public PointDrawSettings getPointStyle()
 	{
 		return pointStyle;
 	}
@@ -191,7 +191,7 @@ public class DrawStyleOnScale implements ReadableMapData, WritableMapData
 	 *
 	 * @return line drawing style
 	 */
-	public LineDrawStyle getLineStyle()
+	public LineDrawSettings getLineStyle()
 	{
 		return lineStyle;
 	}
@@ -201,7 +201,7 @@ public class DrawStyleOnScale implements ReadableMapData, WritableMapData
 	 *
 	 * @return polygon drawing style
 	 */
-	public PolygonDrawStyle getPolygonStyle()
+	public PolygonDrawSettings getPolygonStyle()
 	{
 		return polygonStyle;
 	}
@@ -232,13 +232,13 @@ public class DrawStyleOnScale implements ReadableMapData, WritableMapData
 	private void initializeNullFields()
 	{
 		if (pointStyle == null)
-			pointStyle = new PointDrawStyle();
+			pointStyle = new PointDrawSettings();
 
 		if (lineStyle == null)
-			lineStyle = new LineDrawStyle();
+			lineStyle = new LineDrawSettings();
 
 		if (polygonStyle == null)
-			polygonStyle = new PolygonDrawStyle();
+			polygonStyle = new PolygonDrawSettings();
 
 		if (textColor == null)
 			textColor = new IOColor();

@@ -100,7 +100,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		if (!styleOnCurrentScale.isDrawPoint())
 			return;
 
-		PointDrawStyle pointStyle = styleOnCurrentScale.getPointStyle();
+		PointDrawSettings pointStyle = styleOnCurrentScale.getPointStyle();
 		if (pointStyle == null)
 			return;
 
