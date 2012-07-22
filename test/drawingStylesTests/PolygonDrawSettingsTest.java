@@ -1,11 +1,7 @@
 package drawingStylesTests;
 
-import drawingStyles.LineDrawSettings;
-import drawingStyles.IOColor;
-import drawingStyles.LinePattern;
-import drawingStyles.PolygonDrawSettings;
-import drawingStyles.IOIcon;
 import IOTesting.IOTester;
+import drawingStyles.*;
 import java.awt.Color;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -38,7 +34,7 @@ public class PolygonDrawSettingsTest
 	{
 		try
 		{
-			LineDrawSettings borderStyle = new LineDrawSettings(new IOColor(Color.CYAN), 10, new LinePattern());
+			LineDrawSettings borderStyle = new LineDrawSettings(Color.CYAN, 10, new LinePattern());
 			PolygonDrawSettings writedStyle = new PolygonDrawSettings(new IOColor(Color.MAGENTA), borderStyle,
 							new IOIcon());
 
@@ -48,7 +44,7 @@ public class PolygonDrawSettingsTest
 			IOTester.readFromTestFile(readStyle);
 
 			assertEquals(writedStyle.getFillColor().getColor(), readStyle.getFillColor().getColor());
-			assertEquals(writedStyle.getBorderDrawStyle().getColor().getColor(), readStyle.getBorderDrawStyle().getColor().getColor());
+			assertEquals(writedStyle.getBorderDrawStyle().getColor(), readStyle.getBorderDrawStyle().getColor());
 			assertEquals(writedStyle.getBorderDrawStyle().getWidth(), readStyle.getBorderDrawStyle().getWidth());
 		}
 		catch (Exception ex)

@@ -2,6 +2,7 @@ package drawingStyles;
 
 import IO.ReadableMapData;
 import IO.WritableMapData;
+import drawingStyles.exceptions.LinePatternIncorrectException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -34,17 +35,6 @@ public class LinePattern implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Constructor
-	 *
-	 * @param pPattern pattern
-	 */
-	public LinePattern(float[] pPattern)
-	{
-		pattern = pPattern;
-		initializeNullFields();
-	}
-
-	/**
 	 * Get line drawing pattern
 	 *
 	 * @return line drawing pattern
@@ -52,6 +42,21 @@ public class LinePattern implements ReadableMapData, WritableMapData
 	public float[] getPattern()
 	{
 		return pattern;
+	}
+
+	/**
+	 * Set new pattern
+	 *
+	 * @param pPattern new pattern
+	 * @throws LinePatternIncorrectException Pattern of LinePattern is null or
+	 * zero-length
+	 */
+	public void setPattern(float[] pPattern) throws LinePatternIncorrectException
+	{
+		if (pPattern == null || pPattern.length == 0)
+			throw new LinePatternIncorrectException();
+
+		pattern = pPattern;
 	}
 
 	/**
@@ -95,16 +100,5 @@ public class LinePattern implements ReadableMapData, WritableMapData
 		{
 			throw new IOException(e);
 		}
-	}
-
-	/**
-	 * Autocreate null fields with default values
-	 */
-	private void initializeNullFields()
-	{
-		if (pattern == null)
-			pattern = SOLID_LINE_PATTERN;
-		if (pattern.length == 0)
-			pattern = SOLID_LINE_PATTERN;
 	}
 }

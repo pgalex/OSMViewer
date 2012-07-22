@@ -2,6 +2,7 @@ package drawingStylesTests;
 
 import IOTesting.IOTester;
 import drawingStyles.LinePattern;
+import drawingStyles.exceptions.LinePatternIncorrectException;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -13,27 +14,53 @@ import org.junit.Test;
 public class LinePatternTest
 {
 	/**
-	 * Testing auto initialize in constructor if pattern null
+	 * Test setting default line pattern in default constructor
 	 */
 	@Test
-	public void autoInitializeNullPatternTest()
+	public void creatingWithDefaultPatternTest()
 	{
-		LinePattern pattern = new LinePattern(null);
+		LinePattern pattern = new LinePattern();
 		
 		assertNotNull(pattern.getPattern());
 		assertTrue(pattern.getPattern().length > 0);
 	}
 
 	/**
-	 * Testing auto initialize in constructor if pattern empty
+	 * Test setting null line pattern
 	 */
 	@Test
-	public void autoInitializeEmptyPatternTest()
+	public void setNullPatternTest()
 	{
-		LinePattern pattern = new LinePattern(new float[0]);
+		LinePattern pattern = new LinePattern();
 		
-		assertNotNull(pattern.getPattern());
-		assertTrue(pattern.getPattern().length > 0);
+		try
+		{
+			pattern.setPattern(null);
+			fail();
+		}
+		catch (LinePatternIncorrectException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Test setting zero length line pattern
+	 */
+	@Test
+	public void setZeroLengthPatternTest()
+	{
+		LinePattern pattern = new LinePattern();
+		
+		try
+		{
+			pattern.setPattern(new float[0]);
+			fail();
+		}
+		catch (LinePatternIncorrectException ex)
+		{
+			// ok
+		}
 	}
 
 	/**
@@ -49,13 +76,14 @@ public class LinePatternTest
 			pattern[1] = 3;
 			pattern[2] = 4;
 			pattern[3] = 5;
-			LinePattern writedPattern = new LinePattern(pattern);
-			IOTester.writeToTestFile(writedPattern);
+			LinePattern writingPattern = new LinePattern();
+			writingPattern.setPattern(pattern);
+			IOTester.writeToTestFile(writingPattern);
 			
-			LinePattern readPattern = new LinePattern();
-			IOTester.readFromTestFile(readPattern);
+			LinePattern readingPattern = new LinePattern();
+			IOTester.readFromTestFile(readingPattern);
 			
-			assertArrayEquals(writedPattern.getPattern(), readPattern.getPattern(), 0.0001f);
+			assertArrayEquals(writingPattern.getPattern(), readingPattern.getPattern(), 0.0001f);
 		}
 		catch (Exception ex)
 		{

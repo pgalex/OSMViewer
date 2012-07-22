@@ -2,16 +2,18 @@ package drawingStyles;
 
 import IO.ReadableMapData;
 import IO.WritableMapData;
+import drawingStyles.exceptions.LinePatternIncorrectException;
+import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
- * How to draw line ( non closed way in osm )
+ * How to draw line (non closed way in osm)
  *
  * @author abc
  */
-public class LineDrawSettings implements ReadableMapData, WritableMapData
+public class LineDrawSettings implements LineDrawStyle, ReadableMapData, WritableMapData
 {
 	/**
 	 * Default line width
@@ -26,7 +28,7 @@ public class LineDrawSettings implements ReadableMapData, WritableMapData
 	 */
 	private int width;
 	/**
-	 * User defined pattern ( dash, dot etc )
+	 * User defined pattern (dash, dot etc )
 	 */
 	private LinePattern pattern;
 
@@ -43,16 +45,26 @@ public class LineDrawSettings implements ReadableMapData, WritableMapData
 	/**
 	 * Constrcutor
 	 *
-	 * @param pColor color. Autocreating if null
+	 * @param pColor color
 	 * @param pWidth width
 	 * @param pPattern pattern. Autocreating if null
 	 */
-	public LineDrawSettings(IOColor pColor, int pWidth, LinePattern pPattern)
+	public LineDrawSettings(Color pColor, int pWidth, LinePattern pPattern)
 	{
-		color = pColor;
+		color = new IOColor(pColor);
 		width = pWidth;
 		pattern = pPattern;
+
 		initializeNullFields();
+	}
+
+	/**
+	 * Autocreate null fields
+	 */
+	private void initializeNullFields()
+	{
+		if (pattern == null)
+			pattern = new LinePattern();
 	}
 
 	/**
@@ -102,9 +114,19 @@ public class LineDrawSettings implements ReadableMapData, WritableMapData
 	 *
 	 * @return line color
 	 */
-	public IOColor getColor()
+	@Override
+	public Color getColor()
 	{
-		return color;
+		return color.getColor();
+	}
+
+	/**
+	 * Set new color
+	 * @param pColor new color
+	 */
+	public void setColor(Color pColor)
+	{
+		color = new IOColor(pColor);
 	}
 
 	/**
@@ -112,9 +134,19 @@ public class LineDrawSettings implements ReadableMapData, WritableMapData
 	 *
 	 * @return line width
 	 */
+	@Override
 	public int getWidth()
 	{
 		return width;
+	}
+	
+	/**
+	 * Set new width
+	 * @param pWidth new width
+	 */
+	public void setWidth(int pWidth)
+	{
+		width = pWidth;
 	}
 
 	/**
@@ -122,19 +154,19 @@ public class LineDrawSettings implements ReadableMapData, WritableMapData
 	 *
 	 * @return pattern
 	 */
-	public LinePattern getLinePattern()
+	@Override
+	public float[] getPattern()
 	{
-		return pattern;
+		return pattern.getPattern();
 	}
-
+	
 	/**
-	 * Autocreate null fields
+	 * Set new line pattern
+	 * @param pPattern new pattern
+	 * @throws LinePatternIncorrectException new pattern icorrect
 	 */
-	private void initializeNullFields()
+	public void setPattern(float[] pPattern) throws LinePatternIncorrectException
 	{
-		if (color == null)
-			color = new IOColor();
-		if (pattern == null)
-			pattern = new LinePattern();
+		pattern.setPattern(pPattern);
 	}
 }
