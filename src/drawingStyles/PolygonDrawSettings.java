@@ -2,32 +2,34 @@ package drawingStyles;
 
 import IO.ReadableMapData;
 import IO.WritableMapData;
+import java.awt.Color;
+import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
- * Стиль многоугольника (замкнутой линии)
+ * How to draw polygon (closed way)
  *
  * @author abc
  */
-public class PolygonDrawSettings implements ReadableMapData, WritableMapData
+public class PolygonDrawSettings implements PolygonDrawStyle, ReadableMapData, WritableMapData
 {
 	/**
-	 * Цвет заполнения
+	 * Filling color
 	 */
 	private IOColor fillColor;
 	/**
-	 * Стиль рисования границы
+	 * How to draw border
 	 */
 	private LineDrawSettings borderDrawStyle;
 	/**
-	 * Текстура для заполнения
+	 * Filling texture if null, using color
 	 */
 	private IOIcon fillImage;
 
 	/**
-	 * Конструктор
+	 * Default constructor
 	 */
 	public PolygonDrawSettings()
 	{
@@ -37,29 +39,35 @@ public class PolygonDrawSettings implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Конструктор
+	 * Constrcutor
 	 *
-	 * @param pFillColor Цвет заполнения. При нулевом значении задается
-	 * автоматически
-	 * @param pBorderDrawStyle Стиль рисования границы. При нулевом значении
-	 * задается автоматически
-	 * @param pFillImage Текстура для заполнения. При нулевом значении задается
-	 * автоматически
+	 * @param pFillColor fill color
+	 * @param pBorderDrawStyle how to draw border of polygon
+	 * @param pFillImage fill texture. Can be null
 	 */
-	public PolygonDrawSettings(IOColor pFillColor, LineDrawSettings pBorderDrawStyle, IOIcon pFillImage)
+	public PolygonDrawSettings(Color pFillColor, LineDrawSettings pBorderDrawStyle, BufferedImage pFillImage)
 	{
-		fillColor = pFillColor;
+		fillColor = new IOColor(pFillColor);
 		borderDrawStyle = pBorderDrawStyle;
-		fillImage = pFillImage;
+		fillImage = new IOIcon(pFillImage);
 
 		initializeNullFields();
 	}
 
 	/**
-	 * Считать из потока
+	 * Auto initialize null fields
+	 */
+	private void initializeNullFields()
+	{
+		if (borderDrawStyle == null)
+			borderDrawStyle = new LineDrawSettings();
+	}
+
+	/**
+	 * Read from stream
 	 *
-	 * @param pInput поток чтения
-	 * @throws IOException чтение не удалось
+	 * @param pInput reading stream
+	 * @throws IOException reading error
 	 */
 	@Override
 	public void readFromStream(DataInputStream pInput) throws IOException
@@ -77,10 +85,10 @@ public class PolygonDrawSettings implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Записать в поток
+	 * Write into stream
 	 *
-	 * @param pOutput поток вывода
-	 * @throws IOException запись не удалась
+	 * @param pOutput output stream
+	 * @throws IOException writing error
 	 */
 	@Override
 	public void writeToStream(DataOutputStream pOutput) throws IOException
@@ -98,47 +106,45 @@ public class PolygonDrawSettings implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Получить цвет заполнения
+	 * Get fill color
 	 *
-	 * @return цвет заполнения
+	 * @return fill color
 	 */
-	public IOColor getFillColor()
+	@Override
+	public Color getFillColor()
 	{
-		return fillColor;
+		return fillColor.getColor();
 	}
 
 	/**
-	 * Получить стиль границы
+	 * Get border drawing settings
 	 *
-	 * @return стиль границы
+	 * @return how to draw border of polygon
 	 */
-	public LineDrawSettings getBorderDrawStyle()
+	public LineDrawSettings getBorderDrawSettings()
 	{
 		return borderDrawStyle;
 	}
 
 	/**
-	 * Получить текстуру заполнения
+	 * Get border drawing style
 	 *
-	 * @return текстура заполнения
+	 * @return how to draw border of polygon
 	 */
-	public IOIcon getFillImage()
+	@Override
+	public LineDrawStyle getBorderDrawStyle()
 	{
-		return fillImage;
+		return borderDrawStyle;
 	}
 
 	/**
-	 * Инициализировать null поля значениями по умолчанию
+	 * Get fill texture
+	 *
+	 * @return fill texture
 	 */
-	private void initializeNullFields()
+	@Override
+	public BufferedImage getFillImage()
 	{
-		if (fillColor == null)
-			fillColor = new IOColor();
-
-		if (borderDrawStyle == null)
-			borderDrawStyle = new LineDrawSettings();
-
-		if (fillImage == null)
-			fillImage = new IOIcon();
+		return fillImage.getImage();
 	}
 }

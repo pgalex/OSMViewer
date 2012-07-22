@@ -1,7 +1,9 @@
 package drawingStylesTests;
 
 import IOTesting.IOTester;
-import drawingStyles.*;
+import drawingStyles.LineDrawSettings;
+import drawingStyles.LinePattern;
+import drawingStyles.PolygonDrawSettings;
 import java.awt.Color;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -23,7 +25,6 @@ public class PolygonDrawSettingsTest
 
 		assertNotNull(testStyle.getBorderDrawStyle());
 		assertNotNull(testStyle.getFillColor());
-		assertNotNull(testStyle.getFillImage());
 	}
 
 	/**
@@ -35,15 +36,15 @@ public class PolygonDrawSettingsTest
 		try
 		{
 			LineDrawSettings borderStyle = new LineDrawSettings(Color.CYAN, 10, new LinePattern());
-			PolygonDrawSettings writedStyle = new PolygonDrawSettings(new IOColor(Color.MAGENTA), borderStyle,
-							new IOIcon());
+			PolygonDrawSettings writedStyle = new PolygonDrawSettings(Color.MAGENTA, borderStyle,
+							null);
 
 			IOTester.writeToTestFile(writedStyle);
 
 			PolygonDrawSettings readStyle = new PolygonDrawSettings();
 			IOTester.readFromTestFile(readStyle);
 
-			assertEquals(writedStyle.getFillColor().getColor(), readStyle.getFillColor().getColor());
+			assertEquals(writedStyle.getFillColor(), readStyle.getFillColor());
 			assertEquals(writedStyle.getBorderDrawStyle().getColor(), readStyle.getBorderDrawStyle().getColor());
 			assertEquals(writedStyle.getBorderDrawStyle().getWidth(), readStyle.getBorderDrawStyle().getWidth());
 		}
