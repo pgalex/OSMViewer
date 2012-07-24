@@ -41,7 +41,7 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData, 
 	/**
 	 * How to draw object on each scale level
 	 */
-	private DrawStyleOnScaleArray scaledStyles;
+	private DrawSettingsOnScaleArray scaledStyles;
 	/**
 	 * Tags that define map object
 	 */
@@ -59,7 +59,7 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData, 
 		drawPriority = 1;
 		textTagKeys = new TextTagsKeys();
 		description = "";
-		scaledStyles = new DrawStyleOnScaleArray();
+		scaledStyles = new DrawSettingsOnScaleArray();
 		defenitionTags = new DefenitionTags();
 	}
 
@@ -77,7 +77,7 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData, 
 	 * @param pDefenitionTags Map object defenition tags
 	 */
 	public MapObjectDrawSettings(boolean pCanBePoint, boolean pCanBeLine, boolean pCanBePolygon,
-					TextTagsKeys pTextTagKeys, int pDrawPriority, String pDescription, DrawStyleOnScaleArray pScaledStyles,
+					TextTagsKeys pTextTagKeys, int pDrawPriority, String pDescription, DrawSettingsOnScaleArray pScaledStyles,
 					DefenitionTags pDefenitionTags)
 	{
 		canBePoint = pCanBePoint;
@@ -208,7 +208,7 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData, 
 	 *
 	 * @return scaled drawing styles
 	 */
-	public DrawStyleOnScaleArray getScaledStyles()
+	public DrawSettingsOnScaleArray getScaledStyles()
 	{
 		return scaledStyles;
 	}
@@ -229,7 +229,7 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData, 
 	private void initializeNullFields()
 	{
 		if (scaledStyles == null)
-			scaledStyles = new DrawStyleOnScaleArray();
+			scaledStyles = new DrawSettingsOnScaleArray();
 		if (defenitionTags == null)
 			defenitionTags = new DefenitionTags();
 		if (textTagKeys == null)

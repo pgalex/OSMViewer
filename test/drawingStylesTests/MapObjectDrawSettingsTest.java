@@ -2,8 +2,8 @@ package drawingStylesTests;
 
 import IOTesting.IOTester;
 import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.DrawStyleOnScale;
-import drawingStyles.DrawStyleOnScaleArray;
+import drawingStyles.DrawSettingsOnScale;
+import drawingStyles.DrawSettingsOnScaleArray;
 import java.util.ArrayList;
 import java.util.Collections;
 import drawingStyles.EditableDefenitionTags;
@@ -71,10 +71,10 @@ public class MapObjectDrawSettingsTest
 			final int someScaleLevelAtBegin = 3;
 			final int someScaleLevelAtMiddle = 8;
 			
-			DrawStyleOnScaleArray scaledStyles = new DrawStyleOnScaleArray();
-			scaledStyles.setStyleOnScale(someScaleLevelAtBegin, new DrawStyleOnScale(true, false, true, null, null,
+			DrawSettingsOnScaleArray scaledStyles = new DrawSettingsOnScaleArray();
+			scaledStyles.setStyleOnScale(someScaleLevelAtBegin, new DrawSettingsOnScale(true, false, true, null, null,
 							null, null, null));
-			scaledStyles.setStyleOnScale(someScaleLevelAtMiddle, new DrawStyleOnScale(false, true, true, null, null,
+			scaledStyles.setStyleOnScale(someScaleLevelAtMiddle, new DrawSettingsOnScale(false, true, true, null, null,
 							null, null, null));
 			EditableDefenitionTags tags = new EditableDefenitionTags();
 			tags.add(new MapTag("k1", "v1"));

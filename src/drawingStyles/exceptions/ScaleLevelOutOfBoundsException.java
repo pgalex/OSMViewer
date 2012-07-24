@@ -1,6 +1,6 @@
 package drawingStyles.exceptions;
 
-import drawingStyles.DrawStyleOnScaleArray;
+import drawingStyles.DrawSettingsOnScaleArray;
 
 /**
  * Scale level is out of bounds
@@ -31,7 +31,7 @@ public class ScaleLevelOutOfBoundsException extends ScaledObjectStyleArrayRuntim
 	 * @param pBoundsMinimum Minimum value of scale level
 	 * @param pBoundsMaximum Maximum value of scale level
 	 */
-	public ScaleLevelOutOfBoundsException(DrawStyleOnScaleArray pArrayThrowedException, int pIncorrectScaleLevel, int pBoundsMinimum, int pBoundsMaximum)
+	public ScaleLevelOutOfBoundsException(DrawSettingsOnScaleArray pArrayThrowedException, int pIncorrectScaleLevel, int pBoundsMinimum, int pBoundsMaximum)
 	{
 		super(pArrayThrowedException);
 		incorrectScaleLevel = pIncorrectScaleLevel;

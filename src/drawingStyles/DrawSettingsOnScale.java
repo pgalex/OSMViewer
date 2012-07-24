@@ -7,50 +7,49 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
- * How to draw object on specified scale level. Параметры отображения на
- * определенном масштабе
+ * How to draw object on specified scale level.
  *
  * @author abc
  */
-public class DrawStyleOnScale implements ReadableMapData, WritableMapData
+public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 {
 	/**
-	 * Is need to draw point. Рисовать ли точку на данном масштабе
+	 * Is need to draw point
 	 */
 	private boolean drawPoint;
 	/**
-	 * Is need to draw line. Рисовать ли линию на данном масштабе
+	 * Is need to draw line
 	 */
 	private boolean drawLine;
 	/**
-	 * Is need to draw polygon. Рисовать ли многоугольник на данном масштабе
+	 * Is need to draw polygon
 	 */
 	private boolean drawPolygon;
 	/**
-	 * point drawing style. стиль точки
+	 * point drawing settings
 	 */
 	private PointDrawSettings pointStyle;
 	/**
-	 * line drawing style. стиль линии
+	 * line drawing settings
 	 */
 	private LineDrawSettings lineStyle;
 	/**
-	 * polygon drawing style. стиль многоугольника
+	 * polygon drawing settings
 	 */
 	private PolygonDrawSettings polygonStyle;
 	/**
-	 * Map object text(caption) font. Шрифт текста для имени
+	 * Map object text(caption) font
 	 */
 	private IOFont textFont;
 	/**
-	 * Text(caption) color. Цвет текстовой подписи
+	 * Text(caption) color.
 	 */
 	private IOColor textColor;
 
 	/**
 	 * Default constructor
 	 */
-	public DrawStyleOnScale()
+	public DrawSettingsOnScale()
 	{
 		pointStyle = new PointDrawSettings();
 		lineStyle = new LineDrawSettings();
@@ -68,15 +67,13 @@ public class DrawStyleOnScale implements ReadableMapData, WritableMapData
 	 * @param pDrawPoint Is need to draw point
 	 * @param pDrawLine Is need to draw line
 	 * @param pDrawPolygon Is need to draw polygon
-	 * @param pPointStyle point drawing style. Auto-initialize if null
-	 * @param pLineStyle line drawing style. Auto-initialize if null
-	 * @param pPolygonStyle polygon drawing style. Auto-initialize if null
-	 * @param pTextColor Text(caption) color. Цвет текстовой подписи.
-	 * Auto-initialize if null
-	 * @param pTextFont Map object text(caption) font. Шрифт текстововй подписи.
-	 * Auto-initialize if null
+	 * @param pPointStyle point drawing settings. Setting to default if null
+	 * @param pLineStyle line drawing settings. Setting to default if null
+	 * @param pPolygonStyle polygon drawing settings. Setting to default if null
+	 * @param pTextColor Text(caption) color Setting to default if null
+	 * @param pTextFont Map object text(caption) font Setting to default if null
 	 */
-	public DrawStyleOnScale(boolean pDrawPoint, boolean pDrawLine, boolean pDrawPolygon,
+	public DrawSettingsOnScale(boolean pDrawPoint, boolean pDrawLine, boolean pDrawPolygon,
 					PointDrawSettings pPointStyle, LineDrawSettings pLineStyle, PolygonDrawSettings pPolygonStyle,
 					IOColor pTextColor, IOFont pTextFont)
 	{
@@ -90,6 +87,27 @@ public class DrawStyleOnScale implements ReadableMapData, WritableMapData
 		textFont = pTextFont;
 
 		initializeNullFields();
+	}
+
+	/**
+	 * Auto-initialize null fields
+	 */
+	private void initializeNullFields()
+	{
+		if (pointStyle == null)
+			pointStyle = new PointDrawSettings();
+
+		if (lineStyle == null)
+			lineStyle = new LineDrawSettings();
+
+		if (polygonStyle == null)
+			polygonStyle = new PolygonDrawSettings();
+
+		if (textColor == null)
+			textColor = new IOColor();
+
+		if (textFont == null)
+			textFont = new IOFont();
 	}
 
 	/**
@@ -224,26 +242,5 @@ public class DrawStyleOnScale implements ReadableMapData, WritableMapData
 	public IOColor getTextColor()
 	{
 		return textColor;
-	}
-
-	/**
-	 * Auto-initialize null fields
-	 */
-	private void initializeNullFields()
-	{
-		if (pointStyle == null)
-			pointStyle = new PointDrawSettings();
-
-		if (lineStyle == null)
-			lineStyle = new LineDrawSettings();
-
-		if (polygonStyle == null)
-			polygonStyle = new PolygonDrawSettings();
-
-		if (textColor == null)
-			textColor = new IOColor();
-
-		if (textFont == null)
-			textFont = new IOFont();
 	}
 }

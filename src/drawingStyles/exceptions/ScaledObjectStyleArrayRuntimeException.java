@@ -1,9 +1,9 @@
 package drawingStyles.exceptions;
 
-import drawingStyles.DrawStyleOnScaleArray;
+import drawingStyles.DrawSettingsOnScaleArray;
 
 /**
- * Exception throws in DrawStyleOnScaleArray
+ * Exception throws in DrawSettingsOnScaleArray
  *
  * @author pgalex
  */
@@ -12,7 +12,7 @@ public class ScaledObjectStyleArrayRuntimeException extends DrawingStylesRuntime
 	/**
 	 * Scaled object style array throwed this exception
 	 */
-	private DrawStyleOnScaleArray arrayThrowedException;
+	private DrawSettingsOnScaleArray arrayThrowedException;
 
 	/**
 	 * Constructor
@@ -20,7 +20,7 @@ public class ScaledObjectStyleArrayRuntimeException extends DrawingStylesRuntime
 	 * @param pArrayThrowedException Scaled object style array throwed this
 	 * exception
 	 */
-	public ScaledObjectStyleArrayRuntimeException(DrawStyleOnScaleArray pArrayThrowedException)
+	public ScaledObjectStyleArrayRuntimeException(DrawSettingsOnScaleArray pArrayThrowedException)
 	{
 		arrayThrowedException = pArrayThrowedException;
 	}
@@ -30,7 +30,7 @@ public class ScaledObjectStyleArrayRuntimeException extends DrawingStylesRuntime
 	 *
 	 * @return Scaled object style array throwed this exception
 	 */
-	public DrawStyleOnScaleArray getArrayThrowedException()
+	public DrawSettingsOnScaleArray getArrayThrowedException()
 	{
 		return arrayThrowedException;
 	}
