@@ -2,6 +2,7 @@ package map;
 
 import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
+import drawingStyles.MapObjectDrawStyle;
 import map.rendering.MapObjectsRenderer;
 import map.exceptions.PointPositionIsNullException;
 
@@ -66,7 +67,7 @@ public class MapPoint extends MapObject
 	 * @return Can this type of map object be drawen with this style
 	 */
 	@Override
-	protected boolean canBeDrawenWithStyle(MapObjectDrawSettings pStyle)
+	protected boolean canBeDrawenWithStyle(MapObjectDrawStyle pStyle)
 	{
 		if (pStyle == null)
 			return false;

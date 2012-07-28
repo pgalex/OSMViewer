@@ -29,7 +29,7 @@ public class MapPolygonTest
 		MapObjectDrawSettings style = new MapObjectDrawSettings(false, false, true, null, 0, "pokygon style", null, tags);
 
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
-		testEditor.addMapObjectStyle(style);
+		testEditor.addMapObjectDrawSettings(style);
 
 		MapPosition[] points = new MapPosition[2];
 		points[0] = new MapPosition(1, 2);
@@ -38,7 +38,7 @@ public class MapPolygonTest
 		testPolygon.assignStyleIndex(testEditor);
 
 		assertNotNull(testPolygon.getStyleIndex());
-		assertEquals(style.getDescription(), testEditor.getMapObjectStyle(testPolygon.getStyleIndex()).getDescription());
+		assertEquals(style.getDescription(), testEditor.getMapObjectDrawSettings(testPolygon.getStyleIndex()).getDescription());
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class MapPolygonTest
 		MapObjectDrawSettings style = new MapObjectDrawSettings(false, false, false, null, 0, "pokygon style", null, tags);
 
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
-		testEditor.addMapObjectStyle(style);
+		testEditor.addMapObjectDrawSettings(style);
 
 		MapPosition[] points = new MapPosition[2];
 		points[0] = new MapPosition(1, 2);
@@ -75,7 +75,7 @@ public class MapPolygonTest
 		MapObjectDrawSettings style = new MapObjectDrawSettings(false, false, false, null, 0, "pokygon style", null, tags);
 
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
-		testEditor.addMapObjectStyle(style);
+		testEditor.addMapObjectDrawSettings(style);
 
 		MapPosition[] points = new MapPosition[2];
 		points[0] = new MapPosition(1, 2);

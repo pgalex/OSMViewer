@@ -61,13 +61,13 @@ public class MapPointTest
 		MapObjectDrawSettings style = new MapObjectDrawSettings(true, false, false, null, 0, "point style", null, tags);
 
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
-		testEditor.addMapObjectStyle(style);
+		testEditor.addMapObjectDrawSettings(style);
 
 		MapPoint testPoint = new MapPoint(new MapPosition(0, 0), 0, tags);
 		testPoint.assignStyleIndex(testEditor);
 
 		assertNotNull(testPoint.getStyleIndex());
-		assertEquals(style.getDescription(), testEditor.getMapObjectStyle(testPoint.getStyleIndex()).getDescription());
+		assertEquals(style.getDescription(), testEditor.getMapObjectDrawSettings(testPoint.getStyleIndex()).getDescription());
 	}
 
 	/**
@@ -82,7 +82,7 @@ public class MapPointTest
 		MapObjectDrawSettings style = new MapObjectDrawSettings(false, false, false, null, 0, "point style", null, tags);
 
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
-		testEditor.addMapObjectStyle(style);
+		testEditor.addMapObjectDrawSettings(style);
 
 		MapPoint testPoint = new MapPoint(new MapPosition(0, 0), 0, tags);
 		testPoint.assignStyleIndex(testEditor);
@@ -101,7 +101,7 @@ public class MapPointTest
 		MapObjectDrawSettings style = new MapObjectDrawSettings(false, false, false, null, 0, "point style", null, tags);
 
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
-		testEditor.addMapObjectStyle(style);
+		testEditor.addMapObjectDrawSettings(style);
 
 		MapPoint testPoint = new MapPoint(new MapPosition(0, 0), 0, null);
 		testPoint.assignStyleIndex(testEditor);

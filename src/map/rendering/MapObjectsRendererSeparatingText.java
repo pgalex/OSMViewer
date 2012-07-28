@@ -83,27 +83,18 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			return;
 		}
 
-		// получить параметры отрисовки точки
-		// получить из параметров значок
-		// если значок есть нарисовать значок
-		// получить параметры для отображения текста
-		// найти в тегах текст который может отображать как подпись
-		// отобразить текст
-
-		MapObjectDrawSettings objectStyle = styleViewer.getMapObjectStyle(pPoint.getStyleIndex());
+		MapObjectDrawStyle objectStyle = styleViewer.findMapObjectDrawStyle(pPoint.getStyleIndex());
 		if (objectStyle == null)
+		{
 			return;
+		}
 
-		if (!objectStyle.canBePoint())
-			return;
-
-		DrawSettingsOnScaleArray scaledStyles = objectStyle.getScaledStyles();
-		if (scaledStyles == null)
-			return;
-
-		PointDrawStyle pointStyle = scaledStyles.findPointDrawStyle(scaleLevel);
+		PointDrawStyle pointStyle = objectStyle.findPointDrawStyle(scaleLevel);
 		if (pointStyle == null)
+		{
 			return;
+		}
+
 
 		Point2D pointPositionOnCanvas = coordinatesConverter.goegraphicsToCanvas(pPoint.getPosition());
 
@@ -114,19 +105,26 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 							(int) (pointPositionOnCanvas.getY() - pointImage.getHeight() / 2), null);
 		}
 
-		TextDrawStyle textStyle = scaledStyles.findTextDrawStyle(scaleLevel);
-		canvas.setColor(textStyle.getColor());
-		canvas.setFont(textStyle.getFont());
-
-		String text = objectStyle.getTextTagKeys().findTextInTags(pPoint.getDefenitionTags());
+		TextDrawStyle textStyle = objectStyle.findTextDrawStyle(scaleLevel);
+		String text = objectStyle.findTextInTags(pPoint.getDefenitionTags());
+		
 		if (!text.isEmpty())
 		{
+			canvas.setColor(textStyle.getColor());
+			canvas.setFont(textStyle.getFont());
+
 			FontMetrics textFontMetrics = canvas.getFontMetrics(textStyle.getFont());
 			int textWidth = textFontMetrics.stringWidth(text);
 
 			canvas.drawString(text, (int) pointPositionOnCanvas.getX() - textWidth / 2, (int) pointPositionOnCanvas.getY());
 		}
 
+		// получить параметры отрисовки точки
+		// получить из параметров значок
+		// если значок есть нарисовать значок
+		// получить параметры для отображения текста
+		// найти в тегах текст который может отображать как подпись
+		// отобразить текст
 	}
 
 	/**

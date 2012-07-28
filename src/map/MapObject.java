@@ -1,7 +1,7 @@
 package map;
 
 import drawingStyles.DefenitionTags;
-import drawingStyles.MapObjectDrawSettings;
+import drawingStyles.MapObjectDrawStyle;
 import drawingStyles.StyleViewer;
 import map.rendering.MapObjectsRenderer;
 
@@ -82,14 +82,21 @@ public class MapObject
 	public void assignStyleIndex(StyleViewer pStyleViewer)
 	{
 		if (pStyleViewer == null)
+		{
 			return;
+		}
 
-		Integer foundedIndex = pStyleViewer.getStyleIndex(defenitionTags);
-		MapObjectDrawSettings foundedStyle = pStyleViewer.getMapObjectStyle(foundedIndex);
+		Integer foundedIndex = pStyleViewer.findStyleIndex(defenitionTags);
+		MapObjectDrawStyle foundedStyle = pStyleViewer.findMapObjectDrawStyle(foundedIndex);
+		
 		if (canBeDrawenWithStyle(foundedStyle))
+		{
 			styleIndex = foundedIndex;
+		}
 		else
+		{
 			styleIndex = null;
+		}
 	}
 
 	/**
@@ -98,12 +105,16 @@ public class MapObject
 	 * @param pStyle drawing style of object
 	 * @return Can this type of map object be drawen with this style
 	 */
-	protected boolean canBeDrawenWithStyle(MapObjectDrawSettings pStyle)
+	protected boolean canBeDrawenWithStyle(MapObjectDrawStyle pStyle)
 	{
 		if (pStyle == null)
+		{
 			return false;
+		}
 		else
+		{
 			return true;
+		}
 	}
 
 	/**
@@ -121,6 +132,8 @@ public class MapObject
 	private void InitializeNullFields()
 	{
 		if (defenitionTags == null)
+		{
 			defenitionTags = new DefenitionTags();
+		}
 	}
 }

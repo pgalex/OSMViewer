@@ -14,21 +14,21 @@ import IO.WritableMapData;
 public interface StyleViewer extends ReadableMapData, WritableMapData
 {
 	/**
-	 * Get index of map object drawing style
+	 * Find index of map object drawing style
 	 *
 	 * @param pDefenitionTags tags of map object
 	 * @return index of style of object with that defenition tags. null if not
 	 * found
 	 */
-	public abstract Integer getStyleIndex(DefenitionTags pDefenitionTags);
+	public abstract Integer findStyleIndex(DefenitionTags pDefenitionTags);
 
 	/**
-	 * Get map object drawing style by index
+	 * Find map object drawing style by index
 	 *
 	 * @param pIndex index of style
 	 * @return map object drawing style. null if style with this index not found
 	 */
-	public abstract MapObjectDrawSettings getMapObjectStyle(Integer pIndex);
+	public abstract MapObjectDrawStyle findMapObjectDrawStyle(Integer pIndex);
 
 	/**
 	 * Get map drawing settings

@@ -23,8 +23,58 @@ public class MapObjectDrawStylesViewer extends MapObjectDrawStylesContainer impl
 	public MapObjectDrawStylesViewer()
 	{
 		super();
-		
+
 		styles = new MapObjectDrawSettings[0];
+	}
+
+	/**
+	 * Find index of map object drawing style
+	 *
+	 * @param pDefenitionTags tags of map object
+	 * @return index of style of object with that defenition tags. null if not
+	 * found
+	 */
+	@Override
+	public Integer findStyleIndex(DefenitionTags pDefenitionTags)
+	{
+		if (pDefenitionTags == null)
+		{
+			return null;
+		}
+
+		return findStyleIndex(styles, pDefenitionTags);
+	}
+
+	/**
+	 * Find map object drawing style by index
+	 *
+	 * @param pIndex index of style
+	 * @return map object drawing style. null if style with this index not found
+	 */
+	@Override
+	public MapObjectDrawStyle findMapObjectDrawStyle(Integer pIndex)
+	{
+		if (pIndex == null)
+		{
+			return null;
+		}
+		if (pIndex < 0 || pIndex >= styles.length)
+		{
+			return null;
+		}
+
+		return styles[pIndex];
+	}
+
+	/**
+	 * Get map drawing settings
+	 *
+	 * @return map drawing settings
+	 */
+	@Override
+	public MapDrawingSettings getMapDrawingSettings()
+	{
+		return mapDrawingSettings;
 	}
 
 	/**
@@ -39,7 +89,7 @@ public class MapObjectDrawStylesViewer extends MapObjectDrawStylesContainer impl
 		try
 		{
 			super.readFromStream(pInput);
-			
+
 			styles = readStylesFromStream(pInput);
 		}
 		catch (IOException ex)
@@ -60,56 +110,12 @@ public class MapObjectDrawStylesViewer extends MapObjectDrawStylesContainer impl
 		try
 		{
 			super.writeToStream(pOutput);
-			
+
 			writeStylesToStream(styles, pOutput);
 		}
 		catch (Exception ex)
 		{
 			throw new IOException();
 		}
-	}
-
-	/**
-	 * Get index of map object drawing style
-	 *
-	 * @param pDefenitionTags tags of map object
-	 * @return index of style of object with that defenition tags. null if not
-	 * found
-	 */
-	@Override
-	public Integer getStyleIndex(DefenitionTags pDefenitionTags)
-	{
-		if (pDefenitionTags == null)
-			return null;
-
-		return findStyleIndex(styles, pDefenitionTags);
-	}
-
-	/**
-	 * Get map object drawing style by index
-	 *
-	 * @param pIndex index of style
-	 * @return map object drawing style. null if style with this index not found
-	 */
-	@Override
-	public MapObjectDrawSettings getMapObjectStyle(Integer pIndex)
-	{
-		if (pIndex == null)
-			return null;
-		if (pIndex < 0 || pIndex >= styles.length)
-			return null;
-
-		return styles[pIndex];
-	}
-
-	/**
-	 * Get map drawing settings
-	 *
-	 * @return map drawing settings
-	 */
-	@Override
-	public MapDrawingSettings getMapDrawingSettings()
-	{
-		return mapDrawingSettings;
 	}
 }

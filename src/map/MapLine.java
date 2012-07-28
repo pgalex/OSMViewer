@@ -1,7 +1,7 @@
 package map;
 
 import drawingStyles.DefenitionTags;
-import drawingStyles.MapObjectDrawSettings;
+import drawingStyles.MapObjectDrawStyle;
 import map.exceptions.LinePointsIsIncorrectException;
 import map.rendering.MapObjectsRenderer;
 
@@ -37,7 +37,9 @@ public class MapLine extends MapObject
 		super(pId, pDefenitionTags);
 
 		if (isPointsIncorrect(pPoints))
+		{
 			throw new LinePointsIsIncorrectException(pId, pDefenitionTags);
+		}
 
 		points = pPoints;
 	}
@@ -61,7 +63,9 @@ public class MapLine extends MapObject
 	public void acceptRenderer(MapObjectsRenderer pObjectsRenderer)
 	{
 		if (pObjectsRenderer == null)
+		{
 			return;
+		}
 
 		pObjectsRenderer.renderLine(this);
 	}
@@ -75,13 +79,20 @@ public class MapLine extends MapObject
 	private boolean isPointsIncorrect(MapPosition[] pPoints)
 	{
 		if (pPoints == null)
+		{
 			return true;
+		}
 		if (pPoints.length < MINIMUM_POINTS_COUNT)
+		{
 			return true;
+		}
+		
 		for (int i = 0; i < pPoints.length; i++)
 		{
 			if (pPoints[i] == null)
+			{
 				return true;
+			}
 		}
 
 		return false;
@@ -94,10 +105,12 @@ public class MapLine extends MapObject
 	 * @return Can this type of map object be drawen with this style
 	 */
 	@Override
-	protected boolean canBeDrawenWithStyle(MapObjectDrawSettings pStyle)
+	protected boolean canBeDrawenWithStyle(MapObjectDrawStyle pStyle)
 	{
 		if (pStyle == null)
+		{
 			return false;
+		}
 
 		return pStyle.canBeLine();
 	}

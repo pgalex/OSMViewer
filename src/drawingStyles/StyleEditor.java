@@ -5,46 +5,54 @@ import drawingStyles.exceptions.MapObjectStyleIsNullException;
 import drawingStyles.exceptions.StyleIndexOutOfBoundsException;
 
 /**
- * Main interface of drawingStyles with "setMapObjectStyle" methods. Using in style editing
- * forms
+ * Main interface of drawingStyles with "setMapObjectDrawSettings" methods.
+ * Using in style editing forms
  *
  * @author pgalex
  */
 public interface StyleEditor extends StyleViewer
 {
 	/**
-	 * Set style by index
+	 * Get map object draw settings by index
+	 *
+	 * @param pIndex index of style
+	 * @return map object drawing style. null if style with this index not found
+	 */
+	public abstract MapObjectDrawSettings getMapObjectDrawSettings(Integer pIndex);
+
+	/**
+	 * Set draw settings of map object by index
 	 *
 	 * @param pIndex style index
-	 * @param pNewStyle new style
+	 * @param pDrawSettings new draw settings of object with pIndex
 	 * @throws StyleIndexOutOfBoundsException style index is out of bounds
-	 * @throws MapObjectStyleIsNullException new style is null
+	 * @throws MapObjectStyleIsNullException new draw settings is null
 	 */
-	public abstract void setMapObjectStyle(Integer pIndex, MapObjectDrawSettings pNewStyle) throws StyleIndexOutOfBoundsException, MapObjectStyleIsNullException;
+	public abstract void setMapObjectDrawSettings(Integer pIndex, MapObjectDrawSettings pDrawSettings) throws StyleIndexOutOfBoundsException, MapObjectStyleIsNullException;
 
 	/**
-	 * Add style
+	 * Add draw settings of map object
 	 *
-	 * @param pNewStyle new map object style
+	 * @param pDrawSettings new map object style
 	 * @throws MapObjectStyleIsNullException new style is null
 	 */
-	public abstract void addMapObjectStyle(MapObjectDrawSettings pNewStyle) throws MapObjectStyleIsNullException;
+	public abstract void addMapObjectDrawSettings(MapObjectDrawSettings pDrawSettings) throws MapObjectStyleIsNullException;
 
 	/**
-	 * Remove style by index
+	 * Remove draw settings by index
 	 *
 	 * @param pIndex style index
 	 * @throws StyleIndexOutOfBoundsException index out of bounds
 	 */
-	public abstract void removeMapObjectStyle(Integer pIndex) throws StyleIndexOutOfBoundsException;
+	public abstract void removeMapObjectDrawSettings(Integer pIndex) throws StyleIndexOutOfBoundsException;
 
 	/**
-	 * Get styles countOfMapObjectStyles
+	 * Get count of storing map object draw setting
 	 *
-	 * @return styles countOfMapObjectStyles
+	 * @return count of storing map object draw setting
 	 */
-	public abstract int countOfMapObjectStyles();
-	
+	public abstract int countOfMapObjectDrawSettings();
+
 	/**
 	 * Set new map drawing settings
 	 *

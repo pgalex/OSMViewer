@@ -125,7 +125,7 @@ public class OnlineMapProcessor implements DrawableOnPanel
 			MapObjectDrawSettings placeVillageStyle = new MapObjectDrawSettings(true, false, false,
 							new TextTagsKeys(textTagKeys), 0, "convenience shop", scaleStylesArray, objectDefenitionTags);
 
-			styleViewer.addMapObjectStyle(placeVillageStyle);
+			styleViewer.addMapObjectDrawSettings(placeVillageStyle);
 		}
 		catch (IOException ex)
 		{

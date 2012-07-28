@@ -41,7 +41,7 @@ public class OnlineMapTest
 		someTags.add(new MapTag("k1", "v1"));
 		
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
-		testEditor.addMapObjectStyle(new MapObjectDrawSettings(true, true, true, null, 0, "", null, someTags));
+		testEditor.addMapObjectDrawSettings(new MapObjectDrawSettings(true, true, true, null, 0, "", null, someTags));
 		
 		MapPosition[] somePoints = new MapPosition[2];
 		somePoints[0] = new MapPosition();

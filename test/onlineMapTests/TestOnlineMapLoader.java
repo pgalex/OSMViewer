@@ -202,7 +202,7 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 			EditableDefenitionTags testStyleTags = new EditableDefenitionTags();
 			testStyleTags.add(new MapTag("k1", "v1"));
 			MapObjectDrawSettings testStyle = new MapObjectDrawSettings(true, true, true, null, 0, "", null, testStyleTags);
-			styleEditor.addMapObjectStyle(testStyle);
+			styleEditor.addMapObjectDrawSettings(testStyle);
 
 
 			ArrayList<OsmTag> nodeTags = new ArrayList<OsmTag>();

@@ -39,14 +39,14 @@ public class MapObjectTest
 		tags1.add(new MapTag("k1", "v1"));
 		tags1.add(new MapTag("k2", "v2"));
 		MapObjectDrawSettings style1 = new MapObjectDrawSettings(true, true, true, null, 0, "style1", null, tags1);
-		styleEditor.addMapObjectStyle(style1);
+		styleEditor.addMapObjectDrawSettings(style1);
 
 		EditableDefenitionTags tags2 = new EditableDefenitionTags();
 		tags2.add(new MapTag("k3", "v3"));
 		tags2.add(new MapTag("k4", "v4"));
 		tags2.add(new MapTag("k5", "v5"));
 		MapObjectDrawSettings style2 = new MapObjectDrawSettings(false, false, false, null, 0, "style2", null, tags2);
-		styleEditor.addMapObjectStyle(style2);
+		styleEditor.addMapObjectDrawSettings(style2);
 
 		EditableDefenitionTags objectTags = new EditableDefenitionTags();
 		objectTags.add(new MapTag("k3", "v3"));
@@ -56,11 +56,11 @@ public class MapObjectTest
 		MapObject testObject = new MapObject(0, objectTags);
 		testObject.assignStyleIndex(styleEditor);
 
-		assertEquals("style2", styleEditor.getMapObjectStyle(testObject.getStyleIndex()).getDescription());
+		assertEquals("style2", styleEditor.getMapObjectDrawSettings(testObject.getStyleIndex()).getDescription());
 
 		// reassigning
 		testObject.assignStyleIndex(null);
-		assertEquals("style2", styleEditor.getMapObjectStyle(testObject.getStyleIndex()).getDescription());
+		assertEquals("style2", styleEditor.getMapObjectDrawSettings(testObject.getStyleIndex()).getDescription());
 	}
 
 	/**
@@ -75,7 +75,7 @@ public class MapObjectTest
 		EditableDefenitionTags tags1 = new EditableDefenitionTags();
 		tags1.add(new MapTag("k1", "v1"));
 		MapObjectDrawSettings style1 = new MapObjectDrawSettings(true, true, true, null, 0, "style1", null, tags1);
-		styleEditor.addMapObjectStyle(style1);
+		styleEditor.addMapObjectDrawSettings(style1);
 
 		EditableDefenitionTags objectTags = new EditableDefenitionTags();
 		objectTags.add(new MapTag("k1", "v1"));
@@ -83,7 +83,7 @@ public class MapObjectTest
 
 		testObject.assignStyleIndex(styleEditor);
 		testObject.assignStyleIndex(null);
-		assertEquals("style1", styleEditor.getMapObjectStyle(testObject.getStyleIndex()).getDescription());
+		assertEquals("style1", styleEditor.getMapObjectDrawSettings(testObject.getStyleIndex()).getDescription());
 	}
 
 	/**
@@ -98,14 +98,14 @@ public class MapObjectTest
 		tags1.add(new MapTag("k1", "v1"));
 		tags1.add(new MapTag("k2", "v2"));
 		MapObjectDrawSettings style1 = new MapObjectDrawSettings(true, true, true, null, 0, "style1", null, tags1);
-		styleEditor.addMapObjectStyle(style1);
+		styleEditor.addMapObjectDrawSettings(style1);
 
 		EditableDefenitionTags tags2 = new EditableDefenitionTags();
 		tags2.add(new MapTag("k3", "v3"));
 		tags2.add(new MapTag("k4", "v4"));
 		tags2.add(new MapTag("k5", "v5"));
 		MapObjectDrawSettings style2 = new MapObjectDrawSettings(false, false, false, null, 0, "style2", null, tags2);
-		styleEditor.addMapObjectStyle(style2);
+		styleEditor.addMapObjectDrawSettings(style2);
 
 		EditableDefenitionTags objectTags = new EditableDefenitionTags();
 		objectTags.add(new MapTag("k7", "v7"));

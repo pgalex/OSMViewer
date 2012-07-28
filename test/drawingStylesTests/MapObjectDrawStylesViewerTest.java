@@ -61,9 +61,9 @@ public class MapObjectDrawStylesViewerTest
 			MapObjectDrawSettings style3 = new MapObjectDrawSettings(false, true, true, null, 0, "style3", null, null);
 
 			StyleEditor writedEditor = DrawingStylesFactory.createStyleEditor();
-			writedEditor.addMapObjectStyle(style1);
-			writedEditor.addMapObjectStyle(style2);
-			writedEditor.addMapObjectStyle(style3);
+			writedEditor.addMapObjectDrawSettings(style1);
+			writedEditor.addMapObjectDrawSettings(style2);
+			writedEditor.addMapObjectDrawSettings(style3);
 			writedEditor.setMapDrawingSettings(new MapDrawingSettings(new IOColor(Color.red)));
 
 			IOTester.writeToTestFile(writedEditor);
@@ -71,9 +71,9 @@ public class MapObjectDrawStylesViewerTest
 			StyleViewer readViewer = DrawingStylesFactory.createStyleViewer();
 			IOTester.readFromTestFile(readViewer);
 
-			assertEquals(writedEditor.getMapObjectStyle(0).getDescription(), readViewer.getMapObjectStyle(0).getDescription());
-			assertEquals(writedEditor.getMapObjectStyle(1).getDescription(), readViewer.getMapObjectStyle(1).getDescription());
-			assertEquals(writedEditor.getMapObjectStyle(2).getDescription(), readViewer.getMapObjectStyle(2).getDescription());
+			assertEquals(writedEditor.getMapObjectDrawSettings(0).getDescription(), readViewer.findMapObjectDrawStyle(0).getDescription());
+			assertEquals(writedEditor.getMapObjectDrawSettings(1).getDescription(), readViewer.findMapObjectDrawStyle(1).getDescription());
+			assertEquals(writedEditor.getMapObjectDrawSettings(2).getDescription(), readViewer.findMapObjectDrawStyle(2).getDescription());
 			assertEquals(writedEditor.getMapDrawingSettings().getMapBackgroundColor().getColor(), 
 							readViewer.getMapDrawingSettings().getMapBackgroundColor().getColor());
 		}
@@ -84,7 +84,7 @@ public class MapObjectDrawStylesViewerTest
 	}
 
 	/**
-	 * Test getStyleIndex - founding index by tags
+	 * Test findStyleIndex - founding index by tags
 	 */
 	@Test
 	public void getStyleIndexWorkTest()
@@ -111,18 +111,18 @@ public class MapObjectDrawStylesViewerTest
 			MapObjectDrawSettings style3 = new MapObjectDrawSettings(true, true, true, null, 0, "style3", null, tags3);
 
 			StyleEditor editor = DrawingStylesFactory.createStyleEditor();
-			editor.addMapObjectStyle(style1);
-			editor.addMapObjectStyle(style2);
-			editor.addMapObjectStyle(style3);
+			editor.addMapObjectDrawSettings(style1);
+			editor.addMapObjectDrawSettings(style2);
+			editor.addMapObjectDrawSettings(style3);
 
 			IOTester.writeToTestFile(editor);
 
 			StyleViewer viewer = DrawingStylesFactory.createStyleViewer();
 			IOTester.readFromTestFile(viewer);
 
-			assertEquals(0, (int) viewer.getStyleIndex(tags1));
-			assertEquals(1, (int) viewer.getStyleIndex(tags2));
-			assertEquals(2, (int) viewer.getStyleIndex(tags3));
+			assertEquals(0, (int) viewer.findStyleIndex(tags1));
+			assertEquals(1, (int) viewer.findStyleIndex(tags2));
+			assertEquals(2, (int) viewer.findStyleIndex(tags3));
 		}
 		catch (Exception ex)
 		{
@@ -131,7 +131,7 @@ public class MapObjectDrawStylesViewerTest
 	}
 
 	/**
-	 * Testing getStyleIndex method if style with given tags not exists
+	 * Testing findStyleIndex method if style with given tags not exists
 	 */
 	@Test
 	public void getStyleIndexNotFoundTest()
@@ -142,7 +142,7 @@ public class MapObjectDrawStylesViewerTest
 
 			EditableDefenitionTags testTags = new EditableDefenitionTags();
 			testTags.add(new MapTag("k9", "v9"));
-			assertNull(viewer.getStyleIndex(testTags));
+			assertNull(viewer.findStyleIndex(testTags));
 		}
 		catch (Exception ex)
 		{
@@ -151,7 +151,7 @@ public class MapObjectDrawStylesViewerTest
 	}
 
 	/**
-	 * Testing getStyleIndex method by null tags
+	 * Testing findStyleIndex method by null tags
 	 */
 	@Test
 	public void getStyleIndexByNullTagsTest()
@@ -160,7 +160,7 @@ public class MapObjectDrawStylesViewerTest
 		{
 			StyleViewer viewer = DrawingStylesFactory.createStyleViewer();
 
-			assertNull(viewer.getStyleIndex(null));
+			assertNull(viewer.findStyleIndex(null));
 		}
 		catch (Exception ex)
 		{
@@ -169,7 +169,7 @@ public class MapObjectDrawStylesViewerTest
 	}
 
 	/**
-	 * Testing getMapObjectStyle in normal work
+	 * Testing getMapObjectDrawSettings in normal work
 	 */
 	@Test
 	public void getMapObjectStyleNormalWorkTest()
@@ -186,15 +186,15 @@ public class MapObjectDrawStylesViewerTest
 			MapObjectDrawSettings style2 = new MapObjectDrawSettings(true, true, true, null, 0, "style2", null, tags2);
 
 			StyleEditor editor = DrawingStylesFactory.createStyleEditor();
-			editor.addMapObjectStyle(style1);
-			editor.addMapObjectStyle(style2);
+			editor.addMapObjectDrawSettings(style1);
+			editor.addMapObjectDrawSettings(style2);
 			IOTester.writeToTestFile(editor);
 
 			StyleViewer viewer = DrawingStylesFactory.createStyleViewer();
 			IOTester.readFromTestFile(viewer);
 
-			assertEquals(style1.getDescription(), viewer.getMapObjectStyle(0).getDescription());
-			assertEquals(style2.getDescription(), viewer.getMapObjectStyle(1).getDescription());
+			assertEquals(style1.getDescription(), viewer.findMapObjectDrawStyle(0).getDescription());
+			assertEquals(style2.getDescription(), viewer.findMapObjectDrawStyle(1).getDescription());
 		}
 		catch (Exception ex)
 		{
@@ -203,7 +203,7 @@ public class MapObjectDrawStylesViewerTest
 	}
 
 	/**
-	 * Testing getMapObjectStyle by index not assisiated with style
+	 * Testing getMapObjectDrawSettings by index not assisiated with style
 	 */
 	@Test
 	public void getMapObjectStyleNotExistsTest()
@@ -212,9 +212,9 @@ public class MapObjectDrawStylesViewerTest
 		{
 			StyleViewer viewer = DrawingStylesFactory.createStyleViewer();
 
-			assertNull(viewer.getMapObjectStyle(-1));
-			assertNull(viewer.getMapObjectStyle(0));
-			assertNull(viewer.getMapObjectStyle(1));
+			assertNull(viewer.findMapObjectDrawStyle(-1));
+			assertNull(viewer.findMapObjectDrawStyle(0));
+			assertNull(viewer.findMapObjectDrawStyle(1));
 		}
 		catch (Exception ex)
 		{
@@ -223,7 +223,7 @@ public class MapObjectDrawStylesViewerTest
 	}
 
 	/**
-	 * Testing getMapObjectStyle by null index
+	 * Testing getMapObjectDrawSettings by null index
 	 */
 	@Test
 	public void getMapObjectStyleByNullIndexTest()
@@ -232,7 +232,7 @@ public class MapObjectDrawStylesViewerTest
 		{
 			StyleViewer viewer = DrawingStylesFactory.createStyleViewer();
 
-			assertNull(viewer.getMapObjectStyle(null));
+			assertNull(viewer.findMapObjectDrawStyle(null));
 		}
 		catch (Exception ex)
 		{
