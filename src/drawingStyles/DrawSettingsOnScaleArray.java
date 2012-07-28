@@ -175,7 +175,7 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	}
 
 	/**
-	 * Find point line style on scale level
+	 * Find line style on scale level
 	 *
 	 * @param pScaleLevel scale level
 	 * @return line draw style on scale level

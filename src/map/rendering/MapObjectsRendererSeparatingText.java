@@ -79,7 +79,9 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	public void renderPoint(MapPoint pPoint)
 	{
 		if (pPoint == null)
+		{
 			return;
+		}
 
 		// получить параметры отрисовки точки
 		// получить из параметров значок
@@ -88,25 +90,18 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		// найти в тегах текст который может отображать как подпись
 		// отобразить текст
 
-		MapObjectDrawSettings pointObjectStyle = styleViewer.getMapObjectStyle(pPoint.getStyleIndex());
-		if (pointObjectStyle == null)
+		MapObjectDrawSettings objectStyle = styleViewer.getMapObjectStyle(pPoint.getStyleIndex());
+		if (objectStyle == null)
 			return;
 
-		if (!pointObjectStyle.canBePoint())
+		if (!objectStyle.canBePoint())
 			return;
 
-		DrawSettingsOnScaleArray scaledStyles = pointObjectStyle.getScaledStyles();
+		DrawSettingsOnScaleArray scaledStyles = objectStyle.getScaledStyles();
 		if (scaledStyles == null)
 			return;
 
-		DrawSettingsOnScale styleOnCurrentScale = scaledStyles.getDrawSettingsOnScale(scaleLevel);
-		if (styleOnCurrentScale == null)
-			return;
-
-		if (!styleOnCurrentScale.isDrawPoint())
-			return;
-
-		PointDrawSettings pointStyle = styleOnCurrentScale.getPointDrawSettings();
+		PointDrawStyle pointStyle = scaledStyles.findPointDrawStyle(scaleLevel);
 		if (pointStyle == null)
 			return;
 
@@ -119,13 +114,14 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 							(int) (pointPositionOnCanvas.getY() - pointImage.getHeight() / 2), null);
 		}
 
-		canvas.setColor(styleOnCurrentScale.getTextDrawSettings().getColor());
-		canvas.setFont(styleOnCurrentScale.getTextDrawSettings().getFont());
+		TextDrawStyle textStyle = scaledStyles.findTextDrawStyle(scaleLevel);
+		canvas.setColor(textStyle.getColor());
+		canvas.setFont(textStyle.getFont());
 
-		String text = pointObjectStyle.getTextTagKeys().findTextInTags(pPoint.getDefenitionTags());
+		String text = objectStyle.getTextTagKeys().findTextInTags(pPoint.getDefenitionTags());
 		if (!text.isEmpty())
 		{
-			FontMetrics textFontMetrics = canvas.getFontMetrics(styleOnCurrentScale.getTextDrawSettings().getFont());
+			FontMetrics textFontMetrics = canvas.getFontMetrics(textStyle.getFont());
 			int textWidth = textFontMetrics.stringWidth(text);
 
 			canvas.drawString(text, (int) pointPositionOnCanvas.getX() - textWidth / 2, (int) pointPositionOnCanvas.getY());

@@ -11,7 +11,7 @@ import java.io.IOException;
  *
  * @author abc
  */
-public class MapObjectDrawSettings implements ReadableMapData, WritableMapData, Comparable<MapObjectDrawSettings>
+public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapData, WritableMapData, Comparable<MapObjectDrawSettings>
 {
 	/**
 	 * Can be object with this tags a point (single node)
@@ -92,54 +92,21 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData, 
 	}
 
 	/**
-	 * Считать из потока
-	 *
-	 * @param pInput поток чтения
-	 * @throws IOException чтение не удалось
+	 * Set default values into null fields
 	 */
-	@Override
-	public void readFromStream(DataInputStream pInput) throws IOException
+	private void initializeNullFields()
 	{
-		try
+		if (scaledStyles == null)
 		{
-			canBePoint = pInput.readBoolean();
-			canBeLine = pInput.readBoolean();
-			canBePolygon = pInput.readBoolean();
-			textTagKeys.readFromStream(pInput);
-			drawPriority = pInput.readInt();
-			description = pInput.readUTF();
-			scaledStyles.readFromStream(pInput);
-			defenitionTags.readFromStream(pInput);
+			scaledStyles = new DrawSettingsOnScaleArray();
 		}
-		catch (Exception e)
+		if (defenitionTags == null)
 		{
-			throw new IOException(e);
+			defenitionTags = new DefenitionTags();
 		}
-	}
-
-	/**
-	 * Записать в поток
-	 *
-	 * @param pOutput поток вывода
-	 * @throws IOException запись не удалась
-	 */
-	@Override
-	public void writeToStream(DataOutputStream pOutput) throws IOException
-	{
-		try
+		if (textTagKeys == null)
 		{
-			pOutput.writeBoolean(canBePoint);
-			pOutput.writeBoolean(canBeLine);
-			pOutput.writeBoolean(canBePolygon);
-			textTagKeys.writeToStream(pOutput);
-			pOutput.writeInt(drawPriority);
-			pOutput.writeUTF(description);
-			scaledStyles.writeToStream(pOutput);
-			defenitionTags.writeToStream(pOutput);
-		}
-		catch (Exception e)
-		{
-			throw new IOException(e);
+			textTagKeys = new TextTagsKeys();
 		}
 	}
 
@@ -148,6 +115,7 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData, 
 	 *
 	 * @return Can object be a point on a map
 	 */
+	@Override
 	public boolean canBePoint()
 	{
 		return canBePoint;
@@ -158,6 +126,7 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData, 
 	 *
 	 * @return Can object be a line(non-closed way) on a map
 	 */
+	@Override
 	public boolean canBeLine()
 	{
 		return canBeLine;
@@ -168,6 +137,7 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData, 
 	 *
 	 * @return Can object be a polygon(closed way) on a map
 	 */
+	@Override
 	public boolean canBePolygon()
 	{
 		return canBePolygon;
@@ -184,20 +154,22 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData, 
 	}
 
 	/**
-	 * Получить приоритет при рисовании
+	 * Get draw priority
 	 *
-	 * @return приоритет при рисовании
+	 * @return draw priority
 	 */
+	@Override
 	public int getDrawPriority()
 	{
 		return drawPriority;
 	}
 
 	/**
-	 * Получить описание объекта
+	 * Get object description
 	 *
-	 * @return описание объекта
+	 * @return object description
 	 */
+	@Override
 	public String getDescription()
 	{
 		return description;
@@ -224,22 +196,63 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData, 
 	}
 
 	/**
-	 * Set default values into null fields
+	 * Find point draw style on scale level
+	 *
+	 * @param pScaleLevel scale level
+	 * @return point draw style on scale level
 	 */
-	private void initializeNullFields()
+	@Override
+	public PointDrawStyle findPointDrawStyle(int pScaleLevel)
 	{
-		if (scaledStyles == null)
-		{
-			scaledStyles = new DrawSettingsOnScaleArray();
-		}
-		if (defenitionTags == null)
-		{
-			defenitionTags = new DefenitionTags();
-		}
-		if (textTagKeys == null)
-		{
-			textTagKeys = new TextTagsKeys();
-		}
+		return scaledStyles.findPointDrawStyle(pScaleLevel);
+	}
+
+	/**
+	 * Find line style on scale level
+	 *
+	 * @param pScaleLevel scale level
+	 * @return line draw style on scale level
+	 */
+	@Override
+	public LineDrawStyle findLineDrawStyle(int pScaleLevel)
+	{
+		return scaledStyles.findLineDrawStyle(pScaleLevel);
+	}
+
+	/**
+	 * Find polygon style on scale level
+	 *
+	 * @param pScaleLevel scale level
+	 * @return polygon draw style on scale level
+	 */
+	@Override
+	public PolygonDrawStyle findPolygonDrawStyle(int pScaleLevel)
+	{
+		return scaledStyles.findPolygonDrawStyle(pScaleLevel);
+	}
+
+	/**
+	 * Find text style on scale level
+	 *
+	 * @param pScaleLevel scale level
+	 * @return text draw style on scale level
+	 */
+	@Override
+	public TextDrawStyle findTextDrawStyle(int pScaleLevel)
+	{
+		return scaledStyles.findTextDrawStyle(pScaleLevel);
+	}
+
+	/**
+	 * Find value of tag that means text description of object
+	 *
+	 * @param pTags tags of object
+	 * @return text description of object founded in tag. Empty if not found
+	 */
+	@Override
+	public String findTextInTags(DefenitionTags pTags)
+	{
+		return textTagKeys.findTextInTags(pTags);
 	}
 
 	/**
@@ -264,5 +277,57 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData, 
 			return 1;
 		}
 		return 0;
+	}
+
+	/**
+	 * Read from stream
+	 *
+	 * @param pInput reading stream
+	 * @throws IOException reading error
+	 */
+	@Override
+	public void readFromStream(DataInputStream pInput) throws IOException
+	{
+		try
+		{
+			canBePoint = pInput.readBoolean();
+			canBeLine = pInput.readBoolean();
+			canBePolygon = pInput.readBoolean();
+			textTagKeys.readFromStream(pInput);
+			drawPriority = pInput.readInt();
+			description = pInput.readUTF();
+			scaledStyles.readFromStream(pInput);
+			defenitionTags.readFromStream(pInput);
+		}
+		catch (Exception e)
+		{
+			throw new IOException(e);
+		}
+	}
+
+	/**
+	 * Write into stream
+	 *
+	 * @param pOutput output stream
+	 * @throws IOException writing error
+	 */
+	@Override
+	public void writeToStream(DataOutputStream pOutput) throws IOException
+	{
+		try
+		{
+			pOutput.writeBoolean(canBePoint);
+			pOutput.writeBoolean(canBeLine);
+			pOutput.writeBoolean(canBePolygon);
+			textTagKeys.writeToStream(pOutput);
+			pOutput.writeInt(drawPriority);
+			pOutput.writeUTF(description);
+			scaledStyles.writeToStream(pOutput);
+			defenitionTags.writeToStream(pOutput);
+		}
+		catch (Exception e)
+		{
+			throw new IOException(e);
+		}
 	}
 }

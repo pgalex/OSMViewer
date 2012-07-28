@@ -51,7 +51,9 @@ public class TextTagsKeys implements ReadableMapData, WritableMapData
 	private void initializeNullFields()
 	{
 		if (tagsKeys == null)
+		{
 			tagsKeys = DEFAULT_TEXT_TAGS_KEYS;
+		}
 		// length can be == 0
 	}
 
@@ -76,7 +78,9 @@ public class TextTagsKeys implements ReadableMapData, WritableMapData
 	{
 		// Keys priority - from begin to end of tagsKeys
 		if (pTags == null)
+		{
 			return "";
+		}
 
 		for (int keyIndex = 0; keyIndex < tagsKeys.length; keyIndex++)
 		{
@@ -84,7 +88,9 @@ public class TextTagsKeys implements ReadableMapData, WritableMapData
 			{
 				MapTag tag = pTags.get(tagIndex);
 				if (tag.getKey().equals(tagsKeys[keyIndex]))
+				{
 					return tag.getValue();
+				}
 			}
 		}
 
@@ -106,7 +112,9 @@ public class TextTagsKeys implements ReadableMapData, WritableMapData
 			tagsKeys = new String[tagsKeysLength];
 
 			for (int i = 0; i < tagsKeysLength; i++)
+			{
 				tagsKeys[i] = pInput.readUTF();
+			}
 		}
 		catch (Exception e)
 		{
@@ -127,7 +135,9 @@ public class TextTagsKeys implements ReadableMapData, WritableMapData
 		{
 			pOutput.writeInt(tagsKeys.length);
 			for (int i = 0; i < tagsKeys.length; i++)
+			{
 				pOutput.writeUTF(tagsKeys[i]);
+			}
 		}
 		catch (Exception e)
 		{
