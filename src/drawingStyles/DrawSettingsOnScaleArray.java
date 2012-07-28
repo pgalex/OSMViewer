@@ -46,10 +46,12 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 		minimumScaleLevel = DEFAULT_MINIMUM_SCALE_LEVEL;
 		maximumScaleLevel = DEFAULT_MAXIUMUM_SCALE_LEVEL;
 
-		scaledStyles = new DrawSettingsOnScale[ccomputeStylesArrayLengthByScaleLevelBounds()];
+		scaledStyles = new DrawSettingsOnScale[computeStylesArrayLengthByScaleLevelBounds()];
 
 		for (int i = 0; i < scaledStyles.length; i++)
+		{
 			scaledStyles[i] = new DrawSettingsOnScale();
+		}
 	}
 
 	/**
@@ -57,9 +59,23 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	 *
 	 * @return style array length
 	 */
-	private int ccomputeStylesArrayLengthByScaleLevelBounds()
+	private int computeStylesArrayLengthByScaleLevelBounds()
 	{
 		return maximumScaleLevel - minimumScaleLevel + 1;
+	}
+
+	/**
+	 * Get style on specifiec scale level. If level is out of range returns
+	 * nearest correct value
+	 *
+	 * @param pScaleLevel scale level
+	 * @return style on specifiec scale level
+	 */
+	public DrawSettingsOnScale getDrawSettingsOnScale(int pScaleLevel)
+	{
+		int normalizedScaleLevel = normalizeScaleLevel(pScaleLevel);
+
+		return scaledStyles[convertScaleLevelToArrayIndex(normalizedScaleLevel)];
 	}
 
 	/**
@@ -71,10 +87,12 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	 * @throws ScaleLevelOutOfBoundsException scale level is out of range
 	 * @throws ScaledStyleIsNullException new scaled style is null
 	 */
-	public void setStyleOnScale(int pScaleLevel, DrawSettingsOnScale pNewScaledStyle) throws ScaleLevelOutOfBoundsException, ScaledStyleIsNullException
+	public void setDrawSettingsOnScale(int pScaleLevel, DrawSettingsOnScale pNewScaledStyle) throws ScaleLevelOutOfBoundsException, ScaledStyleIsNullException
 	{
 		if (pNewScaledStyle == null)
+		{
 			throw new ScaledStyleIsNullException(this);
+		}
 
 		scaledStyles[convertScaleLevelToArrayIndex(pScaleLevel)] = pNewScaledStyle;
 	}
@@ -88,23 +106,11 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	private int convertScaleLevelToArrayIndex(int pScaleLevel) throws ScaleLevelOutOfBoundsException
 	{
 		if (pScaleLevel < minimumScaleLevel || pScaleLevel > maximumScaleLevel)
+		{
 			throw new ScaleLevelOutOfBoundsException(this, pScaleLevel, minimumScaleLevel, maximumScaleLevel);
+		}
 
 		return pScaleLevel - minimumScaleLevel;
-	}
-
-	/**
-	 * Get style on specifiec scale level. If level is out of range returns
-	 * nearest correct value
-	 *
-	 * @param pScaleLevel scale level
-	 * @return style on specifiec scale level
-	 */
-	public DrawSettingsOnScale getStyleOnScale(int pScaleLevel)
-	{
-		int normalizedScaleLevel = normalizeScaleLevel(pScaleLevel);
-
-		return scaledStyles[convertScaleLevelToArrayIndex(normalizedScaleLevel)];
 	}
 
 	/**
@@ -119,10 +125,14 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 		int normalizedScaleLevel = pScaleLevel;
 
 		if (normalizedScaleLevel < minimumScaleLevel)
+		{
 			normalizedScaleLevel = minimumScaleLevel;
+		}
 
 		if (normalizedScaleLevel > maximumScaleLevel)
+		{
 			normalizedScaleLevel = maximumScaleLevel;
+		}
 
 		return normalizedScaleLevel;
 	}
@@ -148,11 +158,80 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	}
 
 	/**
+	 * Find point draw style on scale level
+	 *
+	 * @param pScaleLevel scale level
+	 * @return point draw style on scale level
+	 */
+	public PointDrawStyle findPointDrawStyle(int pScaleLevel)
+	{
+		DrawSettingsOnScale drawSettingsOnScale = getDrawSettingsOnScale(pScaleLevel);
+		if (drawSettingsOnScale == null)
+		{
+			return null;
+		}
+
+		return drawSettingsOnScale.getPointDrawSettings();
+	}
+
+	/**
+	 * Find point line style on scale level
+	 *
+	 * @param pScaleLevel scale level
+	 * @return line draw style on scale level
+	 */
+	public LineDrawStyle findLineDrawStyle(int pScaleLevel)
+	{
+		DrawSettingsOnScale drawSettingsOnScale = getDrawSettingsOnScale(pScaleLevel);
+		if (drawSettingsOnScale == null)
+		{
+			return null;
+		}
+
+		return drawSettingsOnScale.getLineDrawSettings();
+	}
+
+	/**
+	 * Find polygon style on scale level
+	 *
+	 * @param pScaleLevel scale level
+	 * @return polygon draw style on scale level
+	 */
+	public PolygonDrawStyle findPolygonDrawStyle(int pScaleLevel)
+	{
+		DrawSettingsOnScale drawSettingsOnScale = getDrawSettingsOnScale(pScaleLevel);
+		if (drawSettingsOnScale == null)
+		{
+			return null;
+		}
+
+		return drawSettingsOnScale.getPolygonDrawSettings();
+	}
+
+	/**
+	 * Find text style on scale level
+	 *
+	 * @param pScaleLevel scale level
+	 * @return text draw style on scale level
+	 */
+	public TextDrawStyle findTextDrawStyle(int pScaleLevel)
+	{
+		DrawSettingsOnScale drawSettingsOnScale = getDrawSettingsOnScale(pScaleLevel);
+		if (drawSettingsOnScale == null)
+		{
+			return null;
+		}
+
+		return drawSettingsOnScale.getTextDrawSettings();
+	}
+
+	/**
 	 * Read from stream
 	 *
 	 * @param pInput reading stream
 	 * @throws IOException reading error
 	 */
+	@Override
 	public void readFromStream(DataInputStream pInput) throws IOException
 	{
 		try
@@ -160,7 +239,7 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 			minimumScaleLevel = pInput.readInt();
 			maximumScaleLevel = pInput.readInt();
 
-			scaledStyles = new DrawSettingsOnScale[ccomputeStylesArrayLengthByScaleLevelBounds()];
+			scaledStyles = new DrawSettingsOnScale[computeStylesArrayLengthByScaleLevelBounds()];
 			for (int i = 0; i < scaledStyles.length; i++)
 			{
 				scaledStyles[i] = new DrawSettingsOnScale();
@@ -187,7 +266,9 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 			pOutput.writeInt(minimumScaleLevel);
 			pOutput.writeInt(maximumScaleLevel);
 			for (int i = 0; i < scaledStyles.length; i++)
+			{
 				scaledStyles[i].writeToStream(pOutput);
+			}
 		}
 		catch (Exception e)
 		{

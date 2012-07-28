@@ -26,7 +26,7 @@ public class DrawSettingsOnScaleArrayTest
 	}
 
 	/**
-	 * Testing setStyleOnScale normal work
+	 * Testing setDrawSettingsOnScale normal work
 	 */
 	@Test
 	public void setStyleOnScaleWithCorrectParametersTest()
@@ -35,29 +35,29 @@ public class DrawSettingsOnScaleArrayTest
 		DrawSettingsOnScale scaledStyle = new DrawSettingsOnScale(true, false, true, null, null, null, null);
 
 		final int correctScaleLevelAtBegin = stylesArray.getMinimumScaleLevel();
-		stylesArray.setStyleOnScale(correctScaleLevelAtBegin, scaledStyle);
+		stylesArray.setDrawSettingsOnScale(correctScaleLevelAtBegin, scaledStyle);
 
 		final int correctScaleLevelAtMiddle = stylesArray.getMinimumScaleLevel() + 5;
-		stylesArray.setStyleOnScale(correctScaleLevelAtMiddle, scaledStyle);
+		stylesArray.setDrawSettingsOnScale(correctScaleLevelAtMiddle, scaledStyle);
 
 		final int correctScaleLevelAtEnd = stylesArray.getMaximumScaleLevel();
-		stylesArray.setStyleOnScale(correctScaleLevelAtEnd, scaledStyle);
+		stylesArray.setDrawSettingsOnScale(correctScaleLevelAtEnd, scaledStyle);
 
-		assertEquals(scaledStyle.isDrawPoint(), stylesArray.getStyleOnScale(correctScaleLevelAtBegin).isDrawPoint());
-		assertEquals(scaledStyle.isDrawLine(), stylesArray.getStyleOnScale(correctScaleLevelAtBegin).isDrawLine());
-		assertEquals(scaledStyle.isDrawPolygon(), stylesArray.getStyleOnScale(correctScaleLevelAtBegin).isDrawPolygon());
+		assertEquals(scaledStyle.isDrawPoint(), stylesArray.getDrawSettingsOnScale(correctScaleLevelAtBegin).isDrawPoint());
+		assertEquals(scaledStyle.isDrawLine(), stylesArray.getDrawSettingsOnScale(correctScaleLevelAtBegin).isDrawLine());
+		assertEquals(scaledStyle.isDrawPolygon(), stylesArray.getDrawSettingsOnScale(correctScaleLevelAtBegin).isDrawPolygon());
 
-		assertEquals(scaledStyle.isDrawPoint(), stylesArray.getStyleOnScale(correctScaleLevelAtMiddle).isDrawPoint());
-		assertEquals(scaledStyle.isDrawLine(), stylesArray.getStyleOnScale(correctScaleLevelAtMiddle).isDrawLine());
-		assertEquals(scaledStyle.isDrawPolygon(), stylesArray.getStyleOnScale(correctScaleLevelAtMiddle).isDrawPolygon());
+		assertEquals(scaledStyle.isDrawPoint(), stylesArray.getDrawSettingsOnScale(correctScaleLevelAtMiddle).isDrawPoint());
+		assertEquals(scaledStyle.isDrawLine(), stylesArray.getDrawSettingsOnScale(correctScaleLevelAtMiddle).isDrawLine());
+		assertEquals(scaledStyle.isDrawPolygon(), stylesArray.getDrawSettingsOnScale(correctScaleLevelAtMiddle).isDrawPolygon());
 
-		assertEquals(scaledStyle.isDrawPoint(), stylesArray.getStyleOnScale(correctScaleLevelAtEnd).isDrawPoint());
-		assertEquals(scaledStyle.isDrawLine(), stylesArray.getStyleOnScale(correctScaleLevelAtEnd).isDrawLine());
-		assertEquals(scaledStyle.isDrawPolygon(), stylesArray.getStyleOnScale(correctScaleLevelAtEnd).isDrawPolygon());
+		assertEquals(scaledStyle.isDrawPoint(), stylesArray.getDrawSettingsOnScale(correctScaleLevelAtEnd).isDrawPoint());
+		assertEquals(scaledStyle.isDrawLine(), stylesArray.getDrawSettingsOnScale(correctScaleLevelAtEnd).isDrawLine());
+		assertEquals(scaledStyle.isDrawPolygon(), stylesArray.getDrawSettingsOnScale(correctScaleLevelAtEnd).isDrawPolygon());
 	}
 
 	/**
-	 * Testing setStyleOnScale on scale less than 0
+	 * Testing setDrawSettingsOnScale on scale less than 0
 	 */
 	@Test
 	public void setStyleOnScaleLessThanBounds()
@@ -66,7 +66,7 @@ public class DrawSettingsOnScaleArrayTest
 		DrawSettingsOnScale scaledStyle = new DrawSettingsOnScale(true, false, true, null, null, null, null);
 		try
 		{
-			stylesArray.setStyleOnScale(stylesArray.getMinimumScaleLevel() - 1, scaledStyle); // there should be out of range exception
+			stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel() - 1, scaledStyle); // there should be out of range exception
 			fail();
 		}
 		catch (ScaleLevelOutOfBoundsException ex)
@@ -79,7 +79,7 @@ public class DrawSettingsOnScaleArrayTest
 	}
 
 	/**
-	 * Testing setStyleOnScale on scale more than maximum
+	 * Testing setDrawSettingsOnScale on scale more than maximum
 	 */
 	@Test
 	public void setStyleOnScaleMoreThanBounds()
@@ -88,7 +88,7 @@ public class DrawSettingsOnScaleArrayTest
 		DrawSettingsOnScale scaledStyle = new DrawSettingsOnScale(true, false, true, null, null, null, null);
 		try
 		{
-			stylesArray.setStyleOnScale(stylesArray.getMaximumScaleLevel() + 1, scaledStyle); // there should be out of range exception
+			stylesArray.setDrawSettingsOnScale(stylesArray.getMaximumScaleLevel() + 1, scaledStyle); // there should be out of range exception
 			fail();
 		}
 		catch (ScaleLevelOutOfBoundsException ex)
@@ -110,7 +110,7 @@ public class DrawSettingsOnScaleArrayTest
 
 		try
 		{
-			stylesArray.setStyleOnScale(stylesArray.getMinimumScaleLevel(), null);
+			stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel(), null);
 			fail();
 		}
 		catch (ScaledStyleIsNullException ex)
@@ -134,30 +134,30 @@ public class DrawSettingsOnScaleArrayTest
 			DrawSettingsOnScaleArray writingStyles = new DrawSettingsOnScaleArray();
 
 			final int scaleLevelAtBegin = writingStyles.getMinimumScaleLevel();
-			writingStyles.setStyleOnScale(scaleLevelAtBegin, styleAtBegin);
+			writingStyles.setDrawSettingsOnScale(scaleLevelAtBegin, styleAtBegin);
 
 			final int scaleLevelAtMiddle = writingStyles.getMinimumScaleLevel() + 5;
-			writingStyles.setStyleOnScale(scaleLevelAtMiddle, styleAtMiddle);
+			writingStyles.setDrawSettingsOnScale(scaleLevelAtMiddle, styleAtMiddle);
 
 			final int scaleLevelAtEnd = writingStyles.getMaximumScaleLevel();
-			writingStyles.setStyleOnScale(scaleLevelAtEnd, styleAtEnd);
+			writingStyles.setDrawSettingsOnScale(scaleLevelAtEnd, styleAtEnd);
 
 			IOTester.writeToTestFile(writingStyles);
 
 			DrawSettingsOnScaleArray readingStyle = new DrawSettingsOnScaleArray();
 			IOTester.readFromTestFile(readingStyle);
 
-			assertEquals(readingStyle.getStyleOnScale(scaleLevelAtBegin).isDrawPoint(), styleAtBegin.isDrawPoint());
-			assertEquals(readingStyle.getStyleOnScale(scaleLevelAtBegin).isDrawLine(), styleAtBegin.isDrawLine());
-			assertEquals(readingStyle.getStyleOnScale(scaleLevelAtBegin).isDrawPolygon(), styleAtBegin.isDrawPolygon());
+			assertEquals(readingStyle.getDrawSettingsOnScale(scaleLevelAtBegin).isDrawPoint(), styleAtBegin.isDrawPoint());
+			assertEquals(readingStyle.getDrawSettingsOnScale(scaleLevelAtBegin).isDrawLine(), styleAtBegin.isDrawLine());
+			assertEquals(readingStyle.getDrawSettingsOnScale(scaleLevelAtBegin).isDrawPolygon(), styleAtBegin.isDrawPolygon());
 
-			assertEquals(readingStyle.getStyleOnScale(scaleLevelAtMiddle).isDrawPoint(), styleAtMiddle.isDrawPoint());
-			assertEquals(readingStyle.getStyleOnScale(scaleLevelAtMiddle).isDrawLine(), styleAtMiddle.isDrawLine());
-			assertEquals(readingStyle.getStyleOnScale(scaleLevelAtMiddle).isDrawPolygon(), styleAtMiddle.isDrawPolygon());
+			assertEquals(readingStyle.getDrawSettingsOnScale(scaleLevelAtMiddle).isDrawPoint(), styleAtMiddle.isDrawPoint());
+			assertEquals(readingStyle.getDrawSettingsOnScale(scaleLevelAtMiddle).isDrawLine(), styleAtMiddle.isDrawLine());
+			assertEquals(readingStyle.getDrawSettingsOnScale(scaleLevelAtMiddle).isDrawPolygon(), styleAtMiddle.isDrawPolygon());
 
-			assertEquals(readingStyle.getStyleOnScale(scaleLevelAtEnd).isDrawPoint(), styleAtEnd.isDrawPoint());
-			assertEquals(readingStyle.getStyleOnScale(scaleLevelAtEnd).isDrawLine(), styleAtEnd.isDrawLine());
-			assertEquals(readingStyle.getStyleOnScale(scaleLevelAtEnd).isDrawPolygon(), styleAtEnd.isDrawPolygon());
+			assertEquals(readingStyle.getDrawSettingsOnScale(scaleLevelAtEnd).isDrawPoint(), styleAtEnd.isDrawPoint());
+			assertEquals(readingStyle.getDrawSettingsOnScale(scaleLevelAtEnd).isDrawLine(), styleAtEnd.isDrawLine());
+			assertEquals(readingStyle.getDrawSettingsOnScale(scaleLevelAtEnd).isDrawPolygon(), styleAtEnd.isDrawPolygon());
 		}
 		catch (Exception ex)
 		{

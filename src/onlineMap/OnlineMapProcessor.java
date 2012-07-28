@@ -113,7 +113,7 @@ public class OnlineMapProcessor implements DrawableOnPanel
 			DrawSettingsOnScaleArray scaleStylesArray = new DrawSettingsOnScaleArray();
 			for (int i = ONLINE_MAP_MINIMUM_SCALE_LEVEL; i <= ONLINE_MAP_MAXIMUM_SCALE_LEVEL; i++)
 			{
-				scaleStylesArray.setStyleOnScale(i, scaledStyle);
+				scaleStylesArray.setDrawSettingsOnScale(i, scaledStyle);
 			}
 
 			String[] textTagKeys = new String[1];

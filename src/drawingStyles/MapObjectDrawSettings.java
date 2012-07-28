@@ -14,15 +14,15 @@ import java.io.IOException;
 public class MapObjectDrawSettings implements ReadableMapData, WritableMapData, Comparable<MapObjectDrawSettings>
 {
 	/**
-	 * Can be object with this tags a point ( single node )
+	 * Can be object with this tags a point (single node)
 	 */
 	private boolean canBePoint;
 	/**
-	 * Can be object with this tags a line ( non closed way )
+	 * Can be object with this tags a line (non closed way)
 	 */
 	private boolean canBeLine;
 	/**
-	 * Can be object with this tags a polygon ( closed way )
+	 * Can be object with this tags a polygon (closed way)
 	 */
 	private boolean canBePolygon;
 	/**
@@ -229,11 +229,17 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData, 
 	private void initializeNullFields()
 	{
 		if (scaledStyles == null)
+		{
 			scaledStyles = new DrawSettingsOnScaleArray();
+		}
 		if (defenitionTags == null)
+		{
 			defenitionTags = new DefenitionTags();
+		}
 		if (textTagKeys == null)
+		{
 			textTagKeys = new TextTagsKeys();
+		}
 	}
 
 	/**
@@ -246,11 +252,17 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData, 
 	public int compareTo(MapObjectDrawSettings pComparedStyle)
 	{
 		if (pComparedStyle == null)
+		{
 			return 1;
+		}
 		if (defenitionTags.size() > pComparedStyle.getDefenitionTags().size())
+		{
 			return -1;
+		}
 		if (defenitionTags.size() < pComparedStyle.getDefenitionTags().size())
+		{
 			return 1;
+		}
 		return 0;
 	}
 }

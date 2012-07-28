@@ -99,7 +99,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		if (scaledStyles == null)
 			return;
 
-		DrawSettingsOnScale styleOnCurrentScale = scaledStyles.getStyleOnScale(scaleLevel);
+		DrawSettingsOnScale styleOnCurrentScale = scaledStyles.getDrawSettingsOnScale(scaleLevel);
 		if (styleOnCurrentScale == null)
 			return;
 
