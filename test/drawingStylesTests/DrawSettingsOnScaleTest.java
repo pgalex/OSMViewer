@@ -1,11 +1,7 @@
 package drawingStylesTests;
 
 import IOTesting.IOTester;
-import drawingStyles.IOColor;
-import drawingStyles.IOFont;
 import drawingStyles.DrawSettingsOnScale;
-import java.awt.Color;
-import java.awt.Font;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -22,12 +18,11 @@ public class DrawSettingsOnScaleTest
 	@Test
 	public void autoInitializeTest()
 	{
-		DrawSettingsOnScale testStyle = new DrawSettingsOnScale(true, true, true, null, null, null, null, null);
-		assertNotNull(testStyle.getPointStyle());
-		assertNotNull(testStyle.getLineStyle());
-		assertNotNull(testStyle.getPolygonStyle());
-		assertNotNull(testStyle.getTextColor());
-		assertNotNull(testStyle.getTextFont());
+		DrawSettingsOnScale testStyle = new DrawSettingsOnScale(true, true, true, null, null, null, null);
+		assertNotNull(testStyle.getPointDrawSettings());
+		assertNotNull(testStyle.getLineDrawSettings());
+		assertNotNull(testStyle.getPolygonDrawSettings());
+		assertNotNull(testStyle.getTextDrawSettings());
 	}
 
 	/**
@@ -38,8 +33,7 @@ public class DrawSettingsOnScaleTest
 	{
 		try
 		{
-			DrawSettingsOnScale writedStyle = new DrawSettingsOnScale(true, false, true, null, null,
-							null, new IOColor(Color.RED), new IOFont(new Font("Arial", 1, 3)));
+			DrawSettingsOnScale writedStyle = new DrawSettingsOnScale(true, false, true, null, null, null, null);
 
 			IOTester.writeToTestFile(writedStyle);
 
@@ -49,11 +43,6 @@ public class DrawSettingsOnScaleTest
 			assertEquals(writedStyle.isDrawLine(), readStyle.isDrawLine());
 			assertEquals(writedStyle.isDrawPoint(), readStyle.isDrawPoint());
 			assertEquals(writedStyle.isDrawPolygon(), readStyle.isDrawPolygon());
-			assertEquals(writedStyle.getTextColor().getColor(), readStyle.getTextColor().getColor());
-			assertEquals(writedStyle.getTextFont().getFont(), readStyle.getTextFont().getFont());
-			assertEquals(writedStyle.getTextFont().getFont().getFamily(), readStyle.getTextFont().getFont().getFamily());
-			assertEquals(writedStyle.getTextFont().getFont().getStyle(), readStyle.getTextFont().getFont().getStyle());
-			assertEquals(writedStyle.getTextFont().getFont().getSize(), readStyle.getTextFont().getFont().getSize());
 		}
 		catch (Exception ex)
 		{

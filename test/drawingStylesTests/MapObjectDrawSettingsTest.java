@@ -70,12 +70,12 @@ public class MapObjectDrawSettingsTest
 		{
 			final int someScaleLevelAtBegin = 3;
 			final int someScaleLevelAtMiddle = 8;
-			
+
 			DrawSettingsOnScaleArray scaledStyles = new DrawSettingsOnScaleArray();
 			scaledStyles.setStyleOnScale(someScaleLevelAtBegin, new DrawSettingsOnScale(true, false, true, null, null,
-							null, null, null));
+							null, null));
 			scaledStyles.setStyleOnScale(someScaleLevelAtMiddle, new DrawSettingsOnScale(false, true, true, null, null,
-							null, null, null));
+							null, null));
 			EditableDefenitionTags tags = new EditableDefenitionTags();
 			tags.add(new MapTag("k1", "v1"));
 			tags.add(new MapTag("k2", "v2"));

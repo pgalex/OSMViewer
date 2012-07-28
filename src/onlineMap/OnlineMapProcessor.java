@@ -108,11 +108,13 @@ public class OnlineMapProcessor implements DrawableOnPanel
 			styleViewer.setMapDrawingSettings(new MapDrawingSettings(null));
 			IOIcon icon = new IOIcon("icons/shop_convenience.p.16.png");
 			PointDrawSettings pointStyle = new PointDrawSettings(icon.getImage());
-			DrawSettingsOnScale scaledStyle = new DrawSettingsOnScale(true, false, false, pointStyle, null, null, new IOColor(Color.RED), new IOFont());
+			DrawSettingsOnScale scaledStyle = new DrawSettingsOnScale(true, false, false, pointStyle, null, null, null);
 
 			DrawSettingsOnScaleArray scaleStylesArray = new DrawSettingsOnScaleArray();
 			for (int i = ONLINE_MAP_MINIMUM_SCALE_LEVEL; i <= ONLINE_MAP_MAXIMUM_SCALE_LEVEL; i++)
+			{
 				scaleStylesArray.setStyleOnScale(i, scaledStyle);
+			}
 
 			String[] textTagKeys = new String[1];
 			textTagKeys[0] = "name";

@@ -28,37 +28,32 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 	/**
 	 * point drawing settings
 	 */
-	private PointDrawSettings pointStyle;
+	private PointDrawSettings pointDrawSettings;
 	/**
 	 * line drawing settings
 	 */
-	private LineDrawSettings lineStyle;
+	private LineDrawSettings lineDrawSettings;
 	/**
 	 * polygon drawing settings
 	 */
-	private PolygonDrawSettings polygonStyle;
+	private PolygonDrawSettings polygonDrawSettings;
 	/**
-	 * Map object text(caption) font
+	 * text drawing settings
 	 */
-	private IOFont textFont;
-	/**
-	 * Text(caption) color.
-	 */
-	private IOColor textColor;
+	private TextDrawSettings textDrawSettings;
 
 	/**
 	 * Default constructor
 	 */
 	public DrawSettingsOnScale()
 	{
-		pointStyle = new PointDrawSettings();
-		lineStyle = new LineDrawSettings();
-		polygonStyle = new PolygonDrawSettings();
+		pointDrawSettings = new PointDrawSettings();
+		lineDrawSettings = new LineDrawSettings();
+		polygonDrawSettings = new PolygonDrawSettings();
+		textDrawSettings = new TextDrawSettings();
 		drawPoint = false;
 		drawLine = false;
 		drawPolygon = false;
-		textColor = new IOColor();
-		textFont = new IOFont();
 	}
 
 	/**
@@ -70,21 +65,19 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 	 * @param pPointStyle point drawing settings. Setting to default if null
 	 * @param pLineStyle line drawing settings. Setting to default if null
 	 * @param pPolygonStyle polygon drawing settings. Setting to default if null
-	 * @param pTextColor Text(caption) color Setting to default if null
-	 * @param pTextFont Map object text(caption) font Setting to default if null
+	 * @param pTextDrawSettings text drawing settings. Setting to default if null
 	 */
 	public DrawSettingsOnScale(boolean pDrawPoint, boolean pDrawLine, boolean pDrawPolygon,
 					PointDrawSettings pPointStyle, LineDrawSettings pLineStyle, PolygonDrawSettings pPolygonStyle,
-					IOColor pTextColor, IOFont pTextFont)
+					TextDrawSettings pTextDrawSettings)
 	{
 		drawPoint = pDrawPoint;
 		drawLine = pDrawLine;
 		drawPolygon = pDrawPolygon;
-		pointStyle = pPointStyle;
-		lineStyle = pLineStyle;
-		polygonStyle = pPolygonStyle;
-		textColor = pTextColor;
-		textFont = pTextFont;
+		pointDrawSettings = pPointStyle;
+		lineDrawSettings = pLineStyle;
+		polygonDrawSettings = pPolygonStyle;
+		textDrawSettings = pTextDrawSettings;
 
 		initializeNullFields();
 	}
@@ -94,20 +87,24 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 	 */
 	private void initializeNullFields()
 	{
-		if (pointStyle == null)
-			pointStyle = new PointDrawSettings();
+		if (pointDrawSettings == null)
+		{
+			pointDrawSettings = new PointDrawSettings();
+		}
 
-		if (lineStyle == null)
-			lineStyle = new LineDrawSettings();
+		if (lineDrawSettings == null)
+		{
+			lineDrawSettings = new LineDrawSettings();
+		}
 
-		if (polygonStyle == null)
-			polygonStyle = new PolygonDrawSettings();
-
-		if (textColor == null)
-			textColor = new IOColor();
-
-		if (textFont == null)
-			textFont = new IOFont();
+		if (polygonDrawSettings == null)
+		{
+			polygonDrawSettings = new PolygonDrawSettings();
+		}
+		if (textDrawSettings == null)
+		{
+			textDrawSettings = new TextDrawSettings();
+		}
 	}
 
 	/**
@@ -124,12 +121,10 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 			drawPoint = pInput.readBoolean();
 			drawLine = pInput.readBoolean();
 			drawPolygon = pInput.readBoolean();
-			pointStyle.readFromStream(pInput);
-			lineStyle.readFromStream(pInput);
-			polygonStyle.readFromStream(pInput);
-
-			textColor.readFromStream(pInput);
-			textFont.readFromStream(pInput);
+			pointDrawSettings.readFromStream(pInput);
+			lineDrawSettings.readFromStream(pInput);
+			polygonDrawSettings.readFromStream(pInput);
+			textDrawSettings.readFromStream(pInput);
 		}
 		catch (Exception e)
 		{
@@ -151,12 +146,10 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 			pOutput.writeBoolean(isDrawPoint());
 			pOutput.writeBoolean(isDrawLine());
 			pOutput.writeBoolean(isDrawPolygon());
-			pointStyle.writeToStream(pOutput);
-			lineStyle.writeToStream(pOutput);
-			polygonStyle.writeToStream(pOutput);
-
-			textColor.writeToStream(pOutput);
-			textFont.writeToStream(pOutput);
+			pointDrawSettings.writeToStream(pOutput);
+			lineDrawSettings.writeToStream(pOutput);
+			polygonDrawSettings.writeToStream(pOutput);
+			textDrawSettings.writeToStream(pOutput);
 		}
 		catch (Exception e)
 		{
@@ -195,52 +188,42 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Get point drawing style
+	 * Get point drawing settings
 	 *
 	 * @return point drawing style
 	 */
-	public PointDrawSettings getPointStyle()
+	public PointDrawSettings getPointDrawSettings()
 	{
-		return pointStyle;
+		return pointDrawSettings;
 	}
 
 	/**
-	 * Get line drawing style
+	 * Get line drawing settings
 	 *
-	 * @return line drawing style
+	 * @return line drawing settings
 	 */
-	public LineDrawSettings getLineStyle()
+	public LineDrawSettings getLineDrawSettings()
 	{
-		return lineStyle;
+		return lineDrawSettings;
 	}
 
 	/**
-	 * Get polygon drawing style
+	 * Get polygon drawing settings
 	 *
-	 * @return polygon drawing style
+	 * @return polygon drawing settings
 	 */
-	public PolygonDrawSettings getPolygonStyle()
+	public PolygonDrawSettings getPolygonDrawSettings()
 	{
-		return polygonStyle;
+		return polygonDrawSettings;
 	}
 
 	/**
-	 * Get text (caption) font
+	 * Get text drawing settings
 	 *
-	 * @return text (caption) font
+	 * @return text drawing settings
 	 */
-	public IOFont getTextFont()
+	public TextDrawSettings getTextDrawSettings()
 	{
-		return textFont;
-	}
-
-	/**
-	 * Get text (caption) color
-	 *
-	 * @return text (caption) color
-	 */
-	public IOColor getTextColor()
-	{
-		return textColor;
+		return textDrawSettings;
 	}
 }

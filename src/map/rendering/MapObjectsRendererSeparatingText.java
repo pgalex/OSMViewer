@@ -52,11 +52,17 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 					CoordinatesConverter pCoordinatesConverter, int pScaleLevel) throws CanvasIsNullException, StyleViewerIsNullException, CoordinatesConverterIsNullException
 	{
 		if (pCanvas == null)
+		{
 			throw new CanvasIsNullException();
+		}
 		if (pStyleViewer == null)
+		{
 			throw new StyleViewerIsNullException();
+		}
 		if (pCoordinatesConverter == null)
+		{
 			throw new CoordinatesConverterIsNullException();
+		}
 
 		canvas = pCanvas;
 		styleViewer = pStyleViewer;
@@ -100,7 +106,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		if (!styleOnCurrentScale.isDrawPoint())
 			return;
 
-		PointDrawSettings pointStyle = styleOnCurrentScale.getPointStyle();
+		PointDrawSettings pointStyle = styleOnCurrentScale.getPointDrawSettings();
 		if (pointStyle == null)
 			return;
 
@@ -113,13 +119,13 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 							(int) (pointPositionOnCanvas.getY() - pointImage.getHeight() / 2), null);
 		}
 
-		canvas.setColor(styleOnCurrentScale.getTextColor().getColor());
-		canvas.setFont(styleOnCurrentScale.getTextFont().getFont());
+		canvas.setColor(styleOnCurrentScale.getTextDrawSettings().getColor());
+		canvas.setFont(styleOnCurrentScale.getTextDrawSettings().getFont());
 
 		String text = pointObjectStyle.getTextTagKeys().findTextInTags(pPoint.getDefenitionTags());
 		if (!text.isEmpty())
 		{
-			FontMetrics textFontMetrics = canvas.getFontMetrics(styleOnCurrentScale.getTextFont().getFont());
+			FontMetrics textFontMetrics = canvas.getFontMetrics(styleOnCurrentScale.getTextDrawSettings().getFont());
 			int textWidth = textFontMetrics.stringWidth(text);
 
 			canvas.drawString(text, (int) pointPositionOnCanvas.getX() - textWidth / 2, (int) pointPositionOnCanvas.getY());
