@@ -13,7 +13,8 @@ import map.exceptions.CoordinatesConverterIsNullException;
 import map.exceptions.StyleViewerIsNullException;
 
 /**
- * Objects renderer that drawes object on one canvas, and it's text on other
+ * Objects renderer that drawes object on one canvas, and it's drawingText on
+ * other
  *
  * @author pgalex
  */
@@ -105,26 +106,43 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 							(int) (pointPositionOnCanvas.getY() - pointImage.getHeight() / 2), null);
 		}
 
-		TextDrawStyle textStyle = objectStyle.findTextDrawStyle(scaleLevel);
-		String text = objectStyle.findTextInTags(pPoint.getDefenitionTags());
-		
-		if (!text.isEmpty())
+		drawObjectTextAtPoint(objectStyle, pPoint.getDefenitionTags(),
+						pointPositionOnCanvas.getX(), pointPositionOnCanvas.getY());
+	}
+
+	/**
+	 * Draw object drawingText(name, description etc) on canvas
+	 *
+	 * @param pObjectDrawStyle object draw style
+	 * @param pObjectTags object tags using to find drawingText
+	 * @param textCenterX x of center point of drawingText on canvas
+	 * @param textCenterY y of center point of drawingText on canvas
+	 */
+	private void drawObjectTextAtPoint(MapObjectDrawStyle pObjectDrawStyle,
+					DefenitionTags pObjectTags, double textCenterX, double textCenterY)
+	{
+		if (pObjectDrawStyle == null || pObjectTags == null)
+		{
+			return;
+		}
+
+		TextDrawStyle textStyle = pObjectDrawStyle.findTextDrawStyle(scaleLevel);
+		if (textStyle == null)
+		{
+			return;
+		}
+
+		String drawingText = pObjectDrawStyle.findTextInTags(pObjectTags);
+		if (!drawingText.isEmpty())
 		{
 			canvas.setColor(textStyle.getColor());
 			canvas.setFont(textStyle.getFont());
 
 			FontMetrics textFontMetrics = canvas.getFontMetrics(textStyle.getFont());
-			int textWidth = textFontMetrics.stringWidth(text);
+			int textWidth = textFontMetrics.stringWidth(drawingText);
 
-			canvas.drawString(text, (int) pointPositionOnCanvas.getX() - textWidth / 2, (int) pointPositionOnCanvas.getY());
+			canvas.drawString(drawingText, (int) textCenterX - textWidth / 2, (int) textCenterY);
 		}
-
-		// получить параметры отрисовки точки
-		// получить из параметров значок
-		// если значок есть нарисовать значок
-		// получить параметры для отображения текста
-		// найти в тегах текст который может отображать как подпись
-		// отобразить текст
 	}
 
 	/**
