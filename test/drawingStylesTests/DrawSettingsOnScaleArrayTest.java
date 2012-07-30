@@ -16,6 +16,84 @@ import org.junit.Test;
 public class DrawSettingsOnScaleArrayTest
 {
 	/**
+	 * Test finding point draw style if draw point is true
+	 */
+	@Test
+	public void findingPointDrawStyleCanDrawPoint()
+	{
+		DrawSettingsOnScaleArray stylesArray = new DrawSettingsOnScaleArray();
+		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale(true, false, false, null, null, null, null);
+		stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel(), styleOnScale);
+
+		assertNotNull(stylesArray.findPointDrawStyle(stylesArray.getMinimumScaleLevel()));
+	}
+
+	/**
+	 * Test finding point draw style if draw point is false
+	 */
+	@Test
+	public void findingPointDrawStyleCannotDrawPoint()
+	{
+		DrawSettingsOnScaleArray stylesArray = new DrawSettingsOnScaleArray();
+		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale(false, true, true, null, null, null, null);
+		stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel(), styleOnScale);
+
+		assertNull(stylesArray.findPointDrawStyle(stylesArray.getMinimumScaleLevel()));
+	}
+	
+	/**
+	 * Test finding line draw style if draw line is true
+	 */
+	@Test
+	public void findingLineDrawStyleCanDrawLine()
+	{
+		DrawSettingsOnScaleArray stylesArray = new DrawSettingsOnScaleArray();
+		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale(false, true, false, null, null, null, null);
+		stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel(), styleOnScale);
+
+		assertNotNull(stylesArray.findLineDrawStyle(stylesArray.getMinimumScaleLevel()));
+	}
+
+	/**
+	 * Test finding line draw style if draw line is false
+	 */
+	@Test
+	public void findingLineDrawStyleCannotDrawLine()
+	{
+		DrawSettingsOnScaleArray stylesArray = new DrawSettingsOnScaleArray();
+		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale(true, false, true, null, null, null, null);
+		stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel(), styleOnScale);
+
+		assertNull(stylesArray.findLineDrawStyle(stylesArray.getMinimumScaleLevel()));
+	}
+	
+	/**
+	 * Test finding polygon draw style if draw polygon is true
+	 */
+	@Test
+	public void findingPolygonDrawStyleCanDrawPolygon()
+	{
+		DrawSettingsOnScaleArray stylesArray = new DrawSettingsOnScaleArray();
+		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale(false, false, true, null, null, null, null);
+		stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel(), styleOnScale);
+
+		assertNotNull(stylesArray.findPolygonDrawStyle(stylesArray.getMinimumScaleLevel()));
+	}
+
+	/**
+	 * Test finding polygon draw style if draw polygon is false
+	 */
+	@Test
+	public void findingPolygonDrawStyleCannotDrawPolygon()
+	{
+		DrawSettingsOnScaleArray stylesArray = new DrawSettingsOnScaleArray();
+		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale(true, true, false, null, null, null, null);
+		stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel(), styleOnScale);
+
+		assertNull(stylesArray.findPolygonDrawStyle(stylesArray.getMinimumScaleLevel()));
+	}
+
+	/**
 	 * Testing correction of default maximum/minimum scale level values
 	 */
 	@Test

@@ -1,13 +1,13 @@
 package drawingStylesTests;
 
 import IOTesting.IOTester;
-import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.DrawSettingsOnScale;
 import drawingStyles.DrawSettingsOnScaleArray;
+import drawingStyles.EditableDefenitionTags;
+import drawingStyles.MapObjectDrawSettings;
+import drawingStyles.MapTag;
 import java.util.ArrayList;
 import java.util.Collections;
-import drawingStyles.EditableDefenitionTags;
-import drawingStyles.MapTag;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -18,6 +18,90 @@ import org.junit.Test;
  */
 public class MapObjectDrawSettingsTest
 {
+	/**
+	 * Test finding point draw style if object can be point
+	 */
+	@Test
+	public void findingPointDrawStyleCanBePoint()
+	{
+		MapObjectDrawSettings testSettings = new MapObjectDrawSettings(true, false, false, null, 0, "", null, null);
+
+		testSettings.getScaledStyles().setDrawSettingsOnScale(testSettings.getScaledStyles().getMinimumScaleLevel(),
+						new DrawSettingsOnScale(true, false, false, null, null, null, null));
+
+		assertNotNull(testSettings.findPointDrawStyle(testSettings.getScaledStyles().getMinimumScaleLevel()));
+	}
+
+	/**
+	 * Test finding point draw style if object can not be point
+	 */
+	@Test
+	public void findingPointDrawStyleCannotBePoint()
+	{
+		MapObjectDrawSettings testSettings = new MapObjectDrawSettings(false, true, true, null, 0, "", null, null);
+
+		testSettings.getScaledStyles().setDrawSettingsOnScale(testSettings.getScaledStyles().getMinimumScaleLevel(),
+						new DrawSettingsOnScale(true, false, false, null, null, null, null));
+
+		assertNull(testSettings.findPointDrawStyle(testSettings.getScaledStyles().getMinimumScaleLevel()));
+	}
+
+	/**
+	 * Test finding line draw style if object can be line
+	 */
+	@Test
+	public void findingLineDrawStyleCanBeLine()
+	{
+		MapObjectDrawSettings testSettings = new MapObjectDrawSettings(false, true, false, null, 0, "", null, null);
+
+		testSettings.getScaledStyles().setDrawSettingsOnScale(testSettings.getScaledStyles().getMinimumScaleLevel(),
+						new DrawSettingsOnScale(false, true, false, null, null, null, null));
+
+		assertNotNull(testSettings.findLineDrawStyle(testSettings.getScaledStyles().getMinimumScaleLevel()));
+	}
+
+	/**
+	 * Test finding line draw style if object can not be line
+	 */
+	@Test
+	public void findingLineDrawStyleCannotBeLine()
+	{
+		MapObjectDrawSettings testSettings = new MapObjectDrawSettings(true, false, true, null, 0, "", null, null);
+
+		testSettings.getScaledStyles().setDrawSettingsOnScale(testSettings.getScaledStyles().getMinimumScaleLevel(),
+						new DrawSettingsOnScale(false, true, false, null, null, null, null));
+
+		assertNull(testSettings.findLineDrawStyle(testSettings.getScaledStyles().getMinimumScaleLevel()));
+	}
+	
+	/**
+	 * Test finding polygon draw style if object can be polygon
+	 */
+	@Test
+	public void findingPolygonDrawStyleCanBePolygon()
+	{
+		MapObjectDrawSettings testSettings = new MapObjectDrawSettings(false, false, true, null, 0, "", null, null);
+
+		testSettings.getScaledStyles().setDrawSettingsOnScale(testSettings.getScaledStyles().getMinimumScaleLevel(),
+						new DrawSettingsOnScale(false, false, true, null, null, null, null));
+
+		assertNotNull(testSettings.findPolygonDrawStyle(testSettings.getScaledStyles().getMinimumScaleLevel()));
+	}
+
+	/**
+	 * Test finding polygon draw style if object can not be polygon
+	 */
+	@Test
+	public void findingPolygonDrawStyleCannotBePolygon()
+	{
+		MapObjectDrawSettings testSettings = new MapObjectDrawSettings(true, true, false, null, 0, "", null, null);
+
+		testSettings.getScaledStyles().setDrawSettingsOnScale(testSettings.getScaledStyles().getMinimumScaleLevel(),
+						new DrawSettingsOnScale(false, false, true, null, null, null, null));
+
+		assertNull(testSettings.findPolygonDrawStyle(testSettings.getScaledStyles().getMinimumScaleLevel()));
+	}
+
 	/**
 	 * Test sorting. Sorting by tags count. More tags - less index
 	 */

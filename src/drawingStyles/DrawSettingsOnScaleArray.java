@@ -171,7 +171,14 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 			return null;
 		}
 
-		return drawSettingsOnScale.getPointDrawSettings();
+		if (drawSettingsOnScale.isDrawPoint())
+		{
+			return drawSettingsOnScale.getPointDrawSettings();
+		}
+		else
+		{
+			return null;
+		}
 	}
 
 	/**
@@ -188,7 +195,14 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 			return null;
 		}
 
-		return drawSettingsOnScale.getLineDrawSettings();
+		if (drawSettingsOnScale.isDrawLine())
+		{
+			return drawSettingsOnScale.getLineDrawSettings();
+		}
+		else
+		{
+			return null;
+		}
 	}
 
 	/**
@@ -204,8 +218,15 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 		{
 			return null;
 		}
-
-		return drawSettingsOnScale.getPolygonDrawSettings();
+		
+		if (drawSettingsOnScale.isDrawPolygon())
+		{
+			return drawSettingsOnScale.getPolygonDrawSettings();
+		}
+		else
+		{
+			return null;
+		}
 	}
 
 	/**

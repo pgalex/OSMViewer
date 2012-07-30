@@ -62,7 +62,9 @@ public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMa
 	protected MapObjectDrawSettings[] readStylesFromStream(DataInputStream pInput) throws IOException
 	{
 		if (pInput == null)
+		{
 			throw new IOException();
+		}
 
 		try
 		{

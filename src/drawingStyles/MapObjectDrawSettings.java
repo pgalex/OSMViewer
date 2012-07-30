@@ -204,7 +204,14 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	@Override
 	public PointDrawStyle findPointDrawStyle(int pScaleLevel)
 	{
-		return scaledStyles.findPointDrawStyle(pScaleLevel);
+		if (canBePoint)
+		{
+			return scaledStyles.findPointDrawStyle(pScaleLevel);
+		}
+		else
+		{
+			return null;
+		}
 	}
 
 	/**
@@ -216,7 +223,14 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	@Override
 	public LineDrawStyle findLineDrawStyle(int pScaleLevel)
 	{
-		return scaledStyles.findLineDrawStyle(pScaleLevel);
+		if (canBeLine)
+		{
+			return scaledStyles.findLineDrawStyle(pScaleLevel);
+		}
+		else
+		{
+			return null;
+		}
 	}
 
 	/**
@@ -228,7 +242,14 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	@Override
 	public PolygonDrawStyle findPolygonDrawStyle(int pScaleLevel)
 	{
-		return scaledStyles.findPolygonDrawStyle(pScaleLevel);
+		if (canBePolygon)
+		{
+			return scaledStyles.findPolygonDrawStyle(pScaleLevel);
+		}
+		else
+		{
+			return null;
+		}
 	}
 
 	/**
