@@ -2,14 +2,12 @@ package onlineMap;
 
 import drawingStyles.*;
 import forms.DrawableOnPanel;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import map.MapPosition;
-import drawingStyles.MapTag;
 import map.rendering.MapRenderer;
 
 /**
@@ -20,15 +18,15 @@ import map.rendering.MapRenderer;
 public class OnlineMapProcessor implements DrawableOnPanel
 {
 	/**
-	 * Minimum scale level for viewing online map. First render that can be
+	 * Minimum scale level for viewing online map. First level that can be
 	 * exported in openstreetmap.org
 	 */
-	private static final int ONLINE_MAP_MINIMUM_SCALE_LEVEL = 10;
+	private static final int MINIMUM_SCALE_LEVEL = 10;
 	/**
 	 * Maximum scale level for viewing online map. Maximum scale of
 	 * openstreetmap.org
 	 */
-	private static final int ONLINE_MAP_MAXIMUM_SCALE_LEVEL = 18;
+	private static final int MAXIMUM_SCALE_LEVEL = 18;
 	/**
 	 * Map - stored map objects
 	 */
@@ -54,7 +52,7 @@ public class OnlineMapProcessor implements DrawableOnPanel
 	{
 		map = new OnlineMap();
 		mapLoader = new OnlineMapLoader();
-		renderer = new MapRenderer(ONLINE_MAP_MINIMUM_SCALE_LEVEL, ONLINE_MAP_MAXIMUM_SCALE_LEVEL, 12);
+		renderer = new MapRenderer(MINIMUM_SCALE_LEVEL, MAXIMUM_SCALE_LEVEL, MINIMUM_SCALE_LEVEL);
 		styleViewer = DrawingStylesFactory.createStyleEditor();
 	}
 
@@ -91,6 +89,16 @@ public class OnlineMapProcessor implements DrawableOnPanel
 	}
 
 	/**
+	 * Get current scale level
+	 *
+	 * @return current scale leve
+	 */
+	public int getScaleLevel()
+	{
+		return renderer.getScaleLevel();
+	}
+
+	/**
 	 * Draw objects on drawing panel
 	 *
 	 * @param pPanelGraphics drawing panel graphics
@@ -111,7 +119,7 @@ public class OnlineMapProcessor implements DrawableOnPanel
 			DrawSettingsOnScale scaledStyle = new DrawSettingsOnScale(true, false, false, pointStyle, null, null, null);
 
 			DrawSettingsOnScaleArray scaleStylesArray = new DrawSettingsOnScaleArray();
-			for (int i = ONLINE_MAP_MINIMUM_SCALE_LEVEL; i <= ONLINE_MAP_MAXIMUM_SCALE_LEVEL; i++)
+			for (int i = MINIMUM_SCALE_LEVEL; i <= MAXIMUM_SCALE_LEVEL; i++)
 			{
 				scaleStylesArray.setDrawSettingsOnScale(i, scaledStyle);
 			}
@@ -143,5 +151,25 @@ public class OnlineMapProcessor implements DrawableOnPanel
 		{
 			Logger.getLogger(OnlineMapProcessor.class.getName()).log(Level.SEVERE, null, ex);
 		}
+	}
+
+	/**
+	 * Get minimum scale level for viewing online map
+	 *
+	 * @return Minimum scale level for viewing online map
+	 */
+	public static int GetMinimumScaleLevel()
+	{
+		return MINIMUM_SCALE_LEVEL;
+	}
+
+	/**
+	 * Get maximum scale level for viewing online map
+	 *
+	 * @return Maximum scale level for viewing online map
+	 */
+	public static int GetMaximumScaleLevel()
+	{
+		return MAXIMUM_SCALE_LEVEL;
 	}
 }
