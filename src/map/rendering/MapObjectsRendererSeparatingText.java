@@ -104,35 +104,80 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		{
 			canvas.drawImage(pointImage, (int) (pointPositionOnCanvas.getX() - pointImage.getWidth() / 2),
 							(int) (pointPositionOnCanvas.getY() - pointImage.getHeight() / 2), null);
+
+			drawMapObjectTextUnderPoint(objectStyle, pPoint.getDefenitionTags(),
+							pointPositionOnCanvas.getX(), pointPositionOnCanvas.getY() + pointImage.getHeight() / 2);
+		}
+		else
+		{
+			drawMapObjectTextAtPoint(objectStyle, pPoint.getDefenitionTags(),
+							pointPositionOnCanvas.getX(), pointPositionOnCanvas.getY());
 		}
 
-		drawObjectTextAtPoint(objectStyle, pPoint.getDefenitionTags(),
-						pointPositionOnCanvas.getX(), pointPositionOnCanvas.getY());
+
 	}
 
 	/**
-	 * Draw object drawingText(name, description etc) on canvas
+	 * Draw map object text(name, description etc) on canvas, by text center x and
+	 * top bound of text
 	 *
-	 * @param pObjectDrawStyle object draw style
-	 * @param pObjectTags object tags using to find drawingText
-	 * @param textCenterX x of center point of drawingText on canvas
-	 * @param textCenterY y of center point of drawingText on canvas
+	 * @param pMapObjectStyle map object draw style
+	 * @param pMapObjectTags map object tags using to find text
+	 * @param textCenterX text center x on canvas
+	 * @param textTop text top bound
 	 */
-	private void drawObjectTextAtPoint(MapObjectDrawStyle pObjectDrawStyle,
-					DefenitionTags pObjectTags, double textCenterX, double textCenterY)
+	private void drawMapObjectTextUnderPoint(MapObjectDrawStyle pMapObjectStyle,
+					DefenitionTags pMapObjectTags, double textCenterX, double textTop)
 	{
-		if (pObjectDrawStyle == null || pObjectTags == null)
+		if (pMapObjectStyle == null || pMapObjectTags == null)
 		{
 			return;
 		}
 
-		TextDrawStyle textStyle = pObjectDrawStyle.findTextDrawStyle(scaleLevel);
+		TextDrawStyle textStyle = pMapObjectStyle.findTextDrawStyle(scaleLevel);
 		if (textStyle == null)
 		{
 			return;
 		}
 
-		String drawingText = pObjectDrawStyle.findTextInTags(pObjectTags);
+		String drawingText = pMapObjectStyle.findTextInTags(pMapObjectTags);
+		if (!drawingText.isEmpty())
+		{
+			canvas.setColor(textStyle.getColor());
+			canvas.setFont(textStyle.getFont());
+
+			FontMetrics textFontMetrics = canvas.getFontMetrics(textStyle.getFont());
+			int textWidth = textFontMetrics.stringWidth(drawingText);
+			int textHeight = textFontMetrics.getHeight();
+
+			canvas.drawString(drawingText, (int) textCenterX - textWidth / 2, (int) textTop + textHeight / 2);
+		}
+	}
+
+	/**
+	 * Draw map object text(name, description etc) on canvas, by point sets center
+	 * of text
+	 *
+	 * @param pMapObjectStyle map object draw style
+	 * @param pMapObjectTags map object tags using to find text
+	 * @param textCenterX text center x on canvas
+	 * @param textCenterY text center y on canvas
+	 */
+	private void drawMapObjectTextAtPoint(MapObjectDrawStyle pMapObjectStyle,
+					DefenitionTags pMapObjectTags, double textCenterX, double textCenterY)
+	{
+		if (pMapObjectStyle == null || pMapObjectTags == null)
+		{
+			return;
+		}
+
+		TextDrawStyle textStyle = pMapObjectStyle.findTextDrawStyle(scaleLevel);
+		if (textStyle == null)
+		{
+			return;
+		}
+
+		String drawingText = pMapObjectStyle.findTextInTags(pMapObjectTags);
 		if (!drawingText.isEmpty())
 		{
 			canvas.setColor(textStyle.getColor());
