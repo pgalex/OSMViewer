@@ -1,10 +1,10 @@
 package forms;
 
-import java.awt.Graphics;
+import map.MapPosition;
 import onlineMap.OnlineMapProcessor;
 
 /**
- * Main form. Главное окно
+ * Main form
  *
  * @author preobrazhentsev
  */
@@ -16,27 +16,18 @@ public class JFrameMain extends javax.swing.JFrame
 	private OnlineMapProcessor mapProcessor;
 
 	/**
-	 * Creates new form JFrameMain
+	 * Creates new main form
 	 */
 	public JFrameMain()
 	{
-		mapProcessor = new OnlineMapProcessor();
-
 		initComponents();
+		
+		mapProcessor = new OnlineMapProcessor(new MapPosition(55.1990, 38.60329), 15,
+						jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
 
-		mapProcessor.setViewPosition(55.1990, 38.60329);
-		mapProcessor.setScaleLevel(15);
-		mapProcessor.setCanvasSize(jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
-		mapProcessor.testSetupStyleViewer();
-		mapProcessor.testLoadMap();
-
+		JDrawingPanel drawingPanel = (JDrawingPanel) jPanelCanvas;
+		drawingPanel.setPainter(mapProcessor);
 		jSliderScaleLevel.setValue(mapProcessor.getScaleLevel());
-	}
-
-	@Override
-	public void print(Graphics grphcs)
-	{
-		super.print(grphcs);
 	}
 
 	/**
@@ -49,14 +40,25 @@ public class JFrameMain extends javax.swing.JFrame
   private void initComponents()
   {
 
-    jPanelCanvas = new JDrawingPanel(mapProcessor);
+    jPanelCanvas = new JDrawingPanel(null);
     jSliderScaleLevel = new javax.swing.JSlider();
+    jButtonMoveLeft = new javax.swing.JButton();
+    jButtonMoveRight = new javax.swing.JButton();
+    jButtonMoveUp = new javax.swing.JButton();
+    jButtonMoveDown = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setTitle("OpenStreetMap Viewer");
 
     jPanelCanvas.setBackground(new java.awt.Color(204, 204, 204));
     jPanelCanvas.setForeground(new java.awt.Color(255, 255, 255));
+    jPanelCanvas.addComponentListener(new java.awt.event.ComponentAdapter()
+    {
+      public void componentResized(java.awt.event.ComponentEvent evt)
+      {
+        jPanelCanvasComponentResized(evt);
+      }
+    });
 
     jSliderScaleLevel.setMaximum(OnlineMapProcessor.GetMaximumScaleLevel());
     jSliderScaleLevel.setMinimum(OnlineMapProcessor.GetMinimumScaleLevel());
@@ -69,20 +71,77 @@ public class JFrameMain extends javax.swing.JFrame
       }
     });
 
+    jButtonMoveLeft.setText("Left");
+    jButtonMoveLeft.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jButtonMoveLeftActionPerformed(evt);
+      }
+    });
+
+    jButtonMoveRight.setText("Right");
+    jButtonMoveRight.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jButtonMoveRightActionPerformed(evt);
+      }
+    });
+
+    jButtonMoveUp.setText("Up");
+    jButtonMoveUp.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jButtonMoveUpActionPerformed(evt);
+      }
+    });
+
+    jButtonMoveDown.setText("Down");
+    jButtonMoveDown.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jButtonMoveDownActionPerformed(evt);
+      }
+    });
+
     javax.swing.GroupLayout jPanelCanvasLayout = new javax.swing.GroupLayout(jPanelCanvas);
     jPanelCanvas.setLayout(jPanelCanvasLayout);
     jPanelCanvasLayout.setHorizontalGroup(
       jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(jPanelCanvasLayout.createSequentialGroup()
-        .addContainerGap()
         .addComponent(jSliderScaleLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(596, Short.MAX_VALUE))
+        .addGap(0, 0, Short.MAX_VALUE))
+      .addGroup(jPanelCanvasLayout.createSequentialGroup()
+        .addGroup(jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(jPanelCanvasLayout.createSequentialGroup()
+            .addComponent(jButtonMoveLeft)
+            .addGap(40, 40, 40)
+            .addComponent(jButtonMoveRight))
+          .addGroup(jPanelCanvasLayout.createSequentialGroup()
+            .addGap(56, 56, 56)
+            .addComponent(jButtonMoveUp))
+          .addGroup(jPanelCanvasLayout.createSequentialGroup()
+            .addGap(55, 55, 55)
+            .addComponent(jButtonMoveDown)))
+        .addContainerGap(439, Short.MAX_VALUE))
     );
     jPanelCanvasLayout.setVerticalGroup(
       jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(jPanelCanvasLayout.createSequentialGroup()
+        .addContainerGap()
+        .addComponent(jButtonMoveUp)
+        .addGap(2, 2, 2)
+        .addGroup(jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(jButtonMoveLeft)
+          .addComponent(jButtonMoveRight))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addComponent(jButtonMoveDown)
+        .addGap(22, 22, 22)
         .addComponent(jSliderScaleLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addGap(0, 364, Short.MAX_VALUE))
+        .addContainerGap(241, Short.MAX_VALUE))
     );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -104,6 +163,36 @@ public class JFrameMain extends javax.swing.JFrame
 		mapProcessor.setScaleLevel(jSliderScaleLevel.getValue());
 		jPanelCanvas.repaint();
   }//GEN-LAST:event_jSliderScaleLevelStateChanged
+
+  private void jButtonMoveLeftActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonMoveLeftActionPerformed
+  {//GEN-HEADEREND:event_jButtonMoveLeftActionPerformed
+    mapProcessor.moveViewPositionByPixels(-50, 0);
+		jPanelCanvas.repaint();
+  }//GEN-LAST:event_jButtonMoveLeftActionPerformed
+
+  private void jButtonMoveRightActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonMoveRightActionPerformed
+  {//GEN-HEADEREND:event_jButtonMoveRightActionPerformed
+    mapProcessor.moveViewPositionByPixels(50, 0);
+		jPanelCanvas.repaint();
+  }//GEN-LAST:event_jButtonMoveRightActionPerformed
+
+  private void jButtonMoveUpActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonMoveUpActionPerformed
+  {//GEN-HEADEREND:event_jButtonMoveUpActionPerformed
+    mapProcessor.moveViewPositionByPixels(0, -50);
+		jPanelCanvas.repaint();
+  }//GEN-LAST:event_jButtonMoveUpActionPerformed
+
+  private void jButtonMoveDownActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonMoveDownActionPerformed
+  {//GEN-HEADEREND:event_jButtonMoveDownActionPerformed
+    mapProcessor.moveViewPositionByPixels(0, 50);
+		jPanelCanvas.repaint();
+  }//GEN-LAST:event_jButtonMoveDownActionPerformed
+
+  private void jPanelCanvasComponentResized(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_jPanelCanvasComponentResized
+  {//GEN-HEADEREND:event_jPanelCanvasComponentResized
+    mapProcessor.setCanvasSize(jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
+		jPanelCanvas.repaint();
+  }//GEN-LAST:event_jPanelCanvasComponentResized
 
 	/**
 	 * @param args the command line arguments
@@ -163,6 +252,10 @@ public class JFrameMain extends javax.swing.JFrame
 		});
 	}
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JButton jButtonMoveDown;
+  private javax.swing.JButton jButtonMoveLeft;
+  private javax.swing.JButton jButtonMoveRight;
+  private javax.swing.JButton jButtonMoveUp;
   private javax.swing.JPanel jPanelCanvas;
   private javax.swing.JSlider jSliderScaleLevel;
   // End of variables declaration//GEN-END:variables

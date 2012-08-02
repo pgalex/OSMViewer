@@ -60,6 +60,8 @@ public class JDrawingPanel extends JPanel
 		super.paintComponent(pGraphics);
 
 		if (painter != null)
+		{
 			painter.drawOnPanel((Graphics2D) pGraphics);
+		}
 	}
 }

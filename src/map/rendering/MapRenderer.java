@@ -45,7 +45,6 @@ public class MapRenderer implements CoordinatesConverter
 	/**
 	 * Constructor
 	 *
-	 *
 	 * @param pMinimumScaleLevel Minimun scale level
 	 * @param pMaximumScaleLevel Maximum scale level
 	 * @param pStartScaleLevel scale level that will be set after creating
@@ -69,7 +68,9 @@ public class MapRenderer implements CoordinatesConverter
 	public void setTargetCanvasDrawingArea(Rectangle pDrawingArea)
 	{
 		if (pDrawingArea != null)
+		{
 			targetCanvasDrawingArea = pDrawingArea;
+		}
 	}
 
 	/**
@@ -92,7 +93,9 @@ public class MapRenderer implements CoordinatesConverter
 	public void setViewPosition(MapPosition pViewPosition)
 	{
 		if (pViewPosition != null)
+		{
 			viewPosition = pViewPosition;
+		}
 	}
 
 	/**
@@ -113,7 +116,9 @@ public class MapRenderer implements CoordinatesConverter
 	public void setScaleLevel(int pScaleLevel)
 	{
 		if (pScaleLevel < minimumScaleLevel || pScaleLevel > maximumScaleLevel)
+		{
 			return;
+		}
 
 		scaleLevel = pScaleLevel;
 	}
@@ -153,7 +158,9 @@ public class MapRenderer implements CoordinatesConverter
 	public void renderMap(Graphics2D pCanvas, Map pMap, StyleViewer pStyleViewer)
 	{
 		if (pMap == null || pStyleViewer == null || pCanvas == null)
+		{
 			return;
+		}
 
 		MapDrawingSettings mapDrawingSettings = pStyleViewer.getMapDrawingSettings();
 		pCanvas.setBackground(mapDrawingSettings.getMapBackgroundColor().getColor());

@@ -4,6 +4,7 @@ import drawingStyles.*;
 import forms.DrawableOnPanel;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,15 +46,28 @@ public class OnlineMapProcessor implements DrawableOnPanel
 	private StyleEditor styleViewer;
 
 	/**
-	 * Default constructor
+	 * Constructor
 	 *
+	 * @param pStartViewPosition start view position (on map)
+	 * @param pStartScaleLevel start scale level
+	 * @param pStartCanvasWidth start target canvas width
+	 * @param pStartCanvasHeight start target canvas height
 	 */
-	public OnlineMapProcessor()
+	public OnlineMapProcessor(MapPosition pStartViewPosition, int pStartScaleLevel,
+					int pStartCanvasWidth, int pStartCanvasHeight)
 	{
 		map = new OnlineMap();
+		
 		mapLoader = new OnlineMapLoader();
-		renderer = new MapRenderer(MINIMUM_SCALE_LEVEL, MAXIMUM_SCALE_LEVEL, MINIMUM_SCALE_LEVEL);
+		
+		renderer = new MapRenderer(MINIMUM_SCALE_LEVEL, MAXIMUM_SCALE_LEVEL, pStartScaleLevel);
+		renderer.setViewPosition(pStartViewPosition);
+		renderer.setTargetCanvasDrawingArea(new Rectangle(0, 0, pStartCanvasWidth, pStartCanvasHeight));
+		
 		styleViewer = DrawingStylesFactory.createStyleEditor();
+		
+		testSetupStyleViewer();
+		testLoadMap();
 	}
 
 	/**
@@ -68,14 +82,30 @@ public class OnlineMapProcessor implements DrawableOnPanel
 	}
 
 	/**
-	 * Set new view position (center point of rendering map area)
+	 * Set new view position (center point of rendering map area) using position
+	 * on map
 	 *
-	 * @param pLatitude new latitude of view point
-	 * @param pLongitude new longitude of view point
+	 * @param pPositionOnMap new view position
 	 */
-	public void setViewPosition(double pLatitude, double pLongitude)
+	public void setViewPosition(MapPosition pPositionOnMap)
 	{
-		renderer.setViewPosition(new MapPosition(pLatitude, pLongitude));
+		renderer.setViewPosition(pPositionOnMap);
+	}
+
+	/**
+	 * Move current view position by pixels distance by x and y
+	 *
+	 * @param pDeltaXInPixels moving distance by x in pixels
+	 * @param pDeltaYInPixels moving distance by y in pixels
+	 */
+	public void moveViewPositionByPixels(int pDeltaXInPixels, int pDeltaYInPixels)
+	{
+		Rectangle targetCanvasArea = renderer.getTargetCanvasDrawingArea();
+		Point2D newViewPositionOnCanvas = new Point2D.Double(targetCanvasArea.getWidth() / 2 + pDeltaXInPixels,
+						targetCanvasArea.getHeight() / 2 + pDeltaYInPixels);
+
+		MapPosition newViewPositionOnMap = renderer.canvasToGeographics(newViewPositionOnCanvas);
+		renderer.setViewPosition(newViewPositionOnMap);
 	}
 
 	/**
@@ -109,7 +139,7 @@ public class OnlineMapProcessor implements DrawableOnPanel
 		renderer.renderMap(pPanelGraphics, map, styleViewer);
 	}
 
-	public void testSetupStyleViewer()
+	private void testSetupStyleViewer()
 	{
 		try
 		{
@@ -141,7 +171,7 @@ public class OnlineMapProcessor implements DrawableOnPanel
 		}
 	}
 
-	public void testLoadMap()
+	private void testLoadMap()
 	{
 		try
 		{
