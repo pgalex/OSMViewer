@@ -47,7 +47,7 @@ public class LineDrawSettingsTest
 			IOTester.readFromTestFile(readStyle);
 
 			assertEquals(writedStyle.getColor(), readStyle.getColor());
-			assertEquals(writedStyle.getWidth(), readStyle.getWidth());
+			assertEquals(writedStyle.getWidth(), readStyle.getWidth(), 0.000001f);
 			assertArrayEquals(writedStyle.getPattern(), readStyle.getPattern(), 0.01f);
 		}
 		catch (Exception ex)

@@ -46,7 +46,7 @@ public class PolygonDrawSettingsTest
 
 			assertEquals(writedStyle.getFillColor(), readStyle.getFillColor());
 			assertEquals(writedStyle.getBorderDrawStyle().getColor(), readStyle.getBorderDrawStyle().getColor());
-			assertEquals(writedStyle.getBorderDrawStyle().getWidth(), readStyle.getBorderDrawStyle().getWidth());
+			assertEquals(writedStyle.getBorderDrawStyle().getWidth(), readStyle.getBorderDrawStyle().getWidth(), 0.00001f);
 		}
 		catch (Exception ex)
 		{

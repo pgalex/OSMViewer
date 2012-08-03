@@ -21,7 +21,7 @@ public interface LineDrawStyle
 	 *
 	 * @return get width of line
 	 */
-	public int getWidth();
+	public float getWidth();
 
 	/**
 	 * Get pattern

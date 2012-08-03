@@ -18,7 +18,7 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	/**
 	 * Default line width
 	 */
-	private static final int DEFAULT_WIDTH = 1;
+	private static final float DEFAULT_WIDTH = 1.0f;
 	/**
 	 * Color
 	 */
@@ -26,7 +26,7 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	/**
 	 * Width
 	 */
-	private int width;
+	private float width;
 	/**
 	 * User defined pattern (dash, dot etc )
 	 */
@@ -49,7 +49,7 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	 * @param pWidth width
 	 * @param pPattern pattern. Autocreating if null
 	 */
-	public LineDrawSettings(Color pColor, int pWidth, LinePattern pPattern)
+	public LineDrawSettings(Color pColor, float pWidth, LinePattern pPattern)
 	{
 		color = new IOColor(pColor);
 		width = pWidth;
@@ -64,7 +64,9 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	private void initializeNullFields()
 	{
 		if (pattern == null)
+		{
 			pattern = new LinePattern();
+		}
 	}
 
 	/**
@@ -79,7 +81,7 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 		try
 		{
 			color.readFromStream(pInput);
-			width = pInput.readInt();
+			width = pInput.readFloat();
 			pattern.readFromStream(pInput);
 		}
 		catch (Exception e)
@@ -100,7 +102,7 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 		try
 		{
 			color.writeToStream(pOutput);
-			pOutput.writeInt(width);
+			pOutput.writeFloat(width);
 			pattern.writeToStream(pOutput);
 		}
 		catch (Exception e)
@@ -122,6 +124,7 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 
 	/**
 	 * Set new color
+	 *
 	 * @param pColor new color
 	 */
 	public void setColor(Color pColor)
@@ -135,16 +138,17 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	 * @return line width
 	 */
 	@Override
-	public int getWidth()
+	public float getWidth()
 	{
 		return width;
 	}
-	
+
 	/**
 	 * Set new width
+	 *
 	 * @param pWidth new width
 	 */
-	public void setWidth(int pWidth)
+	public void setWidth(float pWidth)
 	{
 		width = pWidth;
 	}
@@ -159,9 +163,10 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	{
 		return pattern.getPattern();
 	}
-	
+
 	/**
 	 * Set new line pattern
+	 *
 	 * @param pPattern new pattern
 	 * @throws LinePatternIncorrectException new pattern icorrect
 	 */
