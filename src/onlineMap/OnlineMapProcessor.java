@@ -2,6 +2,7 @@ package onlineMap;
 
 import drawingStyles.*;
 import forms.DrawableOnPanel;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
@@ -144,26 +145,51 @@ public class OnlineMapProcessor implements DrawableOnPanel
 		try
 		{
 			styleViewer.setMapDrawingSettings(new MapDrawingSettings(null));
-			IOIcon icon = new IOIcon("icons/shop_convenience.p.16.png");
-			PointDrawSettings pointStyle = new PointDrawSettings(icon.getImage());
-			DrawSettingsOnScale scaledStyle = new DrawSettingsOnScale(true, false, false, pointStyle, null, null, null);
+			
+			IOIcon shopIcon = new IOIcon("icons/shop_convenience.p.16.png");
+			PointDrawSettings shopPointStyle = new PointDrawSettings(shopIcon.getImage());
+			TextDrawSettings shopTextStyle = new TextDrawSettings(Color.MAGENTA, null);
+			DrawSettingsOnScale shopScaledStyle = new DrawSettingsOnScale(true, false, false, shopPointStyle, null, null, shopTextStyle);
 
-			DrawSettingsOnScaleArray scaleStylesArray = new DrawSettingsOnScaleArray();
+			DrawSettingsOnScaleArray shopScaleStylesArray = new DrawSettingsOnScaleArray();
 			for (int i = MINIMUM_SCALE_LEVEL; i <= MAXIMUM_SCALE_LEVEL; i++)
 			{
-				scaleStylesArray.setDrawSettingsOnScale(i, scaledStyle);
+				shopScaleStylesArray.setDrawSettingsOnScale(i, shopScaledStyle);
 			}
 
-			String[] textTagKeys = new String[1];
-			textTagKeys[0] = "name";
+			String[] shopTextTagKeys = new String[1];
+			shopTextTagKeys[0] = "name";
 
-			EditableDefenitionTags objectDefenitionTags = new EditableDefenitionTags();
-			objectDefenitionTags.add(new MapTag("shop", "convenience"));
+			EditableDefenitionTags shopTags = new EditableDefenitionTags();
+			shopTags.add(new MapTag("shop", "convenience"));
 
-			MapObjectDrawSettings placeVillageStyle = new MapObjectDrawSettings(true, false, false,
-							new TextTagsKeys(textTagKeys), 0, "convenience shop", scaleStylesArray, objectDefenitionTags);
+			MapObjectDrawSettings shopStyle = new MapObjectDrawSettings(true, false, false,
+							new TextTagsKeys(shopTextTagKeys), 0, "convenience shop", shopScaleStylesArray, shopTags);
+			
+			
+			PolygonDrawSettings forestPolygonStyle = new PolygonDrawSettings(Color.GREEN, null, null);
+			TextDrawSettings forestTextStyle = new TextDrawSettings(Color.BLACK, null);
+			DrawSettingsOnScale forestScaledStyle = new DrawSettingsOnScale(false, false, true, 
+							null, null, forestPolygonStyle, forestTextStyle);
 
-			styleViewer.addMapObjectDrawSettings(placeVillageStyle);
+			DrawSettingsOnScaleArray forestScaleStylesArray = new DrawSettingsOnScaleArray();
+			for (int i = MINIMUM_SCALE_LEVEL; i <= MAXIMUM_SCALE_LEVEL; i++)
+			{
+				forestScaleStylesArray.setDrawSettingsOnScale(i, forestScaledStyle);
+			}
+
+			String[] forestTextTagKeys = new String[1];
+			forestTextTagKeys[0] = "name";
+
+			EditableDefenitionTags forestTags = new EditableDefenitionTags();
+			forestTags.add(new MapTag("natural", "wood"));
+
+			MapObjectDrawSettings forestStyle = new MapObjectDrawSettings(false, false, true,
+							new TextTagsKeys(forestTextTagKeys), 0, "forest", forestScaleStylesArray, forestTags);
+			
+
+			styleViewer.addMapObjectDrawSettings(shopStyle);
+			styleViewer.addMapObjectDrawSettings(forestStyle);
 		}
 		catch (IOException ex)
 		{

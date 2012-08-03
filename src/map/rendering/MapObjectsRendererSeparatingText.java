@@ -1,13 +1,16 @@
 package map.rendering;
 
 import drawingStyles.*;
+import java.awt.BasicStroke;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import map.MapLine;
 import map.MapPoint;
 import map.MapPolygon;
+import map.MapPosition;
 import map.exceptions.CanvasIsNullException;
 import map.exceptions.CoordinatesConverterIsNullException;
 import map.exceptions.StyleViewerIsNullException;
@@ -211,6 +214,54 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	public void renderPolygon(MapPolygon pPolygon)
 	{
 		if (pPolygon == null)
+		{
 			return;
+		}
+
+		/*MapObjectDrawStyle objectStyle = styleViewer.findMapObjectDrawStyle(pPolygon.getStyleIndex());
+		if (objectStyle == null)
+		{
+			return;
+		}
+
+		PolygonDrawStyle polygonStyle = objectStyle.findPolygonDrawStyle(scaleLevel);
+		if (polygonStyle == null)
+		{
+			return;
+		}
+		
+		LineDrawStyle borderStyle = polygonStyle.getBorderDrawStyle();
+		
+		canvas.setStroke(new BasicStroke(borderStyle.getWidth(), BasicStroke.CAP_ROUND, 
+						BasicStroke.JOIN_ROUND, 1.0f, borderStyle.getPattern(), 0.0f));
+		canvas.setColor(borderStyle.getColor());
+		
+		canvas.fillPolygon(createDrawingPolygonByMapPolygon(pPolygon));*/
+
+	}
+
+	/**
+	 * Create polygon for drawing on canvas by converting MapPolygon points
+	 *
+	 * @param pPolygon polygon on map
+	 * @return polygon on canvas
+	 */
+	private Polygon createDrawingPolygonByMapPolygon(MapPolygon pPolygon)
+	{
+		if (pPolygon == null)
+		{
+			return new Polygon();
+		}
+
+		Polygon drawingPolygon = new Polygon();
+
+		MapPosition[] mapPolygonPoints = pPolygon.getPoints();
+		for (int i = 0; i < mapPolygonPoints.length; i++)
+		{
+			Point2D pointOnCanvas = coordinatesConverter.goegraphicsToCanvas(mapPolygonPoints[i]);
+			drawingPolygon.addPoint((int) pointOnCanvas.getX(), (int) pointOnCanvas.getY());
+		}
+		
+		return drawingPolygon;
 	}
 }

@@ -22,7 +22,7 @@ public class JFrameMain extends javax.swing.JFrame
 	{
 		initComponents();
 		
-		mapProcessor = new OnlineMapProcessor(new MapPosition(55.1990, 38.60329), 15,
+		mapProcessor = new OnlineMapProcessor(new MapPosition(55.19907, 38.60329), 12,
 						jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
 
 		JDrawingPanel drawingPanel = (JDrawingPanel) jPanelCanvas;

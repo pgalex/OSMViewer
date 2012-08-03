@@ -57,15 +57,22 @@ public class OnlineMapLoader
 					OutOfMemoryError, ConnectionErrorException, ReadingFromServerErrorException, OsmParsingErrorException
 	{
 		if (pLoadingSectorBounds == null)
+		{
 			throw new MapBoundsIsNullRuntimeException();
+		}
 		if (pStyleViewer == null)
+		{
 			throw new StyleViewerIsNullException();
+		}
 		if (pFillingMap == null)
+		{
 			throw new MapIsNullException();
-
+		}
 		// nothing to load
 		if (pLoadingSectorBounds.isZero())
+		{
 			return;
+		}
 
 		String connectionString = "http://api.openstreetmap.org/api/0.6/map?bbox="
 						+ pLoadingSectorBounds.getLongitudeMinimum() + ","
@@ -109,13 +116,21 @@ public class OnlineMapLoader
 	protected void fillMapWithPoints(ArrayList<OsmNode> pNodes, StyleViewer pStyleViewer, OnlineMap pFillingMap)
 	{
 		if (pFillingMap == null)
+		{
 			return;
+		}
 		if (pStyleViewer == null)
+		{
 			return;
+		}
 		if (pNodes == null)
+		{
 			return;
+		}
 		if (pNodes.isEmpty())
+		{
 			return;
+		}
 
 		for (OsmNode currentNode : pNodes)
 		{
@@ -137,15 +152,21 @@ public class OnlineMapLoader
 	protected MapPoint createMapPointByOsmNode(OsmNode pNode)
 	{
 		if (pNode == null)
+		{
 			return null;
+		}
 
 		DefenitionTags creatingPointTags = createDefentionTagsByOsmTags(pNode.getTags());
 		// node without tag is not a MapPoint (can not be displayed), 
 		// it will be included in MapLine like MapPosition
 		if (creatingPointTags == null)
+		{
 			return null;
+		}
 		if (creatingPointTags.isEmpty())
+		{
 			return null;
+		}
 
 		MapPoint creatingPoint = new MapPoint(new MapPosition(pNode.getLatitude(), pNode.getLongitude()),
 						pNode.getId(), creatingPointTags);
@@ -162,14 +183,18 @@ public class OnlineMapLoader
 	protected DefenitionTags createDefentionTagsByOsmTags(ArrayList<OsmTag> pOsmTags)
 	{
 		if (pOsmTags == null)
+		{
 			return null;
+		}
 
 		EditableDefenitionTags creatingTags = new EditableDefenitionTags();
 		for (int i = 0; i < pOsmTags.size(); i++)
 		{
 			MapTag newTag = createMapTagByOsmTag(pOsmTags.get(i));
 			if (newTag != null)
+			{
 				creatingTags.add(newTag);
+			}
 		}
 		return creatingTags;
 	}
@@ -183,9 +208,13 @@ public class OnlineMapLoader
 	protected MapTag createMapTagByOsmTag(OsmTag pOsmTag)
 	{
 		if (pOsmTag == null)
+		{
 			return null;
+		}
 		if (pOsmTag.getKey().isEmpty())
+		{
 			return null;
+		}
 
 		return new MapTag(pOsmTag.getKey(), pOsmTag.getValue());
 	}
