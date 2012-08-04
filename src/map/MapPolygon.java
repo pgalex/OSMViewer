@@ -1,7 +1,6 @@
 package map;
 
 import drawingStyles.DefenitionTags;
-import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.MapObjectDrawStyle;
 import map.exceptions.LinePointsIsIncorrectException;
 import map.rendering.MapObjectsRenderer;
@@ -18,13 +17,33 @@ public class MapPolygon extends MapLine
 	 *
 	 * @param pId global OpenStreetMap id of object
 	 * @param pDefenitionTags Tags, describes the polygon
-	 * @param pPoints points of polygon
-	 * @throws LinePointsIsIncorrectException polygon points array is null, empty
-	 * or contains null elements
+	 * @param pPoints polygonPoints of polygon
+	 * @throws LinePointsIsIncorrectException polygon polygonPoints array is null,
+	 * empty or contains null elements
 	 */
 	public MapPolygon(long pId, DefenitionTags pDefenitionTags, MapPosition[] pPoints) throws LinePointsIsIncorrectException
 	{
 		super(pId, pDefenitionTags, pPoints);
+	}
+
+	/**
+	 * Get center point of polygon
+	 *
+	 * @return center point
+	 */
+	public MapPosition getCenterPoint()
+	{
+		double pointLatitudeSum = 0;
+		double pointLongitudeSum = 0;
+
+		MapPosition[] polygonPoints = getPoints();
+		for (int i = 0; i < polygonPoints.length; i++)
+		{
+			pointLatitudeSum += polygonPoints[i].getLatitude();
+			pointLongitudeSum += polygonPoints[i].getLongitude();
+		}
+
+		return new MapPosition(pointLatitudeSum / polygonPoints.length, pointLongitudeSum / polygonPoints.length);
 	}
 
 	/**
@@ -36,7 +55,9 @@ public class MapPolygon extends MapLine
 	public void acceptRenderer(MapObjectsRenderer pObjectsRenderer)
 	{
 		if (pObjectsRenderer == null)
+		{
 			return;
+		}
 
 		pObjectsRenderer.renderPolygon(this);
 	}
@@ -51,7 +72,9 @@ public class MapPolygon extends MapLine
 	protected boolean canBeDrawenWithStyle(MapObjectDrawStyle pStyle)
 	{
 		if (pStyle == null)
+		{
 			return false;
+		}
 
 		return pStyle.canBePolygon();
 	}

@@ -243,6 +243,11 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 						BasicStroke.JOIN_ROUND, 1.0f, borderStyle.getPattern(), 0.0f));
 		canvas.setColor(borderStyle.getColor());
 		canvas.drawPolygon(drawingPolygon);
+		
+		Point2D textPosition = coordinatesConverter.goegraphicsToCanvas(pPolygon.getCenterPoint());
+		
+		drawMapObjectTextAtPoint(objectStyle, pPolygon.getDefenitionTags(), 
+						textPosition.getX(), textPosition.getY());
 	}
 
 	/**

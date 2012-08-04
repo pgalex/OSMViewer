@@ -169,7 +169,7 @@ public class OnlineMapProcessor implements DrawableOnPanel
 			LineDrawSettings forestBorderStyle = new LineDrawSettings(new Color(134, 169, 120), 1, null);
 			PolygonDrawSettings forestPolygonStyle = new PolygonDrawSettings(new Color(174, 209, 160), 
 							forestBorderStyle, null);
-			TextDrawSettings forestTextStyle = new TextDrawSettings(Color.BLACK, null);
+			TextDrawSettings forestTextStyle = new TextDrawSettings(new Color(54, 89, 40), null);
 			DrawSettingsOnScale forestScaledStyle = new DrawSettingsOnScale(false, false, true, 
 							null, null, forestPolygonStyle, forestTextStyle);
 
