@@ -12,9 +12,13 @@ import map.MapBounds;
 import map.MapPoint;
 import map.MapPosition;
 import drawingStyles.MapTag;
+import map.MapLine;
+import map.MapObject;
+import map.MapPolygon;
 import map.exceptions.*;
 import osmXml.OsmNode;
 import osmXml.OsmTag;
+import osmXml.OsmWay;
 
 /**
  * Creates connection to openstreetmap.org, loads map data and convertes it to
@@ -86,6 +90,7 @@ public class OnlineMapLoader
 			onlineParser.convert(openStreetMapConnection.getInputStream());
 
 			fillMapWithPoints(onlineParser.getNodes(), pStyleViewer, pFillingMap);
+			fillMapWithPolygonsAndLine(onlineParser.getNodes(), onlineParser.getWays(), pStyleViewer, pFillingMap);
 		}
 		catch (MalformedURLException ex)
 		{
@@ -106,6 +111,123 @@ public class OnlineMapLoader
 	}
 
 	/**
+	 * Create map polygons and line from osm ways, add them to map
+	 *
+	 * @param pNodes nodes array, using to find points of line or polygon
+	 * @param pWays ways array
+	 * @param pStyleViewer style viewe for assigning style index
+	 * @param pFillingMap map, filling with map polygons and lines
+	 */
+	protected void fillMapWithPolygonsAndLine(ArrayList<OsmNode> pNodes, ArrayList<OsmWay> pWays,
+					StyleViewer pStyleViewer, OnlineMap pFillingMap)
+	{
+		if (pNodes == null || pWays == null || pStyleViewer == null || pFillingMap == null)
+		{
+			return;
+		}
+
+		for (OsmWay way : pWays)
+		{
+			MapObject newObject = createMapObjectByWay(way, pNodes);
+			if (newObject != null)
+			{
+				newObject.assignStyleIndex(pStyleViewer);
+				pFillingMap.addObject(newObject);
+			}
+		}
+	}
+
+	/**
+	 * Create map polygon or map line by osm way
+	 *
+	 * @param pWay osm way
+	 * @param pNodes nodes, using to find points of way
+	 * @return map polygon or map line created by osm way. null if can not be
+	 * created
+	 */
+	protected MapObject createMapObjectByWay(OsmWay pWay, ArrayList<OsmNode> pNodes)
+	{
+		if (pWay == null)
+		{
+			return null;
+		}
+
+		ArrayList<Long> nodesIds = pWay.getNodesIds();
+		DefenitionTags creatingObjectTags = createDefentionTagsByOsmTags(pWay.getTags());
+		MapPosition[] objectPoints = findPointsInOsmNodes(nodesIds, pNodes);
+		if (nodesIds.isEmpty() || objectPoints.length == 0 || creatingObjectTags == null)
+		{
+			return null;
+		}
+
+		MapObject creatingMapObject;
+
+		boolean wayDescribesPolygon = nodesIds.get(0).equals(nodesIds.get(nodesIds.size() - 1));
+		if (wayDescribesPolygon)
+		{
+			creatingMapObject = new MapPolygon(pWay.getId(), creatingObjectTags, objectPoints);
+		}
+		else
+		{
+			creatingMapObject = new MapLine(pWay.getId(), creatingObjectTags, objectPoints);
+		}
+
+		return creatingMapObject;
+	}
+
+	/**
+	 * Create array of point for map line or map polygon by finding them in nodes
+	 * array, using ids
+	 *
+	 * @param pNodesIds array of way ids
+	 * @param pNodes nodes, using to find points of way
+	 * @return array of point for map line or map polygon. Empty if one or more
+	 * points not founded
+	 */
+	protected MapPosition[] findPointsInOsmNodes(ArrayList<Long> pNodesIds, ArrayList<OsmNode> pNodes)
+	{
+		if (pNodesIds == null || pNodes == null)
+		{
+			return new MapPosition[0];
+		}
+		if (pNodesIds.isEmpty() || pNodes.isEmpty())
+		{
+			return new MapPosition[0];
+		}
+
+		MapPosition[] foundPoints = new MapPosition[pNodesIds.size()];
+		boolean allNodesFounds = true;
+		for (int i = 0; i < pNodesIds.size(); i++)
+		{
+			boolean nodeFound = false;
+
+			for (OsmNode osmNode : pNodes)
+			{
+				if (osmNode.getId() == pNodesIds.get(i))
+				{
+					foundPoints[i] = new MapPosition(osmNode.getLatitude(), osmNode.getLongitude());
+					nodeFound = true;
+					break;
+				}
+			}
+
+			if (!nodeFound)
+			{
+				allNodesFounds = false;
+			}
+		}
+
+		if (allNodesFounds)
+		{
+			return foundPoints;
+		}
+		else
+		{
+			return new MapPosition[0];
+		}
+	}
+
+	/**
 	 * Create map points from osm nodes and add them to map
 	 *
 	 * @param pNodes array of nodes, readed from .osm
@@ -115,15 +237,7 @@ public class OnlineMapLoader
 	 */
 	protected void fillMapWithPoints(ArrayList<OsmNode> pNodes, StyleViewer pStyleViewer, OnlineMap pFillingMap)
 	{
-		if (pFillingMap == null)
-		{
-			return;
-		}
-		if (pStyleViewer == null)
-		{
-			return;
-		}
-		if (pNodes == null)
+		if (pFillingMap == null || pStyleViewer == null || pNodes == null)
 		{
 			return;
 		}

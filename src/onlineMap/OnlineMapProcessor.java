@@ -166,8 +166,9 @@ public class OnlineMapProcessor implements DrawableOnPanel
 			MapObjectDrawSettings shopStyle = new MapObjectDrawSettings(true, false, false,
 							new TextTagsKeys(shopTextTagKeys), 0, "convenience shop", shopScaleStylesArray, shopTags);
 			
-			
-			PolygonDrawSettings forestPolygonStyle = new PolygonDrawSettings(Color.GREEN, null, null);
+			LineDrawSettings forestBorderStyle = new LineDrawSettings(new Color(134, 169, 120), 1, null);
+			PolygonDrawSettings forestPolygonStyle = new PolygonDrawSettings(new Color(174, 209, 160), 
+							forestBorderStyle, null);
 			TextDrawSettings forestTextStyle = new TextDrawSettings(Color.BLACK, null);
 			DrawSettingsOnScale forestScaledStyle = new DrawSettingsOnScale(false, false, true, 
 							null, null, forestPolygonStyle, forestTextStyle);

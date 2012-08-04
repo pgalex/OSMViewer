@@ -2,6 +2,7 @@ package map.rendering;
 
 import drawingStyles.*;
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
@@ -218,7 +219,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			return;
 		}
 
-		/*MapObjectDrawStyle objectStyle = styleViewer.findMapObjectDrawStyle(pPolygon.getStyleIndex());
+		MapObjectDrawStyle objectStyle = styleViewer.findMapObjectDrawStyle(pPolygon.getStyleIndex());
 		if (objectStyle == null)
 		{
 			return;
@@ -230,14 +231,18 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			return;
 		}
 		
-		LineDrawStyle borderStyle = polygonStyle.getBorderDrawStyle();
+		Polygon drawingPolygon = createDrawingPolygonByMapPolygon(pPolygon);
 		
+		// inner part
+		canvas.setPaint(polygonStyle.getFillColor());
+		canvas.fillPolygon(drawingPolygon);
+		
+		// border
+		LineDrawStyle borderStyle = polygonStyle.getBorderDrawStyle();
 		canvas.setStroke(new BasicStroke(borderStyle.getWidth(), BasicStroke.CAP_ROUND, 
 						BasicStroke.JOIN_ROUND, 1.0f, borderStyle.getPattern(), 0.0f));
 		canvas.setColor(borderStyle.getColor());
-		
-		canvas.fillPolygon(createDrawingPolygonByMapPolygon(pPolygon));*/
-
+		canvas.drawPolygon(drawingPolygon);
 	}
 
 	/**
