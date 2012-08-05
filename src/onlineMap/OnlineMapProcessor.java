@@ -205,7 +205,7 @@ public class OnlineMapProcessor implements DrawableOnPanel
 		}
 	}
 
-	private void testLoadMap()
+	public void testLoadMap()
 	{
 		try
 		{

@@ -46,6 +46,7 @@ public class JFrameMain extends javax.swing.JFrame
     jButtonMoveRight = new javax.swing.JButton();
     jButtonMoveUp = new javax.swing.JButton();
     jButtonMoveDown = new javax.swing.JButton();
+    jButtonReloadMap = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setTitle("OpenStreetMap Viewer");
@@ -107,6 +108,15 @@ public class JFrameMain extends javax.swing.JFrame
       }
     });
 
+    jButtonReloadMap.setText("Reload map");
+    jButtonReloadMap.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jButtonReloadMapActionPerformed(evt);
+      }
+    });
+
     javax.swing.GroupLayout jPanelCanvasLayout = new javax.swing.GroupLayout(jPanelCanvas);
     jPanelCanvas.setLayout(jPanelCanvasLayout);
     jPanelCanvasLayout.setHorizontalGroup(
@@ -122,17 +132,21 @@ public class JFrameMain extends javax.swing.JFrame
             .addComponent(jButtonMoveRight))
           .addGroup(jPanelCanvasLayout.createSequentialGroup()
             .addGap(56, 56, 56)
-            .addComponent(jButtonMoveUp))
+            .addComponent(jButtonMoveUp)
+            .addGap(71, 71, 71)
+            .addComponent(jButtonReloadMap))
           .addGroup(jPanelCanvasLayout.createSequentialGroup()
             .addGap(55, 55, 55)
             .addComponent(jButtonMoveDown)))
-        .addContainerGap(439, Short.MAX_VALUE))
+        .addContainerGap(312, Short.MAX_VALUE))
     );
     jPanelCanvasLayout.setVerticalGroup(
       jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(jPanelCanvasLayout.createSequentialGroup()
         .addContainerGap()
-        .addComponent(jButtonMoveUp)
+        .addGroup(jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(jButtonMoveUp)
+          .addComponent(jButtonReloadMap))
         .addGap(2, 2, 2)
         .addGroup(jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(jButtonMoveLeft)
@@ -193,6 +207,12 @@ public class JFrameMain extends javax.swing.JFrame
     mapProcessor.setCanvasSize(jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
 		jPanelCanvas.repaint();
   }//GEN-LAST:event_jPanelCanvasComponentResized
+
+  private void jButtonReloadMapActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonReloadMapActionPerformed
+  {//GEN-HEADEREND:event_jButtonReloadMapActionPerformed
+    mapProcessor.testLoadMap();
+		jPanelCanvas.repaint();
+  }//GEN-LAST:event_jButtonReloadMapActionPerformed
 
 	/**
 	 * @param args the command line arguments
@@ -256,6 +276,7 @@ public class JFrameMain extends javax.swing.JFrame
   private javax.swing.JButton jButtonMoveLeft;
   private javax.swing.JButton jButtonMoveRight;
   private javax.swing.JButton jButtonMoveUp;
+  private javax.swing.JButton jButtonReloadMap;
   private javax.swing.JPanel jPanelCanvas;
   private javax.swing.JSlider jSliderScaleLevel;
   // End of variables declaration//GEN-END:variables
