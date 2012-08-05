@@ -4,6 +4,7 @@ import drawingStyles.MapDrawingSettings;
 import drawingStyles.StyleViewer;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
 import map.Map;
 import map.MapBounds;
@@ -161,6 +162,8 @@ public class MapRenderer implements CoordinatesConverter
 		{
 			return;
 		}
+		
+		setupRenderingHints(pCanvas);
 
 		MapDrawingSettings mapDrawingSettings = pStyleViewer.getMapDrawingSettings();
 		pCanvas.setBackground(mapDrawingSettings.getMapBackgroundColor().getColor());
@@ -171,6 +174,23 @@ public class MapRenderer implements CoordinatesConverter
 		pMap.acceptObjectsRenderer(objectsRenderer);
 
 		// draw text canvas
+	}
+
+	/**
+	 * Set graphics rendering hints for map drawing
+	 *
+	 * @param pCanvas canvas using for setup
+	 */
+	private void setupRenderingHints(Graphics2D pCanvas)
+	{
+		if(pCanvas==null)
+		{
+			return;
+		}
+		
+		pCanvas.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		pCanvas.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		pCanvas.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 	}
 
 	/**
