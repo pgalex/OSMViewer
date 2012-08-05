@@ -2,7 +2,6 @@ package map.rendering;
 
 import drawingStyles.*;
 import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
@@ -234,13 +233,12 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		Polygon drawingPolygon = createDrawingPolygonByMapPolygon(pPolygon);
 		
 		// inner part
-		canvas.setPaint(polygonStyle.getFillColor());
+		canvas.setPaint(polygonStyle.getPaint());
 		canvas.fillPolygon(drawingPolygon);
 		
 		// border
 		LineDrawStyle borderStyle = polygonStyle.getBorderDrawStyle();
-		canvas.setStroke(new BasicStroke(borderStyle.getWidth(), BasicStroke.CAP_ROUND, 
-						BasicStroke.JOIN_ROUND, 1.0f, borderStyle.getPattern(), 0.0f));
+		canvas.setStroke(borderStyle.getStroke());
 		canvas.setColor(borderStyle.getColor());
 		canvas.drawPolygon(drawingPolygon);
 		

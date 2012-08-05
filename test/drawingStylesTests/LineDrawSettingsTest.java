@@ -3,6 +3,7 @@ package drawingStylesTests;
 import IOTesting.IOTester;
 import drawingStyles.LineDrawSettings;
 import drawingStyles.LinePattern;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -14,6 +15,26 @@ import org.junit.Test;
  */
 public class LineDrawSettingsTest
 {
+	/**
+	 * Test creating stroke by line parameters
+	 */
+	@Test
+	public void getStrokeTest()
+	{
+		float[] pattern = new float[4];
+		pattern[0] = 2;
+		pattern[1] = 5;
+		pattern[2] = 3;
+		pattern[3] = 2;
+		LinePattern linePattern = new LinePattern();
+		linePattern.setPattern(pattern);
+		LineDrawSettings lineStyle = new LineDrawSettings(Color.RED, 5, linePattern);
+		
+		BasicStroke stroke = lineStyle.getStroke();
+		assertEquals(stroke.getLineWidth(), lineStyle.getWidth(), 0.00001f);
+		assertArrayEquals(lineStyle.getPattern(), stroke.getDashArray(), 0.0001f);
+	}
+
 	/**
 	 * Test auto initialize in constructor
 	 */

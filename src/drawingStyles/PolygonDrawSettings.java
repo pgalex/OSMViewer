@@ -3,6 +3,9 @@ package drawingStyles;
 import IO.ReadableMapData;
 import IO.WritableMapData;
 import java.awt.Color;
+import java.awt.Paint;
+import java.awt.Rectangle;
+import java.awt.TexturePaint;
 import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -60,7 +63,9 @@ public class PolygonDrawSettings implements PolygonDrawStyle, ReadableMapData, W
 	private void initializeNullFields()
 	{
 		if (borderDrawStyle == null)
+		{
 			borderDrawStyle = new LineDrawSettings();
+		}
 	}
 
 	/**
@@ -146,5 +151,24 @@ public class PolygonDrawSettings implements PolygonDrawStyle, ReadableMapData, W
 	public BufferedImage getFillImage()
 	{
 		return fillImage.getImage();
+	}
+
+	/**
+	 * Get paint for drawing filled polygon
+	 *
+	 * @return paint for drawing polygon
+	 */
+	@Override
+	public Paint getPaint()
+	{
+		if (getFillImage() != null)
+		{
+			return new TexturePaint(getFillImage(),
+							new Rectangle(0, 0, getFillImage().getWidth(), getFillImage().getHeight()));
+		}
+		else
+		{
+			return getFillColor();
+		}
 	}
 }

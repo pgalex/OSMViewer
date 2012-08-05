@@ -1,5 +1,6 @@
 package drawingStyles;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 
 /**
@@ -29,4 +30,11 @@ public interface LineDrawStyle
 	 * @return pattern for line drawing
 	 */
 	public float[] getPattern();
+
+	/**
+	 * Get stroke for line drawing
+	 *
+	 * @return stroke for line drawing
+	 */
+	public BasicStroke getStroke();
 }

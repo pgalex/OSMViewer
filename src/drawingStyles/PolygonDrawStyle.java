@@ -1,6 +1,7 @@
 package drawingStyles;
 
 import java.awt.Color;
+import java.awt.Paint;
 import java.awt.image.BufferedImage;
 
 /**
@@ -30,4 +31,12 @@ public interface PolygonDrawStyle
 	 * @return how to draw border of polygon
 	 */
 	public LineDrawStyle getBorderDrawStyle();
+
+	/**
+	 * Get paint for drawing filled polygon
+	 *
+	 * @return paint for drawing polygon. Solid paint if fill image is null, and
+	 * texture paint if fill image not null
+	 */
+	public Paint getPaint();
 }

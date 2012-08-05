@@ -3,6 +3,7 @@ package drawingStyles;
 import IO.ReadableMapData;
 import IO.WritableMapData;
 import drawingStyles.exceptions.LinePatternIncorrectException;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -173,5 +174,17 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	public void setPattern(float[] pPattern) throws LinePatternIncorrectException
 	{
 		pattern.setPattern(pPattern);
+	}
+
+	/**
+	 * Get stroke for line drawing
+	 *
+	 * @return stroke for line drawing
+	 */
+	@Override
+	public BasicStroke getStroke()
+	{
+		return new BasicStroke(getWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 
+						1.0f, getPattern(), 0.0f);
 	}
 }

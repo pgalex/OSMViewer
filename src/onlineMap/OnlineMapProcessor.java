@@ -166,9 +166,16 @@ public class OnlineMapProcessor implements DrawableOnPanel
 			MapObjectDrawSettings shopStyle = new MapObjectDrawSettings(true, false, false,
 							new TextTagsKeys(shopTextTagKeys), 0, "convenience shop", shopScaleStylesArray, shopTags);
 			
-			LineDrawSettings forestBorderStyle = new LineDrawSettings(new Color(134, 169, 120), 1, null);
+			float[] forestPattern = new float[2];
+			forestPattern[0] = 5;
+			forestPattern[1] = 5;
+			LinePattern forestBorderPattern = new LinePattern();
+			forestBorderPattern.setPattern(forestPattern);
+			LineDrawSettings forestBorderStyle = new LineDrawSettings(new Color(134, 169, 120), 2, forestBorderPattern);
+			
+			IOIcon forestTexture = new IOIcon("icons/forest.png");
 			PolygonDrawSettings forestPolygonStyle = new PolygonDrawSettings(new Color(174, 209, 160), 
-							forestBorderStyle, null);
+							forestBorderStyle, forestTexture.getImage());
 			TextDrawSettings forestTextStyle = new TextDrawSettings(new Color(54, 89, 40), null);
 			DrawSettingsOnScale forestScaledStyle = new DrawSettingsOnScale(false, false, true, 
 							null, null, forestPolygonStyle, forestTextStyle);
