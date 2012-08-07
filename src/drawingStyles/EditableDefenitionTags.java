@@ -21,7 +21,7 @@ public class EditableDefenitionTags extends DefenitionTags
 	/**
 	 * Add tag
 	 *
-	 * @param pTag adding tag
+	 * @param pTag tag to add
 	 * @throws TagIsNullException adding tag is null
 	 */
 	public void add(MapTag pTag) throws TagIsNullException
