@@ -1,6 +1,6 @@
 package drawingStyles;
 
-import drawingStyles.exceptions.MapDrawingSettingsIsNullException;
+import drawingStyles.exceptions.MapDrawSettingsIsNullException;
 import drawingStyles.exceptions.MapObjectStyleIsNullException;
 import drawingStyles.exceptions.StyleIndexOutOfBoundsException;
 import java.io.DataInputStream;
@@ -197,26 +197,26 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 	 * @return map drawing settings
 	 */
 	@Override
-	public MapDrawingSettings getMapDrawingSettings()
+	public MapDrawSettings getMapDrawSettings()
 	{
-		return mapDrawingSettings;
+		return mapDrawSettings;
 	}
 
 	/**
 	 * Set new map drawing settings
 	 *
 	 * @param pMapDrawingSettings new map drawing settings
-	 * @throws MapDrawingSettingsIsNullException new settins is null
+	 * @throws MapDrawSettingsIsNullException new settins is null
 	 */
 	@Override
-	public void setMapDrawingSettings(MapDrawingSettings pMapDrawingSettings) throws MapDrawingSettingsIsNullException
+	public void setMapDrawSettings(MapDrawSettings pMapDrawingSettings) throws MapDrawSettingsIsNullException
 	{
 		if (pMapDrawingSettings == null)
 		{
-			throw new MapDrawingSettingsIsNullException(this);
+			throw new MapDrawSettingsIsNullException(this);
 		}
 
-		mapDrawingSettings = pMapDrawingSettings;
+		mapDrawSettings = pMapDrawingSettings;
 	}
 
 	/**

@@ -1,6 +1,6 @@
 package drawingStyles;
 
-import drawingStyles.exceptions.MapDrawingSettingsIsNullException;
+import drawingStyles.exceptions.MapDrawSettingsIsNullException;
 import drawingStyles.exceptions.MapObjectStyleIsNullException;
 import drawingStyles.exceptions.StyleIndexOutOfBoundsException;
 
@@ -57,7 +57,7 @@ public interface StyleEditor extends StyleViewer
 	 * Set new map drawing settings
 	 *
 	 * @param pMapDrawingSettings new map drawing settings
-	 * @throws MapDrawingSettingsIsNullException new settins is null
+	 * @throws MapDrawSettingsIsNullException new settins is null
 	 */
-	public abstract void setMapDrawingSettings(MapDrawingSettings pMapDrawingSettings) throws MapDrawingSettingsIsNullException;
+	public abstract void setMapDrawSettings(MapDrawSettings pMapDrawingSettings) throws MapDrawSettingsIsNullException;
 }

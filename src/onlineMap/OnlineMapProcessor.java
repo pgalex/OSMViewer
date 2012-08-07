@@ -144,7 +144,7 @@ public class OnlineMapProcessor implements DrawableOnPanel
 	{
 		try
 		{
-			styleViewer.setMapDrawingSettings(new MapDrawingSettings(null));
+			styleViewer.setMapDrawSettings(new MapDrawSettings(null));
 			
 			IOIcon shopIcon = new IOIcon("icons/shop_convenience.p.16.png");
 			PointDrawSettings shopPointStyle = new PointDrawSettings(shopIcon.getImage());

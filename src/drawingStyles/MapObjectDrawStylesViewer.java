@@ -72,9 +72,9 @@ public class MapObjectDrawStylesViewer extends MapObjectDrawStylesContainer impl
 	 * @return map drawing settings
 	 */
 	@Override
-	public MapDrawingSettings getMapDrawingSettings()
+	public MapDrawSettings getMapDrawSettings()
 	{
-		return mapDrawingSettings;
+		return mapDrawSettings;
 	}
 
 	/**

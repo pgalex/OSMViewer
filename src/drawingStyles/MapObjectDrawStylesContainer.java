@@ -18,14 +18,14 @@ public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMa
 	/**
 	 * Information about map drawing
 	 */
-	protected MapDrawingSettings mapDrawingSettings;
+	protected MapDrawSettings mapDrawSettings;
 
 	/**
 	 * Default constructor
 	 */
 	public MapObjectDrawStylesContainer()
 	{
-		mapDrawingSettings = new MapDrawingSettings(null);
+		mapDrawSettings = new MapDrawSettings(null);
 	}
 
 	/**
@@ -127,7 +127,7 @@ public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMa
 	{
 		try
 		{
-			mapDrawingSettings.readFromStream(pInput);
+			mapDrawSettings.readFromStream(pInput);
 		}
 		catch (Exception ex)
 		{
@@ -146,7 +146,7 @@ public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMa
 	{
 		try
 		{
-			mapDrawingSettings.writeToStream(pOutput);
+			mapDrawSettings.writeToStream(pOutput);
 		}
 		catch (Exception ex)
 		{

@@ -1,7 +1,7 @@
 package drawingStylesTests;
 
 import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.MapDrawingSettings;
+import drawingStyles.MapDrawSettings;
 import drawingStyles.IOColor;
 import drawingStyles.StyleViewer;
 import drawingStyles.DrawingStylesFactory;
@@ -27,7 +27,7 @@ public class MapObjectDrawStylesViewerTest
 	public void initializingTest()
 	{
 		StyleViewer testViewer = DrawingStylesFactory.createStyleViewer();
-		assertNotNull(testViewer.getMapDrawingSettings());
+		assertNotNull(testViewer.getMapDrawSettings());
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class MapObjectDrawStylesViewerTest
 			writedEditor.addMapObjectDrawSettings(style1);
 			writedEditor.addMapObjectDrawSettings(style2);
 			writedEditor.addMapObjectDrawSettings(style3);
-			writedEditor.setMapDrawingSettings(new MapDrawingSettings(new IOColor(Color.red)));
+			writedEditor.setMapDrawSettings(new MapDrawSettings(new IOColor(Color.red)));
 
 			IOTester.writeToTestFile(writedEditor);
 
@@ -74,8 +74,8 @@ public class MapObjectDrawStylesViewerTest
 			assertEquals(writedEditor.getMapObjectDrawSettings(0).getDescription(), readViewer.findMapObjectDrawStyle(0).getDescription());
 			assertEquals(writedEditor.getMapObjectDrawSettings(1).getDescription(), readViewer.findMapObjectDrawStyle(1).getDescription());
 			assertEquals(writedEditor.getMapObjectDrawSettings(2).getDescription(), readViewer.findMapObjectDrawStyle(2).getDescription());
-			assertEquals(writedEditor.getMapDrawingSettings().getMapBackgroundColor().getColor(), 
-							readViewer.getMapDrawingSettings().getMapBackgroundColor().getColor());
+			assertEquals(writedEditor.getMapDrawSettings().getMapBackgroundColor().getColor(), 
+							readViewer.getMapDrawSettings().getMapBackgroundColor().getColor());
 		}
 		catch (Exception ex)
 		{

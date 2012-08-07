@@ -7,14 +7,14 @@ import drawingStyles.StyleEditor;
  *
  * @author pgalex
  */
-public class MapDrawingSettingsIsNullException extends StyleEditorRuntimeException
+public class MapDrawSettingsIsNullException extends StyleEditorRuntimeException
 {
 	/**
 	 * Constructor
 	 *
 	 * @param pEditorThrowedException Style editor that throwed exception
 	 */
-	public MapDrawingSettingsIsNullException(StyleEditor pEditorThrowedException)
+	public MapDrawSettingsIsNullException(StyleEditor pEditorThrowedException)
 	{
 		super(pEditorThrowedException);
 	}

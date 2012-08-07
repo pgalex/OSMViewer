@@ -35,5 +35,5 @@ public interface StyleViewer extends ReadableMapData, WritableMapData
 	 *
 	 * @return map drawing settings
 	 */
-	public abstract MapDrawingSettings getMapDrawingSettings();
+	public abstract MapDrawSettings getMapDrawSettings();
 }

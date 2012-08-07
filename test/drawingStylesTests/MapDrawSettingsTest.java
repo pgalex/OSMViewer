@@ -2,17 +2,17 @@ package drawingStylesTests;
 
 import IOTesting.IOTester;
 import drawingStyles.IOColor;
-import drawingStyles.MapDrawingSettings;
+import drawingStyles.MapDrawSettings;
 import java.awt.Color;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * MapDrawingSettings class tests
+ * MapDrawSettings class tests
  *
  * @author pgalex
  */
-public class MapDrawingSettingsTest
+public class MapDrawSettingsTest
 {
 	/**
 	 * Testing auto initialize in constructor
@@ -20,7 +20,7 @@ public class MapDrawingSettingsTest
 	@Test
 	public void autoInitializeTest()
 	{
-		MapDrawingSettings testSettings = new MapDrawingSettings(null);
+		MapDrawSettings testSettings = new MapDrawSettings(null);
 		assertNotNull(testSettings.getMapBackgroundColor());
 	}
 
@@ -32,10 +32,10 @@ public class MapDrawingSettingsTest
 	{
 		try
 		{
-			MapDrawingSettings writingSetting = new MapDrawingSettings(new IOColor(Color.ORANGE));
+			MapDrawSettings writingSetting = new MapDrawSettings(new IOColor(Color.ORANGE));
 			IOTester.writeToTestFile(writingSetting);
 
-			MapDrawingSettings readingSettings = new MapDrawingSettings(null);
+			MapDrawSettings readingSettings = new MapDrawSettings(null);
 			IOTester.readFromTestFile(readingSettings);
 
 			assertEquals(writingSetting.getMapBackgroundColor().getColor(), readingSettings.getMapBackgroundColor().getColor());

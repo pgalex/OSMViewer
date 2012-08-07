@@ -1,6 +1,6 @@
 package map.rendering;
 
-import drawingStyles.MapDrawingSettings;
+import drawingStyles.MapDrawSettings;
 import drawingStyles.StyleViewer;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -165,7 +165,7 @@ public class MapRenderer implements CoordinatesConverter
 		
 		setupRenderingHints(pCanvas);
 
-		MapDrawingSettings mapDrawingSettings = pStyleViewer.getMapDrawingSettings();
+		MapDrawSettings mapDrawingSettings = pStyleViewer.getMapDrawSettings();
 		pCanvas.setBackground(mapDrawingSettings.getMapBackgroundColor().getColor());
 		pCanvas.clearRect(targetCanvasDrawingArea.x, targetCanvasDrawingArea.y, targetCanvasDrawingArea.width, targetCanvasDrawingArea.height);
 

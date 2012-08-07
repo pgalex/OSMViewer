@@ -2,7 +2,7 @@ package drawingStylesTests;
 
 import IOTesting.IOTester;
 import drawingStyles.*;
-import drawingStyles.exceptions.MapDrawingSettingsIsNullException;
+import drawingStyles.exceptions.MapDrawSettingsIsNullException;
 import drawingStyles.exceptions.MapObjectStyleIsNullException;
 import drawingStyles.exceptions.StyleIndexOutOfBoundsException;
 import java.awt.Color;
@@ -23,11 +23,11 @@ public class MapObjectDrawStylesEditorTest
 	public void initializingTest()
 	{
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
-		assertNotNull(testEditor.getMapDrawingSettings());
+		assertNotNull(testEditor.getMapDrawSettings());
 	}
 
 	/**
-	 * Test setMapDrawingSettings methods with null settings
+	 * Test setMapDrawSettings methods with null settings
 	 */
 	@Test
 	public void setNullMapDrawingSettingsTest()
@@ -35,10 +35,10 @@ public class MapObjectDrawStylesEditorTest
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		try
 		{
-			testEditor.setMapDrawingSettings(null);
+			testEditor.setMapDrawSettings(null);
 			fail();
 		}
-		catch (MapDrawingSettingsIsNullException ex)
+		catch (MapDrawSettingsIsNullException ex)
 		{
 			assertEquals(testEditor, ex.getEditorThrowedException());
 		}
@@ -340,14 +340,14 @@ public class MapObjectDrawStylesEditorTest
 			writedEditor.addMapObjectDrawSettings(style1);
 			writedEditor.addMapObjectDrawSettings(style2);
 			writedEditor.addMapObjectDrawSettings(style3);
-			writedEditor.setMapDrawingSettings(new MapDrawingSettings(new IOColor(Color.CYAN)));
+			writedEditor.setMapDrawSettings(new MapDrawSettings(new IOColor(Color.CYAN)));
 			IOTester.writeToTestFile(writedEditor);
 
 			StyleEditor readEditor = DrawingStylesFactory.createStyleEditor();
 			IOTester.readFromTestFile(readEditor);
 
-			assertEquals(writedEditor.getMapDrawingSettings().getMapBackgroundColor().getColor(),
-							readEditor.getMapDrawingSettings().getMapBackgroundColor().getColor());
+			assertEquals(writedEditor.getMapDrawSettings().getMapBackgroundColor().getColor(),
+							readEditor.getMapDrawSettings().getMapBackgroundColor().getColor());
 			// comparing only by description
 			assertEquals(writedEditor.countOfMapObjectDrawSettings(), readEditor.countOfMapObjectDrawSettings());
 			for (int i = 0; i < writedEditor.countOfMapObjectDrawSettings(); i++)

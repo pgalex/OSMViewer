@@ -12,7 +12,7 @@ import java.io.IOException;
  *
  * @author pgalex
  */
-public class MapDrawingSettings implements ReadableMapData, WritableMapData
+public class MapDrawSettings implements ReadableMapData, WritableMapData
 {
 	/**
 	 * Default map background color. (osm like)
@@ -28,7 +28,7 @@ public class MapDrawingSettings implements ReadableMapData, WritableMapData
 	 *
 	 * @param pMapBackgroundColor Map background color
 	 */
-	public MapDrawingSettings(IOColor pMapBackgroundColor)
+	public MapDrawSettings(IOColor pMapBackgroundColor)
 	{
 		mapBackgroundColor = pMapBackgroundColor;
 
