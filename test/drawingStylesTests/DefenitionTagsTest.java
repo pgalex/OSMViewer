@@ -4,6 +4,7 @@ import IOTesting.IOTester;
 import drawingStyles.DefenitionTags;
 import drawingStyles.EditableDefenitionTags;
 import drawingStyles.MapTag;
+import map.exceptions.TagIndexOutOfBoundsException;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -22,7 +23,16 @@ public class DefenitionTagsTest
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
 
-		assertNull(tags.get(0));
+		try
+		{
+			tags.get(0);
+		}
+		catch (TagIndexOutOfBoundsException ex)
+		{
+			assertEquals(0, ex.getIncorrectTagIndex());
+			assertEquals(0, ex.getBoundsMinimum());
+			assertEquals(tags.size(), ex.getBoundsMaximum());
+		}
 	}
 
 	/**
@@ -34,7 +44,16 @@ public class DefenitionTagsTest
 		EditableDefenitionTags tags = new EditableDefenitionTags();
 		tags.add(new MapTag("k2", "v2"));
 
-		assertNull(tags.get(-1));
+		try
+		{
+			tags.get(-1);
+		}
+		catch (TagIndexOutOfBoundsException ex)
+		{
+			assertEquals(-1, ex.getIncorrectTagIndex());
+			assertEquals(0, ex.getBoundsMinimum());
+			assertEquals(tags.size(), ex.getBoundsMaximum());
+		}
 	}
 
 	/**
@@ -46,7 +65,16 @@ public class DefenitionTagsTest
 		EditableDefenitionTags tags = new EditableDefenitionTags();
 		tags.add(new MapTag("k2", "v2"));
 
-		assertNull(tags.get(tags.size()));
+		try
+		{
+			tags.get(tags.size());
+		}
+		catch (TagIndexOutOfBoundsException ex)
+		{
+			assertEquals(tags.size(), ex.getIncorrectTagIndex());
+			assertEquals(0, ex.getBoundsMinimum());
+			assertEquals(tags.size(), ex.getBoundsMaximum());
+		}
 	}
 
 	/**
@@ -184,7 +212,9 @@ public class DefenitionTagsTest
 
 			assertEquals(writingTags.size(), readingTags.size());
 			for (int i = 0; i < writingTags.size(); i++)
+			{
 				assertTrue(writingTags.get(i).compareTo(readingTags.get(i)));
+			}
 		}
 		catch (Exception ex)
 		{

@@ -6,9 +6,10 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import map.exceptions.TagIndexOutOfBoundsException;
 
 /**
- * Map object tags
+ * Tags, describes map object
  *
  * @author pgalex
  */
@@ -20,7 +21,7 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 	protected ArrayList<MapTag> tags;
 
 	/**
-	 * Default constructor
+	 * Create empty defenition tags
 	 */
 	public DefenitionTags()
 	{
@@ -38,7 +39,7 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Is empty
+	 * Is tags array empty
 	 *
 	 * @return is tags array empty
 	 */
@@ -48,54 +49,73 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Get tag with index
+	 * Get tag by index
 	 *
 	 * @param pIndex index
-	 * @return tag, null if index is out of bounds
+	 * @return tag with pIndex. null if index is out of bounds
+	 * @throws TagIndexOutOfBoundsException index is out of bounds 
 	 */
-	public MapTag get(int pIndex)
+	public MapTag get(int pIndex) throws TagIndexOutOfBoundsException
 	{
 		if (pIndex < 0 || pIndex >= tags.size())
-			return null;
+		{
+			throw new TagIndexOutOfBoundsException(this, pIndex, 0, tags.size());
+		}
+
 		return tags.get(pIndex);
 	}
 
 	/**
-	 *
-	 * Compare defenition tags. (Сравнить теги без учета их порядка. Каждый тег из
-	 * defenitionTags должен входить в pTags )
+	 * Smart comparing defenition tags
 	 *
 	 * @param pTags tags for comparing
-	 * @return is pTags defines this objects
+	 * @return is pTags contains this tags
 	 */
 	public boolean compareTo(DefenitionTags pTags)
 	{
-		//заведомо несопадающие теги
+		// (Сравнить теги без учета их порядка. Каждый тег из defenitionTags
+		// должен входить в pTags )
+
+		// deliberately noncoincidenting tags
 		if (pTags == null)
-			return false;
-		if (tags.size() > pTags.size())
-			return false;
-		// пустые списки считаются равны
-		if (tags.isEmpty() && pTags.isEmpty())
-			return true;
-
-		if (tags.isEmpty() && !pTags.isEmpty())
-			return false;
-
-		for (MapTag defenitionTempTag : tags)
 		{
-			boolean currentCompareResult = false;
-			for (MapTag parameterTempTag : pTags.tags)
+			return false;
+		}
+		if (tags.size() > pTags.size())
+		{
+			return false;
+		}
+		// null tags are equal
+		if (tags.isEmpty() && pTags.isEmpty())
+		{
+			return true;
+		}
+		if (tags.isEmpty() && !pTags.isEmpty())
+		{
+			return false;
+		}
+
+		for (MapTag thisTag : tags)
+		{
+			boolean thisTagFoundInCompatingTags = false;
+
+			for (int i = 0; i < pTags.size(); i++)
 			{
-				if (defenitionTempTag.compareTo(parameterTempTag))
+				MapTag comparingTag = pTags.get(i);
+
+				if (thisTag.compareTo(comparingTag))
 				{
-					currentCompareResult = true;
+					thisTagFoundInCompatingTags = true;
 					break;
 				}
 			}
-			if (!currentCompareResult)
+
+			if (!thisTagFoundInCompatingTags)
+			{
 				return false;
+			}
 		}
+
 		return true;
 	}
 
@@ -114,9 +134,9 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 			int tagsCount = pInput.readInt();
 			for (int i = 0; i < tagsCount; i++)
 			{
-				MapTag tempTag = new MapTag();
-				tempTag.readFromStream(pInput);
-				tags.add(tempTag);
+				MapTag readingTag = new MapTag();
+				readingTag.readFromStream(pInput);
+				tags.add(readingTag);
 			}
 		}
 		catch (Exception e)
@@ -137,8 +157,10 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 		try
 		{
 			pOutput.writeInt(tags.size());
-			for (MapTag tempTag : tags)
-				tempTag.writeToStream(pOutput);
+			for (MapTag tag : tags)
+			{
+				tag.writeToStream(pOutput);
+			}
 		}
 		catch (Exception e)
 		{
