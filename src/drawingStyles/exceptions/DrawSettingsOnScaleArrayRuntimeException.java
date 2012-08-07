@@ -7,7 +7,7 @@ import drawingStyles.DrawSettingsOnScaleArray;
  *
  * @author pgalex
  */
-public class ScaledObjectStyleArrayRuntimeException extends DrawingStylesRuntimeException
+public class DrawSettingsOnScaleArrayRuntimeException extends DrawingStylesRuntimeException
 {
 	/**
 	 * Scaled object style array throwed this exception
@@ -20,7 +20,7 @@ public class ScaledObjectStyleArrayRuntimeException extends DrawingStylesRuntime
 	 * @param pArrayThrowedException Scaled object style array throwed this
 	 * exception
 	 */
-	public ScaledObjectStyleArrayRuntimeException(DrawSettingsOnScaleArray pArrayThrowedException)
+	public DrawSettingsOnScaleArrayRuntimeException(DrawSettingsOnScaleArray pArrayThrowedException)
 	{
 		arrayThrowedException = pArrayThrowedException;
 	}

@@ -7,7 +7,7 @@ import drawingStyles.DrawSettingsOnScaleArray;
  *
  * @author pgalex
  */
-public class ScaledStyleIsNullException extends ScaledObjectStyleArrayRuntimeException
+public class DrawSettingsOnScaleIsNullException extends DrawSettingsOnScaleArrayRuntimeException
 {
 	/**
 	 * Constructor
@@ -15,7 +15,7 @@ public class ScaledStyleIsNullException extends ScaledObjectStyleArrayRuntimeExc
 	 * @param pArrayThrowedException scaled object style array throwed this
 	 * exception
 	 */
-	public ScaledStyleIsNullException(DrawSettingsOnScaleArray pArrayThrowedException)
+	public DrawSettingsOnScaleIsNullException(DrawSettingsOnScaleArray pArrayThrowedException)
 	{
 		super(pArrayThrowedException);
 	}

@@ -7,7 +7,7 @@ import drawingStyles.DrawSettingsOnScaleArray;
  *
  * @author pgalex
  */
-public class ScaleLevelOutOfBoundsException extends ScaledObjectStyleArrayRuntimeException
+public class ScaleLevelOutOfBoundsException extends DrawSettingsOnScaleArrayRuntimeException
 {
 	/**
 	 * Value of scale level that was incorrect

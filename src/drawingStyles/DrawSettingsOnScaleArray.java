@@ -3,7 +3,7 @@ package drawingStyles;
 import IO.ReadableMapData;
 import IO.WritableMapData;
 import drawingStyles.exceptions.ScaleLevelOutOfBoundsException;
-import drawingStyles.exceptions.ScaledStyleIsNullException;
+import drawingStyles.exceptions.DrawSettingsOnScaleIsNullException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -85,13 +85,13 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	 * @param pScaleLevel scale level
 	 * @param pNewScaledStyle new style on scale level
 	 * @throws ScaleLevelOutOfBoundsException scale level is out of range
-	 * @throws ScaledStyleIsNullException new scaled style is null
+	 * @throws DrawSettingsOnScaleIsNullException new scaled style is null
 	 */
-	public void setDrawSettingsOnScale(int pScaleLevel, DrawSettingsOnScale pNewScaledStyle) throws ScaleLevelOutOfBoundsException, ScaledStyleIsNullException
+	public void setDrawSettingsOnScale(int pScaleLevel, DrawSettingsOnScale pNewScaledStyle) throws ScaleLevelOutOfBoundsException, DrawSettingsOnScaleIsNullException
 	{
 		if (pNewScaledStyle == null)
 		{
-			throw new ScaledStyleIsNullException(this);
+			throw new DrawSettingsOnScaleIsNullException(this);
 		}
 
 		scaledStyles[convertScaleLevelToArrayIndex(pScaleLevel)] = pNewScaledStyle;

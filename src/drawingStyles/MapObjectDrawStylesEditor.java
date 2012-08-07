@@ -1,7 +1,7 @@
 package drawingStyles;
 
 import drawingStyles.exceptions.MapDrawSettingsIsNullException;
-import drawingStyles.exceptions.MapObjectStyleIsNullException;
+import drawingStyles.exceptions.MapObjectDrawSettingsIsNullException;
 import drawingStyles.exceptions.StyleIndexOutOfBoundsException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -82,10 +82,10 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 	 * @param pIndex style index
 	 * @param pDrawSettings new draw settings of object with pIndex
 	 * @throws StyleIndexOutOfBoundsException style index is out of bounds
-	 * @throws MapObjectStyleIsNullException new draw settings is null
+	 * @throws MapObjectDrawSettingsIsNullException new draw settings is null
 	 */
 	@Override
-	public void setMapObjectDrawSettings(Integer pIndex, MapObjectDrawSettings pDrawSettings) throws StyleIndexOutOfBoundsException, MapObjectStyleIsNullException
+	public void setMapObjectDrawSettings(Integer pIndex, MapObjectDrawSettings pDrawSettings) throws StyleIndexOutOfBoundsException, MapObjectDrawSettingsIsNullException
 	{
 		if (pIndex == null)
 		{
@@ -97,7 +97,7 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 		}
 		if (pDrawSettings == null)
 		{
-			throw new MapObjectStyleIsNullException(this);
+			throw new MapObjectDrawSettingsIsNullException(this);
 		}
 
 		styles.set(pIndex, pDrawSettings);
@@ -156,14 +156,14 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 	 * Add draw settings of map object
 	 *
 	 * @param pDrawSettings new map object style
-	 * @throws MapObjectStyleIsNullException new style is null
+	 * @throws MapObjectDrawSettingsIsNullException new style is null
 	 */
 	@Override
-	public void addMapObjectDrawSettings(MapObjectDrawSettings pDrawSettings) throws MapObjectStyleIsNullException
+	public void addMapObjectDrawSettings(MapObjectDrawSettings pDrawSettings) throws MapObjectDrawSettingsIsNullException
 	{
 		if (pDrawSettings == null)
 		{
-			throw new MapObjectStyleIsNullException(this);
+			throw new MapObjectDrawSettingsIsNullException(this);
 		}
 
 		styles.add(pDrawSettings);

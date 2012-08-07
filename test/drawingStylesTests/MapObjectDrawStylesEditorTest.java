@@ -3,7 +3,7 @@ package drawingStylesTests;
 import IOTesting.IOTester;
 import drawingStyles.*;
 import drawingStyles.exceptions.MapDrawSettingsIsNullException;
-import drawingStyles.exceptions.MapObjectStyleIsNullException;
+import drawingStyles.exceptions.MapObjectDrawSettingsIsNullException;
 import drawingStyles.exceptions.StyleIndexOutOfBoundsException;
 import java.awt.Color;
 import static org.junit.Assert.*;
@@ -80,7 +80,7 @@ public class MapObjectDrawStylesEditorTest
 			editor.addMapObjectDrawSettings(null);
 			fail();
 		}
-		catch (MapObjectStyleIsNullException ex)
+		catch (MapObjectDrawSettingsIsNullException ex)
 		{
 			assertEquals(editor, ex.getEditorThrowedException());
 		}
@@ -207,7 +207,7 @@ public class MapObjectDrawStylesEditorTest
 			editor.setMapObjectDrawSettings(0, null);
 			fail();
 		}
-		catch (MapObjectStyleIsNullException ex)
+		catch (MapObjectDrawSettingsIsNullException ex)
 		{
 			assertEquals(editor, ex.getEditorThrowedException());
 		}

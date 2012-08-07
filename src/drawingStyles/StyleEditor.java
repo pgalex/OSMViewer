@@ -1,7 +1,7 @@
 package drawingStyles;
 
 import drawingStyles.exceptions.MapDrawSettingsIsNullException;
-import drawingStyles.exceptions.MapObjectStyleIsNullException;
+import drawingStyles.exceptions.MapObjectDrawSettingsIsNullException;
 import drawingStyles.exceptions.StyleIndexOutOfBoundsException;
 
 /**
@@ -26,17 +26,17 @@ public interface StyleEditor extends StyleViewer
 	 * @param pIndex style index
 	 * @param pDrawSettings new draw settings of object with pIndex
 	 * @throws StyleIndexOutOfBoundsException style index is out of bounds
-	 * @throws MapObjectStyleIsNullException new draw settings is null
+	 * @throws MapObjectDrawSettingsIsNullException new draw settings is null
 	 */
-	public abstract void setMapObjectDrawSettings(Integer pIndex, MapObjectDrawSettings pDrawSettings) throws StyleIndexOutOfBoundsException, MapObjectStyleIsNullException;
+	public abstract void setMapObjectDrawSettings(Integer pIndex, MapObjectDrawSettings pDrawSettings) throws StyleIndexOutOfBoundsException, MapObjectDrawSettingsIsNullException;
 
 	/**
 	 * Add draw settings of map object
 	 *
 	 * @param pDrawSettings new map object style
-	 * @throws MapObjectStyleIsNullException new style is null
+	 * @throws MapObjectDrawSettingsIsNullException new style is null
 	 */
-	public abstract void addMapObjectDrawSettings(MapObjectDrawSettings pDrawSettings) throws MapObjectStyleIsNullException;
+	public abstract void addMapObjectDrawSettings(MapObjectDrawSettings pDrawSettings) throws MapObjectDrawSettingsIsNullException;
 
 	/**
 	 * Remove draw settings by index
