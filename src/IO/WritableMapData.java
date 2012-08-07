@@ -4,7 +4,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
- * Interface for object that can write itself into file
+ * Interface for object that can write itself into stream
  *
  * @author abc
  */

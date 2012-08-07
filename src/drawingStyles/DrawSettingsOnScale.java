@@ -110,7 +110,7 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 	/**
 	 * Read from stream
 	 *
-	 * @param pInput reading stream
+	 * @param pInput input stream
 	 * @throws IOException reading error
 	 */
 	@Override

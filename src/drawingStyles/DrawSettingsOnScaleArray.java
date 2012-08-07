@@ -249,7 +249,7 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	/**
 	 * Read from stream
 	 *
-	 * @param pInput reading stream
+	 * @param pInput input stream
 	 * @throws IOException reading error
 	 */
 	@Override

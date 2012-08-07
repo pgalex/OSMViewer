@@ -40,7 +40,7 @@ public class PointDrawSettings implements PointDrawStyle, ReadableMapData, Writa
 	/**
 	 * Read from stream
 	 *
-	 * @param pInput reading stream
+	 * @param pInput input stream
 	 * @throws IOException reading error
 	 */
 	@Override

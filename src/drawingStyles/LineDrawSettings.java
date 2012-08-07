@@ -73,7 +73,7 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	/**
 	 * Read from stream
 	 *
-	 * @param pInput reading stream
+	 * @param pInput input stream
 	 * @throws IOException reading error
 	 */
 	@Override
