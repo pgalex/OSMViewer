@@ -24,7 +24,7 @@ public class IOColor implements WritableMapData, ReadableMapData
 	private Color color;
 
 	/**
-	 * Default constructor
+	 * Create with default color
 	 */
 	public IOColor()
 	{
@@ -32,9 +32,9 @@ public class IOColor implements WritableMapData, ReadableMapData
 	}
 
 	/**
-	 * Constructor with color pointer
+	 * Create with color
 	 *
-	 * @param pColor color pointer
+	 * @param pColor color. if null, will be used default value
 	 */
 	public IOColor(Color pColor)
 	{
@@ -88,16 +88,18 @@ public class IOColor implements WritableMapData, ReadableMapData
 	}
 
 	/**
-	 * Default values into null fields
+	 * Initializ null null fields with defaul value
 	 */
 	private void initializeNullFields()
 	{
 		if (color == null)
+		{
 			color = DEFAULT_COLOR;
+		}
 	}
 
 	/**
-	 * Get color
+	 * Get storing color
 	 *
 	 * @return color
 	 */
