@@ -66,12 +66,12 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Smart comparing defenition tags
+	 * Is all tags of this defenition tags including in pTags
 	 *
 	 * @param pTags tags for comparing
-	 * @return is pTags contains this tags
+	 * @return is pTags contains this all of this tags
 	 */
-	public boolean compareTo(DefenitionTags pTags)
+	public boolean includingIn(DefenitionTags pTags)
 	{
 		// (Сравнить теги без учета их порядка. Каждый тег из defenitionTags
 		// должен входить в pTags )

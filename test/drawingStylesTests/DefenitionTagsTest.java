@@ -81,40 +81,40 @@ public class DefenitionTagsTest
 	 * Comparing defenition when both defenition tags are empty
 	 */
 	@Test
-	public void comparingAllTagsEmptyTest()
+	public void includingInAllTagsEmptyTest()
 	{
 		EditableDefenitionTags styleTags = new EditableDefenitionTags();
 		EditableDefenitionTags objectTags = new EditableDefenitionTags();
 
-		assertTrue(styleTags.compareTo(objectTags));
+		assertTrue(styleTags.includingIn(objectTags));
 	}
 
 	/**
 	 * Comparing defenition not empty with empty tags
 	 */
 	@Test
-	public void comparingNotEmptyWithEmptyTest()
+	public void includingInNotEmptyWithEmptyTest()
 	{
 		EditableDefenitionTags styleTags = new EditableDefenitionTags();
 		EditableDefenitionTags objectTags = new EditableDefenitionTags();
 
 		objectTags.add(new MapTag("k1", "v1"));
 
-		assertFalse(styleTags.compareTo(objectTags));
+		assertFalse(styleTags.includingIn(objectTags));
 	}
 
 	/**
 	 * Comparing defenition empty with not empty tags
 	 */
 	@Test
-	public void comparingEmptyWithNotEmptyTest()
+	public void includingInEmptyWithNotEmptyTest()
 	{
 		EditableDefenitionTags styleTags = new EditableDefenitionTags();
 		EditableDefenitionTags objectTags = new EditableDefenitionTags();
 
 		styleTags.add(new MapTag("k1", "v1"));
 
-		assertFalse(styleTags.compareTo(objectTags));
+		assertFalse(styleTags.includingIn(objectTags));
 	}
 
 	/**
@@ -122,7 +122,7 @@ public class DefenitionTagsTest
 	 * of tags)
 	 */
 	@Test
-	public void comparingFullEqualTagsTest()
+	public void includingInFullEqualTagsTest()
 	{
 		EditableDefenitionTags styleTags = new EditableDefenitionTags();
 		EditableDefenitionTags objectTags = new EditableDefenitionTags();
@@ -134,14 +134,14 @@ public class DefenitionTagsTest
 		styleTags.add(new MapTag("k3", "v3"));
 		styleTags.add(new MapTag("k2", "v2"));
 
-		assertTrue(styleTags.compareTo(objectTags));
+		assertTrue(styleTags.includingIn(objectTags));
 	}
 
 	/**
 	 * Comparing defenition not equal tags
 	 */
 	@Test
-	public void comparingNotEqualTagsTest()
+	public void includingInNotEqualTagsTest()
 	{
 		EditableDefenitionTags styleTags = new EditableDefenitionTags();
 		EditableDefenitionTags objectTags = new EditableDefenitionTags();
@@ -153,14 +153,14 @@ public class DefenitionTagsTest
 		styleTags.add(new MapTag("k3", "v3"));
 		styleTags.add(new MapTag("k2", "v2"));
 
-		assertFalse(styleTags.compareTo(objectTags));
+		assertFalse(styleTags.includingIn(objectTags));
 	}
 
 	/**
 	 * Comparing defenition tags not equal and count of tags are different
 	 */
 	@Test
-	public void comparingNotEqualWithDifferentCountTest()
+	public void includingInNotEqualWithDifferentCountTest()
 	{
 		EditableDefenitionTags styleTags = new EditableDefenitionTags();
 		EditableDefenitionTags objectTags = new EditableDefenitionTags();
@@ -171,14 +171,14 @@ public class DefenitionTagsTest
 		styleTags.add(new MapTag("k3", "v3"));
 		styleTags.add(new MapTag("k2", "v2"));
 
-		assertFalse(styleTags.compareTo(objectTags));
+		assertFalse(styleTags.includingIn(objectTags));
 	}
 
 	/**
 	 * Comparing defenition tags, some tags are not exists
 	 */
 	@Test
-	public void comparingNotFullEqualsTest()
+	public void includingInNotFullEqualsTest()
 	{
 		EditableDefenitionTags styleTags = new EditableDefenitionTags();
 		EditableDefenitionTags objectTags = new EditableDefenitionTags();
@@ -189,7 +189,7 @@ public class DefenitionTagsTest
 		styleTags.add(new MapTag("k1", "v1"));
 		styleTags.add(new MapTag("k3", "v3"));
 
-		assertTrue(styleTags.compareTo(objectTags));
+		assertTrue(styleTags.includingIn(objectTags));
 	}
 
 	/**

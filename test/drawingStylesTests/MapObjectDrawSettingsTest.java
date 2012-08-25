@@ -128,9 +128,9 @@ public class MapObjectDrawSettingsTest
 		styles.add(new MapObjectDrawSettings(true, true, true, null, 0, "", null, tags3));
 		Collections.sort(styles);
 
-		assertTrue(styles.get(0).getDefenitionTags().compareTo(tags2));
-		assertTrue(styles.get(1).getDefenitionTags().compareTo(tags1));
-		assertTrue(styles.get(2).getDefenitionTags().compareTo(tags3));
+		assertTrue(styles.get(0).getDefenitionTags().includingIn(tags2));
+		assertTrue(styles.get(1).getDefenitionTags().includingIn(tags1));
+		assertTrue(styles.get(2).getDefenitionTags().includingIn(tags3));
 	}
 
 	/**
@@ -174,7 +174,7 @@ public class MapObjectDrawSettingsTest
 			assertEquals(writedStyle.canBeLine(), readStyle.canBeLine());
 			assertEquals(writedStyle.canBePoint(), readStyle.canBePoint());
 			assertEquals(writedStyle.canBePolygon(), readStyle.canBePolygon());
-			assertEquals(true, writedStyle.getDefenitionTags().compareTo(readStyle.getDefenitionTags()));
+			assertEquals(true, writedStyle.getDefenitionTags().includingIn(readStyle.getDefenitionTags()));
 			assertEquals(writedStyle.getDescription(), readStyle.getDescription());
 			assertArrayEquals(writedStyle.getTextTagKeys().getTagsKeys(), readStyle.getTextTagKeys().getTagsKeys());
 			assertEquals(writedStyle.getDrawPriority(), readStyle.getDrawPriority());

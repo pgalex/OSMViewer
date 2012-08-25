@@ -105,7 +105,7 @@ public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMa
 		{
 			if (pStyles[i] == null)
 				continue;
-			if (pStyles[i].getDefenitionTags().compareTo(pTags))
+			if (pStyles[i].getDefenitionTags().includingIn(pTags))
 				suitableElements.put(pStyles[i], i);
 		}
 
