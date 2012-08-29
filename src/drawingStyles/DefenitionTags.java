@@ -51,8 +51,8 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 	/**
 	 * Get tag by index
 	 *
-	 * @param index index
-	 * @return tag with index
+	 * @param index index of tag
+	 * @return tag at index
 	 * @throws TagIndexOutOfBoundsException index is out of bounds 
 	 */
 	public MapTag get(int index) throws TagIndexOutOfBoundsException
