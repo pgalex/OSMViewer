@@ -16,15 +16,15 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 	/**
 	 * Is need to draw point
 	 */
-	private boolean drawPoint;
+	private boolean needDrawPoint;
 	/**
 	 * Is need to draw line
 	 */
-	private boolean drawLine;
+	private boolean needDrawLine;
 	/**
 	 * Is need to draw polygon
 	 */
-	private boolean drawPolygon;
+	private boolean needDrawPolygon;
 	/**
 	 * point drawing settings
 	 */
@@ -43,7 +43,7 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 	private TextDrawSettings textDrawSettings;
 
 	/**
-	 * Default constructor
+	 * Create with default values
 	 */
 	public DrawSettingsOnScale()
 	{
@@ -51,33 +51,33 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 		lineDrawSettings = new LineDrawSettings();
 		polygonDrawSettings = new PolygonDrawSettings();
 		textDrawSettings = new TextDrawSettings();
-		drawPoint = false;
-		drawLine = false;
-		drawPolygon = false;
+		needDrawPoint = true;
+		needDrawLine = true;
+		needDrawPolygon = true;
 	}
 
 	/**
-	 * Constructor
+	 * Create with parameters
 	 *
-	 * @param pDrawPoint Is need to draw point
-	 * @param pDrawLine Is need to draw line
-	 * @param pDrawPolygon Is need to draw polygon
-	 * @param pPointStyle point drawing settings. Setting to default if null
-	 * @param pLineStyle line drawing settings. Setting to default if null
-	 * @param pPolygonStyle polygon drawing settings. Setting to default if null
-	 * @param pTextDrawSettings text drawing settings. Setting to default if null
+	 * @param drawPoint Is need to draw point
+	 * @param drawLine Is need to draw line
+	 * @param drawPolygon Is need to draw polygon
+	 * @param pointSettings point drawing settings. Reseting to default if null
+	 * @param lineSettings line drawing settings. Reseting to default if null
+	 * @param polygonSettings polygon drawing settings. Reseting to default if null
+	 * @param textSettings text drawing settings. Reseting to default if null
 	 */
-	public DrawSettingsOnScale(boolean pDrawPoint, boolean pDrawLine, boolean pDrawPolygon,
-					PointDrawSettings pPointStyle, LineDrawSettings pLineStyle, PolygonDrawSettings pPolygonStyle,
-					TextDrawSettings pTextDrawSettings)
+	public DrawSettingsOnScale(boolean drawPoint, boolean drawLine, boolean drawPolygon,
+					PointDrawSettings pointSettings, LineDrawSettings lineSettings, PolygonDrawSettings polygonSettings,
+					TextDrawSettings textSettings)
 	{
-		drawPoint = pDrawPoint;
-		drawLine = pDrawLine;
-		drawPolygon = pDrawPolygon;
-		pointDrawSettings = pPointStyle;
-		lineDrawSettings = pLineStyle;
-		polygonDrawSettings = pPolygonStyle;
-		textDrawSettings = pTextDrawSettings;
+		needDrawPoint = drawPoint;
+		needDrawLine = drawLine;
+		needDrawPolygon = drawPolygon;
+		pointDrawSettings = pointSettings;
+		lineDrawSettings = lineSettings;
+		polygonDrawSettings = polygonSettings;
+		textDrawSettings = textSettings;
 
 		initializeNullFields();
 	}
@@ -110,21 +110,21 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 	/**
 	 * Read from stream
 	 *
-	 * @param pInput input stream
+	 * @param input input stream
 	 * @throws IOException reading error
 	 */
 	@Override
-	public void readFromStream(DataInputStream pInput) throws IOException
+	public void readFromStream(DataInputStream input) throws IOException
 	{
 		try
 		{
-			drawPoint = pInput.readBoolean();
-			drawLine = pInput.readBoolean();
-			drawPolygon = pInput.readBoolean();
-			pointDrawSettings.readFromStream(pInput);
-			lineDrawSettings.readFromStream(pInput);
-			polygonDrawSettings.readFromStream(pInput);
-			textDrawSettings.readFromStream(pInput);
+			needDrawPoint = input.readBoolean();
+			needDrawLine = input.readBoolean();
+			needDrawPolygon = input.readBoolean();
+			pointDrawSettings.readFromStream(input);
+			lineDrawSettings.readFromStream(input);
+			polygonDrawSettings.readFromStream(input);
+			textDrawSettings.readFromStream(input);
 		}
 		catch (Exception e)
 		{
@@ -135,21 +135,21 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 	/**
 	 * Write into stream
 	 *
-	 * @param pOutput output stream
+	 * @param output output stream
 	 * @throws IOException writing error
 	 */
 	@Override
-	public void writeToStream(DataOutputStream pOutput) throws IOException
+	public void writeToStream(DataOutputStream output) throws IOException
 	{
 		try
 		{
-			pOutput.writeBoolean(isDrawPoint());
-			pOutput.writeBoolean(isDrawLine());
-			pOutput.writeBoolean(isDrawPolygon());
-			pointDrawSettings.writeToStream(pOutput);
-			lineDrawSettings.writeToStream(pOutput);
-			polygonDrawSettings.writeToStream(pOutput);
-			textDrawSettings.writeToStream(pOutput);
+			output.writeBoolean(isDrawPoint());
+			output.writeBoolean(isDrawLine());
+			output.writeBoolean(isDrawPolygon());
+			pointDrawSettings.writeToStream(output);
+			lineDrawSettings.writeToStream(output);
+			polygonDrawSettings.writeToStream(output);
+			textDrawSettings.writeToStream(output);
 		}
 		catch (Exception e)
 		{
@@ -164,7 +164,7 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 	 */
 	public boolean isDrawPoint()
 	{
-		return drawPoint;
+		return needDrawPoint;
 	}
 
 	/**
@@ -174,7 +174,7 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 	 */
 	public boolean isDrawLine()
 	{
-		return drawLine;
+		return needDrawLine;
 	}
 
 	/**
@@ -184,7 +184,7 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 	 */
 	public boolean isDrawPolygon()
 	{
-		return drawPolygon;
+		return needDrawPolygon;
 	}
 
 	/**
