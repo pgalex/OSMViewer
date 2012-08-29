@@ -11,7 +11,7 @@ import java.io.IOException;
  *
  * @author abc
  */
-public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapData, WritableMapData, Comparable<MapObjectDrawSettings>
+public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapData, WritableMapData//, Comparable<MapObjectDrawSettings>
 {
 	/**
 	 * Can be object with this tags a point (single node)
@@ -282,23 +282,11 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	 * @param pComparedStyle styled for comparing
 	 * @return this object 0 - equal, -1 - more tags count, 1 - less tags count
 	 */
-	@Override
+	/*@Override
 	public int compareTo(MapObjectDrawSettings pComparedStyle)
 	{
-		if (pComparedStyle == null)
-		{
-			return 1;
-		}
-		if (defenitionTags.size() > pComparedStyle.getDefenitionTags().size())
-		{
-			return -1;
-		}
-		if (defenitionTags.size() < pComparedStyle.getDefenitionTags().size())
-		{
-			return 1;
-		}
-		return 0;
-	}
+		
+	}*/
 
 	/**
 	 * Read from stream

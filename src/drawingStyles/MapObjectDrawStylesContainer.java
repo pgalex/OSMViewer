@@ -9,19 +9,19 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 /**
- * Common part of MapObjectStyleViewer and Editor.
+ * Common part of MapObjectStyleViewer and Editor. Uses to remove duplicating
  *
  * @author pgalex
  */
 public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMapData
 {
 	/**
-	 * Information about map drawing
+	 * Common draw settings of map
 	 */
 	protected MapDrawSettings mapDrawSettings;
 
 	/**
-	 * Default constructor
+	 * Create with default values
 	 */
 	public MapObjectDrawStylesContainer()
 	{
@@ -38,13 +38,17 @@ public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMa
 	protected void writeStylesToStream(MapObjectDrawSettings[] pStyles, DataOutputStream pOutput) throws IOException
 	{
 		if (pStyles == null || pOutput == null)
+		{
 			throw new IOException();
+		}
 
 		try
 		{
 			pOutput.writeInt(pStyles.length);
 			for (int i = 0; i < pStyles.length; i++)
+			{
 				pStyles[i].writeToStream(pOutput);
+			}
 		}
 		catch (Exception e)
 		{
@@ -98,22 +102,32 @@ public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMa
 		// style with tags like pTags and max tags count
 
 		if (pStyles == null || pTags == null)
+		{
 			return null;
+		}
 
-		SortedMap<MapObjectDrawSettings, Integer> suitableElements = new TreeMap<MapObjectDrawSettings, Integer>();
+		SortedMap<MapObjectDrawSettings, Integer> suitableElements = new TreeMap<MapObjectDrawSettings, Integer>(new FindStyleIndexComaprator());
 		for (int i = 0; i < pStyles.length; i++)
 		{
 			if (pStyles[i] == null)
+			{
 				continue;
+			}
+
 			if (pStyles[i].getDefenitionTags().includingIn(pTags))
+			{
 				suitableElements.put(pStyles[i], i);
+			}
 		}
 
 		if (suitableElements.isEmpty())
+		{
 			return null;
+		}
 		else
+		{
 			return suitableElements.get(suitableElements.firstKey());
-
+		}
 	}
 
 	/**
