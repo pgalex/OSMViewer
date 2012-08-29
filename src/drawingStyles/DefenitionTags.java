@@ -51,46 +51,46 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 	/**
 	 * Get tag by index
 	 *
-	 * @param pIndex index
-	 * @return tag with pIndex. null if index is out of bounds
+	 * @param index index
+	 * @return tag with index
 	 * @throws TagIndexOutOfBoundsException index is out of bounds 
 	 */
-	public MapTag get(int pIndex) throws TagIndexOutOfBoundsException
+	public MapTag get(int index) throws TagIndexOutOfBoundsException
 	{
-		if (pIndex < 0 || pIndex >= tags.size())
+		if (index < 0 || index >= tags.size())
 		{
-			throw new TagIndexOutOfBoundsException(this, pIndex, 0, tags.size());
+			throw new TagIndexOutOfBoundsException(this, index, 0, tags.size());
 		}
 
-		return tags.get(pIndex);
+		return tags.get(index);
 	}
 
 	/**
-	 * Is all tags of this defenition tags including in pTags
+	 * Is all tags of this defenition tags including in tagsForComparing
 	 *
-	 * @param pTags tags for comparing
-	 * @return is pTags contains this all of this tags
+	 * @param tagsForComparing tags for comparing
+	 * @return is tagsForComparing contains this all of this tags
 	 */
-	public boolean includingIn(DefenitionTags pTags)
+	public boolean includingIn(DefenitionTags tagsForComparing)
 	{
 		// (Сравнить теги без учета их порядка. Каждый тег из defenitionTags
-		// должен входить в pTags )
+		// должен входить в tagsForComparing )
 
 		// deliberately noncoincidenting tags
-		if (pTags == null)
+		if (tagsForComparing == null)
 		{
 			return false;
 		}
-		if (tags.size() > pTags.size())
+		if (tags.size() > tagsForComparing.size())
 		{
 			return false;
 		}
 		// null tags are equal
-		if (tags.isEmpty() && pTags.isEmpty())
+		if (tags.isEmpty() && tagsForComparing.isEmpty())
 		{
 			return true;
 		}
-		if (tags.isEmpty() && !pTags.isEmpty())
+		if (tags.isEmpty() && !tagsForComparing.isEmpty())
 		{
 			return false;
 		}
@@ -99,9 +99,9 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 		{
 			boolean thisTagFoundInCompatingTags = false;
 
-			for (int i = 0; i < pTags.size(); i++)
+			for (int i = 0; i < tagsForComparing.size(); i++)
 			{
-				MapTag comparingTag = pTags.get(i);
+				MapTag comparingTag = tagsForComparing.get(i);
 
 				if (thisTag.compareTo(comparingTag))
 				{
@@ -122,20 +122,20 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 	/**
 	 * Read from stream
 	 *
-	 * @param pInput input stream
+	 * @param input input stream
 	 * @throws IOException reading error
 	 */
 	@Override
-	public void readFromStream(DataInputStream pInput) throws IOException
+	public void readFromStream(DataInputStream input) throws IOException
 	{
 		try
 		{
 			tags.clear();
-			int tagsCount = pInput.readInt();
+			int tagsCount = input.readInt();
 			for (int i = 0; i < tagsCount; i++)
 			{
 				MapTag readingTag = new MapTag();
-				readingTag.readFromStream(pInput);
+				readingTag.readFromStream(input);
 				tags.add(readingTag);
 			}
 		}
@@ -148,18 +148,18 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 	/**
 	 * Write into stream
 	 *
-	 * @param pOutput output stream
+	 * @param output output stream
 	 * @throws IOException writing error
 	 */
 	@Override
-	public void writeToStream(DataOutputStream pOutput) throws IOException
+	public void writeToStream(DataOutputStream output) throws IOException
 	{
 		try
 		{
-			pOutput.writeInt(tags.size());
+			output.writeInt(tags.size());
 			for (MapTag tag : tags)
 			{
-				tag.writeToStream(pOutput);
+				tag.writeToStream(output);
 			}
 		}
 		catch (Exception e)

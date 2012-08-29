@@ -13,8 +13,8 @@ public interface WritableMapData
 	/**
 	 * Write into stream
 	 *
-	 * @param pOutput output stream
+	 * @param output output stream
 	 * @throws IOException writing error
 	 */
-	public abstract void writeToStream(DataOutputStream pOutput) throws IOException;
+	public abstract void writeToStream(DataOutputStream output) throws IOException;
 }

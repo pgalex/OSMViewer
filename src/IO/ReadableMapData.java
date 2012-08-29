@@ -12,8 +12,8 @@ public interface ReadableMapData
 	/**
 	 * Read from stream
 	 *
-	 * @param pInput input stream
+	 * @param input input stream
 	 * @throws IOException reading error
 	 */
-	public abstract void readFromStream(DataInputStream pInput) throws IOException;
+	public abstract void readFromStream(DataInputStream input) throws IOException;
 }
