@@ -12,25 +12,26 @@ public class FindStyleIndexComaprator implements Comparator<MapObjectDrawSetting
 	/**
 	 * Compare map object draw settings by defenition tags count
 	 *
-	 * @param pObject1
-	 * @param pObject2
-	 * @return -1 - first have more tags than second, 0 - same tags count, 1 -
-	 * less
+	 * @param object1 fisrt object. Must be not null
+	 * @param object2 second object. Must be not null
+	 * @return -1 - first have more tags than second and will have more priority
+	 * for finding, 0 - tags count is equal, 1 - first have less tags than second
+	 * and will have less priority for finding
 	 */
 	@Override
-	public int compare(MapObjectDrawSettings pObject1, MapObjectDrawSettings pObject2)
+	public int compare(MapObjectDrawSettings object1, MapObjectDrawSettings object2)
 	{
-		if (pObject1 == null || pObject2 == null)
+		if (object1 == null || object2 == null)
 		{
 			throw new NullPointerException();
 		}
 
-		if (pObject1.getDefenitionTags().size() > pObject2.getDefenitionTags().size())
+		if (object1.getDefenitionTags().size() > object2.getDefenitionTags().size())
 		{
 			return -1;
 		}
 
-		if (pObject1.getDefenitionTags().size() < pObject2.getDefenitionTags().size())
+		if (object1.getDefenitionTags().size() < object2.getDefenitionTags().size())
 		{
 			return 1;
 		}

@@ -11,7 +11,7 @@ import map.exceptions.TagIsNullException;
 public class EditableDefenitionTags extends DefenitionTags
 {
 	/**
-	 * Create empty editable tags
+	 * Create empty editable definition tags
 	 */
 	public EditableDefenitionTags()
 	{
@@ -45,16 +45,16 @@ public class EditableDefenitionTags extends DefenitionTags
 	/**
 	 * Remove tag with index
 	 *
-	 * @param pIndex index of tag
+	 * @param index index of tag to remove
 	 * @throws TagIndexOutOfBoundsException index of deleting tag is out of bounds
 	 */
-	public void remove(int pIndex) throws TagIndexOutOfBoundsException
+	public void remove(int index) throws TagIndexOutOfBoundsException
 	{
-		if (pIndex < 0 || pIndex >= tags.size())
+		if (index < 0 || index >= tags.size())
 		{
-			throw new TagIndexOutOfBoundsException(this, pIndex, 0, tags.size());
+			throw new TagIndexOutOfBoundsException(this, index, 0, tags.size());
 		}
 
-		tags.remove(pIndex);
+		tags.remove(index);
 	}
 }

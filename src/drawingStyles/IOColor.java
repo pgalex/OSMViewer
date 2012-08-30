@@ -34,57 +34,12 @@ public class IOColor implements WritableMapData, ReadableMapData
 	/**
 	 * Create with color
 	 *
-	 * @param pColor color. if null, will be used default value
+	 * @param colorToStore storing color. if null, will be used default value
 	 */
-	public IOColor(Color pColor)
+	public IOColor(Color colorToStore)
 	{
-		color = pColor;
+		color = colorToStore;
 		initializeNullFields();
-	}
-
-	/**
-	 * Write into stream
-	 *
-	 * @param pOutput write stream
-	 * @throws IOException write error
-	 */
-	@Override
-	public void writeToStream(DataOutputStream pOutput) throws IOException
-	{
-		try
-		{
-			pOutput.writeInt(color.getRed());
-			pOutput.writeInt(color.getGreen());
-			pOutput.writeInt(color.getBlue());
-			pOutput.writeInt(color.getAlpha());
-		}
-		catch (Exception e)
-		{
-			throw new IOException(e);
-		}
-	}
-
-	/**
-	 * Read color from stream
-	 *
-	 * @param pInput stream
-	 * @throws IOException read error
-	 */
-	@Override
-	public void readFromStream(DataInputStream pInput) throws IOException
-	{
-		try
-		{
-			int r = pInput.readInt();
-			int g = pInput.readInt();
-			int b = pInput.readInt();
-			int a = pInput.readInt();
-			color = new Color(r, g, b, a);
-		}
-		catch (Exception e)
-		{
-			throw new IOException(e);
-		}
 	}
 
 	/**
@@ -99,9 +54,54 @@ public class IOColor implements WritableMapData, ReadableMapData
 	}
 
 	/**
+	 * Write into stream
+	 *
+	 * @param output write stream
+	 * @throws IOException write error
+	 */
+	@Override
+	public void writeToStream(DataOutputStream output) throws IOException
+	{
+		try
+		{
+			output.writeInt(color.getRed());
+			output.writeInt(color.getGreen());
+			output.writeInt(color.getBlue());
+			output.writeInt(color.getAlpha());
+		}
+		catch (Exception e)
+		{
+			throw new IOException(e);
+		}
+	}
+
+	/**
+	 * Read color from stream
+	 *
+	 * @param input stream
+	 * @throws IOException read error
+	 */
+	@Override
+	public void readFromStream(DataInputStream input) throws IOException
+	{
+		try
+		{
+			int r = input.readInt();
+			int g = input.readInt();
+			int b = input.readInt();
+			int a = input.readInt();
+			color = new Color(r, g, b, a);
+		}
+		catch (Exception e)
+		{
+			throw new IOException(e);
+		}
+	}
+
+	/**
 	 * Get storing color
 	 *
-	 * @return color
+	 * @return storing color
 	 */
 	public Color getColor()
 	{

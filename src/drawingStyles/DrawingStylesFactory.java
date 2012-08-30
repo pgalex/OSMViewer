@@ -8,7 +8,8 @@ package drawingStyles;
 public class DrawingStylesFactory
 {
 	/**
-	 * Create style viewer
+	 * Create style viewer. Style viewer optimized for runtime work, but not allow
+	 * editing
 	 *
 	 * @return style viewer
 	 */
@@ -18,7 +19,7 @@ public class DrawingStylesFactory
 	}
 
 	/**
-	 * Create style editor
+	 * Create style editor. Slower than style viewer, but allow editing
 	 *
 	 * @return style editor
 	 */
