@@ -17,7 +17,7 @@ import javax.imageio.ImageIO;
 public class IOIcon implements ReadableMapData, WritableMapData
 {
 	/**
-	 * Writing/reading format
+	 * Format of image for Writing/reading
 	 */
 	private static final String IMAGE_FORMAT = "png";
 	/**
@@ -26,7 +26,7 @@ public class IOIcon implements ReadableMapData, WritableMapData
 	private BufferedImage image;
 
 	/**
-	 * Default constructor
+	 * Create with default values
 	 */
 	public IOIcon()
 	{
@@ -34,26 +34,26 @@ public class IOIcon implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Constructor
+	 * Create with image
 	 *
-	 * @param pImage image
+	 * @param imageToStore storing image
 	 */
-	public IOIcon(BufferedImage pImage)
+	public IOIcon(BufferedImage imageToStore)
 	{
-		image = pImage;
+		image = imageToStore;
 	}
 
 	/**
-	 * Contructor with reading image from file
+	 * Create by reading image from file
 	 *
-	 * @param pFileName file name (.png, .jpg .. etc )
+	 * @param fileName name of image file
 	 * @throws IOException reading error
 	 */
-	public IOIcon(String pFileName) throws IOException
+	public IOIcon(String fileName) throws IOException
 	{
 		try
 		{
-			image = ImageIO.read(new File(pFileName));
+			image = ImageIO.read(new File(fileName));
 		}
 		catch (Exception e)
 		{
@@ -65,19 +65,23 @@ public class IOIcon implements ReadableMapData, WritableMapData
 	/**
 	 * Read from stream
 	 *
-	 * @param pInput input stream
+	 * @param input input stream
 	 * @throws IOException reading error
 	 */
 	@Override
-	public void readFromStream(DataInputStream pInput) throws IOException
+	public void readFromStream(DataInputStream input) throws IOException
 	{
 		try
 		{
-			boolean isValidImage = pInput.readBoolean(); // for null image
+			boolean isValidImage = input.readBoolean(); // for null image
 			if (isValidImage)
-				image = ImageIO.read(pInput);
+			{
+				image = ImageIO.read(input);
+			}
 			else
+			{
 				image = null;
+			}
 		}
 		catch (Exception e)
 		{
@@ -88,18 +92,20 @@ public class IOIcon implements ReadableMapData, WritableMapData
 	/**
 	 * Write into stream
 	 *
-	 * @param pOutput output stream
+	 * @param output output stream
 	 * @throws IOException writing error
 	 */
 	@Override
-	public void writeToStream(DataOutputStream pOutput) throws IOException
+	public void writeToStream(DataOutputStream output) throws IOException
 	{
 		try
 		{
 			boolean isValidImage = (image != null); // for null image
-			pOutput.writeBoolean(isValidImage);
+			output.writeBoolean(isValidImage);
 			if (isValidImage)
-				ImageIO.write(image, IMAGE_FORMAT, pOutput);
+			{
+				ImageIO.write(image, IMAGE_FORMAT, output);
+			}
 		}
 		catch (Exception e)
 		{
@@ -108,9 +114,9 @@ public class IOIcon implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Get image
+	 * Get storing image
 	 *
-	 * @return image
+	 * @return storing image
 	 */
 	public BufferedImage getImage()
 	{
@@ -118,12 +124,12 @@ public class IOIcon implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Set new image
+	 * Set storing image
 	 *
-	 * @param pImage new image
+	 * @param imageToSet new storing image
 	 */
-	public void setImage(BufferedImage pImage)
+	public void setImage(BufferedImage imageToSet)
 	{
-		image = pImage;
+		image = imageToSet;
 	}
 }

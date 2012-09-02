@@ -19,12 +19,12 @@ public class IOFont implements ReadableMapData, WritableMapData
 	 */
 	private static final Font DEFAULT_FONT = new Font("Arial", 0, 14);
 	/**
-	 * Font
+	 * Storing font
 	 */
 	private Font font;
 
 	/**
-	 * Constructor
+	 * Create with defaut values
 	 */
 	public IOFont()
 	{
@@ -32,30 +32,41 @@ public class IOFont implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Constructor with pointer
+	 * Create with font
 	 *
-	 * @param pFont font pointer
+	 * @param fontToStore storing font. If null will be set default font
 	 */
-	public IOFont(Font pFont)
+	public IOFont(Font fontToStore)
 	{
-		font = pFont;
+		font = fontToStore;
 		initializeNullFields();
+	}
+
+	/**
+	 * Auto-initialize null fields
+	 */
+	private void initializeNullFields()
+	{
+		if (font == null)
+		{
+			font = DEFAULT_FONT;
+		}
 	}
 
 	/**
 	 * Read from stream
 	 *
-	 * @param pInput read stream
+	 * @param input input stream
 	 * @throws IOException read error
 	 */
 	@Override
-	public void readFromStream(DataInputStream pInput) throws IOException
+	public void readFromStream(DataInputStream input) throws IOException
 	{
 		try
 		{
-			String fontFamily = pInput.readUTF();
-			int fontStyle = pInput.readInt();
-			int fontSize = pInput.readInt();
+			String fontFamily = input.readUTF();
+			int fontStyle = input.readInt();
+			int fontSize = input.readInt();
 			font = new Font(fontFamily, fontStyle, fontSize);
 		}
 		catch (Exception e)
@@ -67,17 +78,17 @@ public class IOFont implements ReadableMapData, WritableMapData
 	/**
 	 * Write into stream
 	 *
-	 * @param pOutput write stream
+	 * @param output output stream
 	 * @throws IOException write error
 	 */
 	@Override
-	public void writeToStream(DataOutputStream pOutput) throws IOException
+	public void writeToStream(DataOutputStream output) throws IOException
 	{
 		try
 		{
-			pOutput.writeUTF(font.getFamily());
-			pOutput.writeInt(font.getStyle());
-			pOutput.writeInt(font.getSize());
+			output.writeUTF(font.getFamily());
+			output.writeInt(font.getStyle());
+			output.writeInt(font.getSize());
 		}
 		catch (Exception e)
 		{
@@ -86,18 +97,9 @@ public class IOFont implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Default values into null fields
-	 */
-	private void initializeNullFields()
-	{
-		if (font == null)
-			font = DEFAULT_FONT;
-	}
-
-	/**
-	 * Get font
+	 * Get storing font
 	 *
-	 * @return font
+	 * @return storing font
 	 */
 	public Font getFont()
 	{
