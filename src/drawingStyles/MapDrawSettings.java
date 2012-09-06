@@ -15,7 +15,7 @@ import java.io.IOException;
 public class MapDrawSettings implements ReadableMapData, WritableMapData
 {
 	/**
-	 * Default map background color. (osm like)
+	 * Default map background color
 	 */
 	private static final IOColor DEFAULT_MAP_BACKGROUND_COLOR = new IOColor(new Color(242, 239, 233));
 	/**
@@ -24,15 +24,13 @@ public class MapDrawSettings implements ReadableMapData, WritableMapData
 	private IOColor mapBackgroundColor;
 
 	/**
-	 * Constructor
+	 * Create with parameters
 	 *
-	 * @param pMapBackgroundColor Map background color
+	 * @param backgroundColor map background color. Resetting to default if null
 	 */
-	public MapDrawSettings(IOColor pMapBackgroundColor)
+	public MapDrawSettings(Color backgroundColor)
 	{
-		mapBackgroundColor = pMapBackgroundColor;
-
-		initializeNullFields();
+		mapBackgroundColor = new IOColor(backgroundColor);
 	}
 
 	/**
@@ -46,26 +44,17 @@ public class MapDrawSettings implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Auto initialize null fields with default values
-	 */
-	private void initializeNullFields()
-	{
-		if (mapBackgroundColor == null)
-			mapBackgroundColor = DEFAULT_MAP_BACKGROUND_COLOR;
-	}
-
-	/**
 	 * Read from stream
 	 *
-	 * @param pInput input stream
+	 * @param input input stream
 	 * @throws IOException reading error
 	 */
 	@Override
-	public void readFromStream(DataInputStream pInput) throws IOException
+	public void readFromStream(DataInputStream input) throws IOException
 	{
 		try
 		{
-			mapBackgroundColor.readFromStream(pInput);
+			mapBackgroundColor.readFromStream(input);
 		}
 		catch (Exception ex)
 		{
@@ -76,15 +65,15 @@ public class MapDrawSettings implements ReadableMapData, WritableMapData
 	/**
 	 * Write into stream
 	 *
-	 * @param pOutput output stream
+	 * @param output output stream
 	 * @throws IOException writing error
 	 */
 	@Override
-	public void writeToStream(DataOutputStream pOutput) throws IOException
+	public void writeToStream(DataOutputStream output) throws IOException
 	{
 		try
 		{
-			mapBackgroundColor.writeToStream(pOutput);
+			mapBackgroundColor.writeToStream(output);
 		}
 		catch (Exception ex)
 		{

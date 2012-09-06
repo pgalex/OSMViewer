@@ -24,6 +24,40 @@ public class LinePatternTest
 		assertNotNull(pattern.getPattern());
 		assertTrue(pattern.getPattern().length > 0);
 	}
+	
+	/**
+	 * Test creating with incorrect pattern
+	 */
+	@Test
+	public void creatingWithNullPatternTest()
+	{
+		try
+		{
+			LinePattern pattern = new LinePattern(null);
+			fail();
+		}
+		catch (LinePatternIncorrectException ex)
+		{
+			// ok
+		}
+	}
+	
+	/**
+	 * Test creating with empty pattern
+	 */
+	@Test
+	public void creatingWithEmptyPatternTest()
+	{
+		try
+		{
+			LinePattern pattern = new LinePattern(new float[0]);
+			fail();
+		}
+		catch (LinePatternIncorrectException ex)
+		{
+			// ok
+		}
+	}
 
 	/**
 	 * Test setting null line pattern

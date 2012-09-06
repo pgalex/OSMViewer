@@ -64,7 +64,7 @@ public class MapObjectDrawStylesViewerTest
 			writedEditor.addMapObjectDrawSettings(style1);
 			writedEditor.addMapObjectDrawSettings(style2);
 			writedEditor.addMapObjectDrawSettings(style3);
-			writedEditor.setMapDrawSettings(new MapDrawSettings(new IOColor(Color.red)));
+			writedEditor.setMapDrawSettings(new MapDrawSettings(Color.red));
 
 			IOTester.writeToTestFile(writedEditor);
 

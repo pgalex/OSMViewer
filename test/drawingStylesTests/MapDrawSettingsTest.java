@@ -15,10 +15,10 @@ import org.junit.Test;
 public class MapDrawSettingsTest
 {
 	/**
-	 * Testing auto initialize in constructor
+	 * Testing creating with null background color in constructor
 	 */
 	@Test
-	public void autoInitializeTest()
+	public void creatingWithNullBackgroundColorTest()
 	{
 		MapDrawSettings testSettings = new MapDrawSettings(null);
 		assertNotNull(testSettings.getMapBackgroundColor());
@@ -32,7 +32,7 @@ public class MapDrawSettingsTest
 	{
 		try
 		{
-			MapDrawSettings writingSetting = new MapDrawSettings(new IOColor(Color.ORANGE));
+			MapDrawSettings writingSetting = new MapDrawSettings(Color.ORANGE);
 			IOTester.writeToTestFile(writingSetting);
 
 			MapDrawSettings readingSettings = new MapDrawSettings(null);
