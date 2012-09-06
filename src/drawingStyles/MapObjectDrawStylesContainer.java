@@ -106,7 +106,7 @@ public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMa
 			return null;
 		}
 
-		SortedMap<MapObjectDrawSettings, Integer> suitableElements = new TreeMap<MapObjectDrawSettings, Integer>(new FindStyleIndexComaprator());
+		SortedMap<MapObjectDrawSettings, Integer> suitableElements = new TreeMap<MapObjectDrawSettings, Integer>(new FindStyleIndexComparator());
 		for (int i = 0; i < pStyles.length; i++)
 		{
 			if (pStyles[i] == null)

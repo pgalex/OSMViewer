@@ -7,7 +7,7 @@ import java.util.Comparator;
  *
  * @author pgalex
  */
-public class FindStyleIndexComaprator implements Comparator<MapObjectDrawSettings>
+public class FindStyleIndexComparator implements Comparator<MapObjectDrawSettings>
 {
 	/**
 	 * Compare map object draw settings by defenition tags count

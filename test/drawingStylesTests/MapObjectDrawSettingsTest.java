@@ -4,7 +4,7 @@ import IOTesting.IOTester;
 import drawingStyles.DrawSettingsOnScale;
 import drawingStyles.DrawSettingsOnScaleArray;
 import drawingStyles.EditableDefenitionTags;
-import drawingStyles.FindStyleIndexComaprator;
+import drawingStyles.FindStyleIndexComparator;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.MapTag;
 import java.util.ArrayList;
@@ -127,7 +127,7 @@ public class MapObjectDrawSettingsTest
 		styles.add(new MapObjectDrawSettings(true, true, true, null, 0, "", null, tags1));
 		styles.add(new MapObjectDrawSettings(true, true, true, null, 0, "", null, tags2));
 		styles.add(new MapObjectDrawSettings(true, true, true, null, 0, "", null, tags3));
-		Collections.sort(styles, new FindStyleIndexComaprator());
+		Collections.sort(styles, new FindStyleIndexComparator());
 
 		assertTrue(styles.get(0).getDefenitionTags().includingIn(tags2));
 		assertTrue(styles.get(1).getDefenitionTags().includingIn(tags1));
