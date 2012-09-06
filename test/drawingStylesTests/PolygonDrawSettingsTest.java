@@ -5,6 +5,7 @@ import drawingStyles.IOIcon;
 import drawingStyles.LineDrawSettings;
 import drawingStyles.LinePattern;
 import drawingStyles.PolygonDrawSettings;
+import drawingStyles.exceptions.ColorIsNullException;
 import java.awt.Color;
 import java.awt.Paint;
 import java.awt.TexturePaint;
@@ -58,10 +59,26 @@ public class PolygonDrawSettingsTest
 	@Test
 	public void autoInitializeTest()
 	{
-		PolygonDrawSettings testStyle = new PolygonDrawSettings(null, null, null);
+		PolygonDrawSettings testStyle = new PolygonDrawSettings(Color.BLACK, null, null);
 
 		assertNotNull(testStyle.getBorderDrawStyle());
-		assertNotNull(testStyle.getFillColor());
+	}
+
+	/**
+	 * Creating with null fill color test
+	 */
+	@Test
+	public void creatingWithNullFillColorTest()
+	{
+		try
+		{
+			PolygonDrawSettings testStyle = new PolygonDrawSettings(null, null, null);
+			fail();
+		}
+		catch (ColorIsNullException ex)
+		{
+			// ok
+		}
 	}
 
 	/**

@@ -2,6 +2,7 @@ package drawingStylesTests;
 
 import IOTesting.IOTester;
 import drawingStyles.IOColor;
+import drawingStyles.exceptions.ColorIsNullException;
 import java.awt.Color;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -14,13 +15,38 @@ import org.junit.Test;
 public class IOColorTest
 {
 	/**
-	 * Auto initialize null color in constructor
+	 * Creating with null color test
 	 */
 	@Test
 	public void autoInitializeTest()
 	{
-		IOColor testColor = new IOColor(null);
-		assertNotNull(testColor.getColor());
+		try
+		{
+			IOColor testColor = new IOColor(null);
+			fail();
+		}
+		catch (ColorIsNullException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Set null storing color test
+	 */
+	@Test
+	public void setNullColorTest()
+	{
+		try
+		{
+			IOColor testColor = new IOColor();
+			testColor.setColor(null);
+			fail();
+		}
+		catch (ColorIsNullException ex)
+		{
+			// ok
+		}
 	}
 
 	/**
@@ -33,10 +59,10 @@ public class IOColorTest
 		{
 			IOColor writedColor = new IOColor(Color.MAGENTA);
 			IOTester.writeToTestFile(writedColor);
-
+			
 			IOColor readColor = new IOColor();
 			IOTester.readFromTestFile(readColor);
-
+			
 			assertEquals(writedColor.getColor(), readColor.getColor());
 		}
 		catch (Exception ex)

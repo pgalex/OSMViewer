@@ -25,7 +25,7 @@ public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMa
 	 */
 	public MapObjectDrawStylesContainer()
 	{
-		mapDrawSettings = new MapDrawSettings(null);
+		mapDrawSettings = new MapDrawSettings();
 	}
 
 	/**

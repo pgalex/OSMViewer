@@ -2,6 +2,7 @@ package drawingStyles;
 
 import IO.ReadableMapData;
 import IO.WritableMapData;
+import drawingStyles.exceptions.ColorIsNullException;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.DataInputStream;
@@ -38,8 +39,9 @@ public class TextDrawSettings implements TextDrawStyle, ReadableMapData, Writabl
 	 *
 	 * @param pColor text color
 	 * @param pFont text font
+	 * @throws ColorIsNullException text color is null 
 	 */
-	public TextDrawSettings(Color pColor, Font pFont)
+	public TextDrawSettings(Color pColor, Font pFont) throws ColorIsNullException
 	{
 		color = new IOColor(pColor);
 		font = new IOFont(pFont);

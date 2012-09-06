@@ -2,6 +2,7 @@ package drawingStyles;
 
 import IO.ReadableMapData;
 import IO.WritableMapData;
+import drawingStyles.exceptions.ColorIsNullException;
 import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -19,7 +20,7 @@ public class IOColor implements WritableMapData, ReadableMapData
 	 */
 	private static final Color DEFAULT_COLOR = Color.BLACK;
 	/**
-	 * Color
+	 * Storing color
 	 */
 	private Color color;
 
@@ -34,23 +35,17 @@ public class IOColor implements WritableMapData, ReadableMapData
 	/**
 	 * Create with color
 	 *
-	 * @param colorToStore storing color. if null, will be used default value
+	 * @param colorToStore storing color. Must be not null
+	 * @throws ColorIsNullException storing color is null
 	 */
-	public IOColor(Color colorToStore)
+	public IOColor(Color colorToStore) throws ColorIsNullException
 	{
-		color = colorToStore;
-		initializeNullFields();
-	}
-
-	/**
-	 * Initializ null null fields with defaul value
-	 */
-	private void initializeNullFields()
-	{
-		if (color == null)
+		if (colorToStore == null)
 		{
-			color = DEFAULT_COLOR;
+			throw new ColorIsNullException();
 		}
+
+		color = colorToStore;
 	}
 
 	/**
@@ -96,6 +91,22 @@ public class IOColor implements WritableMapData, ReadableMapData
 		{
 			throw new IOException(e);
 		}
+	}
+
+	/**
+	 * Set new storing color
+	 *
+	 * @param colorToSet new storing color
+	 * @throws ColorIsNullException new storing color is null
+	 */
+	public void setColor(Color colorToSet) throws ColorIsNullException
+	{
+		if (colorToSet == null)
+		{
+			throw new ColorIsNullException();
+		}
+
+		color = colorToSet;
 	}
 
 	/**

@@ -2,6 +2,7 @@ package drawingStyles;
 
 import IO.ReadableMapData;
 import IO.WritableMapData;
+import drawingStyles.exceptions.ColorIsNullException;
 import drawingStyles.exceptions.LinePatternIncorrectException;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -46,12 +47,14 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	/**
 	 * Create with parameters
 	 *
-	 * @param lineColor line color. Resetting to default if null
+	 * @param lineColor line color
 	 * @param lineWidth line width
 	 * @param linePattern pattern of line
 	 * @throws LinePatternIncorrectException pattern of line is incorrect
+	 * @throws ColorIsNullException line color is null
 	 */
-	public LineDrawSettings(Color lineColor, float lineWidth, float[] linePattern) throws LinePatternIncorrectException
+	public LineDrawSettings(Color lineColor, float lineWidth, float[] linePattern) throws LinePatternIncorrectException,
+					ColorIsNullException
 	{
 		color = new IOColor(lineColor);
 		width = lineWidth;
@@ -101,6 +104,17 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	}
 
 	/**
+	 * Set new line color
+	 *
+	 * @param colorToSet new line color
+	 * @throws ColorIsNullException new line color is null
+	 */
+	public void setColor(Color colorToSet) throws ColorIsNullException
+	{
+		color.setColor(colorToSet);
+	}
+
+	/**
 	 * Get line color
 	 *
 	 * @return line color
@@ -109,16 +123,6 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	public Color getColor()
 	{
 		return color.getColor();
-	}
-
-	/**
-	 * Set new line color
-	 *
-	 * @param colorToSet new line color
-	 */
-	public void setColor(Color colorToSet)
-	{
-		color = new IOColor(colorToSet);
 	}
 
 	/**

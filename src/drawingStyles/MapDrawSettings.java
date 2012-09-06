@@ -2,6 +2,7 @@ package drawingStyles;
 
 import IO.ReadableMapData;
 import IO.WritableMapData;
+import drawingStyles.exceptions.ColorIsNullException;
 import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -17,18 +18,27 @@ public class MapDrawSettings implements ReadableMapData, WritableMapData
 	/**
 	 * Default map background color
 	 */
-	private static final IOColor DEFAULT_MAP_BACKGROUND_COLOR = new IOColor(new Color(242, 239, 233));
+	private static final Color DEFAULT_MAP_BACKGROUND_COLOR = new Color(242, 239, 233);
 	/**
 	 * Map background color
 	 */
 	private IOColor mapBackgroundColor;
 
 	/**
+	 * Create with default values
+	 */
+	public MapDrawSettings()
+	{
+		mapBackgroundColor = new IOColor(DEFAULT_MAP_BACKGROUND_COLOR);
+	}
+
+	/**
 	 * Create with parameters
 	 *
-	 * @param backgroundColor map background color. Resetting to default if null
+	 * @param backgroundColor map background color. Must be not null
+	 * @throws ColorIsNullException background color is null
 	 */
-	public MapDrawSettings(Color backgroundColor)
+	public MapDrawSettings(Color backgroundColor) throws ColorIsNullException
 	{
 		mapBackgroundColor = new IOColor(backgroundColor);
 	}
