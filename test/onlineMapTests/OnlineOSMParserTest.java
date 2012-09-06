@@ -81,16 +81,6 @@ public class OnlineOSMParserTest
 			assertEquals("residential", tempWay.getTags().get(0).getValue());
 			assertEquals("name", tempWay.getTags().get(1).getKey());
 			assertEquals("Луговая улица", tempWay.getTags().get(1).getValue());
-
-			//relation
-			ArrayList<OsmRelation> relations = converter.getRelations();
-			OsmRelation tempRelation = relations.get(0);
-			assertEquals((long) 1693664, tempRelation.id);
-			assertEquals("type", tempRelation.tags.get(0).getKey());
-			assertEquals("boundary", tempRelation.tags.get(0).getValue());
-			assertEquals("node", tempRelation.members.get(0).type);
-			assertEquals((long) 123456789, tempRelation.members.get(0).ref);
-			assertEquals("admin_centre", tempRelation.members.get(0).role);
 		}
 		catch (Exception e)
 		{

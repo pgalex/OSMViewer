@@ -23,11 +23,9 @@ public class OnlineOsmParser
 	{
 		private ArrayList<OsmNode> nodes;
 		private ArrayList<OsmWay> ways;
-		private ArrayList<OsmRelation> relations;
 		private OsmBounds bounds;
 		private OsmNode tempNode;
 		private OsmWay tempWay;
-		private OsmRelation tempRelation;
 		public ArrayList<OsmTag> tempTags;
 
 		/**
@@ -37,7 +35,6 @@ public class OnlineOsmParser
 		{
 			nodes = new ArrayList<OsmNode>();
 			ways = new ArrayList<OsmWay>();
-			relations = new ArrayList<OsmRelation>();
 			bounds = new OsmBounds();
 			tempTags = new ArrayList<OsmTag>();
 		}
@@ -50,7 +47,6 @@ public class OnlineOsmParser
 		{
 			nodes.clear();
 			ways.clear();
-			relations.clear();
 			tempTags.clear();
 			bounds.setLatitudeMaximum(0);
 			bounds.setLatitudeMinimum(0);
@@ -88,17 +84,9 @@ public class OnlineOsmParser
 				{
 					parseWayNode(pAttributes);
 				}
-				if (pName.compareTo(OsmXMLNames.RELATION) == 0)
-				{
-					parseRelation(pAttributes);
-				}
 				if (pName.compareTo(OsmXMLNames.TAG) == 0)
 				{
 					parseTag(pAttributes);
-				}
-				if (pName.compareTo(OsmXMLNames.RELATION_MEMBER) == 0)
-				{
-					parseRelationMember(pAttributes);
 				}
 			}
 			catch (Exception ex)
@@ -129,11 +117,6 @@ public class OnlineOsmParser
 				{
 					tempWay.setTags(tempTags);
 					ways.add(tempWay);
-				}
-				if (pName.compareTo(OsmXMLNames.RELATION) == 0)
-				{
-					tempRelation.tags = tempTags;
-					relations.add(tempRelation);
 				}
 			}
 			catch (Exception ex)
@@ -240,48 +223,6 @@ public class OnlineOsmParser
 				throw e;
 			}
 		}
-
-		/**
-		 * Разбор отношения
-		 *
-		 * @param pAttributes
-		 * @throws Exception
-		 */
-		private void parseRelation(Attributes pAttributes) throws Exception
-		{
-			try
-			{
-				tempRelation = new OsmRelation();
-				tempRelation.id = Long.valueOf(pAttributes.getValue("id"));
-				tempTags = new ArrayList<OsmTag>();
-			}
-			catch (Exception e)
-			{
-				throw e;
-			}
-		}
-
-		/**
-		 * Разбор member из relation
-		 *
-		 * @param pAttributes
-		 * @throws Exception
-		 */
-		private void parseRelationMember(Attributes pAttributes) throws Exception
-		{
-			try
-			{
-				OsmRelationMember tempRelationMember = new OsmRelationMember();
-				tempRelationMember.ref = Long.valueOf(pAttributes.getValue("ref"));
-				tempRelationMember.type = pAttributes.getValue("type");
-				tempRelationMember.role = pAttributes.getValue("role");
-				tempRelation.members.add(tempRelationMember);
-			}
-			catch (Exception e)
-			{
-				throw e;
-			}
-		}
 	}
 	/////////////////////////////////////////////////////////////////////////////
 	/**
@@ -347,14 +288,10 @@ public class OnlineOsmParser
 	{
 		return handler.ways;
 	}
-
-	/**
-	 * Получить отношения
-	 *
-	 * @return
-	 */
-	public ArrayList<OsmRelation> getRelations()
+	
+	public void clear()
 	{
-		return handler.relations;
+		handler.nodes.clear();
+		handler.ways.clear();
 	}
 }

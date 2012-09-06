@@ -91,6 +91,8 @@ public class OnlineMapLoader
 
 			fillMapWithPoints(onlineParser.getNodes(), pStyleViewer, pFillingMap);
 			fillMapWithPolygonsAndLine(onlineParser.getNodes(), onlineParser.getWays(), pStyleViewer, pFillingMap);
+			
+			onlineParser.clear();
 		}
 		catch (MalformedURLException ex)
 		{
