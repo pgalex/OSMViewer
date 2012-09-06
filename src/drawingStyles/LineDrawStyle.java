@@ -20,14 +20,14 @@ public interface LineDrawStyle
 	/**
 	 * Get width
 	 *
-	 * @return get width of line
+	 * @return width of line
 	 */
 	public float getWidth();
 
 	/**
 	 * Get pattern
 	 *
-	 * @return pattern for line drawing
+	 * @return line pattern
 	 */
 	public float[] getPattern();
 

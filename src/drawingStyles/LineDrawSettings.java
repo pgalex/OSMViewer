@@ -55,8 +55,7 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	{
 		color = new IOColor(lineColor);
 		width = lineWidth;
-		pattern = new LinePattern();
-		pattern.setPattern(linePattern);
+		pattern = new LinePattern(linePattern);
 	}
 
 	/**

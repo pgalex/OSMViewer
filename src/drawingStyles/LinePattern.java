@@ -27,11 +27,44 @@ public class LinePattern implements ReadableMapData, WritableMapData
 	private float[] pattern;
 
 	/**
-	 * Default constructor
+	 * Create pattern for solid line
 	 */
 	public LinePattern()
 	{
 		pattern = SOLID_LINE_PATTERN;
+	}
+
+	/**
+	 * Create line pattern
+	 *
+	 * @param linePattern pattern of line
+	 * @throws LinePatternIncorrectException linePattern is incorrect
+	 */
+	public LinePattern(float[] linePattern) throws LinePatternIncorrectException
+	{
+		if (isLinePatternIncorrect(linePattern))
+		{
+			throw new LinePatternIncorrectException();
+		}
+
+		pattern = linePattern;
+	}
+
+	/**
+	 * Is line pattern array incorrect?
+	 *
+	 * @return Is line pattern array incorrect
+	 */
+	private boolean isLinePatternIncorrect(float[] linePattern)
+	{
+		if (linePattern == null || linePattern.length == 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	/**
@@ -47,33 +80,36 @@ public class LinePattern implements ReadableMapData, WritableMapData
 	/**
 	 * Set new pattern
 	 *
-	 * @param pPattern new pattern
-	 * @throws LinePatternIncorrectException Pattern of LinePattern is null or
-	 * zero-length
+	 * @param patternToSet new pattern
+	 * @throws LinePatternIncorrectException new pattern is incorrect
 	 */
-	public void setPattern(float[] pPattern) throws LinePatternIncorrectException
+	public void setPattern(float[] patternToSet) throws LinePatternIncorrectException
 	{
-		if (pPattern == null || pPattern.length == 0)
+		if (isLinePatternIncorrect(patternToSet))
+		{
 			throw new LinePatternIncorrectException();
+		}
 
-		pattern = pPattern;
+		pattern = patternToSet;
 	}
 
 	/**
 	 * Read from stream
 	 *
-	 * @param pInput input stream
+	 * @param input input stream
 	 * @throws IOException reading error
 	 */
 	@Override
-	public void readFromStream(DataInputStream pInput) throws IOException
+	public void readFromStream(DataInputStream input) throws IOException
 	{
 		try
 		{
-			int patternLength = pInput.readInt();
+			int patternLength = input.readInt();
 			pattern = new float[patternLength];
 			for (int i = 0; i < patternLength; i++)
-				pattern[i] = pInput.readFloat();
+			{
+				pattern[i] = input.readFloat();
+			}
 		}
 		catch (Exception e)
 		{
@@ -84,17 +120,19 @@ public class LinePattern implements ReadableMapData, WritableMapData
 	/**
 	 * Write into stream
 	 *
-	 * @param pOutput output stream
+	 * @param output output stream
 	 * @throws IOException writing error
 	 */
 	@Override
-	public void writeToStream(DataOutputStream pOutput) throws IOException
+	public void writeToStream(DataOutputStream output) throws IOException
 	{
 		try
 		{
-			pOutput.writeInt(pattern.length);
+			output.writeInt(pattern.length);
 			for (int i = 0; i < pattern.length; i++)
-				pOutput.writeFloat(pattern[i]);
+			{
+				output.writeFloat(pattern[i]);
+			}
 		}
 		catch (Exception e)
 		{
