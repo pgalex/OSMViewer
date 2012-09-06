@@ -2,7 +2,7 @@ package drawingStylesTests;
 
 import IOTesting.IOTester;
 import drawingStyles.LineDrawSettings;
-import drawingStyles.LinePattern;
+import drawingStyles.exceptions.LinePatternIncorrectException;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import static org.junit.Assert.*;
@@ -26,9 +26,7 @@ public class LineDrawSettingsTest
 		pattern[1] = 5;
 		pattern[2] = 3;
 		pattern[3] = 2;
-		LinePattern linePattern = new LinePattern();
-		linePattern.setPattern(pattern);
-		LineDrawSettings lineStyle = new LineDrawSettings(Color.RED, 5, linePattern);
+		LineDrawSettings lineStyle = new LineDrawSettings(Color.RED, 5, pattern);
 		
 		BasicStroke stroke = lineStyle.getStroke();
 		assertEquals(stroke.getLineWidth(), lineStyle.getWidth(), 0.00001f);
@@ -36,14 +34,35 @@ public class LineDrawSettingsTest
 	}
 
 	/**
-	 * Test auto initialize in constructor
+	 * Test creating with null line pattern
 	 */
 	@Test
-	public void autoInitializeTest()
+	public void creatingWithNullPatternTest()
 	{
-		LineDrawSettings testStyle = new LineDrawSettings(null, 1, null);
+		try
+		{
+			LineDrawSettings testStyle = new LineDrawSettings(Color.RED, 1, null);
+			fail();
+		}
+		catch (LinePatternIncorrectException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Test creating with null line color
+	 */
+	@Test
+	public void creatingWithNullColorTest()
+	{
+		float[] pattern = new float[4];
+		pattern[0] = 2;
+		pattern[1] = 3;
+		pattern[2] = 4;
+		pattern[3] = 5;
+		LineDrawSettings testStyle = new LineDrawSettings(null, 1, pattern);
 		assertNotNull(testStyle.getColor());
-		assertNotNull(testStyle.getPattern());
 	}
 
 	/**
@@ -59,14 +78,12 @@ public class LineDrawSettingsTest
 			pattern[1] = 3;
 			pattern[2] = 4;
 			pattern[3] = 5;
-			LinePattern linePattern = new LinePattern();
-			linePattern.setPattern(pattern);
-			LineDrawSettings writedStyle = new LineDrawSettings(Color.CYAN, 11, linePattern);
+			LineDrawSettings writedStyle = new LineDrawSettings(Color.CYAN, 11, pattern);
 			IOTester.writeToTestFile(writedStyle);
-
+			
 			LineDrawSettings readStyle = new LineDrawSettings();
 			IOTester.readFromTestFile(readStyle);
-
+			
 			assertEquals(writedStyle.getColor(), readStyle.getColor());
 			assertEquals(writedStyle.getWidth(), readStyle.getWidth(), 0.000001f);
 			assertArrayEquals(writedStyle.getPattern(), readStyle.getPattern(), 0.01f);

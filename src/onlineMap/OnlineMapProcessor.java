@@ -169,9 +169,7 @@ public class OnlineMapProcessor implements DrawableOnPanel
 			float[] forestPattern = new float[2];
 			forestPattern[0] = 5;
 			forestPattern[1] = 5;
-			LinePattern forestBorderPattern = new LinePattern();
-			forestBorderPattern.setPattern(forestPattern);
-			LineDrawSettings forestBorderStyle = new LineDrawSettings(new Color(134, 169, 120), 2, forestBorderPattern);
+			LineDrawSettings forestBorderStyle = new LineDrawSettings(new Color(134, 169, 120), 2, forestPattern);
 			
 			IOIcon forestTexture = new IOIcon("icons/forest.png");
 			PolygonDrawSettings forestPolygonStyle = new PolygonDrawSettings(new Color(174, 209, 160), 

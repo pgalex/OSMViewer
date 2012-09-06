@@ -72,7 +72,12 @@ public class PolygonDrawSettingsTest
 	{
 		try
 		{
-			LineDrawSettings borderStyle = new LineDrawSettings(Color.CYAN, 10, new LinePattern());
+			float[] pattern = new float[4];
+			pattern[0] = 2;
+			pattern[1] = 3;
+			pattern[2] = 4;
+			pattern[3] = 5;
+			LineDrawSettings borderStyle = new LineDrawSettings(Color.CYAN, 10, pattern);
 			PolygonDrawSettings writedStyle = new PolygonDrawSettings(Color.MAGENTA, borderStyle,
 							null);
 

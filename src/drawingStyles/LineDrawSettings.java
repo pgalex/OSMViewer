@@ -10,7 +10,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
- * How to draw line (non closed way in osm)
+ * How to draw line (non closed way)
  *
  * @author abc
  */
@@ -21,20 +21,20 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	 */
 	private static final float DEFAULT_WIDTH = 1.0f;
 	/**
-	 * Color
+	 * Line color
 	 */
 	private IOColor color;
 	/**
-	 * Width
+	 * Line width
 	 */
 	private float width;
 	/**
-	 * User defined pattern (dash, dot etc )
+	 * Line pattern (dash, dot etc )
 	 */
 	private LinePattern pattern;
 
 	/**
-	 * Default constructor
+	 * Create with default values
 	 */
 	public LineDrawSettings()
 	{
@@ -44,46 +44,35 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	}
 
 	/**
-	 * Constrcutor
+	 * Create with parameters
 	 *
-	 * @param pColor color
-	 * @param pWidth width
-	 * @param pPattern pattern. Autocreating if null
+	 * @param lineColor line color. Resetting to default if null
+	 * @param lineWidth line width
+	 * @param linePattern pattern of line
+	 * @throws LinePatternIncorrectException pattern of line is incorrect
 	 */
-	public LineDrawSettings(Color pColor, float pWidth, LinePattern pPattern)
+	public LineDrawSettings(Color lineColor, float lineWidth, float[] linePattern) throws LinePatternIncorrectException
 	{
-		color = new IOColor(pColor);
-		width = pWidth;
-		pattern = pPattern;
-
-		initializeNullFields();
-	}
-
-	/**
-	 * Autocreate null fields
-	 */
-	private void initializeNullFields()
-	{
-		if (pattern == null)
-		{
-			pattern = new LinePattern();
-		}
+		color = new IOColor(lineColor);
+		width = lineWidth;
+		pattern = new LinePattern();
+		pattern.setPattern(linePattern);
 	}
 
 	/**
 	 * Read from stream
 	 *
-	 * @param pInput input stream
+	 * @param input input stream
 	 * @throws IOException reading error
 	 */
 	@Override
-	public void readFromStream(DataInputStream pInput) throws IOException
+	public void readFromStream(DataInputStream input) throws IOException
 	{
 		try
 		{
-			color.readFromStream(pInput);
-			width = pInput.readFloat();
-			pattern.readFromStream(pInput);
+			color.readFromStream(input);
+			width = input.readFloat();
+			pattern.readFromStream(input);
 		}
 		catch (Exception e)
 		{
@@ -94,17 +83,17 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	/**
 	 * Write into stream
 	 *
-	 * @param pOutput output stream
+	 * @param output output stream
 	 * @throws IOException writing error
 	 */
 	@Override
-	public void writeToStream(DataOutputStream pOutput) throws IOException
+	public void writeToStream(DataOutputStream output) throws IOException
 	{
 		try
 		{
-			color.writeToStream(pOutput);
-			pOutput.writeFloat(width);
-			pattern.writeToStream(pOutput);
+			color.writeToStream(output);
+			output.writeFloat(width);
+			pattern.writeToStream(output);
 		}
 		catch (Exception e)
 		{
@@ -124,13 +113,13 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	}
 
 	/**
-	 * Set new color
+	 * Set new line color
 	 *
-	 * @param pColor new color
+	 * @param colorToSet new line color
 	 */
-	public void setColor(Color pColor)
+	public void setColor(Color colorToSet)
 	{
-		color = new IOColor(pColor);
+		color = new IOColor(colorToSet);
 	}
 
 	/**
@@ -145,13 +134,13 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	}
 
 	/**
-	 * Set new width
+	 * Set new line width
 	 *
-	 * @param pWidth new width
+	 * @param widthToSet new line width
 	 */
-	public void setWidth(float pWidth)
+	public void setWidth(float widthToSet)
 	{
-		width = pWidth;
+		width = widthToSet;
 	}
 
 	/**
@@ -168,12 +157,12 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	/**
 	 * Set new line pattern
 	 *
-	 * @param pPattern new pattern
-	 * @throws LinePatternIncorrectException new pattern icorrect
+	 * @param patternToSet new line pattern
+	 * @throws LinePatternIncorrectException new pattern incorrect
 	 */
-	public void setPattern(float[] pPattern) throws LinePatternIncorrectException
+	public void setPattern(float[] patternToSet) throws LinePatternIncorrectException
 	{
-		pattern.setPattern(pPattern);
+		pattern.setPattern(patternToSet);
 	}
 
 	/**
@@ -184,7 +173,7 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	@Override
 	public BasicStroke getStroke()
 	{
-		return new BasicStroke(getWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 
+		return new BasicStroke(getWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
 						1.0f, getPattern(), 0.0f);
 	}
 }
