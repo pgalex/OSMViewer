@@ -22,7 +22,7 @@ public class JFrameMain extends javax.swing.JFrame
 	{
 		initComponents();
 		
-		mapProcessor = new OnlineMapProcessor(new MapPosition(55.19907, 38.60329), 14,
+		mapProcessor = new OnlineMapProcessor(new MapPosition(55.19907, 38.60329), 16,
 						jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
 
 		JDrawingPanel drawingPanel = (JDrawingPanel) jPanelCanvas;
@@ -47,6 +47,7 @@ public class JFrameMain extends javax.swing.JFrame
     jButtonMoveUp = new javax.swing.JButton();
     jButtonMoveDown = new javax.swing.JButton();
     jButtonReloadMap = new javax.swing.JButton();
+    jButtonEditDrawingStyles = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setTitle("OpenStreetMap Viewer");
@@ -117,6 +118,15 @@ public class JFrameMain extends javax.swing.JFrame
       }
     });
 
+    jButtonEditDrawingStyles.setText("How to draw map...");
+    jButtonEditDrawingStyles.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jButtonEditDrawingStylesActionPerformed(evt);
+      }
+    });
+
     javax.swing.GroupLayout jPanelCanvasLayout = new javax.swing.GroupLayout(jPanelCanvas);
     jPanelCanvas.setLayout(jPanelCanvasLayout);
     jPanelCanvasLayout.setHorizontalGroup(
@@ -134,11 +144,13 @@ public class JFrameMain extends javax.swing.JFrame
             .addGap(56, 56, 56)
             .addComponent(jButtonMoveUp)
             .addGap(71, 71, 71)
-            .addComponent(jButtonReloadMap))
+            .addComponent(jButtonReloadMap)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jButtonEditDrawingStyles))
           .addGroup(jPanelCanvasLayout.createSequentialGroup()
             .addGap(55, 55, 55)
             .addComponent(jButtonMoveDown)))
-        .addContainerGap(312, Short.MAX_VALUE))
+        .addContainerGap(140, Short.MAX_VALUE))
     );
     jPanelCanvasLayout.setVerticalGroup(
       jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,7 +158,8 @@ public class JFrameMain extends javax.swing.JFrame
         .addContainerGap()
         .addGroup(jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(jButtonMoveUp)
-          .addComponent(jButtonReloadMap))
+          .addComponent(jButtonReloadMap)
+          .addComponent(jButtonEditDrawingStyles))
         .addGap(2, 2, 2)
         .addGroup(jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(jButtonMoveLeft)
@@ -214,6 +227,12 @@ public class JFrameMain extends javax.swing.JFrame
 		jPanelCanvas.repaint();
   }//GEN-LAST:event_jButtonReloadMapActionPerformed
 
+  private void jButtonEditDrawingStylesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonEditDrawingStylesActionPerformed
+  {//GEN-HEADEREND:event_jButtonEditDrawingStylesActionPerformed
+    JDialogEditDrawingStyles editDrawingStylesDialog = new JDialogEditDrawingStyles(this, true);
+		editDrawingStylesDialog.setVisible(true);
+  }//GEN-LAST:event_jButtonEditDrawingStylesActionPerformed
+
 	/**
 	 * @param args the command line arguments
 	 */
@@ -272,6 +291,7 @@ public class JFrameMain extends javax.swing.JFrame
 		});
 	}
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JButton jButtonEditDrawingStyles;
   private javax.swing.JButton jButtonMoveDown;
   private javax.swing.JButton jButtonMoveLeft;
   private javax.swing.JButton jButtonMoveRight;
