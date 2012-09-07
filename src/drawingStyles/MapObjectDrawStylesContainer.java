@@ -31,23 +31,23 @@ public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMa
 	/**
 	 * Write styles to stream
 	 *
-	 * @param pStyles styles to write
-	 * @param pOutput output stream
+	 * @param stylesToWrite styles to write
+	 * @param output output stream
 	 * @throws IOException writing error
 	 */
-	protected void writeStylesToStream(MapObjectDrawSettings[] pStyles, DataOutputStream pOutput) throws IOException
+	protected void writeStylesToStream(MapObjectDrawSettings[] stylesToWrite, DataOutputStream output) throws IOException
 	{
-		if (pStyles == null || pOutput == null)
+		if (stylesToWrite == null || output == null)
 		{
 			throw new IOException();
 		}
 
 		try
 		{
-			pOutput.writeInt(pStyles.length);
-			for (int i = 0; i < pStyles.length; i++)
+			output.writeInt(stylesToWrite.length);
+			for (int i = 0; i < stylesToWrite.length; i++)
 			{
-				pStyles[i].writeToStream(pOutput);
+				stylesToWrite[i].writeToStream(output);
 			}
 		}
 		catch (Exception e)
@@ -59,25 +59,25 @@ public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMa
 	/**
 	 * Read style from stream
 	 *
-	 * @param pInput input stream
+	 * @param input input stream
 	 * @return readed styles
 	 * @throws IOException reading error
 	 */
-	protected MapObjectDrawSettings[] readStylesFromStream(DataInputStream pInput) throws IOException
+	protected MapObjectDrawSettings[] readStylesFromStream(DataInputStream input) throws IOException
 	{
-		if (pInput == null)
+		if (input == null)
 		{
 			throw new IOException();
 		}
 
 		try
 		{
-			int stylesLength = pInput.readInt();
+			int stylesLength = input.readInt();
 			MapObjectDrawSettings[] readingStyles = new MapObjectDrawSettings[stylesLength];
 			for (int i = 0; i < stylesLength; i++)
 			{
 				readingStyles[i] = new MapObjectDrawSettings();
-				readingStyles[i].readFromStream(pInput);
+				readingStyles[i].readFromStream(input);
 			}
 
 			return readingStyles;
@@ -91,32 +91,32 @@ public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMa
 	/**
 	 * Find index map object style with specified tags and max tags count in array
 	 *
-	 * @param pStyles array of styles
-	 * @param pTags defenition tags for search
+	 * @param styles array of styles where find index if map object draw style
+	 * @param objectDefenitionTags defenition tags for search
 	 * @return index of founded style. null if not found
 	 */
-	protected Integer findStyleIndex(MapObjectDrawSettings[] pStyles, DefenitionTags pTags)
+	protected Integer findStyleIndex(MapObjectDrawSettings[] styles, DefenitionTags objectDefenitionTags)
 	{
-		// Необходимо найти среди pStyle стиль у котороге теги будут совпадать с pTags,
+		// Необходимо найти среди pStyle стиль у котороге теги будут совпадать с objectDefenitionTags,
 		// количество тегов по сравнению с другими стилями(теги которых тоже совпадают) будет максимальным 
-		// style with tags like pTags and max tags count
+		// style with tags like objectDefenitionTags and max tags count
 
-		if (pStyles == null || pTags == null)
+		if (styles == null || objectDefenitionTags == null)
 		{
 			return null;
 		}
 
 		SortedMap<MapObjectDrawSettings, Integer> suitableElements = new TreeMap<MapObjectDrawSettings, Integer>(new FindStyleIndexComparator());
-		for (int i = 0; i < pStyles.length; i++)
+		for (int i = 0; i < styles.length; i++)
 		{
-			if (pStyles[i] == null)
+			if (styles[i] == null)
 			{
 				continue;
 			}
 
-			if (pStyles[i].getDefenitionTags().includingIn(pTags))
+			if (styles[i].getDefenitionTags().includingIn(objectDefenitionTags))
 			{
-				suitableElements.put(pStyles[i], i);
+				suitableElements.put(styles[i], i);
 			}
 		}
 
@@ -133,15 +133,15 @@ public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMa
 	/**
 	 * Read from stream
 	 *
-	 * @param pInput input stream
+	 * @param input input stream
 	 * @throws IOException reading error
 	 */
 	@Override
-	public void readFromStream(DataInputStream pInput) throws IOException
+	public void readFromStream(DataInputStream input) throws IOException
 	{
 		try
 		{
-			mapDrawSettings.readFromStream(pInput);
+			mapDrawSettings.readFromStream(input);
 		}
 		catch (Exception ex)
 		{
@@ -152,15 +152,15 @@ public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMa
 	/**
 	 * Write into stream
 	 *
-	 * @param pOutput output stream
+	 * @param output output stream
 	 * @throws IOException writing error
 	 */
 	@Override
-	public void writeToStream(DataOutputStream pOutput) throws IOException
+	public void writeToStream(DataOutputStream output) throws IOException
 	{
 		try
 		{
-			mapDrawSettings.writeToStream(pOutput);
+			mapDrawSettings.writeToStream(output);
 		}
 		catch (Exception ex)
 		{
