@@ -15,17 +15,17 @@ public interface CoordinatesConverter
 	 * Convert point in geographics coordinates on a map to point on drawing
 	 * canvas (using current scale and view position)
 	 *
-	 * @param pPositionOnMap position of point on a map
+	 * @param positionOnMap position of point on a map
 	 * @return position of point on drawing canvas
 	 */
-	public Point2D goegraphicsToCanvas(MapPosition pPositionOnMap);
+	public Point2D goegraphicsToCanvas(MapPosition positionOnMap);
 
 	/**
 	 * Convert point on drawing canvas to point on a map, using current scale and
 	 * view position
 	 *
-	 * @param pPositionOnCanvas position of point on drawing canvas
+	 * @param positionOnCanvas position of point on drawing canvas
 	 * @return position of point on map
 	 */
-	public MapPosition canvasToGeographics(Point2D pPositionOnCanvas);
+	public MapPosition canvasToGeographics(Point2D positionOnCanvas);
 }

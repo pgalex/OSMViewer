@@ -44,33 +44,33 @@ public class MapRenderer implements CoordinatesConverter
 	private int maximumScaleLevel;
 
 	/**
-	 * Constructor
+	 * Create renderer
 	 *
-	 * @param pMinimumScaleLevel Minimun scale level
-	 * @param pMaximumScaleLevel Maximum scale level
-	 * @param pStartScaleLevel scale level that will be set after creating
+	 * @param renderingMinimumScaleLevel Minimun scale level
+	 * @param renderingMaximumScaleLevel Maximum scale level
+	 * @param startScaleLevel scale level that will be set after creating
 	 */
-	public MapRenderer(int pMinimumScaleLevel, int pMaximumScaleLevel, int pStartScaleLevel)
+	public MapRenderer(int renderingMinimumScaleLevel, int renderingMaximumScaleLevel, int startScaleLevel)
 	{
 		targetCanvasDrawingArea = DEFAULT_DRAWING_AREA;
 		viewPosition = new MapPosition();
 
-		scaleLevel = pStartScaleLevel;
-		minimumScaleLevel = pMinimumScaleLevel;
-		maximumScaleLevel = pMaximumScaleLevel;
+		scaleLevel = startScaleLevel;
+		minimumScaleLevel = renderingMinimumScaleLevel;
+		maximumScaleLevel = renderingMaximumScaleLevel;
 	}
 
 	/**
 	 * Set new rectangle that define area where map will be drawen (on destenation
 	 * graphics)
 	 *
-	 * @param pDrawingArea rectangle that define area where map will be drawen
+	 * @param drawingAreaToSet rectangle that define area where map will be drawen
 	 */
-	public void setTargetCanvasDrawingArea(Rectangle pDrawingArea)
+	public void setTargetCanvasDrawingArea(Rectangle drawingAreaToSet)
 	{
-		if (pDrawingArea != null)
+		if (drawingAreaToSet != null)
 		{
-			targetCanvasDrawingArea = pDrawingArea;
+			targetCanvasDrawingArea = drawingAreaToSet;
 		}
 	}
 
@@ -88,14 +88,14 @@ public class MapRenderer implements CoordinatesConverter
 	/**
 	 * Set new view positoin
 	 *
-	 * @param pViewPosition New view position. Center point of area on a map that
+	 * @param viewPositionToSet New view position. Center point of area on a map that
 	 * will be drawen
 	 */
-	public void setViewPosition(MapPosition pViewPosition)
+	public void setViewPosition(MapPosition viewPositionToSet)
 	{
-		if (pViewPosition != null)
+		if (viewPositionToSet != null)
 		{
-			viewPosition = pViewPosition;
+			viewPosition = viewPositionToSet;
 		}
 	}
 
@@ -112,16 +112,16 @@ public class MapRenderer implements CoordinatesConverter
 	/**
 	 * Set new scale level
 	 *
-	 * @param pScaleLevel new scale level
+	 * @param scaleLevelToSet new scale level
 	 */
-	public void setScaleLevel(int pScaleLevel)
+	public void setScaleLevel(int scaleLevelToSet)
 	{
-		if (pScaleLevel < minimumScaleLevel || pScaleLevel > maximumScaleLevel)
+		if (scaleLevelToSet < minimumScaleLevel || scaleLevelToSet > maximumScaleLevel)
 		{
 			return;
 		}
 
-		scaleLevel = pScaleLevel;
+		scaleLevel = scaleLevelToSet;
 	}
 
 	/**
@@ -152,26 +152,26 @@ public class MapRenderer implements CoordinatesConverter
 	/**
 	 * Render map
 	 *
-	 * @param pCanvas canvas to draw map
-	 * @param pMap map for rendering
-	 * @param pStyleViewer drawing styles, uses for rendering
+	 * @param targetCanvas canvas to draw map
+	 * @param mapToRender map for rendering
+	 * @param styleViewer drawing styles, uses for rendering
 	 */
-	public void renderMap(Graphics2D pCanvas, Map pMap, StyleViewer pStyleViewer)
+	public void renderMap(Graphics2D targetCanvas, Map mapToRender, StyleViewer styleViewer)
 	{
-		if (pMap == null || pStyleViewer == null || pCanvas == null)
+		if (mapToRender == null || styleViewer == null || targetCanvas == null)
 		{
 			return;
 		}
 		
-		setupRenderingHints(pCanvas);
+		setupRenderingHints(targetCanvas);
 
-		MapDrawSettings mapDrawingSettings = pStyleViewer.getMapDrawSettings();
-		pCanvas.setBackground(mapDrawingSettings.getMapBackgroundColor().getColor());
-		pCanvas.clearRect(targetCanvasDrawingArea.x, targetCanvasDrawingArea.y, targetCanvasDrawingArea.width, targetCanvasDrawingArea.height);
+		MapDrawSettings mapDrawingSettings = styleViewer.getMapDrawSettings();
+		targetCanvas.setBackground(mapDrawingSettings.getMapBackgroundColor().getColor());
+		targetCanvas.clearRect(targetCanvasDrawingArea.x, targetCanvasDrawingArea.y, targetCanvasDrawingArea.width, targetCanvasDrawingArea.height);
 
-		pMap.sortObjectsByDrawPriority(pStyleViewer);
-		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(pCanvas, pStyleViewer, this, scaleLevel);
-		pMap.acceptObjectsRenderer(objectsRenderer);
+		mapToRender.sortObjectsByDrawPriority(styleViewer);
+		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(targetCanvas, styleViewer, this, scaleLevel);
+		mapToRender.acceptObjectsRenderer(objectsRenderer);
 
 		// draw text canvas
 	}
@@ -179,31 +179,31 @@ public class MapRenderer implements CoordinatesConverter
 	/**
 	 * Set graphics rendering hints for map drawing
 	 *
-	 * @param pCanvas canvas using for setup
+	 * @param canvas canvas using for setup
 	 */
-	private void setupRenderingHints(Graphics2D pCanvas)
+	private void setupRenderingHints(Graphics2D canvas)
 	{
-		if(pCanvas==null)
+		if(canvas==null)
 		{
 			return;
 		}
 		
-		pCanvas.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		pCanvas.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		pCanvas.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		canvas.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		canvas.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		canvas.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 	}
 
 	/**
 	 * Convert point in geographics coordinates on a map to point on drawing
 	 * canvas (using current scale and view position)
 	 *
-	 * @param pPositionOnMap position of point on a map
+	 * @param positionOnMap position of point on a map
 	 * @return position of point on drawing canvas
 	 */
 	@Override
-	public Point2D goegraphicsToCanvas(MapPosition pPositionOnMap)
+	public Point2D goegraphicsToCanvas(MapPosition positionOnMap)
 	{
-		Point2D pointInMeractor = MercatorSphericProjection.geographicsToMercator(pPositionOnMap,
+		Point2D pointInMeractor = MercatorSphericProjection.geographicsToMercator(positionOnMap,
 						ScalesArray.getScaleByScaleLevel(scaleLevel));
 
 		Point2D viewInMercator = MercatorSphericProjection.geographicsToMercator(viewPosition,
@@ -219,17 +219,17 @@ public class MapRenderer implements CoordinatesConverter
 	 * Convert point on drawing canvas to point on a map, using current scale and
 	 * view position
 	 *
-	 * @param pPositionOnCanvas position of point on drawing canvas
+	 * @param positionOnCanvas position of point on drawing canvas
 	 * @return position of point on map
 	 */
 	@Override
-	public MapPosition canvasToGeographics(Point2D pPositionOnCanvas)
+	public MapPosition canvasToGeographics(Point2D positionOnCanvas)
 	{
 		Point2D viewInMercator = MercatorSphericProjection.geographicsToMercator(viewPosition,
 						ScalesArray.getScaleByScaleLevel(scaleLevel));
 
-		double pointInMercatorX = pPositionOnCanvas.getX() + viewInMercator.getX() - targetCanvasDrawingArea.getCenterX();
-		double pointInMercatorY = viewInMercator.getY() - pPositionOnCanvas.getY() + targetCanvasDrawingArea.getCenterY();
+		double pointInMercatorX = positionOnCanvas.getX() + viewInMercator.getX() - targetCanvasDrawingArea.getCenterX();
+		double pointInMercatorY = viewInMercator.getY() - positionOnCanvas.getY() + targetCanvasDrawingArea.getCenterY();
 
 		return MercatorSphericProjection.mercatorToGeographics(new Point2D.Double(pointInMercatorX, pointInMercatorY),
 						ScalesArray.getScaleByScaleLevel(scaleLevel));

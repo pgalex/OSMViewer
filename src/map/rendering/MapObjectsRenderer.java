@@ -13,23 +13,23 @@ import map.MapPolygon;
 public interface MapObjectsRenderer
 {
 	/**
-	 * Render point
+	 * Render pointToRender
 	 *
-	 * @param pPoint point on a map
+	 * @param pointToRender pointToRender on a map
 	 */
-	public abstract void renderPoint(MapPoint pPoint);
+	public abstract void renderPoint(MapPoint pointToRender);
 
 	/**
-	 * Render line
+	 * Render lineToRender
 	 *
-	 * @param pLine line on a map
+	 * @param lineToRender lineToRender on a map
 	 */
-	public abstract void renderLine(MapLine pLine);
+	public abstract void renderLine(MapLine lineToRender);
 
 	/**
 	 * Render polygon
 	 *
-	 * @param pPolygon polygon on a map
+	 * @param polygonToRender polygon on a map
 	 */
-	public abstract void renderPolygon(MapPolygon pPolygon);
+	public abstract void renderPolygon(MapPolygon polygonToRender);
 }
