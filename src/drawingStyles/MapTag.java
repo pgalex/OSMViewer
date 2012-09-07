@@ -23,7 +23,7 @@ public class MapTag implements WritableMapData, ReadableMapData
 	private String value;
 
 	/**
-	 * Default constructor
+	 * Create with empty key and value
 	 */
 	public MapTag()
 	{
@@ -32,15 +32,15 @@ public class MapTag implements WritableMapData, ReadableMapData
 	}
 
 	/**
-	 * Constructor
+	 * Create with parameters
 	 *
-	 * @param pKey key
-	 * @param pValue value
+	 * @param tagKey key of tag
+	 * @param tagValue value of tag
 	 */
-	public MapTag(String pKey, String pValue)
+	public MapTag(String tagKey, String tagValue)
 	{
-		key = pKey;
-		value = pValue;
+		key = tagKey;
+		value = tagValue;
 	}
 
 	/**
@@ -54,7 +54,7 @@ public class MapTag implements WritableMapData, ReadableMapData
 	}
 
 	/**
-	 * Get "value"
+	 * Get value
 	 *
 	 * @return the value
 	 */
@@ -64,32 +64,36 @@ public class MapTag implements WritableMapData, ReadableMapData
 	}
 
 	/**
-	 * Compare. Ingnore case
+	 * Compare with tag. Ingnore case
 	 *
-	 * @param pTag tag for comparing
+	 * @param tagForComparing tag for comparing
 	 * @return is tags eqaul
 	 */
-	public boolean compareTo(MapTag pTag)
+	public boolean compareTo(MapTag tagForComparing)
 	{
-		if ((pTag.key.compareToIgnoreCase(key) == 0) && (pTag.value.compareToIgnoreCase(value) == 0))
+		if ((tagForComparing.key.compareToIgnoreCase(key) == 0) && (tagForComparing.value.compareToIgnoreCase(value) == 0))
+		{
 			return true;
+		}
 		else
+		{
 			return false;
+		}
 	}
 
 	/**
 	 * Write into stream
 	 *
-	 * @param pOutput output stream
+	 * @param output output stream
 	 * @throws IOException writing error
 	 */
 	@Override
-	public void writeToStream(DataOutputStream pOutput) throws IOException
+	public void writeToStream(DataOutputStream output) throws IOException
 	{
 		try
 		{
-			pOutput.writeUTF(key);
-			pOutput.writeUTF(value);
+			output.writeUTF(key);
+			output.writeUTF(value);
 		}
 		catch (Exception e)
 		{
@@ -100,16 +104,16 @@ public class MapTag implements WritableMapData, ReadableMapData
 	/**
 	 * Read from stream
 	 *
-	 * @param pInput input stream
+	 * @param input input stream
 	 * @throws IOException reading error
 	 */
 	@Override
-	public void readFromStream(DataInputStream pInput) throws IOException
+	public void readFromStream(DataInputStream input) throws IOException
 	{
 		try
 		{
-			key = pInput.readUTF();
-			value = pInput.readUTF();
+			key = input.readUTF();
+			value = input.readUTF();
 		}
 		catch (Exception e)
 		{
