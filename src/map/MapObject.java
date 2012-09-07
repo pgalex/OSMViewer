@@ -22,22 +22,22 @@ public class MapObject
 	 */
 	private DefenitionTags defenitionTags;
 	/**
-	 * Index of MapObjectDrawSettings in StyleViewer, used to draw this object. Valid
-	 * only for StyleViewer that was used to assign this index. null if index not
-	 * founded
+	 * Index of MapObjectDrawSettings in StyleViewer, used to draw this object.
+	 * Valid only for StyleViewer that was used to assign this index. null if
+	 * index not founded
 	 */
 	private Integer styleIndex;
 
 	/**
-	 * Constructor
+	 * Create with parameters
 	 *
-	 * @param pId global OpenStreetMap id of object
-	 * @param pDefenitionTags Tags, describes the object
+	 * @param objectId global OpenStreetMap id of object
+	 * @param objectDefenitionTags Tags, describes the object
 	 */
-	public MapObject(long pId, DefenitionTags pDefenitionTags)
+	public MapObject(long objectId, DefenitionTags objectDefenitionTags)
 	{
-		id = pId;
-		defenitionTags = pDefenitionTags;
+		id = objectId;
+		defenitionTags = objectDefenitionTags;
 		styleIndex = null;
 
 		InitializeNullFields();
@@ -77,18 +77,18 @@ public class MapObject
 	 * Assign style index by founding it in style viewer, using defenition tags
 	 * and canBeDrawenWithStyle method
 	 *
-	 * @param pStyleViewer style viewer, using to find index
+	 * @param styleViewer style viewer, using to find index
 	 */
-	public void assignStyleIndex(StyleViewer pStyleViewer)
+	public void assignStyleIndex(StyleViewer styleViewer)
 	{
-		if (pStyleViewer == null)
+		if (styleViewer == null)
 		{
 			return;
 		}
 
-		Integer foundedIndex = pStyleViewer.findStyleIndex(defenitionTags);
-		MapObjectDrawStyle foundedStyle = pStyleViewer.findMapObjectDrawStyle(foundedIndex);
-		
+		Integer foundedIndex = styleViewer.findStyleIndex(defenitionTags);
+		MapObjectDrawStyle foundedStyle = styleViewer.findMapObjectDrawStyle(foundedIndex);
+
 		if (canBeDrawenWithStyle(foundedStyle))
 		{
 			styleIndex = foundedIndex;
@@ -102,12 +102,12 @@ public class MapObject
 	/**
 	 * Can this type of map object be drawen with this style
 	 *
-	 * @param pStyle drawing style of object
+	 * @param objectDrawStyle drawing style of object
 	 * @return Can this type of map object be drawen with this style
 	 */
-	protected boolean canBeDrawenWithStyle(MapObjectDrawStyle pStyle)
+	protected boolean canBeDrawenWithStyle(MapObjectDrawStyle objectDrawStyle)
 	{
-		if (pStyle == null)
+		if (objectDrawStyle == null)
 		{
 			return false;
 		}
@@ -120,9 +120,9 @@ public class MapObject
 	/**
 	 * Render with objects render visitor
 	 *
-	 * @param pObjectsRenderer objects renderer
+	 * @param objectsRenderer objects renderer
 	 */
-	public void acceptRenderer(MapObjectsRenderer pObjectsRenderer)
+	public void acceptRenderer(MapObjectsRenderer objectsRenderer)
 	{
 	}
 

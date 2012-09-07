@@ -17,7 +17,7 @@ public class MapPosition
 	private double longitude;
 
 	/**
-	 * Default constructor
+	 * Create zero position
 	 */
 	public MapPosition()
 	{
@@ -26,15 +26,15 @@ public class MapPosition
 	}
 
 	/**
-	 * Constructor
+	 * Create with parameters
 	 *
-	 * @param pLatitude latitude in degrees
-	 * @param pLongitude longitude in degrees
+	 * @param positionLatitude latitude in degrees
+	 * @param positionLongitude longitude in degrees
 	 */
-	public MapPosition(double pLatitude, double pLongitude)
+	public MapPosition(double positionLatitude, double positionLongitude)
 	{
-		latitude = pLatitude;
-		longitude = pLongitude;
+		latitude = positionLatitude;
+		longitude = positionLongitude;
 	}
 
 	/**
@@ -50,11 +50,11 @@ public class MapPosition
 	/**
 	 * Set latitude
 	 *
-	 * @param pLatitude pLatitude in degrees
+	 * @param latitudeToSet latitudeToSet in degrees
 	 */
-	public void setLatitude(double pLatitude)
+	public void setLatitude(double latitudeToSet)
 	{
-		latitude = pLatitude;
+		latitude = latitudeToSet;
 	}
 
 	/**
@@ -70,10 +70,10 @@ public class MapPosition
 	/**
 	 * Set longitude
 	 *
-	 * @param pLongitude longitude in degrees
+	 * @param longitudeToSet longitude in degrees
 	 */
-	public void setLongitude(double pLongitude)
+	public void setLongitude(double longitudeToSet)
 	{
-		longitude = pLongitude;
+		longitude = longitudeToSet;
 	}
 }

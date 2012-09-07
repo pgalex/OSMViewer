@@ -13,17 +13,17 @@ import map.rendering.MapObjectsRenderer;
 public class MapPolygon extends MapLine
 {
 	/**
-	 * Constructor
+	 * Create with parameters
 	 *
-	 * @param pId global OpenStreetMap id of object
-	 * @param pDefenitionTags Tags, describes the polygon
-	 * @param pPoints polygonPoints of polygon
+	 * @param polygonId global OpenStreetMap id of object
+	 * @param polygonDefenitionTags Tags, describes the polygon
+	 * @param polygonPoints polygonPoints of polygon
 	 * @throws LinePointsIsIncorrectException polygon polygonPoints array is null,
 	 * empty or contains null elements
 	 */
-	public MapPolygon(long pId, DefenitionTags pDefenitionTags, MapPosition[] pPoints) throws LinePointsIsIncorrectException
+	public MapPolygon(long polygonId, DefenitionTags polygonDefenitionTags, MapPosition[] polygonPoints) throws LinePointsIsIncorrectException
 	{
-		super(pId, pDefenitionTags, pPoints);
+		super(polygonId, polygonDefenitionTags, polygonPoints);
 	}
 
 	/**
@@ -49,33 +49,33 @@ public class MapPolygon extends MapLine
 	/**
 	 * Render with objects render visitor
 	 *
-	 * @param pObjectsRenderer objects renderer
+	 * @param objectsRenderer objects renderer
 	 */
 	@Override
-	public void acceptRenderer(MapObjectsRenderer pObjectsRenderer)
+	public void acceptRenderer(MapObjectsRenderer objectsRenderer)
 	{
-		if (pObjectsRenderer == null)
+		if (objectsRenderer == null)
 		{
 			return;
 		}
 
-		pObjectsRenderer.renderPolygon(this);
+		objectsRenderer.renderPolygon(this);
 	}
 
 	/**
 	 * Can this type of map object be drawen with this style
 	 *
-	 * @param pStyle drawing style of object
+	 * @param objectDrawStyle drawing style of object
 	 * @return Can this type of map object be drawen with this style
 	 */
 	@Override
-	protected boolean canBeDrawenWithStyle(MapObjectDrawStyle pStyle)
+	protected boolean canBeDrawenWithStyle(MapObjectDrawStyle objectDrawStyle)
 	{
-		if (pStyle == null)
+		if (objectDrawStyle == null)
 		{
 			return false;
 		}
 
-		return pStyle.canBePolygon();
+		return objectDrawStyle.canBePolygon();
 	}
 }

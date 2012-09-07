@@ -1,10 +1,9 @@
 package map;
 
 import drawingStyles.DefenitionTags;
-import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.MapObjectDrawStyle;
-import map.rendering.MapObjectsRenderer;
 import map.exceptions.PointPositionIsNullException;
+import map.rendering.MapObjectsRenderer;
 
 /**
  * Object on a map, consisting of one node
@@ -19,21 +18,23 @@ public class MapPoint extends MapObject
 	private MapPosition position;
 
 	/**
-	 * Constructor
+	 * Create with parameters
 	 *
-	 * @param pPosition position on a map (spheric coords)
-	 * @param pId global unique id from OpenStreetMap
-	 * @param pDefenitionTags defenition tags
+	 * @param pointPosition position on a map (spheric coords)
+	 * @param pointId global unique id from OpenStreetMap
+	 * @param pointDefenitionTags defenition tags
 	 * @throws PointPositionIsNullException position is null
 	 */
-	public MapPoint(MapPosition pPosition, long pId, DefenitionTags pDefenitionTags) throws PointPositionIsNullException
+	public MapPoint(MapPosition pointPosition, long pointId, DefenitionTags pointDefenitionTags) throws PointPositionIsNullException
 	{
-		super(pId, pDefenitionTags);
+		super(pointId, pointDefenitionTags);
 
-		if (pPosition == null)
-			throw new PointPositionIsNullException(pId, pDefenitionTags);
+		if (pointPosition == null)
+		{
+			throw new PointPositionIsNullException(pointId, pointDefenitionTags);
+		}
 
-		position = pPosition;
+		position = pointPosition;
 	}
 
 	/**
@@ -49,29 +50,33 @@ public class MapPoint extends MapObject
 	/**
 	 * Render with objects render visitor
 	 *
-	 * @param pObjectsRenderer objects renderer
+	 * @param objectsRenderer objects renderer
 	 */
 	@Override
-	public void acceptRenderer(MapObjectsRenderer pObjectsRenderer)
+	public void acceptRenderer(MapObjectsRenderer objectsRenderer)
 	{
-		if (pObjectsRenderer == null)
+		if (objectsRenderer == null)
+		{
 			return;
+		}
 
-		pObjectsRenderer.renderPoint(this);
+		objectsRenderer.renderPoint(this);
 	}
 
 	/**
 	 * Can this type of map object be drawen with this style
 	 *
-	 * @param pStyle drawing style of object
+	 * @param objectDrawStyle drawing style of object
 	 * @return Can this type of map object be drawen with this style
 	 */
 	@Override
-	protected boolean canBeDrawenWithStyle(MapObjectDrawStyle pStyle)
+	protected boolean canBeDrawenWithStyle(MapObjectDrawStyle objectDrawStyle)
 	{
-		if (pStyle == null)
+		if (objectDrawStyle == null)
+		{
 			return false;
+		}
 
-		return pStyle.canBePoint();
+		return objectDrawStyle.canBePoint();
 	}
 }

@@ -24,24 +24,52 @@ public class MapLine extends MapObject
 	private MapPosition[] points;
 
 	/**
-	 * Constructor
+	 * Create with parameters
 	 *
-	 * @param pId global OpenStreetMap id of object
-	 * @param pDefenitionTags Tags, describes the line
-	 * @param pPoints points of line
+	 * @param lineId global OpenStreetMap id of object
+	 * @param lineDefenitionTags Tags, describes the line
+	 * @param linePoints points of line
 	 * @throws LinePointsIsIncorrectException line points array is null, not
 	 * contains needed points count or contains null elements
 	 */
-	public MapLine(long pId, DefenitionTags pDefenitionTags, MapPosition[] pPoints) throws LinePointsIsIncorrectException
+	public MapLine(long lineId, DefenitionTags lineDefenitionTags, MapPosition[] linePoints) throws LinePointsIsIncorrectException
 	{
-		super(pId, pDefenitionTags);
+		super(lineId, lineDefenitionTags);
 
-		if (isPointsIncorrect(pPoints))
+		if (isPointsIncorrect(linePoints))
 		{
-			throw new LinePointsIsIncorrectException(pId, pDefenitionTags);
+			throw new LinePointsIsIncorrectException(lineId, lineDefenitionTags);
 		}
 
-		points = pPoints;
+		points = linePoints;
+	}
+
+	/**
+	 * Is array of points incorrect
+	 *
+	 * @param points points of line
+	 * @return is array of points incorrect
+	 */
+	private boolean isPointsIncorrect(MapPosition[] points)
+	{
+		if (points == null)
+		{
+			return true;
+		}
+		if (points.length < MINIMUM_POINTS_COUNT)
+		{
+			return true;
+		}
+
+		for (int i = 0; i < points.length; i++)
+		{
+			if (points[i] == null)
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -57,61 +85,33 @@ public class MapLine extends MapObject
 	/**
 	 * Render with objects render visitor
 	 *
-	 * @param pObjectsRenderer objects renderer
+	 * @param objectsRenderer objects renderer
 	 */
 	@Override
-	public void acceptRenderer(MapObjectsRenderer pObjectsRenderer)
+	public void acceptRenderer(MapObjectsRenderer objectsRenderer)
 	{
-		if (pObjectsRenderer == null)
+		if (objectsRenderer == null)
 		{
 			return;
 		}
 
-		pObjectsRenderer.renderLine(this);
-	}
-
-	/**
-	 * Is array of points incorrect
-	 *
-	 * @param pPoints points of line
-	 * @return is array of points incorrect
-	 */
-	private boolean isPointsIncorrect(MapPosition[] pPoints)
-	{
-		if (pPoints == null)
-		{
-			return true;
-		}
-		if (pPoints.length < MINIMUM_POINTS_COUNT)
-		{
-			return true;
-		}
-		
-		for (int i = 0; i < pPoints.length; i++)
-		{
-			if (pPoints[i] == null)
-			{
-				return true;
-			}
-		}
-
-		return false;
+		objectsRenderer.renderLine(this);
 	}
 
 	/**
 	 * Can this type of map object be drawen with this style
 	 *
-	 * @param pStyle drawing style of object
+	 * @param objectDrawStyle drawing style of object
 	 * @return Can this type of map object be drawen with this style
 	 */
 	@Override
-	protected boolean canBeDrawenWithStyle(MapObjectDrawStyle pStyle)
+	protected boolean canBeDrawenWithStyle(MapObjectDrawStyle objectDrawStyle)
 	{
-		if (pStyle == null)
+		if (objectDrawStyle == null)
 		{
 			return false;
 		}
 
-		return pStyle.canBeLine();
+		return objectDrawStyle.canBeLine();
 	}
 }

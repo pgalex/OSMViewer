@@ -25,20 +25,20 @@ public class MapBounds
 	private double longitudeMaximum;
 
 	/**
-	 * Constructor
+	 * Create with parameters
 	 *
-	 * @param pLatitudeMinimum Latitude minimum
-	 * @param pLatitudeMaximum Latitude maximum
-	 * @param pLongitudeMinimum Longitude minimum
-	 * @param pLongitudeMaximum Longitude maximum
+	 * @param boundsLatitudeMinimum Latitude minimum
+	 * @param boundsLatitudeMaximum Latitude maximum
+	 * @param boundsLongitudeMinimum Longitude minimum
+	 * @param boundsLongitudeMaximum Longitude maximum
 	 */
-	public MapBounds(double pLatitudeMinimum, double pLatitudeMaximum, double pLongitudeMinimum,
-					double pLongitudeMaximum)
+	public MapBounds(double boundsLatitudeMinimum, double boundsLatitudeMaximum, double boundsLongitudeMinimum,
+					double boundsLongitudeMaximum)
 	{
-		latitudeMinimum = pLatitudeMinimum;
-		latitudeMaximum = pLatitudeMaximum;
-		longitudeMinimum = pLongitudeMinimum;
-		longitudeMaximum = pLongitudeMaximum;
+		latitudeMinimum = boundsLatitudeMinimum;
+		latitudeMaximum = boundsLatitudeMaximum;
+		longitudeMinimum = boundsLongitudeMinimum;
+		longitudeMaximum = boundsLongitudeMaximum;
 		invertBoundsIfNeed();
 	}
 
@@ -48,10 +48,14 @@ public class MapBounds
 	private void invertBoundsIfNeed()
 	{
 		if (latitudeMinimum > latitudeMaximum)
+		{
 			swapLatitude();
+		}
 
 		if (longitudeMinimum > longitudeMaximum)
+		{
 			swapLongitude();
+		}
 	}
 
 	/**
@@ -115,9 +119,9 @@ public class MapBounds
 	}
 
 	/**
-	 * Is rectangle defines zero area. Some min/max pair of coordinates is equals
+	 * Is bounds defines zero area. Some min/max pair of coordinates is equals
 	 *
-	 * @return Is rectangle defines zero area
+	 * @return Is bounds defines zero area
 	 */
 	public boolean isZero()
 	{
@@ -125,8 +129,12 @@ public class MapBounds
 		boolean isLongitudeEquals = Double.compare(longitudeMinimum, longitudeMaximum) == 0;
 
 		if (isLatitudeEquals || isLongitudeEquals)
+		{
 			return true;
+		}
 		else
+		{
 			return false;
+		}
 	}
 }
