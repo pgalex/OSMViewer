@@ -26,7 +26,7 @@ public class TextDrawSettings implements TextDrawStyle, ReadableMapData, Writabl
 	private IOColor color;
 
 	/**
-	 * Default constructor
+	 * Create with default values
 	 */
 	public TextDrawSettings()
 	{
@@ -35,16 +35,16 @@ public class TextDrawSettings implements TextDrawStyle, ReadableMapData, Writabl
 	}
 
 	/**
-	 * Constructor
+	 * Create with parameters
 	 *
-	 * @param pColor text color
-	 * @param pFont text font
+	 * @param textColor text color
+	 * @param textFont text font
 	 * @throws ColorIsNullException text color is null 
 	 */
-	public TextDrawSettings(Color pColor, Font pFont) throws ColorIsNullException
+	public TextDrawSettings(Color textColor, Font textFont) throws ColorIsNullException
 	{
-		color = new IOColor(pColor);
-		font = new IOFont(pFont);
+		color = new IOColor(textColor);
+		font = new IOFont(textFont);
 	}
 
 	/**
@@ -72,16 +72,16 @@ public class TextDrawSettings implements TextDrawStyle, ReadableMapData, Writabl
 	/**
 	 * Read from stream
 	 *
-	 * @param pInput input stream
+	 * @param input input stream
 	 * @throws IOException reading error
 	 */
 	@Override
-	public void readFromStream(DataInputStream pInput) throws IOException
+	public void readFromStream(DataInputStream input) throws IOException
 	{
 		try
 		{
-			font.readFromStream(pInput);
-			color.readFromStream(pInput);
+			font.readFromStream(input);
+			color.readFromStream(input);
 		}
 		catch (Exception ex)
 		{
@@ -92,16 +92,16 @@ public class TextDrawSettings implements TextDrawStyle, ReadableMapData, Writabl
 	/**
 	 * Write into stream
 	 *
-	 * @param pOutput output stream
+	 * @param output output stream
 	 * @throws IOException writing error
 	 */
 	@Override
-	public void writeToStream(DataOutputStream pOutput) throws IOException
+	public void writeToStream(DataOutputStream output) throws IOException
 	{
 		try
 		{
-			font.writeToStream(pOutput);
-			color.writeToStream(pOutput);
+			font.writeToStream(output);
+			color.writeToStream(output);
 		}
 		catch (Exception ex)
 		{
