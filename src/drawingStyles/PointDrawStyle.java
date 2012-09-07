@@ -12,7 +12,7 @@ public interface PointDrawStyle
 	/**
 	 * Get icon
 	 *
-	 * @return icon of point
+	 * @return icon of point. Null if there is no icon
 	 */
 	public BufferedImage getIcon();
 }

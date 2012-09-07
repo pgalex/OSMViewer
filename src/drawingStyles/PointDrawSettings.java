@@ -20,7 +20,7 @@ public class PointDrawSettings implements PointDrawStyle, ReadableMapData, Writa
 	private IOIcon icon;
 
 	/**
-	 * Default constructor
+	 * Create with default values
 	 */
 	public PointDrawSettings()
 	{
@@ -28,51 +28,13 @@ public class PointDrawSettings implements PointDrawStyle, ReadableMapData, Writa
 	}
 
 	/**
-	 * Contructor
+	 * Create with parameters
 	 *
-	 * @param pIcon icon. Can be null
+	 * @param pointIcon icon. Can be null
 	 */
-	public PointDrawSettings(BufferedImage pIcon)
+	public PointDrawSettings(BufferedImage pointIcon)
 	{
-		icon = new IOIcon(pIcon);
-	}
-
-	/**
-	 * Read from stream
-	 *
-	 * @param pInput input stream
-	 * @throws IOException reading error
-	 */
-	@Override
-	public void readFromStream(DataInputStream pInput) throws IOException
-	{
-		try
-		{
-			icon.readFromStream(pInput);
-		}
-		catch (Exception ex)
-		{
-			throw new IOException();
-		}
-	}
-
-	/**
-	 * Write into stream
-	 *
-	 * @param pOutput output stream
-	 * @throws IOException writing error
-	 */
-	@Override
-	public void writeToStream(DataOutputStream pOutput) throws IOException
-	{
-		try
-		{
-			icon.writeToStream(pOutput);
-		}
-		catch (Exception ex)
-		{
-			throw new IOException();
-		}
+		icon = new IOIcon(pointIcon);
 	}
 
 	/**
@@ -89,10 +51,48 @@ public class PointDrawSettings implements PointDrawStyle, ReadableMapData, Writa
 	/**
 	 * Set new icon
 	 *
-	 * @param pIcon new icon
+	 * @param iconToSet new icon
 	 */
-	public void setIcon(BufferedImage pIcon)
+	public void setIcon(BufferedImage iconToSet)
 	{
-		icon.setImage(pIcon);
+		icon.setImage(iconToSet);
+	}
+
+	/**
+	 * Read from stream
+	 *
+	 * @param input input stream
+	 * @throws IOException reading error
+	 */
+	@Override
+	public void readFromStream(DataInputStream input) throws IOException
+	{
+		try
+		{
+			icon.readFromStream(input);
+		}
+		catch (Exception ex)
+		{
+			throw new IOException();
+		}
+	}
+
+	/**
+	 * Write into stream
+	 *
+	 * @param output output stream
+	 * @throws IOException writing error
+	 */
+	@Override
+	public void writeToStream(DataOutputStream output) throws IOException
+	{
+		try
+		{
+			icon.writeToStream(output);
+		}
+		catch (Exception ex)
+		{
+			throw new IOException();
+		}
 	}
 }
