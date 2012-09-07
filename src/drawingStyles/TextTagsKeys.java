@@ -26,7 +26,7 @@ public class TextTagsKeys implements ReadableMapData, WritableMapData
 	private String[] tagsKeys;
 
 	/**
-	 * Default contructor
+	 * Create with default tag keys
 	 */
 	public TextTagsKeys()
 	{
@@ -34,14 +34,15 @@ public class TextTagsKeys implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Contructor
+	 * Create by tag keys array
 	 *
-	 * @param pTagsKeys array of tag keys that can be use as text (object
-	 * description)
+	 * @param keys array of tag keys that can be use as text (object description).
+	 * Reseting to default if null
 	 */
-	public TextTagsKeys(String[] pTagsKeys)
+	public TextTagsKeys(String[] keys)
 	{
-		tagsKeys = pTagsKeys;
+		tagsKeys = keys;
+		
 		initializeNullFields();
 	}
 
@@ -71,22 +72,22 @@ public class TextTagsKeys implements ReadableMapData, WritableMapData
 	 * Find value of tag that means text description of object. Priority
 	 * determines by keys indexes
 	 *
-	 * @param pTags tags of object
+	 * @param tagsWhereFindText tags of object
 	 * @return text description of object founded in tag. Empty if not found
 	 */
-	public String findTextInTags(DefenitionTags pTags)
+	public String findTextInTags(DefenitionTags tagsWhereFindText)
 	{
 		// Keys priority - from begin to end of tagsKeys
-		if (pTags == null)
+		if (tagsWhereFindText == null)
 		{
 			return "";
 		}
 
 		for (int keyIndex = 0; keyIndex < tagsKeys.length; keyIndex++)
 		{
-			for (int tagIndex = 0; tagIndex < pTags.size(); tagIndex++)
+			for (int tagIndex = 0; tagIndex < tagsWhereFindText.size(); tagIndex++)
 			{
-				MapTag tag = pTags.get(tagIndex);
+				MapTag tag = tagsWhereFindText.get(tagIndex);
 				if (tag.getKey().equals(tagsKeys[keyIndex]))
 				{
 					return tag.getValue();
@@ -100,20 +101,20 @@ public class TextTagsKeys implements ReadableMapData, WritableMapData
 	/**
 	 * Read from stream
 	 *
-	 * @param pInput input stream
+	 * @param input input stream
 	 * @throws IOException reading error
 	 */
 	@Override
-	public void readFromStream(DataInputStream pInput) throws IOException
+	public void readFromStream(DataInputStream input) throws IOException
 	{
 		try
 		{
-			int tagsKeysLength = pInput.readInt();
+			int tagsKeysLength = input.readInt();
 			tagsKeys = new String[tagsKeysLength];
 
 			for (int i = 0; i < tagsKeysLength; i++)
 			{
-				tagsKeys[i] = pInput.readUTF();
+				tagsKeys[i] = input.readUTF();
 			}
 		}
 		catch (Exception e)
@@ -125,18 +126,18 @@ public class TextTagsKeys implements ReadableMapData, WritableMapData
 	/**
 	 * Write into stream
 	 *
-	 * @param pOutput output stream
+	 * @param output output stream
 	 * @throws IOException writing error
 	 */
 	@Override
-	public void writeToStream(DataOutputStream pOutput) throws IOException
+	public void writeToStream(DataOutputStream output) throws IOException
 	{
 		try
 		{
-			pOutput.writeInt(tagsKeys.length);
+			output.writeInt(tagsKeys.length);
 			for (int i = 0; i < tagsKeys.length; i++)
 			{
-				pOutput.writeUTF(tagsKeys[i]);
+				output.writeUTF(tagsKeys[i]);
 			}
 		}
 		catch (Exception e)
