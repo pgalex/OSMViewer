@@ -33,7 +33,7 @@ public class PolygonDrawSettings implements PolygonDrawStyle, ReadableMapData, W
 	private IOIcon fillImage;
 
 	/**
-	 * Default constructor
+	 * Create with default values
 	 */
 	public PolygonDrawSettings()
 	{
@@ -43,18 +43,18 @@ public class PolygonDrawSettings implements PolygonDrawStyle, ReadableMapData, W
 	}
 
 	/**
-	 * Constrcutor
+	 * Create with parameters
 	 *
-	 * @param pFillColor fill color
-	 * @param pBorderDrawStyle how to draw border of polygon
-	 * @param pFillImage fill texture. Can be null
+	 * @param polygonFillColor fill color
+	 * @param polygonBorderDrawSettings how to draw border of polygon
+	 * @param polygonFillImage fill texture. Can be null
 	 * @throws ColorIsNullException fill color is null 
 	 */
-	public PolygonDrawSettings(Color pFillColor, LineDrawSettings pBorderDrawStyle, BufferedImage pFillImage) throws ColorIsNullException
+	public PolygonDrawSettings(Color polygonFillColor, LineDrawSettings polygonBorderDrawSettings, BufferedImage polygonFillImage) throws ColorIsNullException
 	{
-		fillColor = new IOColor(pFillColor);
-		borderDrawStyle = pBorderDrawStyle;
-		fillImage = new IOIcon(pFillImage);
+		fillColor = new IOColor(polygonFillColor);
+		borderDrawStyle = polygonBorderDrawSettings;
+		fillImage = new IOIcon(polygonFillImage);
 
 		initializeNullFields();
 	}
@@ -73,17 +73,17 @@ public class PolygonDrawSettings implements PolygonDrawStyle, ReadableMapData, W
 	/**
 	 * Read from stream
 	 *
-	 * @param pInput input stream
+	 * @param input input stream
 	 * @throws IOException reading error
 	 */
 	@Override
-	public void readFromStream(DataInputStream pInput) throws IOException
+	public void readFromStream(DataInputStream input) throws IOException
 	{
 		try
 		{
-			fillColor.readFromStream(pInput);
-			borderDrawStyle.readFromStream(pInput);
-			fillImage.readFromStream(pInput);
+			fillColor.readFromStream(input);
+			borderDrawStyle.readFromStream(input);
+			fillImage.readFromStream(input);
 		}
 		catch (Exception e)
 		{
@@ -94,17 +94,17 @@ public class PolygonDrawSettings implements PolygonDrawStyle, ReadableMapData, W
 	/**
 	 * Write into stream
 	 *
-	 * @param pOutput output stream
+	 * @param output output stream
 	 * @throws IOException writing error
 	 */
 	@Override
-	public void writeToStream(DataOutputStream pOutput) throws IOException
+	public void writeToStream(DataOutputStream output) throws IOException
 	{
 		try
 		{
-			fillColor.writeToStream(pOutput);
-			borderDrawStyle.writeToStream(pOutput);
-			fillImage.writeToStream(pOutput);
+			fillColor.writeToStream(output);
+			borderDrawStyle.writeToStream(output);
+			fillImage.writeToStream(output);
 		}
 		catch (Exception e)
 		{

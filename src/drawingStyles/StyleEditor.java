@@ -15,36 +15,36 @@ public interface StyleEditor extends StyleViewer
 	/**
 	 * Get map object draw settings by index
 	 *
-	 * @param pIndex index of style
+	 * @param index index of style
 	 * @return map object drawing style. null if style with this index not found
 	 */
-	public abstract MapObjectDrawSettings getMapObjectDrawSettings(Integer pIndex);
+	public abstract MapObjectDrawSettings getMapObjectDrawSettings(Integer index);
 
 	/**
 	 * Set draw settings of map object by index
 	 *
-	 * @param pIndex style index
-	 * @param pDrawSettings new draw settings of object with pIndex
+	 * @param index style index
+	 * @param drawSettingsToSet new draw settings of object with index
 	 * @throws StyleIndexOutOfBoundsException style index is out of bounds
 	 * @throws MapObjectDrawSettingsIsNullException new draw settings is null
 	 */
-	public abstract void setMapObjectDrawSettings(Integer pIndex, MapObjectDrawSettings pDrawSettings) throws StyleIndexOutOfBoundsException, MapObjectDrawSettingsIsNullException;
+	public abstract void setMapObjectDrawSettings(Integer index, MapObjectDrawSettings drawSettingsToSet) throws StyleIndexOutOfBoundsException, MapObjectDrawSettingsIsNullException;
 
 	/**
 	 * Add draw settings of map object
 	 *
-	 * @param pDrawSettings new map object style
+	 * @param drawSettingsToAdd new map object style
 	 * @throws MapObjectDrawSettingsIsNullException new style is null
 	 */
-	public abstract void addMapObjectDrawSettings(MapObjectDrawSettings pDrawSettings) throws MapObjectDrawSettingsIsNullException;
+	public abstract void addMapObjectDrawSettings(MapObjectDrawSettings drawSettingsToAdd) throws MapObjectDrawSettingsIsNullException;
 
 	/**
 	 * Remove draw settings by index
 	 *
-	 * @param pIndex style index
+	 * @param index style index
 	 * @throws StyleIndexOutOfBoundsException index out of bounds
 	 */
-	public abstract void removeMapObjectDrawSettings(Integer pIndex) throws StyleIndexOutOfBoundsException;
+	public abstract void removeMapObjectDrawSettings(Integer index) throws StyleIndexOutOfBoundsException;
 
 	/**
 	 * Get count of storing map object draw setting
@@ -56,8 +56,8 @@ public interface StyleEditor extends StyleViewer
 	/**
 	 * Set new map drawing settings
 	 *
-	 * @param pMapDrawingSettings new map drawing settings
+	 * @param mapDrawingSettingsToSet new map drawing settings
 	 * @throws MapDrawSettingsIsNullException new settins is null
 	 */
-	public abstract void setMapDrawSettings(MapDrawSettings pMapDrawingSettings) throws MapDrawSettingsIsNullException;
+	public abstract void setMapDrawSettings(MapDrawSettings mapDrawingSettingsToSet) throws MapDrawSettingsIsNullException;
 }
