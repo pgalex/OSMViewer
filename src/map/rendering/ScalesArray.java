@@ -44,14 +44,14 @@ public class ScalesArray
 	/**
 	 * Get scale by scale level.
 	 *
-	 * @param pScaleLevel scale level. if its out of bounds will be used nearest
+	 * @param scaleLevel scale level. if its out of bounds will be used nearest
 	 * correct scale level (maximum or minimum)
 	 * @return scale by scale level. If scale level more than maximum of less than
 	 * minimum will be return value on bound
 	 */
-	public static double getScaleByScaleLevel(int pScaleLevel)
+	public static double getScaleByScaleLevel(int scaleLevel)
 	{
-		int normalizedScaleLevel = normalizeScaleLevel(pScaleLevel);
+		int normalizedScaleLevel = normalizeScaleLevel(scaleLevel);
 		int scaleLevelInStaticArrayBounds = normalizedScaleLevel - MINIMUM_SCALE_LEVEL;
 
 		return scaleByScaleLevel[scaleLevelInStaticArrayBounds];
@@ -60,18 +60,22 @@ public class ScalesArray
 	/**
 	 * Normalize scale level to MINIMUM/MAXIMUM bounds
 	 *
-	 * @param pScaleLevel scale level to normalize
+	 * @param scaleLevel scale level to normalize
 	 * @return nearest correct value of scale level
 	 */
-	private static int normalizeScaleLevel(int pScaleLevel)
+	private static int normalizeScaleLevel(int scaleLevel)
 	{
-		int normalizedScaleLevel = pScaleLevel;
+		int normalizedScaleLevel = scaleLevel;
 
 		if (normalizedScaleLevel < MINIMUM_SCALE_LEVEL)
+		{
 			normalizedScaleLevel = MINIMUM_SCALE_LEVEL;
+		}
 
 		if (normalizedScaleLevel > MAXIMUM_SCALE_LEVEL)
+		{
 			normalizedScaleLevel = MAXIMUM_SCALE_LEVEL;
+		}
 
 		return normalizedScaleLevel;
 	}

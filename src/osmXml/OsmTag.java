@@ -17,25 +17,25 @@ public class OsmTag
 	private String value;
 
 	/**
-	 * Cconstructor
+	 * Create tag with parameters
 	 * 
-	 * @param pKey Key of tag
-	 * @param pValue Value of tag
+	 * @param tagKey Key of tag
+	 * @param tagValue Value of tag
 	 */
-	public OsmTag(String pKey, String pValue)
+	public OsmTag(String tagKey, String tagValue)
 	{
-		key = pKey;
-		value = pValue;
+		key = tagKey;
+		value = tagValue;
 	}
 
 	/**
 	 * Set key of tag
 	 *
-	 * @param pKey key of tag
+	 * @param keyToSet key of tag
 	 */
-	public void setKey(String pKey)
+	public void setKey(String keyToSet)
 	{
-		key = pKey;
+		key = keyToSet;
 	}
 
 	/**
@@ -51,11 +51,11 @@ public class OsmTag
 	/**
 	 * Set value of tag
 	 *
-	 * @param pValue value of tag
+	 * @param valueToSet value of tag
 	 */
-	public void setValue(String pValue)
+	public void setValue(String valueToSet)
 	{
-		value = pValue;
+		value = valueToSet;
 	}
 
 	/**

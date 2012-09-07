@@ -15,22 +15,23 @@ public class OsmWay extends OsmMapObject
 	private ArrayList<Long> nodesIds;
 
 	/**
-	 * Default constructor
+	 * Create with default values
 	 */
 	public OsmWay()
 	{
 		super();
+		
 		nodesIds = new ArrayList<Long>();
 	}
 
 	/**
 	 * Add id of node of way
 	 *
-	 * @param pNodeId id of way's node
+	 * @param nodeIdToAdd id of way's node
 	 */
-	public void addNodeId(long pNodeId)
+	public void addNodeId(long nodeIdToAdd)
 	{
-		nodesIds.add(pNodeId);
+		nodesIds.add(nodeIdToAdd);
 	}
 
 	/**

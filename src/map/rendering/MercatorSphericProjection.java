@@ -18,16 +18,16 @@ public class MercatorSphericProjection
 	/**
 	 * Convert point in geographics coordinates to point in mercator projection
 	 *
-	 * @param pPositionOnMap position of point on a map
-	 * @param pScale scale using in converting
+	 * @param positionOnMap position of point on a map
+	 * @param scale scale using in converting
 	 * @return position of point in mercator projection
 	 */
-	public static Point2D geographicsToMercator(MapPosition pPositionOnMap, double pScale)
+	public static Point2D geographicsToMercator(MapPosition positionOnMap, double scale)
 	{
-		double c = pScale * EARTH_EQUATOR_RADIUS_IN_METERS;
+		double c = scale * EARTH_EQUATOR_RADIUS_IN_METERS;
 
-		double x = c * Math.toRadians(pPositionOnMap.getLongitude());
-		double y = c * Math.log(Math.tan(Math.PI / 4 + Math.toRadians(pPositionOnMap.getLatitude()) / 2));
+		double x = c * Math.toRadians(positionOnMap.getLongitude());
+		double y = c * Math.log(Math.tan(Math.PI / 4 + Math.toRadians(positionOnMap.getLatitude()) / 2));
 
 		return new Point2D.Double(x, y);
 	}
@@ -36,16 +36,16 @@ public class MercatorSphericProjection
 	 * Convert point in mercator projection coordinates to point on map in
 	 * geographics coordinates
 	 *
-	 * @param pPointInMercator point in mercator projection coordinates
-	 * @param pScale scale using in converting
+	 * @param pointInMercator point in mercator projection coordinates
+	 * @param scale scale using in converting
 	 * @return position of point in mercator projection
 	 */
-	public static MapPosition mercatorToGeographics(Point2D pPointInMercator, double pScale)
+	public static MapPosition mercatorToGeographics(Point2D pointInMercator, double scale)
 	{
-		double c = pScale * EARTH_EQUATOR_RADIUS_IN_METERS;
+		double c = scale * EARTH_EQUATOR_RADIUS_IN_METERS;
 
-		double longitude = Math.toDegrees(pPointInMercator.getX() / c);
-		double latitude = Math.toDegrees(2 * Math.atan(Math.pow(Math.E, pPointInMercator.getY() / c)) - Math.PI / 2);
+		double longitude = Math.toDegrees(pointInMercator.getX() / c);
+		double latitude = Math.toDegrees(2 * Math.atan(Math.pow(Math.E, pointInMercator.getY() / c)) - Math.PI / 2);
 
 		return new MapPosition(latitude, longitude);
 	}

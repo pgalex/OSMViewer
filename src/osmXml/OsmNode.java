@@ -17,21 +17,24 @@ public class OsmNode extends OsmMapObject
 	private double longitude;
 
 	/**
-	 * Default constructor
+	 * Create with default values
 	 */
 	public OsmNode()
 	{
 		super();
+		
+		latitude = 0;
+		longitude = 0;
 	}
 
 	/**
 	 * Set node position latitude
 	 *
-	 * @param pLatitude position latitude
+	 * @param latitudeToSet position latitude
 	 */
-	public void setLatitude(double pLatitude)
+	public void setLatitude(double latitudeToSet)
 	{
-		latitude = pLatitude;
+		latitude = latitudeToSet;
 	}
 
 	/**
@@ -47,11 +50,11 @@ public class OsmNode extends OsmMapObject
 	/**
 	 * Set node position longitude
 	 *
-	 * @param pLongitude position longitude
+	 * @param longitudeToSet position longitude
 	 */
-	public void setLongitude(double pLongitude)
+	public void setLongitude(double longitudeToSet)
 	{
-		longitude = pLongitude;
+		longitude = longitudeToSet;
 	}
 
 	/**

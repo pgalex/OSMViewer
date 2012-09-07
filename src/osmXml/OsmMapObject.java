@@ -19,7 +19,7 @@ public class OsmMapObject
 	private ArrayList<OsmTag> tags;
 
 	/**
-	 * Default constructor
+	 * Create with default values
 	 */
 	public OsmMapObject()
 	{
@@ -30,11 +30,11 @@ public class OsmMapObject
 	/**
 	 * Set unique global osm id of object
 	 *
-	 * @param pId Unique global osm id of object
+	 * @param idToSet Unique global osm id of object
 	 */
-	public void setId(long pId)
+	public void setId(long idToSet)
 	{
-		id = pId;
+		id = idToSet;
 	}
 
 	/**
@@ -50,11 +50,11 @@ public class OsmMapObject
 	/**
 	 * Set object tags
 	 *
-	 * @param pTags Object tags
+	 * @param tagsToSet Object tags
 	 */
-	public void setTags(ArrayList<OsmTag> pTags)
+	public void setTags(ArrayList<OsmTag> tagsToSet)
 	{
-		tags = pTags;
+		tags = tagsToSet;
 	}
 
 	/**

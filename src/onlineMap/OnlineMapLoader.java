@@ -2,6 +2,7 @@ package onlineMap;
 
 import drawingStyles.DefenitionTags;
 import drawingStyles.EditableDefenitionTags;
+import drawingStyles.MapTag;
 import drawingStyles.StyleViewer;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -9,12 +10,11 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import map.MapBounds;
-import map.MapPoint;
-import map.MapPosition;
-import drawingStyles.MapTag;
 import map.MapLine;
 import map.MapObject;
+import map.MapPoint;
 import map.MapPolygon;
+import map.MapPosition;
 import map.exceptions.*;
 import osmXml.OsmNode;
 import osmXml.OsmTag;
@@ -34,7 +34,7 @@ public class OnlineMapLoader
 	private OnlineOsmParser onlineParser;
 
 	/**
-	 * Default constructor
+	 * Create loader
 	 */
 	public OnlineMapLoader()
 	{
@@ -44,9 +44,9 @@ public class OnlineMapLoader
 	/**
 	 * Load osm data from web and fill map with loaded objects
 	 *
-	 * @param pLoadingSectorBounds bounds of loading map sector
-	 * @param pStyleViewer viewer, uses to assing style index to objects
-	 * @param pFillingMap map, where new object will be added
+	 * @param loadingSectorBounds bounds of loading map sector
+	 * @param styleViewer viewer, uses to assing style index to objects
+	 * @param fillingMap map, where new object will be added
 	 * @throws StyleViewerIsNullException style viewer is null
 	 * @throws MapIsNullException online map is null
 	 * @throws MapBoundsIsNullRuntimeException loading sector bounds is null
@@ -56,41 +56,41 @@ public class OnlineMapLoader
 	 * server
 	 * @throws OsmParsingErrorException error while parsing readed .osm xml data
 	 */
-	public void loadToMap(MapBounds pLoadingSectorBounds, StyleViewer pStyleViewer, OnlineMap pFillingMap) throws
+	public void loadToMap(MapBounds loadingSectorBounds, StyleViewer styleViewer, OnlineMap fillingMap) throws
 					StyleViewerIsNullException, MapIsNullException, MapBoundsIsNullRuntimeException,
 					OutOfMemoryError, ConnectionErrorException, ReadingFromServerErrorException, OsmParsingErrorException
 	{
-		if (pLoadingSectorBounds == null)
+		if (loadingSectorBounds == null)
 		{
 			throw new MapBoundsIsNullRuntimeException();
 		}
-		if (pStyleViewer == null)
+		if (styleViewer == null)
 		{
 			throw new StyleViewerIsNullException();
 		}
-		if (pFillingMap == null)
+		if (fillingMap == null)
 		{
 			throw new MapIsNullException();
 		}
 		// nothing to load
-		if (pLoadingSectorBounds.isZero())
+		if (loadingSectorBounds.isZero())
 		{
 			return;
 		}
 
 		String connectionString = "http://api.openstreetmap.org/api/0.6/map?bbox="
-						+ pLoadingSectorBounds.getLongitudeMinimum() + ","
-						+ pLoadingSectorBounds.getLatitudeMinimum() + ","
-						+ pLoadingSectorBounds.getLongitudeMaximum() + ","
-						+ pLoadingSectorBounds.getLatitudeMaximum();
+						+ loadingSectorBounds.getLongitudeMinimum() + ","
+						+ loadingSectorBounds.getLatitudeMinimum() + ","
+						+ loadingSectorBounds.getLongitudeMaximum() + ","
+						+ loadingSectorBounds.getLatitudeMaximum();
 		try
 		{
 			URL openStreetMapURL = new URL(connectionString);
 			URLConnection openStreetMapConnection = openStreetMapURL.openConnection();
 			onlineParser.convert(openStreetMapConnection.getInputStream());
 
-			fillMapWithPoints(onlineParser.getNodes(), pStyleViewer, pFillingMap);
-			fillMapWithPolygonsAndLine(onlineParser.getNodes(), onlineParser.getWays(), pStyleViewer, pFillingMap);
+			fillMapWithPoints(onlineParser.getNodes(), styleViewer, fillingMap);
+			fillMapWithPolygonsAndLine(onlineParser.getNodes(), onlineParser.getWays(), styleViewer, fillingMap);
 			
 			onlineParser.clear();
 		}
@@ -115,22 +115,22 @@ public class OnlineMapLoader
 	/**
 	 * Create map polygons and line from osm ways, add them to map
 	 *
-	 * @param pNodes nodes array, using to find points of line or polygon
-	 * @param pWays ways array
+	 * @param nodes nodes array, using to find points of line or polygon
+	 * @param ways ways array
 	 * @param pStyleViewer style viewe for assigning style index
 	 * @param pFillingMap map, filling with map polygons and lines
 	 */
-	protected void fillMapWithPolygonsAndLine(ArrayList<OsmNode> pNodes, ArrayList<OsmWay> pWays,
+	protected void fillMapWithPolygonsAndLine(ArrayList<OsmNode> nodes, ArrayList<OsmWay> ways,
 					StyleViewer pStyleViewer, OnlineMap pFillingMap)
 	{
-		if (pNodes == null || pWays == null || pStyleViewer == null || pFillingMap == null)
+		if (nodes == null || ways == null || pStyleViewer == null || pFillingMap == null)
 		{
 			return;
 		}
 
-		for (OsmWay way : pWays)
+		for (OsmWay way : ways)
 		{
-			MapObject newObject = createMapObjectByWay(way, pNodes);
+			MapObject newObject = createMapObjectByWay(way, nodes);
 			if (newObject != null)
 			{
 				newObject.assignStyleIndex(pStyleViewer);
@@ -142,21 +142,21 @@ public class OnlineMapLoader
 	/**
 	 * Create map polygon or map line by osm way
 	 *
-	 * @param pWay osm way
-	 * @param pNodes nodes, using to find points of way
+	 * @param way osm way
+	 * @param nodes nodes, using to find points of way
 	 * @return map polygon or map line created by osm way. null if can not be
 	 * created
 	 */
-	protected MapObject createMapObjectByWay(OsmWay pWay, ArrayList<OsmNode> pNodes)
+	protected MapObject createMapObjectByWay(OsmWay way, ArrayList<OsmNode> nodes)
 	{
-		if (pWay == null)
+		if (way == null)
 		{
 			return null;
 		}
 
-		ArrayList<Long> nodesIds = pWay.getNodesIds();
-		DefenitionTags creatingObjectTags = createDefentionTagsByOsmTags(pWay.getTags());
-		MapPosition[] objectPoints = findPointsInOsmNodes(nodesIds, pNodes);
+		ArrayList<Long> nodesIds = way.getNodesIds();
+		DefenitionTags creatingObjectTags = createDefentionTagsByOsmTags(way.getTags());
+		MapPosition[] objectPoints = findPointsInOsmNodes(nodesIds, nodes);
 		if (nodesIds.isEmpty() || objectPoints.length == 0 || creatingObjectTags == null)
 		{
 			return null;
@@ -167,11 +167,11 @@ public class OnlineMapLoader
 		boolean wayDescribesPolygon = nodesIds.get(0).equals(nodesIds.get(nodesIds.size() - 1));
 		if (wayDescribesPolygon)
 		{
-			creatingMapObject = new MapPolygon(pWay.getId(), creatingObjectTags, objectPoints);
+			creatingMapObject = new MapPolygon(way.getId(), creatingObjectTags, objectPoints);
 		}
 		else
 		{
-			creatingMapObject = new MapLine(pWay.getId(), creatingObjectTags, objectPoints);
+			creatingMapObject = new MapLine(way.getId(), creatingObjectTags, objectPoints);
 		}
 
 		return creatingMapObject;
@@ -181,31 +181,31 @@ public class OnlineMapLoader
 	 * Create array of point for map line or map polygon by finding them in nodes
 	 * array, using ids
 	 *
-	 * @param pNodesIds array of way ids
-	 * @param pNodes nodes, using to find points of way
+	 * @param nodesIds array of way ids
+	 * @param nodes nodes, using to find points of way
 	 * @return array of point for map line or map polygon. Empty if one or more
 	 * points not founded
 	 */
-	protected MapPosition[] findPointsInOsmNodes(ArrayList<Long> pNodesIds, ArrayList<OsmNode> pNodes)
+	protected MapPosition[] findPointsInOsmNodes(ArrayList<Long> nodesIds, ArrayList<OsmNode> nodes)
 	{
-		if (pNodesIds == null || pNodes == null)
+		if (nodesIds == null || nodes == null)
 		{
 			return new MapPosition[0];
 		}
-		if (pNodesIds.isEmpty() || pNodes.isEmpty())
+		if (nodesIds.isEmpty() || nodes.isEmpty())
 		{
 			return new MapPosition[0];
 		}
 
-		MapPosition[] foundPoints = new MapPosition[pNodesIds.size()];
+		MapPosition[] foundPoints = new MapPosition[nodesIds.size()];
 		boolean allNodesFounds = true;
-		for (int i = 0; i < pNodesIds.size(); i++)
+		for (int i = 0; i < nodesIds.size(); i++)
 		{
 			boolean nodeFound = false;
 
-			for (OsmNode osmNode : pNodes)
+			for (OsmNode osmNode : nodes)
 			{
-				if (osmNode.getId() == pNodesIds.get(i))
+				if (osmNode.getId() == nodesIds.get(i))
 				{
 					foundPoints[i] = new MapPosition(osmNode.getLatitude(), osmNode.getLongitude());
 					nodeFound = true;
@@ -232,29 +232,29 @@ public class OnlineMapLoader
 	/**
 	 * Create map points from osm nodes and add them to map
 	 *
-	 * @param pNodes array of nodes, readed from .osm
-	 * @param pStyleViewer style viewer for assigning style index for creating map
+	 * @param nodes array of nodes, readed from .osm
+	 * @param styleViewer style viewer for assigning style index for creating map
 	 * points
-	 * @param pFillingMap map, filling with map points, created by osm nodes
+	 * @param fillingMap map, filling with map points, created by osm nodes
 	 */
-	protected void fillMapWithPoints(ArrayList<OsmNode> pNodes, StyleViewer pStyleViewer, OnlineMap pFillingMap)
+	protected void fillMapWithPoints(ArrayList<OsmNode> nodes, StyleViewer styleViewer, OnlineMap fillingMap)
 	{
-		if (pFillingMap == null || pStyleViewer == null || pNodes == null)
+		if (fillingMap == null || styleViewer == null || nodes == null)
 		{
 			return;
 		}
-		if (pNodes.isEmpty())
+		if (nodes.isEmpty())
 		{
 			return;
 		}
 
-		for (OsmNode currentNode : pNodes)
+		for (OsmNode currentNode : nodes)
 		{
 			MapPoint newPoint = createMapPointByOsmNode(currentNode);
 			if (newPoint != null)
 			{
-				newPoint.assignStyleIndex(pStyleViewer);
-				pFillingMap.addObject(newPoint);
+				newPoint.assignStyleIndex(styleViewer);
+				fillingMap.addObject(newPoint);
 			}
 		}
 	}
@@ -262,17 +262,17 @@ public class OnlineMapLoader
 	/**
 	 * Creates map point by osm node
 	 *
-	 * @param pNode osm node
+	 * @param node osm node
 	 * @return map point created by osm node
 	 */
-	protected MapPoint createMapPointByOsmNode(OsmNode pNode)
+	protected MapPoint createMapPointByOsmNode(OsmNode node)
 	{
-		if (pNode == null)
+		if (node == null)
 		{
 			return null;
 		}
 
-		DefenitionTags creatingPointTags = createDefentionTagsByOsmTags(pNode.getTags());
+		DefenitionTags creatingPointTags = createDefentionTagsByOsmTags(node.getTags());
 		// node without tag is not a MapPoint (can not be displayed), 
 		// it will be included in MapLine like MapPosition
 		if (creatingPointTags == null)
@@ -284,8 +284,8 @@ public class OnlineMapLoader
 			return null;
 		}
 
-		MapPoint creatingPoint = new MapPoint(new MapPosition(pNode.getLatitude(), pNode.getLongitude()),
-						pNode.getId(), creatingPointTags);
+		MapPoint creatingPoint = new MapPoint(new MapPosition(node.getLatitude(), node.getLongitude()),
+						node.getId(), creatingPointTags);
 
 		return creatingPoint;
 	}
@@ -293,20 +293,20 @@ public class OnlineMapLoader
 	/**
 	 * Create defenition tags by osm tags array
 	 *
-	 * @param pOsmTags array of osm tags
+	 * @param osmTags array of osm tags
 	 * @return defenition tags created by osm tags array
 	 */
-	protected DefenitionTags createDefentionTagsByOsmTags(ArrayList<OsmTag> pOsmTags)
+	protected DefenitionTags createDefentionTagsByOsmTags(ArrayList<OsmTag> osmTags)
 	{
-		if (pOsmTags == null)
+		if (osmTags == null)
 		{
 			return null;
 		}
 
 		EditableDefenitionTags creatingTags = new EditableDefenitionTags();
-		for (int i = 0; i < pOsmTags.size(); i++)
+		for (int i = 0; i < osmTags.size(); i++)
 		{
-			MapTag newTag = createMapTagByOsmTag(pOsmTags.get(i));
+			MapTag newTag = createMapTagByOsmTag(osmTags.get(i));
 			if (newTag != null)
 			{
 				creatingTags.add(newTag);
@@ -318,20 +318,20 @@ public class OnlineMapLoader
 	/**
 	 * Create map tag by osm tag
 	 *
-	 * @param pOsmTag osm tag
+	 * @param osmTag osm tag
 	 * @return map tag created by osm tag
 	 */
-	protected MapTag createMapTagByOsmTag(OsmTag pOsmTag)
+	protected MapTag createMapTagByOsmTag(OsmTag osmTag)
 	{
-		if (pOsmTag == null)
+		if (osmTag == null)
 		{
 			return null;
 		}
-		if (pOsmTag.getKey().isEmpty())
+		if (osmTag.getKey().isEmpty())
 		{
 			return null;
 		}
 
-		return new MapTag(pOsmTag.getKey(), pOsmTag.getValue());
+		return new MapTag(osmTag.getKey(), osmTag.getValue());
 	}
 }

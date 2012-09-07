@@ -21,7 +21,7 @@ public class OnlineMap implements Map
 	protected ArrayList<MapObject> objects;
 
 	/**
-	 * Default constructor
+	 * Create empty map
 	 */
 	public OnlineMap()
 	{
@@ -31,41 +31,49 @@ public class OnlineMap implements Map
 	/**
 	 * Add object to map. If object is null it will not be added
 	 *
-	 * @param pObject object for adding
+	 * @param objectToAdd object for adding
 	 */
-	public void addObject(MapObject pObject)
+	public void addObject(MapObject objectToAdd)
 	{
-		if (pObject == null)
+		if (objectToAdd == null)
+		{
 			return;
+		}
 
-		if (pObject.getStyleIndex() != null)
-			objects.add(pObject);
+		if (objectToAdd.getStyleIndex() != null)
+		{
+			objects.add(objectToAdd);
+		}
 	}
 
 	/**
 	 * Sort all objects by draw priority
 	 *
-	 * @param pStyleViewer Style viewer to find object draw priority
+	 * @param styleViewer Style viewer to find object draw priority
 	 */
 	@Override
-	public void sortObjectsByDrawPriority(StyleViewer pStyleViewer)
+	public void sortObjectsByDrawPriority(StyleViewer styleViewer)
 	{
-		MapObjectDrawPriorityComparator objectsComparator = new MapObjectDrawPriorityComparator(pStyleViewer);
+		MapObjectDrawPriorityComparator objectsComparator = new MapObjectDrawPriorityComparator(styleViewer);
 		Collections.sort(objects, objectsComparator);
 	}
 
 	/**
 	 * Accept objects renderer visitor. Render every object of map
 	 *
-	 * @param pObjectsRenderer objects renderer
+	 * @param objectsRenderer objects renderer
 	 */
 	@Override
-	public void acceptObjectsRenderer(MapObjectsRenderer pObjectsRenderer)
+	public void acceptObjectsRenderer(MapObjectsRenderer objectsRenderer)
 	{
-		if (pObjectsRenderer == null)
+		if (objectsRenderer == null)
+		{
 			return;
+		}
 
 		for (int i = 0; i < objects.size(); i++)
-			objects.get(i).acceptRenderer(pObjectsRenderer);
+		{
+			objects.get(i).acceptRenderer(objectsRenderer);
+		}
 	}
 }

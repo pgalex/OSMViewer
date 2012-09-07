@@ -25,7 +25,7 @@ public class OsmBounds
 	private double longitudeMaximum;
 
 	/**
-	 * Default constructor
+	 * Create zero bounds
 	 */
 	public OsmBounds()
 	{
@@ -38,11 +38,11 @@ public class OsmBounds
 	/**
 	 * Set latitude minimum
 	 *
-	 * @param pLatitudeMinimum Latitude minimum
+	 * @param latitudeMinimumToSet Latitude minimum
 	 */
-	public void setLatitudeMinimum(double pLatitudeMinimum)
+	public void setLatitudeMinimum(double latitudeMinimumToSet)
 	{
-		latitudeMinimum = pLatitudeMinimum;
+		latitudeMinimum = latitudeMinimumToSet;
 	}
 
 	/**
@@ -58,11 +58,11 @@ public class OsmBounds
 	/**
 	 * Set latitude maximum
 	 *
-	 * @param pLatitudeMaximum Latitude maximum
+	 * @param latitudeMaximumToSet Latitude maximum
 	 */
-	public void setLatitudeMaximum(double pLatitudeMaximum)
+	public void setLatitudeMaximum(double latitudeMaximumToSet)
 	{
-		latitudeMaximum = pLatitudeMaximum;
+		latitudeMaximum = latitudeMaximumToSet;
 	}
 
 	/**
@@ -78,11 +78,11 @@ public class OsmBounds
 	/**
 	 * Set longitude minimum
 	 *
-	 * @param pLongitudeMinimum Longitude minimum
+	 * @param longitudeMinimumToSet Longitude minimum
 	 */
-	public void setLongitudeMinimum(double pLongitudeMinimum)
+	public void setLongitudeMinimum(double longitudeMinimumToSet)
 	{
-		longitudeMinimum = pLongitudeMinimum;
+		longitudeMinimum = longitudeMinimumToSet;
 	}
 
 	/**
@@ -98,11 +98,11 @@ public class OsmBounds
 	/**
 	 * Set longitude maximum
 	 *
-	 * @param pLongitudeMaximum Longitude maximum
+	 * @param longitudeMaximumToSet Longitude maximum
 	 */
-	public void setLongitudeMaximum(double pLongitudeMaximum)
+	public void setLongitudeMaximum(double longitudeMaximumToSet)
 	{
-		longitudeMaximum = pLongitudeMaximum;
+		longitudeMaximum = longitudeMaximumToSet;
 	}
 
 	/**

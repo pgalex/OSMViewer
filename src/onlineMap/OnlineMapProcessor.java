@@ -47,23 +47,23 @@ public class OnlineMapProcessor implements DrawableOnPanel
 	private StyleEditor styleViewer;
 
 	/**
-	 * Constructor
+	 * Create online map processor
 	 *
-	 * @param pStartViewPosition start view position (on map)
-	 * @param pStartScaleLevel start scale level
-	 * @param pStartCanvasWidth start target canvas width
-	 * @param pStartCanvasHeight start target canvas height
+	 * @param startViewPosition start view position (on map)
+	 * @param startScaleLevel start scale level
+	 * @param startCanvasWidth start target canvas width
+	 * @param startCanvasHeight start target canvas height
 	 */
-	public OnlineMapProcessor(MapPosition pStartViewPosition, int pStartScaleLevel,
-					int pStartCanvasWidth, int pStartCanvasHeight)
+	public OnlineMapProcessor(MapPosition startViewPosition, int startScaleLevel,
+					int startCanvasWidth, int startCanvasHeight)
 	{
 		map = new OnlineMap();
 		
 		mapLoader = new OnlineMapLoader();
 		
-		renderer = new MapRenderer(MINIMUM_SCALE_LEVEL, MAXIMUM_SCALE_LEVEL, pStartScaleLevel);
-		renderer.setViewPosition(pStartViewPosition);
-		renderer.setTargetCanvasDrawingArea(new Rectangle(0, 0, pStartCanvasWidth, pStartCanvasHeight));
+		renderer = new MapRenderer(MINIMUM_SCALE_LEVEL, MAXIMUM_SCALE_LEVEL, startScaleLevel);
+		renderer.setViewPosition(startViewPosition);
+		renderer.setTargetCanvasDrawingArea(new Rectangle(0, 0, startCanvasWidth, startCanvasHeight));
 		
 		styleViewer = DrawingStylesFactory.createStyleEditor();
 		
@@ -74,36 +74,36 @@ public class OnlineMapProcessor implements DrawableOnPanel
 	/**
 	 * Set new size of target canvas
 	 *
-	 * @param pWidth new width
-	 * @param pHeight new height
+	 * @param width new width
+	 * @param height new height
 	 */
-	public void setCanvasSize(int pWidth, int pHeight)
+	public void setCanvasSize(int width, int height)
 	{
-		renderer.setTargetCanvasDrawingArea(new Rectangle(0, 0, pWidth, pHeight));
+		renderer.setTargetCanvasDrawingArea(new Rectangle(0, 0, width, height));
 	}
 
 	/**
 	 * Set new view position (center point of rendering map area) using position
 	 * on map
 	 *
-	 * @param pPositionOnMap new view position
+	 * @param positionOnMap new view position
 	 */
-	public void setViewPosition(MapPosition pPositionOnMap)
+	public void setViewPosition(MapPosition positionOnMap)
 	{
-		renderer.setViewPosition(pPositionOnMap);
+		renderer.setViewPosition(positionOnMap);
 	}
 
 	/**
 	 * Move current view position by pixels distance by x and y
 	 *
-	 * @param pDeltaXInPixels moving distance by x in pixels
-	 * @param pDeltaYInPixels moving distance by y in pixels
+	 * @param deltaXInPixels moving distance by x in pixels
+	 * @param deltaYInPixels moving distance by y in pixels
 	 */
-	public void moveViewPositionByPixels(int pDeltaXInPixels, int pDeltaYInPixels)
+	public void moveViewPositionByPixels(int deltaXInPixels, int deltaYInPixels)
 	{
 		Rectangle targetCanvasArea = renderer.getTargetCanvasDrawingArea();
-		Point2D newViewPositionOnCanvas = new Point2D.Double(targetCanvasArea.getWidth() / 2 + pDeltaXInPixels,
-						targetCanvasArea.getHeight() / 2 + pDeltaYInPixels);
+		Point2D newViewPositionOnCanvas = new Point2D.Double(targetCanvasArea.getWidth() / 2 + deltaXInPixels,
+						targetCanvasArea.getHeight() / 2 + deltaYInPixels);
 
 		MapPosition newViewPositionOnMap = renderer.canvasToGeographics(newViewPositionOnCanvas);
 		renderer.setViewPosition(newViewPositionOnMap);
@@ -112,11 +112,11 @@ public class OnlineMapProcessor implements DrawableOnPanel
 	/**
 	 * Set new scale level
 	 *
-	 * @param pScaleLevel new scale level
+	 * @param scaleLevel new scale level
 	 */
-	public void setScaleLevel(int pScaleLevel)
+	public void setScaleLevel(int scaleLevel)
 	{
-		renderer.setScaleLevel(pScaleLevel);
+		renderer.setScaleLevel(scaleLevel);
 	}
 
 	/**
@@ -132,12 +132,12 @@ public class OnlineMapProcessor implements DrawableOnPanel
 	/**
 	 * Draw objects on drawing panel
 	 *
-	 * @param pPanelGraphics drawing panel graphics
+	 * @param panelGraphics drawing panel graphics
 	 */
 	@Override
-	public void drawOnPanel(Graphics2D pPanelGraphics)
+	public void drawOnPanel(Graphics2D panelGraphics)
 	{
-		renderer.renderMap(pPanelGraphics, map, styleViewer);
+		renderer.renderMap(panelGraphics, map, styleViewer);
 	}
 
 	private void testSetupStyleViewer()
