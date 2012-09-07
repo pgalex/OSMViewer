@@ -23,7 +23,7 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 	private ArrayList<MapObjectDrawSettings> styles;
 
 	/**
-	 * Default constructor
+	 * Create with default values
 	 */
 	public MapObjectDrawStylesEditor()
 	{
@@ -35,17 +35,17 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 	/**
 	 * Write into stream
 	 *
-	 * @param pOutput output stream
+	 * @param output output stream
 	 * @throws IOException writing error
 	 */
 	@Override
-	public void writeToStream(DataOutputStream pOutput) throws IOException
+	public void writeToStream(DataOutputStream output) throws IOException
 	{
 		try
 		{
-			super.writeToStream(pOutput);
+			super.writeToStream(output);
 
-			writeStylesToStream(styles.toArray(new MapObjectDrawSettings[styles.size()]), pOutput);
+			writeStylesToStream(styles.toArray(new MapObjectDrawSettings[styles.size()]), output);
 		}
 		catch (Exception ex)
 		{
@@ -56,18 +56,18 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 	/**
 	 * Read from stream
 	 *
-	 * @param pInput input stream
+	 * @param input input stream
 	 * @throws IOException reading error
 	 */
 	@Override
-	public void readFromStream(DataInputStream pInput) throws IOException
+	public void readFromStream(DataInputStream input) throws IOException
 	{
 		try
 		{
-			super.readFromStream(pInput);
+			super.readFromStream(input);
 
 			styles.clear();
-			MapObjectDrawSettings[] readingStyles = readStylesFromStream(pInput);
+			MapObjectDrawSettings[] readingStyles = readStylesFromStream(input);
 			Collections.addAll(styles, readingStyles);
 		}
 		catch (IOException ex)
@@ -79,28 +79,28 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 	/**
 	 * Set draw settings of map object by index
 	 *
-	 * @param pIndex style index
-	 * @param pDrawSettings new draw settings of object with pIndex
+	 * @param index style index
+	 * @param drawSettingsToSet new draw settings of object with index
 	 * @throws StyleIndexOutOfBoundsException style index is out of bounds
 	 * @throws MapObjectDrawSettingsIsNullException new draw settings is null
 	 */
 	@Override
-	public void setMapObjectDrawSettings(Integer pIndex, MapObjectDrawSettings pDrawSettings) throws StyleIndexOutOfBoundsException, MapObjectDrawSettingsIsNullException
+	public void setMapObjectDrawSettings(Integer index, MapObjectDrawSettings drawSettingsToSet) throws StyleIndexOutOfBoundsException, MapObjectDrawSettingsIsNullException
 	{
-		if (pIndex == null)
+		if (index == null)
 		{
-			throw new StyleIndexOutOfBoundsException(this, pIndex, 0, styles.size());
+			throw new StyleIndexOutOfBoundsException(this, index, 0, styles.size());
 		}
-		if (pIndex < 0 || pIndex >= styles.size())
+		if (index < 0 || index >= styles.size())
 		{
-			throw new StyleIndexOutOfBoundsException(this, pIndex, 0, styles.size());
+			throw new StyleIndexOutOfBoundsException(this, index, 0, styles.size());
 		}
-		if (pDrawSettings == null)
+		if (drawSettingsToSet == null)
 		{
 			throw new MapObjectDrawSettingsIsNullException(this);
 		}
 
-		styles.set(pIndex, pDrawSettings);
+		styles.set(index, drawSettingsToSet);
 	}
 
 	/**
@@ -117,78 +117,78 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 	/**
 	 * Get id of map object drawing style
 	 *
-	 * @param pDefenitionTags tags of map object
+	 * @param objectDefenitionTags tags of map object
 	 * @return id of style of object with that defenition tags. null if not found
 	 */
 	@Override
-	public Integer findStyleIndex(DefenitionTags pDefenitionTags)
+	public Integer findStyleIndex(DefenitionTags objectDefenitionTags)
 	{
-		if (pDefenitionTags == null)
+		if (objectDefenitionTags == null)
 		{
 			return null;
 		}
 
-		return findStyleIndex(styles.toArray(new MapObjectDrawSettings[styles.size()]), pDefenitionTags);
+		return findStyleIndex(styles.toArray(new MapObjectDrawSettings[styles.size()]), objectDefenitionTags);
 	}
 
 	/**
 	 * Get map object draw settings by index
 	 *
-	 * @param pIndex index of style
+	 * @param index index of style
 	 * @return map object drawing style. null if style with this index not found
 	 */
 	@Override
-	public MapObjectDrawSettings getMapObjectDrawSettings(Integer pIndex)
+	public MapObjectDrawSettings getMapObjectDrawSettings(Integer index)
 	{
-		if (pIndex == null)
+		if (index == null)
 		{
 			return null;
 		}
-		if (pIndex < 0 || pIndex >= styles.size())
+		if (index < 0 || index >= styles.size())
 		{
 			return null;
 		}
 
-		return styles.get(pIndex);
+		return styles.get(index);
 	}
 
 	/**
 	 * Add draw settings of map object
 	 *
-	 * @param pDrawSettings new map object style
+	 * @param drawSettingsToAdd new map object style
 	 * @throws MapObjectDrawSettingsIsNullException new style is null
 	 */
 	@Override
-	public void addMapObjectDrawSettings(MapObjectDrawSettings pDrawSettings) throws MapObjectDrawSettingsIsNullException
+	public void addMapObjectDrawSettings(MapObjectDrawSettings drawSettingsToAdd) throws MapObjectDrawSettingsIsNullException
 	{
-		if (pDrawSettings == null)
+		if (drawSettingsToAdd == null)
 		{
 			throw new MapObjectDrawSettingsIsNullException(this);
 		}
 
-		styles.add(pDrawSettings);
+		styles.add(drawSettingsToAdd);
 	}
 
 	/**
 	 * Remove draw settings by index
 	 *
-	 * @param pIndex style index
+	 * @param index style index
 	 * @throws StyleIndexOutOfBoundsException index out of bounds
 	 */
 	@Override
-	public void removeMapObjectDrawSettings(Integer pIndex) throws StyleIndexOutOfBoundsException
+	public void removeMapObjectDrawSettings(Integer index) throws StyleIndexOutOfBoundsException
 	{
-		if (pIndex == null)
+		if (index == null)
 		{
-			throw new StyleIndexOutOfBoundsException(this, pIndex, 0, styles.size());
+			throw new StyleIndexOutOfBoundsException(this, index, 0, styles.size());
 		}
 
-		if (pIndex < 0 || pIndex >= styles.size())
+		if (index < 0 || index >= styles.size())
 		{
-			throw new StyleIndexOutOfBoundsException(this, pIndex, 0, styles.size());
+			throw new StyleIndexOutOfBoundsException(this, index, 0, styles.size());
 		}
 
-		styles.remove((int) pIndex);
+		styles.remove((int) index);
 	}
 
 	/**
@@ -205,29 +205,29 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 	/**
 	 * Set new map drawing settings
 	 *
-	 * @param pMapDrawingSettings new map drawing settings
+	 * @param mapDrawingSettingsToSet new map drawing settings
 	 * @throws MapDrawSettingsIsNullException new settins is null
 	 */
 	@Override
-	public void setMapDrawSettings(MapDrawSettings pMapDrawingSettings) throws MapDrawSettingsIsNullException
+	public void setMapDrawSettings(MapDrawSettings mapDrawingSettingsToSet) throws MapDrawSettingsIsNullException
 	{
-		if (pMapDrawingSettings == null)
+		if (mapDrawingSettingsToSet == null)
 		{
 			throw new MapDrawSettingsIsNullException(this);
 		}
 
-		mapDrawSettings = pMapDrawingSettings;
+		mapDrawSettings = mapDrawingSettingsToSet;
 	}
 
 	/**
 	 * Find map object drawing style by index
 	 *
-	 * @param pIndex index of style
+	 * @param index index of style
 	 * @return map object drawing style. null if style with this index not found
 	 */
 	@Override
-	public MapObjectDrawStyle findMapObjectDrawStyle(Integer pIndex)
+	public MapObjectDrawStyle findMapObjectDrawStyle(Integer index)
 	{
-		return getMapObjectDrawSettings(pIndex);
+		return getMapObjectDrawSettings(index);
 	}
 }
