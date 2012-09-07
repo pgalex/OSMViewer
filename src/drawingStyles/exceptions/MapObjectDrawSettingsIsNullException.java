@@ -7,15 +7,6 @@ import drawingStyles.StyleEditor;
  *
  * @author pgalex
  */
-public class MapObjectDrawSettingsIsNullException extends StyleEditorRuntimeException
+public class MapObjectDrawSettingsIsNullException extends DrawingStylesRuntimeException
 {
-	/**
-	 * Constructor
-	 *
-	 * @param pEditorThrowedException Style editor that throwed exception
-	 */
-	public MapObjectDrawSettingsIsNullException(StyleEditor pEditorThrowedException)
-	{
-		super(pEditorThrowedException);
-	}
 }

@@ -40,7 +40,7 @@ public class MapObjectDrawStylesEditorTest
 		}
 		catch (MapDrawSettingsIsNullException ex)
 		{
-			assertEquals(testEditor, ex.getEditorThrowedException());
+			// ok
 		}
 	}
 
@@ -82,7 +82,7 @@ public class MapObjectDrawStylesEditorTest
 		}
 		catch (MapObjectDrawSettingsIsNullException ex)
 		{
-			assertEquals(editor, ex.getEditorThrowedException());
+			// ok
 		}
 	}
 
@@ -160,7 +160,6 @@ public class MapObjectDrawStylesEditorTest
 		}
 		catch (StyleIndexOutOfBoundsException ex)
 		{
-			assertEquals(editor, ex.getEditorThrowedException());
 			assertEquals(-1, (int) ex.getIncorrectStyleIndex());
 			assertEquals(0, (int) ex.getBoundsMinimum());
 			assertEquals(editor.countOfMapObjectDrawSettings(), (int) ex.getBoundsMaximum());
@@ -185,7 +184,6 @@ public class MapObjectDrawStylesEditorTest
 		}
 		catch (StyleIndexOutOfBoundsException ex)
 		{
-			assertEquals(editor, ex.getEditorThrowedException());
 			assertEquals(editor.countOfMapObjectDrawSettings() + 1, (int) ex.getIncorrectStyleIndex());
 			assertEquals(0, (int) ex.getBoundsMinimum());
 			assertEquals(editor.countOfMapObjectDrawSettings(), (int) ex.getBoundsMaximum());
@@ -209,7 +207,7 @@ public class MapObjectDrawStylesEditorTest
 		}
 		catch (MapObjectDrawSettingsIsNullException ex)
 		{
-			assertEquals(editor, ex.getEditorThrowedException());
+			// ok
 		}
 	}
 
@@ -228,7 +226,6 @@ public class MapObjectDrawStylesEditorTest
 		}
 		catch (StyleIndexOutOfBoundsException ex)
 		{
-			assertEquals(editor, ex.getEditorThrowedException());
 			assertEquals(null, ex.getIncorrectStyleIndex());
 			assertEquals(0, (int) ex.getBoundsMinimum());
 			assertEquals(editor.countOfMapObjectDrawSettings(), (int) ex.getBoundsMaximum());

@@ -89,15 +89,15 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 	{
 		if (index == null)
 		{
-			throw new StyleIndexOutOfBoundsException(this, index, 0, styles.size());
+			throw new StyleIndexOutOfBoundsException(index, 0, styles.size());
 		}
 		if (index < 0 || index >= styles.size())
 		{
-			throw new StyleIndexOutOfBoundsException(this, index, 0, styles.size());
+			throw new StyleIndexOutOfBoundsException(index, 0, styles.size());
 		}
 		if (drawSettingsToSet == null)
 		{
-			throw new MapObjectDrawSettingsIsNullException(this);
+			throw new MapObjectDrawSettingsIsNullException();
 		}
 
 		styles.set(index, drawSettingsToSet);
@@ -163,7 +163,7 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 	{
 		if (drawSettingsToAdd == null)
 		{
-			throw new MapObjectDrawSettingsIsNullException(this);
+			throw new MapObjectDrawSettingsIsNullException();
 		}
 
 		styles.add(drawSettingsToAdd);
@@ -180,12 +180,12 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 	{
 		if (index == null)
 		{
-			throw new StyleIndexOutOfBoundsException(this, index, 0, styles.size());
+			throw new StyleIndexOutOfBoundsException(index, 0, styles.size());
 		}
 
 		if (index < 0 || index >= styles.size())
 		{
-			throw new StyleIndexOutOfBoundsException(this, index, 0, styles.size());
+			throw new StyleIndexOutOfBoundsException(index, 0, styles.size());
 		}
 
 		styles.remove((int) index);
@@ -213,7 +213,7 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 	{
 		if (mapDrawingSettingsToSet == null)
 		{
-			throw new MapDrawSettingsIsNullException(this);
+			throw new MapDrawSettingsIsNullException();
 		}
 
 		mapDrawSettings = mapDrawingSettingsToSet;

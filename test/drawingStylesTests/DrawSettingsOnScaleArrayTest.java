@@ -149,7 +149,6 @@ public class DrawSettingsOnScaleArrayTest
 		}
 		catch (ScaleLevelOutOfBoundsException ex)
 		{
-			assertEquals(stylesArray, ex.getArrayThrowedException());
 			assertEquals(stylesArray.getMinimumScaleLevel() - 1, ex.getIncorrectScaleLevel());
 			assertEquals(stylesArray.getMinimumScaleLevel(), ex.getBoundsMinimum());
 			assertEquals(stylesArray.getMaximumScaleLevel(), ex.getBoundsMaximum());
@@ -171,7 +170,6 @@ public class DrawSettingsOnScaleArrayTest
 		}
 		catch (ScaleLevelOutOfBoundsException ex)
 		{
-			assertEquals(stylesArray, ex.getArrayThrowedException());
 			assertEquals(stylesArray.getMaximumScaleLevel() + 1, ex.getIncorrectScaleLevel());
 			assertEquals(stylesArray.getMinimumScaleLevel(), ex.getBoundsMinimum());
 			assertEquals(stylesArray.getMaximumScaleLevel(), ex.getBoundsMaximum());
@@ -193,7 +191,7 @@ public class DrawSettingsOnScaleArrayTest
 		}
 		catch (DrawSettingsOnScaleIsNullException ex)
 		{
-			assertEquals(stylesArray, ex.getArrayThrowedException());
+			// ok
 		}
 	}
 

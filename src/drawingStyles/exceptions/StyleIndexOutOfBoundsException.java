@@ -7,7 +7,7 @@ import drawingStyles.StyleEditor;
  *
  * @author pgalex
  */
-public class StyleIndexOutOfBoundsException extends StyleEditorRuntimeException
+public class StyleIndexOutOfBoundsException extends DrawingStylesRuntimeException
 {
 	/**
 	 * Incorrect style index
@@ -25,14 +25,12 @@ public class StyleIndexOutOfBoundsException extends StyleEditorRuntimeException
 	/**
 	 * Constructor
 	 *
-	 * @param pEditorThrowedException Style editor that throwed exception
 	 * @param pIncorrectStyleIndex Style index that was incorrect
 	 * @param pBoundsMinimum Minimun value of style index
 	 * @param pBoundsMaximum Maximum value of style index
 	 */
-	public StyleIndexOutOfBoundsException(StyleEditor pEditorThrowedException, Integer pIncorrectStyleIndex, Integer pBoundsMinimum, Integer pBoundsMaximum)
+	public StyleIndexOutOfBoundsException(Integer pIncorrectStyleIndex, Integer pBoundsMinimum, Integer pBoundsMaximum)
 	{
-		super(pEditorThrowedException);
 		incorrectStyleIndex = pIncorrectStyleIndex;
 		boundsMinimum = pBoundsMinimum;
 		boundsMaximum = pBoundsMaximum;

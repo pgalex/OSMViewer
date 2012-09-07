@@ -90,7 +90,7 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	{
 		if (drawSettingToSet == null)
 		{
-			throw new DrawSettingsOnScaleIsNullException(this);
+			throw new DrawSettingsOnScaleIsNullException();
 		}
 		// ScaleLevelOutOfBoundsException will be throwen in convertScaleLevelToArrayIndex
 
@@ -110,7 +110,7 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	{
 		if (scaleLevelToConvert < minimumScaleLevel || scaleLevelToConvert > maximumScaleLevel)
 		{
-			throw new ScaleLevelOutOfBoundsException(this, scaleLevelToConvert, minimumScaleLevel, maximumScaleLevel);
+			throw new ScaleLevelOutOfBoundsException(scaleLevelToConvert, minimumScaleLevel, maximumScaleLevel);
 		}
 
 		return scaleLevelToConvert - minimumScaleLevel;

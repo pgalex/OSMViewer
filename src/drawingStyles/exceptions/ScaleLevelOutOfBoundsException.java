@@ -7,7 +7,7 @@ import drawingStyles.DrawSettingsOnScaleArray;
  *
  * @author pgalex
  */
-public class ScaleLevelOutOfBoundsException extends DrawSettingsOnScaleArrayRuntimeException
+public class ScaleLevelOutOfBoundsException extends DrawingStylesRuntimeException
 {
 	/**
 	 * Value of scale level that was incorrect
@@ -25,15 +25,12 @@ public class ScaleLevelOutOfBoundsException extends DrawSettingsOnScaleArrayRunt
 	/**
 	 * Constructor
 	 *
-	 * @param pArrayThrowedException Scaled object style array throwed this
-	 * exception
 	 * @param pIncorrectScaleLevel Value of scale level that was incorrect
 	 * @param pBoundsMinimum Minimum value of scale level
 	 * @param pBoundsMaximum Maximum value of scale level
 	 */
-	public ScaleLevelOutOfBoundsException(DrawSettingsOnScaleArray pArrayThrowedException, int pIncorrectScaleLevel, int pBoundsMinimum, int pBoundsMaximum)
+	public ScaleLevelOutOfBoundsException(int pIncorrectScaleLevel, int pBoundsMinimum, int pBoundsMaximum)
 	{
-		super(pArrayThrowedException);
 		incorrectScaleLevel = pIncorrectScaleLevel;
 		boundsMinimum = pBoundsMinimum;
 		boundsMaximum = pBoundsMaximum;
