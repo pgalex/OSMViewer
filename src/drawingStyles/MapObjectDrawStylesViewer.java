@@ -18,7 +18,7 @@ public class MapObjectDrawStylesViewer extends MapObjectDrawStylesContainer impl
 	private MapObjectDrawSettings[] styles;
 
 	/**
-	 * Default constructor
+	 * Create with default values
 	 */
 	public MapObjectDrawStylesViewer()
 	{
@@ -30,40 +30,40 @@ public class MapObjectDrawStylesViewer extends MapObjectDrawStylesContainer impl
 	/**
 	 * Find index of map object drawing style
 	 *
-	 * @param pDefenitionTags tags of map object
+	 * @param objectDefenitionTags tags of map object
 	 * @return index of style of object with that defenition tags. null if not
 	 * found
 	 */
 	@Override
-	public Integer findStyleIndex(DefenitionTags pDefenitionTags)
+	public Integer findStyleIndex(DefenitionTags objectDefenitionTags)
 	{
-		if (pDefenitionTags == null)
+		if (objectDefenitionTags == null)
 		{
 			return null;
 		}
 
-		return findStyleIndex(styles, pDefenitionTags);
+		return findStyleIndex(styles, objectDefenitionTags);
 	}
 
 	/**
 	 * Find map object drawing style by index
 	 *
-	 * @param pIndex index of style
+	 * @param index index of style
 	 * @return map object drawing style. null if style with this index not found
 	 */
 	@Override
-	public MapObjectDrawStyle findMapObjectDrawStyle(Integer pIndex)
+	public MapObjectDrawStyle findMapObjectDrawStyle(Integer index)
 	{
-		if (pIndex == null)
+		if (index == null)
 		{
 			return null;
 		}
-		if (pIndex < 0 || pIndex >= styles.length)
+		if (index < 0 || index >= styles.length)
 		{
 			return null;
 		}
 
-		return styles[pIndex];
+		return styles[index];
 	}
 
 	/**
@@ -80,17 +80,17 @@ public class MapObjectDrawStylesViewer extends MapObjectDrawStylesContainer impl
 	/**
 	 * Read from stream
 	 *
-	 * @param pInput input stream
+	 * @param input input stream
 	 * @throws IOException reading error
 	 */
 	@Override
-	public void readFromStream(DataInputStream pInput) throws IOException
+	public void readFromStream(DataInputStream input) throws IOException
 	{
 		try
 		{
-			super.readFromStream(pInput);
+			super.readFromStream(input);
 
-			styles = readStylesFromStream(pInput);
+			styles = readStylesFromStream(input);
 		}
 		catch (IOException ex)
 		{
@@ -101,17 +101,17 @@ public class MapObjectDrawStylesViewer extends MapObjectDrawStylesContainer impl
 	/**
 	 * Write into stream
 	 *
-	 * @param pOutput output stream
+	 * @param output output stream
 	 * @throws IOException writing error
 	 */
 	@Override
-	public void writeToStream(DataOutputStream pOutput) throws IOException
+	public void writeToStream(DataOutputStream output) throws IOException
 	{
 		try
 		{
-			super.writeToStream(pOutput);
+			super.writeToStream(output);
 
-			writeStylesToStream(styles, pOutput);
+			writeStylesToStream(styles, output);
 		}
 		catch (Exception ex)
 		{
