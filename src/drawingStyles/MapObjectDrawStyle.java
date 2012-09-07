@@ -45,40 +45,40 @@ public interface MapObjectDrawStyle
 	/**
 	 * Find point draw style on scale level
 	 *
-	 * @param pScaleLevel scale level
-	 * @return point draw style on scale level
+	 * @param scaleLevel scale level
+	 * @return point draw style on scale level. Null if not found
 	 */
-	public PointDrawStyle findPointDrawStyle(int pScaleLevel);
+	public PointDrawStyle findPointDrawStyle(int scaleLevel);
 
 	/**
 	 * Find line style on scale level
 	 *
-	 * @param pScaleLevel scale level
-	 * @return line draw style on scale level
+	 * @param scaleLevel scale level
+	 * @return line draw style on scale level. Null if not found
 	 */
-	public LineDrawStyle findLineDrawStyle(int pScaleLevel);
+	public LineDrawStyle findLineDrawStyle(int scaleLevel);
 
 	/**
 	 * Find polygon style on scale level
 	 *
-	 * @param pScaleLevel scale level
-	 * @return polygon draw style on scale level
+	 * @param scaleLevel scale level
+	 * @return polygon draw style on scale level. Null if not found
 	 */
-	public PolygonDrawStyle findPolygonDrawStyle(int pScaleLevel);
+	public PolygonDrawStyle findPolygonDrawStyle(int scaleLevel);
 
 	/**
 	 * Find text style on scale level
 	 *
-	 * @param pScaleLevel scale level
-	 * @return text draw style on scale level
+	 * @param scaleLevel scale level
+	 * @return text draw style on scale level. Null if not found
 	 */
-	public TextDrawStyle findTextDrawStyle(int pScaleLevel);
+	public TextDrawStyle findTextDrawStyle(int scaleLevel);
 
 	/**
 	 * Find value of tag that means text description of object
 	 *
-	 * @param pTags tags of object
+	 * @param tagsWhereFindText tags of object
 	 * @return text description of object founded in tag. Empty if not found
 	 */
-	public String findTextInTags(DefenitionTags pTags);
+	public String findTextInTags(DefenitionTags tagsWhereFindText);
 }
