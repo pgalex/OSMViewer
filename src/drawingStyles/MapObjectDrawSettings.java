@@ -11,7 +11,7 @@ import java.io.IOException;
  *
  * @author abc
  */
-public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapData, WritableMapData//, Comparable<MapObjectDrawSettings>
+public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapData, WritableMapData
 {
 	/**
 	 * Can be object with this tags a point (single node)
@@ -27,7 +27,6 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	private boolean canBePolygon;
 	/**
 	 * "Keys" of tags that "value" can be drawen on map as text under object
-	 *
 	 */
 	private TextTagsKeys textTagKeys;
 	/**
@@ -41,14 +40,14 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	/**
 	 * How to draw object on each scale level
 	 */
-	private DrawSettingsOnScaleArray scaledStyles;
+	private DrawSettingsOnScaleArray drawSettingsOnScales;
 	/**
 	 * Tags that define map object
 	 */
 	private DefenitionTags defenitionTags;
 
 	/**
-	 * Default constructor
+	 * Create with default values
 	 *
 	 */
 	public MapObjectDrawSettings()
@@ -59,35 +58,35 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 		drawPriority = 1;
 		textTagKeys = new TextTagsKeys();
 		description = "";
-		scaledStyles = new DrawSettingsOnScaleArray();
+		drawSettingsOnScales = new DrawSettingsOnScaleArray();
 		defenitionTags = new DefenitionTags();
 	}
 
 	/**
-	 * Constructor
+	 * Create with parameters
 	 *
-	 * @param pCanBePoint Can be object with this tags a point ( single node )
-	 * @param pCanBeLine Can be object with this tags a line ( non closed way )
-	 * @param pCanBePolygon Can be object with this tags a polygon ( closed way )
-	 * @param pTextTagKeys "Key" of tag that "value" should be drawen on map as
+	 * @param canObjectBePoint Can be object with this tags a point ( single node )
+	 * @param canObjectBeLine Can be object with this tags a line ( non closed way )
+	 * @param canObjectBePolygon Can be object with this tags a polygon ( closed way )
+	 * @param textKeys "Key" of tag that "value" should be drawen on map as
 	 * text under object on a map
-	 * @param pDrawPriority Drawing priority
-	 * @param pDescription Description of map object
-	 * @param pScaledStyles Drawing styles on each scale level
-	 * @param pDefenitionTags Map object defenition tags
+	 * @param objectDrawPriority Drawing priority
+	 * @param objectDescription Description of map object
+	 * @param settingsOnScales Drawing styles on each scale level
+	 * @param objectDefenitionTags Map object defenition tags
 	 */
-	public MapObjectDrawSettings(boolean pCanBePoint, boolean pCanBeLine, boolean pCanBePolygon,
-					TextTagsKeys pTextTagKeys, int pDrawPriority, String pDescription, DrawSettingsOnScaleArray pScaledStyles,
-					DefenitionTags pDefenitionTags)
+	public MapObjectDrawSettings(boolean canObjectBePoint, boolean canObjectBeLine, boolean canObjectBePolygon,
+					TextTagsKeys textKeys, int objectDrawPriority, String objectDescription, DrawSettingsOnScaleArray settingsOnScales,
+					DefenitionTags objectDefenitionTags)
 	{
-		canBePoint = pCanBePoint;
-		canBeLine = pCanBeLine;
-		canBePolygon = pCanBePolygon;
-		textTagKeys = pTextTagKeys;
-		drawPriority = pDrawPriority;
-		description = pDescription;
-		scaledStyles = pScaledStyles;
-		defenitionTags = pDefenitionTags;
+		canBePoint = canObjectBePoint;
+		canBeLine = canObjectBeLine;
+		canBePolygon = canObjectBePolygon;
+		textTagKeys = textKeys;
+		drawPriority = objectDrawPriority;
+		description = objectDescription;
+		drawSettingsOnScales = settingsOnScales;
+		defenitionTags = objectDefenitionTags;
 		initializeNullFields();
 	}
 
@@ -96,9 +95,9 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	 */
 	private void initializeNullFields()
 	{
-		if (scaledStyles == null)
+		if (drawSettingsOnScales == null)
 		{
-			scaledStyles = new DrawSettingsOnScaleArray();
+			drawSettingsOnScales = new DrawSettingsOnScaleArray();
 		}
 		if (defenitionTags == null)
 		{
@@ -182,7 +181,7 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	 */
 	public DrawSettingsOnScaleArray getScaledStyles()
 	{
-		return scaledStyles;
+		return drawSettingsOnScales;
 	}
 
 	/**
@@ -198,15 +197,15 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	/**
 	 * Find point draw style on scale level
 	 *
-	 * @param pScaleLevel scale level
-	 * @return point draw style on scale level
+	 * @param scaleLevel scale level
+	 * @return point draw style on scale level. Null if not found
 	 */
 	@Override
-	public PointDrawStyle findPointDrawStyle(int pScaleLevel)
+	public PointDrawStyle findPointDrawStyle(int scaleLevel)
 	{
 		if (canBePoint)
 		{
-			return scaledStyles.findPointDrawStyle(pScaleLevel);
+			return drawSettingsOnScales.findPointDrawStyle(scaleLevel);
 		}
 		else
 		{
@@ -217,15 +216,15 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	/**
 	 * Find line style on scale level
 	 *
-	 * @param pScaleLevel scale level
-	 * @return line draw style on scale level
+	 * @param scaleLevel scale level
+	 * @return line draw style on scale level. Null if not found
 	 */
 	@Override
-	public LineDrawStyle findLineDrawStyle(int pScaleLevel)
+	public LineDrawStyle findLineDrawStyle(int scaleLevel)
 	{
 		if (canBeLine)
 		{
-			return scaledStyles.findLineDrawStyle(pScaleLevel);
+			return drawSettingsOnScales.findLineDrawStyle(scaleLevel);
 		}
 		else
 		{
@@ -236,15 +235,15 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	/**
 	 * Find polygon style on scale level
 	 *
-	 * @param pScaleLevel scale level
-	 * @return polygon draw style on scale level
+	 * @param scaleLevel scale level
+	 * @return polygon draw style on scale level. Null if not found
 	 */
 	@Override
-	public PolygonDrawStyle findPolygonDrawStyle(int pScaleLevel)
+	public PolygonDrawStyle findPolygonDrawStyle(int scaleLevel)
 	{
 		if (canBePolygon)
 		{
-			return scaledStyles.findPolygonDrawStyle(pScaleLevel);
+			return drawSettingsOnScales.findPolygonDrawStyle(scaleLevel);
 		}
 		else
 		{
@@ -255,58 +254,46 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	/**
 	 * Find text style on scale level
 	 *
-	 * @param pScaleLevel scale level
-	 * @return text draw style on scale level
+	 * @param scaleLevel scale level
+	 * @return text draw style on scale level. Null if not found
 	 */
 	@Override
-	public TextDrawStyle findTextDrawStyle(int pScaleLevel)
+	public TextDrawStyle findTextDrawStyle(int scaleLevel)
 	{
-		return scaledStyles.findTextDrawStyle(pScaleLevel);
+		return drawSettingsOnScales.findTextDrawStyle(scaleLevel);
 	}
 
 	/**
-	 * Find value of tag that means text description of object
+	 * Find value of tag in tags that means text description of object
 	 *
-	 * @param pTags tags of object
-	 * @return text description of object founded in tag. Empty if not found
+	 * @param tagsWhereFindText tags of object where to find text description
+	 * @return text description of object founded in tags. Empty if not found
 	 */
 	@Override
-	public String findTextInTags(DefenitionTags pTags)
+	public String findTextInTags(DefenitionTags tagsWhereFindText)
 	{
-		return textTagKeys.findTextInTags(pTags);
+		return textTagKeys.findTextInTags(tagsWhereFindText);
 	}
-
-	/**
-	 * Compare to. using for sorting
-	 *
-	 * @param pComparedStyle styled for comparing
-	 * @return this object 0 - equal, -1 - more tags count, 1 - less tags count
-	 */
-	/*@Override
-	public int compareTo(MapObjectDrawSettings pComparedStyle)
-	{
-		
-	}*/
 
 	/**
 	 * Read from stream
 	 *
-	 * @param pInput input stream
+	 * @param input input stream
 	 * @throws IOException reading error
 	 */
 	@Override
-	public void readFromStream(DataInputStream pInput) throws IOException
+	public void readFromStream(DataInputStream input) throws IOException
 	{
 		try
 		{
-			canBePoint = pInput.readBoolean();
-			canBeLine = pInput.readBoolean();
-			canBePolygon = pInput.readBoolean();
-			textTagKeys.readFromStream(pInput);
-			drawPriority = pInput.readInt();
-			description = pInput.readUTF();
-			scaledStyles.readFromStream(pInput);
-			defenitionTags.readFromStream(pInput);
+			canBePoint = input.readBoolean();
+			canBeLine = input.readBoolean();
+			canBePolygon = input.readBoolean();
+			textTagKeys.readFromStream(input);
+			drawPriority = input.readInt();
+			description = input.readUTF();
+			drawSettingsOnScales.readFromStream(input);
+			defenitionTags.readFromStream(input);
 		}
 		catch (Exception e)
 		{
@@ -317,22 +304,22 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	/**
 	 * Write into stream
 	 *
-	 * @param pOutput output stream
+	 * @param output output stream
 	 * @throws IOException writing error
 	 */
 	@Override
-	public void writeToStream(DataOutputStream pOutput) throws IOException
+	public void writeToStream(DataOutputStream output) throws IOException
 	{
 		try
 		{
-			pOutput.writeBoolean(canBePoint);
-			pOutput.writeBoolean(canBeLine);
-			pOutput.writeBoolean(canBePolygon);
-			textTagKeys.writeToStream(pOutput);
-			pOutput.writeInt(drawPriority);
-			pOutput.writeUTF(description);
-			scaledStyles.writeToStream(pOutput);
-			defenitionTags.writeToStream(pOutput);
+			output.writeBoolean(canBePoint);
+			output.writeBoolean(canBeLine);
+			output.writeBoolean(canBePolygon);
+			textTagKeys.writeToStream(output);
+			output.writeInt(drawPriority);
+			output.writeUTF(description);
+			drawSettingsOnScales.writeToStream(output);
+			defenitionTags.writeToStream(output);
 		}
 		catch (Exception e)
 		{
