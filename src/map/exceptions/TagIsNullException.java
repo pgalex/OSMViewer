@@ -1,21 +1,10 @@
 package map.exceptions;
 
-import drawingStyles.DefenitionTags;
-
 /**
  * MapTag is null
  *
  * @author pgalex
  */
-public class TagIsNullException extends DefenitionTagsRuntimeException
+public class TagIsNullException extends MapRuntimeException
 {
-	/**
-	 * Constructor
-	 *
-	 * @param pTagsThrowedException Tags that was edited when exception is throws
-	 */
-	public TagIsNullException(DefenitionTags pTagsThrowedException)
-	{
-		super(pTagsThrowedException);
-	}
 }

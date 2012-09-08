@@ -38,7 +38,7 @@ public class MapLine extends MapObject
 
 		if (isPointsIncorrect(linePoints))
 		{
-			throw new LinePointsIsIncorrectException(lineId, lineDefenitionTags);
+			throw new LinePointsIsIncorrectException();
 		}
 
 		points = linePoints;

@@ -28,7 +28,7 @@ public class EditableDefenitionTags extends DefenitionTags
 	{
 		if (pTag == null)
 		{
-			throw new TagIsNullException(this);
+			throw new TagIsNullException();
 		}
 
 		tags.add(pTag);
@@ -52,7 +52,7 @@ public class EditableDefenitionTags extends DefenitionTags
 	{
 		if (index < 0 || index >= tags.size())
 		{
-			throw new TagIndexOutOfBoundsException(this, index, 0, tags.size());
+			throw new TagIndexOutOfBoundsException(index, 0, tags.size());
 		}
 
 		tags.remove(index);

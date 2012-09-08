@@ -45,7 +45,7 @@ public class EditableDefenitionTagsTest
 		}
 		catch (TagIsNullException ex)
 		{
-			assertEquals(tags, ex.getTagsThrowedException());
+			// ok
 		}
 	}
 
@@ -98,7 +98,6 @@ public class EditableDefenitionTagsTest
 		}
 		catch (TagIndexOutOfBoundsException ex)
 		{
-			assertEquals(tags, ex.getTagsThrowedException());
 			assertEquals(-1, ex.getIncorrectTagIndex());
 			assertEquals(0, ex.getBoundsMinimum());
 			assertEquals(tags.size(), ex.getBoundsMaximum());
@@ -120,7 +119,6 @@ public class EditableDefenitionTagsTest
 		}
 		catch (TagIndexOutOfBoundsException ex)
 		{
-			assertEquals(tags, ex.getTagsThrowedException());
 			assertEquals(1, ex.getIncorrectTagIndex());
 			assertEquals(0, ex.getBoundsMinimum());
 			assertEquals(tags.size(), ex.getBoundsMaximum());

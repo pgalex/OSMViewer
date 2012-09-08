@@ -59,7 +59,7 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 	{
 		if (index < 0 || index >= tags.size())
 		{
-			throw new TagIndexOutOfBoundsException(this, index, 0, tags.size());
+			throw new TagIndexOutOfBoundsException(index, 0, tags.size());
 		}
 
 		return tags.get(index);

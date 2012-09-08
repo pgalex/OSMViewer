@@ -1,13 +1,11 @@
 package map.exceptions;
 
-import drawingStyles.DefenitionTags;
-
 /**
  * Tag incorrectTagIndex in defenition tags is out of bounds
  *
  * @author pgalex
  */
-public class TagIndexOutOfBoundsException extends DefenitionTagsRuntimeException
+public class TagIndexOutOfBoundsException extends MapRuntimeException
 {
 	/**
 	 * Value of index that was out of bounds
@@ -23,20 +21,17 @@ public class TagIndexOutOfBoundsException extends DefenitionTagsRuntimeException
 	private int boundsMaximum;
 
 	/**
-	 * Constructor
+	 * Create exception
 	 *
-	 * @param pTagsThrowedException Tags that was edited when exception is throws
-	 * @param pIncorrectTagIndex Value of index that was out of bounds
-	 * @param pBoundsMinimum Bounds minimum
-	 * @param pBoundsMaximum Bounds maximum
+	 * @param incorrectTagIndexValue Value of index that was out of bounds
+	 * @param indexBoundsMinimum Bounds minimum
+	 * @param indexBoundsMaximum Bounds maximum
 	 */
-	public TagIndexOutOfBoundsException(DefenitionTags pTagsThrowedException, int pIncorrectTagIndex, int pBoundsMinimum, int pBoundsMaximum)
+	public TagIndexOutOfBoundsException(int incorrectTagIndexValue, int indexBoundsMinimum, int indexBoundsMaximum)
 	{
-		super(pTagsThrowedException);
-
-		incorrectTagIndex = pIncorrectTagIndex;
-		boundsMinimum = pBoundsMinimum;
-		boundsMaximum = pBoundsMaximum;
+		incorrectTagIndex = incorrectTagIndexValue;
+		boundsMinimum = indexBoundsMinimum;
+		boundsMaximum = indexBoundsMaximum;
 	}
 
 	/**

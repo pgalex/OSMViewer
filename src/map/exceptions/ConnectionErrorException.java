@@ -13,13 +13,13 @@ public class ConnectionErrorException extends MapException
 	private String connectionString;
 
 	/**
-	 * Constructor
+	 * Create exception
 	 *
-	 * @param pConnectionString String used for connecting
+	 * @param stringUsedForConnection String used for connecting
 	 */
-	public ConnectionErrorException(String pConnectionString)
+	public ConnectionErrorException(String stringUsedForConnection)
 	{
-		connectionString = pConnectionString;
+		connectionString = stringUsedForConnection;
 	}
 
 	/**

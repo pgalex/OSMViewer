@@ -31,7 +31,7 @@ public class MapPoint extends MapObject
 
 		if (pointPosition == null)
 		{
-			throw new PointPositionIsNullException(pointId, pointDefenitionTags);
+			throw new PointPositionIsNullException();
 		}
 
 		position = pointPosition;

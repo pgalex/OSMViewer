@@ -1,12 +1,12 @@
 package mapTests;
 
 import drawingStyles.DrawingStylesFactory;
-import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.StyleEditor;
 import drawingStyles.EditableDefenitionTags;
+import drawingStyles.MapObjectDrawSettings;
+import drawingStyles.MapTag;
+import drawingStyles.StyleEditor;
 import map.MapPoint;
 import map.MapPosition;
-import drawingStyles.MapTag;
 import map.exceptions.PointPositionIsNullException;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -44,8 +44,7 @@ public class MapPointTest
 		}
 		catch (PointPositionIsNullException ex)
 		{
-			assertEquals(12, ex.getCreatedObjectId());
-			assertNull(ex.getCreatedObjectTags());
+			// ok
 		}
 	}
 
