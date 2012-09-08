@@ -2,7 +2,7 @@ package drawingStyles;
 
 import IO.ReadableMapData;
 import IO.WritableMapData;
-import drawingStyles.exceptions.TagIndexOutOfBoundsException;
+import drawingStyles.exceptions.IncorrectParameterException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -53,13 +53,13 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 	 *
 	 * @param index index of tag
 	 * @return tag at index
-	 * @throws TagIndexOutOfBoundsException index is out of bounds 
+	 * @throws IncorrectParameterException index have incorrect value
 	 */
-	public MapTag get(int index) throws TagIndexOutOfBoundsException
+	public MapTag get(int index) throws IncorrectParameterException
 	{
 		if (index < 0 || index >= tags.size())
 		{
-			throw new TagIndexOutOfBoundsException(index, 0, tags.size());
+			throw new IncorrectParameterException();
 		}
 
 		return tags.get(index);
@@ -70,17 +70,18 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 	 *
 	 * @param tagsForComparing tags for comparing
 	 * @return is tagsForComparing contains this all of this tags
+	 * @throws IncorrectParameterException tagsForComparing is null
 	 */
-	public boolean includingIn(DefenitionTags tagsForComparing)
+	public boolean includingIn(DefenitionTags tagsForComparing) throws IncorrectParameterException
 	{
 		// (Сравнить теги без учета их порядка. Каждый тег из defenitionTags
 		// должен входить в tagsForComparing )
 
-		// deliberately noncoincidenting tags
 		if (tagsForComparing == null)
 		{
-			return false;
+			throw new IncorrectParameterException();
 		}
+		
 		if (tags.size() > tagsForComparing.size())
 		{
 			return false;

@@ -1,6 +1,6 @@
 package drawingStyles;
 
-import drawingStyles.exceptions.TagIndexOutOfBoundsException;
+import drawingStyles.exceptions.IncorrectParameterException;
 import drawingStyles.exceptions.TagIsNullException;
 
 /**
@@ -46,13 +46,13 @@ public class EditableDefenitionTags extends DefenitionTags
 	 * Remove tag with index
 	 *
 	 * @param index index of tag to remove
-	 * @throws TagIndexOutOfBoundsException index of deleting tag is out of bounds
+	 * @throws IncorrectParameterException index of deleting tag is incorrect
 	 */
-	public void remove(int index) throws TagIndexOutOfBoundsException
+	public void remove(int index) throws IncorrectParameterException
 	{
 		if (index < 0 || index >= tags.size())
 		{
-			throw new TagIndexOutOfBoundsException(index, 0, tags.size());
+			throw new IncorrectParameterException();
 		}
 
 		tags.remove(index);

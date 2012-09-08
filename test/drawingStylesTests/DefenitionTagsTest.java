@@ -4,7 +4,7 @@ import IOTesting.IOTester;
 import drawingStyles.DefenitionTags;
 import drawingStyles.EditableDefenitionTags;
 import drawingStyles.MapTag;
-import drawingStyles.exceptions.TagIndexOutOfBoundsException;
+import drawingStyles.exceptions.IncorrectParameterException;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -27,11 +27,9 @@ public class DefenitionTagsTest
 		{
 			tags.get(0);
 		}
-		catch (TagIndexOutOfBoundsException ex)
+		catch (IncorrectParameterException ex)
 		{
-			assertEquals(0, ex.getIncorrectTagIndex());
-			assertEquals(0, ex.getBoundsMinimum());
-			assertEquals(tags.size(), ex.getBoundsMaximum());
+			// ok
 		}
 	}
 
@@ -48,11 +46,9 @@ public class DefenitionTagsTest
 		{
 			tags.get(-1);
 		}
-		catch (TagIndexOutOfBoundsException ex)
+		catch (IncorrectParameterException ex)
 		{
-			assertEquals(-1, ex.getIncorrectTagIndex());
-			assertEquals(0, ex.getBoundsMinimum());
-			assertEquals(tags.size(), ex.getBoundsMaximum());
+			// ok
 		}
 	}
 
@@ -69,11 +65,27 @@ public class DefenitionTagsTest
 		{
 			tags.get(tags.size());
 		}
-		catch (TagIndexOutOfBoundsException ex)
+		catch (IncorrectParameterException ex)
 		{
-			assertEquals(tags.size(), ex.getIncorrectTagIndex());
-			assertEquals(0, ex.getBoundsMinimum());
-			assertEquals(tags.size(), ex.getBoundsMaximum());
+			// ok
+		}
+	}
+	
+	/**
+	 * Comparing defenition when other tags are null
+	 */
+	@Test
+	public void includingInNullTagsTest()
+	{
+		try
+		{
+			DefenitionTags tags = new DefenitionTags();
+			tags.includingIn(null);
+			fail();
+		}
+		catch(IncorrectParameterException ex)
+		{
+			// ok
 		}
 	}
 

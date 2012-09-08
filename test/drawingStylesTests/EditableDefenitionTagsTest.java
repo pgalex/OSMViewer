@@ -2,7 +2,7 @@ package drawingStylesTests;
 
 import drawingStyles.EditableDefenitionTags;
 import drawingStyles.MapTag;
-import drawingStyles.exceptions.TagIndexOutOfBoundsException;
+import drawingStyles.exceptions.IncorrectParameterException;
 import drawingStyles.exceptions.TagIsNullException;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -96,11 +96,9 @@ public class EditableDefenitionTagsTest
 			tags.remove(-1);
 			fail();
 		}
-		catch (TagIndexOutOfBoundsException ex)
+		catch (IncorrectParameterException ex)
 		{
-			assertEquals(-1, ex.getIncorrectTagIndex());
-			assertEquals(0, ex.getBoundsMinimum());
-			assertEquals(tags.size(), ex.getBoundsMaximum());
+			// ok
 		}
 	}
 
@@ -117,11 +115,9 @@ public class EditableDefenitionTagsTest
 			tags.remove(tags.size());
 			fail();
 		}
-		catch (TagIndexOutOfBoundsException ex)
+		catch (IncorrectParameterException ex)
 		{
-			assertEquals(1, ex.getIncorrectTagIndex());
-			assertEquals(0, ex.getBoundsMinimum());
-			assertEquals(tags.size(), ex.getBoundsMaximum());
+			// ok
 		}
 	}
 }

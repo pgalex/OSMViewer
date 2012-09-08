@@ -14,7 +14,7 @@ import java.io.IOException;
 public class TextTagsKeys implements ReadableMapData, WritableMapData
 {
 	/**
-	 * Default array of tags keys
+	 * Default text tags keys
 	 */
 	private String[] DEFAULT_TEXT_TAGS_KEYS =
 	{
