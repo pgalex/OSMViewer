@@ -1,7 +1,5 @@
 package drawingStyles.exceptions;
 
-import drawingStyles.StyleEditor;
-
 /**
  * Style of map object is null
  *

@@ -1,7 +1,5 @@
 package drawingStyles.exceptions;
 
-import drawingStyles.StyleEditor;
-
 /**
  * Map drawing settings gives to editor is null
  *

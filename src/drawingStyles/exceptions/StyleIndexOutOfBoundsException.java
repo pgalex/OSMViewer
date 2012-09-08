@@ -23,17 +23,17 @@ public class StyleIndexOutOfBoundsException extends DrawingStylesRuntimeExceptio
 	private Integer boundsMaximum;
 
 	/**
-	 * Constructor
+	 * Create exception
 	 *
-	 * @param pIncorrectStyleIndex Style index that was incorrect
-	 * @param pBoundsMinimum Minimun value of style index
-	 * @param pBoundsMaximum Maximum value of style index
+	 * @param incorrectStyleIndexValue Style index that was incorrect
+	 * @param styleIndexBoundsMinimum Minimun value of style index
+	 * @param styleIndexBoundsMaximum Maximum value of style index
 	 */
-	public StyleIndexOutOfBoundsException(Integer pIncorrectStyleIndex, Integer pBoundsMinimum, Integer pBoundsMaximum)
+	public StyleIndexOutOfBoundsException(Integer incorrectStyleIndexValue, Integer styleIndexBoundsMinimum, Integer styleIndexBoundsMaximum)
 	{
-		incorrectStyleIndex = pIncorrectStyleIndex;
-		boundsMinimum = pBoundsMinimum;
-		boundsMaximum = pBoundsMaximum;
+		incorrectStyleIndex = incorrectStyleIndexValue;
+		boundsMinimum = styleIndexBoundsMinimum;
+		boundsMaximum = styleIndexBoundsMaximum;
 	}
 
 	/**
