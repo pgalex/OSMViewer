@@ -45,6 +45,14 @@ public class OnlineMap implements Map
 			objects.add(objectToAdd);
 		}
 	}
+	
+	/**
+	 * Clear map
+	 */
+	public void clear()
+	{
+		objects.clear();
+	}
 
 	/**
 	 * Sort all objects by draw priority

@@ -85,12 +85,14 @@ public class OnlineMapLoader
 						+ loadingSectorBounds.getLatitudeMaximum();
 		try
 		{
+			fillingMap.clear();
+			
 			URL openStreetMapURL = new URL(connectionString);
 			URLConnection openStreetMapConnection = openStreetMapURL.openConnection();
 			onlineParser.convert(openStreetMapConnection.getInputStream());
 
 			fillMapWithPoints(onlineParser.getNodes(), styleViewer, fillingMap);
-			fillMapWithPolygonsAndLine(onlineParser.getNodes(), onlineParser.getWays(), styleViewer, fillingMap);
+			fillMapWithPolygonsAndLines(onlineParser.getNodes(), onlineParser.getWays(), styleViewer, fillingMap);
 			
 			onlineParser.clear();
 		}
@@ -117,13 +119,13 @@ public class OnlineMapLoader
 	 *
 	 * @param nodes nodes array, using to find points of line or polygon
 	 * @param ways ways array
-	 * @param pStyleViewer style viewe for assigning style index
-	 * @param pFillingMap map, filling with map polygons and lines
+	 * @param styleViewer style viewer for assigning style index
+	 * @param fillingMap map, filling with map polygons and lines
 	 */
-	protected void fillMapWithPolygonsAndLine(ArrayList<OsmNode> nodes, ArrayList<OsmWay> ways,
-					StyleViewer pStyleViewer, OnlineMap pFillingMap)
+	protected void fillMapWithPolygonsAndLines(ArrayList<OsmNode> nodes, ArrayList<OsmWay> ways,
+					StyleViewer styleViewer, OnlineMap fillingMap)
 	{
-		if (nodes == null || ways == null || pStyleViewer == null || pFillingMap == null)
+		if (nodes == null || ways == null || styleViewer == null || fillingMap == null)
 		{
 			return;
 		}
@@ -133,8 +135,8 @@ public class OnlineMapLoader
 			MapObject newObject = createMapObjectByWay(way, nodes);
 			if (newObject != null)
 			{
-				newObject.assignStyleIndex(pStyleViewer);
-				pFillingMap.addObject(newObject);
+				newObject.assignStyleIndex(styleViewer);
+				fillingMap.addObject(newObject);
 			}
 		}
 	}
