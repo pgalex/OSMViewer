@@ -3,8 +3,8 @@ package drawingStylesTests;
 import IOTesting.IOTester;
 import drawingStyles.DrawSettingsOnScale;
 import drawingStyles.DrawSettingsOnScaleArray;
-import drawingStyles.exceptions.ScaleLevelOutOfBoundsException;
 import drawingStyles.exceptions.DrawSettingsOnScaleIsNullException;
+import drawingStyles.exceptions.ScaleLevelOutOfBoundsException;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

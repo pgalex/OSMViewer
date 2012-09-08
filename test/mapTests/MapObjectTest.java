@@ -1,11 +1,11 @@
 package mapTests;
 
 import drawingStyles.DrawingStylesFactory;
-import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.StyleEditor;
 import drawingStyles.EditableDefenitionTags;
-import map.MapObject;
+import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.MapTag;
+import drawingStyles.StyleEditor;
+import map.MapObject;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Test;

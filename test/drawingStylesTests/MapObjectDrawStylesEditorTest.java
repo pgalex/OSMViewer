@@ -348,7 +348,9 @@ public class MapObjectDrawStylesEditorTest
 			// comparing only by description
 			assertEquals(writedEditor.countOfMapObjectDrawSettings(), readEditor.countOfMapObjectDrawSettings());
 			for (int i = 0; i < writedEditor.countOfMapObjectDrawSettings(); i++)
+			{
 				assertEquals(writedEditor.getMapObjectDrawSettings(i).getDescription(), readEditor.getMapObjectDrawSettings(i).getDescription());
+			}
 		}
 		catch (Exception ex)
 		{

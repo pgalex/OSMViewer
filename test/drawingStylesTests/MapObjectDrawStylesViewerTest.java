@@ -1,15 +1,14 @@
 package drawingStylesTests;
 
-import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.MapDrawSettings;
-import drawingStyles.IOColor;
-import drawingStyles.StyleViewer;
-import drawingStyles.DrawingStylesFactory;
-import drawingStyles.StyleEditor;
 import IOTesting.IOTester;
-import java.awt.Color;
+import drawingStyles.DrawingStylesFactory;
 import drawingStyles.EditableDefenitionTags;
+import drawingStyles.MapDrawSettings;
+import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.MapTag;
+import drawingStyles.StyleEditor;
+import drawingStyles.StyleViewer;
+import java.awt.Color;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

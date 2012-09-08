@@ -19,32 +19,36 @@ public class IOTester
 	/**
 	 * Write object to test file
 	 *
-	 * @param pWritingObject object to write
+	 * @param writingObject object to write
 	 * @throws Exception error while writing
 	 */
-	public static void writeToTestFile(WritableMapData pWritingObject) throws Exception
+	public static void writeToTestFile(WritableMapData writingObject) throws Exception
 	{
-		if (pWritingObject == null)
+		if (writingObject == null)
+		{
 			throw new NullPointerException();
+		}
 
 		DataOutputStream output = new DataOutputStream(new FileOutputStream(IOTester.TEST_FILE_NAME));
-		pWritingObject.writeToStream(output);
+		writingObject.writeToStream(output);
 		output.close();
 	}
 
 	/**
 	 * Read from test file to object
 	 *
-	 * @param pReadingObject object for reading
+	 * @param readingObject object for reading
 	 * @throws Exception error while reading
 	 */
-	public static void readFromTestFile(ReadableMapData pReadingObject) throws Exception
+	public static void readFromTestFile(ReadableMapData readingObject) throws Exception
 	{
-		if (pReadingObject == null)
+		if (readingObject == null)
+		{
 			throw new NullPointerException();
+		}
 
 		DataInputStream input = new DataInputStream(new FileInputStream(IOTester.TEST_FILE_NAME));
-		pReadingObject.readFromStream(input);
+		readingObject.readFromStream(input);
 		input.close();
 	}
 }

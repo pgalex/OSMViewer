@@ -3,7 +3,6 @@ package drawingStylesTests;
 import IOTesting.IOTester;
 import drawingStyles.IOIcon;
 import drawingStyles.LineDrawSettings;
-import drawingStyles.LinePattern;
 import drawingStyles.PolygonDrawSettings;
 import drawingStyles.exceptions.ColorIsNullException;
 import java.awt.Color;

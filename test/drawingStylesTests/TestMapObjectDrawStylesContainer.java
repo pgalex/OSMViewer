@@ -2,8 +2,8 @@ package drawingStylesTests;
 
 import IOTesting.IOTester;
 import drawingStyles.EditableDefenitionTags;
-import drawingStyles.MapObjectDrawStylesContainer;
 import drawingStyles.MapObjectDrawSettings;
+import drawingStyles.MapObjectDrawStylesContainer;
 import drawingStyles.MapTag;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -177,7 +177,9 @@ public class TestMapObjectDrawStylesContainer extends MapObjectDrawStylesContain
 
 			assertEquals(writingStyles.length, readingStyles.length);
 			for (int i = 0; i < readingStyles.length; i++)
+			{
 				assertEquals(writingStyles[i].getDescription(), readingStyles[i].getDescription());
+			}
 		}
 		catch (Exception ex)
 		{
