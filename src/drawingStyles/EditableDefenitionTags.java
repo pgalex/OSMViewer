@@ -1,7 +1,7 @@
 package drawingStyles;
 
-import map.exceptions.TagIndexOutOfBoundsException;
-import map.exceptions.TagIsNullException;
+import drawingStyles.exceptions.TagIndexOutOfBoundsException;
+import drawingStyles.exceptions.TagIsNullException;
 
 /**
  * Defenition tags that can be changed

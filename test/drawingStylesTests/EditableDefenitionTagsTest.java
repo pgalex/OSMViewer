@@ -2,8 +2,8 @@ package drawingStylesTests;
 
 import drawingStyles.EditableDefenitionTags;
 import drawingStyles.MapTag;
-import map.exceptions.TagIndexOutOfBoundsException;
-import map.exceptions.TagIsNullException;
+import drawingStyles.exceptions.TagIndexOutOfBoundsException;
+import drawingStyles.exceptions.TagIsNullException;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

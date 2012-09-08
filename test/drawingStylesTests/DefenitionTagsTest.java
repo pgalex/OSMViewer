@@ -4,7 +4,7 @@ import IOTesting.IOTester;
 import drawingStyles.DefenitionTags;
 import drawingStyles.EditableDefenitionTags;
 import drawingStyles.MapTag;
-import map.exceptions.TagIndexOutOfBoundsException;
+import drawingStyles.exceptions.TagIndexOutOfBoundsException;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

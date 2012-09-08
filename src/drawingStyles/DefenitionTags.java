@@ -2,11 +2,11 @@ package drawingStyles;
 
 import IO.ReadableMapData;
 import IO.WritableMapData;
+import drawingStyles.exceptions.TagIndexOutOfBoundsException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import map.exceptions.TagIndexOutOfBoundsException;
 
 /**
  * Tags, describes map object

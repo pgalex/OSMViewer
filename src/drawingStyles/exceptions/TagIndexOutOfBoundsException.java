@@ -1,4 +1,6 @@
-package map.exceptions;
+package drawingStyles.exceptions;
+
+import map.exceptions.MapRuntimeException;
 
 /**
  * Tag incorrectTagIndex in defenition tags is out of bounds
