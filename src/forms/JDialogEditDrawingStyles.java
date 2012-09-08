@@ -2,6 +2,7 @@ package forms;
 
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.StyleEditor;
+import drawingStyles.exceptions.IncorrectParameterException;
 import java.awt.Color;
 import javax.swing.JColorChooser;
 
@@ -29,6 +30,27 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
 		initComponents();
 
 		editingDrawingStyles = DrawingStylesFactory.createStyleEditor();
+		updateControlsByEditingDrawingStyles();
+	}
+
+	/**
+	 * Create for edit drawing styles by stylesEditor
+	 *
+	 * @param parent dialog parent
+	 * @param modal show as modal
+	 * @param drawingStylesToEdit drawing styles for editing. Must be not null
+	 * @throws IncorrectParameterException drawingStylesToEdit is null
+	 */
+	public JDialogEditDrawingStyles(java.awt.Frame parent, boolean modal, StyleEditor drawingStylesToEdit) throws IncorrectParameterException
+	{
+		super(parent, modal);
+						
+		if (drawingStylesToEdit == null)
+		{
+			throw new IncorrectParameterException();
+		}
+		
+		editingDrawingStyles = drawingStylesToEdit;
 		updateControlsByEditingDrawingStyles();
 	}
 
@@ -140,9 +162,9 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
 
   private void jButtonChooseBackgroundColorActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonChooseBackgroundColorActionPerformed
   {//GEN-HEADEREND:event_jButtonChooseBackgroundColorActionPerformed
-    Color newBackgroundColor = JColorChooser.showDialog(this, "Choosing map background color", 
+		Color newBackgroundColor = JColorChooser.showDialog(this, "Choosing map background color",
 						editingDrawingStyles.getMapDrawSettings().getMapBackgroundColor());
-		
+
 		editingDrawingStyles.getMapDrawSettings().setMapBackgroundColor(newBackgroundColor);
 		jPanelMapBackgroudColorPreview.setBackground(newBackgroundColor);
   }//GEN-LAST:event_jButtonChooseBackgroundColorActionPerformed

@@ -232,6 +232,8 @@ public class JFrameMain extends javax.swing.JFrame
     JDialogEditDrawingStyles editDrawingStylesDialog = new JDialogEditDrawingStyles(this, true);
 		editDrawingStylesDialog.setLocationRelativeTo(this);
 		editDrawingStylesDialog.setVisible(true);
+		
+		jPanelCanvas.repaint();
   }//GEN-LAST:event_jButtonEditDrawingStylesActionPerformed
 
 	/**
