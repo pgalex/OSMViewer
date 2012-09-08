@@ -2,7 +2,7 @@ package drawingStylesTests;
 
 import IOTesting.IOTester;
 import drawingStyles.MapDrawSettings;
-import drawingStyles.exceptions.ColorIsNullException;
+import drawingStyles.exceptions.IncorrectParameterException;
 import java.awt.Color;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -25,7 +25,25 @@ public class MapDrawSettingsTest
 			MapDrawSettings testSettings = new MapDrawSettings(null);
 			fail();
 		}
-		catch (ColorIsNullException ex)
+		catch (IncorrectParameterException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Setting null background color test
+	 */
+	@Test
+	public void setNullBackgroundColorTest()
+	{
+		try
+		{
+			MapDrawSettings testSettings = new MapDrawSettings();
+			testSettings.setMapBackgroundColor(null);
+			fail();
+		}
+		catch (IncorrectParameterException ex)
 		{
 			// ok
 		}
@@ -45,7 +63,7 @@ public class MapDrawSettingsTest
 			MapDrawSettings readingSettings = new MapDrawSettings();
 			IOTester.readFromTestFile(readingSettings);
 
-			assertEquals(writingSetting.getMapBackgroundColor().getColor(), readingSettings.getMapBackgroundColor().getColor());
+			assertEquals(writingSetting.getMapBackgroundColor(), readingSettings.getMapBackgroundColor());
 		}
 		catch (Exception ex)
 		{

@@ -2,7 +2,7 @@ package drawingStyles;
 
 import IO.ReadableMapData;
 import IO.WritableMapData;
-import drawingStyles.exceptions.ColorIsNullException;
+import drawingStyles.exceptions.IncorrectParameterException;
 import java.awt.Color;
 import java.awt.Paint;
 import java.awt.Rectangle;
@@ -48,9 +48,10 @@ public class PolygonDrawSettings implements PolygonDrawStyle, ReadableMapData, W
 	 * @param polygonFillColor fill color
 	 * @param polygonBorderDrawSettings how to draw border of polygon
 	 * @param polygonFillImage fill texture. Can be null
-	 * @throws ColorIsNullException fill color is null 
+	 * @throws IncorrectParameterException fill color is null 
 	 */
-	public PolygonDrawSettings(Color polygonFillColor, LineDrawSettings polygonBorderDrawSettings, BufferedImage polygonFillImage) throws ColorIsNullException
+	public PolygonDrawSettings(Color polygonFillColor, LineDrawSettings polygonBorderDrawSettings, 
+					BufferedImage polygonFillImage) throws IncorrectParameterException
 	{
 		fillColor = new IOColor(polygonFillColor);
 		borderDrawStyle = polygonBorderDrawSettings;
@@ -120,7 +121,7 @@ public class PolygonDrawSettings implements PolygonDrawStyle, ReadableMapData, W
 	@Override
 	public Color getFillColor()
 	{
-		return fillColor.getColor();
+		return fillColor.getStoringColor();
 	}
 
 	/**

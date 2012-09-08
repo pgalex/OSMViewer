@@ -1,11 +1,22 @@
 package forms;
 
+import drawingStyles.DrawingStylesFactory;
+import drawingStyles.StyleEditor;
+import java.awt.Color;
+import javax.swing.JColorChooser;
+
 /**
  * Dialog for editing drawing styles
+ *
  * @author pgalex
  */
 public class JDialogEditDrawingStyles extends javax.swing.JDialog
 {
+	/**
+	 * Drawing styles editing with dialog
+	 */
+	private StyleEditor editingDrawingStyles;
+
 	/**
 	 * Creates new form with empty drawing styles
 	 *
@@ -16,6 +27,17 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
 	{
 		super(parent, modal);
 		initComponents();
+
+		editingDrawingStyles = DrawingStylesFactory.createStyleEditor();
+		updateControlsByEditingDrawingStyles();
+	}
+
+	/**
+	 * Update values and states of all dialog controls using editingDrawingStyles
+	 */
+	private void updateControlsByEditingDrawingStyles()
+	{
+		jPanelMapBackgroudColorPreview.setBackground(editingDrawingStyles.getMapDrawSettings().getMapBackgroundColor());
 	}
 
 	/**
@@ -82,7 +104,7 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
             .add(jLabel1)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jPanelMapBackgroudColorPreview, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jButtonChooseBackgroundColor))
           .add(layout.createSequentialGroup()
             .add(jButtonNew)
@@ -100,9 +122,10 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
         .addContainerGap()
         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
           .add(jPanelMapBackgroudColorPreview, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-          .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-            .add(jButtonChooseBackgroundColor)
-            .add(jLabel1)))
+          .add(layout.createSequentialGroup()
+            .add(jLabel1)
+            .add(13, 13, 13))
+          .add(jButtonChooseBackgroundColor))
         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 345, Short.MAX_VALUE)
         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
           .add(jButtonOpen)
@@ -117,6 +140,11 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
 
   private void jButtonChooseBackgroundColorActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonChooseBackgroundColorActionPerformed
   {//GEN-HEADEREND:event_jButtonChooseBackgroundColorActionPerformed
+    Color newBackgroundColor = JColorChooser.showDialog(this, "Choosing map background color", 
+						editingDrawingStyles.getMapDrawSettings().getMapBackgroundColor());
+		
+		editingDrawingStyles.getMapDrawSettings().setMapBackgroundColor(newBackgroundColor);
+		jPanelMapBackgroudColorPreview.setBackground(newBackgroundColor);
   }//GEN-LAST:event_jButtonChooseBackgroundColorActionPerformed
 
 	/**

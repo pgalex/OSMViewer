@@ -2,7 +2,7 @@ package drawingStylesTests;
 
 import IOTesting.IOTester;
 import drawingStyles.IOColor;
-import drawingStyles.exceptions.ColorIsNullException;
+import drawingStyles.exceptions.IncorrectParameterException;
 import java.awt.Color;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -25,7 +25,7 @@ public class IOColorTest
 			IOColor testColor = new IOColor(null);
 			fail();
 		}
-		catch (ColorIsNullException ex)
+		catch (IncorrectParameterException ex)
 		{
 			// ok
 		}
@@ -40,10 +40,10 @@ public class IOColorTest
 		try
 		{
 			IOColor testColor = new IOColor();
-			testColor.setColor(null);
+			testColor.setStoringColor(null);
 			fail();
 		}
-		catch (ColorIsNullException ex)
+		catch (IncorrectParameterException ex)
 		{
 			// ok
 		}
@@ -63,7 +63,7 @@ public class IOColorTest
 			IOColor readColor = new IOColor();
 			IOTester.readFromTestFile(readColor);
 			
-			assertEquals(writedColor.getColor(), readColor.getColor());
+			assertEquals(writedColor.getStoringColor(), readColor.getStoringColor());
 		}
 		catch (Exception ex)
 		{

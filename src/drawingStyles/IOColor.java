@@ -2,7 +2,7 @@ package drawingStyles;
 
 import IO.ReadableMapData;
 import IO.WritableMapData;
-import drawingStyles.exceptions.ColorIsNullException;
+import drawingStyles.exceptions.IncorrectParameterException;
 import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -16,36 +16,36 @@ import java.io.IOException;
 public class IOColor implements WritableMapData, ReadableMapData
 {
 	/**
-	 * Default color
+	 * Default storingColor
 	 */
 	private static final Color DEFAULT_COLOR = Color.BLACK;
 	/**
-	 * Storing color
+	 * Storing storingColor
 	 */
-	private Color color;
+	private Color storingColor;
 
 	/**
-	 * Create with default color
+	 * Create with default storingColor
 	 */
 	public IOColor()
 	{
-		color = DEFAULT_COLOR;
+		storingColor = DEFAULT_COLOR;
 	}
 
 	/**
-	 * Create with color
+	 * Create with storingColor
 	 *
-	 * @param colorToStore storing color. Must be not null
-	 * @throws ColorIsNullException storing color is null
+	 * @param colorToStore storing Color. Must be not null
+	 * @throws IncorrectParameterException storing Color is null
 	 */
-	public IOColor(Color colorToStore) throws ColorIsNullException
+	public IOColor(Color colorToStore) throws IncorrectParameterException
 	{
 		if (colorToStore == null)
 		{
-			throw new ColorIsNullException();
+			throw new IncorrectParameterException();
 		}
 
-		color = colorToStore;
+		storingColor = colorToStore;
 	}
 
 	/**
@@ -59,10 +59,10 @@ public class IOColor implements WritableMapData, ReadableMapData
 	{
 		try
 		{
-			output.writeInt(color.getRed());
-			output.writeInt(color.getGreen());
-			output.writeInt(color.getBlue());
-			output.writeInt(color.getAlpha());
+			output.writeInt(storingColor.getRed());
+			output.writeInt(storingColor.getGreen());
+			output.writeInt(storingColor.getBlue());
+			output.writeInt(storingColor.getAlpha());
 		}
 		catch (Exception e)
 		{
@@ -71,7 +71,7 @@ public class IOColor implements WritableMapData, ReadableMapData
 	}
 
 	/**
-	 * Read color from stream
+	 * Read storingColor from stream
 	 *
 	 * @param input stream
 	 * @throws IOException read error
@@ -85,7 +85,7 @@ public class IOColor implements WritableMapData, ReadableMapData
 			int g = input.readInt();
 			int b = input.readInt();
 			int a = input.readInt();
-			color = new Color(r, g, b, a);
+			storingColor = new Color(r, g, b, a);
 		}
 		catch (Exception e)
 		{
@@ -94,28 +94,28 @@ public class IOColor implements WritableMapData, ReadableMapData
 	}
 
 	/**
-	 * Set new storing color
+	 * Set new storing storingColor
 	 *
-	 * @param colorToSet new storing color
-	 * @throws ColorIsNullException new storing color is null
+	 * @param colorToSet new storing storingColor
+	 * @throws IncorrectParameterException new storing storingColor is null
 	 */
-	public void setColor(Color colorToSet) throws ColorIsNullException
+	public void setStoringColor(Color colorToSet) throws IncorrectParameterException
 	{
 		if (colorToSet == null)
 		{
-			throw new ColorIsNullException();
+			throw new IncorrectParameterException();
 		}
 
-		color = colorToSet;
+		storingColor = colorToSet;
 	}
 
 	/**
-	 * Get storing color
+	 * Get storing storingColor
 	 *
-	 * @return storing color
+	 * @return storing storingColor
 	 */
-	public Color getColor()
+	public Color getStoringColor()
 	{
-		return color;
+		return storingColor;
 	}
 }

@@ -343,8 +343,8 @@ public class MapObjectDrawStylesEditorTest
 			StyleEditor readEditor = DrawingStylesFactory.createStyleEditor();
 			IOTester.readFromTestFile(readEditor);
 
-			assertEquals(writedEditor.getMapDrawSettings().getMapBackgroundColor().getColor(),
-							readEditor.getMapDrawSettings().getMapBackgroundColor().getColor());
+			assertEquals(writedEditor.getMapDrawSettings().getMapBackgroundColor(),
+							readEditor.getMapDrawSettings().getMapBackgroundColor());
 			// comparing only by description
 			assertEquals(writedEditor.countOfMapObjectDrawSettings(), readEditor.countOfMapObjectDrawSettings());
 			for (int i = 0; i < writedEditor.countOfMapObjectDrawSettings(); i++)

@@ -2,7 +2,7 @@ package drawingStyles;
 
 import IO.ReadableMapData;
 import IO.WritableMapData;
-import drawingStyles.exceptions.ColorIsNullException;
+import drawingStyles.exceptions.IncorrectParameterException;
 import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -36,10 +36,15 @@ public class MapDrawSettings implements ReadableMapData, WritableMapData
 	 * Create with parameters
 	 *
 	 * @param backgroundColor map background color. Must be not null
-	 * @throws ColorIsNullException background color is null
+	 * @throws IncorrectParameterException background color is incorrect
 	 */
-	public MapDrawSettings(Color backgroundColor) throws ColorIsNullException
+	public MapDrawSettings(Color backgroundColor) throws IncorrectParameterException
 	{
+		if (backgroundColor == null)
+		{
+			throw new IncorrectParameterException();
+		}
+		
 		mapBackgroundColor = new IOColor(backgroundColor);
 	}
 
@@ -48,9 +53,25 @@ public class MapDrawSettings implements ReadableMapData, WritableMapData
 	 *
 	 * @return map background color
 	 */
-	public IOColor getMapBackgroundColor()
+	public Color getMapBackgroundColor()
 	{
-		return mapBackgroundColor;
+		return mapBackgroundColor.getStoringColor();
+	}
+
+	/**
+	 * Set new map background color
+	 *
+	 * @param backgroundColorToSet new map background color
+	 * @throws IncorrectParameterException new map background color is incorrect
+	 */
+	public void setMapBackgroundColor(Color backgroundColorToSet) throws IncorrectParameterException
+	{
+		if (backgroundColorToSet == null)
+		{
+			throw new IncorrectParameterException();
+		}
+
+		mapBackgroundColor.setStoringColor(backgroundColorToSet);
 	}
 
 	/**

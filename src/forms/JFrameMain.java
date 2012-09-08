@@ -230,6 +230,7 @@ public class JFrameMain extends javax.swing.JFrame
   private void jButtonEditDrawingStylesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonEditDrawingStylesActionPerformed
   {//GEN-HEADEREND:event_jButtonEditDrawingStylesActionPerformed
     JDialogEditDrawingStyles editDrawingStylesDialog = new JDialogEditDrawingStyles(this, true);
+		editDrawingStylesDialog.setLocationRelativeTo(this);
 		editDrawingStylesDialog.setVisible(true);
   }//GEN-LAST:event_jButtonEditDrawingStylesActionPerformed
 

@@ -166,7 +166,7 @@ public class MapRenderer implements CoordinatesConverter
 		setupRenderingHints(targetCanvas);
 
 		MapDrawSettings mapDrawingSettings = styleViewer.getMapDrawSettings();
-		targetCanvas.setBackground(mapDrawingSettings.getMapBackgroundColor().getColor());
+		targetCanvas.setBackground(mapDrawingSettings.getMapBackgroundColor());
 		targetCanvas.clearRect(targetCanvasDrawingArea.x, targetCanvasDrawingArea.y, targetCanvasDrawingArea.width, targetCanvasDrawingArea.height);
 
 		mapToRender.sortObjectsByDrawPriority(styleViewer);

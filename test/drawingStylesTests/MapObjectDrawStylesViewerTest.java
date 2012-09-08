@@ -73,8 +73,8 @@ public class MapObjectDrawStylesViewerTest
 			assertEquals(writedEditor.getMapObjectDrawSettings(0).getDescription(), readViewer.findMapObjectDrawStyle(0).getDescription());
 			assertEquals(writedEditor.getMapObjectDrawSettings(1).getDescription(), readViewer.findMapObjectDrawStyle(1).getDescription());
 			assertEquals(writedEditor.getMapObjectDrawSettings(2).getDescription(), readViewer.findMapObjectDrawStyle(2).getDescription());
-			assertEquals(writedEditor.getMapDrawSettings().getMapBackgroundColor().getColor(), 
-							readViewer.getMapDrawSettings().getMapBackgroundColor().getColor());
+			assertEquals(writedEditor.getMapDrawSettings().getMapBackgroundColor(), 
+							readViewer.getMapDrawSettings().getMapBackgroundColor());
 		}
 		catch (Exception ex)
 		{
