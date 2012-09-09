@@ -6,6 +6,7 @@ import drawingStyles.exceptions.MapDrawSettingsIsNullException;
 import drawingStyles.exceptions.MapObjectDrawSettingsIsNullException;
 import drawingStyles.exceptions.StyleIndexOutOfBoundsException;
 import java.awt.Color;
+import java.io.File;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -320,7 +321,7 @@ public class MapObjectDrawStylesEditorTest
 			assertEquals(editor.countOfMapObjectDrawSettings(), (int) ex.getBoundsMaximum());
 		}
 	}
-
+	
 	/**
 	 * Normal reading/writing test
 	 */
@@ -339,6 +340,43 @@ public class MapObjectDrawStylesEditorTest
 			writedEditor.addMapObjectDrawSettings(style3);
 			writedEditor.setMapDrawSettings(new MapDrawSettings(Color.CYAN));
 			IOTester.writeToTestFile(writedEditor);
+
+			StyleEditor readEditor = DrawingStylesFactory.createStyleEditor();
+			IOTester.readFromTestFile(readEditor);
+
+			assertEquals(writedEditor.getMapDrawSettings().getMapBackgroundColor(),
+							readEditor.getMapDrawSettings().getMapBackgroundColor());
+			// comparing only by description
+			assertEquals(writedEditor.countOfMapObjectDrawSettings(), readEditor.countOfMapObjectDrawSettings());
+			for (int i = 0; i < writedEditor.countOfMapObjectDrawSettings(); i++)
+			{
+				assertEquals(writedEditor.getMapObjectDrawSettings(i).getDescription(), readEditor.getMapObjectDrawSettings(i).getDescription());
+			}
+		}
+		catch (Exception ex)
+		{
+			fail();
+		}
+	}
+	
+	/**
+	 * writeToFile normal work test
+	 */
+	@Test
+	public void writeToFileTest()
+	{
+		try
+		{
+			MapObjectDrawSettings style1 = new MapObjectDrawSettings(true, true, false, null, 0, "style1", null, null);
+			MapObjectDrawSettings style2 = new MapObjectDrawSettings(true, false, true, null, 0, "style2", null, null);
+			MapObjectDrawSettings style3 = new MapObjectDrawSettings(false, true, true, null, 0, "style3", null, null);
+
+			StyleEditor writedEditor = DrawingStylesFactory.createStyleEditor();
+			writedEditor.addMapObjectDrawSettings(style1);
+			writedEditor.addMapObjectDrawSettings(style2);
+			writedEditor.addMapObjectDrawSettings(style3);
+			writedEditor.setMapDrawSettings(new MapDrawSettings(Color.CYAN));
+			writedEditor.writeToFile(new File(IOTester.TEST_FILE_NAME));
 
 			StyleEditor readEditor = DrawingStylesFactory.createStyleEditor();
 			IOTester.readFromTestFile(readEditor);

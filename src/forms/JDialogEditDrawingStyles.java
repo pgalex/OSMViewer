@@ -4,7 +4,15 @@ import drawingStyles.DrawingStylesFactory;
 import drawingStyles.StyleEditor;
 import drawingStyles.exceptions.IncorrectParameterException;
 import java.awt.Color;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JColorChooser;
+import javax.swing.JFileChooser;
 
 /**
  * Dialog for editing drawing styles
@@ -44,12 +52,12 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
 	public JDialogEditDrawingStyles(java.awt.Frame parent, boolean modal, StyleEditor drawingStylesToEdit) throws IncorrectParameterException
 	{
 		super(parent, modal);
-						
+
 		if (drawingStylesToEdit == null)
 		{
 			throw new IncorrectParameterException();
 		}
-		
+
 		editingDrawingStyles = drawingStylesToEdit;
 		updateControlsByEditingDrawingStyles();
 	}
@@ -72,7 +80,7 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
   private void initComponents()
   {
 
-    jLabel1 = new javax.swing.JLabel();
+    jLabelMapBackgroundColor = new javax.swing.JLabel();
     jPanelMapBackgroudColorPreview = new javax.swing.JPanel();
     jButtonChooseBackgroundColor = new javax.swing.JButton();
     jButtonOpen = new javax.swing.JButton();
@@ -83,7 +91,7 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     setResizable(false);
 
-    jLabel1.setText("Map background color");
+    jLabelMapBackgroundColor.setText("Map background color");
 
     jPanelMapBackgroudColorPreview.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -110,10 +118,31 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
     jButtonOpen.setText("Open ...");
 
     jButtonSave.setText("Save");
+    jButtonSave.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jButtonSaveActionPerformed(evt);
+      }
+    });
 
     jButtonSaveAs.setText("Save as ...");
+    jButtonSaveAs.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jButtonSaveAsActionPerformed(evt);
+      }
+    });
 
     jButtonNew.setText("New");
+    jButtonNew.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jButtonNewActionPerformed(evt);
+      }
+    });
 
     org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -123,7 +152,7 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
         .addContainerGap()
         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
           .add(layout.createSequentialGroup()
-            .add(jLabel1)
+            .add(jLabelMapBackgroundColor)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jPanelMapBackgroudColorPreview, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -145,7 +174,7 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
           .add(jPanelMapBackgroudColorPreview, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
           .add(layout.createSequentialGroup()
-            .add(jLabel1)
+            .add(jLabelMapBackgroundColor)
             .add(13, 13, 13))
           .add(jButtonChooseBackgroundColor))
         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 345, Short.MAX_VALUE)
@@ -165,9 +194,42 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
 		Color newBackgroundColor = JColorChooser.showDialog(this, "Choosing map background color",
 						editingDrawingStyles.getMapDrawSettings().getMapBackgroundColor());
 
-		editingDrawingStyles.getMapDrawSettings().setMapBackgroundColor(newBackgroundColor);
-		jPanelMapBackgroudColorPreview.setBackground(newBackgroundColor);
+		if (newBackgroundColor != null)
+		{
+			editingDrawingStyles.getMapDrawSettings().setMapBackgroundColor(newBackgroundColor);
+			jPanelMapBackgroudColorPreview.setBackground(newBackgroundColor);
+		}
   }//GEN-LAST:event_jButtonChooseBackgroundColorActionPerformed
+
+  private void jButtonNewActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonNewActionPerformed
+  {//GEN-HEADEREND:event_jButtonNewActionPerformed
+		editingDrawingStyles = DrawingStylesFactory.createStyleEditor();
+		updateControlsByEditingDrawingStyles();
+  }//GEN-LAST:event_jButtonNewActionPerformed
+
+  private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonSaveActionPerformed
+  {//GEN-HEADEREND:event_jButtonSaveActionPerformed
+		//
+  }//GEN-LAST:event_jButtonSaveActionPerformed
+
+  private void jButtonSaveAsActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonSaveAsActionPerformed
+  {//GEN-HEADEREND:event_jButtonSaveAsActionPerformed
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+		int showDialogResult = fileChooser.showSaveDialog(this);
+		if (showDialogResult == JFileChooser.APPROVE_OPTION)
+		{
+			try
+			{
+				editingDrawingStyles.writeToFile(fileChooser.getSelectedFile());
+			}
+			catch (IOException ex)
+			{
+				Logger.getLogger(JDialogEditDrawingStyles.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+  }//GEN-LAST:event_jButtonSaveAsActionPerformed
 
 	/**
 	 * @param args the command line arguments
@@ -232,7 +294,7 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
   private javax.swing.JButton jButtonOpen;
   private javax.swing.JButton jButtonSave;
   private javax.swing.JButton jButtonSaveAs;
-  private javax.swing.JLabel jLabel1;
+  private javax.swing.JLabel jLabelMapBackgroundColor;
   private javax.swing.JPanel jPanelMapBackgroudColorPreview;
   // End of variables declaration//GEN-END:variables
 }

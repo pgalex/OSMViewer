@@ -5,6 +5,8 @@ import drawingStyles.exceptions.MapObjectDrawSettingsIsNullException;
 import drawingStyles.exceptions.StyleIndexOutOfBoundsException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,6 +50,27 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 			writeStylesToStream(styles.toArray(new MapObjectDrawSettings[styles.size()]), output);
 		}
 		catch (Exception ex)
+		{
+			throw new IOException();
+		}
+	}
+
+	/**
+	 * Write to file
+	 *
+	 * @param fileForWriting file, using for writing
+	 * @throws IOException writing error 
+	 */
+	@Override
+	public void writeToFile(File fileForWriting) throws IOException
+	{
+		try
+		{
+			DataOutputStream output = new DataOutputStream(new FileOutputStream(fileForWriting));
+			writeToStream(output);
+			output.close();
+		}
+		catch(Exception ex)
 		{
 			throw new IOException();
 		}
