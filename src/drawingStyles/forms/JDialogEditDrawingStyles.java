@@ -1,4 +1,4 @@
-package forms;
+package drawingStyles.forms;
 
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.StyleEditor;

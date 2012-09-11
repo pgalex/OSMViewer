@@ -1,5 +1,6 @@
 package forms;
 
+import drawingStyles.forms.JDialogEditDrawingStyles;
 import map.MapPosition;
 import onlineMap.OnlineMapProcessor;
 
