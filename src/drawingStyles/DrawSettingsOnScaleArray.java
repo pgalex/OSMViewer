@@ -2,7 +2,7 @@ package drawingStyles;
 
 import IO.ReadableMapData;
 import IO.WritableMapData;
-import drawingStyles.exceptions.DrawSettingsOnScaleIsNullException;
+import drawingStyles.exceptions.IncorrectParameterException;
 import drawingStyles.exceptions.ScaleLevelOutOfBoundsException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -84,13 +84,13 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	 * @param scaleLevel scale level of draw settings
 	 * @param drawSettingToSet draw settings that will be set on scale level
 	 * @throws ScaleLevelOutOfBoundsException scale level is out of range
-	 * @throws DrawSettingsOnScaleIsNullException draw settings is null
+	 * @throws IncorrectParameterException draw settings is null
 	 */
-	public void setDrawSettingsOnScale(int scaleLevel, DrawSettingsOnScale drawSettingToSet) throws ScaleLevelOutOfBoundsException, DrawSettingsOnScaleIsNullException
+	public void setDrawSettingsOnScale(int scaleLevel, DrawSettingsOnScale drawSettingToSet) throws ScaleLevelOutOfBoundsException, IncorrectParameterException
 	{
 		if (drawSettingToSet == null)
 		{
-			throw new DrawSettingsOnScaleIsNullException();
+			throw new IncorrectParameterException();
 		}
 		// ScaleLevelOutOfBoundsException will be throwen in convertScaleLevelToArrayIndex
 
