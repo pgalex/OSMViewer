@@ -3,7 +3,6 @@ package drawingStyles;
 import IO.ReadableMapData;
 import IO.WritableMapData;
 import drawingStyles.exceptions.IncorrectParameterException;
-import drawingStyles.exceptions.LinePatternIncorrectException;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.io.DataInputStream;
@@ -50,11 +49,9 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	 * @param lineColor line color
 	 * @param lineWidth line width
 	 * @param linePattern pattern of line
-	 * @throws LinePatternIncorrectException pattern of line is incorrect
-	 * @throws IncorrectParameterException line color is null
+	 * @throws IncorrectParameterException line color or pattern is incorrect
 	 */
-	public LineDrawSettings(Color lineColor, float lineWidth, float[] linePattern) throws LinePatternIncorrectException,
-					IncorrectParameterException
+	public LineDrawSettings(Color lineColor, float lineWidth, float[] linePattern) throws IncorrectParameterException
 	{
 		color = new IOColor(lineColor);
 		width = lineWidth;
@@ -161,9 +158,9 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	 * Set new line pattern
 	 *
 	 * @param patternToSet new line pattern
-	 * @throws LinePatternIncorrectException new pattern incorrect
+	 * @throws IncorrectParameterException new pattern incorrect
 	 */
-	public void setPattern(float[] patternToSet) throws LinePatternIncorrectException
+	public void setPattern(float[] patternToSet) throws IncorrectParameterException
 	{
 		pattern.setPattern(patternToSet);
 	}

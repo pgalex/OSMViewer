@@ -3,7 +3,6 @@ package drawingStylesTests;
 import IOTesting.IOTester;
 import drawingStyles.LineDrawSettings;
 import drawingStyles.exceptions.IncorrectParameterException;
-import drawingStyles.exceptions.LinePatternIncorrectException;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import static org.junit.Assert.*;
@@ -45,7 +44,7 @@ public class LineDrawSettingsTest
 			LineDrawSettings testStyle = new LineDrawSettings(Color.RED, 1, null);
 			fail();
 		}
-		catch (LinePatternIncorrectException ex)
+		catch (IncorrectParameterException ex)
 		{
 			// ok
 		}
