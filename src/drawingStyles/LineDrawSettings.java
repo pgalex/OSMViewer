@@ -49,9 +49,8 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	 * @param lineColor line color
 	 * @param lineWidth line width
 	 * @param linePattern pattern of line
-	 * @throws IncorrectParameterException line color or pattern is incorrect
 	 */
-	public LineDrawSettings(Color lineColor, float lineWidth, float[] linePattern) throws IncorrectParameterException
+	public LineDrawSettings(Color lineColor, float lineWidth, float[] linePattern)
 	{
 		color = new IOColor(lineColor);
 		width = lineWidth;
@@ -104,9 +103,8 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	 * Set new line color
 	 *
 	 * @param colorToSet new line color
-	 * @throws IncorrectParameterException new line color is null
 	 */
-	public void setColor(Color colorToSet) throws IncorrectParameterException
+	public void setColor(Color colorToSet)
 	{
 		color.setStoringColor(colorToSet);
 	}
@@ -158,9 +156,8 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	 * Set new line pattern
 	 *
 	 * @param patternToSet new line pattern
-	 * @throws IncorrectParameterException new pattern incorrect
 	 */
-	public void setPattern(float[] patternToSet) throws IncorrectParameterException
+	public void setPattern(float[] patternToSet)
 	{
 		pattern.setPattern(patternToSet);
 	}

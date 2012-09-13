@@ -1,8 +1,6 @@
 package drawingStyles;
 
-import drawingStyles.exceptions.MapDrawSettingsIsNullException;
-import drawingStyles.exceptions.MapObjectDrawSettingsIsNullException;
-import drawingStyles.exceptions.StyleIndexOutOfBoundsException;
+import drawingStyles.exceptions.IncorrectParameterException;
 import java.io.File;
 import java.io.IOException;
 
@@ -27,26 +25,25 @@ public interface StyleEditor extends StyleViewer
 	 *
 	 * @param index style index
 	 * @param drawSettingsToSet new draw settings of object with index
-	 * @throws StyleIndexOutOfBoundsException style index is out of bounds
-	 * @throws MapObjectDrawSettingsIsNullException new draw settings is null
+	 * @throws IncorrectParameterException new draw settings is null, style index is out of bounds
 	 */
-	public void setMapObjectDrawSettings(Integer index, MapObjectDrawSettings drawSettingsToSet) throws StyleIndexOutOfBoundsException, MapObjectDrawSettingsIsNullException;
+	public void setMapObjectDrawSettings(Integer index, MapObjectDrawSettings drawSettingsToSet) throws IncorrectParameterException;
 
 	/**
 	 * Add draw settings of map object
 	 *
 	 * @param drawSettingsToAdd new map object style
-	 * @throws MapObjectDrawSettingsIsNullException new style is null
+	 * @throws IncorrectParameterException new style is null
 	 */
-	public void addMapObjectDrawSettings(MapObjectDrawSettings drawSettingsToAdd) throws MapObjectDrawSettingsIsNullException;
+	public void addMapObjectDrawSettings(MapObjectDrawSettings drawSettingsToAdd) throws IncorrectParameterException;
 
 	/**
 	 * Remove draw settings by index
 	 *
 	 * @param index style index
-	 * @throws StyleIndexOutOfBoundsException index out of bounds
+	 * @throws IncorrectParameterException index out of bounds
 	 */
-	public void removeMapObjectDrawSettings(Integer index) throws StyleIndexOutOfBoundsException;
+	public void removeMapObjectDrawSettings(Integer index) throws IncorrectParameterException;
 
 	/**
 	 * Get count of storing map object draw setting
@@ -59,9 +56,9 @@ public interface StyleEditor extends StyleViewer
 	 * Set new map drawing settings
 	 *
 	 * @param mapDrawingSettingsToSet new map drawing settings
-	 * @throws MapDrawSettingsIsNullException new settins is null
+	 * @throws IncorrectParameterException new settins is null
 	 */
-	public void setMapDrawSettings(MapDrawSettings mapDrawingSettingsToSet) throws MapDrawSettingsIsNullException;
+	public void setMapDrawSettings(MapDrawSettings mapDrawingSettingsToSet) throws IncorrectParameterException;
 
 	/**
 	 * Write to file

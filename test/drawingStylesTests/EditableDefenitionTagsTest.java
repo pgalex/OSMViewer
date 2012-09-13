@@ -3,7 +3,6 @@ package drawingStylesTests;
 import drawingStyles.EditableDefenitionTags;
 import drawingStyles.MapTag;
 import drawingStyles.exceptions.IncorrectParameterException;
-import drawingStyles.exceptions.TagIsNullException;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -43,7 +42,7 @@ public class EditableDefenitionTagsTest
 			tags.add(null);
 			fail();
 		}
-		catch (TagIsNullException ex)
+		catch (IncorrectParameterException ex)
 		{
 			// ok
 		}

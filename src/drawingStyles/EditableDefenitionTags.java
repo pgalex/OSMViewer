@@ -1,7 +1,6 @@
 package drawingStyles;
 
 import drawingStyles.exceptions.IncorrectParameterException;
-import drawingStyles.exceptions.TagIsNullException;
 
 /**
  * Defenition tags that can be changed
@@ -21,17 +20,17 @@ public class EditableDefenitionTags extends DefenitionTags
 	/**
 	 * Add tag
 	 *
-	 * @param pTag tag to add
-	 * @throws TagIsNullException adding tag is null
+	 * @param tagToAdd tag to add
+	 * @throws IncorrectParameterException adding tag is null
 	 */
-	public void add(MapTag pTag) throws TagIsNullException
+	public void add(MapTag tagToAdd) throws IncorrectParameterException
 	{
-		if (pTag == null)
+		if (tagToAdd == null)
 		{
-			throw new TagIsNullException();
+			throw new IncorrectParameterException();
 		}
 
-		tags.add(pTag);
+		tags.add(tagToAdd);
 	}
 
 	/**

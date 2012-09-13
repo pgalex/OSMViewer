@@ -3,7 +3,6 @@ package drawingStyles;
 import IO.ReadableMapData;
 import IO.WritableMapData;
 import drawingStyles.exceptions.IncorrectParameterException;
-import drawingStyles.exceptions.ScaleLevelOutOfBoundsException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -83,10 +82,9 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	 *
 	 * @param scaleLevel scale level of draw settings
 	 * @param drawSettingToSet draw settings that will be set on scale level
-	 * @throws ScaleLevelOutOfBoundsException scale level is out of range
 	 * @throws IncorrectParameterException draw settings is null
 	 */
-	public void setDrawSettingsOnScale(int scaleLevel, DrawSettingsOnScale drawSettingToSet) throws ScaleLevelOutOfBoundsException, IncorrectParameterException
+	public void setDrawSettingsOnScale(int scaleLevel, DrawSettingsOnScale drawSettingToSet) throws IncorrectParameterException
 	{
 		if (drawSettingToSet == null)
 		{
@@ -103,14 +101,14 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	 *
 	 * @param scaleLevelToConvert scale level for converting
 	 * @return scaledStyles array index
-	 * @throws ScaleLevelOutOfBoundsException converting scale level is out of
+	 * @throws IncorrectParameterException converting scale level is out of
 	 * bounds
 	 */
-	private int convertScaleLevelToArrayIndex(int scaleLevelToConvert) throws ScaleLevelOutOfBoundsException
+	private int convertScaleLevelToArrayIndex(int scaleLevelToConvert) throws IncorrectParameterException
 	{
 		if (scaleLevelToConvert < minimumScaleLevel || scaleLevelToConvert > maximumScaleLevel)
 		{
-			throw new ScaleLevelOutOfBoundsException(scaleLevelToConvert, minimumScaleLevel, maximumScaleLevel);
+			throw new IncorrectParameterException();
 		}
 
 		return scaleLevelToConvert - minimumScaleLevel;

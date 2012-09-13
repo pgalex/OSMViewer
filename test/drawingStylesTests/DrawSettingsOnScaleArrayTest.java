@@ -4,7 +4,6 @@ import IOTesting.IOTester;
 import drawingStyles.DrawSettingsOnScale;
 import drawingStyles.DrawSettingsOnScaleArray;
 import drawingStyles.exceptions.IncorrectParameterException;
-import drawingStyles.exceptions.ScaleLevelOutOfBoundsException;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -147,11 +146,9 @@ public class DrawSettingsOnScaleArrayTest
 			stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel() - 1, scaledStyle); // there should be out of range exception
 			fail();
 		}
-		catch (ScaleLevelOutOfBoundsException ex)
+		catch (IncorrectParameterException ex)
 		{
-			assertEquals(stylesArray.getMinimumScaleLevel() - 1, ex.getIncorrectScaleLevel());
-			assertEquals(stylesArray.getMinimumScaleLevel(), ex.getBoundsMinimum());
-			assertEquals(stylesArray.getMaximumScaleLevel(), ex.getBoundsMaximum());
+			// ok
 		}
 	}
 
@@ -168,11 +165,9 @@ public class DrawSettingsOnScaleArrayTest
 			stylesArray.setDrawSettingsOnScale(stylesArray.getMaximumScaleLevel() + 1, scaledStyle); // there should be out of range exception
 			fail();
 		}
-		catch (ScaleLevelOutOfBoundsException ex)
+		catch (IncorrectParameterException ex)
 		{
-			assertEquals(stylesArray.getMaximumScaleLevel() + 1, ex.getIncorrectScaleLevel());
-			assertEquals(stylesArray.getMinimumScaleLevel(), ex.getBoundsMinimum());
-			assertEquals(stylesArray.getMaximumScaleLevel(), ex.getBoundsMaximum());
+			// ok
 		}
 	}
 
