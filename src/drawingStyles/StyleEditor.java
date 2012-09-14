@@ -1,6 +1,5 @@
 package drawingStyles;
 
-import drawingStyles.exceptions.IncorrectParameterException;
 import java.io.File;
 import java.io.IOException;
 
@@ -25,25 +24,25 @@ public interface StyleEditor extends StyleViewer
 	 *
 	 * @param index style index
 	 * @param drawSettingsToSet new draw settings of object with index
-	 * @throws IncorrectParameterException new draw settings is null, style index is out of bounds
+	 * @throws IllegalArgumentException new draw settings is null, style index is out of bounds
 	 */
-	public void setMapObjectDrawSettings(Integer index, MapObjectDrawSettings drawSettingsToSet) throws IncorrectParameterException;
+	public void setMapObjectDrawSettings(Integer index, MapObjectDrawSettings drawSettingsToSet) throws IllegalArgumentException;
 
 	/**
 	 * Add draw settings of map object
 	 *
 	 * @param drawSettingsToAdd new map object style
-	 * @throws IncorrectParameterException new style is null
+	 * @throws IllegalArgumentException new style is null
 	 */
-	public void addMapObjectDrawSettings(MapObjectDrawSettings drawSettingsToAdd) throws IncorrectParameterException;
+	public void addMapObjectDrawSettings(MapObjectDrawSettings drawSettingsToAdd) throws IllegalArgumentException;
 
 	/**
 	 * Remove draw settings by index
 	 *
 	 * @param index style index
-	 * @throws IncorrectParameterException index out of bounds
+	 * @throws IllegalArgumentException index out of bounds
 	 */
-	public void removeMapObjectDrawSettings(Integer index) throws IncorrectParameterException;
+	public void removeMapObjectDrawSettings(Integer index) throws IllegalArgumentException;
 
 	/**
 	 * Get count of storing map object draw setting
@@ -56,9 +55,9 @@ public interface StyleEditor extends StyleViewer
 	 * Set new map drawing settings
 	 *
 	 * @param mapDrawingSettingsToSet new map drawing settings
-	 * @throws IncorrectParameterException new settins is null
+	 * @throws IllegalArgumentException new settins is null
 	 */
-	public void setMapDrawSettings(MapDrawSettings mapDrawingSettingsToSet) throws IncorrectParameterException;
+	public void setMapDrawSettings(MapDrawSettings mapDrawingSettingsToSet) throws IllegalArgumentException;
 
 	/**
 	 * Write to file

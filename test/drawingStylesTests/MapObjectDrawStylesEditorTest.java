@@ -2,7 +2,6 @@ package drawingStylesTests;
 
 import IOTesting.IOTester;
 import drawingStyles.*;
-import drawingStyles.exceptions.IncorrectParameterException;
 import java.awt.Color;
 import java.io.File;
 import static org.junit.Assert.*;
@@ -37,7 +36,7 @@ public class MapObjectDrawStylesEditorTest
 			testEditor.setMapDrawSettings(null);
 			fail();
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
@@ -79,7 +78,7 @@ public class MapObjectDrawStylesEditorTest
 			editor.addMapObjectDrawSettings(null);
 			fail();
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
@@ -157,7 +156,7 @@ public class MapObjectDrawStylesEditorTest
 			editor.setMapObjectDrawSettings(-1, style2);
 			fail();
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
@@ -179,7 +178,7 @@ public class MapObjectDrawStylesEditorTest
 			editor.setMapObjectDrawSettings(editor.countOfMapObjectDrawSettings() + 1, style2);
 			fail();
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
@@ -200,7 +199,7 @@ public class MapObjectDrawStylesEditorTest
 			editor.setMapObjectDrawSettings(0, null);
 			fail();
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
@@ -219,7 +218,7 @@ public class MapObjectDrawStylesEditorTest
 			editor.setMapObjectDrawSettings(null, style2);
 			fail();
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
@@ -262,7 +261,7 @@ public class MapObjectDrawStylesEditorTest
 			editor.removeMapObjectDrawSettings(-1);
 			fail();
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
@@ -282,7 +281,7 @@ public class MapObjectDrawStylesEditorTest
 			editor.removeMapObjectDrawSettings(editor.countOfMapObjectDrawSettings());
 			fail();
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
@@ -302,7 +301,7 @@ public class MapObjectDrawStylesEditorTest
 			editor.removeMapObjectDrawSettings(null);
 			fail();
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}

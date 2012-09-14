@@ -2,7 +2,6 @@ package drawingStylesTests;
 
 import IOTesting.IOTester;
 import drawingStyles.IOColor;
-import drawingStyles.exceptions.IncorrectParameterException;
 import java.awt.Color;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -25,7 +24,7 @@ public class IOColorTest
 			IOColor testColor = new IOColor(null);
 			fail();
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
@@ -43,7 +42,7 @@ public class IOColorTest
 			testColor.setStoringColor(null);
 			fail();
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}

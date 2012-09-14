@@ -2,7 +2,6 @@ package drawingStylesTests;
 
 import IOTesting.IOTester;
 import drawingStyles.MapDrawSettings;
-import drawingStyles.exceptions.IncorrectParameterException;
 import java.awt.Color;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -25,7 +24,7 @@ public class MapDrawSettingsTest
 			MapDrawSettings testSettings = new MapDrawSettings(null);
 			fail();
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
@@ -43,7 +42,7 @@ public class MapDrawSettingsTest
 			testSettings.setMapBackgroundColor(null);
 			fail();
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}

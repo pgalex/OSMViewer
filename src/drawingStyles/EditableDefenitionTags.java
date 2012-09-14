@@ -1,7 +1,5 @@
 package drawingStyles;
 
-import drawingStyles.exceptions.IncorrectParameterException;
-
 /**
  * Defenition tags that can be changed
  *
@@ -21,13 +19,13 @@ public class EditableDefenitionTags extends DefenitionTags
 	 * Add tag
 	 *
 	 * @param tagToAdd tag to add
-	 * @throws IncorrectParameterException adding tag is null
+	 * @throws IllegalArgumentException adding tag is null
 	 */
-	public void add(MapTag tagToAdd) throws IncorrectParameterException
+	public void add(MapTag tagToAdd) throws IllegalArgumentException
 	{
 		if (tagToAdd == null)
 		{
-			throw new IncorrectParameterException();
+			throw new IllegalArgumentException();
 		}
 
 		tags.add(tagToAdd);
@@ -45,13 +43,13 @@ public class EditableDefenitionTags extends DefenitionTags
 	 * Remove tag with index
 	 *
 	 * @param index index of tag to remove
-	 * @throws IncorrectParameterException index of deleting tag is incorrect
+	 * @throws IllegalArgumentException index of deleting tag is incorrect
 	 */
-	public void remove(int index) throws IncorrectParameterException
+	public void remove(int index) throws IllegalArgumentException
 	{
 		if (index < 0 || index >= tags.size())
 		{
-			throw new IncorrectParameterException();
+			throw new IllegalArgumentException();
 		}
 
 		tags.remove(index);

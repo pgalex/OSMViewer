@@ -4,7 +4,6 @@ import IOTesting.IOTester;
 import drawingStyles.IOIcon;
 import drawingStyles.LineDrawSettings;
 import drawingStyles.PolygonDrawSettings;
-import drawingStyles.exceptions.IncorrectParameterException;
 import java.awt.Color;
 import java.awt.Paint;
 import java.awt.TexturePaint;
@@ -74,7 +73,7 @@ public class PolygonDrawSettingsTest
 			PolygonDrawSettings testStyle = new PolygonDrawSettings(null, null, null);
 			fail();
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}

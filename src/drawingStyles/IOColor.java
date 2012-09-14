@@ -2,7 +2,6 @@ package drawingStyles;
 
 import IO.ReadableMapData;
 import IO.WritableMapData;
-import drawingStyles.exceptions.IncorrectParameterException;
 import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -36,13 +35,13 @@ public class IOColor implements WritableMapData, ReadableMapData
 	 * Create with storingColor
 	 *
 	 * @param colorToStore storing Color. Must be not null
-	 * @throws IncorrectParameterException storing Color is null
+	 * @throws IllegalArgumentException storing Color is null
 	 */
-	public IOColor(Color colorToStore) throws IncorrectParameterException
+	public IOColor(Color colorToStore) throws IllegalArgumentException
 	{
 		if (colorToStore == null)
 		{
-			throw new IncorrectParameterException();
+			throw new IllegalArgumentException();
 		}
 
 		storingColor = colorToStore;
@@ -97,13 +96,13 @@ public class IOColor implements WritableMapData, ReadableMapData
 	 * Set new storing storingColor
 	 *
 	 * @param colorToSet new storing storingColor
-	 * @throws IncorrectParameterException new storing storingColor is null
+	 * @throws IllegalArgumentException new storing storingColor is null
 	 */
-	public void setStoringColor(Color colorToSet) throws IncorrectParameterException
+	public void setStoringColor(Color colorToSet) throws IllegalArgumentException
 	{
 		if (colorToSet == null)
 		{
-			throw new IncorrectParameterException();
+			throw new IllegalArgumentException();
 		}
 
 		storingColor = colorToSet;

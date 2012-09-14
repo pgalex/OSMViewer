@@ -2,7 +2,6 @@ package drawingStylesTests;
 
 import IOTesting.IOTester;
 import drawingStyles.TextDrawSettings;
-import drawingStyles.exceptions.IncorrectParameterException;
 import java.awt.Color;
 import java.awt.Font;
 import static org.junit.Assert.*;
@@ -35,7 +34,7 @@ public class TextDrawSettingsTest
 			TextDrawSettings settings = new TextDrawSettings(null, null);
 			fail();
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}

@@ -2,7 +2,6 @@ package drawingStylesTests;
 
 import IOTesting.IOTester;
 import drawingStyles.LinePattern;
-import drawingStyles.exceptions.IncorrectParameterException;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -36,7 +35,7 @@ public class LinePatternTest
 			LinePattern pattern = new LinePattern(null);
 			fail();
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
@@ -53,7 +52,7 @@ public class LinePatternTest
 			LinePattern pattern = new LinePattern(new float[0]);
 			fail();
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
@@ -72,7 +71,7 @@ public class LinePatternTest
 			pattern.setPattern(null);
 			fail();
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
@@ -91,7 +90,7 @@ public class LinePatternTest
 			pattern.setPattern(new float[0]);
 			fail();
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}

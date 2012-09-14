@@ -4,7 +4,6 @@ import IOTesting.IOTester;
 import drawingStyles.DefenitionTags;
 import drawingStyles.EditableDefenitionTags;
 import drawingStyles.MapTag;
-import drawingStyles.exceptions.IncorrectParameterException;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -27,7 +26,7 @@ public class DefenitionTagsTest
 		{
 			tags.get(0);
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
@@ -46,7 +45,7 @@ public class DefenitionTagsTest
 		{
 			tags.get(-1);
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
@@ -65,7 +64,7 @@ public class DefenitionTagsTest
 		{
 			tags.get(tags.size());
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
@@ -83,7 +82,7 @@ public class DefenitionTagsTest
 			tags.includingIn(null);
 			fail();
 		}
-		catch(IncorrectParameterException ex)
+		catch(IllegalArgumentException ex)
 		{
 			// ok
 		}

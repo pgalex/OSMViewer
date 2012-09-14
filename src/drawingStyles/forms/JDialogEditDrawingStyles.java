@@ -3,7 +3,6 @@ package drawingStyles.forms;
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleEditor;
-import drawingStyles.exceptions.IncorrectParameterException;
 import java.awt.Color;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -53,15 +52,15 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
 	 * @param parent dialog parent
 	 * @param modal show as modal
 	 * @param drawingStylesToEdit drawing styles for editing. Must be not null
-	 * @throws IncorrectParameterException drawingStylesToEdit is null
+	 * @throws IllegalArgumentException drawingStylesToEdit is null
 	 */
-	public JDialogEditDrawingStyles(java.awt.Frame parent, boolean modal, StyleEditor drawingStylesToEdit) throws IncorrectParameterException
+	public JDialogEditDrawingStyles(java.awt.Frame parent, boolean modal, StyleEditor drawingStylesToEdit) throws IllegalArgumentException
 	{
 		super(parent, modal);
 
 		if (drawingStylesToEdit == null)
 		{
-			throw new IncorrectParameterException();
+			throw new IllegalArgumentException();
 		}
 
 		editingDrawingStyles = drawingStylesToEdit;

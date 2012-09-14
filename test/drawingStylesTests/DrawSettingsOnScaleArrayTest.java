@@ -3,7 +3,6 @@ package drawingStylesTests;
 import IOTesting.IOTester;
 import drawingStyles.DrawSettingsOnScale;
 import drawingStyles.DrawSettingsOnScaleArray;
-import drawingStyles.exceptions.IncorrectParameterException;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -146,7 +145,7 @@ public class DrawSettingsOnScaleArrayTest
 			stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel() - 1, scaledStyle); // there should be out of range exception
 			fail();
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
@@ -165,7 +164,7 @@ public class DrawSettingsOnScaleArrayTest
 			stylesArray.setDrawSettingsOnScale(stylesArray.getMaximumScaleLevel() + 1, scaledStyle); // there should be out of range exception
 			fail();
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
@@ -184,7 +183,7 @@ public class DrawSettingsOnScaleArrayTest
 			stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel(), null);
 			fail();
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}

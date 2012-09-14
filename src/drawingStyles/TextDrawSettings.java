@@ -2,7 +2,6 @@ package drawingStyles;
 
 import IO.ReadableMapData;
 import IO.WritableMapData;
-import drawingStyles.exceptions.IncorrectParameterException;
 import java.awt.Color;
 import java.awt.Font;
 import java.io.DataInputStream;
@@ -39,9 +38,9 @@ public class TextDrawSettings implements TextDrawStyle, ReadableMapData, Writabl
 	 *
 	 * @param textColor text color
 	 * @param textFont text font
-	 * @throws IncorrectParameterException text color is null 
+	 * @throws IllegalArgumentException text color is null 
 	 */
-	public TextDrawSettings(Color textColor, Font textFont) throws IncorrectParameterException
+	public TextDrawSettings(Color textColor, Font textFont) throws IllegalArgumentException
 	{
 		color = new IOColor(textColor);
 		font = new IOFont(textFont);

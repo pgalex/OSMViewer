@@ -2,7 +2,6 @@ package drawingStyles;
 
 import IO.ReadableMapData;
 import IO.WritableMapData;
-import drawingStyles.exceptions.IncorrectParameterException;
 import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -36,13 +35,13 @@ public class MapDrawSettings implements ReadableMapData, WritableMapData
 	 * Create with parameters
 	 *
 	 * @param backgroundColor map background color. Must be not null
-	 * @throws IncorrectParameterException background color is incorrect
+	 * @throws IllegalArgumentException background color is incorrect
 	 */
-	public MapDrawSettings(Color backgroundColor) throws IncorrectParameterException
+	public MapDrawSettings(Color backgroundColor) throws IllegalArgumentException
 	{
 		if (backgroundColor == null)
 		{
-			throw new IncorrectParameterException();
+			throw new IllegalArgumentException();
 		}
 		
 		mapBackgroundColor = new IOColor(backgroundColor);
@@ -62,13 +61,13 @@ public class MapDrawSettings implements ReadableMapData, WritableMapData
 	 * Set new map background color
 	 *
 	 * @param backgroundColorToSet new map background color
-	 * @throws IncorrectParameterException new map background color is incorrect
+	 * @throws IllegalArgumentException new map background color is incorrect
 	 */
-	public void setMapBackgroundColor(Color backgroundColorToSet) throws IncorrectParameterException
+	public void setMapBackgroundColor(Color backgroundColorToSet) throws IllegalArgumentException
 	{
 		if (backgroundColorToSet == null)
 		{
-			throw new IncorrectParameterException();
+			throw new IllegalArgumentException();
 		}
 
 		mapBackgroundColor.setStoringColor(backgroundColorToSet);

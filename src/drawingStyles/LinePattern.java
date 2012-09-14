@@ -2,7 +2,6 @@ package drawingStyles;
 
 import IO.ReadableMapData;
 import IO.WritableMapData;
-import drawingStyles.exceptions.IncorrectParameterException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -38,13 +37,13 @@ public class LinePattern implements ReadableMapData, WritableMapData
 	 * Create line pattern
 	 *
 	 * @param linePattern pattern of line
-	 * @throws IncorrectParameterException linePattern is incorrect
+	 * @throws IllegalArgumentException linePattern is incorrect
 	 */
-	public LinePattern(float[] linePattern) throws IncorrectParameterException
+	public LinePattern(float[] linePattern) throws IllegalArgumentException
 	{
 		if (isLinePatternIncorrect(linePattern))
 		{
-			throw new IncorrectParameterException();
+			throw new IllegalArgumentException();
 		}
 
 		pattern = linePattern;
@@ -81,13 +80,13 @@ public class LinePattern implements ReadableMapData, WritableMapData
 	 * Set new pattern
 	 *
 	 * @param patternToSet new pattern
-	 * @throws IncorrectParameterException new pattern is incorrect
+	 * @throws IllegalArgumentException new pattern is incorrect
 	 */
-	public void setPattern(float[] patternToSet) throws IncorrectParameterException
+	public void setPattern(float[] patternToSet) throws IllegalArgumentException
 	{
 		if (isLinePatternIncorrect(patternToSet))
 		{
-			throw new IncorrectParameterException();
+			throw new IllegalArgumentException();
 		}
 
 		pattern = patternToSet;

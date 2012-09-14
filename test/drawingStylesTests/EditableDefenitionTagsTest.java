@@ -2,7 +2,6 @@ package drawingStylesTests;
 
 import drawingStyles.EditableDefenitionTags;
 import drawingStyles.MapTag;
-import drawingStyles.exceptions.IncorrectParameterException;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -42,7 +41,7 @@ public class EditableDefenitionTagsTest
 			tags.add(null);
 			fail();
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
@@ -95,7 +94,7 @@ public class EditableDefenitionTagsTest
 			tags.remove(-1);
 			fail();
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
@@ -114,7 +113,7 @@ public class EditableDefenitionTagsTest
 			tags.remove(tags.size());
 			fail();
 		}
-		catch (IncorrectParameterException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}

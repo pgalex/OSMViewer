@@ -1,6 +1,5 @@
 package drawingStyles;
 
-import drawingStyles.exceptions.IncorrectParameterException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -124,23 +123,23 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 	 *
 	 * @param index style index
 	 * @param drawSettingsToSet new draw settings of object with index
-	 * @throws IncorrectParameterException new draw settings is null, style index
+	 * @throws IllegalArgumentException new draw settings is null, style index
 	 * is out of bounds
 	 */
 	@Override
-	public void setMapObjectDrawSettings(Integer index, MapObjectDrawSettings drawSettingsToSet) throws IncorrectParameterException
+	public void setMapObjectDrawSettings(Integer index, MapObjectDrawSettings drawSettingsToSet) throws IllegalArgumentException
 	{
 		if (index == null)
 		{
-			throw new IncorrectParameterException();
+			throw new IllegalArgumentException();
 		}
 		if (index < 0 || index >= styles.size())
 		{
-			throw new IncorrectParameterException();
+			throw new IllegalArgumentException();
 		}
 		if (drawSettingsToSet == null)
 		{
-			throw new IncorrectParameterException();
+			throw new IllegalArgumentException();
 		}
 
 		styles.set(index, drawSettingsToSet);
@@ -199,14 +198,14 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 	 * Add draw settings of map object
 	 *
 	 * @param drawSettingsToAdd new map object style
-	 * @throws IncorrectParameterException new style is null
+	 * @throws IllegalArgumentException new style is null
 	 */
 	@Override
-	public void addMapObjectDrawSettings(MapObjectDrawSettings drawSettingsToAdd) throws IncorrectParameterException
+	public void addMapObjectDrawSettings(MapObjectDrawSettings drawSettingsToAdd) throws IllegalArgumentException
 	{
 		if (drawSettingsToAdd == null)
 		{
-			throw new IncorrectParameterException();
+			throw new IllegalArgumentException();
 		}
 
 		styles.add(drawSettingsToAdd);
@@ -216,19 +215,19 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 	 * Remove draw settings by index
 	 *
 	 * @param index style index
-	 * @throws IncorrectParameterException index out of bounds
+	 * @throws IllegalArgumentException index out of bounds
 	 */
 	@Override
-	public void removeMapObjectDrawSettings(Integer index) throws IncorrectParameterException
+	public void removeMapObjectDrawSettings(Integer index) throws IllegalArgumentException
 	{
 		if (index == null)
 		{
-			throw new IncorrectParameterException();
+			throw new IllegalArgumentException();
 		}
 
 		if (index < 0 || index >= styles.size())
 		{
-			throw new IncorrectParameterException();
+			throw new IllegalArgumentException();
 		}
 
 		styles.remove((int) index);
@@ -249,14 +248,14 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 	 * Set new map drawing settings
 	 *
 	 * @param mapDrawingSettingsToSet new map drawing settings
-	 * @throws IncorrectParameterException new settins is null
+	 * @throws IllegalArgumentException new settins is null
 	 */
 	@Override
-	public void setMapDrawSettings(MapDrawSettings mapDrawingSettingsToSet) throws IncorrectParameterException
+	public void setMapDrawSettings(MapDrawSettings mapDrawingSettingsToSet) throws IllegalArgumentException
 	{
 		if (mapDrawingSettingsToSet == null)
 		{
-			throw new IncorrectParameterException();
+			throw new IllegalArgumentException();
 		}
 
 		mapDrawSettings = mapDrawingSettingsToSet;
