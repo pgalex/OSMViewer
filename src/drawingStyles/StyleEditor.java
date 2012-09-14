@@ -67,4 +67,12 @@ public interface StyleEditor extends StyleViewer
 	 * @throws IOException writing error
 	 */
 	public void writeToFile(File fileForWriting) throws IOException;
+	
+	/**
+	 * Read from file
+	 *
+	 * @param fileForReading file to read
+	 * @throws IOException reading error
+	 */
+	public void readFromFile(File fileForReading) throws IOException;
 }

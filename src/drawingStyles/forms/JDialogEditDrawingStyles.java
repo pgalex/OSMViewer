@@ -4,10 +4,6 @@ import drawingStyles.DrawingStylesFactory;
 import drawingStyles.StyleEditor;
 import drawingStyles.exceptions.IncorrectParameterException;
 import java.awt.Color;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,7 +34,7 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
 		initComponents();
 
 		editingDrawingStyles = DrawingStylesFactory.createStyleEditor();
-		updateControlsByEditingDrawingStyles();
+		updateControlsByEditingStyles();
 	}
 
 	/**
@@ -59,15 +55,37 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
 		}
 
 		editingDrawingStyles = drawingStylesToEdit;
-		updateControlsByEditingDrawingStyles();
+		updateControlsByEditingStyles();
 	}
 
 	/**
 	 * Update values and states of all dialog controls using editingDrawingStyles
 	 */
-	private void updateControlsByEditingDrawingStyles()
+	private void updateControlsByEditingStyles()
+	{
+		updateBackgroundColorControlsByEditingStyles();
+		updateMapObjectsListByEditingStyles();	
+	}
+	
+	/**
+	 * Update background color controls by editing drawing styles
+	 */
+	private void updateBackgroundColorControlsByEditingStyles()
 	{
 		jPanelMapBackgroudColorPreview.setBackground(editingDrawingStyles.getMapDrawSettings().getMapBackgroundColor());
+	}
+
+	/**
+	 * Update list of map objects by editing drawing styles
+	 */
+	private void updateMapObjectsListByEditingStyles()
+	{
+		/*jListMapObjects.removeAll();
+		
+		for (int i = 0; i < editingDrawingStyles.countOfMapObjectDrawSettings(); i++)
+		{
+			MapObjectDrawSettings objectDrawSettings = editingDrawingStyles.getMapObjectDrawSettings(i);
+		}*/
 	}
 
 	/**
@@ -87,6 +105,8 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
     jButtonSave = new javax.swing.JButton();
     jButtonSaveAs = new javax.swing.JButton();
     jButtonNew = new javax.swing.JButton();
+    jScrollPane1 = new javax.swing.JScrollPane();
+    jListMapObjects = new javax.swing.JList();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     setResizable(false);
@@ -116,6 +136,13 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
     });
 
     jButtonOpen.setText("Open ...");
+    jButtonOpen.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jButtonOpenActionPerformed(evt);
+      }
+    });
 
     jButtonSave.setText("Save");
     jButtonSave.addActionListener(new java.awt.event.ActionListener()
@@ -144,6 +171,14 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
       }
     });
 
+    jListMapObjects.setModel(new javax.swing.AbstractListModel()
+    {
+      String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+      public int getSize() { return strings.length; }
+      public Object getElementAt(int i) { return strings[i]; }
+    });
+    jScrollPane1.setViewportView(jListMapObjects);
+
     org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
@@ -164,8 +199,9 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jButtonSave)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jButtonSaveAs)))
-        .addContainerGap(111, Short.MAX_VALUE))
+            .add(jButtonSaveAs))
+          .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 403, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        .addContainerGap(75, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -177,7 +213,9 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
             .add(jLabelMapBackgroundColor)
             .add(13, 13, 13))
           .add(jButtonChooseBackgroundColor))
-        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 345, Short.MAX_VALUE)
+        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 238, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 95, Short.MAX_VALUE)
         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
           .add(jButtonOpen)
           .add(jButtonSave)
@@ -197,14 +235,14 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
 		if (newBackgroundColor != null)
 		{
 			editingDrawingStyles.getMapDrawSettings().setMapBackgroundColor(newBackgroundColor);
-			jPanelMapBackgroudColorPreview.setBackground(newBackgroundColor);
+			updateBackgroundColorControlsByEditingStyles();
 		}
   }//GEN-LAST:event_jButtonChooseBackgroundColorActionPerformed
 
   private void jButtonNewActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonNewActionPerformed
   {//GEN-HEADEREND:event_jButtonNewActionPerformed
 		editingDrawingStyles = DrawingStylesFactory.createStyleEditor();
-		updateControlsByEditingDrawingStyles();
+		updateControlsByEditingStyles();
   }//GEN-LAST:event_jButtonNewActionPerformed
 
   private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonSaveActionPerformed
@@ -216,6 +254,9 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
   {//GEN-HEADEREND:event_jButtonSaveAsActionPerformed
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		/*FileNameExtensionFilter filter = new FileNameExtensionFilter(
+        "JPG & GIF Images", "jpg", "gif");
+    chooser.setFileFilter(filter);*/
 
 		int showDialogResult = fileChooser.showSaveDialog(this);
 		if (showDialogResult == JFileChooser.APPROVE_OPTION)
@@ -230,6 +271,27 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
 			}
 		}
   }//GEN-LAST:event_jButtonSaveAsActionPerformed
+
+  private void jButtonOpenActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonOpenActionPerformed
+  {//GEN-HEADEREND:event_jButtonOpenActionPerformed
+    JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		
+		int showDialogResult = fileChooser.showOpenDialog(this);
+		if( showDialogResult == JFileChooser.APPROVE_OPTION)
+		{
+			try
+			{
+				editingDrawingStyles.readFromFile(fileChooser.getSelectedFile());
+			}
+			catch (IOException ex)
+			{
+				Logger.getLogger(JDialogEditDrawingStyles.class.getName()).log(Level.SEVERE, null, ex);
+			}
+			
+			updateControlsByEditingStyles();
+		}
+  }//GEN-LAST:event_jButtonOpenActionPerformed
 
 	/**
 	 * @param args the command line arguments
@@ -295,6 +357,8 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
   private javax.swing.JButton jButtonSave;
   private javax.swing.JButton jButtonSaveAs;
   private javax.swing.JLabel jLabelMapBackgroundColor;
+  private javax.swing.JList jListMapObjects;
   private javax.swing.JPanel jPanelMapBackgroudColorPreview;
+  private javax.swing.JScrollPane jScrollPane1;
   // End of variables declaration//GEN-END:variables
 }

@@ -316,9 +316,9 @@ public class MapObjectDrawStylesEditorTest
 	{
 		try
 		{
-			MapObjectDrawSettings style1 = new MapObjectDrawSettings(true, true, false, null, 0, "style1", null, null);
-			MapObjectDrawSettings style2 = new MapObjectDrawSettings(true, false, true, null, 0, "style2", null, null);
-			MapObjectDrawSettings style3 = new MapObjectDrawSettings(false, true, true, null, 0, "style3", null, null);
+			MapObjectDrawSettings style1 = new MapObjectDrawSettings(true, true, false, null, 0, "style8", null, null);
+			MapObjectDrawSettings style2 = new MapObjectDrawSettings(true, false, true, null, 0, "style9", null, null);
+			MapObjectDrawSettings style3 = new MapObjectDrawSettings(false, true, true, null, 0, "style10", null, null);
 
 			StyleEditor writedEditor = DrawingStylesFactory.createStyleEditor();
 			writedEditor.addMapObjectDrawSettings(style1);
@@ -353,9 +353,9 @@ public class MapObjectDrawStylesEditorTest
 	{
 		try
 		{
-			MapObjectDrawSettings style1 = new MapObjectDrawSettings(true, true, false, null, 0, "style1", null, null);
-			MapObjectDrawSettings style2 = new MapObjectDrawSettings(true, false, true, null, 0, "style2", null, null);
-			MapObjectDrawSettings style3 = new MapObjectDrawSettings(false, true, true, null, 0, "style3", null, null);
+			MapObjectDrawSettings style1 = new MapObjectDrawSettings(true, true, false, null, 0, "style5", null, null);
+			MapObjectDrawSettings style2 = new MapObjectDrawSettings(true, false, true, null, 0, "style6", null, null);
+			MapObjectDrawSettings style3 = new MapObjectDrawSettings(false, true, true, null, 0, "style7", null, null);
 
 			StyleEditor writedEditor = DrawingStylesFactory.createStyleEditor();
 			writedEditor.addMapObjectDrawSettings(style1);
@@ -366,6 +366,44 @@ public class MapObjectDrawStylesEditorTest
 
 			StyleEditor readEditor = DrawingStylesFactory.createStyleEditor();
 			IOTester.readFromTestFile(readEditor);
+			
+
+			assertEquals(writedEditor.getMapDrawSettings().getMapBackgroundColor(),
+							readEditor.getMapDrawSettings().getMapBackgroundColor());
+			// comparing only by description
+			assertEquals(writedEditor.countOfMapObjectDrawSettings(), readEditor.countOfMapObjectDrawSettings());
+			for (int i = 0; i < writedEditor.countOfMapObjectDrawSettings(); i++)
+			{
+				assertEquals(writedEditor.getMapObjectDrawSettings(i).getDescription(), readEditor.getMapObjectDrawSettings(i).getDescription());
+			}
+		}
+		catch (Exception ex)
+		{
+			fail();
+		}
+	}
+	
+	/**
+	 * readFromFile normal work test
+	 */
+	@Test
+	public void readFromFileTest()
+	{
+		try
+		{
+			MapObjectDrawSettings style1 = new MapObjectDrawSettings(true, true, false, null, 0, "style1", null, null);
+			MapObjectDrawSettings style2 = new MapObjectDrawSettings(true, false, true, null, 0, "style2", null, null);
+			MapObjectDrawSettings style3 = new MapObjectDrawSettings(false, true, true, null, 0, "style3", null, null);
+
+			StyleEditor writedEditor = DrawingStylesFactory.createStyleEditor();
+			writedEditor.addMapObjectDrawSettings(style1);
+			writedEditor.addMapObjectDrawSettings(style2);
+			writedEditor.addMapObjectDrawSettings(style3);
+			writedEditor.setMapDrawSettings(new MapDrawSettings(Color.CYAN));
+			IOTester.writeToTestFile(writedEditor);
+
+			StyleEditor readEditor = DrawingStylesFactory.createStyleEditor();
+			readEditor.readFromFile(new File(IOTester.TEST_FILE_NAME));
 
 			assertEquals(writedEditor.getMapDrawSettings().getMapBackgroundColor(),
 							readEditor.getMapDrawSettings().getMapBackgroundColor());

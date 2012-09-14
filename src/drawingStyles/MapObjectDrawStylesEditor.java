@@ -4,6 +4,7 @@ import drawingStyles.exceptions.IncorrectParameterException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 	 * Write to file
 	 *
 	 * @param fileForWriting file, using for writing
-	 * @throws IOException writing error 
+	 * @throws IOException writing error
 	 */
 	@Override
 	public void writeToFile(File fileForWriting) throws IOException
@@ -68,7 +69,7 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 			writeToStream(output);
 			output.close();
 		}
-		catch(Exception ex)
+		catch (Exception ex)
 		{
 			throw new IOException();
 		}
@@ -98,11 +99,33 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 	}
 
 	/**
+	 * Read from file
+	 *
+	 * @param fileForReading file to read
+	 * @throws IOException reading error
+	 */
+	@Override
+	public void readFromFile(File fileForReading) throws IOException
+	{
+		try
+		{
+			DataInputStream input = new DataInputStream(new FileInputStream(fileForReading));
+			readFromStream(input);
+			input.close();
+		}
+		catch (IOException ex)
+		{
+			throw new IOException();
+		}
+	}
+
+	/**
 	 * Set draw settings of map object by index
 	 *
 	 * @param index style index
 	 * @param drawSettingsToSet new draw settings of object with index
-	 * @throws IncorrectParameterException new draw settings is null, style index is out of bounds
+	 * @throws IncorrectParameterException new draw settings is null, style index
+	 * is out of bounds
 	 */
 	@Override
 	public void setMapObjectDrawSettings(Integer index, MapObjectDrawSettings drawSettingsToSet) throws IncorrectParameterException
