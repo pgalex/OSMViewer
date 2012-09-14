@@ -2,7 +2,6 @@ package drawingStyles;
 
 import IO.ReadableMapData;
 import IO.WritableMapData;
-import drawingStyles.exceptions.IncorrectParameterException;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.io.DataInputStream;

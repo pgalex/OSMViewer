@@ -83,8 +83,8 @@ public class PolygonDrawSettings implements PolygonDrawStyle, ReadableMapData, W
 		try
 		{
 			fillColor.readFromStream(input);
-			borderDrawStyle.readFromStream(input);
 			fillImage.readFromStream(input);
+			borderDrawStyle.readFromStream(input);
 		}
 		catch (Exception e)
 		{
@@ -104,8 +104,8 @@ public class PolygonDrawSettings implements PolygonDrawStyle, ReadableMapData, W
 		try
 		{
 			fillColor.writeToStream(output);
-			borderDrawStyle.writeToStream(output);
 			fillImage.writeToStream(output);
+			borderDrawStyle.writeToStream(output);
 		}
 		catch (Exception e)
 		{

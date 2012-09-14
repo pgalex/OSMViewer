@@ -1,12 +1,14 @@
 package drawingStyles.forms;
 
 import drawingStyles.DrawingStylesFactory;
+import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleEditor;
 import drawingStyles.exceptions.IncorrectParameterException;
 import java.awt.Color;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 
@@ -21,6 +23,11 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
 	 * Drawing styles editing with dialog
 	 */
 	private StyleEditor editingDrawingStyles;
+	
+	/**
+	 * List model of map object jlist control
+	 */
+	private DefaultListModel mapObjectsListModel;
 
 	/**
 	 * Creates new form with empty drawing styles
@@ -31,6 +38,9 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
 	public JDialogEditDrawingStyles(java.awt.Frame parent, boolean modal)
 	{
 		super(parent, modal);
+		
+		mapObjectsListModel = new DefaultListModel();
+		
 		initComponents();
 
 		editingDrawingStyles = DrawingStylesFactory.createStyleEditor();
@@ -80,12 +90,13 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
 	 */
 	private void updateMapObjectsListByEditingStyles()
 	{
-		/*jListMapObjects.removeAll();
+		mapObjectsListModel.clear();
 		
 		for (int i = 0; i < editingDrawingStyles.countOfMapObjectDrawSettings(); i++)
 		{
 			MapObjectDrawSettings objectDrawSettings = editingDrawingStyles.getMapObjectDrawSettings(i);
-		}*/
+			mapObjectsListModel.addElement(objectDrawSettings.getDescription());
+		}
 	}
 
 	/**
@@ -171,12 +182,7 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
       }
     });
 
-    jListMapObjects.setModel(new javax.swing.AbstractListModel()
-    {
-      String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-      public int getSize() { return strings.length; }
-      public Object getElementAt(int i) { return strings[i]; }
-    });
+    jListMapObjects.setModel(mapObjectsListModel);
     jScrollPane1.setViewportView(jListMapObjects);
 
     org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());

@@ -94,8 +94,9 @@ public class PolygonDrawSettingsTest
 			pattern[2] = 4;
 			pattern[3] = 5;
 			LineDrawSettings borderStyle = new LineDrawSettings(Color.CYAN, 10, pattern);
+			IOIcon fillIcon = new IOIcon("testIcon.png");
 			PolygonDrawSettings writedStyle = new PolygonDrawSettings(Color.MAGENTA, borderStyle,
-							null);
+							fillIcon.getImage());
 
 			IOTester.writeToTestFile(writedStyle);
 
@@ -103,6 +104,7 @@ public class PolygonDrawSettingsTest
 			IOTester.readFromTestFile(readStyle);
 
 			assertEquals(writedStyle.getFillColor(), readStyle.getFillColor());
+			assertNotNull(writedStyle.getFillImage());
 			assertEquals(writedStyle.getBorderDrawStyle().getColor(), readStyle.getBorderDrawStyle().getColor());
 			assertEquals(writedStyle.getBorderDrawStyle().getWidth(), readStyle.getBorderDrawStyle().getWidth(), 0.00001f);
 		}

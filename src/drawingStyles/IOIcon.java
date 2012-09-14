@@ -3,10 +3,13 @@ package drawingStyles;
 import IO.ReadableMapData;
 import IO.WritableMapData;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import javax.imageio.ImageIO;
 
 /**
@@ -73,10 +76,16 @@ public class IOIcon implements ReadableMapData, WritableMapData
 	{
 		try
 		{
-			boolean isValidImage = input.readBoolean(); // for null image
-			if (isValidImage)
+			boolean isImageValid = input.readBoolean(); // for null image
+			if (isImageValid)
 			{
-				image = ImageIO.read(input);
+				int imageBytesLength = input.readInt();
+				byte[] imageBytes = new byte[imageBytesLength];
+				input.read(imageBytes, 0, imageBytesLength);
+				
+				InputStream imageInputStream = new ByteArrayInputStream(imageBytes);
+				image = ImageIO.read(imageInputStream);
+				imageInputStream.close();
 			}
 			else
 			{
@@ -100,11 +109,19 @@ public class IOIcon implements ReadableMapData, WritableMapData
 	{
 		try
 		{
-			boolean isValidImage = (image != null); // for null image
-			output.writeBoolean(isValidImage);
-			if (isValidImage)
+			boolean isImageValid = (image != null); // for null image
+			output.writeBoolean(isImageValid);
+			if (isImageValid)
 			{
-				ImageIO.write(image, IMAGE_FORMAT, output);
+				// writing as bytes array, cuz file ImageIO.read, reads all file to end
+
+				ByteArrayOutputStream bytesStream = new ByteArrayOutputStream();
+				ImageIO.write(image, IMAGE_FORMAT, bytesStream);
+				
+				output.writeInt(bytesStream.toByteArray().length);
+				output.write(bytesStream.toByteArray());
+				
+				bytesStream.close();
 			}
 		}
 		catch (Exception e)
