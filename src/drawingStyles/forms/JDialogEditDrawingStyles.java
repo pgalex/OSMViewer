@@ -117,6 +117,9 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
     jButtonNew = new javax.swing.JButton();
     jScrollPane1 = new javax.swing.JScrollPane();
     jListMapObjects = new javax.swing.JList();
+    jButtonAddMapObject = new javax.swing.JButton();
+    jButtonEditMapObject = new javax.swing.JButton();
+    jButtonRemoveMapObject = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     setResizable(false);
@@ -184,6 +187,12 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
     jListMapObjects.setModel(mapObjectsListModel);
     jScrollPane1.setViewportView(jListMapObjects);
 
+    jButtonAddMapObject.setText("Add");
+
+    jButtonEditMapObject.setText("Edit");
+
+    jButtonRemoveMapObject.setText("Remove");
+
     org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
@@ -205,7 +214,13 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
             .add(jButtonSave)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jButtonSaveAs))
-          .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 403, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+          .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 403, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+          .add(layout.createSequentialGroup()
+            .add(jButtonAddMapObject)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jButtonEditMapObject)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jButtonRemoveMapObject)))
         .addContainerGap(75, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
@@ -220,7 +235,12 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
           .add(jButtonChooseBackgroundColor))
         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
         .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 238, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 95, Short.MAX_VALUE)
+        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+          .add(jButtonAddMapObject)
+          .add(jButtonEditMapObject)
+          .add(jButtonRemoveMapObject))
+        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 60, Short.MAX_VALUE)
         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
           .add(jButtonOpen)
           .add(jButtonSave)
@@ -356,9 +376,12 @@ public class JDialogEditDrawingStyles extends javax.swing.JDialog
 		});
 	}
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JButton jButtonAddMapObject;
   private javax.swing.JButton jButtonChooseBackgroundColor;
+  private javax.swing.JButton jButtonEditMapObject;
   private javax.swing.JButton jButtonNew;
   private javax.swing.JButton jButtonOpen;
+  private javax.swing.JButton jButtonRemoveMapObject;
   private javax.swing.JButton jButtonSave;
   private javax.swing.JButton jButtonSaveAs;
   private javax.swing.JLabel jLabelMapBackgroundColor;
