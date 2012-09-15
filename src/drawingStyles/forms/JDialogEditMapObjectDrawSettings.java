@@ -36,6 +36,23 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 		initComponents();
 
 		editingMapObjectDrawSettings = drawSettingsToEdit;
+		updateControlsByEditingSettings();
+	}
+
+	/**
+	 * Update all controls of dialog by editingMapObjectDrawSettings
+	 */
+	private void updateControlsByEditingSettings()
+	{
+		updateDescriptionByEditingSettings();
+	}
+	
+	/**
+	 * Update object description controls by editingMapObjectDrawSettings
+	 */
+	private void updateDescriptionByEditingSettings()
+	{
+		jTextFieldDescription.setText(editingMapObjectDrawSettings.getDescription());
 	}
 
 	/**

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
+<Form version="1.3" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="resizable" type="boolean" value="false"/>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -23,10 +22,10 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabelMapBackgroundColor" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanelMapBackgroudColorPreview" min="-2" max="-2" attributes="0"/>
@@ -51,7 +50,7 @@
                       <Component id="jButtonRemoveMapObject" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="75" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -60,12 +59,12 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jPanelMapBackgroudColorPreview" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
+                  <Component id="jPanelMapBackgroudColorPreview" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabelMapBackgroundColor" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jButtonChooseBackgroundColor" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonChooseBackgroundColor" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="238" max="-2" attributes="0"/>
@@ -75,7 +74,7 @@
                   <Component id="jButtonEditMapObject" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonRemoveMapObject" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="60" max="32767" attributes="0"/>
+              <EmptySpace pref="34" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButtonOpen" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonSave" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -88,10 +87,13 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jLabelMapBackgroundColor">
+    <Component class="javax.swing.JButton" name="jButtonSave">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Map background color"/>
+        <Property name="text" type="java.lang.String" value="Save"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSaveActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanelMapBackgroudColorPreview">
       <Properties>
@@ -115,13 +117,20 @@
         </DimensionLayout>
       </Layout>
     </Container>
-    <Component class="javax.swing.JButton" name="jButtonChooseBackgroundColor">
+    <Component class="javax.swing.JLabel" name="jLabelMapBackgroundColor">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Choose ..."/>
+        <Property name="text" type="java.lang.String" value="Map background color"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonChooseBackgroundColorActionPerformed"/>
-      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonRemoveMapObject">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Remove"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonAddMapObject">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Add"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonOpen">
       <Properties>
@@ -131,28 +140,20 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonOpenActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButtonSave">
+    <Component class="javax.swing.JButton" name="jButtonEditMapObject">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Save"/>
+        <Property name="text" type="java.lang.String" value="Edit"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSaveActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEditMapObjectActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButtonSaveAs">
+    <Component class="javax.swing.JButton" name="jButtonChooseBackgroundColor">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Save as ..."/>
+        <Property name="text" type="java.lang.String" value="Choose ..."/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSaveAsActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButtonNew">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="New"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonNewActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonChooseBackgroundColorActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -171,20 +172,21 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="jButtonAddMapObject">
+    <Component class="javax.swing.JButton" name="jButtonSaveAs">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Add"/>
+        <Property name="text" type="java.lang.String" value="Save as ..."/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSaveAsActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButtonEditMapObject">
+    <Component class="javax.swing.JButton" name="jButtonNew">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Edit"/>
+        <Property name="text" type="java.lang.String" value="New"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButtonRemoveMapObject">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Remove"/>
-      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonNewActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

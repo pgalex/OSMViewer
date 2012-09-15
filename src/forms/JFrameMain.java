@@ -1,6 +1,7 @@
 package forms;
 
-import drawingStyles.forms.JDialogEditDrawingStyles;
+import drawingStyles.forms.JFrameEditDrawingStyles;
+import javax.swing.JFrame;
 import map.MapPosition;
 import onlineMap.OnlineMapProcessor;
 
@@ -22,7 +23,7 @@ public class JFrameMain extends javax.swing.JFrame
 	public JFrameMain()
 	{
 		initComponents();
-		
+
 		mapProcessor = new OnlineMapProcessor(new MapPosition(55.19907, 38.60329), 16,
 						jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
 
@@ -194,45 +195,46 @@ public class JFrameMain extends javax.swing.JFrame
 
   private void jButtonMoveLeftActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonMoveLeftActionPerformed
   {//GEN-HEADEREND:event_jButtonMoveLeftActionPerformed
-    mapProcessor.moveViewPositionByPixels(-50, 0);
+		mapProcessor.moveViewPositionByPixels(-50, 0);
 		jPanelCanvas.repaint();
   }//GEN-LAST:event_jButtonMoveLeftActionPerformed
 
   private void jButtonMoveRightActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonMoveRightActionPerformed
   {//GEN-HEADEREND:event_jButtonMoveRightActionPerformed
-    mapProcessor.moveViewPositionByPixels(50, 0);
+		mapProcessor.moveViewPositionByPixels(50, 0);
 		jPanelCanvas.repaint();
   }//GEN-LAST:event_jButtonMoveRightActionPerformed
 
   private void jButtonMoveUpActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonMoveUpActionPerformed
   {//GEN-HEADEREND:event_jButtonMoveUpActionPerformed
-    mapProcessor.moveViewPositionByPixels(0, -50);
+		mapProcessor.moveViewPositionByPixels(0, -50);
 		jPanelCanvas.repaint();
   }//GEN-LAST:event_jButtonMoveUpActionPerformed
 
   private void jButtonMoveDownActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonMoveDownActionPerformed
   {//GEN-HEADEREND:event_jButtonMoveDownActionPerformed
-    mapProcessor.moveViewPositionByPixels(0, 50);
+		mapProcessor.moveViewPositionByPixels(0, 50);
 		jPanelCanvas.repaint();
   }//GEN-LAST:event_jButtonMoveDownActionPerformed
 
   private void jPanelCanvasComponentResized(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_jPanelCanvasComponentResized
   {//GEN-HEADEREND:event_jPanelCanvasComponentResized
-    mapProcessor.setCanvasSize(jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
+		mapProcessor.setCanvasSize(jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
 		jPanelCanvas.repaint();
   }//GEN-LAST:event_jPanelCanvasComponentResized
 
   private void jButtonReloadMapActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonReloadMapActionPerformed
   {//GEN-HEADEREND:event_jButtonReloadMapActionPerformed
-    mapProcessor.testLoadMap();
+		mapProcessor.testLoadMap();
 		jPanelCanvas.repaint();
   }//GEN-LAST:event_jButtonReloadMapActionPerformed
 
   private void jButtonEditDrawingStylesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonEditDrawingStylesActionPerformed
   {//GEN-HEADEREND:event_jButtonEditDrawingStylesActionPerformed
-    JDialogEditDrawingStyles editDrawingStylesDialog = new JDialogEditDrawingStyles(this, false);
+		JFrameEditDrawingStyles editDrawingStylesDialog = new JFrameEditDrawingStyles();
 		editDrawingStylesDialog.setLocationRelativeTo(this);
 		editDrawingStylesDialog.setVisible(true);
+		editDrawingStylesDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
   }//GEN-LAST:event_jButtonEditDrawingStylesActionPerformed
 
 	/**
