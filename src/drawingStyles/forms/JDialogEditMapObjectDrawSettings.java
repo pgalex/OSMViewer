@@ -45,6 +45,7 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 	private void updateControlsByEditingSettings()
 	{
 		updateDescriptionByEditingSettings();
+		updateCanBeControlsByEditingSettings();
 	}
 	
 	/**
@@ -53,6 +54,16 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 	private void updateDescriptionByEditingSettings()
 	{
 		jTextFieldDescription.setText(editingMapObjectDrawSettings.getDescription());
+	}
+	
+	/**
+	 * Update can be point, can be line and can be polygon controls by editingMapObjectDrawSettings
+	 */
+	private void updateCanBeControlsByEditingSettings()
+	{
+		jCheckBoxCanBePoint.setSelected(editingMapObjectDrawSettings.canBePoint());
+		jCheckBoxCanBeLine.setSelected(editingMapObjectDrawSettings.canBeLine());
+		jCheckBoxCanBePolygon.setSelected(editingMapObjectDrawSettings.canBePolygon());
 	}
 
 	/**
@@ -67,10 +78,19 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 
     jLabelDescription = new javax.swing.JLabel();
     jTextFieldDescription = new javax.swing.JTextField();
+    jCheckBoxCanBePoint = new javax.swing.JCheckBox();
+    jCheckBoxCanBeLine = new javax.swing.JCheckBox();
+    jCheckBoxCanBePolygon = new javax.swing.JCheckBox();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
     jLabelDescription.setText("Description");
+
+    jCheckBoxCanBePoint.setText("Can be point");
+
+    jCheckBoxCanBeLine.setText("Can be line");
+
+    jCheckBoxCanBePolygon.setText("Can be polygon");
 
     org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -78,9 +98,17 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
       layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
       .add(layout.createSequentialGroup()
         .addContainerGap()
-        .add(jLabelDescription)
-        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-        .add(jTextFieldDescription, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 303, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+          .add(layout.createSequentialGroup()
+            .add(jLabelDescription)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jTextFieldDescription, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 303, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+          .add(layout.createSequentialGroup()
+            .add(jCheckBoxCanBePoint)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jCheckBoxCanBeLine)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jCheckBoxCanBePolygon)))
         .addContainerGap(118, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
@@ -90,12 +118,20 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
           .add(jLabelDescription)
           .add(jTextFieldDescription, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-        .addContainerGap(395, Short.MAX_VALUE))
+        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+          .add(jCheckBoxCanBePoint)
+          .add(jCheckBoxCanBeLine)
+          .add(jCheckBoxCanBePolygon))
+        .addContainerGap(366, Short.MAX_VALUE))
     );
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JCheckBox jCheckBoxCanBeLine;
+  private javax.swing.JCheckBox jCheckBoxCanBePoint;
+  private javax.swing.JCheckBox jCheckBoxCanBePolygon;
   private javax.swing.JLabel jLabelDescription;
   private javax.swing.JTextField jTextFieldDescription;
   // End of variables declaration//GEN-END:variables

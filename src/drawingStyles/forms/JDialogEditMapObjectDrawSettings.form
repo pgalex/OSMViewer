@@ -24,9 +24,20 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabelDescription" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTextFieldDescription" min="-2" pref="303" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="jLabelDescription" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jTextFieldDescription" min="-2" pref="303" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jCheckBoxCanBePoint" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jCheckBoxCanBeLine" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jCheckBoxCanBePolygon" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
               <EmptySpace pref="118" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -39,7 +50,13 @@
                   <Component id="jLabelDescription" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTextFieldDescription" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="395" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jCheckBoxCanBePoint" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jCheckBoxCanBeLine" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jCheckBoxCanBePolygon" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="366" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -51,6 +68,21 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldDescription">
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="jCheckBoxCanBePoint">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Can be point"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="jCheckBoxCanBeLine">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Can be line"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="jCheckBoxCanBePolygon">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Can be polygon"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

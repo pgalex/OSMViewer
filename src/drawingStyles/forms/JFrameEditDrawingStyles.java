@@ -262,7 +262,7 @@ public class JFrameEditDrawingStyles extends javax.swing.JFrame
 		Integer selectedMapObjectIndex = new Integer(jListMapObjects.getSelectedIndex());
 		MapObjectDrawSettings selectedDrawSettings = editingDrawingStyles.getMapObjectDrawSettings(selectedMapObjectIndex);
 
-		JDialogEditMapObjectDrawSettings editMapObjectDrawSettingsDialog = new JDialogEditMapObjectDrawSettings(null, true,
+		JDialogEditMapObjectDrawSettings editMapObjectDrawSettingsDialog = new JDialogEditMapObjectDrawSettings(this, true,
 						selectedDrawSettings);
 		editMapObjectDrawSettingsDialog.setLocationRelativeTo(this);
 		editMapObjectDrawSettingsDialog.setVisible(true);
