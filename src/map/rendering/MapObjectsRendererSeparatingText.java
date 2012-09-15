@@ -1,7 +1,6 @@
 package map.rendering;
 
 import drawingStyles.*;
-import java.awt.BasicStroke;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
@@ -11,7 +10,6 @@ import map.MapLine;
 import map.MapPoint;
 import map.MapPolygon;
 import map.MapPosition;
-import map.exceptions.CanvasIsNullException;
 import map.exceptions.CoordinatesConverterIsNullException;
 import map.exceptions.StyleViewerIsNullException;
 
@@ -48,16 +46,16 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * @param converter object that will be using for coordinates
 	 * converting while drawing
 	 * @param renderingScaleLevel scale level using for rendering
-	 * @throws CanvasIsNullException object canvas is null
+	 * @throws IllegalArgumentException object canvas is null
 	 * @throws StyleViewerIsNullException style viewer is null
 	 * @throws CoordinatesConverterIsNullException coordinates converter is null
 	 */
 	public MapObjectsRendererSeparatingText(Graphics2D targetCanvas, StyleViewer styleViewerForRendering,
-					CoordinatesConverter converter, int renderingScaleLevel) throws CanvasIsNullException, StyleViewerIsNullException, CoordinatesConverterIsNullException
+					CoordinatesConverter converter, int renderingScaleLevel) throws IllegalArgumentException, StyleViewerIsNullException, CoordinatesConverterIsNullException
 	{
 		if (targetCanvas == null)
 		{
-			throw new CanvasIsNullException();
+			throw new IllegalArgumentException();
 		}
 		if (styleViewerForRendering == null)
 		{
