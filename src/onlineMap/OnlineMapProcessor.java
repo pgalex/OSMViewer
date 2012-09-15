@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -144,58 +145,7 @@ public class OnlineMapProcessor implements DrawableOnPanel
 	{
 		try
 		{
-			styleViewer.setMapDrawSettings(new MapDrawSettings());
-			
-			IOIcon shopIcon = new IOIcon("icons/shop_convenience.p.16.png");
-			PointDrawSettings shopPointStyle = new PointDrawSettings(shopIcon.getImage());
-			TextDrawSettings shopTextStyle = new TextDrawSettings(Color.MAGENTA, null);
-			DrawSettingsOnScale shopScaledStyle = new DrawSettingsOnScale(true, false, false, shopPointStyle, null, null, shopTextStyle);
-
-			DrawSettingsOnScaleArray shopScaleStylesArray = new DrawSettingsOnScaleArray();
-			for (int i = MINIMUM_SCALE_LEVEL; i <= MAXIMUM_SCALE_LEVEL; i++)
-			{
-				shopScaleStylesArray.setDrawSettingsOnScale(i, shopScaledStyle);
-			}
-
-			String[] shopTextTagKeys = new String[1];
-			shopTextTagKeys[0] = "name";
-
-			EditableDefenitionTags shopTags = new EditableDefenitionTags();
-			shopTags.add(new MapTag("shop", "convenience"));
-
-			MapObjectDrawSettings shopStyle = new MapObjectDrawSettings(true, false, false,
-							new TextTagsKeys(shopTextTagKeys), 0, "convenience shop", shopScaleStylesArray, shopTags);
-			
-			float[] forestPattern = new float[2];
-			forestPattern[0] = 5;
-			forestPattern[1] = 5;
-			LineDrawSettings forestBorderStyle = new LineDrawSettings(new Color(134, 169, 120), 2, forestPattern);
-			
-			IOIcon forestTexture = new IOIcon("icons/forest.png");
-			PolygonDrawSettings forestPolygonStyle = new PolygonDrawSettings(new Color(174, 209, 160), 
-							forestBorderStyle, forestTexture.getImage());
-			TextDrawSettings forestTextStyle = new TextDrawSettings(new Color(54, 89, 40), null);
-			DrawSettingsOnScale forestScaledStyle = new DrawSettingsOnScale(false, false, true, 
-							null, null, forestPolygonStyle, forestTextStyle);
-
-			DrawSettingsOnScaleArray forestScaleStylesArray = new DrawSettingsOnScaleArray();
-			for (int i = MINIMUM_SCALE_LEVEL; i <= MAXIMUM_SCALE_LEVEL; i++)
-			{
-				forestScaleStylesArray.setDrawSettingsOnScale(i, forestScaledStyle);
-			}
-
-			String[] forestTextTagKeys = new String[1];
-			forestTextTagKeys[0] = "name";
-
-			EditableDefenitionTags forestTags = new EditableDefenitionTags();
-			forestTags.add(new MapTag("natural", "wood"));
-
-			MapObjectDrawSettings forestStyle = new MapObjectDrawSettings(false, false, true,
-							new TextTagsKeys(forestTextTagKeys), 0, "forest", forestScaleStylesArray, forestTags);
-			
-
-			styleViewer.addMapObjectDrawSettings(shopStyle);
-			styleViewer.addMapObjectDrawSettings(forestStyle);
+			styleViewer.readFromFile(new File("testdrawstyles.dat"));
 		}
 		catch (IOException ex)
 		{
