@@ -63,6 +63,9 @@ public class OnlineMapLoader
 		{
 			throw new IllegalArgumentException();
 		}
+		
+		fillingMap.clear();
+		
 		// nothing to load
 		if (loadingSectorBounds.isZero())
 		{
@@ -76,8 +79,6 @@ public class OnlineMapLoader
 						+ loadingSectorBounds.getLatitudeMaximum();
 		try
 		{
-			fillingMap.clear();
-			
 			URL openStreetMapURL = new URL(connectionString);
 			URLConnection openStreetMapConnection = openStreetMapURL.openConnection();
 			onlineParser.convert(openStreetMapConnection.getInputStream());

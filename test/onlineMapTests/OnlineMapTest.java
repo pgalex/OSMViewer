@@ -1,9 +1,9 @@
 package onlineMapTests;
 
-import drawingStyles.MapTag;
-import drawingStyles.EditableDefenitionTags;
 import drawingStyles.DrawingStylesFactory;
+import drawingStyles.EditableDefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
+import drawingStyles.MapTag;
 import drawingStyles.StyleEditor;
 import map.*;
 import onlineMap.OnlineMap;
