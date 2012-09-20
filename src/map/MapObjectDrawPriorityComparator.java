@@ -3,7 +3,6 @@ package map;
 import drawingStyles.MapObjectDrawStyle;
 import drawingStyles.StyleViewer;
 import java.util.Comparator;
-import map.exceptions.StyleViewerIsNullException;
 
 /**
  * Comparator for sorting map objects by draw priority
@@ -21,13 +20,13 @@ public class MapObjectDrawPriorityComparator implements Comparator<MapObject>
 	 * Create for comparing with style viewer
 	 *
 	 * @param styleViewerUsingForComparing Viewer for finding draw priority of objects
-	 * @throws StyleViewerIsNullException style viewer is null
+	 * @throws IllegalArgumentException styleViewerUsingForComparing is null
 	 */
-	public MapObjectDrawPriorityComparator(StyleViewer styleViewerUsingForComparing) throws StyleViewerIsNullException
+	public MapObjectDrawPriorityComparator(StyleViewer styleViewerUsingForComparing) throws IllegalArgumentException
 	{
 		if (styleViewerUsingForComparing == null)
 		{
-			throw new StyleViewerIsNullException();
+			throw new IllegalArgumentException();
 		}
 
 		styleViewer = styleViewerUsingForComparing;

@@ -37,6 +37,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jCheckBoxCanBePolygon" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="jScrollPane1" alignment="0" min="-2" pref="125" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="118" max="32767" attributes="0"/>
           </Group>
@@ -56,7 +57,9 @@
                   <Component id="jCheckBoxCanBeLine" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jCheckBoxCanBePolygon" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="366" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="70" max="-2" attributes="0"/>
+              <EmptySpace pref="372" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -84,5 +87,23 @@
         <Property name="text" type="java.lang.String" value="Can be polygon"/>
       </Properties>
     </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTable" name="jTableTextTagKeys">
+          <Properties>
+            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+              <Table columnCount="1" rowCount="2">
+                <Column editable="true" title="Text tag keys" type="java.lang.String"/>
+              </Table>
+            </Property>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>

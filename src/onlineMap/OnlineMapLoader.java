@@ -47,7 +47,7 @@ public class OnlineMapLoader
 	 * @param loadingSectorBounds bounds of loading map sector
 	 * @param styleViewer viewer, uses to assing style index to objects
 	 * @param fillingMap map, where new object will be added
-	 * @throws StyleViewerIsNullException style viewer is null
+	 * @throws IllegalArgumentException style viewer is null
 	 * @throws MapIsNullException online map is null
 	 * @throws MapBoundsIsNullRuntimeException loading sector bounds is null
 	 * @throws OutOfMemoryError out of memory
@@ -57,7 +57,7 @@ public class OnlineMapLoader
 	 * @throws OsmParsingErrorException error while parsing readed .osm xml data
 	 */
 	public void loadToMap(MapBounds loadingSectorBounds, StyleViewer styleViewer, OnlineMap fillingMap) throws
-					StyleViewerIsNullException, MapIsNullException, MapBoundsIsNullRuntimeException,
+					IllegalArgumentException, MapIsNullException, MapBoundsIsNullRuntimeException,
 					OutOfMemoryError, ConnectionErrorException, ReadingFromServerErrorException, OsmParsingErrorException
 	{
 		if (loadingSectorBounds == null)
@@ -66,7 +66,7 @@ public class OnlineMapLoader
 		}
 		if (styleViewer == null)
 		{
-			throw new StyleViewerIsNullException();
+			throw new IllegalArgumentException();
 		}
 		if (fillingMap == null)
 		{

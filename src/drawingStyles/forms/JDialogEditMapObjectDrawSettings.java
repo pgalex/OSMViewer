@@ -46,6 +46,7 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 	{
 		updateDescriptionByEditingSettings();
 		updateCanBeControlsByEditingSettings();
+		updateTextTagKeysControlsByEditingSettings();
 	}
 	
 	/**
@@ -65,6 +66,14 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 		jCheckBoxCanBeLine.setSelected(editingMapObjectDrawSettings.canBeLine());
 		jCheckBoxCanBePolygon.setSelected(editingMapObjectDrawSettings.canBePolygon());
 	}
+	
+	/**
+	 * Update controls for editing text tag keys by editingMapObjectDrawSettings
+	 */
+	private void updateTextTagKeysControlsByEditingSettings()
+	{
+		
+	}
 
 	/**
 	 * This method is called from within the constructor to initialize the form.
@@ -81,6 +90,8 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
     jCheckBoxCanBePoint = new javax.swing.JCheckBox();
     jCheckBoxCanBeLine = new javax.swing.JCheckBox();
     jCheckBoxCanBePolygon = new javax.swing.JCheckBox();
+    jScrollPane1 = new javax.swing.JScrollPane();
+    jTableTextTagKeys = new javax.swing.JTable();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -91,6 +102,30 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
     jCheckBoxCanBeLine.setText("Can be line");
 
     jCheckBoxCanBePolygon.setText("Can be polygon");
+
+    jTableTextTagKeys.setModel(new javax.swing.table.DefaultTableModel(
+      new Object [][]
+      {
+        {null},
+        {null}
+      },
+      new String []
+      {
+        "Text tag keys"
+      }
+    )
+    {
+      Class[] types = new Class []
+      {
+        java.lang.String.class
+      };
+
+      public Class getColumnClass(int columnIndex)
+      {
+        return types [columnIndex];
+      }
+    });
+    jScrollPane1.setViewportView(jTableTextTagKeys);
 
     org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -108,7 +143,8 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jCheckBoxCanBeLine)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jCheckBoxCanBePolygon)))
+            .add(jCheckBoxCanBePolygon))
+          .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 125, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         .addContainerGap(118, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
@@ -123,7 +159,9 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
           .add(jCheckBoxCanBePoint)
           .add(jCheckBoxCanBeLine)
           .add(jCheckBoxCanBePolygon))
-        .addContainerGap(366, Short.MAX_VALUE))
+        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap(372, Short.MAX_VALUE))
     );
 
     pack();
@@ -133,6 +171,8 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
   private javax.swing.JCheckBox jCheckBoxCanBePoint;
   private javax.swing.JCheckBox jCheckBoxCanBePolygon;
   private javax.swing.JLabel jLabelDescription;
+  private javax.swing.JScrollPane jScrollPane1;
+  private javax.swing.JTable jTableTextTagKeys;
   private javax.swing.JTextField jTextFieldDescription;
   // End of variables declaration//GEN-END:variables
 }

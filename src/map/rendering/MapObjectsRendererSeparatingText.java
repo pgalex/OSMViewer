@@ -11,7 +11,6 @@ import map.MapPoint;
 import map.MapPolygon;
 import map.MapPosition;
 import map.exceptions.CoordinatesConverterIsNullException;
-import map.exceptions.StyleViewerIsNullException;
 
 /**
  * Objects renderer that drawes object on one canvas, and it's drawingText on
@@ -46,20 +45,15 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * @param converter object that will be using for coordinates
 	 * converting while drawing
 	 * @param renderingScaleLevel scale level using for rendering
-	 * @throws IllegalArgumentException object canvas is null
-	 * @throws StyleViewerIsNullException style viewer is null
+	 * @throws IllegalArgumentException targetCanvas, styleViewerForRendering is null
 	 * @throws CoordinatesConverterIsNullException coordinates converter is null
 	 */
 	public MapObjectsRendererSeparatingText(Graphics2D targetCanvas, StyleViewer styleViewerForRendering,
-					CoordinatesConverter converter, int renderingScaleLevel) throws IllegalArgumentException, StyleViewerIsNullException, CoordinatesConverterIsNullException
+					CoordinatesConverter converter, int renderingScaleLevel) throws IllegalArgumentException, CoordinatesConverterIsNullException
 	{
-		if (targetCanvas == null)
+		if (targetCanvas == null || styleViewerForRendering == null)
 		{
 			throw new IllegalArgumentException();
-		}
-		if (styleViewerForRendering == null)
-		{
-			throw new StyleViewerIsNullException();
 		}
 		if (converter == null)
 		{

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import map.MapObject;
 import map.MapObjectDrawPriorityComparator;
-import map.exceptions.StyleViewerIsNullException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import org.junit.Test;
@@ -32,7 +31,7 @@ public class MapObjectDrawPriorityComparatorTest
 			MapObjectDrawPriorityComparator testComparator = new MapObjectDrawPriorityComparator(null);
 			fail();
 		}
-		catch (StyleViewerIsNullException ex)
+		catch (IllegalArgumentException ex)
 		{
 			//ok
 		}
