@@ -10,7 +10,6 @@ import map.MapLine;
 import map.MapPoint;
 import map.MapPolygon;
 import map.MapPosition;
-import map.exceptions.CoordinatesConverterIsNullException;
 
 /**
  * Objects renderer that drawes object on one canvas, and it's drawingText on
@@ -41,23 +40,20 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * Create renderer
 	 *
 	 * @param targetCanvas Canvas to draw map objects
-	 * @param styleViewerForRendering Style viewer using to find drawing style of object
-	 * @param converter object that will be using for coordinates
-	 * converting while drawing
+	 * @param styleViewerForRendering Style viewer using to find drawing style of
+	 * object
+	 * @param converter object that will be using for coordinates converting while
+	 * drawing
 	 * @param renderingScaleLevel scale level using for rendering
-	 * @throws IllegalArgumentException targetCanvas, styleViewerForRendering is null
-	 * @throws CoordinatesConverterIsNullException coordinates converter is null
+	 * @throws IllegalArgumentException targetCanvas, styleViewerForRendering or
+	 * converter is null
 	 */
 	public MapObjectsRendererSeparatingText(Graphics2D targetCanvas, StyleViewer styleViewerForRendering,
-					CoordinatesConverter converter, int renderingScaleLevel) throws IllegalArgumentException, CoordinatesConverterIsNullException
+					CoordinatesConverter converter, int renderingScaleLevel) throws IllegalArgumentException
 	{
-		if (targetCanvas == null || styleViewerForRendering == null)
+		if (targetCanvas == null || styleViewerForRendering == null || converter == null)
 		{
 			throw new IllegalArgumentException();
-		}
-		if (converter == null)
-		{
-			throw new CoordinatesConverterIsNullException();
 		}
 
 		canvas = targetCanvas;
@@ -221,22 +217,22 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		{
 			return;
 		}
-		
+
 		Polygon drawingPolygon = createDrawingPolygonByMapPolygon(polygonToRender);
-		
+
 		// inner part
 		canvas.setPaint(polygonStyle.getPaint());
 		canvas.fillPolygon(drawingPolygon);
-		
+
 		// border
 		LineDrawStyle borderStyle = polygonStyle.getBorderDrawStyle();
 		canvas.setStroke(borderStyle.getStroke());
 		canvas.setColor(borderStyle.getColor());
 		canvas.drawPolygon(drawingPolygon);
-		
+
 		Point2D textPosition = coordinatesConverter.goegraphicsToCanvas(polygonToRender.getCenterPoint());
-		
-		drawMapObjectTextAtPoint(objectStyle, polygonToRender.getDefenitionTags(), 
+
+		drawMapObjectTextAtPoint(objectStyle, polygonToRender.getDefenitionTags(),
 						textPosition.getX(), textPosition.getY());
 	}
 
@@ -261,7 +257,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			Point2D pointOnCanvas = coordinatesConverter.goegraphicsToCanvas(mapPolygonPoints[i]);
 			drawingPolygon.addPoint((int) pointOnCanvas.getX(), (int) pointOnCanvas.getY());
 		}
-		
+
 		return drawingPolygon;
 	}
 }
