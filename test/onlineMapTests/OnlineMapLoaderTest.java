@@ -2,7 +2,6 @@ package onlineMapTests;
 
 import drawingStyles.DrawingStylesFactory;
 import map.MapBounds;
-import map.exceptions.MapBoundsIsNullRuntimeException;
 import onlineMap.OnlineMap;
 import onlineMap.OnlineMapLoader;
 import static org.junit.Assert.fail;
@@ -27,7 +26,7 @@ public class OnlineMapLoaderTest
 			testLoader.loadToMap(null, DrawingStylesFactory.createStyleViewer(), new OnlineMap());
 			fail();
 		}
-		catch (MapBoundsIsNullRuntimeException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
