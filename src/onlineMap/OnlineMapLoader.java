@@ -57,20 +57,16 @@ public class OnlineMapLoader
 	 * @throws OsmParsingErrorException error while parsing readed .osm xml data
 	 */
 	public void loadToMap(MapBounds loadingSectorBounds, StyleViewer styleViewer, OnlineMap fillingMap) throws
-					IllegalArgumentException, MapIsNullException, MapBoundsIsNullRuntimeException,
+					IllegalArgumentException, MapBoundsIsNullRuntimeException,
 					OutOfMemoryError, ConnectionErrorException, ReadingFromServerErrorException, OsmParsingErrorException
 	{
 		if (loadingSectorBounds == null)
 		{
 			throw new MapBoundsIsNullRuntimeException();
 		}
-		if (styleViewer == null)
+		if (styleViewer == null || fillingMap == null)
 		{
 			throw new IllegalArgumentException();
-		}
-		if (fillingMap == null)
-		{
-			throw new MapIsNullException();
 		}
 		// nothing to load
 		if (loadingSectorBounds.isZero())

@@ -3,7 +3,6 @@ package onlineMapTests;
 import drawingStyles.DrawingStylesFactory;
 import map.MapBounds;
 import map.exceptions.MapBoundsIsNullRuntimeException;
-import map.exceptions.MapIsNullException;
 import onlineMap.OnlineMap;
 import onlineMap.OnlineMapLoader;
 import static org.junit.Assert.fail;
@@ -72,7 +71,7 @@ public class OnlineMapLoaderTest
 			testLoader.loadToMap(new MapBounds(-1, 1, -1, 1), DrawingStylesFactory.createStyleViewer(), null);
 			fail();
 		}
-		catch (MapIsNullException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
