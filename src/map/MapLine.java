@@ -2,7 +2,6 @@ package map;
 
 import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawStyle;
-import map.exceptions.LinePointsIsIncorrectException;
 import map.rendering.MapObjectsRenderer;
 
 /**
@@ -29,16 +28,16 @@ public class MapLine extends MapObject
 	 * @param lineId global OpenStreetMap id of object
 	 * @param lineDefenitionTags Tags, describes the line
 	 * @param linePoints points of line
-	 * @throws LinePointsIsIncorrectException line points array is null, not
+	 * @throws IllegalArgumentException line points array is null, not
 	 * contains needed points count or contains null elements
 	 */
-	public MapLine(long lineId, DefenitionTags lineDefenitionTags, MapPosition[] linePoints) throws LinePointsIsIncorrectException
+	public MapLine(long lineId, DefenitionTags lineDefenitionTags, MapPosition[] linePoints) throws IllegalArgumentException
 	{
 		super(lineId, lineDefenitionTags);
 
 		if (isPointsIncorrect(linePoints))
 		{
-			throw new LinePointsIsIncorrectException();
+			throw new IllegalArgumentException();
 		}
 
 		points = linePoints;

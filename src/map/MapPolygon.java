@@ -2,7 +2,6 @@ package map;
 
 import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawStyle;
-import map.exceptions.LinePointsIsIncorrectException;
 import map.rendering.MapObjectsRenderer;
 
 /**
@@ -18,10 +17,10 @@ public class MapPolygon extends MapLine
 	 * @param polygonId global OpenStreetMap id of object
 	 * @param polygonDefenitionTags Tags, describes the polygon
 	 * @param polygonPoints polygonPoints of polygon
-	 * @throws LinePointsIsIncorrectException polygon polygonPoints array is null,
+	 * @throws IllegalArgumentException polygon polygonPoints array is null,
 	 * empty or contains null elements
 	 */
-	public MapPolygon(long polygonId, DefenitionTags polygonDefenitionTags, MapPosition[] polygonPoints) throws LinePointsIsIncorrectException
+	public MapPolygon(long polygonId, DefenitionTags polygonDefenitionTags, MapPosition[] polygonPoints) throws IllegalArgumentException
 	{
 		super(polygonId, polygonDefenitionTags, polygonPoints);
 	}

@@ -7,7 +7,6 @@ import drawingStyles.MapTag;
 import drawingStyles.StyleEditor;
 import map.MapLine;
 import map.MapPosition;
-import map.exceptions.LinePointsIsIncorrectException;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -44,7 +43,7 @@ public class MapLineTest
 			MapLine testLine = new MapLine(11, null, null);
 			fail();
 		}
-		catch (LinePointsIsIncorrectException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
@@ -63,7 +62,7 @@ public class MapLineTest
 			MapLine testLine = new MapLine(10, null, points);
 			fail();
 		}
-		catch (LinePointsIsIncorrectException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
@@ -83,7 +82,7 @@ public class MapLineTest
 			MapLine testLine = new MapLine(10, null, points);
 			fail();
 		}
-		catch (LinePointsIsIncorrectException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
