@@ -2,7 +2,6 @@ package map;
 
 import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawStyle;
-import map.exceptions.PointPositionIsNullException;
 import map.rendering.MapObjectsRenderer;
 
 /**
@@ -23,15 +22,15 @@ public class MapPoint extends MapObject
 	 * @param pointPosition position on a map (spheric coords)
 	 * @param pointId global unique id from OpenStreetMap
 	 * @param pointDefenitionTags defenition tags
-	 * @throws PointPositionIsNullException position is null
+	 * @throws IllegalArgumentException position is null
 	 */
-	public MapPoint(MapPosition pointPosition, long pointId, DefenitionTags pointDefenitionTags) throws PointPositionIsNullException
+	public MapPoint(MapPosition pointPosition, long pointId, DefenitionTags pointDefenitionTags) throws IllegalArgumentException
 	{
 		super(pointId, pointDefenitionTags);
 
 		if (pointPosition == null)
 		{
-			throw new PointPositionIsNullException();
+			throw new IllegalArgumentException();
 		}
 
 		position = pointPosition;

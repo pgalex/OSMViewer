@@ -7,7 +7,6 @@ import drawingStyles.MapTag;
 import drawingStyles.StyleEditor;
 import map.MapPoint;
 import map.MapPosition;
-import map.exceptions.PointPositionIsNullException;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -42,7 +41,7 @@ public class MapPointTest
 			MapPoint testPoint = new MapPoint(null, 12, null);
 			fail();
 		}
-		catch (PointPositionIsNullException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
