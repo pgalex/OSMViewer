@@ -1,6 +1,10 @@
 package drawingStyles.forms;
 
 import drawingStyles.MapObjectDrawSettings;
+import drawingStyles.TextTagsKeys;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * Dialog for editing map object draw style
@@ -10,9 +14,27 @@ import drawingStyles.MapObjectDrawSettings;
 public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 {
 	/**
+	 * Headers of columns (one) of text tag keys table
+	 */
+	private static final String[] TEXT_TAG_KEYS_TABLE_HEADERS = new String[]
+	{
+		"Text tag keys"
+	};
+	/**
+	 * Values of new row in text tags keys table
+	 */
+	private static final String[] TEXT_TAG_KEYS_TABLE_NEW_STRING = new String[]
+	{
+		""
+	};
+	/**
 	 * map object draw setting, editing with dialog
 	 */
 	private MapObjectDrawSettings editingMapObjectDrawSettings;
+	/**
+	 * Table model of text tag keys table
+	 */
+	private DefaultTableModel textTagsKeysTableModel;
 
 	/**
 	 * Creates dialog for editing map object draw style
@@ -33,10 +55,27 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 			throw new IllegalArgumentException();
 		}
 
+		initializeTextTagKeysTableMode();
 		initComponents();
 
 		editingMapObjectDrawSettings = drawSettingsToEdit;
 		updateControlsByEditingSettings();
+	}
+	
+	/**
+	 * Initializing of text tag keys table model
+	 */
+	private void initializeTextTagKeysTableMode()
+	{
+		textTagsKeysTableModel = new javax.swing.table.DefaultTableModel(new Object[0][0],
+						TEXT_TAG_KEYS_TABLE_HEADERS);
+		textTagsKeysTableModel.addTableModelListener(new TableModelListener()
+		{
+			public void tableChanged(TableModelEvent e)
+			{
+				textTagsKeysTableModelChanged(e);
+			}
+		});
 	}
 
 	/**
@@ -48,7 +87,7 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 		updateCanBeControlsByEditingSettings();
 		updateTextTagKeysControlsByEditingSettings();
 	}
-	
+
 	/**
 	 * Update object description controls by editingMapObjectDrawSettings
 	 */
@@ -56,9 +95,10 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 	{
 		jTextFieldDescription.setText(editingMapObjectDrawSettings.getDescription());
 	}
-	
+
 	/**
-	 * Update can be point, can be line and can be polygon controls by editingMapObjectDrawSettings
+	 * Update can be point, can be line and can be polygon controls by
+	 * editingMapObjectDrawSettings
 	 */
 	private void updateCanBeControlsByEditingSettings()
 	{
@@ -66,13 +106,28 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 		jCheckBoxCanBeLine.setSelected(editingMapObjectDrawSettings.canBeLine());
 		jCheckBoxCanBePolygon.setSelected(editingMapObjectDrawSettings.canBePolygon());
 	}
-	
+
 	/**
 	 * Update controls for editing text tag keys by editingMapObjectDrawSettings
 	 */
 	private void updateTextTagKeysControlsByEditingSettings()
 	{
-		
+		TextTagsKeys editingTextTagsKeys = editingMapObjectDrawSettings.getTextTagKeys();
+		textTagsKeysTableModel.setRowCount(editingTextTagsKeys.getKeysCount());
+
+		for (int i = 0; i < editingTextTagsKeys.getKeysCount(); i++)
+		{
+			textTagsKeysTableModel.setValueAt(editingTextTagsKeys.getKey(i), 0, i);
+		}
+	}
+
+	/**
+	 * Event on change in text tags keys table
+	 *
+	 * @param event descriptor of event
+	 */
+	private void textTagsKeysTableModelChanged(TableModelEvent event)
+	{
 	}
 
 	/**
@@ -92,6 +147,8 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
     jCheckBoxCanBePolygon = new javax.swing.JCheckBox();
     jScrollPane1 = new javax.swing.JScrollPane();
     jTableTextTagKeys = new javax.swing.JTable();
+    jButtonAddTextTagKey = new javax.swing.JButton();
+    jButtonRemoveTextTagKey = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -103,29 +160,27 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 
     jCheckBoxCanBePolygon.setText("Can be polygon");
 
-    jTableTextTagKeys.setModel(new javax.swing.table.DefaultTableModel(
-      new Object [][]
-      {
-        {null},
-        {null}
-      },
-      new String []
-      {
-        "Text tag keys"
-      }
-    )
-    {
-      Class[] types = new Class []
-      {
-        java.lang.String.class
-      };
+    jTableTextTagKeys.setModel(textTagsKeysTableModel);
+    jTableTextTagKeys.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+    jScrollPane1.setViewportView(jTableTextTagKeys);
 
-      public Class getColumnClass(int columnIndex)
+    jButtonAddTextTagKey.setText("+");
+    jButtonAddTextTagKey.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
       {
-        return types [columnIndex];
+        jButtonAddTextTagKeyActionPerformed(evt);
       }
     });
-    jScrollPane1.setViewportView(jTableTextTagKeys);
+
+    jButtonRemoveTextTagKey.setText("-");
+    jButtonRemoveTextTagKey.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jButtonRemoveTextTagKeyActionPerformed(evt);
+      }
+    });
 
     org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -134,17 +189,23 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
       .add(layout.createSequentialGroup()
         .addContainerGap()
         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+          .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 156, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
           .add(layout.createSequentialGroup()
             .add(jLabelDescription)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jTextFieldDescription, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 303, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
           .add(layout.createSequentialGroup()
-            .add(jCheckBoxCanBePoint)
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+              .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                .add(jButtonAddTextTagKey)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jButtonRemoveTextTagKey))
+              .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                .add(jCheckBoxCanBePoint)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jCheckBoxCanBeLine)))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jCheckBoxCanBeLine)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jCheckBoxCanBePolygon))
-          .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 125, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(jCheckBoxCanBePolygon)))
         .addContainerGap(118, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
@@ -161,12 +222,33 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
           .add(jCheckBoxCanBePolygon))
         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
         .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(372, Short.MAX_VALUE))
+        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+          .add(jButtonAddTextTagKey)
+          .add(jButtonRemoveTextTagKey))
+        .addContainerGap(337, Short.MAX_VALUE))
     );
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
+
+  private void jButtonAddTextTagKeyActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAddTextTagKeyActionPerformed
+  {//GEN-HEADEREND:event_jButtonAddTextTagKeyActionPerformed
+		textTagsKeysTableModel.addRow(TEXT_TAG_KEYS_TABLE_NEW_STRING);
+  }//GEN-LAST:event_jButtonAddTextTagKeyActionPerformed
+
+  private void jButtonRemoveTextTagKeyActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonRemoveTextTagKeyActionPerformed
+  {//GEN-HEADEREND:event_jButtonRemoveTextTagKeyActionPerformed
+		int removingRowIndex = jTableTextTagKeys.getSelectedRow();
+
+		if (removingRowIndex >= 0 && removingRowIndex < textTagsKeysTableModel.getRowCount())
+		{
+			textTagsKeysTableModel.removeRow(removingRowIndex);
+		}
+  }//GEN-LAST:event_jButtonRemoveTextTagKeyActionPerformed
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JButton jButtonAddTextTagKey;
+  private javax.swing.JButton jButtonRemoveTextTagKey;
   private javax.swing.JCheckBox jCheckBoxCanBeLine;
   private javax.swing.JCheckBox jCheckBoxCanBePoint;
   private javax.swing.JCheckBox jCheckBoxCanBePolygon;

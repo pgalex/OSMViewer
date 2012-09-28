@@ -177,7 +177,13 @@ public class MapObjectDrawSettingsTest
 			assertEquals(writedStyle.canBePolygon(), readStyle.canBePolygon());
 			assertEquals(true, writedStyle.getDefenitionTags().includingIn(readStyle.getDefenitionTags()));
 			assertEquals(writedStyle.getDescription(), readStyle.getDescription());
-			assertArrayEquals(writedStyle.getTextTagKeys().getTagsKeys(), readStyle.getTextTagKeys().getTagsKeys());
+			
+			assertEquals(writedStyle.getTextTagKeys().getKeysCount(), readStyle.getTextTagKeys().getKeysCount());
+			for (int i = 0; i < writedStyle.getTextTagKeys().getKeysCount(); i++)
+			{
+				assertEquals(writedStyle.getTextTagKeys().getKey(i), readStyle.getTextTagKeys().getKey(i));
+			}
+			
 			assertEquals(writedStyle.getDrawPriority(), readStyle.getDrawPriority());
 			assertEquals(writedStyle.getDescription(), readStyle.getDescription());
 			assertEquals(writedStyle.getScaledStyles().getDrawSettingsOnScale(someScaleLevelAtBegin).isDrawLine(), readStyle.getScaledStyles().getDrawSettingsOnScale(someScaleLevelAtBegin).isDrawLine());

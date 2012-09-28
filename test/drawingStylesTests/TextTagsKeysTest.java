@@ -16,23 +16,20 @@ import org.junit.Test;
 public class TextTagsKeysTest
 {
 	/**
-	 * Test auto initialize in contructor with null array
+	 * Creating with null keys
 	 */
 	@Test
-	public void autoInitializeByNullTest()
+	public void creatingWithNullKeysTest()
 	{
-		TextTagsKeys testKeys1 = new TextTagsKeys(null);
-		assertNotNull(testKeys1.getTagsKeys());
-	}
-
-	/**
-	 * Test auto initialize in contructor with empty array
-	 */
-	@Test
-	public void autoInitializeByEmptyTest()
-	{
-		TextTagsKeys testKeys2 = new TextTagsKeys(new String[0]);
-		assertEquals(0, testKeys2.getTagsKeys().length);
+		try
+		{
+			TextTagsKeys testKeys1 = new TextTagsKeys(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
 	}
 
 	/**
@@ -42,7 +39,117 @@ public class TextTagsKeysTest
 	public void defaultConstructorInitializeTest()
 	{
 		TextTagsKeys testKeys = new TextTagsKeys();
-		assertNotNull(testKeys.getTagsKeys());
+		assertTrue(testKeys.getKeysCount() > 0);
+	}
+
+	/**
+	 * Testing adding null tag key
+	 */
+	@Test
+	public void addingNullKeyTest()
+	{
+		try
+		{
+			TextTagsKeys testKeys = new TextTagsKeys();
+			testKeys.addKey(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			//ok
+		}
+	}
+
+	/**
+	 * Testing adding empty tag key
+	 */
+	@Test
+	public void addingEmptyKeyTest()
+	{
+		try
+		{
+			TextTagsKeys testKeys = new TextTagsKeys();
+			testKeys.addKey("");
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			//ok
+		}
+	}
+
+	/**
+	 * Testing addKey method normal work
+	 */
+	@Test
+	public void addingKeyNormalWorkTest()
+	{
+		String addingKey = "someKey";
+
+		TextTagsKeys testKeys = new TextTagsKeys();
+		testKeys.addKey(addingKey);
+
+		assertEquals(addingKey, testKeys.getKey(testKeys.getKeysCount() - 1));
+	}
+
+	/**
+	 * Testing getKeysCount method
+	 */
+	@Test
+	public void getKeyCountTest()
+	{
+		String[] keys =
+		{
+			"k1", "k2"
+		};
+		TextTagsKeys testKeys = new TextTagsKeys(keys);
+		assertEquals(keys.length, testKeys.getKeysCount());
+	}
+
+	/**
+	 * Testing getKey method by index more than bounds
+	 */
+	@Test
+	public void getKeyByIndexMoreThanBoundsTest()
+	{
+		try
+		{
+			String[] keys =
+			{
+				"k1", "k2"
+			};
+			TextTagsKeys testKeys = new TextTagsKeys(keys);
+
+			testKeys.getKey(testKeys.getKeysCount());
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Testing getKey method by index less than bounds
+	 */
+	@Test
+	public void getKeyByIndexLessThanBoundsTest()
+	{
+		try
+		{
+			String[] keys =
+			{
+				"k1", "k2"
+			};
+			TextTagsKeys testKeys = new TextTagsKeys(keys);
+
+			testKeys.getKey(-1);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
 	}
 
 	/**
@@ -51,8 +158,16 @@ public class TextTagsKeysTest
 	@Test
 	public void foundTextInNullTagsTest()
 	{
-		TextTagsKeys textTagsKeys = new TextTagsKeys();
-		assertEquals("", textTagsKeys.findTextInTags(null));
+		try
+		{
+			TextTagsKeys textTagsKeys = new TextTagsKeys();
+			assertEquals("", textTagsKeys.findTextInTags(null));
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
 	}
 
 	/**
@@ -154,7 +269,11 @@ public class TextTagsKeysTest
 			TextTagsKeys readingTagsKeys = new TextTagsKeys();
 			IOTester.readFromTestFile(readingTagsKeys);
 
-			assertArrayEquals(writingTagsKeys.getTagsKeys(), readingTagsKeys.getTagsKeys());
+			assertEquals(writingTagsKeys.getKeysCount(), readingTagsKeys.getKeysCount());
+			for (int i = 0; i < writingTagsKeys.getKeysCount(); i++)
+			{
+				assertEquals(writingTagsKeys.getKey(i), readingTagsKeys.getKey(i));
+			}
 		}
 		catch (Exception ex)
 		{

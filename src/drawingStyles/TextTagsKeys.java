@@ -5,9 +5,11 @@ import IO.WritableMapData;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
- * Keys of tags, value of will be drawn on a map as text under map object.
+ * Keys of tags, value of, can be use as text under map object.
  *
  * @author pgalex
  */
@@ -21,51 +23,82 @@ public class TextTagsKeys implements ReadableMapData, WritableMapData
 		"name", "description"
 	};
 	/**
-	 * Keys of tags that contains text for drawing
+	 * Keys of tags that contains text
 	 */
-	private String[] tagsKeys;
+	private ArrayList<String> tagsKeys;
 
 	/**
-	 * Create with default tag keys
+	 * Create with default tags keys
 	 */
 	public TextTagsKeys()
 	{
-		tagsKeys = DEFAULT_TEXT_TAGS_KEYS;
+		tagsKeys = new ArrayList<String>(DEFAULT_TEXT_TAGS_KEYS.length);
+		tagsKeys.addAll(Arrays.asList(DEFAULT_TEXT_TAGS_KEYS));
 	}
 
 	/**
-	 * Create by tag keys array
+	 * Create by tags keys array
 	 *
-	 * @param keys array of tag keys that can be use as text (object description).
-	 * Reseting to default if null
+	 * @param keys array of tags keys that can be use as text (object
+	 * description). Must be not null
+	 * @throws IllegalArgumentException keys array is null
 	 */
-	public TextTagsKeys(String[] keys)
+	public TextTagsKeys(String[] keys) throws IllegalArgumentException
 	{
-		tagsKeys = keys;
-		
-		initializeNullFields();
-	}
-
-	/**
-	 * Auto initialize null fields
-	 */
-	private void initializeNullFields()
-	{
-		if (tagsKeys == null)
+		if (keys == null)
 		{
-			tagsKeys = DEFAULT_TEXT_TAGS_KEYS;
+			throw new IllegalArgumentException();
 		}
-		// length can be == 0
+
+		tagsKeys = new ArrayList<String>(keys.length);
+		tagsKeys.addAll(Arrays.asList(keys));
 	}
 
 	/**
-	 * Get text tags keys
+	 * Get text tags keys count
 	 *
-	 * @return tags keys
+	 * @return text tags keys count
 	 */
-	public String[] getTagsKeys()
+	public int getKeysCount()
 	{
-		return tagsKeys;
+		return tagsKeys.size();
+	}
+
+	/**
+	 * Get tag key with index
+	 *
+	 * @param index index of tag key to get. Must be from 0 to keysCount - 1
+	 * @return tag key by index
+	 * @throws IllegalArgumentException index is out of bounds
+	 */
+	public String getKey(int index) throws IllegalArgumentException
+	{
+		if (index < 0 || index >= tagsKeys.size())
+		{
+			throw new IllegalArgumentException();
+		}
+
+		return tagsKeys.get(index);
+	}
+
+	/**
+	 * Add tag key
+	 *
+	 * @param keyToAdd key of tag to add
+	 * @throws IllegalArgumentException key of tag is null or empty
+	 */
+	public void addKey(String keyToAdd) throws IllegalArgumentException
+	{
+		if (keyToAdd == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		if (keyToAdd.isEmpty())
+		{
+			throw new IllegalArgumentException();
+		}
+		
+		tagsKeys.add(keyToAdd);
 	}
 
 	/**
@@ -74,21 +107,21 @@ public class TextTagsKeys implements ReadableMapData, WritableMapData
 	 *
 	 * @param tagsWhereFindText tags of object
 	 * @return text description of object founded in tag. Empty if not found
+	 * @throws IllegalArgumentException tagsWhereFindText is null
 	 */
-	public String findTextInTags(DefenitionTags tagsWhereFindText)
+	public String findTextInTags(DefenitionTags tagsWhereFindText) throws IllegalArgumentException
 	{
-		// Keys priority - from begin to end of tagsKeys
 		if (tagsWhereFindText == null)
 		{
-			return "";
+			throw new IllegalArgumentException();
 		}
 
-		for (int keyIndex = 0; keyIndex < tagsKeys.length; keyIndex++)
+		for (int keyIndex = 0; keyIndex < tagsKeys.size(); keyIndex++)
 		{
 			for (int tagIndex = 0; tagIndex < tagsWhereFindText.size(); tagIndex++)
 			{
 				MapTag tag = tagsWhereFindText.get(tagIndex);
-				if (tag.getKey().equals(tagsKeys[keyIndex]))
+				if (tag.getKey().equals(tagsKeys.get(keyIndex)))
 				{
 					return tag.getValue();
 				}
@@ -110,11 +143,12 @@ public class TextTagsKeys implements ReadableMapData, WritableMapData
 		try
 		{
 			int tagsKeysLength = input.readInt();
-			tagsKeys = new String[tagsKeysLength];
+			tagsKeys = new ArrayList<String>(tagsKeysLength);
 
 			for (int i = 0; i < tagsKeysLength; i++)
 			{
-				tagsKeys[i] = input.readUTF();
+				String readTagKey = input.readUTF();
+				tagsKeys.add(readTagKey);
 			}
 		}
 		catch (Exception e)
@@ -134,10 +168,10 @@ public class TextTagsKeys implements ReadableMapData, WritableMapData
 	{
 		try
 		{
-			output.writeInt(tagsKeys.length);
-			for (int i = 0; i < tagsKeys.length; i++)
+			output.writeInt(tagsKeys.size());
+			for (int i = 0; i < tagsKeys.size(); i++)
 			{
-				output.writeUTF(tagsKeys[i]);
+				output.writeUTF(tagsKeys.get(i));
 			}
 		}
 		catch (Exception e)
