@@ -84,7 +84,7 @@ public class TextTagsKeys implements ReadableMapData, WritableMapData
 	/**
 	 * Add tag key
 	 *
-	 * @param keyToAdd key of tag to add
+	 * @param keyToAdd key of tag to add. Must be not null and not empty
 	 * @throws IllegalArgumentException key of tag is null or empty
 	 */
 	public void addKey(String keyToAdd) throws IllegalArgumentException
@@ -97,7 +97,7 @@ public class TextTagsKeys implements ReadableMapData, WritableMapData
 		{
 			throw new IllegalArgumentException();
 		}
-		
+
 		tagsKeys.add(keyToAdd);
 	}
 
