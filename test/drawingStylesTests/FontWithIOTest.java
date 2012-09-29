@@ -1,17 +1,17 @@
 package drawingStylesTests;
 
 import IOTesting.IOTester;
-import drawingStyles.IOFont;
+import drawingStyles.FontWithIO;
 import java.awt.Font;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Testing IOFont class
+ * Testing FontWithIO class
  *
  * @author Евгений
  */
-public class IOFontTest
+public class FontWithIOTest
 {
 	/**
 	 * Test auto initialize in contructor
@@ -19,7 +19,7 @@ public class IOFontTest
 	@Test
 	public void autoInitializeTest()
 	{
-		IOFont testFont = new IOFont(null);
+		FontWithIO testFont = new FontWithIO(null);
 		assertNotNull(testFont.getFont());
 	}
 
@@ -31,10 +31,10 @@ public class IOFontTest
 	{
 		try
 		{
-			IOFont writedFont = new IOFont(new Font("Arial", 0, 15));
+			FontWithIO writedFont = new FontWithIO(new Font("Arial", 0, 15));
 			IOTester.writeToTestFile(writedFont);
 
-			IOFont readFont = new IOFont();
+			FontWithIO readFont = new FontWithIO();
 			IOTester.readFromTestFile(readFont);
 
 			assertEquals(writedFont.getFont().getFamily(), readFont.getFont().getFamily());

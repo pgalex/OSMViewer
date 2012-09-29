@@ -22,7 +22,7 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	/**
 	 * Line color
 	 */
-	private IOColor color;
+	private ColorWithIO color;
 	/**
 	 * Line width
 	 */
@@ -37,7 +37,7 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	 */
 	public LineDrawSettings()
 	{
-		color = new IOColor();
+		color = new ColorWithIO();
 		width = DEFAULT_WIDTH;
 		pattern = new LinePattern();
 	}
@@ -51,7 +51,7 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	 */
 	public LineDrawSettings(Color lineColor, float lineWidth, float[] linePattern)
 	{
-		color = new IOColor(lineColor);
+		color = new ColorWithIO(lineColor);
 		width = lineWidth;
 		pattern = new LinePattern(linePattern);
 	}

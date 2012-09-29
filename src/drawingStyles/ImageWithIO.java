@@ -17,7 +17,7 @@ import javax.imageio.ImageIO;
  *
  * @author abc
  */
-public class IOIcon implements ReadableMapData, WritableMapData
+public class ImageWithIO implements ReadableMapData, WritableMapData
 {
 	/**
 	 * Format of image for Writing/reading
@@ -31,7 +31,7 @@ public class IOIcon implements ReadableMapData, WritableMapData
 	/**
 	 * Create with default values
 	 */
-	public IOIcon()
+	public ImageWithIO()
 	{
 		image = null;
 	}
@@ -41,7 +41,7 @@ public class IOIcon implements ReadableMapData, WritableMapData
 	 *
 	 * @param imageToStore storing image
 	 */
-	public IOIcon(BufferedImage imageToStore)
+	public ImageWithIO(BufferedImage imageToStore)
 	{
 		image = imageToStore;
 	}
@@ -52,7 +52,7 @@ public class IOIcon implements ReadableMapData, WritableMapData
 	 * @param fileName name of image file
 	 * @throws IOException reading error
 	 */
-	public IOIcon(String fileName) throws IOException
+	public ImageWithIO(String fileName) throws IOException
 	{
 		try
 		{

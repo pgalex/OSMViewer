@@ -12,7 +12,7 @@ import java.io.IOException;
  *
  * @author Евгений
  */
-public class IOColor implements WritableMapData, ReadableMapData
+public class ColorWithIO implements WritableMapData, ReadableMapData
 {
 	/**
 	 * Default storingColor
@@ -26,7 +26,7 @@ public class IOColor implements WritableMapData, ReadableMapData
 	/**
 	 * Create with default storingColor
 	 */
-	public IOColor()
+	public ColorWithIO()
 	{
 		storingColor = DEFAULT_COLOR;
 	}
@@ -37,7 +37,7 @@ public class IOColor implements WritableMapData, ReadableMapData
 	 * @param colorToStore storing Color. Must be not null
 	 * @throws IllegalArgumentException storing Color is null
 	 */
-	public IOColor(Color colorToStore) throws IllegalArgumentException
+	public ColorWithIO(Color colorToStore) throws IllegalArgumentException
 	{
 		if (colorToStore == null)
 		{

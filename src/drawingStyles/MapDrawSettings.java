@@ -21,14 +21,14 @@ public class MapDrawSettings implements ReadableMapData, WritableMapData
 	/**
 	 * Map background color
 	 */
-	private IOColor mapBackgroundColor;
+	private ColorWithIO mapBackgroundColor;
 
 	/**
 	 * Create with default values
 	 */
 	public MapDrawSettings()
 	{
-		mapBackgroundColor = new IOColor(DEFAULT_MAP_BACKGROUND_COLOR);
+		mapBackgroundColor = new ColorWithIO(DEFAULT_MAP_BACKGROUND_COLOR);
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class MapDrawSettings implements ReadableMapData, WritableMapData
 			throw new IllegalArgumentException();
 		}
 		
-		mapBackgroundColor = new IOColor(backgroundColor);
+		mapBackgroundColor = new ColorWithIO(backgroundColor);
 	}
 
 	/**

@@ -1,7 +1,7 @@
 package drawingStylesTests;
 
 import IOTesting.IOTester;
-import drawingStyles.IOIcon;
+import drawingStyles.ImageWithIO;
 import drawingStyles.LineDrawSettings;
 import drawingStyles.PolygonDrawSettings;
 import java.awt.Color;
@@ -26,7 +26,7 @@ public class PolygonDrawSettingsTest
 	{
 		try
 		{
-			IOIcon fillIcon = new IOIcon("testIcon.png");
+			ImageWithIO fillIcon = new ImageWithIO("testIcon.png");
 			PolygonDrawSettings polygonStyle = new PolygonDrawSettings(Color.GREEN, null, fillIcon.getImage());
 			Paint paint = polygonStyle.getPaint();
 
@@ -93,7 +93,7 @@ public class PolygonDrawSettingsTest
 			pattern[2] = 4;
 			pattern[3] = 5;
 			LineDrawSettings borderStyle = new LineDrawSettings(Color.CYAN, 10, pattern);
-			IOIcon fillIcon = new IOIcon("testIcon.png");
+			ImageWithIO fillIcon = new ImageWithIO("testIcon.png");
 			PolygonDrawSettings writedStyle = new PolygonDrawSettings(Color.MAGENTA, borderStyle,
 							fillIcon.getImage());
 

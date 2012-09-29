@@ -18,19 +18,19 @@ public class TextDrawSettings implements TextDrawStyle, ReadableMapData, Writabl
 	/**
 	 * Text font
 	 */
-	private IOFont font;
+	private FontWithIO font;
 	/**
 	 * Text color
 	 */
-	private IOColor color;
+	private ColorWithIO color;
 
 	/**
 	 * Create with default values
 	 */
 	public TextDrawSettings()
 	{
-		font = new IOFont();
-		color = new IOColor();
+		font = new FontWithIO();
+		color = new ColorWithIO();
 	}
 
 	/**
@@ -42,8 +42,8 @@ public class TextDrawSettings implements TextDrawStyle, ReadableMapData, Writabl
 	 */
 	public TextDrawSettings(Color textColor, Font textFont) throws IllegalArgumentException
 	{
-		color = new IOColor(textColor);
-		font = new IOFont(textFont);
+		color = new ColorWithIO(textColor);
+		font = new FontWithIO(textFont);
 	}
 
 	/**

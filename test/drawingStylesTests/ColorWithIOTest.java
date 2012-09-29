@@ -1,17 +1,17 @@
 package drawingStylesTests;
 
 import IOTesting.IOTester;
-import drawingStyles.IOColor;
+import drawingStyles.ColorWithIO;
 import java.awt.Color;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * IOColor class tests
+ * ColorWithIO class tests
  *
  * @author abc
  */
-public class IOColorTest
+public class ColorWithIOTest
 {
 	/**
 	 * Creating with null color test
@@ -21,7 +21,7 @@ public class IOColorTest
 	{
 		try
 		{
-			IOColor testColor = new IOColor(null);
+			ColorWithIO testColor = new ColorWithIO(null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -38,7 +38,7 @@ public class IOColorTest
 	{
 		try
 		{
-			IOColor testColor = new IOColor();
+			ColorWithIO testColor = new ColorWithIO();
 			testColor.setStoringColor(null);
 			fail();
 		}
@@ -56,10 +56,10 @@ public class IOColorTest
 	{
 		try
 		{
-			IOColor writedColor = new IOColor(Color.MAGENTA);
+			ColorWithIO writedColor = new ColorWithIO(Color.MAGENTA);
 			IOTester.writeToTestFile(writedColor);
 			
-			IOColor readColor = new IOColor();
+			ColorWithIO readColor = new ColorWithIO();
 			IOTester.readFromTestFile(readColor);
 			
 			assertEquals(writedColor.getStoringColor(), readColor.getStoringColor());

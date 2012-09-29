@@ -21,7 +21,7 @@ public class PolygonDrawSettings implements PolygonDrawStyle, ReadableMapData, W
 	/**
 	 * Filling color
 	 */
-	private IOColor fillColor;
+	private ColorWithIO fillColor;
 	/**
 	 * How to draw border
 	 */
@@ -29,16 +29,16 @@ public class PolygonDrawSettings implements PolygonDrawStyle, ReadableMapData, W
 	/**
 	 * Filling texture if null, using color
 	 */
-	private IOIcon fillImage;
+	private ImageWithIO fillImage;
 
 	/**
 	 * Create with default values
 	 */
 	public PolygonDrawSettings()
 	{
-		fillColor = new IOColor();
+		fillColor = new ColorWithIO();
 		borderDrawStyle = new LineDrawSettings();
-		fillImage = new IOIcon();
+		fillImage = new ImageWithIO();
 	}
 
 	/**
@@ -52,9 +52,9 @@ public class PolygonDrawSettings implements PolygonDrawStyle, ReadableMapData, W
 	public PolygonDrawSettings(Color polygonFillColor, LineDrawSettings polygonBorderDrawSettings, 
 					BufferedImage polygonFillImage) throws IllegalArgumentException
 	{
-		fillColor = new IOColor(polygonFillColor);
+		fillColor = new ColorWithIO(polygonFillColor);
 		borderDrawStyle = polygonBorderDrawSettings;
-		fillImage = new IOIcon(polygonFillImage);
+		fillImage = new ImageWithIO(polygonFillImage);
 
 		initializeNullFields();
 	}

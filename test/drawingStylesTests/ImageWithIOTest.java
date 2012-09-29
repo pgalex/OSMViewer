@@ -1,20 +1,20 @@
 package drawingStylesTests;
 
 import IOTesting.IOTester;
-import drawingStyles.IOIcon;
+import drawingStyles.ImageWithIO;
 import java.io.IOException;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Testing IOIcon class
+ * Testing ImageWithIO class
  *
  * @author abc
  */
-public class IOIconTest
+public class ImageWithIOTest
 {
 	/**
-	 * Name of icon file using for testing loading image file in IOIcon class.
+	 * Name of icon file using for testing loading image file in ImageWithIO class.
 	 * Should exists in main folder
 	 */
 	private final String ICON_FILE_NAME = "testIcon.png";
@@ -26,7 +26,7 @@ public class IOIconTest
 	@Test
 	public void defaultContructorTest()
 	{
-		IOIcon testImage = new IOIcon();
+		ImageWithIO testImage = new ImageWithIO();
 		assertNull(testImage.getImage());
 	}
 
@@ -38,7 +38,7 @@ public class IOIconTest
 	{
 		try
 		{
-			IOIcon testImage = new IOIcon(ICON_FILE_NAME);
+			ImageWithIO testImage = new ImageWithIO(ICON_FILE_NAME);
 			assertNotNull(testImage.getImage());
 		}
 		catch (IOException ex)
@@ -55,10 +55,10 @@ public class IOIconTest
 	{
 		try
 		{
-			IOIcon writedImage = new IOIcon(ICON_FILE_NAME);
+			ImageWithIO writedImage = new ImageWithIO(ICON_FILE_NAME);
 			IOTester.writeToTestFile(writedImage);
 
-			IOIcon readImage = new IOIcon();
+			ImageWithIO readImage = new ImageWithIO();
 			IOTester.readFromTestFile(readImage);
 
 			assertNotNull(readImage.getImage());
@@ -77,10 +77,10 @@ public class IOIconTest
 	{
 		try
 		{
-			IOIcon writedImage = new IOIcon();
+			ImageWithIO writedImage = new ImageWithIO();
 			IOTester.writeToTestFile(writedImage);
 
-			IOIcon readImage = new IOIcon();
+			ImageWithIO readImage = new ImageWithIO();
 			IOTester.readFromTestFile(readImage);
 
 			assertNull(readImage.getImage());

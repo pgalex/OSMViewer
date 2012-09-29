@@ -17,14 +17,14 @@ public class PointDrawSettings implements PointDrawStyle, ReadableMapData, Writa
 	/**
 	 * Icon
 	 */
-	private IOIcon icon;
+	private ImageWithIO icon;
 
 	/**
 	 * Create with default values
 	 */
 	public PointDrawSettings()
 	{
-		icon = new IOIcon();
+		icon = new ImageWithIO();
 	}
 
 	/**
@@ -34,7 +34,7 @@ public class PointDrawSettings implements PointDrawStyle, ReadableMapData, Writa
 	 */
 	public PointDrawSettings(BufferedImage pointIcon)
 	{
-		icon = new IOIcon(pointIcon);
+		icon = new ImageWithIO(pointIcon);
 	}
 
 	/**

@@ -12,7 +12,7 @@ import java.io.IOException;
  *
  * @author Евгений
  */
-public class IOFont implements ReadableMapData, WritableMapData
+public class FontWithIO implements ReadableMapData, WritableMapData
 {
 	/**
 	 * Default font
@@ -26,7 +26,7 @@ public class IOFont implements ReadableMapData, WritableMapData
 	/**
 	 * Create with defaut values
 	 */
-	public IOFont()
+	public FontWithIO()
 	{
 		font = DEFAULT_FONT;
 	}
@@ -36,7 +36,7 @@ public class IOFont implements ReadableMapData, WritableMapData
 	 *
 	 * @param fontToStore storing font. If null will be set default font
 	 */
-	public IOFont(Font fontToStore)
+	public FontWithIO(Font fontToStore)
 	{
 		font = fontToStore;
 		initializeNullFields();
