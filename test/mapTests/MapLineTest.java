@@ -1,5 +1,6 @@
 package mapTests;
 
+import drawingStyles.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.EditableDefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
@@ -18,18 +19,23 @@ import org.junit.Test;
 public class MapLineTest
 {
 	/**
-	 * Creating MapLine with null tags - should called constructor from MapObject
-	 * or create null tags (null==empty)
+	 * Creating MapLine with null tags
 	 */
 	@Test
-	public void autoInitializingNullTagsTest()
+	public void creatingWithNullTagsTest()
 	{
-		MapPosition[] points = new MapPosition[2];
-		points[0] = new MapPosition(1, 2);
-		points[1] = new MapPosition(2, 3);
-		MapLine testLine = new MapLine(0, null, points);
-
-		assertNotNull(testLine.getDefenitionTags());
+		try
+		{
+			MapPosition[] points = new MapPosition[2];
+			points[0] = new MapPosition(1, 2);
+			points[1] = new MapPosition(2, 3);
+			MapLine testLine = new MapLine(0, null, points);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
 	}
 
 	/**
@@ -40,7 +46,7 @@ public class MapLineTest
 	{
 		try
 		{
-			MapLine testLine = new MapLine(11, null, null);
+			MapLine testLine = new MapLine(11, new DefenitionTags(), null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -48,7 +54,7 @@ public class MapLineTest
 			// ok
 		}
 	}
-	
+
 	/**
 	 * Creating MapLine by points contaning null elemetets
 	 */
@@ -59,7 +65,7 @@ public class MapLineTest
 		{
 			MapPosition[] points = new MapPosition[1];
 			points[0] = new MapPosition();
-			MapLine testLine = new MapLine(10, null, points);
+			MapLine testLine = new MapLine(10, new DefenitionTags(), points);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -76,10 +82,11 @@ public class MapLineTest
 	{
 		try
 		{
-			MapPosition[] points = new MapPosition[2];
+			MapPosition[] points = new MapPosition[3];
 			points[0] = new MapPosition();
 			points[1] = null;
-			MapLine testLine = new MapLine(10, null, points);
+			points[2] = new MapPosition();
+			MapLine testLine = new MapLine(10, new DefenitionTags(), points);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -134,7 +141,7 @@ public class MapLineTest
 
 		assertNull(testLine.getStyleIndex());
 	}
-	
+
 	/**
 	 * Testing assigning style index if style not
 	 */
@@ -151,7 +158,7 @@ public class MapLineTest
 		MapPosition[] points = new MapPosition[2];
 		points[0] = new MapPosition(1, 2);
 		points[1] = new MapPosition(2, 3);
-		MapLine testLine = new MapLine(1, null, points);
+		MapLine testLine = new MapLine(1, new DefenitionTags(), points);
 		testLine.assignStyleIndex(testEditor);
 
 		assertNull(testLine.getStyleIndex());

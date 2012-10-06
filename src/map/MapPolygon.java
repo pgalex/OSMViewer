@@ -5,24 +5,34 @@ import drawingStyles.MapObjectDrawStyle;
 import map.rendering.MapObjectsRenderer;
 
 /**
- * Closed line(way) on a map
+ * Polygon (closed way) on a map
  *
  * @author pgalex
  */
-public class MapPolygon extends MapLine
+public class MapPolygon extends MapObjectByPoints
 {
+	/**
+	 * Minimum points count that can be using for polygon
+	 */
+	private static final int MINIMUM_POINTS_COUNT = 3;
+
 	/**
 	 * Create with parameters
 	 *
 	 * @param polygonId global OpenStreetMap id of object
 	 * @param polygonDefenitionTags Tags, describes the polygon
 	 * @param polygonPoints polygonPoints of polygon
-	 * @throws IllegalArgumentException polygon polygonPoints array is null,
-	 * empty or contains null elements
+	 * @throws IllegalArgumentException polygonPointsless contains less than 3
+	 * elements
 	 */
 	public MapPolygon(long polygonId, DefenitionTags polygonDefenitionTags, MapPosition[] polygonPoints) throws IllegalArgumentException
 	{
 		super(polygonId, polygonDefenitionTags, polygonPoints);
+
+		if (polygonPoints.length < MINIMUM_POINTS_COUNT)
+		{
+			throw new IllegalArgumentException();
+		}
 	}
 
 	/**

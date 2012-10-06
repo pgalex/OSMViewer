@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import map.MapObject;
 import map.MapObjectDrawPriorityComparator;
+import map.MapPoint;
+import map.MapPosition;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import org.junit.Test;
@@ -46,27 +48,27 @@ public class MapObjectDrawPriorityComparatorTest
 		StyleEditor editor = DrawingStylesFactory.createStyleEditor();
 		EditableDefenitionTags tags1 = new EditableDefenitionTags();
 		tags1.add(new MapTag("k1", "v1"));
-		editor.addMapObjectDrawSettings(new MapObjectDrawSettings(false, false, false, null, 10, "", null, tags1));
-		
+		editor.addMapObjectDrawSettings(new MapObjectDrawSettings(true, false, false, null, 10, "", null, tags1));
+
 		EditableDefenitionTags tags2 = new EditableDefenitionTags();
 		tags2.add(new MapTag("k2", "v2"));
-		editor.addMapObjectDrawSettings(new MapObjectDrawSettings(false, false, false, null, 11, "", null, tags2));
-		
+		editor.addMapObjectDrawSettings(new MapObjectDrawSettings(true, false, false, null, 11, "", null, tags2));
+
 		EditableDefenitionTags tags3 = new EditableDefenitionTags();
 		tags3.add(new MapTag("k3", "v3"));
-		editor.addMapObjectDrawSettings(new MapObjectDrawSettings(false, false, false, null, -10, "", null, tags3));
+		editor.addMapObjectDrawSettings(new MapObjectDrawSettings(true, false, false, null, -10, "", null, tags3));
 
 		ArrayList<MapObject> objects = new ArrayList<MapObject>();
-		MapObject object1 = new MapObject(1, tags1);
+		MapObject object1 = new MapPoint(new MapPosition(), 1, tags1);
 		object1.assignStyleIndex(editor);
 		objects.add(object1);
 
-		MapObject object2 = new MapObject(2, tags2);
+		MapObject object2 = new MapPoint(new MapPosition(), 2, tags2);
 		object2.assignStyleIndex(editor);
 		objects.add(object2);
 
 
-		MapObject object3 = new MapObject(3, tags3);
+		MapObject object3 = new MapPoint(new MapPosition(), 3, tags3);
 		object3.assignStyleIndex(editor);
 		objects.add(object3);
 

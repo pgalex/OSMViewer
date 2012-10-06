@@ -6,25 +6,23 @@ import drawingStyles.StyleViewer;
 import map.rendering.MapObjectsRenderer;
 
 /**
- * Any object on a map. Base class
+ * Some object on a map
  *
  * @author pgalex
  */
-public class MapObject
+public abstract class MapObject
 {
 	/**
 	 * ID of object, comes from OpenStreetMap
 	 */
 	private long id;
 	/**
-	 * Tags, describes the object. Can not be null, but can be empty ( cuz there
-	 * can be object without tags )
+	 * Tags, describes the object.Can be empty ( cuz in openstreetmap can be
+	 * object without tags )
 	 */
 	private DefenitionTags defenitionTags;
 	/**
-	 * Index of MapObjectDrawSettings in StyleViewer, used to draw this object.
-	 * Valid only for StyleViewer that was used to assign this index. null if
-	 * index not founded
+	 * Index of style, using to draw this object.
 	 */
 	private Integer styleIndex;
 
@@ -33,14 +31,18 @@ public class MapObject
 	 *
 	 * @param objectId global OpenStreetMap id of object
 	 * @param objectDefenitionTags Tags, describes the object
+	 * @throws IllegalArgumentException objectDefenitionTags is null
 	 */
-	public MapObject(long objectId, DefenitionTags objectDefenitionTags)
+	public MapObject(long objectId, DefenitionTags objectDefenitionTags) throws IllegalArgumentException
 	{
+		if (objectDefenitionTags == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
 		id = objectId;
 		defenitionTags = objectDefenitionTags;
 		styleIndex = null;
-
-		InitializeNullFields();
 	}
 
 	/**
@@ -105,35 +107,12 @@ public class MapObject
 	 * @param objectDrawStyle drawing style of object
 	 * @return Can this type of map object be drawen with this style
 	 */
-	protected boolean canBeDrawenWithStyle(MapObjectDrawStyle objectDrawStyle)
-	{
-		if (objectDrawStyle == null)
-		{
-			return false;
-		}
-		else
-		{
-			return true;
-		}
-	}
+	protected abstract boolean canBeDrawenWithStyle(MapObjectDrawStyle objectDrawStyle);
 
 	/**
 	 * Render with objects render visitor
 	 *
 	 * @param objectsRenderer objects renderer
 	 */
-	public void acceptRenderer(MapObjectsRenderer objectsRenderer)
-	{
-	}
-
-	/**
-	 * Auto-initialize null fields
-	 */
-	private void InitializeNullFields()
-	{
-		if (defenitionTags == null)
-		{
-			defenitionTags = new DefenitionTags();
-		}
-	}
+	public abstract void acceptRenderer(MapObjectsRenderer objectsRenderer);
 }

@@ -1,5 +1,6 @@
 package onlineMapTests;
 
+import drawingStyles.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.EditableDefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
@@ -23,7 +24,7 @@ public class OnlineMapTest
 	@Test
 	public void addingMapObjectWithoutStyleIndexTest()
 	{
-		MapPoint pointWithoutStyleIndex = new MapPoint(new MapPosition(), 1, null);
+		MapPoint pointWithoutStyleIndex = new MapPoint(new MapPosition(), 1, new DefenitionTags());
 		
 		TestOnlineMap testMap = new TestOnlineMap();
 		testMap.addObject(pointWithoutStyleIndex);
@@ -43,9 +44,10 @@ public class OnlineMapTest
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(new MapObjectDrawSettings(true, true, true, null, 0, "", null, someTags));
 		
-		MapPosition[] somePoints = new MapPosition[2];
+		MapPosition[] somePoints = new MapPosition[3];
 		somePoints[0] = new MapPosition();
 		somePoints[1] = new MapPosition();
+		somePoints[2] = new MapPosition();
 		
 		MapLine line1 = new MapLine(0, someTags, somePoints);
 		line1.assignStyleIndex(testEditor);

@@ -5,22 +5,16 @@ import drawingStyles.MapObjectDrawStyle;
 import map.rendering.MapObjectsRenderer;
 
 /**
- * Line (way) on a map. If point of line describes any object on map it will be
- * another object (not linked with line) cuz they can have another draw
- * priority, selecting etc
+ * Line (non closed way) on a map
  *
  * @author pgalex
  */
-public class MapLine extends MapObject
+public class MapLine extends MapObjectByPoints
 {
 	/**
-	 * Minimum point count to define that line is correct
+	 * Minimum points count that can be using for line
 	 */
 	private static final int MINIMUM_POINTS_COUNT = 2;
-	/**
-	 * Points of line
-	 */
-	private MapPosition[] points;
 
 	/**
 	 * Create with parameters
@@ -28,57 +22,16 @@ public class MapLine extends MapObject
 	 * @param lineId global OpenStreetMap id of object
 	 * @param lineDefenitionTags Tags, describes the line
 	 * @param linePoints points of line
-	 * @throws IllegalArgumentException line points array is null, not
-	 * contains needed points count or contains null elements
+	 * @throws IllegalArgumentException linePoints contains less than 2 elements
 	 */
 	public MapLine(long lineId, DefenitionTags lineDefenitionTags, MapPosition[] linePoints) throws IllegalArgumentException
 	{
-		super(lineId, lineDefenitionTags);
+		super(lineId, lineDefenitionTags, linePoints);
 
-		if (isPointsIncorrect(linePoints))
+		if (linePoints.length < MINIMUM_POINTS_COUNT)
 		{
 			throw new IllegalArgumentException();
 		}
-
-		points = linePoints;
-	}
-
-	/**
-	 * Is array of points incorrect
-	 *
-	 * @param points points of line
-	 * @return is array of points incorrect
-	 */
-	private boolean isPointsIncorrect(MapPosition[] points)
-	{
-		if (points == null)
-		{
-			return true;
-		}
-		if (points.length < MINIMUM_POINTS_COUNT)
-		{
-			return true;
-		}
-
-		for (int i = 0; i < points.length; i++)
-		{
-			if (points[i] == null)
-			{
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * Get points of line
-	 *
-	 * @return points of line
-	 */
-	public MapPosition[] getPoints()
-	{
-		return points;
 	}
 
 	/**

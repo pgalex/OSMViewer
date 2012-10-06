@@ -1,5 +1,6 @@
 package mapTests;
 
+import drawingStyles.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.EditableDefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
@@ -18,19 +19,6 @@ import org.junit.Test;
 public class MapPointTest
 {
 	/**
-	 * Testing creating point with null style index
-	 */
-	@Test
-	public void creatingWithNullStyleIndexTest()
-	{
-		MapPoint testPoint = new MapPoint(new MapPosition(10, 11), 12, null);
-		assertEquals(10, testPoint.getPosition().getLatitude(), 0.01);
-		assertEquals(10, testPoint.getPosition().getLatitude(), 0.01);
-		assertEquals(12, testPoint.getId());
-		assertNull(testPoint.getStyleIndex());
-	}
-
-	/**
 	 * Testing creating with null position
 	 */
 	@Test
@@ -38,7 +26,24 @@ public class MapPointTest
 	{
 		try
 		{
-			MapPoint testPoint = new MapPoint(null, 12, null);
+			MapPoint testPoint = new MapPoint(null, 12, new DefenitionTags());
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+	
+	/**
+	 * Testing creating with null tags
+	 */
+	@Test
+	public void creatingWithNullTagsTest()
+	{
+		try
+		{
+			MapPoint testPoint = new MapPoint(new MapPosition(), 12, null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -101,7 +106,7 @@ public class MapPointTest
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);
 
-		MapPoint testPoint = new MapPoint(new MapPosition(0, 0), 0, null);
+		MapPoint testPoint = new MapPoint(new MapPosition(0, 0), 0, new DefenitionTags());
 		testPoint.assignStyleIndex(testEditor);
 
 		assertNull(testPoint.getStyleIndex());
