@@ -16,23 +16,6 @@ import org.junit.Test;
 public class TextTagsKeysTest
 {
 	/**
-	 * Creating with null keys
-	 */
-	@Test
-	public void creatingWithNullKeysTest()
-	{
-		try
-		{
-			TextTagsKeys testKeys1 = new TextTagsKeys(null);
-			fail();
-		}
-		catch (IllegalArgumentException ex)
-		{
-			// ok
-		}
-	}
-
-	/**
 	 * Default constructor test
 	 */
 	@Test
@@ -87,6 +70,7 @@ public class TextTagsKeysTest
 		String addingKey = "someKey";
 
 		TextTagsKeys testKeys = new TextTagsKeys();
+		testKeys.removeAllKeys();
 		testKeys.addKey(addingKey);
 
 		assertEquals(addingKey, testKeys.getKey(testKeys.getKeysCount() - 1));
@@ -98,12 +82,12 @@ public class TextTagsKeysTest
 	@Test
 	public void getKeyCountTest()
 	{
-		String[] keys =
-		{
-			"k1", "k2"
-		};
-		TextTagsKeys testKeys = new TextTagsKeys(keys);
-		assertEquals(keys.length, testKeys.getKeysCount());
+		TextTagsKeys testKeys = new TextTagsKeys();
+		testKeys.removeAllKeys();
+		testKeys.addKey("k1");
+		testKeys.addKey("k2");
+		
+		assertEquals(2, testKeys.getKeysCount());
 	}
 
 	/**
@@ -114,11 +98,10 @@ public class TextTagsKeysTest
 	{
 		try
 		{
-			String[] keys =
-			{
-				"k1", "k2"
-			};
-			TextTagsKeys testKeys = new TextTagsKeys(keys);
+			TextTagsKeys testKeys = new TextTagsKeys();
+			testKeys.removeAllKeys();
+			testKeys.addKey("k1");
+			testKeys.addKey("k2");
 
 			testKeys.getKey(testKeys.getKeysCount());
 			fail();
@@ -137,11 +120,10 @@ public class TextTagsKeysTest
 	{
 		try
 		{
-			String[] keys =
-			{
-				"k1", "k2"
-			};
-			TextTagsKeys testKeys = new TextTagsKeys(keys);
+			TextTagsKeys testKeys = new TextTagsKeys();
+			testKeys.removeAllKeys();
+			testKeys.addKey("k1");
+			testKeys.addKey("k2");
 
 			testKeys.getKey(-1);
 			fail();
@@ -186,8 +168,8 @@ public class TextTagsKeysTest
 	@Test
 	public void foundTextWithEmptyKeysTest()
 	{
-		String[] keys = new String[0];
-		TextTagsKeys textTagsKeys = new TextTagsKeys(keys);
+		TextTagsKeys textTagsKeys = new TextTagsKeys();
+		textTagsKeys.removeAllKeys();
 
 		EditableDefenitionTags tags = new EditableDefenitionTags();
 		tags.add(new MapTag("name", "testName"));
@@ -202,10 +184,10 @@ public class TextTagsKeysTest
 	@Test
 	public void foundTextKeysPriorityTest()
 	{
-		String[] keys = new String[2];
-		keys[0] = "description";
-		keys[1] = "name";
-		TextTagsKeys textTagsKeys = new TextTagsKeys(keys);
+		TextTagsKeys textTagsKeys = new TextTagsKeys();
+		textTagsKeys.removeAllKeys();
+		textTagsKeys.addKey("description");
+		textTagsKeys.addKey("name");
 
 		EditableDefenitionTags tags = new EditableDefenitionTags();
 		tags.add(new MapTag("name", "testName"));
@@ -220,10 +202,11 @@ public class TextTagsKeysTest
 	@Test
 	public void foundTextNotFoundTest()
 	{
-		String[] keys = new String[2];
-		keys[0] = "name";
-		keys[1] = "description";
-		TextTagsKeys textTagsKeys = new TextTagsKeys(keys);
+		TextTagsKeys textTagsKeys = new TextTagsKeys();
+		textTagsKeys.removeAllKeys();
+		textTagsKeys.addKey("name");
+		textTagsKeys.addKey("description");
+		
 
 		EditableDefenitionTags tags = new EditableDefenitionTags();
 		tags.add(new MapTag("highway", "residential"));
@@ -239,16 +222,29 @@ public class TextTagsKeysTest
 	@Test
 	public void foundTextFoundingTest()
 	{
-		String[] keys = new String[2];
-		keys[0] = "description";
-		keys[1] = "name";
-		TextTagsKeys textTagsKeys = new TextTagsKeys(keys);
+		TextTagsKeys textTagsKeys = new TextTagsKeys();
+		textTagsKeys.removeAllKeys();
+		textTagsKeys.addKey("description");
+		textTagsKeys.addKey("name");
 
 		EditableDefenitionTags tags = new EditableDefenitionTags();
 		tags.add(new MapTag("highway", "residential"));
 		tags.add(new MapTag("source", "gps"));
 
 		assertEquals("", textTagsKeys.findTextInTags(tags));
+	}
+	
+	/**
+	 * Remove all keys method test
+	 */
+	@Test
+	public void removeAllKeysTest()
+	{
+		TextTagsKeys textTagsKeys = new TextTagsKeys();
+		textTagsKeys.addKey("k1");
+		textTagsKeys.addKey("k2");
+		textTagsKeys.removeAllKeys();
+		assertEquals(0, textTagsKeys.getKeysCount());
 	}
 
 	/**
@@ -259,11 +255,11 @@ public class TextTagsKeysTest
 	{
 		try
 		{
-			String[] keys =
-			{
-				"k1", "k2"
-			};
-			TextTagsKeys writingTagsKeys = new TextTagsKeys(keys);
+			TextTagsKeys writingTagsKeys = new TextTagsKeys();
+			writingTagsKeys.removeAllKeys();
+			writingTagsKeys.addKey("k1");
+			writingTagsKeys.addKey("k2");
+			
 			IOTester.writeToTestFile(writingTagsKeys);
 
 			TextTagsKeys readingTagsKeys = new TextTagsKeys();

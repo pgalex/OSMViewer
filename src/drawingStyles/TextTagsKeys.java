@@ -37,24 +37,6 @@ public class TextTagsKeys implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Create by tags keys array
-	 *
-	 * @param keys array of tags keys that can be use as text (object
-	 * description). Must be not null
-	 * @throws IllegalArgumentException keys array is null
-	 */
-	public TextTagsKeys(String[] keys) throws IllegalArgumentException
-	{
-		if (keys == null)
-		{
-			throw new IllegalArgumentException();
-		}
-
-		tagsKeys = new ArrayList<String>(keys.length);
-		tagsKeys.addAll(Arrays.asList(keys));
-	}
-
-	/**
 	 * Get text tags keys count
 	 *
 	 * @return text tags keys count
@@ -99,6 +81,14 @@ public class TextTagsKeys implements ReadableMapData, WritableMapData
 		}
 
 		tagsKeys.add(keyToAdd);
+	}
+	
+	/**
+	 * Remove all tag keys
+	 */
+	public void removeAllKeys()
+	{
+		tagsKeys.clear();
 	}
 
 	/**
