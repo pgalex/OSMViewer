@@ -54,12 +54,12 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 		{
 			throw new IllegalArgumentException();
 		}
-		
+
 		editingMapObjectDrawSettings = drawSettingsToEdit;
 
 		initializeTextTagKeysTableMode();
 		initComponents();
-	
+
 		updateControlsByEditingSettings();
 	}
 
@@ -74,10 +74,10 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 		{
 			tableData[i][0] = editingTextTagsKeys.getKey(i);
 		}
-		
+
 		textTagsKeysTableModel = new javax.swing.table.DefaultTableModel(tableData,
 						TEXT_TAG_KEYS_TABLE_HEADERS);
-		
+
 		textTagsKeysTableModel.addTableModelListener(new TableModelListener()
 		{
 			@Override
@@ -123,6 +123,17 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 	 */
 	private void textTagsKeysTableModelChanged(TableModelEvent event)
 	{
+		TextTagsKeys editingTextTagsKeys = editingMapObjectDrawSettings.getTextTagKeys();
+		editingTextTagsKeys.removeAllKeys();
+
+		for (int i = 0; i < textTagsKeysTableModel.getRowCount(); i++)
+		{
+			String tagKey = (String) textTagsKeysTableModel.getValueAt(i, 0);
+			if (!tagKey.isEmpty())
+			{
+				editingTextTagsKeys.addKey(tagKey);
+			}
+		}
 	}
 
 	/**

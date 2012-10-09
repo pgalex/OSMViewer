@@ -260,6 +260,11 @@ public class JFrameEditDrawingStyles extends javax.swing.JFrame
   private void jButtonEditMapObjectActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonEditMapObjectActionPerformed
   {//GEN-HEADEREND:event_jButtonEditMapObjectActionPerformed
 		Integer selectedMapObjectIndex = new Integer(jListMapObjects.getSelectedIndex());
+		if (selectedMapObjectIndex < 0 || selectedMapObjectIndex > editingDrawingStyles.countOfMapObjectDrawSettings())
+		{
+			return;
+		}
+
 		MapObjectDrawSettings selectedDrawSettings = editingDrawingStyles.getMapObjectDrawSettings(selectedMapObjectIndex);
 
 		JDialogEditMapObjectDrawSettings editMapObjectDrawSettingsDialog = new JDialogEditMapObjectDrawSettings(this, true,
