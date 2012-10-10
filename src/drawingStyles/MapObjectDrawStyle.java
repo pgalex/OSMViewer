@@ -12,21 +12,21 @@ public interface MapObjectDrawStyle
 	 *
 	 * @return Can object be a point on a map
 	 */
-	public boolean canBePoint();
+	public boolean isCanBePoint();
 
 	/**
 	 * Can object be a line(non-closed way) on a map
 	 *
 	 * @return Can object be a line(non-closed way) on a map
 	 */
-	public boolean canBeLine();
+	public boolean isCanBeLine();
 
 	/**
 	 * Can object be a polygon(closed way) on a map
 	 *
 	 * @return Can object be a polygon(closed way) on a map
 	 */
-	public boolean canBePolygon();
+	public boolean isCanBePolygon();
 
 	/**
 	 * Get draw priority

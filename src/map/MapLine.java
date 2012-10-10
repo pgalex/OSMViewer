@@ -64,6 +64,6 @@ public class MapLine extends MapObjectByPoints
 			return false;
 		}
 
-		return objectDrawStyle.canBeLine();
+		return objectDrawStyle.isCanBeLine();
 	}
 }

@@ -76,6 +76,6 @@ public class MapPoint extends MapObject
 			return false;
 		}
 
-		return objectDrawStyle.canBePoint();
+		return objectDrawStyle.isCanBePoint();
 	}
 }

@@ -14,6 +14,13 @@ import javax.swing.table.DefaultTableModel;
 public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 {
 	/**
+	 * Headers of columns of defenition tags table
+	 */
+	private static final String[] DEFENITION_TAGS_TABLE_HEADERS = new String[]
+	{
+		"Key", "Value"
+	};
+	/**
 	 * Headers of columns (one) of text tag keys table
 	 */
 	private static final String[] TEXT_TAG_KEYS_TABLE_HEADERS = new String[]
@@ -35,6 +42,10 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 	 * Table model of text tag keys table
 	 */
 	private DefaultTableModel textTagsKeysTableModel;
+	/**
+	 * Table model of defenition tags table
+	 */
+	DefaultTableModel defenitionTagsTableModel;
 
 	/**
 	 * Creates dialog for editing map object draw style
@@ -58,11 +69,20 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 		editingMapObjectDrawSettings = drawSettingsToEdit;
 
 		initializeTextTagKeysTableMode();
+		initializeDefenitionTagsTableModel();
 		initComponents();
 
 		updateControlsByEditingSettings();
 	}
 
+	/**
+	 * Initializing of defenition tags table model
+	 */
+	private void initializeDefenitionTagsTableModel()
+	{
+		defenitionTagsTableModel = new DefaultTableModel(new String[0][0], DEFENITION_TAGS_TABLE_HEADERS);
+	}
+	
 	/**
 	 * Initializing of text tag keys table model
 	 */
@@ -111,9 +131,9 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 	 */
 	private void updateCanBeControlsByEditingSettings()
 	{
-		jCheckBoxCanBePoint.setSelected(editingMapObjectDrawSettings.canBePoint());
-		jCheckBoxCanBeLine.setSelected(editingMapObjectDrawSettings.canBeLine());
-		jCheckBoxCanBePolygon.setSelected(editingMapObjectDrawSettings.canBePolygon());
+		jCheckBoxCanBePoint.setSelected(editingMapObjectDrawSettings.isCanBePoint());
+		jCheckBoxCanBeLine.setSelected(editingMapObjectDrawSettings.isCanBeLine());
+		jCheckBoxCanBePolygon.setSelected(editingMapObjectDrawSettings.isCanBePolygon());
 	}
 
 	/**
@@ -155,16 +175,56 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
     jTableTextTagKeys = new javax.swing.JTable();
     jButtonAddTextTagKey = new javax.swing.JButton();
     jButtonRemoveTextTagKey = new javax.swing.JButton();
+    jScrollPane2 = new javax.swing.JScrollPane();
+    jTableDefenitionTags = new javax.swing.JTable();
+    jButtonAddDefenitionTag = new javax.swing.JButton();
+    jButtonRemoveDefenitionTag = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
     jLabelDescription.setText("Description");
 
+    jTextFieldDescription.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jTextFieldDescriptionActionPerformed(evt);
+      }
+    });
+    jTextFieldDescription.addKeyListener(new java.awt.event.KeyAdapter()
+    {
+      public void keyTyped(java.awt.event.KeyEvent evt)
+      {
+        jTextFieldDescriptionKeyTyped(evt);
+      }
+    });
+
     jCheckBoxCanBePoint.setText("Can be point");
+    jCheckBoxCanBePoint.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jCheckBoxCanBePointActionPerformed(evt);
+      }
+    });
 
     jCheckBoxCanBeLine.setText("Can be line");
+    jCheckBoxCanBeLine.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jCheckBoxCanBeLineActionPerformed(evt);
+      }
+    });
 
     jCheckBoxCanBePolygon.setText("Can be polygon");
+    jCheckBoxCanBePolygon.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jCheckBoxCanBePolygonActionPerformed(evt);
+      }
+    });
 
     jTableTextTagKeys.setModel(textTagsKeysTableModel);
     jTableTextTagKeys.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -188,50 +248,86 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
       }
     });
 
+    jTableDefenitionTags.setModel(defenitionTagsTableModel);
+    jTableDefenitionTags.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+    jScrollPane2.setViewportView(jTableDefenitionTags);
+
+    jButtonAddDefenitionTag.setText("+");
+    jButtonAddDefenitionTag.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jButtonAddDefenitionTagActionPerformed(evt);
+      }
+    });
+
+    jButtonRemoveDefenitionTag.setText("-");
+    jButtonRemoveDefenitionTag.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jButtonRemoveDefenitionTagActionPerformed(evt);
+      }
+    });
+
     org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
       .add(layout.createSequentialGroup()
         .addContainerGap()
-        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-          .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 156, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
           .add(layout.createSequentialGroup()
             .add(jLabelDescription)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jTextFieldDescription, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 303, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
           .add(layout.createSequentialGroup()
-            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-              .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+            .add(jCheckBoxCanBePoint)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jCheckBoxCanBeLine)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jCheckBoxCanBePolygon))
+          .add(layout.createSequentialGroup()
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+              .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 156, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+              .add(layout.createSequentialGroup()
                 .add(jButtonAddTextTagKey)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jButtonRemoveTextTagKey))
-              .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                .add(jCheckBoxCanBePoint)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jCheckBoxCanBeLine)))
+                .add(jButtonRemoveTextTagKey)))
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jCheckBoxCanBePolygon)))
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+              .add(layout.createSequentialGroup()
+                .add(jButtonAddDefenitionTag)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jButtonRemoveDefenitionTag))
+              .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
         .addContainerGap(118, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
       .add(layout.createSequentialGroup()
         .add(15, 15, 15)
-        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-          .add(jLabelDescription)
-          .add(jTextFieldDescription, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+          .add(layout.createSequentialGroup()
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+              .add(jLabelDescription)
+              .add(jTextFieldDescription, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+              .add(jCheckBoxCanBePoint)
+              .add(jCheckBoxCanBeLine)
+              .add(jCheckBoxCanBePolygon))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+          .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-          .add(jCheckBoxCanBePoint)
-          .add(jCheckBoxCanBeLine)
-          .add(jCheckBoxCanBePolygon))
-        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-          .add(jButtonAddTextTagKey)
-          .add(jButtonRemoveTextTagKey))
+        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+          .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+            .add(jButtonAddDefenitionTag)
+            .add(jButtonRemoveDefenitionTag))
+          .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+            .add(jButtonAddTextTagKey)
+            .add(jButtonRemoveTextTagKey)))
         .addContainerGap(337, Short.MAX_VALUE))
     );
 
@@ -252,14 +348,75 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 			textTagsKeysTableModel.removeRow(removingRowIndex);
 		}
   }//GEN-LAST:event_jButtonRemoveTextTagKeyActionPerformed
+
+  private void jCheckBoxCanBePointActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBoxCanBePointActionPerformed
+  {//GEN-HEADEREND:event_jCheckBoxCanBePointActionPerformed
+		if (jCheckBoxCanBePoint.isSelected())
+		{
+			editingMapObjectDrawSettings.setCanBePoint();
+		}
+		else
+		{
+			editingMapObjectDrawSettings.setCanNotBePoint();
+		}
+  }//GEN-LAST:event_jCheckBoxCanBePointActionPerformed
+
+  private void jCheckBoxCanBeLineActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBoxCanBeLineActionPerformed
+  {//GEN-HEADEREND:event_jCheckBoxCanBeLineActionPerformed
+		if (jCheckBoxCanBeLine.isSelected())
+		{
+			editingMapObjectDrawSettings.setCanBeLine();
+		}
+		else
+		{
+			editingMapObjectDrawSettings.setCanNotBeLine();
+		}
+  }//GEN-LAST:event_jCheckBoxCanBeLineActionPerformed
+
+  private void jCheckBoxCanBePolygonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBoxCanBePolygonActionPerformed
+  {//GEN-HEADEREND:event_jCheckBoxCanBePolygonActionPerformed
+		if (jCheckBoxCanBePolygon.isSelected())
+		{
+			editingMapObjectDrawSettings.setCanBePolygon();
+		}
+		else
+		{
+			editingMapObjectDrawSettings.setCanNotBePolygon();
+		}
+  }//GEN-LAST:event_jCheckBoxCanBePolygonActionPerformed
+
+  private void jTextFieldDescriptionActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jTextFieldDescriptionActionPerformed
+  {//GEN-HEADEREND:event_jTextFieldDescriptionActionPerformed
+		editingMapObjectDrawSettings.setDescription(jTextFieldDescription.getText());
+  }//GEN-LAST:event_jTextFieldDescriptionActionPerformed
+
+  private void jTextFieldDescriptionKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jTextFieldDescriptionKeyTyped
+  {//GEN-HEADEREND:event_jTextFieldDescriptionKeyTyped
+    editingMapObjectDrawSettings.setDescription(jTextFieldDescription.getText());
+  }//GEN-LAST:event_jTextFieldDescriptionKeyTyped
+
+  private void jButtonAddDefenitionTagActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAddDefenitionTagActionPerformed
+  {//GEN-HEADEREND:event_jButtonAddDefenitionTagActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_jButtonAddDefenitionTagActionPerformed
+
+  private void jButtonRemoveDefenitionTagActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonRemoveDefenitionTagActionPerformed
+  {//GEN-HEADEREND:event_jButtonRemoveDefenitionTagActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_jButtonRemoveDefenitionTagActionPerformed
+
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JButton jButtonAddDefenitionTag;
   private javax.swing.JButton jButtonAddTextTagKey;
+  private javax.swing.JButton jButtonRemoveDefenitionTag;
   private javax.swing.JButton jButtonRemoveTextTagKey;
   private javax.swing.JCheckBox jCheckBoxCanBeLine;
   private javax.swing.JCheckBox jCheckBoxCanBePoint;
   private javax.swing.JCheckBox jCheckBoxCanBePolygon;
   private javax.swing.JLabel jLabelDescription;
   private javax.swing.JScrollPane jScrollPane1;
+  private javax.swing.JScrollPane jScrollPane2;
+  private javax.swing.JTable jTableDefenitionTags;
   private javax.swing.JTable jTableTextTagKeys;
   private javax.swing.JTextField jTextFieldDescription;
   // End of variables declaration//GEN-END:variables

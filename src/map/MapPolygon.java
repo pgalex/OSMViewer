@@ -85,6 +85,6 @@ public class MapPolygon extends MapObjectByPoints
 			return false;
 		}
 
-		return objectDrawStyle.canBePolygon();
+		return objectDrawStyle.isCanBePolygon();
 	}
 }

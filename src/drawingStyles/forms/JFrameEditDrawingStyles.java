@@ -32,11 +32,10 @@ public class JFrameEditDrawingStyles extends javax.swing.JFrame
 	 */
 	public JFrameEditDrawingStyles()
 	{
-		mapObjectsListModel = new DefaultListModel();
-
-		initComponents();
-
 		editingDrawingStyles = DrawingStylesFactory.createStyleEditor();
+
+		mapObjectsListModel = new DefaultListModel();
+		initComponents();
 		updateControlsByEditingStyles();
 	}
 

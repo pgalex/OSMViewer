@@ -20,10 +20,40 @@ import org.junit.Test;
 public class MapObjectDrawSettingsTest
 {
 	/**
+	 * Test setting null description
+	 */
+	@Test
+	public void settingNullDescriptionTest()
+	{
+		try
+		{
+			MapObjectDrawSettings testSettings = new MapObjectDrawSettings();
+			testSettings.setDescription(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Test set description normal work
+	 */
+	@Test
+	public void settingDescriptionNormalWorkTest()
+	{
+		final String someDescription = "some description";
+		MapObjectDrawSettings testSettings = new MapObjectDrawSettings();
+		testSettings.setDescription(someDescription);
+		assertEquals(someDescription, testSettings.getDescription());
+	}
+
+	/**
 	 * Test finding point draw style if object can be point
 	 */
 	@Test
-	public void findingPointDrawStyleCanBePoint()
+	public void findingPointDrawStyleCanBePointTest()
 	{
 		MapObjectDrawSettings testSettings = new MapObjectDrawSettings(true, false, false, null, 0, "", null, null);
 
@@ -37,7 +67,7 @@ public class MapObjectDrawSettingsTest
 	 * Test finding point draw style if object can not be point
 	 */
 	@Test
-	public void findingPointDrawStyleCannotBePoint()
+	public void findingPointDrawStyleCannotBePointTest()
 	{
 		MapObjectDrawSettings testSettings = new MapObjectDrawSettings(false, true, true, null, 0, "", null, null);
 
@@ -51,7 +81,7 @@ public class MapObjectDrawSettingsTest
 	 * Test finding line draw style if object can be line
 	 */
 	@Test
-	public void findingLineDrawStyleCanBeLine()
+	public void findingLineDrawStyleCanBeLineTest()
 	{
 		MapObjectDrawSettings testSettings = new MapObjectDrawSettings(false, true, false, null, 0, "", null, null);
 
@@ -65,7 +95,7 @@ public class MapObjectDrawSettingsTest
 	 * Test finding line draw style if object can not be line
 	 */
 	@Test
-	public void findingLineDrawStyleCannotBeLine()
+	public void findingLineDrawStyleCannotBeLineTest()
 	{
 		MapObjectDrawSettings testSettings = new MapObjectDrawSettings(true, false, true, null, 0, "", null, null);
 
@@ -79,7 +109,7 @@ public class MapObjectDrawSettingsTest
 	 * Test finding polygon draw style if object can be polygon
 	 */
 	@Test
-	public void findingPolygonDrawStyleCanBePolygon()
+	public void findingPolygonDrawStyleCanBePolygonTest()
 	{
 		MapObjectDrawSettings testSettings = new MapObjectDrawSettings(false, false, true, null, 0, "", null, null);
 
@@ -93,7 +123,7 @@ public class MapObjectDrawSettingsTest
 	 * Test finding polygon draw style if object can not be polygon
 	 */
 	@Test
-	public void findingPolygonDrawStyleCannotBePolygon()
+	public void findingPolygonDrawStyleCannotBePolygonTest()
 	{
 		MapObjectDrawSettings testSettings = new MapObjectDrawSettings(true, true, false, null, 0, "", null, null);
 
@@ -172,18 +202,18 @@ public class MapObjectDrawSettingsTest
 			MapObjectDrawSettings readStyle = new MapObjectDrawSettings();
 			IOTester.readFromTestFile(readStyle);
 
-			assertEquals(writedStyle.canBeLine(), readStyle.canBeLine());
-			assertEquals(writedStyle.canBePoint(), readStyle.canBePoint());
-			assertEquals(writedStyle.canBePolygon(), readStyle.canBePolygon());
+			assertEquals(writedStyle.isCanBeLine(), readStyle.isCanBeLine());
+			assertEquals(writedStyle.isCanBePoint(), readStyle.isCanBePoint());
+			assertEquals(writedStyle.isCanBePolygon(), readStyle.isCanBePolygon());
 			assertEquals(true, writedStyle.getDefenitionTags().includingIn(readStyle.getDefenitionTags()));
 			assertEquals(writedStyle.getDescription(), readStyle.getDescription());
-			
+
 			assertEquals(writedStyle.getTextTagKeys().getKeysCount(), readStyle.getTextTagKeys().getKeysCount());
 			for (int i = 0; i < writedStyle.getTextTagKeys().getKeysCount(); i++)
 			{
 				assertEquals(writedStyle.getTextTagKeys().getKey(i), readStyle.getTextTagKeys().getKey(i));
 			}
-			
+
 			assertEquals(writedStyle.getDrawPriority(), readStyle.getDrawPriority());
 			assertEquals(writedStyle.getDescription(), readStyle.getDescription());
 			assertEquals(writedStyle.getScaledStyles().getDrawSettingsOnScale(someScaleLevelAtBegin).isDrawLine(), readStyle.getScaledStyles().getDrawSettingsOnScale(someScaleLevelAtBegin).isDrawLine());

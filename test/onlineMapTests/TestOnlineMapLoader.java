@@ -434,7 +434,7 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 
 		OsmNode nodeWithEmptyTags = new OsmNode();
 		nodeWithoutTags.setTags(new ArrayList<OsmTag>());
-		assertNull(createMapPointByOsmNode(nodeWithEmptyTags));
+		assertNotNull(createMapPointByOsmNode(nodeWithEmptyTags));
 
 		OsmNode nodeContainsNullTags = new OsmNode();
 		ArrayList<OsmTag> tagsContiansNull = new ArrayList<OsmTag>(4);
@@ -443,7 +443,7 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 		tagsContiansNull.add(null);
 		tagsContiansNull.add(null);
 		nodeContainsNullTags.setTags(tagsContiansNull);
-		assertNull(createMapPointByOsmNode(nodeContainsNullTags));
+		assertNotNull(createMapPointByOsmNode(nodeContainsNullTags));
 	}
 
 	/**

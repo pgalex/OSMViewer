@@ -273,10 +273,6 @@ public class OnlineMapLoader
 		{
 			return null;
 		}
-		if (creatingPointTags.isEmpty())
-		{
-			return null;
-		}
 
 		MapPoint creatingPoint = new MapPoint(new MapPosition(node.getLatitude(), node.getLongitude()),
 						node.getId(), creatingPointTags);

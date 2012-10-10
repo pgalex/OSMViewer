@@ -26,7 +26,7 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	 */
 	private boolean canBePolygon;
 	/**
-	 * "Keys" of tags that "value" can be drawen on map as text under object
+	 * "Keys" of tags that "value" can be using as a text description of object
 	 */
 	private TextTagsKeys textTagKeys;
 	/**
@@ -65,11 +65,14 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	/**
 	 * Create with parameters
 	 *
-	 * @param canObjectBePoint Can be object with this tags a point ( single node )
-	 * @param canObjectBeLine Can be object with this tags a line ( non closed way )
-	 * @param canObjectBePolygon Can be object with this tags a polygon ( closed way )
-	 * @param textKeys "Key" of tag that "value" should be drawen on map as
-	 * text under object on a map
+	 * @param canObjectBePoint Can be object with this tags a point ( single node
+	 * )
+	 * @param canObjectBeLine Can be object with this tags a line ( non closed way
+	 * )
+	 * @param canObjectBePolygon Can be object with this tags a polygon ( closed
+	 * way )
+	 * @param textKeys "Key" of tag that "value" should be drawen on map as text
+	 * under object on a map
 	 * @param objectDrawPriority Drawing priority
 	 * @param objectDescription Description of map object
 	 * @param settingsOnScales Drawing styles on each scale level
@@ -115,7 +118,7 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	 * @return Can object be a point on a map
 	 */
 	@Override
-	public boolean canBePoint()
+	public boolean isCanBePoint()
 	{
 		return canBePoint;
 	}
@@ -126,7 +129,7 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	 * @return Can object be a line(non-closed way) on a map
 	 */
 	@Override
-	public boolean canBeLine()
+	public boolean isCanBeLine()
 	{
 		return canBeLine;
 	}
@@ -137,9 +140,57 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	 * @return Can object be a polygon(closed way) on a map
 	 */
 	@Override
-	public boolean canBePolygon()
+	public boolean isCanBePolygon()
 	{
 		return canBePolygon;
+	}
+
+	/**
+	 * Set that object can be a point
+	 */
+	public void setCanBePoint()
+	{
+		canBePoint = true;
+	}
+
+	/**
+	 * Set that object can not be a point
+	 */
+	public void setCanNotBePoint()
+	{
+		canBePoint = false;
+	}
+
+	/**
+	 * Set that object can be a line
+	 */
+	public void setCanBeLine()
+	{
+		canBeLine = true;
+	}
+
+	/**
+	 * Set that object can not be a line
+	 */
+	public void setCanNotBeLine()
+	{
+		canBeLine = false;
+	}
+
+	/**
+	 * Set that object can be a polygon
+	 */
+	public void setCanBePolygon()
+	{
+		canBePolygon = true;
+	}
+
+	/**
+	 * Set that object can not be a polygon
+	 */
+	public void setCanNotBePolygon()
+	{
+		canBePolygon = false;
 	}
 
 	/**
@@ -172,6 +223,22 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	public String getDescription()
 	{
 		return description;
+	}
+
+	/**
+	 * Set new description
+	 *
+	 * @param descriptionToSet new description. Must be not null
+	 * @throws IllegalArgumentException descriptionToSet is null
+	 */
+	public void setDescription(String descriptionToSet) throws IllegalArgumentException
+	{
+		if (descriptionToSet == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		description = descriptionToSet;
 	}
 
 	/**
