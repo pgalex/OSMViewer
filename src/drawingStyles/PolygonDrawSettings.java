@@ -44,13 +44,12 @@ public class PolygonDrawSettings implements PolygonDrawStyle, ReadableMapData, W
 	/**
 	 * Create with parameters
 	 *
-	 * @param polygonFillColor fill color
+	 * @param polygonFillColor fill color. Must be not null
 	 * @param polygonBorderDrawSettings how to draw border of polygon
 	 * @param polygonFillImage fill texture. Can be null
-	 * @throws IllegalArgumentException fill color is null 
 	 */
 	public PolygonDrawSettings(Color polygonFillColor, LineDrawSettings polygonBorderDrawSettings, 
-					BufferedImage polygonFillImage) throws IllegalArgumentException
+					BufferedImage polygonFillImage)
 	{
 		fillColor = new ColorWithIO(polygonFillColor);
 		borderDrawStyle = polygonBorderDrawSettings;

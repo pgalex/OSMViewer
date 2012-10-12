@@ -64,7 +64,8 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 	 * @param drawPolygon Is need to draw polygon
 	 * @param pointSettings point drawing settings. Reseting to default if null
 	 * @param lineSettings line drawing settings. Reseting to default if null
-	 * @param polygonSettings polygon drawing settings. Reseting to default if null
+	 * @param polygonSettings polygon drawing settings. Reseting to default if
+	 * null
 	 * @param textSettings text drawing settings. Reseting to default if null
 	 */
 	public DrawSettingsOnScale(boolean drawPoint, boolean drawLine, boolean drawPolygon,
@@ -168,6 +169,22 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 	}
 
 	/**
+	 * Set need to draw point
+	 */
+	public void setDrawPoint()
+	{
+		needDrawPoint = true;
+	}
+
+	/**
+	 * Set dont need to draw point
+	 */
+	public void setNotDrawPoint()
+	{
+		needDrawPoint = false;
+	}
+
+	/**
 	 * Is need to draw line
 	 *
 	 * @return Is need to draw line
@@ -178,6 +195,22 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 	}
 
 	/**
+	 * Set need to draw line
+	 */
+	public void setDrawLine()
+	{
+		needDrawLine = true;
+	}
+
+	/**
+	 * Set dont need to draw line
+	 */
+	public void setNotDrawLine()
+	{
+		needDrawLine = false;
+	}
+
+	/**
 	 * Is need to draw polygon
 	 *
 	 * @return Is need to draw polygon
@@ -185,6 +218,22 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 	public boolean isDrawPolygon()
 	{
 		return needDrawPolygon;
+	}
+	
+	/**
+	 * Set need to draw polygon
+	 */
+	public void setDrawPolygon()
+	{
+		needDrawPolygon = true;
+	}
+	
+	/**
+	 * Set dont need to draw polygon
+	 */
+	public void setNotDrawPolygon()
+	{
+		needDrawPolygon = false;
 	}
 
 	/**

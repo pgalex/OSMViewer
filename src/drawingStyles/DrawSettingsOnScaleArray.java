@@ -67,7 +67,8 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	 *
 	 * @param scaleLevel scale level
 	 * @return style on specifiec scale level. If level is out of range returns
-	 * nearest accessible draw settings
+	 * nearest accessible draw settings. It helps to work with different scale
+	 * level count, without changes of other parts of application
 	 */
 	public DrawSettingsOnScale getDrawSettingsOnScale(int scaleLevel)
 	{
@@ -89,7 +90,7 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 		{
 			throw new IllegalArgumentException();
 		}
-		// ScaleLevelOutOfBoundsException will be throwen in convertScaleLevelToArrayIndex
+		// out of bounds exception will be throwen in convertScaleLevelToArrayIndex
 
 		scaledStyles[convertScaleLevelToArrayIndex(scaleLevel)] = drawSettingToSet;
 	}
@@ -100,8 +101,7 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	 *
 	 * @param scaleLevelToConvert scale level for converting
 	 * @return scaledStyles array index
-	 * @throws IllegalArgumentException converting scale level is out of
-	 * bounds
+	 * @throws IllegalArgumentException converting scale level is out of bounds
 	 */
 	private int convertScaleLevelToArrayIndex(int scaleLevelToConvert) throws IllegalArgumentException
 	{

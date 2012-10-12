@@ -51,7 +51,7 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 	 * Get tag by index
 	 *
 	 * @param index index of tag
-	 * @return tag at index
+	 * @return tag at index. Not null
 	 * @throws IllegalArgumentException index have incorrect value
 	 */
 	public MapTag get(int index) throws IllegalArgumentException
