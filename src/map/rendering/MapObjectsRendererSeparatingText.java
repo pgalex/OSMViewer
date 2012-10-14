@@ -225,7 +225,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		canvas.fillPolygon(drawingPolygon);
 
 		// border
-		LineDrawStyle borderStyle = polygonStyle.getBorderDrawStyle();
+		LineDrawSettings borderStyle = polygonStyle.getBorderDrawStyle();
 		canvas.setStroke(borderStyle.getStroke());
 		canvas.setColor(borderStyle.getColor());
 		canvas.drawPolygon(drawingPolygon);

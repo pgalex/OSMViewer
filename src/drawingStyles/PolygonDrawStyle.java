@@ -30,7 +30,7 @@ public interface PolygonDrawStyle
 	 *
 	 * @return how to draw border of polygon
 	 */
-	public LineDrawStyle getBorderDrawStyle();
+	public LineDrawSettings getBorderDrawStyle();
 
 	/**
 	 * Get paint for drawing filled polygon

@@ -138,7 +138,7 @@ public class PolygonDrawSettings implements PolygonDrawStyle, ReadableMapData, W
 	 * @return how to draw border of polygon
 	 */
 	@Override
-	public LineDrawStyle getBorderDrawStyle()
+	public LineDrawSettings getBorderDrawStyle()
 	{
 		return borderDrawStyle;
 	}

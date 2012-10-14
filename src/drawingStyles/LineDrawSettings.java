@@ -13,7 +13,7 @@ import java.io.IOException;
  *
  * @author abc
  */
-public class LineDrawSettings implements LineDrawStyle, ReadableMapData, WritableMapData
+public class LineDrawSettings implements ReadableMapData, WritableMapData
 {
 	/**
 	 * Default line width
@@ -113,7 +113,6 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	 *
 	 * @return line color
 	 */
-	@Override
 	public Color getColor()
 	{
 		return color.getStoringColor();
@@ -124,7 +123,6 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	 *
 	 * @return line width
 	 */
-	@Override
 	public float getWidth()
 	{
 		return width;
@@ -145,7 +143,6 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	 *
 	 * @return pattern
 	 */
-	@Override
 	public float[] getPattern()
 	{
 		return pattern.getPattern();
@@ -166,7 +163,6 @@ public class LineDrawSettings implements LineDrawStyle, ReadableMapData, Writabl
 	 *
 	 * @return stroke for line drawing
 	 */
-	@Override
 	public BasicStroke getStroke()
 	{
 		return new BasicStroke(getWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
