@@ -44,7 +44,7 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 	/**
 	 * Tags that define map object
 	 */
-	private DefenitionTags defenitionTags;
+	private EditableDefenitionTags defenitionTags;
 
 	/**
 	 * Create with default values
@@ -59,7 +59,7 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 		textTagKeys = new TextTagsKeys();
 		description = "";
 		drawSettingsOnScales = new DrawSettingsOnScaleArray();
-		defenitionTags = new DefenitionTags();
+		defenitionTags = new EditableDefenitionTags();
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 	 */
 	public MapObjectDrawSettings(boolean canObjectBePoint, boolean canObjectBeLine, boolean canObjectBePolygon,
 					TextTagsKeys textKeys, int objectDrawPriority, String objectDescription, DrawSettingsOnScaleArray settingsOnScales,
-					DefenitionTags objectDefenitionTags)
+					EditableDefenitionTags objectDefenitionTags)
 	{
 		canBePoint = canObjectBePoint;
 		canBeLine = canObjectBeLine;
@@ -104,7 +104,7 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 		}
 		if (defenitionTags == null)
 		{
-			defenitionTags = new DefenitionTags();
+			defenitionTags = new EditableDefenitionTags();
 		}
 		if (textTagKeys == null)
 		{
@@ -251,7 +251,7 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 	 *
 	 * @return map object defenition tags
 	 */
-	public DefenitionTags getDefenitionTags()
+	public EditableDefenitionTags getDefenitionTags()
 	{
 		return defenitionTags;
 	}
