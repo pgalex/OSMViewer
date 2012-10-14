@@ -16,7 +16,7 @@ import java.io.IOException;
  *
  * @author abc
  */
-public class PolygonDrawSettings implements PolygonDrawStyle, ReadableMapData, WritableMapData
+public class PolygonDrawSettings implements ReadableMapData, WritableMapData
 {
 	/**
 	 * Filling color
@@ -48,7 +48,7 @@ public class PolygonDrawSettings implements PolygonDrawStyle, ReadableMapData, W
 	 * @param polygonBorderDrawSettings how to draw border of polygon
 	 * @param polygonFillImage fill texture. Can be null
 	 */
-	public PolygonDrawSettings(Color polygonFillColor, LineDrawSettings polygonBorderDrawSettings, 
+	public PolygonDrawSettings(Color polygonFillColor, LineDrawSettings polygonBorderDrawSettings,
 					BufferedImage polygonFillImage)
 	{
 		fillColor = new ColorWithIO(polygonFillColor);
@@ -116,7 +116,6 @@ public class PolygonDrawSettings implements PolygonDrawStyle, ReadableMapData, W
 	 *
 	 * @return fill color
 	 */
-	@Override
 	public Color getFillColor()
 	{
 		return fillColor.getStoringColor();
@@ -137,7 +136,6 @@ public class PolygonDrawSettings implements PolygonDrawStyle, ReadableMapData, W
 	 *
 	 * @return how to draw border of polygon
 	 */
-	@Override
 	public LineDrawSettings getBorderDrawStyle()
 	{
 		return borderDrawStyle;
@@ -148,7 +146,6 @@ public class PolygonDrawSettings implements PolygonDrawStyle, ReadableMapData, W
 	 *
 	 * @return fill texture
 	 */
-	@Override
 	public BufferedImage getFillImage()
 	{
 		return fillImage.getImage();
@@ -159,7 +156,6 @@ public class PolygonDrawSettings implements PolygonDrawStyle, ReadableMapData, W
 	 *
 	 * @return paint for drawing polygon
 	 */
-	@Override
 	public Paint getPaint()
 	{
 		if (getFillImage() != null)

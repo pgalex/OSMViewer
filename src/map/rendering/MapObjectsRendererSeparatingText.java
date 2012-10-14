@@ -212,7 +212,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			return;
 		}
 
-		PolygonDrawStyle polygonStyle = objectStyle.findPolygonDrawStyle(scaleLevel);
+		PolygonDrawSettings polygonStyle = objectStyle.findPolygonDrawStyle(scaleLevel);
 		if (polygonStyle == null)
 		{
 			return;

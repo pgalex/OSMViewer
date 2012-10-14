@@ -211,7 +211,7 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	 * @param scaleLevel scale level
 	 * @return polygon draw style on scale level. Null if not found
 	 */
-	public PolygonDrawStyle findPolygonDrawStyle(int scaleLevel)
+	public PolygonDrawSettings findPolygonDrawStyle(int scaleLevel)
 	{
 		DrawSettingsOnScale drawSettingsOnScale = getDrawSettingsOnScale(scaleLevel);
 		if (drawSettingsOnScale == null)

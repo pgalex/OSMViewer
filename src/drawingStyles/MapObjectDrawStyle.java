@@ -64,7 +64,7 @@ public interface MapObjectDrawStyle
 	 * @param scaleLevel scale level
 	 * @return polygon draw style on scale level. Null if not found
 	 */
-	public PolygonDrawStyle findPolygonDrawStyle(int scaleLevel);
+	public PolygonDrawSettings findPolygonDrawStyle(int scaleLevel);
 
 	/**
 	 * Find text style on scale level

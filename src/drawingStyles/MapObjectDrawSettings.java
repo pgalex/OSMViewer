@@ -306,7 +306,7 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	 * @return polygon draw style on scale level. Null if not found
 	 */
 	@Override
-	public PolygonDrawStyle findPolygonDrawStyle(int scaleLevel)
+	public PolygonDrawSettings findPolygonDrawStyle(int scaleLevel)
 	{
 		if (canBePolygon)
 		{
