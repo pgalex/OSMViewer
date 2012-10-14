@@ -75,7 +75,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			return;
 		}
 
-		MapObjectDrawStyle objectStyle = styleViewer.findMapObjectDrawStyle(pointToRender.getStyleIndex());
+		MapObjectDrawSettings objectStyle = styleViewer.findMapObjectDrawStyle(pointToRender.getStyleIndex());
 		if (objectStyle == null)
 		{
 			return;
@@ -117,7 +117,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * @param textCenterX text center x on canvas
 	 * @param textTop text top bound
 	 */
-	private void drawMapObjectTextUnderPoint(MapObjectDrawStyle objectStyle,
+	private void drawMapObjectTextUnderPoint(MapObjectDrawSettings objectStyle,
 					DefenitionTags objectTags, double textCenterX, double textTop)
 	{
 		if (objectStyle == null || objectTags == null)
@@ -154,7 +154,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * @param textCenterX text center x on canvas
 	 * @param textCenterY text center y on canvas
 	 */
-	private void drawMapObjectTextAtPoint(MapObjectDrawStyle objectStyle,
+	private void drawMapObjectTextAtPoint(MapObjectDrawSettings objectStyle,
 					DefenitionTags objectTags, double textCenterX, double textCenterY)
 	{
 		if (objectStyle == null || objectTags == null)
@@ -206,7 +206,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			return;
 		}
 
-		MapObjectDrawStyle objectStyle = styleViewer.findMapObjectDrawStyle(polygonToRender.getStyleIndex());
+		MapObjectDrawSettings objectStyle = styleViewer.findMapObjectDrawStyle(polygonToRender.getStyleIndex());
 		if (objectStyle == null)
 		{
 			return;

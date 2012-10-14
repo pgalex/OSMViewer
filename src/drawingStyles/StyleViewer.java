@@ -28,7 +28,7 @@ public interface StyleViewer extends ReadableMapData, WritableMapData
 	 * @param index index of style
 	 * @return map object drawing style. null if style with this index not found
 	 */
-	public abstract MapObjectDrawStyle findMapObjectDrawStyle(Integer index);
+	public abstract MapObjectDrawSettings findMapObjectDrawStyle(Integer index);
 
 	/**
 	 * Get map drawing settings

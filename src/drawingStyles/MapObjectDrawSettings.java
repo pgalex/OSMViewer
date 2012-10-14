@@ -11,7 +11,7 @@ import java.io.IOException;
  *
  * @author abc
  */
-public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapData, WritableMapData
+public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 {
 	/**
 	 * Can be object with this tags a point (single node)
@@ -117,7 +117,6 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	 *
 	 * @return Can object be a point on a map
 	 */
-	@Override
 	public boolean isCanBePoint()
 	{
 		return canBePoint;
@@ -128,7 +127,6 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	 *
 	 * @return Can object be a line(non-closed way) on a map
 	 */
-	@Override
 	public boolean isCanBeLine()
 	{
 		return canBeLine;
@@ -139,7 +137,6 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	 *
 	 * @return Can object be a polygon(closed way) on a map
 	 */
-	@Override
 	public boolean isCanBePolygon()
 	{
 		return canBePolygon;
@@ -208,7 +205,6 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	 *
 	 * @return draw priority
 	 */
-	@Override
 	public int getDrawPriority()
 	{
 		return drawPriority;
@@ -219,7 +215,6 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	 *
 	 * @return object description
 	 */
-	@Override
 	public String getDescription()
 	{
 		return description;
@@ -267,7 +262,6 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	 * @param scaleLevel scale level
 	 * @return point draw style on scale level. Null if not found
 	 */
-	@Override
 	public PointDrawSettings findPointDrawStyle(int scaleLevel)
 	{
 		if (canBePoint)
@@ -286,7 +280,6 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	 * @param scaleLevel scale level
 	 * @return line draw style on scale level. Null if not found
 	 */
-	@Override
 	public LineDrawSettings findLineDrawStyle(int scaleLevel)
 	{
 		if (canBeLine)
@@ -305,7 +298,6 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	 * @param scaleLevel scale level
 	 * @return polygon draw style on scale level. Null if not found
 	 */
-	@Override
 	public PolygonDrawSettings findPolygonDrawStyle(int scaleLevel)
 	{
 		if (canBePolygon)
@@ -324,7 +316,6 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	 * @param scaleLevel scale level
 	 * @return text draw style on scale level. Null if not found
 	 */
-	@Override
 	public TextDrawSettings findTextDrawStyle(int scaleLevel)
 	{
 		return drawSettingsOnScales.findTextDrawStyle(scaleLevel);
@@ -336,7 +327,6 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	 * @param tagsWhereFindText tags of object where to find text description
 	 * @return text description of object founded in tags. Empty if not found
 	 */
-	@Override
 	public String findTextInTags(DefenitionTags tagsWhereFindText)
 	{
 		return textTagKeys.findTextInTags(tagsWhereFindText);

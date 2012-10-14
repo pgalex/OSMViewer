@@ -41,7 +41,7 @@ public abstract class MapObjectByPoints extends MapObject
 	 * @param objectPoints points for testing
 	 * @return is points array correct
 	 */
-	private static boolean isPointsCorrect(MapPosition[] objectPoints)
+	private boolean isPointsCorrect(MapPosition[] objectPoints)
 	{
 		if (objectPoints == null)
 		{

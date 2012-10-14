@@ -1,7 +1,7 @@
 package map;
 
 import drawingStyles.DefenitionTags;
-import drawingStyles.MapObjectDrawStyle;
+import drawingStyles.MapObjectDrawSettings;
 import map.rendering.MapObjectsRenderer;
 
 /**
@@ -78,7 +78,7 @@ public class MapPolygon extends MapObjectByPoints
 	 * @return Can this type of map object be drawen with this style
 	 */
 	@Override
-	protected boolean canBeDrawenWithStyle(MapObjectDrawStyle objectDrawStyle)
+	protected boolean canBeDrawenWithStyle(MapObjectDrawSettings objectDrawStyle)
 	{
 		if (objectDrawStyle == null)
 		{

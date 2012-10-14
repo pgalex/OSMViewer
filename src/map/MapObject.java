@@ -1,7 +1,7 @@
 package map;
 
 import drawingStyles.DefenitionTags;
-import drawingStyles.MapObjectDrawStyle;
+import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleViewer;
 import map.rendering.MapObjectsRenderer;
 
@@ -89,7 +89,7 @@ public abstract class MapObject
 		}
 
 		Integer foundedIndex = styleViewer.findStyleIndex(defenitionTags);
-		MapObjectDrawStyle foundedStyle = styleViewer.findMapObjectDrawStyle(foundedIndex);
+		MapObjectDrawSettings foundedStyle = styleViewer.findMapObjectDrawStyle(foundedIndex);
 
 		if (canBeDrawenWithStyle(foundedStyle))
 		{
@@ -107,7 +107,7 @@ public abstract class MapObject
 	 * @param objectDrawStyle drawing style of object
 	 * @return Can this type of map object be drawen with this style
 	 */
-	protected abstract boolean canBeDrawenWithStyle(MapObjectDrawStyle objectDrawStyle);
+	protected abstract boolean canBeDrawenWithStyle(MapObjectDrawSettings objectDrawStyle);
 
 	/**
 	 * Render with objects render visitor

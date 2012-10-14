@@ -268,7 +268,7 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 	 * @return map object drawing style. null if style with this index not found
 	 */
 	@Override
-	public MapObjectDrawStyle findMapObjectDrawStyle(Integer index)
+	public MapObjectDrawSettings findMapObjectDrawStyle(Integer index)
 	{
 		return getMapObjectDrawSettings(index);
 	}

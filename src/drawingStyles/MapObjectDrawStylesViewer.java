@@ -52,7 +52,7 @@ public class MapObjectDrawStylesViewer extends MapObjectDrawStylesContainer impl
 	 * @return map object drawing style. null if style with this index not found
 	 */
 	@Override
-	public MapObjectDrawStyle findMapObjectDrawStyle(Integer index)
+	public MapObjectDrawSettings findMapObjectDrawStyle(Integer index)
 	{
 		if (index == null)
 		{
