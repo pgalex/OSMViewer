@@ -268,7 +268,7 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	 * @return point draw style on scale level. Null if not found
 	 */
 	@Override
-	public PointDrawStyle findPointDrawStyle(int scaleLevel)
+	public PointDrawSettings findPointDrawStyle(int scaleLevel)
 	{
 		if (canBePoint)
 		{

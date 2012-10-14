@@ -48,7 +48,7 @@ public interface MapObjectDrawStyle
 	 * @param scaleLevel scale level
 	 * @return point draw style on scale level. Null if not found
 	 */
-	public PointDrawStyle findPointDrawStyle(int scaleLevel);
+	public PointDrawSettings findPointDrawStyle(int scaleLevel);
 
 	/**
 	 * Find line style on scale level

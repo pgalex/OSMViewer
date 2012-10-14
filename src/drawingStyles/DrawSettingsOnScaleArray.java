@@ -163,7 +163,7 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	 * @param scaleLevel scale level
 	 * @return point draw style on scale level. Null if not found
 	 */
-	public PointDrawStyle findPointDrawStyle(int scaleLevel)
+	public PointDrawSettings findPointDrawStyle(int scaleLevel)
 	{
 		DrawSettingsOnScale drawSettingsOnScale = getDrawSettingsOnScale(scaleLevel);
 		if (drawSettingsOnScale == null)

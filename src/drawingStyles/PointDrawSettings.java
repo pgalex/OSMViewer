@@ -12,7 +12,7 @@ import java.io.IOException;
  *
  * @author abc
  */
-public class PointDrawSettings implements PointDrawStyle, ReadableMapData, WritableMapData
+public class PointDrawSettings implements ReadableMapData, WritableMapData
 {
 	/**
 	 * Icon
@@ -42,7 +42,6 @@ public class PointDrawSettings implements PointDrawStyle, ReadableMapData, Writa
 	 *
 	 * @return icon
 	 */
-	@Override
 	public BufferedImage getIcon()
 	{
 		return icon.getImage();

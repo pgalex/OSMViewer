@@ -81,7 +81,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			return;
 		}
 
-		PointDrawStyle pointStyle = objectStyle.findPointDrawStyle(scaleLevel);
+		PointDrawSettings pointStyle = objectStyle.findPointDrawStyle(scaleLevel);
 		if (pointStyle == null)
 		{
 			return;
