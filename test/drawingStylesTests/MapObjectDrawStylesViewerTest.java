@@ -70,9 +70,9 @@ public class MapObjectDrawStylesViewerTest
 			StyleViewer readViewer = DrawingStylesFactory.createStyleViewer();
 			IOTester.readFromTestFile(readViewer);
 
-			assertEquals(writedEditor.getMapObjectDrawSettings(0).getDescription(), readViewer.findMapObjectDrawStyle(0).getDescription());
-			assertEquals(writedEditor.getMapObjectDrawSettings(1).getDescription(), readViewer.findMapObjectDrawStyle(1).getDescription());
-			assertEquals(writedEditor.getMapObjectDrawSettings(2).getDescription(), readViewer.findMapObjectDrawStyle(2).getDescription());
+			assertEquals(writedEditor.getMapObjectDrawSettings(0).getDescription(), readViewer.getMapObjectDrawSettings(0).getDescription());
+			assertEquals(writedEditor.getMapObjectDrawSettings(1).getDescription(), readViewer.getMapObjectDrawSettings(1).getDescription());
+			assertEquals(writedEditor.getMapObjectDrawSettings(2).getDescription(), readViewer.getMapObjectDrawSettings(2).getDescription());
 			assertEquals(writedEditor.getMapDrawSettings().getMapBackgroundColor(), 
 							readViewer.getMapDrawSettings().getMapBackgroundColor());
 		}
@@ -192,8 +192,8 @@ public class MapObjectDrawStylesViewerTest
 			StyleViewer viewer = DrawingStylesFactory.createStyleViewer();
 			IOTester.readFromTestFile(viewer);
 
-			assertEquals(style1.getDescription(), viewer.findMapObjectDrawStyle(0).getDescription());
-			assertEquals(style2.getDescription(), viewer.findMapObjectDrawStyle(1).getDescription());
+			assertEquals(style1.getDescription(), viewer.getMapObjectDrawSettings(0).getDescription());
+			assertEquals(style2.getDescription(), viewer.getMapObjectDrawSettings(1).getDescription());
 		}
 		catch (Exception ex)
 		{
@@ -211,9 +211,9 @@ public class MapObjectDrawStylesViewerTest
 		{
 			StyleViewer viewer = DrawingStylesFactory.createStyleViewer();
 
-			assertNull(viewer.findMapObjectDrawStyle(-1));
-			assertNull(viewer.findMapObjectDrawStyle(0));
-			assertNull(viewer.findMapObjectDrawStyle(1));
+			assertNull(viewer.getMapObjectDrawSettings(-1));
+			assertNull(viewer.getMapObjectDrawSettings(0));
+			assertNull(viewer.getMapObjectDrawSettings(1));
 		}
 		catch (Exception ex)
 		{
@@ -231,7 +231,7 @@ public class MapObjectDrawStylesViewerTest
 		{
 			StyleViewer viewer = DrawingStylesFactory.createStyleViewer();
 
-			assertNull(viewer.findMapObjectDrawStyle(null));
+			assertNull(viewer.getMapObjectDrawSettings(null));
 		}
 		catch (Exception ex)
 		{

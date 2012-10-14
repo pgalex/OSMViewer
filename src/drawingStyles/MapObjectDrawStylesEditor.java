@@ -17,10 +17,10 @@ import java.util.Collections;
 public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer implements StyleEditor
 {
 	/**
-	 * Array of map object styles. All styles sorted by tags
+	 * Array of map object objectsDrawSettings. All objectsDrawSettings sorted by tags
 	 * countOfMapObjectDrawSettings
 	 */
-	private ArrayList<MapObjectDrawSettings> styles;
+	private ArrayList<MapObjectDrawSettings> objectsDrawSettings;
 
 	/**
 	 * Create with default values
@@ -29,7 +29,7 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 	{
 		super();
 
-		styles = new ArrayList<MapObjectDrawSettings>();
+		objectsDrawSettings = new ArrayList<MapObjectDrawSettings>();
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 		{
 			super.writeToStream(output);
 
-			writeStylesToStream(styles.toArray(new MapObjectDrawSettings[styles.size()]), output);
+			writeStylesToStream(objectsDrawSettings.toArray(new MapObjectDrawSettings[objectsDrawSettings.size()]), output);
 		}
 		catch (Exception ex)
 		{
@@ -87,9 +87,9 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 		{
 			super.readFromStream(input);
 
-			styles.clear();
+			objectsDrawSettings.clear();
 			MapObjectDrawSettings[] readingStyles = readStylesFromStream(input);
-			Collections.addAll(styles, readingStyles);
+			Collections.addAll(objectsDrawSettings, readingStyles);
 		}
 		catch (IOException ex)
 		{
@@ -123,8 +123,8 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 	 *
 	 * @param index style index
 	 * @param drawSettingsToSet new draw settings of object with index
-	 * @throws IllegalArgumentException new draw settings is null, style index
-	 * is out of bounds
+	 * @throws IllegalArgumentException new draw settings is null, style index is
+	 * out of bounds
 	 */
 	@Override
 	public void setMapObjectDrawSettings(Integer index, MapObjectDrawSettings drawSettingsToSet) throws IllegalArgumentException
@@ -133,7 +133,7 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 		{
 			throw new IllegalArgumentException();
 		}
-		if (index < 0 || index >= styles.size())
+		if (index < 0 || index >= objectsDrawSettings.size())
 		{
 			throw new IllegalArgumentException();
 		}
@@ -142,7 +142,7 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 			throw new IllegalArgumentException();
 		}
 
-		styles.set(index, drawSettingsToSet);
+		objectsDrawSettings.set(index, drawSettingsToSet);
 	}
 
 	/**
@@ -153,7 +153,7 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 	@Override
 	public int countOfMapObjectDrawSettings()
 	{
-		return styles.size();
+		return objectsDrawSettings.size();
 	}
 
 	/**
@@ -170,7 +170,7 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 			return null;
 		}
 
-		return findStyleIndex(styles.toArray(new MapObjectDrawSettings[styles.size()]), objectDefenitionTags);
+		return findStyleIndex(objectsDrawSettings.toArray(new MapObjectDrawSettings[objectsDrawSettings.size()]), objectDefenitionTags);
 	}
 
 	/**
@@ -186,12 +186,12 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 		{
 			return null;
 		}
-		if (index < 0 || index >= styles.size())
+		if (index < 0 || index >= objectsDrawSettings.size())
 		{
 			return null;
 		}
 
-		return styles.get(index);
+		return objectsDrawSettings.get(index);
 	}
 
 	/**
@@ -208,7 +208,7 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 			throw new IllegalArgumentException();
 		}
 
-		styles.add(drawSettingsToAdd);
+		objectsDrawSettings.add(drawSettingsToAdd);
 	}
 
 	/**
@@ -225,12 +225,12 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 			throw new IllegalArgumentException();
 		}
 
-		if (index < 0 || index >= styles.size())
+		if (index < 0 || index >= objectsDrawSettings.size())
 		{
 			throw new IllegalArgumentException();
 		}
 
-		styles.remove((int) index);
+		objectsDrawSettings.remove((int) index);
 	}
 
 	/**
@@ -259,17 +259,5 @@ public class MapObjectDrawStylesEditor extends MapObjectDrawStylesContainer impl
 		}
 
 		mapDrawSettings = mapDrawingSettingsToSet;
-	}
-
-	/**
-	 * Find map object drawing style by index
-	 *
-	 * @param index index of style
-	 * @return map object drawing style. null if style with this index not found
-	 */
-	@Override
-	public MapObjectDrawSettings findMapObjectDrawStyle(Integer index)
-	{
-		return getMapObjectDrawSettings(index);
 	}
 }

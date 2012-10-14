@@ -75,7 +75,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			return;
 		}
 
-		MapObjectDrawSettings objectStyle = styleViewer.findMapObjectDrawStyle(pointToRender.getStyleIndex());
+		MapObjectDrawSettings objectStyle = styleViewer.getMapObjectDrawSettings(pointToRender.getStyleIndex());
 		if (objectStyle == null)
 		{
 			return;
@@ -206,7 +206,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			return;
 		}
 
-		MapObjectDrawSettings objectStyle = styleViewer.findMapObjectDrawStyle(polygonToRender.getStyleIndex());
+		MapObjectDrawSettings objectStyle = styleViewer.getMapObjectDrawSettings(polygonToRender.getStyleIndex());
 		if (objectStyle == null)
 		{
 			return;

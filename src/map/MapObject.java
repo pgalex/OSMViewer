@@ -89,7 +89,7 @@ public abstract class MapObject
 		}
 
 		Integer foundedIndex = styleViewer.findStyleIndex(defenitionTags);
-		MapObjectDrawSettings foundedStyle = styleViewer.findMapObjectDrawStyle(foundedIndex);
+		MapObjectDrawSettings foundedStyle = styleViewer.getMapObjectDrawSettings(foundedIndex);
 
 		if (canBeDrawenWithStyle(foundedStyle))
 		{

@@ -55,8 +55,8 @@ public class MapObjectDrawPriorityComparator implements Comparator<MapObject>
 			return 0;
 		}
 
-		MapObjectDrawSettings object1Style = styleViewer.findMapObjectDrawStyle(object1.getStyleIndex());
-		MapObjectDrawSettings object2Style = styleViewer.findMapObjectDrawStyle(object2.getStyleIndex());
+		MapObjectDrawSettings object1Style = styleViewer.getMapObjectDrawSettings(object1.getStyleIndex());
+		MapObjectDrawSettings object2Style = styleViewer.getMapObjectDrawSettings(object2.getStyleIndex());
 		if (object1Style == null || object2Style == null)
 		{
 			return 0;

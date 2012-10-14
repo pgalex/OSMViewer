@@ -13,9 +13,9 @@ import java.io.IOException;
 public class MapObjectDrawStylesViewer extends MapObjectDrawStylesContainer implements StyleViewer
 {
 	/**
-	 * Static array. Work faster. All styles sorted by tags count
+	 * Static array. Work faster. All objectsDrawSettings sorted by tags count
 	 */
-	private MapObjectDrawSettings[] styles;
+	private MapObjectDrawSettings[] objectsDrawSettings;
 
 	/**
 	 * Create with default values
@@ -24,7 +24,7 @@ public class MapObjectDrawStylesViewer extends MapObjectDrawStylesContainer impl
 	{
 		super();
 
-		styles = new MapObjectDrawSettings[0];
+		objectsDrawSettings = new MapObjectDrawSettings[0];
 	}
 
 	/**
@@ -42,28 +42,7 @@ public class MapObjectDrawStylesViewer extends MapObjectDrawStylesContainer impl
 			return null;
 		}
 
-		return findStyleIndex(styles, objectDefenitionTags);
-	}
-
-	/**
-	 * Find map object drawing style by index
-	 *
-	 * @param index index of style
-	 * @return map object drawing style. null if style with this index not found
-	 */
-	@Override
-	public MapObjectDrawSettings findMapObjectDrawStyle(Integer index)
-	{
-		if (index == null)
-		{
-			return null;
-		}
-		if (index < 0 || index >= styles.length)
-		{
-			return null;
-		}
-
-		return styles[index];
+		return findStyleIndex(objectsDrawSettings, objectDefenitionTags);
 	}
 
 	/**
@@ -90,7 +69,7 @@ public class MapObjectDrawStylesViewer extends MapObjectDrawStylesContainer impl
 		{
 			super.readFromStream(input);
 
-			styles = readStylesFromStream(input);
+			objectsDrawSettings = readStylesFromStream(input);
 		}
 		catch (IOException ex)
 		{
@@ -111,11 +90,87 @@ public class MapObjectDrawStylesViewer extends MapObjectDrawStylesContainer impl
 		{
 			super.writeToStream(output);
 
-			writeStylesToStream(styles, output);
+			writeStylesToStream(objectsDrawSettings, output);
 		}
 		catch (Exception ex)
 		{
 			throw new IOException();
 		}
+	}
+
+	/**
+	 * Get map object draw settings by index
+	 *
+	 * @param index index of style
+	 * @return map object drawing style. null if style with this index not found
+	 */
+	@Override
+	public MapObjectDrawSettings getMapObjectDrawSettings(Integer index)
+	{
+		if (index == null)
+		{
+			return null;
+		}
+		if (index < 0 || index >= objectsDrawSettings.length)
+		{
+			return null;
+		}
+
+		return objectsDrawSettings[index];
+	}
+
+	/**
+	 * Set draw settings of map object by index
+	 *
+	 * @param index style index
+	 * @param drawSettingsToSet new draw settings of object with index
+	 * @throws IllegalArgumentException new draw settings is null, style index is
+	 * out of bounds
+	 */
+	@Override
+	public void setMapObjectDrawSettings(Integer index, MapObjectDrawSettings drawSettingsToSet) throws IllegalArgumentException
+	{
+		if (index == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		if (index < 0 || index >= objectsDrawSettings.length)
+		{
+			throw new IllegalArgumentException();
+		}
+		if (drawSettingsToSet == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		objectsDrawSettings[index] = drawSettingsToSet;
+	}
+
+	/**
+	 * Get count of storing map object draw setting
+	 *
+	 * @return count of storing map object draw setting
+	 */
+	@Override
+	public int countOfMapObjectDrawSettings()
+	{
+		return objectsDrawSettings.length;
+	}
+
+	/**
+	 * Set new map drawing settings
+	 *
+	 * @param mapDrawingSettingsToSet new map drawing settings
+	 * @throws IllegalArgumentException new settins is null
+	 */
+	@Override
+	public void setMapDrawSettings(MapDrawSettings mapDrawingSettingsToSet) throws IllegalArgumentException
+	{
+		if (mapDrawingSettingsToSet == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		mapDrawSettings = mapDrawingSettingsToSet;
 	}
 }
