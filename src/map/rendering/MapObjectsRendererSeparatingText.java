@@ -125,7 +125,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			return;
 		}
 
-		TextDrawStyle textStyle = objectStyle.findTextDrawStyle(scaleLevel);
+		TextDrawSettings textStyle = objectStyle.findTextDrawStyle(scaleLevel);
 		if (textStyle == null)
 		{
 			return;
@@ -162,7 +162,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			return;
 		}
 
-		TextDrawStyle textStyle = objectStyle.findTextDrawStyle(scaleLevel);
+		TextDrawSettings textStyle = objectStyle.findTextDrawStyle(scaleLevel);
 		if (textStyle == null)
 		{
 			return;

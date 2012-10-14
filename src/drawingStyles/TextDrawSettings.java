@@ -13,7 +13,7 @@ import java.io.IOException;
  *
  * @author pgalex
  */
-public class TextDrawSettings implements TextDrawStyle, ReadableMapData, WritableMapData
+public class TextDrawSettings implements ReadableMapData, WritableMapData
 {
 	/**
 	 * Text font
@@ -51,7 +51,6 @@ public class TextDrawSettings implements TextDrawStyle, ReadableMapData, Writabl
 	 *
 	 * @return text color
 	 */
-	@Override
 	public Color getColor()
 	{
 		return color.getStoringColor();
@@ -62,7 +61,6 @@ public class TextDrawSettings implements TextDrawStyle, ReadableMapData, Writabl
 	 *
 	 * @return text font
 	 */
-	@Override
 	public Font getFont()
 	{
 		return font.getFont();

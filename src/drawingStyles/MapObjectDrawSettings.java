@@ -325,7 +325,7 @@ public class MapObjectDrawSettings implements MapObjectDrawStyle, ReadableMapDat
 	 * @return text draw style on scale level. Null if not found
 	 */
 	@Override
-	public TextDrawStyle findTextDrawStyle(int scaleLevel)
+	public TextDrawSettings findTextDrawStyle(int scaleLevel)
 	{
 		return drawSettingsOnScales.findTextDrawStyle(scaleLevel);
 	}

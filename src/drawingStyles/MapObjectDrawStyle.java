@@ -72,7 +72,7 @@ public interface MapObjectDrawStyle
 	 * @param scaleLevel scale level
 	 * @return text draw style on scale level. Null if not found
 	 */
-	public TextDrawStyle findTextDrawStyle(int scaleLevel);
+	public TextDrawSettings findTextDrawStyle(int scaleLevel);
 
 	/**
 	 * Find value of tag that means text description of object

@@ -235,7 +235,7 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	 * @param scaleLevel scale level
 	 * @return text draw style on scale level. Null if not found
 	 */
-	public TextDrawStyle findTextDrawStyle(int scaleLevel)
+	public TextDrawSettings findTextDrawStyle(int scaleLevel)
 	{
 		DrawSettingsOnScale drawSettingsOnScale = getDrawSettingsOnScale(scaleLevel);
 		if (drawSettingsOnScale == null)
