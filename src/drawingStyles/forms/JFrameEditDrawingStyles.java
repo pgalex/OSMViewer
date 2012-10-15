@@ -122,6 +122,13 @@ public class JFrameEditDrawingStyles extends javax.swing.JFrame
     jButtonRemoveMapObject.setText("Remove");
 
     jButtonAddMapObject.setText("Add");
+    jButtonAddMapObject.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jButtonAddMapObjectActionPerformed(evt);
+      }
+    });
 
     jButtonOpen.setText("Open ...");
     jButtonOpen.addActionListener(new java.awt.event.ActionListener()
@@ -311,6 +318,16 @@ public class JFrameEditDrawingStyles extends javax.swing.JFrame
 		editingDrawingStyles = DrawingStylesFactory.createStyleEditor();
 		updateControlsByEditingStyles();
   }//GEN-LAST:event_jButtonNewActionPerformed
+
+  private void jButtonAddMapObjectActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAddMapObjectActionPerformed
+  {//GEN-HEADEREND:event_jButtonAddMapObjectActionPerformed
+    MapObjectDrawSettings newDrawSettings = new MapObjectDrawSettings();
+		newDrawSettings.setDescription("new object");
+		
+		editingDrawingStyles.addMapObjectDrawSettings(newDrawSettings);
+		mapObjectsListModel.addElement(newDrawSettings.getDescription());
+  }//GEN-LAST:event_jButtonAddMapObjectActionPerformed
+
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton jButtonAddMapObject;
   private javax.swing.JButton jButtonChooseBackgroundColor;
