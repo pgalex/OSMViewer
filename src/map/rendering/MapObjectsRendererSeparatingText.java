@@ -34,7 +34,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	/**
 	 * Scale level using for rendering
 	 */
-	private int scaleLevel;
+	private int renderingScaleLevel;
 
 	/**
 	 * Create renderer
@@ -59,7 +59,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		canvas = targetCanvas;
 		styleViewer = styleViewerForRendering;
 		coordinatesConverter = converter;
-		scaleLevel = renderingScaleLevel;
+		this.renderingScaleLevel = renderingScaleLevel;
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			return;
 		}
 
-		PointDrawSettings pointStyle = objectStyle.findPointDrawStyle(scaleLevel);
+		PointDrawSettings pointStyle = objectStyle.findPointDrawStyle(renderingScaleLevel);
 		if (pointStyle == null)
 		{
 			return;
@@ -109,6 +109,88 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	}
 
 	/**
+	 * Render line
+	 *
+	 * @param lineToRender line on a map
+	 */
+	@Override
+	public void renderLine(MapLine lineToRender)
+	{
+		if (lineToRender == null)
+		{
+			return;
+		}
+		MapObjectDrawSettings objectStyle = styleViewer.getMapObjectDrawSettings(lineToRender.getStyleIndex());
+		if (objectStyle == null)
+		{
+			return;
+		}
+
+		LineDrawSettings lineStyle = objectStyle.findLineDrawStyle(renderingScaleLevel);
+		if (lineStyle == null)
+		{
+			return;
+		}
+
+		canvas.setStroke(lineStyle.getStroke());
+		canvas.setColor(lineStyle.getColor());
+
+		for (int i = 0; i < lineToRender.getPoints().length - 1; i++)
+		{
+			Point2D firstPoint = coordinatesConverter.goegraphicsToCanvas(lineToRender.getPoints()[i]);
+			Point2D secondPoint = coordinatesConverter.goegraphicsToCanvas(lineToRender.getPoints()[i + 1]);
+
+			canvas.drawLine((int) firstPoint.getX(), (int) firstPoint.getY(),
+							(int) secondPoint.getX(), (int) secondPoint.getY());
+		}
+
+		// text ...
+	}
+
+	/**
+	 * Render polygon
+	 *
+	 * @param polygonToRender polygon on a map
+	 */
+	@Override
+	public void renderPolygon(MapPolygon polygonToRender)
+	{
+		if (polygonToRender == null)
+		{
+			return;
+		}
+
+		MapObjectDrawSettings objectStyle = styleViewer.getMapObjectDrawSettings(polygonToRender.getStyleIndex());
+		if (objectStyle == null)
+		{
+			return;
+		}
+
+		PolygonDrawSettings polygonStyle = objectStyle.findPolygonDrawStyle(renderingScaleLevel);
+		if (polygonStyle == null)
+		{
+			return;
+		}
+
+		Polygon drawingPolygon = createDrawingPolygonByMapPolygon(polygonToRender);
+
+		// inner part
+		canvas.setPaint(polygonStyle.getPaint());
+		canvas.fillPolygon(drawingPolygon);
+
+		// border
+		LineDrawSettings borderStyle = polygonStyle.getBorderDrawStyle();
+		canvas.setStroke(borderStyle.getStroke());
+		canvas.setColor(borderStyle.getColor());
+		canvas.drawPolygon(drawingPolygon);
+
+		Point2D textPosition = coordinatesConverter.goegraphicsToCanvas(polygonToRender.getCenterPoint());
+
+		drawMapObjectTextAtPoint(objectStyle, polygonToRender.getDefenitionTags(),
+						textPosition.getX(), textPosition.getY());
+	}
+
+	/**
 	 * Draw map object text(name, description etc) on canvas, by text center x and
 	 * top bound of text
 	 *
@@ -125,7 +207,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			return;
 		}
 
-		TextDrawSettings textStyle = objectStyle.findTextDrawStyle(scaleLevel);
+		TextDrawSettings textStyle = objectStyle.findTextDrawStyle(renderingScaleLevel);
 		if (textStyle == null)
 		{
 			return;
@@ -162,7 +244,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			return;
 		}
 
-		TextDrawSettings textStyle = objectStyle.findTextDrawStyle(scaleLevel);
+		TextDrawSettings textStyle = objectStyle.findTextDrawStyle(renderingScaleLevel);
 		if (textStyle == null)
 		{
 			return;
@@ -179,61 +261,6 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 
 			canvas.drawString(drawingText, (int) textCenterX - textWidth / 2, (int) textCenterY);
 		}
-	}
-
-	/**
-	 * Render line
-	 *
-	 * @param lineToRender line on a map
-	 */
-	@Override
-	public void renderLine(MapLine lineToRender)
-	{
-		if (lineToRender == null)
-			return;
-	}
-
-	/**
-	 * Render polygon
-	 *
-	 * @param polygonToRender polygon on a map
-	 */
-	@Override
-	public void renderPolygon(MapPolygon polygonToRender)
-	{
-		if (polygonToRender == null)
-		{
-			return;
-		}
-
-		MapObjectDrawSettings objectStyle = styleViewer.getMapObjectDrawSettings(polygonToRender.getStyleIndex());
-		if (objectStyle == null)
-		{
-			return;
-		}
-
-		PolygonDrawSettings polygonStyle = objectStyle.findPolygonDrawStyle(scaleLevel);
-		if (polygonStyle == null)
-		{
-			return;
-		}
-
-		Polygon drawingPolygon = createDrawingPolygonByMapPolygon(polygonToRender);
-
-		// inner part
-		canvas.setPaint(polygonStyle.getPaint());
-		canvas.fillPolygon(drawingPolygon);
-
-		// border
-		LineDrawSettings borderStyle = polygonStyle.getBorderDrawStyle();
-		canvas.setStroke(borderStyle.getStroke());
-		canvas.setColor(borderStyle.getColor());
-		canvas.drawPolygon(drawingPolygon);
-
-		Point2D textPosition = coordinatesConverter.goegraphicsToCanvas(polygonToRender.getCenterPoint());
-
-		drawMapObjectTextAtPoint(objectStyle, polygonToRender.getDefenitionTags(),
-						textPosition.getX(), textPosition.getY());
 	}
 
 	/**
