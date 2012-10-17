@@ -108,7 +108,7 @@ public class TextTagsKeys implements ReadableMapData, WritableMapData
 
 		for (int keyIndex = 0; keyIndex < tagsKeys.size(); keyIndex++)
 		{
-			for (int tagIndex = 0; tagIndex < tagsWhereFindText.size(); tagIndex++)
+			for (int tagIndex = 0; tagIndex < tagsWhereFindText.count(); tagIndex++)
 			{
 				MapTag tag = tagsWhereFindText.get(tagIndex);
 				if (tag.getKey().equals(tagsKeys.get(keyIndex)))

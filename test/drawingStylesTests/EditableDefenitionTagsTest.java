@@ -23,7 +23,7 @@ public class EditableDefenitionTagsTest
 		tags.add(new MapTag("k2", "v2"));
 
 		assertFalse(tags.isEmpty());
-		assertEquals(2, tags.size());
+		assertEquals(2, tags.count());
 		assertTrue(tags.get(0).compareTo(new MapTag("k1", "v1")));
 		assertTrue(tags.get(1).compareTo(new MapTag("k2", "v2")));
 	}
@@ -59,7 +59,7 @@ public class EditableDefenitionTagsTest
 
 		tags.clear();
 		assertTrue(tags.isEmpty());
-		assertEquals(0, tags.size());
+		assertEquals(0, tags.count());
 	}
 
 	/**
@@ -73,12 +73,12 @@ public class EditableDefenitionTagsTest
 		tags.add(new MapTag("k2", "v2"));
 
 		tags.remove(1);
-		assertEquals(1, tags.size());
+		assertEquals(1, tags.count());
 		assertTrue(tags.get(0).compareTo(new MapTag("k1", "v1")));
 
 		tags.remove(0);
 		assertTrue(tags.isEmpty());
-		assertEquals(0, tags.size());
+		assertEquals(0, tags.count());
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class EditableDefenitionTagsTest
 		tags.add(new MapTag("k1", "v1"));
 		try
 		{
-			tags.remove(tags.size());
+			tags.remove(tags.count());
 			fail();
 		}
 		catch (IllegalArgumentException ex)

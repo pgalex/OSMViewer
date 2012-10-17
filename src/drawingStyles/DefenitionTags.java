@@ -32,7 +32,7 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 	 *
 	 * @return tags count
 	 */
-	public int size()
+	public int count()
 	{
 		return tags.size();
 	}
@@ -81,7 +81,7 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 			throw new IllegalArgumentException();
 		}
 
-		if (tags.size() > tagsForComparing.size())
+		if (tags.size() > tagsForComparing.count())
 		{
 			return false;
 		}
@@ -99,7 +99,7 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 		{
 			boolean thisTagFoundInCompatingTags = false;
 
-			for (int i = 0; i < tagsForComparing.size(); i++)
+			for (int i = 0; i < tagsForComparing.count(); i++)
 			{
 				MapTag comparingTag = tagsForComparing.get(i);
 

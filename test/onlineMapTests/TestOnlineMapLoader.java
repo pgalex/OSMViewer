@@ -102,7 +102,7 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 		assertTrue(createdObject instanceof MapLine);
 		assertEquals(way.getId(), createdObject.getId());
 		assertEquals(way.getNodesIds().size(), ((MapLine) createdObject).getPoints().length);
-		assertEquals(wayTags.size(), createdObject.getDefenitionTags().size());
+		assertEquals(wayTags.size(), createdObject.getDefenitionTags().count());
 		for (int i = 0; i < wayTags.size(); i++)
 		{
 			OsmTag wayTag = way.getTags().get(i);
@@ -157,7 +157,7 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 		assertTrue(createdObject instanceof MapPolygon);
 		assertEquals(way.getId(), createdObject.getId());
 		assertEquals(way.getNodesIds().size(), ((MapPolygon) createdObject).getPoints().length);
-		assertEquals(wayTags.size(), createdObject.getDefenitionTags().size());
+		assertEquals(wayTags.size(), createdObject.getDefenitionTags().count());
 		for (int i = 0; i < wayTags.size(); i++)
 		{
 			OsmTag wayTag = way.getTags().get(i);
@@ -249,7 +249,7 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 	}
 
 	/**
-	 * Test finding points in osm nodes if ids array size more than nodes count
+	 * Test finding points in osm nodes if ids array count more than nodes count
 	 */
 	private void findPointsInOsmNodesIdsMoreThenNodesTest()
 	{
@@ -359,8 +359,8 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 
 		DefenitionTags defenitionTags = createDefentionTagsByOsmTags(osmTags);
 		assertNotNull(defenitionTags);
-		assertEquals(osmTags.size(), defenitionTags.size());
-		for (int i = 0; i < defenitionTags.size(); i++)
+		assertEquals(osmTags.size(), defenitionTags.count());
+		for (int i = 0; i < defenitionTags.count(); i++)
 		{
 			assertEquals(osmTags.get(i).getKey(), defenitionTags.get(i).getKey());
 			assertEquals(osmTags.get(i).getValue(), defenitionTags.get(i).getValue());
@@ -387,7 +387,7 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 
 		DefenitionTags tagsByByContainsNull = createDefentionTagsByOsmTags(osmTags);
 		assertNotNull(tagsByByContainsNull);
-		assertEquals(1, tagsByByContainsNull.size());
+		assertEquals(1, tagsByByContainsNull.count());
 		assertNotNull(tagsByByContainsNull.get(0));
 	}
 
@@ -413,8 +413,8 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 		assertEquals(osmNode.getId(), pointByNode.getId());
 		assertEquals(osmNode.getLatitude(), pointByNode.getPosition().getLatitude(), 0.00001);
 		assertEquals(osmNode.getLongitude(), pointByNode.getPosition().getLongitude(), 0.00001);
-		assertEquals(osmNode.getTags().size(), pointByNode.getDefenitionTags().size());
-		for (int i = 0; i < pointByNode.getDefenitionTags().size(); i++)
+		assertEquals(osmNode.getTags().size(), pointByNode.getDefenitionTags().count());
+		for (int i = 0; i < pointByNode.getDefenitionTags().count(); i++)
 		{
 			assertEquals(osmNode.getTags().get(i).getKey(), pointByNode.getDefenitionTags().get(i).getKey());
 			assertEquals(osmNode.getTags().get(i).getValue(), pointByNode.getDefenitionTags().get(i).getValue());

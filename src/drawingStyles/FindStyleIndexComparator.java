@@ -26,12 +26,12 @@ public class FindStyleIndexComparator implements Comparator<MapObjectDrawSetting
 			throw new NullPointerException();
 		}
 
-		if (object1.getDefenitionTags().size() > object2.getDefenitionTags().size())
+		if (object1.getDefenitionTags().count() > object2.getDefenitionTags().count())
 		{
 			return -1;
 		}
 
-		if (object1.getDefenitionTags().size() < object2.getDefenitionTags().size())
+		if (object1.getDefenitionTags().count() < object2.getDefenitionTags().count())
 		{
 			return 1;
 		}

@@ -62,7 +62,7 @@ public class DefenitionTagsTest
 
 		try
 		{
-			tags.get(tags.size());
+			tags.get(tags.count());
 		}
 		catch (IllegalArgumentException ex)
 		{
@@ -221,8 +221,8 @@ public class DefenitionTagsTest
 			DefenitionTags readingTags = new DefenitionTags();
 			IOTester.readFromTestFile(readingTags);
 
-			assertEquals(writingTags.size(), readingTags.size());
-			for (int i = 0; i < writingTags.size(); i++)
+			assertEquals(writingTags.count(), readingTags.count());
+			for (int i = 0; i < writingTags.count(); i++)
 			{
 				assertTrue(writingTags.get(i).compareTo(readingTags.get(i)));
 			}

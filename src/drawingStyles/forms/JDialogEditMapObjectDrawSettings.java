@@ -144,8 +144,8 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 	private void initializeDefenitionTagsTableModel()
 	{
 		EditableDefenitionTags editingTags = editingMapObjectDrawSettings.getDefenitionTags();
-		String tableData[][] = new String[editingTags.size()][2];
-		for (int i = 0; i < editingTags.size(); i++)
+		String tableData[][] = new String[editingTags.count()][2];
+		for (int i = 0; i < editingTags.count(); i++)
 		{
 			MapTag tag = editingTags.get(i);
 			tableData[i][0] = tag.getKey();
