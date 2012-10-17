@@ -237,11 +237,11 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Get scaled drawing styles
+	 * Get draw settings on scales levels styles
 	 *
 	 * @return scaled drawing styles
 	 */
-	public DrawSettingsOnScaleArray getScaledStyles()
+	public DrawSettingsOnScaleArray getDrawSettingsOnScales()
 	{
 		return drawSettingsOnScales;
 	}

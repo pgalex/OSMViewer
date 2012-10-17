@@ -124,7 +124,7 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 	 */
 	private void initializeScaleLevelSpinnerModel()
 	{
-		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getScaledStyles();
+		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		scaleLevelSpinnerModel = new SpinnerNumberModel(editingSettingsOnScaleArray.getMaximumScaleLevel(),
 						editingSettingsOnScaleArray.getMinimumScaleLevel(), editingSettingsOnScaleArray.getMaximumScaleLevel(), 1);
 
@@ -225,7 +225,7 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 	 */
 	private void updateNeedToDrawControlsBySettingsOnCurrentScale()
 	{
-		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getScaledStyles();
+		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		jCheckBoxDrawPointOnScaleLevel.setSelected(settingOnCurrentScale.isDrawPoint());
 		jCheckBoxDrawLineOnScaleLevel.setSelected(settingOnCurrentScale.isDrawLine());
@@ -238,7 +238,7 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 	 */
 	private void updateLineColorPreviewBySettingsOnCurrentScale()
 	{
-		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getScaledStyles();
+		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		LineDrawSettings lineSettingsOnCurrentScale = settingOnCurrentScale.getLineDrawSettings();
 
@@ -252,7 +252,7 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 	 */
 	private void updateLineWidthControlsBySettingsOnCurrentScale()
 	{
-		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getScaledStyles();
+		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		LineDrawSettings lineSettingsOnCurrentScale = settingOnCurrentScale.getLineDrawSettings();
 		
@@ -318,7 +318,7 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 	 */
 	private void lineWidthSpinnerStateChanged(ChangeEvent event)
 	{
-		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getScaledStyles();
+		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		LineDrawSettings lineSettingsOnCurrentScale = settingOnCurrentScale.getLineDrawSettings();
 		
@@ -712,7 +712,7 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 
   private void jCheckBoxDrawPointOnScaleLevelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBoxDrawPointOnScaleLevelActionPerformed
   {//GEN-HEADEREND:event_jCheckBoxDrawPointOnScaleLevelActionPerformed
-		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getScaledStyles();
+		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		if (jCheckBoxDrawPointOnScaleLevel.isSelected())
 		{
@@ -726,7 +726,7 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 
   private void jCheckBoxDrawLineOnScaleLevelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBoxDrawLineOnScaleLevelActionPerformed
   {//GEN-HEADEREND:event_jCheckBoxDrawLineOnScaleLevelActionPerformed
-		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getScaledStyles();
+		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		if (jCheckBoxDrawLineOnScaleLevel.isSelected())
 		{
@@ -740,7 +740,7 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 
   private void jCheckBoxDrawPolygonOnScaleLevelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBoxDrawPolygonOnScaleLevelActionPerformed
   {//GEN-HEADEREND:event_jCheckBoxDrawPolygonOnScaleLevelActionPerformed
-		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getScaledStyles();
+		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		if (jCheckBoxDrawPolygonOnScaleLevel.isSelected())
 		{
@@ -754,7 +754,7 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 
   private void jButtonSelectLineColorActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonSelectLineColorActionPerformed
   {//GEN-HEADEREND:event_jButtonSelectLineColorActionPerformed
-		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getScaledStyles();
+		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		LineDrawSettings lineSettingsOnCurrentScale = settingOnCurrentScale.getLineDrawSettings();
 

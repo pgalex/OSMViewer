@@ -57,10 +57,10 @@ public class MapObjectDrawSettingsTest
 	{
 		MapObjectDrawSettings testSettings = new MapObjectDrawSettings(true, false, false, null, 0, "", null, null);
 
-		testSettings.getScaledStyles().setDrawSettingsOnScale(testSettings.getScaledStyles().getMinimumScaleLevel(),
+		testSettings.getDrawSettingsOnScales().setDrawSettingsOnScale(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel(),
 						new DrawSettingsOnScale(true, false, false, null, null, null, null));
 
-		assertNotNull(testSettings.findPointDrawStyle(testSettings.getScaledStyles().getMinimumScaleLevel()));
+		assertNotNull(testSettings.findPointDrawStyle(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel()));
 	}
 
 	/**
@@ -71,10 +71,10 @@ public class MapObjectDrawSettingsTest
 	{
 		MapObjectDrawSettings testSettings = new MapObjectDrawSettings(false, true, true, null, 0, "", null, null);
 
-		testSettings.getScaledStyles().setDrawSettingsOnScale(testSettings.getScaledStyles().getMinimumScaleLevel(),
+		testSettings.getDrawSettingsOnScales().setDrawSettingsOnScale(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel(),
 						new DrawSettingsOnScale(true, false, false, null, null, null, null));
 
-		assertNull(testSettings.findPointDrawStyle(testSettings.getScaledStyles().getMinimumScaleLevel()));
+		assertNull(testSettings.findPointDrawStyle(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel()));
 	}
 
 	/**
@@ -85,10 +85,10 @@ public class MapObjectDrawSettingsTest
 	{
 		MapObjectDrawSettings testSettings = new MapObjectDrawSettings(false, true, false, null, 0, "", null, null);
 
-		testSettings.getScaledStyles().setDrawSettingsOnScale(testSettings.getScaledStyles().getMinimumScaleLevel(),
+		testSettings.getDrawSettingsOnScales().setDrawSettingsOnScale(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel(),
 						new DrawSettingsOnScale(false, true, false, null, null, null, null));
 
-		assertNotNull(testSettings.findLineDrawStyle(testSettings.getScaledStyles().getMinimumScaleLevel()));
+		assertNotNull(testSettings.findLineDrawStyle(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel()));
 	}
 
 	/**
@@ -99,10 +99,10 @@ public class MapObjectDrawSettingsTest
 	{
 		MapObjectDrawSettings testSettings = new MapObjectDrawSettings(true, false, true, null, 0, "", null, null);
 
-		testSettings.getScaledStyles().setDrawSettingsOnScale(testSettings.getScaledStyles().getMinimumScaleLevel(),
+		testSettings.getDrawSettingsOnScales().setDrawSettingsOnScale(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel(),
 						new DrawSettingsOnScale(false, true, false, null, null, null, null));
 
-		assertNull(testSettings.findLineDrawStyle(testSettings.getScaledStyles().getMinimumScaleLevel()));
+		assertNull(testSettings.findLineDrawStyle(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel()));
 	}
 
 	/**
@@ -113,10 +113,10 @@ public class MapObjectDrawSettingsTest
 	{
 		MapObjectDrawSettings testSettings = new MapObjectDrawSettings(false, false, true, null, 0, "", null, null);
 
-		testSettings.getScaledStyles().setDrawSettingsOnScale(testSettings.getScaledStyles().getMinimumScaleLevel(),
+		testSettings.getDrawSettingsOnScales().setDrawSettingsOnScale(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel(),
 						new DrawSettingsOnScale(false, false, true, null, null, null, null));
 
-		assertNotNull(testSettings.findPolygonDrawStyle(testSettings.getScaledStyles().getMinimumScaleLevel()));
+		assertNotNull(testSettings.findPolygonDrawStyle(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel()));
 	}
 
 	/**
@@ -127,10 +127,10 @@ public class MapObjectDrawSettingsTest
 	{
 		MapObjectDrawSettings testSettings = new MapObjectDrawSettings(true, true, false, null, 0, "", null, null);
 
-		testSettings.getScaledStyles().setDrawSettingsOnScale(testSettings.getScaledStyles().getMinimumScaleLevel(),
+		testSettings.getDrawSettingsOnScales().setDrawSettingsOnScale(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel(),
 						new DrawSettingsOnScale(false, false, true, null, null, null, null));
 
-		assertNull(testSettings.findPolygonDrawStyle(testSettings.getScaledStyles().getMinimumScaleLevel()));
+		assertNull(testSettings.findPolygonDrawStyle(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel()));
 	}
 
 	/**
@@ -171,7 +171,7 @@ public class MapObjectDrawSettingsTest
 	public void autoInitializeTest()
 	{
 		MapObjectDrawSettings style = new MapObjectDrawSettings(true, true, true, null, 0, "", null, null);
-		assertNotNull(style.getScaledStyles());
+		assertNotNull(style.getDrawSettingsOnScales());
 		assertNotNull(style.getDefenitionTags());
 	}
 
@@ -216,12 +216,12 @@ public class MapObjectDrawSettingsTest
 
 			assertEquals(writedStyle.getDrawPriority(), readStyle.getDrawPriority());
 			assertEquals(writedStyle.getDescription(), readStyle.getDescription());
-			assertEquals(writedStyle.getScaledStyles().getDrawSettingsOnScale(someScaleLevelAtBegin).isDrawLine(), readStyle.getScaledStyles().getDrawSettingsOnScale(someScaleLevelAtBegin).isDrawLine());
-			assertEquals(writedStyle.getScaledStyles().getDrawSettingsOnScale(someScaleLevelAtBegin).isDrawPoint(), readStyle.getScaledStyles().getDrawSettingsOnScale(someScaleLevelAtBegin).isDrawPoint());
-			assertEquals(writedStyle.getScaledStyles().getDrawSettingsOnScale(someScaleLevelAtBegin).isDrawPolygon(), readStyle.getScaledStyles().getDrawSettingsOnScale(someScaleLevelAtBegin).isDrawPolygon());
-			assertEquals(writedStyle.getScaledStyles().getDrawSettingsOnScale(someScaleLevelAtMiddle).isDrawLine(), readStyle.getScaledStyles().getDrawSettingsOnScale(someScaleLevelAtMiddle).isDrawLine());
-			assertEquals(writedStyle.getScaledStyles().getDrawSettingsOnScale(someScaleLevelAtMiddle).isDrawPoint(), readStyle.getScaledStyles().getDrawSettingsOnScale(someScaleLevelAtMiddle).isDrawPoint());
-			assertEquals(writedStyle.getScaledStyles().getDrawSettingsOnScale(someScaleLevelAtMiddle).isDrawPolygon(), readStyle.getScaledStyles().getDrawSettingsOnScale(someScaleLevelAtMiddle).isDrawPolygon());
+			assertEquals(writedStyle.getDrawSettingsOnScales().getDrawSettingsOnScale(someScaleLevelAtBegin).isDrawLine(), readStyle.getDrawSettingsOnScales().getDrawSettingsOnScale(someScaleLevelAtBegin).isDrawLine());
+			assertEquals(writedStyle.getDrawSettingsOnScales().getDrawSettingsOnScale(someScaleLevelAtBegin).isDrawPoint(), readStyle.getDrawSettingsOnScales().getDrawSettingsOnScale(someScaleLevelAtBegin).isDrawPoint());
+			assertEquals(writedStyle.getDrawSettingsOnScales().getDrawSettingsOnScale(someScaleLevelAtBegin).isDrawPolygon(), readStyle.getDrawSettingsOnScales().getDrawSettingsOnScale(someScaleLevelAtBegin).isDrawPolygon());
+			assertEquals(writedStyle.getDrawSettingsOnScales().getDrawSettingsOnScale(someScaleLevelAtMiddle).isDrawLine(), readStyle.getDrawSettingsOnScales().getDrawSettingsOnScale(someScaleLevelAtMiddle).isDrawLine());
+			assertEquals(writedStyle.getDrawSettingsOnScales().getDrawSettingsOnScale(someScaleLevelAtMiddle).isDrawPoint(), readStyle.getDrawSettingsOnScales().getDrawSettingsOnScale(someScaleLevelAtMiddle).isDrawPoint());
+			assertEquals(writedStyle.getDrawSettingsOnScales().getDrawSettingsOnScale(someScaleLevelAtMiddle).isDrawPolygon(), readStyle.getDrawSettingsOnScales().getDrawSettingsOnScale(someScaleLevelAtMiddle).isDrawPolygon());
 		}
 		catch (Exception ex)
 		{

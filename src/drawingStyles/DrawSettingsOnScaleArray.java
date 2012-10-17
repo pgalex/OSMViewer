@@ -26,7 +26,7 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	/**
 	 * Drawing style on each scale level. Стили на каждом из уровней масштаба
 	 */
-	private DrawSettingsOnScale[] scaledStyles;
+	private DrawSettingsOnScale[] settingsOnScales;
 	/**
 	 * Minimum scale level in array. Can be not default if read from file
 	 */
@@ -44,11 +44,11 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 		minimumScaleLevel = DEFAULT_MINIMUM_SCALE_LEVEL;
 		maximumScaleLevel = DEFAULT_MAXIUMUM_SCALE_LEVEL;
 
-		scaledStyles = new DrawSettingsOnScale[computeStylesArrayLengthByScaleLevelBounds()];
+		settingsOnScales = new DrawSettingsOnScale[computeStylesArrayLengthByScaleLevelBounds()];
 
-		for (int i = 0; i < scaledStyles.length; i++)
+		for (int i = 0; i < settingsOnScales.length; i++)
 		{
-			scaledStyles[i] = new DrawSettingsOnScale();
+			settingsOnScales[i] = new DrawSettingsOnScale();
 		}
 	}
 
@@ -74,7 +74,7 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	{
 		int normalizedScaleLevel = normalizeScaleLevel(scaleLevel);
 
-		return scaledStyles[convertScaleLevelToArrayIndex(normalizedScaleLevel)];
+		return settingsOnScales[convertScaleLevelToArrayIndex(normalizedScaleLevel)];
 	}
 
 	/**
@@ -92,15 +92,15 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 		}
 		// out of bounds exception will be throwen in convertScaleLevelToArrayIndex
 
-		scaledStyles[convertScaleLevelToArrayIndex(scaleLevel)] = drawSettingToSet;
+		settingsOnScales[convertScaleLevelToArrayIndex(scaleLevel)] = drawSettingToSet;
 	}
 
 	/**
 	 * Convert scale level (defines by minimumScaleLevel and maximumScaleLevel) to
-	 * scaledStyles array index (from 0 to length)
+	 * settingsOnScales array index (from 0 to length)
 	 *
 	 * @param scaleLevelToConvert scale level for converting
-	 * @return scaledStyles array index
+	 * @return settingsOnScales array index
 	 * @throws IllegalArgumentException converting scale level is out of bounds
 	 */
 	private int convertScaleLevelToArrayIndex(int scaleLevelToConvert) throws IllegalArgumentException
@@ -260,11 +260,11 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 			minimumScaleLevel = input.readInt();
 			maximumScaleLevel = input.readInt();
 
-			scaledStyles = new DrawSettingsOnScale[computeStylesArrayLengthByScaleLevelBounds()];
-			for (int i = 0; i < scaledStyles.length; i++)
+			settingsOnScales = new DrawSettingsOnScale[computeStylesArrayLengthByScaleLevelBounds()];
+			for (int i = 0; i < settingsOnScales.length; i++)
 			{
-				scaledStyles[i] = new DrawSettingsOnScale();
-				scaledStyles[i].readFromStream(input);
+				settingsOnScales[i] = new DrawSettingsOnScale();
+				settingsOnScales[i].readFromStream(input);
 			}
 		}
 		catch (Exception e)
@@ -286,9 +286,9 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 		{
 			output.writeInt(minimumScaleLevel);
 			output.writeInt(maximumScaleLevel);
-			for (int i = 0; i < scaledStyles.length; i++)
+			for (int i = 0; i < settingsOnScales.length; i++)
 			{
-				scaledStyles[i].writeToStream(output);
+				settingsOnScales[i].writeToStream(output);
 			}
 		}
 		catch (Exception e)
