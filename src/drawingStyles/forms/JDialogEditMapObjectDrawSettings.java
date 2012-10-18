@@ -7,9 +7,17 @@ import drawingStyles.LineDrawSettings;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.MapTag;
 import drawingStyles.PointDrawSettings;
+import drawingStyles.TextDrawSettings;
 import drawingStyles.TextTagsKeys;
 import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JColorChooser;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -198,6 +206,8 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 		updateNeedToDrawControlsBySettingsOnCurrentScale();
 		updateLineColorPreviewBySettingsOnCurrentScale();
 		updateLineWidthControlsBySettingsOnCurrentScale();
+		updateTextPreviewBySettingsOnCurrentScale();
+		updatePointIconPreviewBySettingsOnCurrentScale();
 	}
 
 	/**
@@ -242,11 +252,11 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		LineDrawSettings lineSettingsOnCurrentScale = settingOnCurrentScale.getLineDrawSettings();
 
-		jPanelLineColorPreview.setBackground(lineSettingsOnCurrentScale.getColor());
+		jPanelLinePreview.setBackground(lineSettingsOnCurrentScale.getColor());
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * Update line draw settings - width preview by draw settings on selected
 	 * scale level
 	 */
@@ -255,8 +265,43 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		LineDrawSettings lineSettingsOnCurrentScale = settingOnCurrentScale.getLineDrawSettings();
-		
+
 		lineWidthSpinnerModel.setValue(lineSettingsOnCurrentScale.getWidth());
+	}
+
+	/**
+	 * Update text preview by draw settings on selected scale level
+	 */
+	private void updateTextPreviewBySettingsOnCurrentScale()
+	{
+		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
+		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
+		TextDrawSettings textSettingsOnCurrentScale = settingOnCurrentScale.getTextDrawSettings();
+
+		jLabelTextPreviewExample.setFont(textSettingsOnCurrentScale.getFont());
+		jLabelTextPreviewExample.setForeground(textSettingsOnCurrentScale.getColor());
+	}
+
+	/**
+	 * Update point draw settings icon preview by draw settings on selected scale
+	 * level
+	 */
+	private void updatePointIconPreviewBySettingsOnCurrentScale()
+	{
+		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
+		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
+		PointDrawSettings pointSettingsOnCurrentScale = settingOnCurrentScale.getPointDrawSettings();
+
+		if (pointSettingsOnCurrentScale.getIcon() != null)
+		{
+			jLabelPointIconPreview.setIcon(new ImageIcon(pointSettingsOnCurrentScale.getIcon()));
+			jLabelPointIconPreview.setText("");
+		}
+		else
+		{
+			jLabelPointIconPreview.setIcon(null);
+			jLabelPointIconPreview.setText("no icon");
+		}
 	}
 
 	/**
@@ -309,6 +354,8 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 		updateNeedToDrawControlsBySettingsOnCurrentScale();
 		updateLineColorPreviewBySettingsOnCurrentScale();
 		updateLineWidthControlsBySettingsOnCurrentScale();
+		updateTextPreviewBySettingsOnCurrentScale();
+		updatePointIconPreviewBySettingsOnCurrentScale();
 	}
 
 	/**
@@ -321,7 +368,7 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		LineDrawSettings lineSettingsOnCurrentScale = settingOnCurrentScale.getLineDrawSettings();
-		
+
 		lineSettingsOnCurrentScale.setWidth(lineWidthSpinnerModel.getNumber().intValue());
 	}
 
@@ -354,12 +401,17 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
     jCheckBoxDrawLineOnScaleLevel = new javax.swing.JCheckBox();
     jCheckBoxDrawPolygonOnScaleLevel = new javax.swing.JCheckBox();
     jLabelPointIcon = new javax.swing.JLabel();
-    jPanelPointIconPreview = new javax.swing.JPanel();
     jButtonSelectPointIcon = new javax.swing.JButton();
     jButtonResetPointIcon = new javax.swing.JButton();
-    jPanelLineColorPreview = new javax.swing.JPanel();
+    jPanelLinePreview = new javax.swing.JPanel();
     jButtonSelectLineColor = new javax.swing.JButton();
     jSpinnerLineWidth = new javax.swing.JSpinner();
+    jButton1 = new javax.swing.JButton();
+    jButton2 = new javax.swing.JButton();
+    jLabel1 = new javax.swing.JLabel();
+    jPanelPolygonPreview = new javax.swing.JPanel();
+    jLabelTextPreviewExample = new javax.swing.JLabel();
+    jLabelPointIconPreview = new javax.swing.JLabel();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -485,33 +537,34 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 
     jLabelPointIcon.setText("Icon");
 
-    jPanelPointIconPreview.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-
-    org.jdesktop.layout.GroupLayout jPanelPointIconPreviewLayout = new org.jdesktop.layout.GroupLayout(jPanelPointIconPreview);
-    jPanelPointIconPreview.setLayout(jPanelPointIconPreviewLayout);
-    jPanelPointIconPreviewLayout.setHorizontalGroup(
-      jPanelPointIconPreviewLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-      .add(0, 42, Short.MAX_VALUE)
-    );
-    jPanelPointIconPreviewLayout.setVerticalGroup(
-      jPanelPointIconPreviewLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-      .add(0, 42, Short.MAX_VALUE)
-    );
-
     jButtonSelectPointIcon.setText("Select ...");
+    jButtonSelectPointIcon.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jButtonSelectPointIconActionPerformed(evt);
+      }
+    });
 
     jButtonResetPointIcon.setText("Reset");
+    jButtonResetPointIcon.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jButtonResetPointIconActionPerformed(evt);
+      }
+    });
 
-    jPanelLineColorPreview.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+    jPanelLinePreview.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
-    org.jdesktop.layout.GroupLayout jPanelLineColorPreviewLayout = new org.jdesktop.layout.GroupLayout(jPanelLineColorPreview);
-    jPanelLineColorPreview.setLayout(jPanelLineColorPreviewLayout);
-    jPanelLineColorPreviewLayout.setHorizontalGroup(
-      jPanelLineColorPreviewLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+    org.jdesktop.layout.GroupLayout jPanelLinePreviewLayout = new org.jdesktop.layout.GroupLayout(jPanelLinePreview);
+    jPanelLinePreview.setLayout(jPanelLinePreviewLayout);
+    jPanelLinePreviewLayout.setHorizontalGroup(
+      jPanelLinePreviewLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
       .add(0, 42, Short.MAX_VALUE)
     );
-    jPanelLineColorPreviewLayout.setVerticalGroup(
-      jPanelLineColorPreviewLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+    jPanelLinePreviewLayout.setVerticalGroup(
+      jPanelLinePreviewLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
       .add(0, 42, Short.MAX_VALUE)
     );
 
@@ -525,6 +578,34 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
     });
 
     jSpinnerLineWidth.setModel(lineWidthSpinnerModel);
+
+    jButton1.setText("Text font ...");
+
+    jButton2.setText("Text color ...");
+    jButton2.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jButton2ActionPerformed(evt);
+      }
+    });
+
+    jLabel1.setText("Width");
+
+    jPanelPolygonPreview.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+
+    org.jdesktop.layout.GroupLayout jPanelPolygonPreviewLayout = new org.jdesktop.layout.GroupLayout(jPanelPolygonPreview);
+    jPanelPolygonPreview.setLayout(jPanelPolygonPreviewLayout);
+    jPanelPolygonPreviewLayout.setHorizontalGroup(
+      jPanelPolygonPreviewLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+      .add(0, 42, Short.MAX_VALUE)
+    );
+    jPanelPolygonPreviewLayout.setVerticalGroup(
+      jPanelPolygonPreviewLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+      .add(0, 42, Short.MAX_VALUE)
+    );
+
+    jLabelTextPreviewExample.setText("Sample text");
 
     org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -558,27 +639,37 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
                   .add(jButtonRemoveTextTagKey)))
               .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
               .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .add(layout.createSequentialGroup()
                   .add(jButtonAddDefenitionTag)
                   .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(jButtonRemoveDefenitionTag))
-                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                  .add(jButtonRemoveDefenitionTag)))))
           .add(layout.createSequentialGroup()
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
               .add(jCheckBoxDrawPointOnScaleLevel)
-              .add(jPanelPointIconPreview, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
               .add(jButtonSelectPointIcon)
-              .add(jButtonResetPointIcon))
+              .add(jButtonResetPointIcon)
+              .add(jLabelPointIconPreview))
             .add(62, 62, 62)
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-              .add(jSpinnerLineWidth, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+              .add(jCheckBoxDrawLineOnScaleLevel)
               .add(jButtonSelectLineColor)
-              .add(jPanelLineColorPreview, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+              .add(jPanelLinePreview, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
               .add(layout.createSequentialGroup()
-                .add(jCheckBoxDrawLineOnScaleLevel)
-                .add(69, 69, 69)
-                .add(jCheckBoxDrawPolygonOnScaleLevel)))))
-        .addContainerGap(33, Short.MAX_VALUE))
+                .add(jLabel1)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jSpinnerLineWidth, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+            .add(65, 65, 65)
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+              .add(layout.createSequentialGroup()
+                .add(jPanelPolygonPreview, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 82, Short.MAX_VALUE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                  .add(jButton2)
+                  .add(jButton1)
+                  .add(jLabelTextPreviewExample)))
+              .add(jCheckBoxDrawPolygonOnScaleLevel))))
+        .add(41, 41, 41))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -615,20 +706,28 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
           .add(jCheckBoxDrawLineOnScaleLevel)
           .add(jCheckBoxDrawPolygonOnScaleLevel))
         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-        .add(jLabelPointIcon)
-        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-          .add(jPanelPointIconPreview, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-          .add(jPanelLineColorPreview, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+          .add(layout.createSequentialGroup()
+            .add(jLabelPointIcon)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+              .add(jPanelLinePreview, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+              .add(jLabelPointIconPreview)))
+          .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jLabelTextPreviewExample)
+            .add(jPanelPolygonPreview, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
           .add(jButtonSelectPointIcon)
-          .add(jButtonSelectLineColor))
+          .add(jButtonSelectLineColor)
+          .add(jButton1))
         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
           .add(jButtonResetPointIcon)
-          .add(jSpinnerLineWidth, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-        .addContainerGap(95, Short.MAX_VALUE))
+          .add(jSpinnerLineWidth, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+          .add(jButton2)
+          .add(jLabel1))
+        .addContainerGap(45, Short.MAX_VALUE))
     );
 
     pack();
@@ -765,7 +864,68 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 			updateLineColorPreviewBySettingsOnCurrentScale();
 		}
   }//GEN-LAST:event_jButtonSelectLineColorActionPerformed
+
+  private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
+  {//GEN-HEADEREND:event_jButton2ActionPerformed
+		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
+		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
+		TextDrawSettings textSettingsOnCurrentScale = settingOnCurrentScale.getTextDrawSettings();
+
+		Color newTextColor = JColorChooser.showDialog(this, "Choosing text color", textSettingsOnCurrentScale.getColor());
+		if (newTextColor != null)
+		{
+			textSettingsOnCurrentScale.setColor(newTextColor);
+			updateTextPreviewBySettingsOnCurrentScale();
+		}
+  }//GEN-LAST:event_jButton2ActionPerformed
+
+  private void jButtonResetPointIconActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonResetPointIconActionPerformed
+  {//GEN-HEADEREND:event_jButtonResetPointIconActionPerformed
+		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
+		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
+		PointDrawSettings pointSettingsOnCurrentScale = settingOnCurrentScale.getPointDrawSettings();
+
+		pointSettingsOnCurrentScale.setIcon(null);
+		updatePointIconPreviewBySettingsOnCurrentScale();
+  }//GEN-LAST:event_jButtonResetPointIconActionPerformed
+
+  private void jButtonSelectPointIconActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonSelectPointIconActionPerformed
+  {//GEN-HEADEREND:event_jButtonSelectPointIconActionPerformed
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+		int showDialogResult = fileChooser.showOpenDialog(this);
+		if (showDialogResult == JFileChooser.APPROVE_OPTION)
+		{
+			BufferedImage imageFromSelectedFile;
+			try
+			{
+				DataInputStream input = new DataInputStream(new FileInputStream(fileChooser.getSelectedFile()));
+				imageFromSelectedFile = ImageIO.read(input);
+				input.close();
+			}
+			catch (Exception e)
+			{
+				imageFromSelectedFile = null;
+			}
+
+			DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
+			DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
+			PointDrawSettings pointSettingsOnCurrentScale = settingOnCurrentScale.getPointDrawSettings();
+			if (imageFromSelectedFile != null)
+			{
+				pointSettingsOnCurrentScale.setIcon(imageFromSelectedFile);
+				updatePointIconPreviewBySettingsOnCurrentScale();
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(this, "Can not read image from selected file", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+  }//GEN-LAST:event_jButtonSelectPointIconActionPerformed
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JButton jButton1;
+  private javax.swing.JButton jButton2;
   private javax.swing.JButton jButtonAddDefenitionTag;
   private javax.swing.JButton jButtonAddTextTagKey;
   private javax.swing.JButton jButtonRemoveDefenitionTag;
@@ -779,11 +939,14 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
   private javax.swing.JCheckBox jCheckBoxDrawLineOnScaleLevel;
   private javax.swing.JCheckBox jCheckBoxDrawPointOnScaleLevel;
   private javax.swing.JCheckBox jCheckBoxDrawPolygonOnScaleLevel;
+  private javax.swing.JLabel jLabel1;
   private javax.swing.JLabel jLabelDescription;
   private javax.swing.JLabel jLabelPointIcon;
+  private javax.swing.JLabel jLabelPointIconPreview;
   private javax.swing.JLabel jLabelScaleLevel;
-  private javax.swing.JPanel jPanelLineColorPreview;
-  private javax.swing.JPanel jPanelPointIconPreview;
+  private javax.swing.JLabel jLabelTextPreviewExample;
+  private javax.swing.JPanel jPanelLinePreview;
+  private javax.swing.JPanel jPanelPolygonPreview;
   private javax.swing.JScrollPane jScrollPane1;
   private javax.swing.JScrollPane jScrollPane2;
   private javax.swing.JSpinner jSpinnerLineWidth;

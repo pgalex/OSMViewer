@@ -219,7 +219,7 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 	{
 		return needDrawPolygon;
 	}
-	
+
 	/**
 	 * Set need to draw polygon
 	 */
@@ -227,7 +227,7 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 	{
 		needDrawPolygon = true;
 	}
-	
+
 	/**
 	 * Set dont need to draw polygon
 	 */

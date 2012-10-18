@@ -14,6 +14,23 @@ import org.junit.Test;
 public class TextDrawSettingsTest
 {
 	/**
+	 * Test setting null text color
+	 */
+	@Test
+	public void setNullTextColorTest()
+	{
+		try
+		{
+			TextDrawSettings settings = new TextDrawSettings();
+			settings.setColor(null);
+			fail();
+		}
+		catch(IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+	/**
 	 * Test initializing null values in constructor to default
 	 */
 	@Test
