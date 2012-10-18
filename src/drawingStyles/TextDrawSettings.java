@@ -59,10 +59,16 @@ public class TextDrawSettings implements ReadableMapData, WritableMapData
 	/**
 	 * Set new text color
 	 *
-	 * @param textColorToSet new text color
+	 * @param textColorToSet
+	 * @throws IllegalArgumentException textColorToSet is null
 	 */
-	public void setColor(Color textColorToSet)
+	public void setColor(Color textColorToSet) throws IllegalArgumentException
 	{
+		if (textColorToSet == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
 		color.setStoringColor(textColorToSet);
 	}
 
