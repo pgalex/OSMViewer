@@ -82,7 +82,7 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	 *
 	 * @param scaleLevel scale level of draw settings
 	 * @param drawSettingToSet draw settings that will be set on scale level
-	 * @throws IllegalArgumentException draw settings is null
+	 * @throws IllegalArgumentException drawSettingToSet is null or scaleLevel is out of bounds
 	 */
 	public void setDrawSettingsOnScale(int scaleLevel, DrawSettingsOnScale drawSettingToSet) throws IllegalArgumentException
 	{
@@ -90,7 +90,10 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 		{
 			throw new IllegalArgumentException();
 		}
-		// out of bounds exception will be throwen in convertScaleLevelToArrayIndex
+		if (scaleLevel < minimumScaleLevel || scaleLevel > maximumScaleLevel)
+		{
+			throw new IllegalArgumentException();
+		}
 
 		settingsOnScales[convertScaleLevelToArrayIndex(scaleLevel)] = drawSettingToSet;
 	}
