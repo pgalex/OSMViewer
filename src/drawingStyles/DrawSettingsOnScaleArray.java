@@ -72,7 +72,7 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	 */
 	public DrawSettingsOnScale getDrawSettingsOnScale(int scaleLevel)
 	{
-		int normalizedScaleLevel = normalizeScaleLevel(scaleLevel);
+		int normalizedScaleLevel = normalizeScaleLevel(scaleLevel); // in bounds
 
 		return settingsOnScales[convertScaleLevelToArrayIndex(normalizedScaleLevel)];
 	}
@@ -82,7 +82,8 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	 *
 	 * @param scaleLevel scale level of draw settings
 	 * @param drawSettingToSet draw settings that will be set on scale level
-	 * @throws IllegalArgumentException drawSettingToSet is null or scaleLevel is out of bounds
+	 * @throws IllegalArgumentException drawSettingToSet is null or scaleLevel is
+	 * out of bounds
 	 */
 	public void setDrawSettingsOnScale(int scaleLevel, DrawSettingsOnScale drawSettingToSet) throws IllegalArgumentException
 	{

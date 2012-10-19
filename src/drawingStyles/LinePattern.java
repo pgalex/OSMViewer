@@ -37,7 +37,8 @@ public class LinePattern implements ReadableMapData, WritableMapData
 	 * Create line pattern
 	 *
 	 * @param linePattern pattern of line
-	 * @throws IllegalArgumentException linePattern is incorrect
+	 * @throws IllegalArgumentException linePattern is null, or contains 0
+	 * elements
 	 */
 	public LinePattern(float[] linePattern) throws IllegalArgumentException
 	{

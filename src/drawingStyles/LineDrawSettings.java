@@ -48,9 +48,24 @@ public class LineDrawSettings implements ReadableMapData, WritableMapData
 	 * @param lineColor line color
 	 * @param lineWidth line width
 	 * @param linePattern pattern of line
+	 * @throws IllegalArgumentException lineColor is null or line pattern null or
+	 * contains 0 elements
 	 */
-	public LineDrawSettings(Color lineColor, float lineWidth, float[] linePattern)
+	public LineDrawSettings(Color lineColor, float lineWidth, float[] linePattern) throws IllegalArgumentException
 	{
+		if (lineColor == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		if (linePattern == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		if (linePattern.length == 0)
+		{
+			throw new IllegalArgumentException();
+		}
+
 		color = new ColorWithIO(lineColor);
 		width = lineWidth;
 		pattern = new LinePattern(linePattern);

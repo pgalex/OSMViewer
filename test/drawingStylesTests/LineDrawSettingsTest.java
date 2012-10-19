@@ -48,6 +48,23 @@ public class LineDrawSettingsTest
 			// ok
 		}
 	}
+	
+	/**
+	 * Test creating with empty line pattern
+	 */
+	@Test
+	public void creatingWithEmptyPatternTest()
+	{
+		try
+		{
+			LineDrawSettings testStyle = new LineDrawSettings(Color.RED, 1, new float[0]);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
 
 	/**
 	 * Test creating with null line color
