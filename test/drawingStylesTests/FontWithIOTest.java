@@ -14,13 +14,20 @@ import org.junit.Test;
 public class FontWithIOTest
 {
 	/**
-	 * Test auto initialize in contructor
+	 * Test creating with null storing font
 	 */
 	@Test
-	public void autoInitializeTest()
+	public void creatingWithNullFontTest()
 	{
-		FontWithIO testFont = new FontWithIO(null);
-		assertNotNull(testFont.getFont());
+		try
+		{
+			FontWithIO testFont = new FontWithIO(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
 	}
 
 	/**
@@ -37,9 +44,9 @@ public class FontWithIOTest
 			FontWithIO readFont = new FontWithIO();
 			IOTester.readFromTestFile(readFont);
 
-			assertEquals(writedFont.getFont().getFamily(), readFont.getFont().getFamily());
-			assertEquals(writedFont.getFont().getStyle(), readFont.getFont().getStyle());
-			assertEquals(writedFont.getFont().getSize(), readFont.getFont().getSize());
+			assertEquals(writedFont.getStoringFont().getFamily(), readFont.getStoringFont().getFamily());
+			assertEquals(writedFont.getStoringFont().getStyle(), readFont.getStoringFont().getStyle());
+			assertEquals(writedFont.getStoringFont().getSize(), readFont.getStoringFont().getSize());
 		}
 		catch (Exception ex)
 		{

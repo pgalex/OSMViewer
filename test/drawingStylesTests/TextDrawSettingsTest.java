@@ -25,19 +25,27 @@ public class TextDrawSettingsTest
 			settings.setColor(null);
 			fail();
 		}
-		catch(IllegalArgumentException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
 	}
+
 	/**
-	 * Test initializing null values in constructor to default
+	 * Test creating with null font
 	 */
 	@Test
-	public void initializingNullParametersInContructorTest()
+	public void creatingWithNullFontTest()
 	{
-		TextDrawSettings settings = new TextDrawSettings(Color.CYAN, null);
-		assertNotNull(settings.getFont());
+		try
+		{
+			TextDrawSettings settings = new TextDrawSettings(Color.CYAN, null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
 	}
 
 	/**

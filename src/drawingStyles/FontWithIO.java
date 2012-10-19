@@ -21,36 +21,40 @@ public class FontWithIO implements ReadableMapData, WritableMapData
 	/**
 	 * Storing font
 	 */
-	private Font font;
+	private Font storingFont;
 
 	/**
-	 * Create with defaut values
+	 * Create with defaut storingFont
 	 */
 	public FontWithIO()
 	{
-		font = DEFAULT_FONT;
+		storingFont = DEFAULT_FONT;
 	}
 
 	/**
 	 * Create with font
 	 *
-	 * @param fontToStore storing font. If null will be set default font
+	 * @param fontToStore storing font
+	 * @throws IllegalArgumentException fontToStore is null
 	 */
-	public FontWithIO(Font fontToStore)
+	public FontWithIO(Font fontToStore) throws IllegalArgumentException
 	{
-		font = fontToStore;
-		initializeNullFields();
+		if (fontToStore == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		storingFont = fontToStore;
 	}
 
 	/**
-	 * Auto-initialize null fields
+	 * Get storing font
+	 *
+	 * @return storing font
 	 */
-	private void initializeNullFields()
+	public Font getStoringFont()
 	{
-		if (font == null)
-		{
-			font = DEFAULT_FONT;
-		}
+		return storingFont;
 	}
 
 	/**
@@ -67,7 +71,7 @@ public class FontWithIO implements ReadableMapData, WritableMapData
 			String fontFamily = input.readUTF();
 			int fontStyle = input.readInt();
 			int fontSize = input.readInt();
-			font = new Font(fontFamily, fontStyle, fontSize);
+			storingFont = new Font(fontFamily, fontStyle, fontSize);
 		}
 		catch (Exception e)
 		{
@@ -86,23 +90,13 @@ public class FontWithIO implements ReadableMapData, WritableMapData
 	{
 		try
 		{
-			output.writeUTF(font.getFamily());
-			output.writeInt(font.getStyle());
-			output.writeInt(font.getSize());
+			output.writeUTF(storingFont.getFamily());
+			output.writeInt(storingFont.getStyle());
+			output.writeInt(storingFont.getSize());
 		}
 		catch (Exception e)
 		{
 			throw new IOException(e);
 		}
-	}
-
-	/**
-	 * Get storing font
-	 *
-	 * @return storing font
-	 */
-	public Font getFont()
-	{
-		return font;
 	}
 }
