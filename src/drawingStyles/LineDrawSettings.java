@@ -117,9 +117,15 @@ public class LineDrawSettings implements ReadableMapData, WritableMapData
 	 * Set new line color
 	 *
 	 * @param colorToSet new line color
+	 * @throws IllegalArgumentException colorToSet is null
 	 */
-	public void setColor(Color colorToSet)
+	public void setColor(Color colorToSet) throws IllegalArgumentException
 	{
+		if (colorToSet == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
 		color.setStoringColor(colorToSet);
 	}
 
@@ -167,9 +173,19 @@ public class LineDrawSettings implements ReadableMapData, WritableMapData
 	 * Set new line pattern
 	 *
 	 * @param patternToSet new line pattern
+	 * @throws IllegalArgumentException patternToSet is null or empty
 	 */
-	public void setPattern(float[] patternToSet)
+	public void setPattern(float[] patternToSet) throws IllegalArgumentException
 	{
+		if (patternToSet == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		if (patternToSet.length == 0)
+		{
+			throw new IllegalArgumentException();
+		}
+
 		pattern.setPattern(patternToSet);
 	}
 

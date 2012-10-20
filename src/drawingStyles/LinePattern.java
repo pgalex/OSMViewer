@@ -81,7 +81,7 @@ public class LinePattern implements ReadableMapData, WritableMapData
 	 * Set new pattern
 	 *
 	 * @param patternToSet new pattern
-	 * @throws IllegalArgumentException new pattern is incorrect
+	 * @throws IllegalArgumentException new pattern is null or empty
 	 */
 	public void setPattern(float[] patternToSet) throws IllegalArgumentException
 	{

@@ -15,6 +15,60 @@ import org.junit.Test;
 public class LineDrawSettingsTest
 {
 	/**
+	 * Test setting null pattern
+	 */
+	@Test
+	public void setNullPatternTest()
+	{
+		try
+		{
+			LineDrawSettings settings = new LineDrawSettings();
+			settings.setPattern(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Test setting empty pattern
+	 */
+	@Test
+	public void setEmptyPatternTest()
+	{
+		try
+		{
+			LineDrawSettings settings = new LineDrawSettings();
+			settings.setPattern(new float[0]);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Test setting null color
+	 */
+	@Test
+	public void setNullColorTest()
+	{
+		try
+		{
+			LineDrawSettings settings = new LineDrawSettings();
+			settings.setColor(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
 	 * Test creating stroke by line parameters
 	 */
 	@Test
@@ -48,7 +102,7 @@ public class LineDrawSettingsTest
 			// ok
 		}
 	}
-	
+
 	/**
 	 * Test creating with empty line pattern
 	 */
