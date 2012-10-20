@@ -23,7 +23,7 @@ public class DrawSettingsOnScaleArrayTest
 		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale(true, false, false, null, null, null, null);
 		stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel(), styleOnScale);
 
-		assertNotNull(stylesArray.findPointDrawStyle(stylesArray.getMinimumScaleLevel()));
+		assertNotNull(stylesArray.findPointDrawSettings(stylesArray.getMinimumScaleLevel()));
 	}
 
 	/**
@@ -36,7 +36,7 @@ public class DrawSettingsOnScaleArrayTest
 		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale(false, true, true, null, null, null, null);
 		stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel(), styleOnScale);
 
-		assertNull(stylesArray.findPointDrawStyle(stylesArray.getMinimumScaleLevel()));
+		assertNull(stylesArray.findPointDrawSettings(stylesArray.getMinimumScaleLevel()));
 	}
 	
 	/**
@@ -49,7 +49,7 @@ public class DrawSettingsOnScaleArrayTest
 		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale(false, true, false, null, null, null, null);
 		stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel(), styleOnScale);
 
-		assertNotNull(stylesArray.findLineDrawStyle(stylesArray.getMinimumScaleLevel()));
+		assertNotNull(stylesArray.findLineDrawSettings(stylesArray.getMinimumScaleLevel()));
 	}
 
 	/**
@@ -62,7 +62,7 @@ public class DrawSettingsOnScaleArrayTest
 		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale(true, false, true, null, null, null, null);
 		stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel(), styleOnScale);
 
-		assertNull(stylesArray.findLineDrawStyle(stylesArray.getMinimumScaleLevel()));
+		assertNull(stylesArray.findLineDrawSettings(stylesArray.getMinimumScaleLevel()));
 	}
 	
 	/**
@@ -75,7 +75,7 @@ public class DrawSettingsOnScaleArrayTest
 		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale(false, false, true, null, null, null, null);
 		stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel(), styleOnScale);
 
-		assertNotNull(stylesArray.findPolygonDrawStyle(stylesArray.getMinimumScaleLevel()));
+		assertNotNull(stylesArray.findPolygonDrawSettings(stylesArray.getMinimumScaleLevel()));
 	}
 
 	/**
@@ -88,7 +88,7 @@ public class DrawSettingsOnScaleArrayTest
 		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale(true, true, false, null, null, null, null);
 		stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel(), styleOnScale);
 
-		assertNull(stylesArray.findPolygonDrawStyle(stylesArray.getMinimumScaleLevel()));
+		assertNull(stylesArray.findPolygonDrawSettings(stylesArray.getMinimumScaleLevel()));
 	}
 
 	/**

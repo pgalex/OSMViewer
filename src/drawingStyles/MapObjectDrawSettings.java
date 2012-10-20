@@ -262,11 +262,11 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 	 * @param scaleLevel scale level
 	 * @return point draw style on scale level. Null if not found
 	 */
-	public PointDrawSettings findPointDrawStyle(int scaleLevel)
+	public PointDrawSettings findPointDrawSettings(int scaleLevel)
 	{
 		if (canBePoint)
 		{
-			return drawSettingsOnScales.findPointDrawStyle(scaleLevel);
+			return drawSettingsOnScales.findPointDrawSettings(scaleLevel);
 		}
 		else
 		{
@@ -280,11 +280,11 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 	 * @param scaleLevel scale level
 	 * @return line draw style on scale level. Null if not found
 	 */
-	public LineDrawSettings findLineDrawStyle(int scaleLevel)
+	public LineDrawSettings findLineDrawSettings(int scaleLevel)
 	{
 		if (canBeLine)
 		{
-			return drawSettingsOnScales.findLineDrawStyle(scaleLevel);
+			return drawSettingsOnScales.findLineDrawSettings(scaleLevel);
 		}
 		else
 		{
@@ -298,11 +298,11 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 	 * @param scaleLevel scale level
 	 * @return polygon draw style on scale level. Null if not found
 	 */
-	public PolygonDrawSettings findPolygonDrawStyle(int scaleLevel)
+	public PolygonDrawSettings findPolygonDrawSettings(int scaleLevel)
 	{
 		if (canBePolygon)
 		{
-			return drawSettingsOnScales.findPolygonDrawStyle(scaleLevel);
+			return drawSettingsOnScales.findPolygonDrawSettings(scaleLevel);
 		}
 		else
 		{
@@ -316,9 +316,9 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 	 * @param scaleLevel scale level
 	 * @return text draw style on scale level. Null if not found
 	 */
-	public TextDrawSettings findTextDrawStyle(int scaleLevel)
+	public TextDrawSettings findTextDrawSettings(int scaleLevel)
 	{
-		return drawSettingsOnScales.findTextDrawStyle(scaleLevel);
+		return drawSettingsOnScales.findTextDrawSettings(scaleLevel);
 	}
 
 	/**

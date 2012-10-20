@@ -81,7 +81,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			return;
 		}
 
-		PointDrawSettings pointStyle = objectStyle.findPointDrawStyle(renderingScaleLevel);
+		PointDrawSettings pointStyle = objectStyle.findPointDrawSettings(renderingScaleLevel);
 		if (pointStyle == null)
 		{
 			return;
@@ -126,7 +126,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			return;
 		}
 
-		LineDrawSettings lineStyle = objectStyle.findLineDrawStyle(renderingScaleLevel);
+		LineDrawSettings lineStyle = objectStyle.findLineDrawSettings(renderingScaleLevel);
 		if (lineStyle == null)
 		{
 			return;
@@ -166,7 +166,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			return;
 		}
 
-		PolygonDrawSettings polygonStyle = objectStyle.findPolygonDrawStyle(renderingScaleLevel);
+		PolygonDrawSettings polygonStyle = objectStyle.findPolygonDrawSettings(renderingScaleLevel);
 		if (polygonStyle == null)
 		{
 			return;
@@ -207,7 +207,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			return;
 		}
 
-		TextDrawSettings textStyle = objectStyle.findTextDrawStyle(renderingScaleLevel);
+		TextDrawSettings textStyle = objectStyle.findTextDrawSettings(renderingScaleLevel);
 		if (textStyle == null)
 		{
 			return;
@@ -244,7 +244,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			return;
 		}
 
-		TextDrawSettings textStyle = objectStyle.findTextDrawStyle(renderingScaleLevel);
+		TextDrawSettings textStyle = objectStyle.findTextDrawSettings(renderingScaleLevel);
 		if (textStyle == null)
 		{
 			return;
