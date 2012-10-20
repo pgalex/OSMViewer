@@ -57,14 +57,16 @@ public class LinePattern implements ReadableMapData, WritableMapData
 	 */
 	private boolean isLinePatternIncorrect(float[] linePattern)
 	{
-		if (linePattern == null || linePattern.length == 0)
+		if (linePattern == null)
 		{
 			return true;
 		}
-		else
+		if (linePattern.length == 0)
 		{
-			return false;
+			return true;
 		}
+
+		return false;
 	}
 
 	/**
