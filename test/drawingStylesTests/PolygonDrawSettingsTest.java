@@ -26,7 +26,7 @@ public class PolygonDrawSettingsTest
 	{
 		try
 		{
-			ImageWithIO fillIcon = new ImageWithIO("testIcon.png");
+			ImageWithIO fillIcon = new ImageWithIO("test/supportFiles/testIcon.png");
 			PolygonDrawSettings polygonStyle = new PolygonDrawSettings(Color.GREEN, null, fillIcon.getImage());
 			Paint paint = polygonStyle.getPaint();
 
@@ -93,7 +93,7 @@ public class PolygonDrawSettingsTest
 			pattern[2] = 4;
 			pattern[3] = 5;
 			LineDrawSettings borderStyle = new LineDrawSettings(Color.CYAN, 10, pattern);
-			ImageWithIO fillIcon = new ImageWithIO("testIcon.png");
+			ImageWithIO fillIcon = new ImageWithIO("test/supportFiles/testIcon.png");
 			PolygonDrawSettings writedStyle = new PolygonDrawSettings(Color.MAGENTA, borderStyle,
 							fillIcon.getImage());
 

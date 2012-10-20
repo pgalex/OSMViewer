@@ -17,7 +17,7 @@ public class ImageWithIOTest
 	 * Name of icon file using for testing loading image file in ImageWithIO class.
 	 * Should exists in main folder
 	 */
-	private final String ICON_FILE_NAME = "testIcon.png";
+	private final String ICON_FILE_NAME = "test/supportFiles/testIcon.png";
 
 	/**
 	 * Testing default constructor for not creating image ( null and not loaded

@@ -10,6 +10,7 @@ import drawingStyles.PointDrawSettings;
 import drawingStyles.TextDrawSettings;
 import drawingStyles.TextTagsKeys;
 import java.awt.Color;
+import java.awt.Frame;
 import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -90,7 +91,7 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 	 * with dialog
 	 * @throws IllegalArgumentException editing map object draw setting is null
 	 */
-	public JDialogEditMapObjectDrawSettings(java.awt.Frame parent, boolean modal,
+	public JDialogEditMapObjectDrawSettings(Frame parent, boolean modal,
 					MapObjectDrawSettings drawSettingsToEdit) throws IllegalArgumentException
 	{
 		super(parent, modal);
@@ -406,8 +407,8 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
     jPanelLinePreview = new javax.swing.JPanel();
     jButtonSelectLineColor = new javax.swing.JButton();
     jSpinnerLineWidth = new javax.swing.JSpinner();
-    jButton1 = new javax.swing.JButton();
-    jButton2 = new javax.swing.JButton();
+    jButtonSelectTextFont = new javax.swing.JButton();
+    jButtonSelectTextColor = new javax.swing.JButton();
     jLabel1 = new javax.swing.JLabel();
     jPanelPolygonPreview = new javax.swing.JPanel();
     jLabelTextPreviewExample = new javax.swing.JLabel();
@@ -579,14 +580,14 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 
     jSpinnerLineWidth.setModel(lineWidthSpinnerModel);
 
-    jButton1.setText("Text font ...");
+    jButtonSelectTextFont.setText("Text font ...");
 
-    jButton2.setText("Text color ...");
-    jButton2.addActionListener(new java.awt.event.ActionListener()
+    jButtonSelectTextColor.setText("Text color ...");
+    jButtonSelectTextColor.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
       {
-        jButton2ActionPerformed(evt);
+        jButtonSelectTextColorActionPerformed(evt);
       }
     });
 
@@ -665,8 +666,8 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
                 .add(jPanelPolygonPreview, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 82, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                  .add(jButton2)
-                  .add(jButton1)
+                  .add(jButtonSelectTextColor)
+                  .add(jButtonSelectTextFont)
                   .add(jLabelTextPreviewExample)))
               .add(jCheckBoxDrawPolygonOnScaleLevel))))
         .add(41, 41, 41))
@@ -720,12 +721,12 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
           .add(jButtonSelectPointIcon)
           .add(jButtonSelectLineColor)
-          .add(jButton1))
+          .add(jButtonSelectTextFont))
         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
           .add(jButtonResetPointIcon)
           .add(jSpinnerLineWidth, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-          .add(jButton2)
+          .add(jButtonSelectTextColor)
           .add(jLabel1))
         .addContainerGap(45, Short.MAX_VALUE))
     );
@@ -865,8 +866,8 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 		}
   }//GEN-LAST:event_jButtonSelectLineColorActionPerformed
 
-  private void jButton2ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton2ActionPerformed
-  {//GEN-HEADEREND:event_jButton2ActionPerformed
+  private void jButtonSelectTextColorActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonSelectTextColorActionPerformed
+  {//GEN-HEADEREND:event_jButtonSelectTextColorActionPerformed
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		TextDrawSettings textSettingsOnCurrentScale = settingOnCurrentScale.getTextDrawSettings();
@@ -877,7 +878,7 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 			textSettingsOnCurrentScale.setColor(newTextColor);
 			updateTextPreviewBySettingsOnCurrentScale();
 		}
-  }//GEN-LAST:event_jButton2ActionPerformed
+  }//GEN-LAST:event_jButtonSelectTextColorActionPerformed
 
   private void jButtonResetPointIconActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonResetPointIconActionPerformed
   {//GEN-HEADEREND:event_jButtonResetPointIconActionPerformed
@@ -924,8 +925,6 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 		}
   }//GEN-LAST:event_jButtonSelectPointIconActionPerformed
   // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JButton jButton1;
-  private javax.swing.JButton jButton2;
   private javax.swing.JButton jButtonAddDefenitionTag;
   private javax.swing.JButton jButtonAddTextTagKey;
   private javax.swing.JButton jButtonRemoveDefenitionTag;
@@ -933,6 +932,8 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
   private javax.swing.JButton jButtonResetPointIcon;
   private javax.swing.JButton jButtonSelectLineColor;
   private javax.swing.JButton jButtonSelectPointIcon;
+  private javax.swing.JButton jButtonSelectTextColor;
+  private javax.swing.JButton jButtonSelectTextFont;
   private javax.swing.JCheckBox jCheckBoxCanBeLine;
   private javax.swing.JCheckBox jCheckBoxCanBePoint;
   private javax.swing.JCheckBox jCheckBoxCanBePolygon;

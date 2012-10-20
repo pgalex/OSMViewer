@@ -145,7 +145,7 @@ public class OnlineMapProcessor implements DrawableOnPanel
 	{
 		try
 		{
-			styleViewer.readFromFile(new File("testdrawstyles.dat"));
+			styleViewer.readFromFile(new File("drawStyles/testdrawstyles.dat"));
 		}
 		catch (IOException ex)
 		{

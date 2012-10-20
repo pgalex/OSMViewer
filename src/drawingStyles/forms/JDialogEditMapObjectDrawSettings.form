@@ -88,8 +88,8 @@
                               <Component id="jPanelPolygonPreview" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="82" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButton1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jButtonSelectTextColor" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jButtonSelectTextFont" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabelTextPreviewExample" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -163,13 +163,13 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButtonSelectPointIcon" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonSelectLineColor" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonSelectTextFont" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButtonResetPointIcon" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jSpinnerLineWidth" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonSelectTextColor" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="45" max="32767" attributes="0"/>
@@ -378,17 +378,17 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="jButtonSelectTextFont">
       <Properties>
         <Property name="text" type="java.lang.String" value="Text font ..."/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="jButtonSelectTextColor">
       <Properties>
         <Property name="text" type="java.lang.String" value="Text color ..."/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSelectTextColorActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">

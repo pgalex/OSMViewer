@@ -5,11 +5,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import onlineMap.OnlineOsmParser;
-import static org.junit.Assert.*;
 import org.junit.*;
+import static org.junit.Assert.*;
 import osmXml.OsmBounds;
 import osmXml.OsmNode;
-import osmXml.OsmRelation;
 import osmXml.OsmWay;
 
 /**
@@ -18,31 +17,7 @@ import osmXml.OsmWay;
  */
 public class OnlineOSMParserTest
 {
-	private static final String TEST_MAP_FILE_NAME = "testmap.osm";
-
-	public OnlineOSMParserTest()
-	{
-	}
-
-	@BeforeClass
-	public static void setUpClass() throws Exception
-	{
-	}
-
-	@AfterClass
-	public static void tearDownClass() throws Exception
-	{
-	}
-
-	@Before
-	public void setUp()
-	{
-	}
-
-	@After
-	public void tearDown()
-	{
-	}
+	private static final String TEST_MAP_FILE_NAME = "test/supportFiles/testmap.osm";
 
 	@Test
 	public void parsingTest() throws FileNotFoundException

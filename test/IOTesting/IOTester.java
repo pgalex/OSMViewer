@@ -14,7 +14,7 @@ public class IOTester
 	/**
 	 * Name of file used of reading/writing testing
 	 */
-	public static final String TEST_FILE_NAME = "testFile.txt";
+	public static final String TEST_FILE_NAME = "test/supportFiles/testFile.txt";
 
 	/**
 	 * Write object to test file
