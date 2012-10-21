@@ -68,7 +68,7 @@ public class TextDrawSettings implements ReadableMapData, WritableMapData
 	/**
 	 * Set new text color
 	 *
-	 * @param textColorToSet
+	 * @param textColorToSet new text color
 	 * @throws IllegalArgumentException textColorToSet is null
 	 */
 	public void setColor(Color textColorToSet) throws IllegalArgumentException
@@ -89,6 +89,22 @@ public class TextDrawSettings implements ReadableMapData, WritableMapData
 	public Font getFont()
 	{
 		return font.getStoringFont();
+	}
+
+	/**
+	 * Set new text font
+	 *
+	 * @param textFontToSet new text font
+	 * @throws IllegalArgumentException textFontToSet is null
+	 */
+	public void setFont(Font textFontToSet) throws IllegalArgumentException
+	{
+		if (textFontToSet == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		font.setStoringFont(textFontToSet);
 	}
 
 	/**

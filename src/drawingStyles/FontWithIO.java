@@ -58,6 +58,22 @@ public class FontWithIO implements ReadableMapData, WritableMapData
 	}
 
 	/**
+	 * Set new storing font
+	 *
+	 * @param fontToSet new storing font
+	 * @throws IllegalArgumentException fontToSet is null
+	 */
+	public void setStoringFont(Font fontToSet) throws IllegalArgumentException
+	{
+		if (fontToSet == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		storingFont = fontToSet;
+	}
+
+	/**
 	 * Read from stream
 	 *
 	 * @param input input stream

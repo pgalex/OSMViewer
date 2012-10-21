@@ -1,5 +1,6 @@
 package drawingStyles.forms;
 
+import ZoeloeSoft.projects.JFontChooser.JFontChooser;
 import drawingStyles.DrawSettingsOnScale;
 import drawingStyles.DrawSettingsOnScaleArray;
 import drawingStyles.EditableDefenitionTags;
@@ -581,6 +582,13 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
     jSpinnerLineWidth.setModel(lineWidthSpinnerModel);
 
     jButtonSelectTextFont.setText("Text font ...");
+    jButtonSelectTextFont.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jButtonSelectTextFontActionPerformed(evt);
+      }
+    });
 
     jButtonSelectTextColor.setText("Text color ...");
     jButtonSelectTextColor.addActionListener(new java.awt.event.ActionListener()
@@ -924,6 +932,21 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 			}
 		}
   }//GEN-LAST:event_jButtonSelectPointIconActionPerformed
+
+  private void jButtonSelectTextFontActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonSelectTextFontActionPerformed
+  {//GEN-HEADEREND:event_jButtonSelectTextFontActionPerformed
+		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
+		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
+		TextDrawSettings textSettingsOnCurrentScale = settingOnCurrentScale.getTextDrawSettings();
+
+		JFontChooser fontChooser = new JFontChooser(null);
+		int showDialogResult = fontChooser.showDialog(textSettingsOnCurrentScale.getFont());
+		if (showDialogResult == JFontChooser.OK_OPTION)
+		{
+			textSettingsOnCurrentScale.setFont(fontChooser.getFont());
+			updateTextPreviewBySettingsOnCurrentScale();
+		}
+  }//GEN-LAST:event_jButtonSelectTextFontActionPerformed
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton jButtonAddDefenitionTag;
   private javax.swing.JButton jButtonAddTextTagKey;

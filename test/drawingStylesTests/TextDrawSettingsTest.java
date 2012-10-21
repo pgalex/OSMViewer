@@ -32,6 +32,24 @@ public class TextDrawSettingsTest
 	}
 
 	/**
+	 * Test setting null text font
+	 */
+	@Test
+	public void setNullTextFontTest()
+	{
+		try
+		{
+			TextDrawSettings settings = new TextDrawSettings();
+			settings.setFont(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
 	 * Test creating with null font
 	 */
 	@Test
@@ -75,10 +93,10 @@ public class TextDrawSettingsTest
 		{
 			TextDrawSettings writingSettings = new TextDrawSettings(Color.ORANGE, new Font("Arial", Font.BOLD, 14));
 			IOTester.writeToTestFile(writingSettings);
-
+			
 			TextDrawSettings readingSettings = new TextDrawSettings();
 			IOTester.readFromTestFile(readingSettings);
-
+			
 			assertEquals(writingSettings.getColor(), readingSettings.getColor());
 			assertEquals(writingSettings.getFont().getFamily(), readingSettings.getFont().getFamily());
 			assertEquals(writingSettings.getFont().getSize(), readingSettings.getFont().getSize());
@@ -88,6 +106,6 @@ public class TextDrawSettingsTest
 		{
 			fail();
 		}
-
+		
 	}
 }

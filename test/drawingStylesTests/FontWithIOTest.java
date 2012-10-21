@@ -31,6 +31,36 @@ public class FontWithIOTest
 	}
 
 	/**
+	 * Test setting null storing font
+	 */
+	@Test
+	public void setNullFontTest()
+	{
+		try
+		{
+			FontWithIO font = new FontWithIO();
+			font.setStoringFont(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+	
+	/**
+	 * Test setting storing font normal work
+	 */
+	@Test
+	public void setFontNormalWorkTest()
+	{
+		Font someFont = new Font("Arial", 0, 22);
+		FontWithIO testFont = new FontWithIO();
+		testFont.setStoringFont(someFont);
+		assertEquals(someFont, testFont.getStoringFont());
+	}
+
+	/**
 	 * Reading/writing test
 	 */
 	@Test
