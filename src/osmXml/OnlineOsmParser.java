@@ -1,4 +1,4 @@
-package onlineMap;
+package osmXml;
 
 import java.io.InputStream;
 import java.util.ArrayList;

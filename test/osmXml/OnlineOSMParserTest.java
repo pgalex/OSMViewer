@@ -1,10 +1,10 @@
-package onlineMapTests;
+package osmXml;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import onlineMap.OnlineOsmParser;
+import osmXml.OnlineOsmParser;
 import org.junit.*;
 import static org.junit.Assert.*;
 import osmXml.OsmBounds;

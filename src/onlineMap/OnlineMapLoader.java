@@ -1,5 +1,6 @@
 package onlineMap;
 
+import osmXml.OnlineOsmParser;
 import drawingStyles.DefenitionTags;
 import drawingStyles.EditableDefenitionTags;
 import drawingStyles.MapTag;
