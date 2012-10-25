@@ -1,4 +1,4 @@
-package onlineMap;
+package map.onlineMap;
 
 import drawingStyles.StyleViewer;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.Collections;
 import map.Map;
 import map.MapObject;
 import map.MapObjectDrawPriorityComparator;
-import map.rendering.MapObjectsRenderer;
+import rendering.MapObjectsRenderer;
 
 /**
  * Map that contains not much objects and using for online rendering

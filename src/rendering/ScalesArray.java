@@ -1,4 +1,4 @@
-package map.rendering;
+package rendering;
 
 /**
  * Array of scales by scale level. Used to incapluste access to array of scale

@@ -2,7 +2,7 @@ package onlineMapTests;
 
 import java.util.ArrayList;
 import map.MapObject;
-import onlineMap.OnlineMap;
+import map.onlineMap.OnlineMap;
 
 /**
  * Uses to get access to private section of OnlineMap, for testing

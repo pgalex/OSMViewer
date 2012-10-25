@@ -7,7 +7,7 @@ import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.MapTag;
 import drawingStyles.StyleEditor;
 import map.*;
-import onlineMap.OnlineMap;
+import map.onlineMap.OnlineMap;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

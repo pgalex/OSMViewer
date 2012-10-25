@@ -2,7 +2,7 @@ package mapTests;
 
 import java.awt.geom.Point2D;
 import map.MapPosition;
-import map.rendering.MercatorSphericProjection;
+import rendering.MercatorSphericProjection;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 

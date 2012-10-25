@@ -1,4 +1,4 @@
-package map.rendering;
+package rendering;
 
 import drawingStyles.MapDrawSettings;
 import drawingStyles.StyleViewer;

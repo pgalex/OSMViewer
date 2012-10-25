@@ -2,7 +2,7 @@ package map;
 
 import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
-import map.rendering.MapObjectsRenderer;
+import rendering.MapObjectsRenderer;
 
 /**
  * Polygon (closed way) on a map

@@ -1,4 +1,4 @@
-package onlineMap;
+package map.onlineMap;
 
 import drawingStyles.*;
 import forms.DrawableOnPanel;
@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import map.MapPosition;
-import map.rendering.MapRenderer;
+import rendering.MapRenderer;
 
 /**
  * Organize work between other classes and process user's input

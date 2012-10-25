@@ -1,7 +1,7 @@
 package onlineMapTests;
 
 import map.MapLine;
-import map.rendering.MapObjectsRenderer;
+import rendering.MapObjectsRenderer;
 import map.MapPoint;
 import map.MapPolygon;
 

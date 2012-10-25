@@ -1,7 +1,7 @@
 package map;
 
 import drawingStyles.StyleViewer;
-import map.rendering.MapObjectsRenderer;
+import rendering.MapObjectsRenderer;
 
 /**
  * Interface of map - container of map objects

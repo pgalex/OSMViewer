@@ -1,8 +1,8 @@
 package mapTests;
 
 import drawingStyles.DrawingStylesFactory;
-import map.rendering.MapObjectsRendererSeparatingText;
-import map.rendering.MapRenderer;
+import rendering.MapObjectsRendererSeparatingText;
+import rendering.MapRenderer;
 import org.junit.Test;
 
 /**

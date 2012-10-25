@@ -2,7 +2,7 @@ package map;
 
 import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
-import map.rendering.MapObjectsRenderer;
+import rendering.MapObjectsRenderer;
 
 /**
  * Object on a map, consisting of one node

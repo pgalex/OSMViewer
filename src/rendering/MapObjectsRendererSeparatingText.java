@@ -1,4 +1,4 @@
-package map.rendering;
+package rendering;
 
 import drawingStyles.*;
 import java.awt.FontMetrics;

@@ -3,7 +3,7 @@ package forms;
 import drawingStyles.forms.JFrameEditDrawingStyles;
 import javax.swing.JFrame;
 import map.MapPosition;
-import onlineMap.OnlineMapProcessor;
+import map.onlineMap.OnlineMapProcessor;
 
 /**
  * Main form

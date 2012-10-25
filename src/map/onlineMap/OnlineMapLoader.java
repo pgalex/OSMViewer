@@ -1,4 +1,4 @@
-package onlineMap;
+package map.onlineMap;
 
 import osmXml.OnlineOsmParser;
 import drawingStyles.DefenitionTags;
