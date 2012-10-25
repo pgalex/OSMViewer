@@ -19,6 +19,23 @@ import org.junit.Test;
 public class PolygonDrawSettingsTest
 {
 	/**
+	 * Test creating with null border draw settings
+	 */
+	@Test
+	public void creatingWithNullBorderDrawSettingsTest()
+	{
+		try
+		{
+			PolygonDrawSettings settings = new PolygonDrawSettings(Color.BLACK, null, null);
+			fail();
+		}
+		catch(IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
 	 * Test creating paint if fill image is not null
 	 */
 	@Test
@@ -27,7 +44,7 @@ public class PolygonDrawSettingsTest
 		try
 		{
 			ImageWithIO fillIcon = new ImageWithIO("test/supportFiles/testIcon.png");
-			PolygonDrawSettings polygonStyle = new PolygonDrawSettings(Color.GREEN, null, fillIcon.getImage());
+			PolygonDrawSettings polygonStyle = new PolygonDrawSettings(Color.GREEN, new LineDrawSettings(), fillIcon.getImage());
 			Paint paint = polygonStyle.getPaint();
 
 			assertTrue(paint instanceof TexturePaint);
@@ -44,22 +61,11 @@ public class PolygonDrawSettingsTest
 	@Test
 	public void creatingSolidPaintTest()
 	{
-		PolygonDrawSettings polygonStyle = new PolygonDrawSettings(Color.GREEN, null, null);
+		PolygonDrawSettings polygonStyle = new PolygonDrawSettings(Color.GREEN, new LineDrawSettings(), null);
 		Paint paint = polygonStyle.getPaint();
 
 		assertTrue(paint instanceof Color);
 		assertEquals(((Color) paint), polygonStyle.getFillColor());
-	}
-
-	/**
-	 * Test auto initialize in constructor
-	 */
-	@Test
-	public void autoInitializeTest()
-	{
-		PolygonDrawSettings testStyle = new PolygonDrawSettings(Color.BLACK, null, null);
-
-		assertNotNull(testStyle.getBorderDrawStyle());
 	}
 
 	/**
@@ -70,7 +76,7 @@ public class PolygonDrawSettingsTest
 	{
 		try
 		{
-			PolygonDrawSettings testStyle = new PolygonDrawSettings(null, null, null);
+			PolygonDrawSettings testStyle = new PolygonDrawSettings(null, new LineDrawSettings(), null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -104,8 +110,8 @@ public class PolygonDrawSettingsTest
 
 			assertEquals(writedStyle.getFillColor(), readStyle.getFillColor());
 			assertNotNull(writedStyle.getFillImage());
-			assertEquals(writedStyle.getBorderDrawStyle().getColor(), readStyle.getBorderDrawStyle().getColor());
-			assertEquals(writedStyle.getBorderDrawStyle().getWidth(), readStyle.getBorderDrawStyle().getWidth(), 0.00001f);
+			assertEquals(writedStyle.getBorderDrawSettings().getColor(), readStyle.getBorderDrawSettings().getColor());
+			assertEquals(writedStyle.getBorderDrawSettings().getWidth(), readStyle.getBorderDrawSettings().getWidth(), 0.00001f);
 		}
 		catch (Exception ex)
 		{

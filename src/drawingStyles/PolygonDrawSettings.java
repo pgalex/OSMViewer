@@ -25,7 +25,7 @@ public class PolygonDrawSettings implements ReadableMapData, WritableMapData
 	/**
 	 * How to draw border
 	 */
-	private LineDrawSettings borderDrawStyle;
+	private LineDrawSettings borderDrawSettings;
 	/**
 	 * Filling texture if null, using color
 	 */
@@ -37,36 +37,34 @@ public class PolygonDrawSettings implements ReadableMapData, WritableMapData
 	public PolygonDrawSettings()
 	{
 		fillColor = new ColorWithIO();
-		borderDrawStyle = new LineDrawSettings();
+		borderDrawSettings = new LineDrawSettings();
 		fillImage = new ImageWithIO();
 	}
 
 	/**
 	 * Create with parameters
 	 *
-	 * @param polygonFillColor fill color. Must be not null
+	 * @param polygonFillColor fill color
 	 * @param polygonBorderDrawSettings how to draw border of polygon
 	 * @param polygonFillImage fill texture. Can be null
+	 * @throws IllegalArgumentException polygonFillColor or
+	 * polygonBorderDrawSettings is null
 	 */
 	public PolygonDrawSettings(Color polygonFillColor, LineDrawSettings polygonBorderDrawSettings,
-					BufferedImage polygonFillImage)
+					BufferedImage polygonFillImage) throws IllegalArgumentException
 	{
-		fillColor = new ColorWithIO(polygonFillColor);
-		borderDrawStyle = polygonBorderDrawSettings;
-		fillImage = new ImageWithIO(polygonFillImage);
-
-		initializeNullFields();
-	}
-
-	/**
-	 * Auto initialize null fields
-	 */
-	private void initializeNullFields()
-	{
-		if (borderDrawStyle == null)
+		if (polygonFillColor == null)
 		{
-			borderDrawStyle = new LineDrawSettings();
+			throw new IllegalArgumentException();
 		}
+		if (polygonBorderDrawSettings == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		fillColor = new ColorWithIO(polygonFillColor);
+		borderDrawSettings = polygonBorderDrawSettings;
+		fillImage = new ImageWithIO(polygonFillImage);
 	}
 
 	/**
@@ -82,7 +80,7 @@ public class PolygonDrawSettings implements ReadableMapData, WritableMapData
 		{
 			fillColor.readFromStream(input);
 			fillImage.readFromStream(input);
-			borderDrawStyle.readFromStream(input);
+			borderDrawSettings.readFromStream(input);
 		}
 		catch (Exception e)
 		{
@@ -103,7 +101,7 @@ public class PolygonDrawSettings implements ReadableMapData, WritableMapData
 		{
 			fillColor.writeToStream(output);
 			fillImage.writeToStream(output);
-			borderDrawStyle.writeToStream(output);
+			borderDrawSettings.writeToStream(output);
 		}
 		catch (Exception e)
 		{
@@ -128,17 +126,7 @@ public class PolygonDrawSettings implements ReadableMapData, WritableMapData
 	 */
 	public LineDrawSettings getBorderDrawSettings()
 	{
-		return borderDrawStyle;
-	}
-
-	/**
-	 * Get border drawing style
-	 *
-	 * @return how to draw border of polygon
-	 */
-	public LineDrawSettings getBorderDrawStyle()
-	{
-		return borderDrawStyle;
+		return borderDrawSettings;
 	}
 
 	/**
