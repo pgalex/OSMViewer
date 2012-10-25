@@ -22,7 +22,8 @@ public abstract class MapObject
 	 */
 	private DefenitionTags defenitionTags;
 	/**
-	 * Index of style, using to draw this object.
+	 * Index of style, using to identity object on map, and find how to draw this
+	 * object
 	 */
 	private Integer styleIndex;
 
