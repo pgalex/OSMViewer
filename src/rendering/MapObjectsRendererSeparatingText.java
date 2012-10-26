@@ -12,7 +12,7 @@ import map.MapPolygon;
 import map.MapPosition;
 
 /**
- * Objects renderer that drawes object on one canvas, and it's drawingText on
+ * Objects renderer that drawes object on one objectsCanvas, and it's drawingText on
  * other
  *
  * @author pgalex
@@ -22,7 +22,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	/**
 	 * Canvas to draw map objects
 	 */
-	private Graphics2D canvas;
+	private Graphics2D objectsCanvas;
 	/**
 	 * Style viewer using to find drawing style of object
 	 */
@@ -39,24 +39,24 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	/**
 	 * Create renderer
 	 *
-	 * @param targetCanvas Canvas to draw map objects
+	 * @param targetObjectsCanvas Canvas to draw map objects
 	 * @param styleViewerForRendering Style viewer using to find drawing style of
 	 * object
 	 * @param converter object that will be using for coordinates converting while
 	 * drawing
 	 * @param renderingScaleLevel scale level using for rendering
-	 * @throws IllegalArgumentException targetCanvas, styleViewerForRendering or
+	 * @throws IllegalArgumentException targetObjectsCanvas, styleViewerForRendering or
 	 * converter is null
 	 */
-	public MapObjectsRendererSeparatingText(Graphics2D targetCanvas, StyleViewer styleViewerForRendering,
+	public MapObjectsRendererSeparatingText(Graphics2D targetObjectsCanvas, StyleViewer styleViewerForRendering,
 					CoordinatesConverter converter, int renderingScaleLevel) throws IllegalArgumentException
 	{
-		if (targetCanvas == null || styleViewerForRendering == null || converter == null)
+		if (targetObjectsCanvas == null || styleViewerForRendering == null || converter == null)
 		{
 			throw new IllegalArgumentException();
 		}
 
-		canvas = targetCanvas;
+		objectsCanvas = targetObjectsCanvas;
 		styleViewer = styleViewerForRendering;
 		coordinatesConverter = converter;
 		this.renderingScaleLevel = renderingScaleLevel;
@@ -93,7 +93,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		BufferedImage pointImage = pointStyle.getIcon();
 		if (pointImage != null)
 		{
-			canvas.drawImage(pointImage, (int) (pointPositionOnCanvas.getX() - pointImage.getWidth() / 2),
+			objectsCanvas.drawImage(pointImage, (int) (pointPositionOnCanvas.getX() - pointImage.getWidth() / 2),
 							(int) (pointPositionOnCanvas.getY() - pointImage.getHeight() / 2), null);
 
 			drawMapObjectTextUnderPoint(objectStyle, pointToRender.getDefenitionTags(),
@@ -131,16 +131,16 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		{
 			return;
 		}
-
-		canvas.setStroke(lineStyle.getStroke());
-		canvas.setColor(lineStyle.getColor());
+	
+		objectsCanvas.setStroke(lineStyle.getStroke());
+		objectsCanvas.setColor(lineStyle.getColor());
 
 		for (int i = 0; i < lineToRender.getPoints().length - 1; i++)
 		{
 			Point2D firstPoint = coordinatesConverter.goegraphicsToCanvas(lineToRender.getPoints()[i]);
 			Point2D secondPoint = coordinatesConverter.goegraphicsToCanvas(lineToRender.getPoints()[i + 1]);
 
-			canvas.drawLine((int) firstPoint.getX(), (int) firstPoint.getY(),
+			objectsCanvas.drawLine((int) firstPoint.getX(), (int) firstPoint.getY(),
 							(int) secondPoint.getX(), (int) secondPoint.getY());
 		}
 
@@ -175,14 +175,14 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		Polygon drawingPolygon = createDrawingPolygonByMapPolygon(polygonToRender);
 
 		// inner part
-		canvas.setPaint(polygonStyle.getPaint());
-		canvas.fillPolygon(drawingPolygon);
+		objectsCanvas.setPaint(polygonStyle.getPaint());
+		objectsCanvas.fillPolygon(drawingPolygon);
 
 		// border
 		LineDrawSettings borderStyle = polygonStyle.getBorderDrawSettings();
-		canvas.setStroke(borderStyle.getStroke());
-		canvas.setColor(borderStyle.getColor());
-		canvas.drawPolygon(drawingPolygon);
+		objectsCanvas.setStroke(borderStyle.getStroke());
+		objectsCanvas.setColor(borderStyle.getColor());
+		objectsCanvas.drawPolygon(drawingPolygon);
 
 		Point2D textPosition = coordinatesConverter.goegraphicsToCanvas(polygonToRender.getCenterPoint());
 
@@ -191,12 +191,12 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	}
 
 	/**
-	 * Draw map object text(name, description etc) on canvas, by text center x and
+	 * Draw map object text(name, description etc) on objectsCanvas, by text center x and
 	 * top bound of text
 	 *
 	 * @param objectStyle map object draw style
 	 * @param objectTags map object tags using to find text
-	 * @param textCenterX text center x on canvas
+	 * @param textCenterX text center x on objectsCanvas
 	 * @param textTop text top bound
 	 */
 	private void drawMapObjectTextUnderPoint(MapObjectDrawSettings objectStyle,
@@ -216,25 +216,25 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		String drawingText = objectStyle.findTextInTags(objectTags);
 		if (!drawingText.isEmpty())
 		{
-			canvas.setColor(textStyle.getColor());
-			canvas.setFont(textStyle.getFont());
+			objectsCanvas.setColor(textStyle.getColor());
+			objectsCanvas.setFont(textStyle.getFont());
 
-			FontMetrics textFontMetrics = canvas.getFontMetrics(textStyle.getFont());
+			FontMetrics textFontMetrics = objectsCanvas.getFontMetrics(textStyle.getFont());
 			int textWidth = textFontMetrics.stringWidth(drawingText);
 			int textHeight = textFontMetrics.getHeight();
 
-			canvas.drawString(drawingText, (int) textCenterX - textWidth / 2, (int) textTop + textHeight / 2);
+			objectsCanvas.drawString(drawingText, (int) textCenterX - textWidth / 2, (int) textTop + textHeight / 2);
 		}
 	}
 
 	/**
-	 * Draw map object text(name, description etc) on canvas, by point sets center
+	 * Draw map object text(name, description etc) on objectsCanvas, by point sets center
 	 * of text
 	 *
 	 * @param objectStyle map object draw style
 	 * @param objectTags map object tags using to find text
-	 * @param textCenterX text center x on canvas
-	 * @param textCenterY text center y on canvas
+	 * @param textCenterX text center x on objectsCanvas
+	 * @param textCenterY text center y on objectsCanvas
 	 */
 	private void drawMapObjectTextAtPoint(MapObjectDrawSettings objectStyle,
 					DefenitionTags objectTags, double textCenterX, double textCenterY)
@@ -253,21 +253,21 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		String drawingText = objectStyle.findTextInTags(objectTags);
 		if (!drawingText.isEmpty())
 		{
-			canvas.setColor(textStyle.getColor());
-			canvas.setFont(textStyle.getFont());
+			objectsCanvas.setColor(textStyle.getColor());
+			objectsCanvas.setFont(textStyle.getFont());
 
-			FontMetrics textFontMetrics = canvas.getFontMetrics(textStyle.getFont());
+			FontMetrics textFontMetrics = objectsCanvas.getFontMetrics(textStyle.getFont());
 			int textWidth = textFontMetrics.stringWidth(drawingText);
 
-			canvas.drawString(drawingText, (int) textCenterX - textWidth / 2, (int) textCenterY);
+			objectsCanvas.drawString(drawingText, (int) textCenterX - textWidth / 2, (int) textCenterY);
 		}
 	}
 
 	/**
-	 * Create polygon for drawing on canvas by converting MapPolygon points
+	 * Create polygon for drawing on objectsCanvas by converting MapPolygon points
 	 *
 	 * @param mapPolygon polygon on map
-	 * @return polygon on canvas
+	 * @return polygon on objectsCanvas
 	 */
 	private Polygon createDrawingPolygonByMapPolygon(MapPolygon mapPolygon)
 	{
