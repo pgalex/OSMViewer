@@ -3,7 +3,6 @@ package map;
 import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleViewer;
-import rendering.MapObjectsRenderer;
 
 /**
  * Some object on a map

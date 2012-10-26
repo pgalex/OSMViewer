@@ -1,4 +1,4 @@
-package rendering;
+package map;
 
 import map.MapLine;
 import map.MapPoint;

@@ -2,7 +2,6 @@ package map;
 
 import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
-import rendering.MapObjectsRenderer;
 
 /**
  * Line (non closed way) on a map

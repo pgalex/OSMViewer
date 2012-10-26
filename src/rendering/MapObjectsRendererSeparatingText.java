@@ -1,5 +1,6 @@
 package rendering;
 
+import map.MapObjectsRenderer;
 import drawingStyles.*;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
