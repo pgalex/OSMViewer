@@ -19,41 +19,39 @@ import java.io.IOException;
 public class PolygonDrawSettings implements ReadableMapData, WritableMapData
 {
 	/**
-	 * Filling color
+	 * Default polygon filler
 	 */
-	private ColorWithIO fillColor;
+	private static PolygonFiller DEFAULT_FILLER = PolygonFillersFactory.createColorFiller(Color.BLACK);
+	/**
+	 * How to fill inside part of polygon
+	 */
+	private PolygonFiller filler;
 	/**
 	 * How to draw border
 	 */
 	private LineDrawSettings borderDrawSettings;
-	/**
-	 * Filling texture if null, using color
-	 */
-	private ImageWithIO fillImage;
 
 	/**
 	 * Create with default values
 	 */
 	public PolygonDrawSettings()
 	{
-		fillColor = new ColorWithIO();
+		filler = DEFAULT_FILLER;
 		borderDrawSettings = new LineDrawSettings();
-		fillImage = new ImageWithIO();
 	}
 
 	/**
 	 * Create with parameters
 	 *
-	 * @param polygonFillColor fill color
+	 * @param polygonFiller filler for polygon
 	 * @param polygonBorderDrawSettings how to draw border of polygon
-	 * @param polygonFillImage fill texture. Can be null
-	 * @throws IllegalArgumentException polygonFillColor or
-	 * polygonBorderDrawSettings is null
+	 * @throws IllegalArgumentException polygonFiller or polygonBorderDrawSettings
+	 * is null
 	 */
-	public PolygonDrawSettings(Color polygonFillColor, LineDrawSettings polygonBorderDrawSettings,
-					BufferedImage polygonFillImage) throws IllegalArgumentException
+	public PolygonDrawSettings(PolygonFiller polygonFiller,
+					LineDrawSettings polygonBorderDrawSettings) throws IllegalArgumentException
 	{
-		if (polygonFillColor == null)
+		if (polygonFiller == null)
 		{
 			throw new IllegalArgumentException();
 		}
@@ -62,9 +60,8 @@ public class PolygonDrawSettings implements ReadableMapData, WritableMapData
 			throw new IllegalArgumentException();
 		}
 
-		fillColor = new ColorWithIO(polygonFillColor);
+		filler = polygonFiller;
 		borderDrawSettings = polygonBorderDrawSettings;
-		fillImage = new ImageWithIO(polygonFillImage);
 	}
 
 	/**
@@ -78,8 +75,7 @@ public class PolygonDrawSettings implements ReadableMapData, WritableMapData
 	{
 		try
 		{
-			fillColor.readFromStream(input);
-			fillImage.readFromStream(input);
+			filler = PolygonFillersFactory.readFillerFromStream(input);
 			borderDrawSettings.readFromStream(input);
 		}
 		catch (Exception e)
@@ -99,24 +95,13 @@ public class PolygonDrawSettings implements ReadableMapData, WritableMapData
 	{
 		try
 		{
-			fillColor.writeToStream(output);
-			fillImage.writeToStream(output);
+			PolygonFillersFactory.writeFillerToSream(filler, output);
 			borderDrawSettings.writeToStream(output);
 		}
 		catch (Exception e)
 		{
 			throw new IOException(e);
 		}
-	}
-
-	/**
-	 * Get fill color
-	 *
-	 * @return fill color
-	 */
-	public Color getFillColor()
-	{
-		return fillColor.getStoringColor();
 	}
 
 	/**
@@ -130,13 +115,13 @@ public class PolygonDrawSettings implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Get fill texture
+	 * Get filler
 	 *
-	 * @return fill texture
+	 * @return filler
 	 */
-	public BufferedImage getFillImage()
+	public PolygonFiller getFiller()
 	{
-		return fillImage.getImage();
+		return filler;
 	}
 
 	/**
@@ -146,14 +131,6 @@ public class PolygonDrawSettings implements ReadableMapData, WritableMapData
 	 */
 	public Paint getPaint()
 	{
-		if (getFillImage() != null)
-		{
-			return new TexturePaint(getFillImage(),
-							new Rectangle(0, 0, getFillImage().getWidth(), getFillImage().getHeight()));
-		}
-		else
-		{
-			return getFillColor();
-		}
+		return filler.getPaint();
 	}
 }

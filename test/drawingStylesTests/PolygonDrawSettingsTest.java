@@ -4,6 +4,8 @@ import IOTesting.IOTester;
 import drawingStyles.ImageWithIO;
 import drawingStyles.LineDrawSettings;
 import drawingStyles.PolygonDrawSettings;
+import drawingStyles.PolygonFiller;
+import drawingStyles.PolygonFillersFactory;
 import java.awt.Color;
 import java.awt.Paint;
 import java.awt.TexturePaint;
@@ -26,17 +28,35 @@ public class PolygonDrawSettingsTest
 	{
 		try
 		{
-			PolygonDrawSettings settings = new PolygonDrawSettings(Color.BLACK, null, null);
+			PolygonDrawSettings settings = new PolygonDrawSettings(PolygonFillersFactory.createColorFiller(Color.BLACK),
+							null);
 			fail();
 		}
-		catch(IllegalArgumentException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
 	}
 
 	/**
-	 * Test creating paint if fill image is not null
+	 * Creating with null fill color test
+	 */
+	@Test
+	public void creatingWithNullFillerTest()
+	{
+		try
+		{
+			PolygonDrawSettings testStyle = new PolygonDrawSettings(null, new LineDrawSettings());
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Test creating texture filler
 	 */
 	@Test
 	public void creatingTexturePaintTest()
@@ -44,7 +64,8 @@ public class PolygonDrawSettingsTest
 		try
 		{
 			ImageWithIO fillIcon = new ImageWithIO("test/supportFiles/testIcon.png");
-			PolygonDrawSettings polygonStyle = new PolygonDrawSettings(Color.GREEN, new LineDrawSettings(), fillIcon.getImage());
+			PolygonFiller filler = PolygonFillersFactory.createTextureFiller(fillIcon.getImage());
+			PolygonDrawSettings polygonStyle = new PolygonDrawSettings(filler, new LineDrawSettings());
 			Paint paint = polygonStyle.getPaint();
 
 			assertTrue(paint instanceof TexturePaint);
@@ -56,33 +77,16 @@ public class PolygonDrawSettingsTest
 	}
 
 	/**
-	 * Test creating paint if fill image is null
+	 * Test creating color paint
 	 */
 	@Test
-	public void creatingSolidPaintTest()
+	public void creatingSolidColorPaintTest()
 	{
-		PolygonDrawSettings polygonStyle = new PolygonDrawSettings(Color.GREEN, new LineDrawSettings(), null);
+		PolygonFiller filler = PolygonFillersFactory.createColorFiller(Color.GREEN);
+		PolygonDrawSettings polygonStyle = new PolygonDrawSettings(filler, new LineDrawSettings());
 		Paint paint = polygonStyle.getPaint();
 
 		assertTrue(paint instanceof Color);
-		assertEquals(((Color) paint), polygonStyle.getFillColor());
-	}
-
-	/**
-	 * Creating with null fill color test
-	 */
-	@Test
-	public void creatingWithNullFillColorTest()
-	{
-		try
-		{
-			PolygonDrawSettings testStyle = new PolygonDrawSettings(null, new LineDrawSettings(), null);
-			fail();
-		}
-		catch (IllegalArgumentException ex)
-		{
-			// ok
-		}
 	}
 
 	/**
@@ -100,16 +104,15 @@ public class PolygonDrawSettingsTest
 			pattern[3] = 5;
 			LineDrawSettings borderStyle = new LineDrawSettings(Color.CYAN, 10, pattern);
 			ImageWithIO fillIcon = new ImageWithIO("test/supportFiles/testIcon.png");
-			PolygonDrawSettings writedStyle = new PolygonDrawSettings(Color.MAGENTA, borderStyle,
-							fillIcon.getImage());
+			PolygonFiller filler = PolygonFillersFactory.createTextureFiller(fillIcon.getImage());
+			PolygonDrawSettings writedStyle = new PolygonDrawSettings(filler, borderStyle);
 
 			IOTester.writeToTestFile(writedStyle);
 
 			PolygonDrawSettings readStyle = new PolygonDrawSettings();
 			IOTester.readFromTestFile(readStyle);
 
-			assertEquals(writedStyle.getFillColor(), readStyle.getFillColor());
-			assertNotNull(writedStyle.getFillImage());
+			assertEquals(writedStyle.getFiller().getType(), readStyle.getFiller().getType());
 			assertEquals(writedStyle.getBorderDrawSettings().getColor(), readStyle.getBorderDrawSettings().getColor());
 			assertEquals(writedStyle.getBorderDrawSettings().getWidth(), readStyle.getBorderDrawSettings().getWidth(), 0.00001f);
 		}
