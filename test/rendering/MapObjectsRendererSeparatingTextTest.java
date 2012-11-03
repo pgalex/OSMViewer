@@ -1,4 +1,4 @@
-package mapTests;
+package rendering;
 
 import drawingStyles.DrawingStylesFactory;
 import rendering.MapObjectsRendererSeparatingText;

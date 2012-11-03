@@ -1,4 +1,4 @@
-package mapTests;
+package rendering;
 
 import rendering.ScalesArray;
 import static org.junit.Assert.assertEquals;

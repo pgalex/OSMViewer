@@ -1,4 +1,4 @@
-package mapTests;
+package rendering;
 
 import java.awt.geom.Point2D;
 import map.MapPosition;

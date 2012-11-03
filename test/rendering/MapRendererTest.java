@@ -1,4 +1,4 @@
-package mapTests;
+package rendering;
 
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
