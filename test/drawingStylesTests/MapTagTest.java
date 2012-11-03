@@ -13,6 +13,40 @@ import org.junit.Test;
 public class MapTagTest
 {
 	/**
+	 * Test creating tag with null key
+	 */
+	@Test
+	public void creatingWithNullKeyTest()
+	{
+		try
+		{
+			MapTag tag = new MapTag(null, "23");
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+	
+	/**
+	 * Test creating tag with null value
+	 */
+	@Test
+	public void creatingWithNullValueTest()
+	{
+		try
+		{
+			MapTag tag = new MapTag("123", null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
 	 * Reading/writing test
 	 */
 	@Test
@@ -32,6 +66,24 @@ public class MapTagTest
 		catch (Exception ex)
 		{
 			fail();
+		}
+	}
+	
+	/**
+	 * Testing compare with null tag
+	 */
+	@Test
+	public void comparingWithNullTagTest()
+	{
+		try
+		{
+			MapTag tag = new MapTag();
+			tag.compareTo(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
 		}
 	}
 

@@ -36,9 +36,19 @@ public class MapTag implements WritableMapData, ReadableMapData
 	 *
 	 * @param tagKey key of tag
 	 * @param tagValue value of tag
+	 * @throws IllegalArgumentException tagKey or tagValue is null
 	 */
-	public MapTag(String tagKey, String tagValue)
+	public MapTag(String tagKey, String tagValue) throws IllegalArgumentException
 	{
+		if (tagKey == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		if (tagValue == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
 		key = tagKey;
 		value = tagValue;
 	}
@@ -68,9 +78,15 @@ public class MapTag implements WritableMapData, ReadableMapData
 	 *
 	 * @param tagForComparing tag for comparing
 	 * @return is tags eqaul
+	 * @throws IllegalArgumentException tagForComparing is null
 	 */
-	public boolean compareTo(MapTag tagForComparing)
+	public boolean compareTo(MapTag tagForComparing) throws IllegalArgumentException
 	{
+		if (tagForComparing == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
 		if ((tagForComparing.key.compareToIgnoreCase(key) == 0) && (tagForComparing.value.compareToIgnoreCase(value) == 0))
 		{
 			return true;
