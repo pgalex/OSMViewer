@@ -12,8 +12,8 @@ import map.MapPolygon;
 import map.MapPosition;
 
 /**
- * Objects renderer that drawes object on one objectsCanvas, and it's
- * drawingText on other
+ * Objects renderer that drawes object on one canvas, and it's drawingText on
+ * other
  *
  * @author pgalex
  */
@@ -44,26 +44,41 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * Create renderer
 	 *
 	 * @param targetObjectsCanvas Canvas to draw map objects
-	 * @param styleViewerForRendering Style viewer using to find drawing style of
-	 * object
-	 * @param converter object that will be using for coordinates converting while
-	 * drawing
+	 * @param targetTextCanvas canvas where draw text
+	 * @param styleViewerForRendering Style viewer using to find how to draw
+	 * objects
+	 * @param converterForRendering object that will be using for coordinates
+	 * converting while drawing
 	 * @param scaleLevelForRendering scale level using for rendering
 	 * @throws IllegalArgumentException targetObjectsCanvas,
-	 * styleViewerForRendering or converter is null
+	 * styleViewerForRendering or converterForRendering is null
 	 */
-	public MapObjectsRendererSeparatingText(Graphics2D targetObjectsCanvas, StyleViewer styleViewerForRendering,
-					CoordinatesConverter converter, int scaleLevelForRendering) throws IllegalArgumentException
+	public MapObjectsRendererSeparatingText(Graphics2D targetObjectsCanvas,
+					Graphics2D targetTextCanvas, StyleViewer styleViewerForRendering,
+					CoordinatesConverter converterForRendering, int scaleLevelForRendering) throws IllegalArgumentException
 	{
-		if (targetObjectsCanvas == null || styleViewerForRendering == null || converter == null)
+		if (targetObjectsCanvas == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		if (targetTextCanvas == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		if (styleViewerForRendering == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		if (converterForRendering == null)
 		{
 			throw new IllegalArgumentException();
 		}
 
-		textCanvas = new TextCanvas(targetObjectsCanvas);
+
 		objectsCanvas = targetObjectsCanvas;
+		textCanvas = new TextCanvas(targetTextCanvas);
 		styleViewer = styleViewerForRendering;
-		coordinatesConverter = converter;
+		coordinatesConverter = converterForRendering;
 		renderingScaleLevel = scaleLevelForRendering;
 	}
 

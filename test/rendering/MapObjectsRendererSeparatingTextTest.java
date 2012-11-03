@@ -1,8 +1,6 @@
 package rendering;
 
 import drawingStyles.DrawingStylesFactory;
-import rendering.MapObjectsRendererSeparatingText;
-import rendering.MapRenderer;
 import org.junit.Test;
 
 /**
@@ -20,7 +18,7 @@ public class MapObjectsRendererSeparatingTextTest
 		MapRenderer mapRenderer = new MapRenderer(5, 10, 5);
 		try
 		{
-			MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(null, DrawingStylesFactory.createStyleViewer(), mapRenderer, 5);
+			MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(null, null,DrawingStylesFactory.createStyleViewer(), mapRenderer, 5);
 			//fail();
 		}
 		catch (IllegalArgumentException ex)

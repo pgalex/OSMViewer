@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
 import map.Map;
 import map.MapBounds;
 import map.MapPosition;
@@ -35,11 +36,11 @@ public class MapRenderer implements CoordinatesConverter
 	 */
 	private int scaleLevel;
 	/**
-	 * Minimun scale level
+	 * Minimun rendering scale level
 	 */
 	private int minimumScaleLevel;
 	/**
-	 * Maximum scale level
+	 * Maximum rendering scale level
 	 */
 	private int maximumScaleLevel;
 
@@ -88,8 +89,8 @@ public class MapRenderer implements CoordinatesConverter
 	/**
 	 * Set new view positoin
 	 *
-	 * @param viewPositionToSet New view position. Center point of area on a map that
-	 * will be drawen
+	 * @param viewPositionToSet New view position. Center point of area on a map
+	 * that will be drawen
 	 */
 	public void setViewPosition(MapPosition viewPositionToSet)
 	{
@@ -162,18 +163,27 @@ public class MapRenderer implements CoordinatesConverter
 		{
 			return;
 		}
-		
+
 		setupRenderingHints(targetCanvas);
 
-		MapDrawSettings mapDrawingSettings = styleViewer.getMapDrawSettings();
-		targetCanvas.setBackground(mapDrawingSettings.getMapBackgroundColor());
-		targetCanvas.clearRect(targetCanvasDrawingArea.x, targetCanvasDrawingArea.y, targetCanvasDrawingArea.width, targetCanvasDrawingArea.height);
+		MapDrawSettings mapDrawSettings = styleViewer.getMapDrawSettings();
+		targetCanvas.setBackground(mapDrawSettings.getMapBackgroundColor());
+		
+		targetCanvas.clearRect(targetCanvasDrawingArea.x, targetCanvasDrawingArea.y, 
+						targetCanvasDrawingArea.width, targetCanvasDrawingArea.height);
 
 		mapToRender.sortObjectsByDrawPriority(styleViewer);
-		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(targetCanvas, styleViewer, this, scaleLevel);
+		
+		BufferedImage textCanvasImage = new BufferedImage(targetCanvasDrawingArea.width, targetCanvasDrawingArea.height, 
+						BufferedImage.TYPE_INT_ARGB);
+		Graphics2D textCanvasGraphics = textCanvasImage.createGraphics();
+		setupRenderingHints(textCanvasGraphics);
+		
+		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(targetCanvas, 
+						textCanvasGraphics, styleViewer, this, scaleLevel);
 		mapToRender.acceptObjectsRenderer(objectsRenderer);
 
-		// draw text canvas
+		targetCanvas.drawImage(textCanvasImage, 0, 0, null);
 	}
 
 	/**
@@ -183,11 +193,11 @@ public class MapRenderer implements CoordinatesConverter
 	 */
 	private void setupRenderingHints(Graphics2D canvas)
 	{
-		if(canvas==null)
+		if (canvas == null)
 		{
 			return;
 		}
-		
+
 		canvas.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		canvas.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		canvas.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
