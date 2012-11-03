@@ -4,7 +4,6 @@ import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import map.MapBounds;
 import map.MapPosition;
-import rendering.MapRenderer;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
