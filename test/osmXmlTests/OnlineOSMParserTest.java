@@ -1,4 +1,4 @@
-package osmXml;
+package osmXmlTests;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -6,9 +6,13 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import osmXml.OnlineOsmParser;
 import org.junit.*;
+import osmXml.OnlineOsmParser;
 import static org.junit.Assert.*;
 import osmXml.OsmBounds;
+import osmXml.OsmBounds;
 import osmXml.OsmNode;
+import osmXml.OsmNode;
+import osmXml.OsmWay;
 import osmXml.OsmWay;
 
 /**

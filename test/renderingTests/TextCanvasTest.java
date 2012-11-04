@@ -1,9 +1,10 @@
-package rendering;
+package renderingTests;
 
 import drawingStyles.TextDrawSettings;
 import java.awt.image.BufferedImage;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import rendering.TextCanvas;
 
 /**
  * Tests of TextCanvas class

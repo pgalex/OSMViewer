@@ -1,9 +1,11 @@
-package rendering;
+package renderingTests;
 
 import drawingStyles.DrawingStylesFactory;
 import java.awt.image.BufferedImage;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import rendering.MapObjectsRendererSeparatingText;
+import rendering.MapRenderer;
 
 /**
  * Tests of MapObjectsRendererSeparatingText class

@@ -1,4 +1,4 @@
-package rendering;
+package renderingTests;
 
 import drawingStyles.DrawingStylesFactory;
 import java.awt.Rectangle;
@@ -10,6 +10,7 @@ import map.MapPosition;
 import map.onlineMap.OnlineMap;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import rendering.MapRenderer;
 
 /**
  * MapRenderer class tests

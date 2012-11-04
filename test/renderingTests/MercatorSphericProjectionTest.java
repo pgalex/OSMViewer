@@ -1,10 +1,11 @@
-package rendering;
+package renderingTests;
 
 import java.awt.geom.Point2D;
 import map.MapPosition;
 import rendering.MercatorSphericProjection;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import rendering.MercatorSphericProjection;
 
 /**
  * Test of mercator spheric projection realization
