@@ -228,10 +228,16 @@ public class MapRenderer implements CoordinatesConverter
 	 *
 	 * @param positionOnMap position of point on a map
 	 * @return position of point on drawing canvas
+	 * @throws IllegalArgumentException positionOnMap is null
 	 */
 	@Override
-	public Point2D goegraphicsToCanvas(MapPosition positionOnMap)
+	public Point2D goegraphicsToCanvas(MapPosition positionOnMap) throws IllegalArgumentException
 	{
+		if (positionOnMap == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
 		Point2D pointInMeractor = MercatorSphericProjection.geographicsToMercator(positionOnMap,
 						ScalesArray.getScaleByScaleLevel(scaleLevel));
 
@@ -250,10 +256,16 @@ public class MapRenderer implements CoordinatesConverter
 	 *
 	 * @param positionOnCanvas position of point on drawing canvas
 	 * @return position of point on map
+	 * @throws IllegalArgumentException positionOnCanvas is null
 	 */
 	@Override
-	public MapPosition canvasToGeographics(Point2D positionOnCanvas)
+	public MapPosition canvasToGeographics(Point2D positionOnCanvas) throws IllegalArgumentException
 	{
+		if (positionOnCanvas == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		
 		Point2D viewInMercator = MercatorSphericProjection.geographicsToMercator(viewPosition,
 						ScalesArray.getScaleByScaleLevel(scaleLevel));
 

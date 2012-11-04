@@ -19,6 +19,42 @@ import org.junit.Test;
 public class MapRendererTest
 {
 	/**
+	 * Test converting null point georaphics to canvas
+	 */
+	@Test
+	public void convertingNullPointOnMapTest()
+	{
+		try
+		{
+			MapRenderer renderer = new MapRenderer(5, 10, 5);
+			renderer.goegraphicsToCanvas(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+	
+	/**
+	 * Test converting null point canvas to georaphics
+	 */
+	@Test
+	public void convertingNullPointOnCanvasTest()
+	{
+		try
+		{
+			MapRenderer renderer = new MapRenderer(5, 10, 5);
+			renderer.canvasToGeographics(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
 	 * Test rendering null map
 	 */
 	@Test

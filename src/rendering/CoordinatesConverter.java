@@ -17,8 +17,9 @@ public interface CoordinatesConverter
 	 *
 	 * @param positionOnMap position of point on a map
 	 * @return position of point on drawing canvas
+	 * @throws IllegalArgumentException positionOnMap is null
 	 */
-	public Point2D goegraphicsToCanvas(MapPosition positionOnMap);
+	public Point2D goegraphicsToCanvas(MapPosition positionOnMap) throws IllegalArgumentException;
 
 	/**
 	 * Convert point on drawing canvas to point on a map, using current scale and
@@ -26,6 +27,7 @@ public interface CoordinatesConverter
 	 *
 	 * @param positionOnCanvas position of point on drawing canvas
 	 * @return position of point on map
+	 * @throws IllegalArgumentException positionOnCanvas is null
 	 */
-	public MapPosition canvasToGeographics(Point2D positionOnCanvas);
+	public MapPosition canvasToGeographics(Point2D positionOnCanvas) throws IllegalArgumentException;
 }
