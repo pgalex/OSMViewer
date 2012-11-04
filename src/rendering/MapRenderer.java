@@ -49,7 +49,8 @@ public class MapRenderer implements CoordinatesConverter
 	 *
 	 * @param renderingMinimumScaleLevel Minimun scale level
 	 * @param renderingMaximumScaleLevel Maximum scale level
-	 * @param startScaleLevel scale level that will be set after creating
+	 * @param startScaleLevel scale level that will be set as current after
+	 * creating
 	 */
 	public MapRenderer(int renderingMinimumScaleLevel, int renderingMaximumScaleLevel, int startScaleLevel)
 	{
@@ -66,13 +67,16 @@ public class MapRenderer implements CoordinatesConverter
 	 * graphics)
 	 *
 	 * @param drawingAreaToSet rectangle that define area where map will be drawen
+	 * @throws IllegalArgumentException drawingAreaToSet is null
 	 */
-	public void setTargetCanvasDrawingArea(Rectangle drawingAreaToSet)
+	public void setTargetCanvasDrawingArea(Rectangle drawingAreaToSet) throws IllegalArgumentException
 	{
-		if (drawingAreaToSet != null)
+		if (drawingAreaToSet == null)
 		{
-			targetCanvasDrawingArea = drawingAreaToSet;
+			throw new IllegalArgumentException();
 		}
+
+		targetCanvasDrawingArea = drawingAreaToSet;
 	}
 
 	/**
@@ -91,13 +95,16 @@ public class MapRenderer implements CoordinatesConverter
 	 *
 	 * @param viewPositionToSet New view position. Center point of area on a map
 	 * that will be drawen
+	 * @throws IllegalArgumentException viewPositionToSet is null
 	 */
-	public void setViewPosition(MapPosition viewPositionToSet)
+	public void setViewPosition(MapPosition viewPositionToSet) throws IllegalArgumentException
 	{
-		if (viewPositionToSet != null)
+		if (viewPositionToSet == null)
 		{
-			viewPosition = viewPositionToSet;
+			throw new IllegalArgumentException();
 		}
+
+		viewPosition = viewPositionToSet;
 	}
 
 	/**
@@ -111,15 +118,16 @@ public class MapRenderer implements CoordinatesConverter
 	}
 
 	/**
-	 * Set new scale level
+	 * Set new rendering scale level
 	 *
 	 * @param scaleLevelToSet new scale level
+	 * @throws IllegalArgumentException scaleLevelToSet is out of bounds
 	 */
-	public void setScaleLevel(int scaleLevelToSet)
+	public void setScaleLevel(int scaleLevelToSet) throws IllegalArgumentException
 	{
 		if (scaleLevelToSet < minimumScaleLevel || scaleLevelToSet > maximumScaleLevel)
 		{
-			return;
+			throw new IllegalArgumentException();
 		}
 
 		scaleLevel = scaleLevelToSet;
@@ -128,7 +136,7 @@ public class MapRenderer implements CoordinatesConverter
 	/**
 	 * Get current scale level
 	 *
-	 * @return currect scale level
+	 * @return current scale level
 	 */
 	public int getScaleLevel()
 	{
@@ -136,8 +144,8 @@ public class MapRenderer implements CoordinatesConverter
 	}
 
 	/**
-	 * Get rectangle of map around view position that currently displayed. Size of
-	 * rectangle determines by target canvas drawing area size
+	 * Get area on map around view position that currently displayed. Size of area
+	 * determines by target canvas drawing area size
 	 *
 	 * @return view area
 	 */
@@ -156,30 +164,41 @@ public class MapRenderer implements CoordinatesConverter
 	 * @param targetCanvas canvas to draw map
 	 * @param mapToRender map for rendering
 	 * @param styleViewer drawing styles, uses for rendering
+	 * @throws IllegalArgumentException targetCanvas, mapToRender or styleViewer
+	 * is null
 	 */
-	public void renderMap(Graphics2D targetCanvas, Map mapToRender, StyleViewer styleViewer)
+	public void renderMap(Map mapToRender, Graphics2D targetCanvas,
+					StyleViewer styleViewer) throws IllegalArgumentException
 	{
-		if (mapToRender == null || styleViewer == null || targetCanvas == null)
+		if (mapToRender == null)
 		{
-			return;
+			throw new IllegalArgumentException();
+		}
+		if (targetCanvas == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		if (styleViewer == null)
+		{
+			throw new IllegalArgumentException();
 		}
 
 		setupRenderingHints(targetCanvas);
 
 		MapDrawSettings mapDrawSettings = styleViewer.getMapDrawSettings();
 		targetCanvas.setBackground(mapDrawSettings.getMapBackgroundColor());
-		
-		targetCanvas.clearRect(targetCanvasDrawingArea.x, targetCanvasDrawingArea.y, 
+
+		targetCanvas.clearRect(targetCanvasDrawingArea.x, targetCanvasDrawingArea.y,
 						targetCanvasDrawingArea.width, targetCanvasDrawingArea.height);
 
 		mapToRender.sortObjectsByDrawPriority(styleViewer);
-		
-		BufferedImage textCanvasImage = new BufferedImage(targetCanvasDrawingArea.width, targetCanvasDrawingArea.height, 
+
+		BufferedImage textCanvasImage = new BufferedImage(targetCanvasDrawingArea.width, targetCanvasDrawingArea.height,
 						BufferedImage.TYPE_INT_ARGB);
 		Graphics2D textCanvasGraphics = textCanvasImage.createGraphics();
 		setupRenderingHints(textCanvasGraphics);
-		
-		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(targetCanvas, 
+
+		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(targetCanvas,
 						textCanvasGraphics, styleViewer, this, scaleLevel);
 		mapToRender.acceptObjectsRenderer(objectsRenderer);
 
@@ -191,11 +210,11 @@ public class MapRenderer implements CoordinatesConverter
 	 *
 	 * @param canvas canvas using for setup
 	 */
-	private void setupRenderingHints(Graphics2D canvas)
+	private void setupRenderingHints(Graphics2D canvas) throws IllegalArgumentException
 	{
 		if (canvas == null)
 		{
-			return;
+			throw new IllegalArgumentException();
 		}
 
 		canvas.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);

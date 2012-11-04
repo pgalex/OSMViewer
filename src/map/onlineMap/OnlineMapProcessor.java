@@ -58,15 +58,15 @@ public class OnlineMapProcessor implements DrawableOnPanel
 					int startCanvasWidth, int startCanvasHeight)
 	{
 		map = new OnlineMap();
-		
+
 		mapLoader = new OnlineMapLoader();
-		
+
 		renderer = new MapRenderer(MINIMUM_SCALE_LEVEL, MAXIMUM_SCALE_LEVEL, startScaleLevel);
 		renderer.setViewPosition(startViewPosition);
 		renderer.setTargetCanvasDrawingArea(new Rectangle(0, 0, startCanvasWidth, startCanvasHeight));
-		
+
 		styleViewer = DrawingStylesFactory.createStyleEditor();
-		
+
 		testSetupStyleViewer();
 		testLoadMap();
 	}
@@ -137,7 +137,7 @@ public class OnlineMapProcessor implements DrawableOnPanel
 	@Override
 	public void drawOnPanel(Graphics2D panelGraphics)
 	{
-		renderer.renderMap(panelGraphics, map, styleViewer);
+		renderer.renderMap(map, panelGraphics, styleViewer);
 	}
 
 	private void testSetupStyleViewer()

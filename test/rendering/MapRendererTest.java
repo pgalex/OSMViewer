@@ -1,9 +1,13 @@
 package rendering;
 
+import drawingStyles.DrawingStylesFactory;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import map.Map;
 import map.MapBounds;
 import map.MapPosition;
+import map.onlineMap.OnlineMap;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -15,15 +19,84 @@ import org.junit.Test;
 public class MapRendererTest
 {
 	/**
+	 * Test rendering null map
+	 */
+	@Test
+	public void renderingNullMapTest()
+	{
+		try
+		{
+			MapRenderer renderer = new MapRenderer(5, 10, 5);
+
+			BufferedImage someImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB);
+			renderer.renderMap(null, someImage.createGraphics(), DrawingStylesFactory.createStyleViewer());
+
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Test rendering with null target canvas
+	 */
+	@Test
+	public void renderingOnNullCanvasTest()
+	{
+		try
+		{
+			MapRenderer renderer = new MapRenderer(5, 10, 5);
+
+			Map map = new OnlineMap();
+			renderer.renderMap(map, null, DrawingStylesFactory.createStyleViewer());
+
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Test rendering with null style viewer
+	 */
+	@Test
+	public void renderingWithStyleViewerTest()
+	{
+		try
+		{
+			MapRenderer renderer = new MapRenderer(5, 10, 5);
+
+			BufferedImage someImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB);
+			Map map = new OnlineMap();
+			renderer.renderMap(map, someImage.createGraphics(), null);
+
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
 	 * Test setting null view position
 	 */
 	@Test
 	public void setNullViewPositionTest()
 	{
-		MapRenderer testRenderer = new MapRenderer(0, 10, 10);
-		testRenderer.setViewPosition(null);
-
-		assertNotNull(testRenderer.getViewPosition());
+		try
+		{
+			MapRenderer testRenderer = new MapRenderer(0, 10, 10);
+			testRenderer.setViewPosition(null);
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
 	}
 
 	/**
@@ -32,11 +105,17 @@ public class MapRendererTest
 	@Test
 	public void setScaleLevelLessThanBoundsTest()
 	{
-		MapRenderer testRenderer = new MapRenderer(2, 10, 10);
-		testRenderer.setScaleLevel(5);
+		try
+		{
+			MapRenderer testRenderer = new MapRenderer(2, 10, 10);
 
-		testRenderer.setScaleLevel(1);
-		assertEquals(5, testRenderer.getScaleLevel());
+			testRenderer.setScaleLevel(1);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
 	}
 
 	/**
@@ -45,11 +124,16 @@ public class MapRendererTest
 	@Test
 	public void setScaleLevelMoreThanBoundsTest()
 	{
-		MapRenderer testRenderer = new MapRenderer(2, 10, 10);
-		testRenderer.setScaleLevel(4);
-
-		testRenderer.setScaleLevel(11);
-		assertEquals(4, testRenderer.getScaleLevel());
+		try
+		{
+			MapRenderer testRenderer = new MapRenderer(2, 10, 10);
+			testRenderer.setScaleLevel(11);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
 	}
 
 	/**
@@ -79,10 +163,16 @@ public class MapRendererTest
 	@Test
 	public void setNullDrawingAreaTest()
 	{
-		MapRenderer testRenderer = new MapRenderer(0, 10, 10);
-		testRenderer.setTargetCanvasDrawingArea(new Rectangle(20, 20, 30, 30));
-		testRenderer.setTargetCanvasDrawingArea(null);
-		assertEquals(new Rectangle(20, 20, 30, 30), testRenderer.getTargetCanvasDrawingArea());
+		try
+		{
+			MapRenderer testRenderer = new MapRenderer(0, 10, 10);
+			testRenderer.setTargetCanvasDrawingArea(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
 	}
 
 	/**
