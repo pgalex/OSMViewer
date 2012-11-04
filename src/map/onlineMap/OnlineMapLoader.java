@@ -1,6 +1,5 @@
 package map.onlineMap;
 
-import osmXml.OnlineOsmParser;
 import drawingStyles.DefenitionTags;
 import drawingStyles.EditableDefenitionTags;
 import drawingStyles.MapTag;
@@ -17,6 +16,7 @@ import map.MapPoint;
 import map.MapPolygon;
 import map.MapPosition;
 import map.exceptions.*;
+import osmXml.OnlineOsmParser;
 import osmXml.OsmNode;
 import osmXml.OsmTag;
 import osmXml.OsmWay;
@@ -49,7 +49,6 @@ public class OnlineMapLoader
 	 * @param styleViewer viewer, uses to assing style index to objects
 	 * @param fillingMap map, where new object will be added
 	 * @throws IllegalArgumentException style viewer, fillingMap, loadingSectorBounds is null
-	 * @throws MapBoundsIsNullRuntimeException loading sector bounds is null
 	 * @throws OutOfMemoryError out of memory
 	 * @throws ConnectionErrorException error while connecting to osm server
 	 * @throws ReadingFromServerErrorException error while reading .osm from
