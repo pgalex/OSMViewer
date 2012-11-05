@@ -25,13 +25,13 @@ public class OnlineMapTest
 	public void addingMapObjectWithoutStyleIndexTest()
 	{
 		MapPoint pointWithoutStyleIndex = new MapPoint(new MapPosition(), 1, new DefenitionTags());
-		
+
 		TestOnlineMap testMap = new TestOnlineMap();
 		testMap.addObject(pointWithoutStyleIndex);
-		
+
 		assertTrue(testMap.getObjects().isEmpty());
 	}
-	
+
 	/**
 	 * Test rendering visitor work, normal work
 	 */
@@ -40,27 +40,33 @@ public class OnlineMapTest
 	{
 		EditableDefenitionTags someTags = new EditableDefenitionTags();
 		someTags.add(new MapTag("k1", "v1"));
-		
+
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
-		testEditor.addMapObjectDrawSettings(new MapObjectDrawSettings(true, true, true, null, 0, "", null, someTags));
-		
+
+		MapObjectDrawSettings style1 = new MapObjectDrawSettings();
+		style1.setCanBePoint();
+		style1.setCanBeLine();
+		style1.setCanBePolygon();
+		style1.setDefenitionTags(someTags);
+		testEditor.addMapObjectDrawSettings(style1);
+
 		MapPosition[] somePoints = new MapPosition[3];
 		somePoints[0] = new MapPosition();
 		somePoints[1] = new MapPosition();
 		somePoints[2] = new MapPosition();
-		
+
 		MapLine line1 = new MapLine(0, someTags, somePoints);
 		line1.assignStyleIndex(testEditor);
-		
+
 		MapPoint point1 = new MapPoint(new MapPosition(), 1, someTags);
 		point1.assignStyleIndex(testEditor);
-		
+
 		MapPolygon polygon1 = new MapPolygon(0, someTags, somePoints);
 		polygon1.assignStyleIndex(testEditor);
-		
+
 		MapPoint point2 = new MapPoint(new MapPosition(), 1, someTags);
 		point2.assignStyleIndex(testEditor);
-		
+
 		MapPoint point3 = new MapPoint(new MapPosition(), 1, someTags);
 		point3.assignStyleIndex(testEditor);
 

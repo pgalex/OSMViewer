@@ -55,7 +55,10 @@ public class MapObjectDrawSettingsTest
 	@Test
 	public void findingPointDrawStyleCanBePointTest()
 	{
-		MapObjectDrawSettings testSettings = new MapObjectDrawSettings(true, false, false, null, 0, "", null, null);
+		MapObjectDrawSettings testSettings = new MapObjectDrawSettings();
+		testSettings.setCanBePoint();
+		testSettings.setCanNotBeLine();
+		testSettings.setCanNotBePolygon();
 
 		testSettings.getDrawSettingsOnScales().setDrawSettingsOnScale(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel(),
 						new DrawSettingsOnScale(true, false, false, null, null, null, null));
@@ -69,7 +72,10 @@ public class MapObjectDrawSettingsTest
 	@Test
 	public void findingPointDrawStyleCannotBePointTest()
 	{
-		MapObjectDrawSettings testSettings = new MapObjectDrawSettings(false, true, true, null, 0, "", null, null);
+		MapObjectDrawSettings testSettings = new MapObjectDrawSettings();
+		testSettings.setCanNotBePoint();
+		testSettings.setCanBeLine();
+		testSettings.setCanBePolygon();
 
 		testSettings.getDrawSettingsOnScales().setDrawSettingsOnScale(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel(),
 						new DrawSettingsOnScale(true, false, false, null, null, null, null));
@@ -83,7 +89,10 @@ public class MapObjectDrawSettingsTest
 	@Test
 	public void findingLineDrawStyleCanBeLineTest()
 	{
-		MapObjectDrawSettings testSettings = new MapObjectDrawSettings(false, true, false, null, 0, "", null, null);
+		MapObjectDrawSettings testSettings = new MapObjectDrawSettings();
+		testSettings.setCanNotBePoint();
+		testSettings.setCanBeLine();
+		testSettings.setCanNotBePolygon();
 
 		testSettings.getDrawSettingsOnScales().setDrawSettingsOnScale(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel(),
 						new DrawSettingsOnScale(false, true, false, null, null, null, null));
@@ -97,7 +106,10 @@ public class MapObjectDrawSettingsTest
 	@Test
 	public void findingLineDrawStyleCannotBeLineTest()
 	{
-		MapObjectDrawSettings testSettings = new MapObjectDrawSettings(true, false, true, null, 0, "", null, null);
+		MapObjectDrawSettings testSettings = new MapObjectDrawSettings();
+		testSettings.setCanBePoint();
+		testSettings.setCanNotBeLine();
+		testSettings.setCanBePolygon();
 
 		testSettings.getDrawSettingsOnScales().setDrawSettingsOnScale(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel(),
 						new DrawSettingsOnScale(false, true, false, null, null, null, null));
@@ -111,7 +123,10 @@ public class MapObjectDrawSettingsTest
 	@Test
 	public void findingPolygonDrawStyleCanBePolygonTest()
 	{
-		MapObjectDrawSettings testSettings = new MapObjectDrawSettings(false, false, true, null, 0, "", null, null);
+		MapObjectDrawSettings testSettings = new MapObjectDrawSettings();
+		testSettings.setCanNotBePoint();
+		testSettings.setCanNotBeLine();
+		testSettings.setCanBePolygon();
 
 		testSettings.getDrawSettingsOnScales().setDrawSettingsOnScale(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel(),
 						new DrawSettingsOnScale(false, false, true, null, null, null, null));
@@ -125,7 +140,10 @@ public class MapObjectDrawSettingsTest
 	@Test
 	public void findingPolygonDrawStyleCannotBePolygonTest()
 	{
-		MapObjectDrawSettings testSettings = new MapObjectDrawSettings(true, true, false, null, 0, "", null, null);
+		MapObjectDrawSettings testSettings = new MapObjectDrawSettings();
+		testSettings.setCanBePoint();
+		testSettings.setCanBeLine();
+		testSettings.setCanNotBePolygon();
 
 		testSettings.getDrawSettingsOnScales().setDrawSettingsOnScale(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel(),
 						new DrawSettingsOnScale(false, false, true, null, null, null, null));
@@ -153,26 +171,23 @@ public class MapObjectDrawSettingsTest
 		EditableDefenitionTags tags3 = new EditableDefenitionTags();
 		tags3.add(new MapTag("k8", "v8"));
 
+
+		MapObjectDrawSettings settings1 = new MapObjectDrawSettings();
+		settings1.setDefenitionTags(tags1);
+		MapObjectDrawSettings settings2 = new MapObjectDrawSettings();
+		settings2.setDefenitionTags(tags2);
+		MapObjectDrawSettings settings3 = new MapObjectDrawSettings();
+		settings3.setDefenitionTags(tags3);
+
 		ArrayList<MapObjectDrawSettings> styles = new ArrayList<MapObjectDrawSettings>();
-		styles.add(new MapObjectDrawSettings(true, true, true, null, 0, "", null, tags1));
-		styles.add(new MapObjectDrawSettings(true, true, true, null, 0, "", null, tags2));
-		styles.add(new MapObjectDrawSettings(true, true, true, null, 0, "", null, tags3));
+		styles.add(settings1);
+		styles.add(settings2);
+		styles.add(settings3);
 		Collections.sort(styles, new FindStyleIndexComparator());
 
 		assertTrue(styles.get(0).getDefenitionTags().includingIn(tags2));
 		assertTrue(styles.get(1).getDefenitionTags().includingIn(tags1));
 		assertTrue(styles.get(2).getDefenitionTags().includingIn(tags3));
-	}
-
-	/**
-	 * Constructor should auto-initialize null values
-	 */
-	@Test
-	public void autoInitializeTest()
-	{
-		MapObjectDrawSettings style = new MapObjectDrawSettings(true, true, true, null, 0, "", null, null);
-		assertNotNull(style.getDrawSettingsOnScales());
-		assertNotNull(style.getDefenitionTags());
 	}
 
 	/**
@@ -195,8 +210,15 @@ public class MapObjectDrawSettingsTest
 			tags.add(new MapTag("k1", "v1"));
 			tags.add(new MapTag("k2", "v2"));
 
-			MapObjectDrawSettings writedStyle = new MapObjectDrawSettings(true, false,
-							true, null, 10, "object1", scaledStyles, tags);
+			MapObjectDrawSettings writedStyle = new MapObjectDrawSettings();
+			writedStyle.setCanBePoint();
+			writedStyle.setCanNotBeLine();
+			writedStyle.setCanBePolygon();
+			writedStyle.setDrawPriority(10);
+			writedStyle.setDescription("object1");
+			writedStyle.setDrawSettingsOnScales(scaledStyles);
+			writedStyle.setDefenitionTags(tags);
+
 			IOTester.writeToTestFile(writedStyle);
 
 			MapObjectDrawSettings readStyle = new MapObjectDrawSettings();

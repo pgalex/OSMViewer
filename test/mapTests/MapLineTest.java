@@ -104,8 +104,11 @@ public class MapLineTest
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
 		tags.add(new MapTag("k1", "v1"));
-		MapObjectDrawSettings style = new MapObjectDrawSettings(false, true, false, null, 0, "line style", null, tags);
-
+		MapObjectDrawSettings style = new MapObjectDrawSettings();
+		style.setCanBeLine();
+		style.setDescription("line style");
+		style.setDefenitionTags(tags);
+		
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);
 
@@ -128,8 +131,11 @@ public class MapLineTest
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
 		tags.add(new MapTag("k1", "v1"));
-		MapObjectDrawSettings style = new MapObjectDrawSettings(false, false, false, null, 0, "line style", null, tags);
-
+		MapObjectDrawSettings style = new MapObjectDrawSettings();
+		style.setCanNotBeLine();
+		style.setDescription("line style");
+		style.setDefenitionTags(tags);
+		
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);
 
@@ -143,14 +149,16 @@ public class MapLineTest
 	}
 
 	/**
-	 * Testing assigning style index if style not
+	 * Testing assigning style index if style not found
 	 */
 	@Test
 	public void assigningStyleNotFoundTest()
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
 		tags.add(new MapTag("k1", "v1"));
-		MapObjectDrawSettings style = new MapObjectDrawSettings(false, false, false, null, 0, "line style", null, tags);
+		MapObjectDrawSettings style = new MapObjectDrawSettings();
+		style.setDescription("line style");
+		style.setDefenitionTags(tags);
 
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);

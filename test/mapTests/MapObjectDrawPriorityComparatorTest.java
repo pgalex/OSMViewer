@@ -48,15 +48,30 @@ public class MapObjectDrawPriorityComparatorTest
 		StyleEditor editor = DrawingStylesFactory.createStyleEditor();
 		EditableDefenitionTags tags1 = new EditableDefenitionTags();
 		tags1.add(new MapTag("k1", "v1"));
-		editor.addMapObjectDrawSettings(new MapObjectDrawSettings(true, false, false, null, 10, "", null, tags1));
+		
+		MapObjectDrawSettings style1 = new MapObjectDrawSettings();
+		style1.setCanBePoint();
+		style1.setDrawPriority(10);
+		style1.setDefenitionTags(tags1);
+		editor.addMapObjectDrawSettings(style1);
 
 		EditableDefenitionTags tags2 = new EditableDefenitionTags();
 		tags2.add(new MapTag("k2", "v2"));
-		editor.addMapObjectDrawSettings(new MapObjectDrawSettings(true, false, false, null, 11, "", null, tags2));
+		
+		MapObjectDrawSettings style2 = new MapObjectDrawSettings();
+		style2.setCanBePoint();
+		style2.setDrawPriority(11);
+		style2.setDefenitionTags(tags2);
+		editor.addMapObjectDrawSettings(style2);
 
 		EditableDefenitionTags tags3 = new EditableDefenitionTags();
 		tags3.add(new MapTag("k3", "v3"));
-		editor.addMapObjectDrawSettings(new MapObjectDrawSettings(true, false, false, null, -10, "", null, tags3));
+		
+		MapObjectDrawSettings style3 = new MapObjectDrawSettings();
+		style3.setCanBePoint();
+		style3.setDrawPriority(-10);
+		style3.setDefenitionTags(tags3);
+		editor.addMapObjectDrawSettings(style3);
 
 		ArrayList<MapObject> objects = new ArrayList<MapObject>();
 		MapObject object1 = new MapPoint(new MapPosition(), 1, tags1);

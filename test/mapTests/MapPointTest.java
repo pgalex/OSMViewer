@@ -61,8 +61,12 @@ public class MapPointTest
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
 		tags.add(new MapTag("k1", "v1"));
-		MapObjectDrawSettings style = new MapObjectDrawSettings(true, false, false, null, 0, "point style", null, tags);
-
+		
+		MapObjectDrawSettings style = new MapObjectDrawSettings();
+		style.setCanBePoint();
+		style.setDescription("point style");
+		style.setDefenitionTags(tags);
+		
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);
 
@@ -82,8 +86,12 @@ public class MapPointTest
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
 		tags.add(new MapTag("k1", "v1"));
-		MapObjectDrawSettings style = new MapObjectDrawSettings(false, false, false, null, 0, "point style", null, tags);
-
+		
+		MapObjectDrawSettings style = new MapObjectDrawSettings();
+		style.setCanNotBePoint();
+		style.setDescription("point style");
+		style.setDefenitionTags(tags);
+		
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);
 
@@ -101,8 +109,10 @@ public class MapPointTest
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
 		tags.add(new MapTag("k1", "v1"));
-		MapObjectDrawSettings style = new MapObjectDrawSettings(false, false, false, null, 0, "point style", null, tags);
-
+		MapObjectDrawSettings style = new MapObjectDrawSettings();
+		style.setDescription("point style");
+		style.setDefenitionTags(tags);
+		
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);
 

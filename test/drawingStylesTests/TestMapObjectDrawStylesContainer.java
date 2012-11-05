@@ -57,12 +57,27 @@ public class TestMapObjectDrawStylesContainer extends MapObjectDrawStylesContain
 		tags3.add(new MapTag("k2", "v2"));
 		tags3.add(new MapTag("k3", "v3"));
 		tags3.add(new MapTag("k4", "v4"));
+		
+		MapObjectDrawSettings style1 = new MapObjectDrawSettings();
+		style1.setDescription("style1");
+		style1.setDefenitionTags(tags1);
+		
+		MapObjectDrawSettings style2 = new MapObjectDrawSettings();
+		style2.setDescription("style2");
+		style2.setDefenitionTags(tags2);
+		
+		MapObjectDrawSettings style3 = new MapObjectDrawSettings();
+		style3.setDescription("style3");
+		style3.setDefenitionTags(tags3);
+		
+		MapObjectDrawSettings style4 = new MapObjectDrawSettings();
+		style4.setDescription("style4");
 
 		MapObjectDrawSettings[] styles = new MapObjectDrawSettings[5];
-		styles[0] = new MapObjectDrawSettings(true, true, true, null, 0, "style1", null, tags1);
-		styles[1] = new MapObjectDrawSettings(true, true, true, null, 0, "style2", null, tags2);
-		styles[2] = new MapObjectDrawSettings(true, true, true, null, 0, "style3", null, tags3);
-		styles[3] = new MapObjectDrawSettings(true, true, true, null, 0, "style4", null, null);
+		styles[0] = style1;
+		styles[1] = style2;
+		styles[2] = style3;
+		styles[3] = style4;
 
 		EditableDefenitionTags objectTags1 = new EditableDefenitionTags();
 		objectTags1.add(new MapTag("k1", "v1"));
@@ -164,8 +179,15 @@ public class TestMapObjectDrawStylesContainer extends MapObjectDrawStylesContain
 		try
 		{
 			MapObjectDrawSettings[] writingStyles = new MapObjectDrawSettings[2];
-			writingStyles[0] = new MapObjectDrawSettings(true, true, true, null, 0, "style1", null, null);
-			writingStyles[1] = new MapObjectDrawSettings(true, true, true, null, 0, "style2", null, null);
+			
+			MapObjectDrawSettings style1 = new MapObjectDrawSettings();
+			style1.setDescription("style1");
+			
+			MapObjectDrawSettings style2 = new MapObjectDrawSettings();
+			style2.setDescription("style2");
+			
+			writingStyles[0] = style1;
+			writingStyles[1] = style2;
 
 			DataOutputStream output = new DataOutputStream(new FileOutputStream(IOTester.TEST_FILE_NAME));
 			writeStylesToStream(writingStyles, output);

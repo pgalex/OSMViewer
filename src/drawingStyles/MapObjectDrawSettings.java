@@ -55,61 +55,11 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 		canBePoint = false;
 		canBeLine = false;
 		canBePolygon = false;
-		drawPriority = 1;
+		drawPriority = 0;
 		textTagKeys = new TextTagsKeys();
 		description = "";
 		drawSettingsOnScales = new DrawSettingsOnScaleArray();
 		defenitionTags = new EditableDefenitionTags();
-	}
-
-	/**
-	 * Create with parameters
-	 *
-	 * @param canObjectBePoint Can be object with this tags a point ( single node
-	 * )
-	 * @param canObjectBeLine Can be object with this tags a line ( non closed way
-	 * )
-	 * @param canObjectBePolygon Can be object with this tags a polygon ( closed
-	 * way )
-	 * @param textKeys "Key" of tag that "value" should be drawen on map as text
-	 * under object on a map
-	 * @param objectDrawPriority Drawing priority
-	 * @param objectDescription Description of map object
-	 * @param settingsOnScales Drawing styles on each scale level
-	 * @param objectDefenitionTags Map object defenition tags
-	 */
-	public MapObjectDrawSettings(boolean canObjectBePoint, boolean canObjectBeLine, boolean canObjectBePolygon,
-					TextTagsKeys textKeys, int objectDrawPriority, String objectDescription, DrawSettingsOnScaleArray settingsOnScales,
-					EditableDefenitionTags objectDefenitionTags)
-	{
-		canBePoint = canObjectBePoint;
-		canBeLine = canObjectBeLine;
-		canBePolygon = canObjectBePolygon;
-		textTagKeys = textKeys;
-		drawPriority = objectDrawPriority;
-		description = objectDescription;
-		drawSettingsOnScales = settingsOnScales;
-		defenitionTags = objectDefenitionTags;
-		initializeNullFields();
-	}
-
-	/**
-	 * Set default values into null fields
-	 */
-	private void initializeNullFields()
-	{
-		if (drawSettingsOnScales == null)
-		{
-			drawSettingsOnScales = new DrawSettingsOnScaleArray();
-		}
-		if (defenitionTags == null)
-		{
-			defenitionTags = new EditableDefenitionTags();
-		}
-		if (textTagKeys == null)
-		{
-			textTagKeys = new TextTagsKeys();
-		}
 	}
 
 	/**
@@ -257,6 +207,22 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 	}
 
 	/**
+	 * Set new draw settings on scales
+	 *
+	 * @param settingsOnScalesToSet new draw settings on scales
+	 * @throws IllegalArgumentException settingsOnScalesToSet is null
+	 */
+	public void setDrawSettingsOnScales(DrawSettingsOnScaleArray settingsOnScalesToSet) throws IllegalArgumentException
+	{
+		if (settingsOnScalesToSet == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		
+		drawSettingsOnScales = settingsOnScalesToSet;
+	}
+
+	/**
 	 * Get map object defenition tags
 	 *
 	 * @return map object defenition tags
@@ -264,6 +230,22 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 	public EditableDefenitionTags getDefenitionTags()
 	{
 		return defenitionTags;
+	}
+
+	/**
+	 * Set new object defentition tags
+	 *
+	 * @param tagsToSet new tags
+	 * @throws IllegalArgumentException tagsToSet is null
+	 */
+	public void setDefenitionTags(EditableDefenitionTags tagsToSet) throws IllegalArgumentException
+	{
+		if (tagsToSet == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		defenitionTags = tagsToSet;
 	}
 
 	/**

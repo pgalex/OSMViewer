@@ -477,7 +477,12 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 			StyleEditor styleEditor = DrawingStylesFactory.createStyleEditor();
 			EditableDefenitionTags testStyleTags = new EditableDefenitionTags();
 			testStyleTags.add(new MapTag("k1", "v1"));
-			MapObjectDrawSettings testStyle = new MapObjectDrawSettings(true, true, true, null, 0, "", null, testStyleTags);
+			MapObjectDrawSettings testStyle = new MapObjectDrawSettings();
+			testStyle.setCanBePoint();
+			testStyle.setCanBeLine();
+			testStyle.setCanBePolygon();
+			testStyle.setDefenitionTags(testStyleTags);
+			
 			styleEditor.addMapObjectDrawSettings(testStyle);
 
 

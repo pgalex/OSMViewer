@@ -108,8 +108,12 @@ public class MapPolygonTest
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
 		tags.add(new MapTag("k1", "v1"));
-		MapObjectDrawSettings style = new MapObjectDrawSettings(false, false, true, null, 0, "pokygon style", null, tags);
-
+		
+		MapObjectDrawSettings style = new MapObjectDrawSettings();
+		style.setCanBePolygon();
+		style.setDescription("polygon style");
+		style.setDefenitionTags(tags);
+		
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);
 
@@ -133,8 +137,11 @@ public class MapPolygonTest
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
 		tags.add(new MapTag("k1", "v1"));
-		MapObjectDrawSettings style = new MapObjectDrawSettings(false, false, false, null, 0, "pokygon style", null, tags);
-
+		
+		MapObjectDrawSettings style = new MapObjectDrawSettings();
+		style.setCanNotBePolygon();
+		style.setDescription("polygon style");
+		style.setDefenitionTags(tags);
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);
 
@@ -156,8 +163,11 @@ public class MapPolygonTest
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
 		tags.add(new MapTag("k1", "v1"));
-		MapObjectDrawSettings style = new MapObjectDrawSettings(false, false, false, null, 0, "pokygon style", null, tags);
-
+		
+		MapObjectDrawSettings style = new MapObjectDrawSettings();
+		style.setDescription("polygon style");
+		style.setDefenitionTags(tags);
+		
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);
 

@@ -55,9 +55,12 @@ public class MapObjectDrawStylesViewerTest
 	{
 		try
 		{
-			MapObjectDrawSettings style1 = new MapObjectDrawSettings(true, true, false, null, 0, "style1", null, null);
-			MapObjectDrawSettings style2 = new MapObjectDrawSettings(true, false, true, null, 0, "style2", null, null);
-			MapObjectDrawSettings style3 = new MapObjectDrawSettings(false, true, true, null, 0, "style3", null, null);
+			MapObjectDrawSettings style1 = new MapObjectDrawSettings();
+			style1.setDescription("style1");
+			MapObjectDrawSettings style2 = new MapObjectDrawSettings();
+			style2.setDescription("style2");
+			MapObjectDrawSettings style3 = new MapObjectDrawSettings();
+			style3.setDescription("style3");
 
 			StyleEditor writedEditor = DrawingStylesFactory.createStyleEditor();
 			writedEditor.addMapObjectDrawSettings(style1);
@@ -73,7 +76,7 @@ public class MapObjectDrawStylesViewerTest
 			assertEquals(writedEditor.getMapObjectDrawSettings(0).getDescription(), readViewer.getMapObjectDrawSettings(0).getDescription());
 			assertEquals(writedEditor.getMapObjectDrawSettings(1).getDescription(), readViewer.getMapObjectDrawSettings(1).getDescription());
 			assertEquals(writedEditor.getMapObjectDrawSettings(2).getDescription(), readViewer.getMapObjectDrawSettings(2).getDescription());
-			assertEquals(writedEditor.getMapDrawSettings().getMapBackgroundColor(), 
+			assertEquals(writedEditor.getMapDrawSettings().getMapBackgroundColor(),
 							readViewer.getMapDrawSettings().getMapBackgroundColor());
 		}
 		catch (Exception ex)
@@ -105,9 +108,15 @@ public class MapObjectDrawStylesViewerTest
 			EditableDefenitionTags tags3 = new EditableDefenitionTags();
 			tags3.add(new MapTag("k8", "v8"));
 
-			MapObjectDrawSettings style1 = new MapObjectDrawSettings(true, true, true, null, 0, "style1", null, tags1);
-			MapObjectDrawSettings style2 = new MapObjectDrawSettings(true, true, true, null, 0, "style2", null, tags2);
-			MapObjectDrawSettings style3 = new MapObjectDrawSettings(true, true, true, null, 0, "style3", null, tags3);
+			MapObjectDrawSettings style1 = new MapObjectDrawSettings();
+			style1.setDescription("style8");
+			style1.setDefenitionTags(tags1);
+			MapObjectDrawSettings style2 = new MapObjectDrawSettings();
+			style2.setDescription("style9");
+			style2.setDefenitionTags(tags2);
+			MapObjectDrawSettings style3 = new MapObjectDrawSettings();
+			style3.setDescription("style10");
+			style3.setDefenitionTags(tags3);
 
 			StyleEditor editor = DrawingStylesFactory.createStyleEditor();
 			editor.addMapObjectDrawSettings(style1);
@@ -178,12 +187,16 @@ public class MapObjectDrawStylesViewerTest
 			// for test normal work need to save some styles
 			EditableDefenitionTags tags1 = new EditableDefenitionTags();
 			tags1.add(new MapTag("k1", "v1"));
-			MapObjectDrawSettings style1 = new MapObjectDrawSettings(true, true, true, null, 0, "style1", null, tags1);
-
+			MapObjectDrawSettings style1 = new MapObjectDrawSettings();
+			style1.setDescription("style1");
+			style1.setDefenitionTags(tags1);
+			
 			EditableDefenitionTags tags2 = new EditableDefenitionTags();
 			tags2.add(new MapTag("k2", "v2"));
-			MapObjectDrawSettings style2 = new MapObjectDrawSettings(true, true, true, null, 0, "style2", null, tags2);
-
+			MapObjectDrawSettings style2 = new MapObjectDrawSettings();
+			style2.setDescription("style2");
+			style2.setDefenitionTags(tags2);
+			
 			StyleEditor editor = DrawingStylesFactory.createStyleEditor();
 			editor.addMapObjectDrawSettings(style1);
 			editor.addMapObjectDrawSettings(style2);
