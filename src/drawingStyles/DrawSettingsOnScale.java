@@ -51,9 +51,9 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 		lineDrawSettings = new LineDrawSettings();
 		polygonDrawSettings = new PolygonDrawSettings();
 		textDrawSettings = new TextDrawSettings();
-		needDrawPoint = true;
-		needDrawLine = true;
-		needDrawPolygon = true;
+		needDrawPoint = false;
+		needDrawLine = false;
+		needDrawPolygon = false;
 	}
 
 	/**
