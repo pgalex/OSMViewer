@@ -211,6 +211,16 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 	}
 
 	/**
+	 * Set new draw priority
+	 *
+	 * @param drawPriorityToSet new draw priority
+	 */
+	public void setDrawPriority(int drawPriorityToSet)
+	{
+		drawPriority = drawPriorityToSet;
+	}
+
+	/**
 	 * Get object description
 	 *
 	 * @return object description
@@ -330,6 +340,17 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 	public String findTextInTags(DefenitionTags tagsWhereFindText)
 	{
 		return textTagKeys.findTextInTags(tagsWhereFindText);
+	}
+
+	/**
+	 * Get string representation
+	 *
+	 * @return string representation
+	 */
+	@Override
+	public String toString()
+	{
+		return description;
 	}
 
 	/**
