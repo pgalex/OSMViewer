@@ -20,7 +20,11 @@ public class DrawSettingsOnScaleArrayTest
 	public void findingPointDrawStyleCanDrawPoint()
 	{
 		DrawSettingsOnScaleArray stylesArray = new DrawSettingsOnScaleArray();
-		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale(true, false, false, null, null, null, null);
+		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale();
+		styleOnScale.setDrawPoint();
+		styleOnScale.setNotDrawLine();
+		styleOnScale.setNotDrawPolygon();
+
 		stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel(), styleOnScale);
 
 		assertNotNull(stylesArray.findPointDrawSettings(stylesArray.getMinimumScaleLevel()));
@@ -33,12 +37,16 @@ public class DrawSettingsOnScaleArrayTest
 	public void findingPointDrawStyleCannotDrawPoint()
 	{
 		DrawSettingsOnScaleArray stylesArray = new DrawSettingsOnScaleArray();
-		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale(false, true, true, null, null, null, null);
+		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale();
+		styleOnScale.setNotDrawPoint();
+		styleOnScale.setDrawLine();
+		styleOnScale.setDrawPolygon();
+
 		stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel(), styleOnScale);
 
 		assertNull(stylesArray.findPointDrawSettings(stylesArray.getMinimumScaleLevel()));
 	}
-	
+
 	/**
 	 * Test finding line draw style if draw line is true
 	 */
@@ -46,7 +54,11 @@ public class DrawSettingsOnScaleArrayTest
 	public void findingLineDrawStyleCanDrawLine()
 	{
 		DrawSettingsOnScaleArray stylesArray = new DrawSettingsOnScaleArray();
-		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale(false, true, false, null, null, null, null);
+		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale();
+		styleOnScale.setNotDrawPoint();
+		styleOnScale.setDrawLine();
+		styleOnScale.setNotDrawPolygon();
+
 		stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel(), styleOnScale);
 
 		assertNotNull(stylesArray.findLineDrawSettings(stylesArray.getMinimumScaleLevel()));
@@ -59,12 +71,16 @@ public class DrawSettingsOnScaleArrayTest
 	public void findingLineDrawStyleCannotDrawLine()
 	{
 		DrawSettingsOnScaleArray stylesArray = new DrawSettingsOnScaleArray();
-		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale(true, false, true, null, null, null, null);
+		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale();
+		styleOnScale.setDrawPoint();
+		styleOnScale.setNotDrawLine();
+		styleOnScale.setDrawPolygon();
+
 		stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel(), styleOnScale);
 
 		assertNull(stylesArray.findLineDrawSettings(stylesArray.getMinimumScaleLevel()));
 	}
-	
+
 	/**
 	 * Test finding polygon draw style if draw polygon is true
 	 */
@@ -72,7 +88,11 @@ public class DrawSettingsOnScaleArrayTest
 	public void findingPolygonDrawStyleCanDrawPolygon()
 	{
 		DrawSettingsOnScaleArray stylesArray = new DrawSettingsOnScaleArray();
-		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale(false, false, true, null, null, null, null);
+		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale();
+		styleOnScale.setNotDrawPoint();
+		styleOnScale.setNotDrawLine();
+		styleOnScale.setDrawPolygon();
+
 		stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel(), styleOnScale);
 
 		assertNotNull(stylesArray.findPolygonDrawSettings(stylesArray.getMinimumScaleLevel()));
@@ -85,7 +105,11 @@ public class DrawSettingsOnScaleArrayTest
 	public void findingPolygonDrawStyleCannotDrawPolygon()
 	{
 		DrawSettingsOnScaleArray stylesArray = new DrawSettingsOnScaleArray();
-		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale(true, true, false, null, null, null, null);
+		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale();
+		styleOnScale.setDrawPoint();
+		styleOnScale.setDrawLine();
+		styleOnScale.setNotDrawPolygon();
+
 		stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel(), styleOnScale);
 
 		assertNull(stylesArray.findPolygonDrawSettings(stylesArray.getMinimumScaleLevel()));
@@ -108,7 +132,10 @@ public class DrawSettingsOnScaleArrayTest
 	public void setStyleOnScaleWithCorrectParametersTest()
 	{
 		DrawSettingsOnScaleArray stylesArray = new DrawSettingsOnScaleArray();
-		DrawSettingsOnScale scaledStyle = new DrawSettingsOnScale(true, false, true, null, null, null, null);
+		DrawSettingsOnScale scaledStyle = new DrawSettingsOnScale();
+		scaledStyle.setDrawPoint();
+		scaledStyle.setNotDrawLine();
+		scaledStyle.setDrawPolygon();
 
 		final int correctScaleLevelAtBegin = stylesArray.getMinimumScaleLevel();
 		stylesArray.setDrawSettingsOnScale(correctScaleLevelAtBegin, scaledStyle);
@@ -139,7 +166,10 @@ public class DrawSettingsOnScaleArrayTest
 	public void setStyleOnScaleLessThanBounds()
 	{
 		DrawSettingsOnScaleArray stylesArray = new DrawSettingsOnScaleArray();
-		DrawSettingsOnScale scaledStyle = new DrawSettingsOnScale(true, false, true, null, null, null, null);
+		DrawSettingsOnScale scaledStyle = new DrawSettingsOnScale();
+		scaledStyle.setDrawPoint();
+		scaledStyle.setNotDrawLine();
+		scaledStyle.setDrawPolygon();
 		try
 		{
 			stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel() - 1, scaledStyle); // there should be out of range exception
@@ -158,7 +188,11 @@ public class DrawSettingsOnScaleArrayTest
 	public void setStyleOnScaleMoreThanBounds()
 	{
 		DrawSettingsOnScaleArray stylesArray = new DrawSettingsOnScaleArray();
-		DrawSettingsOnScale scaledStyle = new DrawSettingsOnScale(true, false, true, null, null, null, null);
+		DrawSettingsOnScale scaledStyle = new DrawSettingsOnScale();
+		scaledStyle.setDrawPoint();
+		scaledStyle.setNotDrawLine();
+		scaledStyle.setDrawPolygon();
+
 		try
 		{
 			stylesArray.setDrawSettingsOnScale(stylesArray.getMaximumScaleLevel() + 1, scaledStyle); // there should be out of range exception
@@ -197,9 +231,20 @@ public class DrawSettingsOnScaleArrayTest
 	{
 		try
 		{
-			DrawSettingsOnScale styleAtBegin = new DrawSettingsOnScale(true, false, false, null, null, null, null);
-			DrawSettingsOnScale styleAtMiddle = new DrawSettingsOnScale(false, true, false, null, null, null, null);
-			DrawSettingsOnScale styleAtEnd = new DrawSettingsOnScale(false, false, true, null, null, null, null);
+			DrawSettingsOnScale styleAtBegin = new DrawSettingsOnScale();
+			styleAtBegin.setDrawPoint();
+			styleAtBegin.setNotDrawLine();
+			styleAtBegin.setNotDrawPolygon();
+			
+			DrawSettingsOnScale styleAtMiddle = new DrawSettingsOnScale();
+			styleAtMiddle.setNotDrawPoint();
+			styleAtMiddle.setDrawLine();
+			styleAtMiddle.setNotDrawPolygon();
+			
+			DrawSettingsOnScale styleAtEnd = new DrawSettingsOnScale();
+			styleAtEnd.setNotDrawPoint();
+			styleAtEnd.setNotDrawLine();
+			styleAtEnd.setDrawPolygon();
 
 			DrawSettingsOnScaleArray writingStyles = new DrawSettingsOnScaleArray();
 

@@ -57,58 +57,6 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Create with parameters
-	 *
-	 * @param drawPoint Is need to draw point
-	 * @param drawLine Is need to draw line
-	 * @param drawPolygon Is need to draw polygon
-	 * @param pointSettings point drawing settings. Reseting to default if null
-	 * @param lineSettings line drawing settings. Reseting to default if null
-	 * @param polygonSettings polygon drawing settings. Reseting to default if
-	 * null
-	 * @param textSettings text drawing settings. Reseting to default if null
-	 */
-	public DrawSettingsOnScale(boolean drawPoint, boolean drawLine, boolean drawPolygon,
-					PointDrawSettings pointSettings, LineDrawSettings lineSettings, PolygonDrawSettings polygonSettings,
-					TextDrawSettings textSettings)
-	{
-		needDrawPoint = drawPoint;
-		needDrawLine = drawLine;
-		needDrawPolygon = drawPolygon;
-		pointDrawSettings = pointSettings;
-		lineDrawSettings = lineSettings;
-		polygonDrawSettings = polygonSettings;
-		textDrawSettings = textSettings;
-
-		initializeNullFields();
-	}
-
-	/**
-	 * Auto-initialize null fields
-	 */
-	private void initializeNullFields()
-	{
-		if (pointDrawSettings == null)
-		{
-			pointDrawSettings = new PointDrawSettings();
-		}
-
-		if (lineDrawSettings == null)
-		{
-			lineDrawSettings = new LineDrawSettings();
-		}
-
-		if (polygonDrawSettings == null)
-		{
-			polygonDrawSettings = new PolygonDrawSettings();
-		}
-		if (textDrawSettings == null)
-		{
-			textDrawSettings = new TextDrawSettings();
-		}
-	}
-
-	/**
 	 * Read from stream
 	 *
 	 * @param input input stream

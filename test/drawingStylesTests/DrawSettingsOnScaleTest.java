@@ -12,18 +12,6 @@ import org.junit.Test;
  */
 public class DrawSettingsOnScaleTest
 {
-	/**
-	 * Auto initialize in constructor test
-	 */
-	@Test
-	public void autoInitializeTest()
-	{
-		DrawSettingsOnScale testStyle = new DrawSettingsOnScale(true, true, true, null, null, null, null);
-		assertNotNull(testStyle.getPointDrawSettings());
-		assertNotNull(testStyle.getLineDrawSettings());
-		assertNotNull(testStyle.getPolygonDrawSettings());
-		assertNotNull(testStyle.getTextDrawSettings());
-	}
 
 	/**
 	 * Reading/writing test
@@ -33,7 +21,10 @@ public class DrawSettingsOnScaleTest
 	{
 		try
 		{
-			DrawSettingsOnScale writedStyle = new DrawSettingsOnScale(true, false, true, null, null, null, null);
+			DrawSettingsOnScale writedStyle = new DrawSettingsOnScale();
+			writedStyle.setDrawPoint();
+			writedStyle.setNotDrawLine();
+			writedStyle.setDrawPolygon();
 
 			IOTester.writeToTestFile(writedStyle);
 

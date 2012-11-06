@@ -36,6 +36,7 @@ public class MapObjectDrawSettingsTest
 			// ok
 		}
 	}
+
 	/**
 	 * Test setting null defenition tags
 	 */
@@ -95,8 +96,13 @@ public class MapObjectDrawSettingsTest
 		testSettings.setCanNotBeLine();
 		testSettings.setCanNotBePolygon();
 
+		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale();
+		styleOnScale.setDrawPoint();
+		styleOnScale.setNotDrawLine();
+		styleOnScale.setNotDrawPolygon();
+
 		testSettings.getDrawSettingsOnScales().setDrawSettingsOnScale(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel(),
-						new DrawSettingsOnScale(true, false, false, null, null, null, null));
+						styleOnScale);
 
 		assertNotNull(testSettings.findPointDrawSettings(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel()));
 	}
@@ -112,8 +118,13 @@ public class MapObjectDrawSettingsTest
 		testSettings.setCanBeLine();
 		testSettings.setCanBePolygon();
 
+		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale();
+		styleOnScale.setDrawPoint();
+		styleOnScale.setNotDrawLine();
+		styleOnScale.setNotDrawPolygon();
+
 		testSettings.getDrawSettingsOnScales().setDrawSettingsOnScale(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel(),
-						new DrawSettingsOnScale(true, false, false, null, null, null, null));
+						styleOnScale);
 
 		assertNull(testSettings.findPointDrawSettings(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel()));
 	}
@@ -129,8 +140,13 @@ public class MapObjectDrawSettingsTest
 		testSettings.setCanBeLine();
 		testSettings.setCanNotBePolygon();
 
+		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale();
+		styleOnScale.setNotDrawPoint();
+		styleOnScale.setDrawLine();
+		styleOnScale.setNotDrawPolygon();
+
 		testSettings.getDrawSettingsOnScales().setDrawSettingsOnScale(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel(),
-						new DrawSettingsOnScale(false, true, false, null, null, null, null));
+						styleOnScale);
 
 		assertNotNull(testSettings.findLineDrawSettings(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel()));
 	}
@@ -146,8 +162,13 @@ public class MapObjectDrawSettingsTest
 		testSettings.setCanNotBeLine();
 		testSettings.setCanBePolygon();
 
+		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale();
+		styleOnScale.setNotDrawPoint();
+		styleOnScale.setDrawLine();
+		styleOnScale.setNotDrawPolygon();
+
 		testSettings.getDrawSettingsOnScales().setDrawSettingsOnScale(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel(),
-						new DrawSettingsOnScale(false, true, false, null, null, null, null));
+						styleOnScale);
 
 		assertNull(testSettings.findLineDrawSettings(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel()));
 	}
@@ -163,8 +184,13 @@ public class MapObjectDrawSettingsTest
 		testSettings.setCanNotBeLine();
 		testSettings.setCanBePolygon();
 
+		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale();
+		styleOnScale.setNotDrawPoint();
+		styleOnScale.setNotDrawLine();
+		styleOnScale.setDrawPolygon();
+
 		testSettings.getDrawSettingsOnScales().setDrawSettingsOnScale(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel(),
-						new DrawSettingsOnScale(false, false, true, null, null, null, null));
+						styleOnScale);
 
 		assertNotNull(testSettings.findPolygonDrawSettings(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel()));
 	}
@@ -180,8 +206,13 @@ public class MapObjectDrawSettingsTest
 		testSettings.setCanBeLine();
 		testSettings.setCanNotBePolygon();
 
+		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale();
+		styleOnScale.setNotDrawPoint();
+		styleOnScale.setNotDrawLine();
+		styleOnScale.setDrawPolygon();
+
 		testSettings.getDrawSettingsOnScales().setDrawSettingsOnScale(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel(),
-						new DrawSettingsOnScale(false, false, true, null, null, null, null));
+						styleOnScale);
 
 		assertNull(testSettings.findPolygonDrawSettings(testSettings.getDrawSettingsOnScales().getMinimumScaleLevel()));
 	}
@@ -237,10 +268,20 @@ public class MapObjectDrawSettingsTest
 			final int someScaleLevelAtMiddle = 8;
 
 			DrawSettingsOnScaleArray scaledStyles = new DrawSettingsOnScaleArray();
-			scaledStyles.setDrawSettingsOnScale(someScaleLevelAtBegin, new DrawSettingsOnScale(true, false, true, null, null,
-							null, null));
-			scaledStyles.setDrawSettingsOnScale(someScaleLevelAtMiddle, new DrawSettingsOnScale(false, true, true, null, null,
-							null, null));
+
+			DrawSettingsOnScale styleOnScale1 = new DrawSettingsOnScale();
+			styleOnScale1.setDrawPoint();
+			styleOnScale1.setNotDrawLine();
+			styleOnScale1.setDrawPolygon();
+
+			scaledStyles.setDrawSettingsOnScale(someScaleLevelAtBegin, styleOnScale1);
+
+			DrawSettingsOnScale styleOnScale2 = new DrawSettingsOnScale();
+			styleOnScale2.setNotDrawPoint();
+			styleOnScale2.setDrawLine();
+			styleOnScale2.setDrawPolygon();
+			
+			scaledStyles.setDrawSettingsOnScale(someScaleLevelAtMiddle, styleOnScale2);
 			EditableDefenitionTags tags = new EditableDefenitionTags();
 			tags.add(new MapTag("k1", "v1"));
 			tags.add(new MapTag("k2", "v2"));
