@@ -20,6 +20,41 @@ import org.junit.Test;
 public class MapObjectDrawSettingsTest
 {
 	/**
+	 * Test setting null draw settings on scales
+	 */
+	@Test
+	public void settingNullSettingsOnScalesTest()
+	{
+		try
+		{
+			MapObjectDrawSettings testSettings = new MapObjectDrawSettings();
+			testSettings.setDrawSettingsOnScales(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+	/**
+	 * Test setting null defenition tags
+	 */
+	@Test
+	public void settingNullTagsTest()
+	{
+		try
+		{
+			MapObjectDrawSettings testSettings = new MapObjectDrawSettings();
+			testSettings.setDefenitionTags(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
 	 * Test setting null description
 	 */
 	@Test
