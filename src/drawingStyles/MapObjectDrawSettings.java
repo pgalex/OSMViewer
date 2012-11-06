@@ -38,6 +38,10 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 	 */
 	private String description;
 	/**
+	 * Simple name of object (like "tertiary road", etc)
+	 */
+	private String name;
+	/**
 	 * How to draw object on each scale level
 	 */
 	private DrawSettingsOnScaleArray drawSettingsOnScales;
@@ -58,6 +62,7 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 		drawPriority = 0;
 		textTagKeys = new TextTagsKeys();
 		description = "";
+		name = "";
 		drawSettingsOnScales = new DrawSettingsOnScaleArray();
 		defenitionTags = new EditableDefenitionTags();
 	}
@@ -218,7 +223,7 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 		{
 			throw new IllegalArgumentException();
 		}
-		
+
 		drawSettingsOnScales = settingsOnScalesToSet;
 	}
 
@@ -246,6 +251,32 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 		}
 
 		defenitionTags = tagsToSet;
+	}
+
+	/**
+	 * Get simple name of object
+	 *
+	 * @return simple name
+	 */
+	public String getName()
+	{
+		return name;
+	}
+
+	/**
+	 * Set new simple name of object (like "tertiary road", etc)
+	 *
+	 * @param nameToSet new name
+	 * @throws IllegalArgumentException nameToSet is null
+	 */
+	public void setName(String nameToSet) throws IllegalArgumentException
+	{
+		if (nameToSet == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		name = nameToSet;
 	}
 
 	/**
@@ -354,6 +385,7 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 			description = input.readUTF();
 			drawSettingsOnScales.readFromStream(input);
 			defenitionTags.readFromStream(input);
+			name = input.readUTF();
 		}
 		catch (Exception e)
 		{
@@ -380,6 +412,7 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 			output.writeUTF(description);
 			drawSettingsOnScales.writeToStream(output);
 			defenitionTags.writeToStream(output);
+			output.writeUTF(name);
 		}
 		catch (Exception e)
 		{

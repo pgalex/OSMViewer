@@ -20,6 +20,24 @@ import org.junit.Test;
 public class MapObjectDrawSettingsTest
 {
 	/**
+	 * Test setting null name
+	 */
+	@Test
+	public void settingNullNameTest()
+	{
+		try
+		{
+			MapObjectDrawSettings testSettings = new MapObjectDrawSettings();
+			testSettings.setName(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
 	 * Test setting null draw settings on scales
 	 */
 	@Test
@@ -280,7 +298,7 @@ public class MapObjectDrawSettingsTest
 			styleOnScale2.setNotDrawPoint();
 			styleOnScale2.setDrawLine();
 			styleOnScale2.setDrawPolygon();
-			
+
 			scaledStyles.setDrawSettingsOnScale(someScaleLevelAtMiddle, styleOnScale2);
 			EditableDefenitionTags tags = new EditableDefenitionTags();
 			tags.add(new MapTag("k1", "v1"));
@@ -294,6 +312,7 @@ public class MapObjectDrawSettingsTest
 			writedStyle.setDescription("object1");
 			writedStyle.setDrawSettingsOnScales(scaledStyles);
 			writedStyle.setDefenitionTags(tags);
+			writedStyle.setName("someName");
 
 			IOTester.writeToTestFile(writedStyle);
 
@@ -320,6 +339,7 @@ public class MapObjectDrawSettingsTest
 			assertEquals(writedStyle.getDrawSettingsOnScales().getDrawSettingsOnScale(someScaleLevelAtMiddle).isDrawLine(), readStyle.getDrawSettingsOnScales().getDrawSettingsOnScale(someScaleLevelAtMiddle).isDrawLine());
 			assertEquals(writedStyle.getDrawSettingsOnScales().getDrawSettingsOnScale(someScaleLevelAtMiddle).isDrawPoint(), readStyle.getDrawSettingsOnScales().getDrawSettingsOnScale(someScaleLevelAtMiddle).isDrawPoint());
 			assertEquals(writedStyle.getDrawSettingsOnScales().getDrawSettingsOnScale(someScaleLevelAtMiddle).isDrawPolygon(), readStyle.getDrawSettingsOnScales().getDrawSettingsOnScale(someScaleLevelAtMiddle).isDrawPolygon());
+			assertEquals(writedStyle.getName(), readStyle.getName());
 		}
 		catch (Exception ex)
 		{
