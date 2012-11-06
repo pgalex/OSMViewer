@@ -1,8 +1,7 @@
 package map;
 
 /**
- * Interface of visitor, using for draw objects of map. Uses to hide additional
- * methods of objects renders from Map
+ * Interface of visitor, using for draw objects of map
  *
  * @author pgalex
  */
