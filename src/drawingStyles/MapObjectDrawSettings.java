@@ -363,7 +363,7 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 	@Override
 	public String toString()
 	{
-		return description;
+		return name;
 	}
 
 	/**

@@ -339,6 +339,7 @@ public class JFrameEditDrawingStyles extends javax.swing.JFrame
 						selectedDrawSettings);
 		editMapObjectDrawSettingsDialog.setLocationRelativeTo(this);
 		editMapObjectDrawSettingsDialog.setVisible(true);
+		mapObjectsListModel.setElementAt(selectedDrawSettings, selectedMapObjectIndex);
   }//GEN-LAST:event_jButtonEditMapObjectActionPerformed
 
   private void jButtonChooseBackgroundColorActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonChooseBackgroundColorActionPerformed
