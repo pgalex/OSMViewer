@@ -4,7 +4,7 @@ import drawingStyles.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.EditableDefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.MapTag;
+import drawingStyles.Tag;
 import drawingStyles.StyleEditor;
 import map.*;
 import map.onlineMap.OnlineMap;
@@ -39,7 +39,7 @@ public class OnlineMapTest
 	public void renderingNormalWorkTest()
 	{
 		EditableDefenitionTags someTags = new EditableDefenitionTags();
-		someTags.add(new MapTag("k1", "v1"));
+		someTags.add(new Tag("k1", "v1"));
 
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 

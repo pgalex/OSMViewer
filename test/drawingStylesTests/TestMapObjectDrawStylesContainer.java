@@ -4,7 +4,7 @@ import IOTesting.IOTester;
 import drawingStyles.EditableDefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.MapObjectDrawStylesContainer;
-import drawingStyles.MapTag;
+import drawingStyles.Tag;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
@@ -46,17 +46,17 @@ public class TestMapObjectDrawStylesContainer extends MapObjectDrawStylesContain
 	private void findStyleIndexNormalWorkTest()
 	{
 		EditableDefenitionTags tags1 = new EditableDefenitionTags();
-		tags1.add(new MapTag("k1", "v1"));
-		tags1.add(new MapTag("k2", "v2"));
+		tags1.add(new Tag("k1", "v1"));
+		tags1.add(new Tag("k2", "v2"));
 
 		EditableDefenitionTags tags2 = new EditableDefenitionTags();
-		tags2.add(new MapTag("k1", "v1"));
+		tags2.add(new Tag("k1", "v1"));
 
 		EditableDefenitionTags tags3 = new EditableDefenitionTags();
-		tags3.add(new MapTag("k1", "v1"));
-		tags3.add(new MapTag("k2", "v2"));
-		tags3.add(new MapTag("k3", "v3"));
-		tags3.add(new MapTag("k4", "v4"));
+		tags3.add(new Tag("k1", "v1"));
+		tags3.add(new Tag("k2", "v2"));
+		tags3.add(new Tag("k3", "v3"));
+		tags3.add(new Tag("k4", "v4"));
 		
 		MapObjectDrawSettings style1 = new MapObjectDrawSettings();
 		style1.setDescription("style1");
@@ -80,32 +80,32 @@ public class TestMapObjectDrawStylesContainer extends MapObjectDrawStylesContain
 		styles[3] = style4;
 
 		EditableDefenitionTags objectTags1 = new EditableDefenitionTags();
-		objectTags1.add(new MapTag("k1", "v1"));
+		objectTags1.add(new Tag("k1", "v1"));
 		assertEquals(1, (int) findStyleIndex(styles, objectTags1));
 
 		EditableDefenitionTags objectTags2 = new EditableDefenitionTags();
-		objectTags2.add(new MapTag("k1", "v1"));
-		objectTags2.add(new MapTag("k5", "v5"));
+		objectTags2.add(new Tag("k1", "v1"));
+		objectTags2.add(new Tag("k5", "v5"));
 		assertEquals(1, (int) findStyleIndex(styles, objectTags2));
 
 		EditableDefenitionTags objectTags3 = new EditableDefenitionTags();
-		objectTags3.add(new MapTag("k1", "v1"));
-		objectTags3.add(new MapTag("k5", "v5"));
-		objectTags3.add(new MapTag("k2", "v2"));
+		objectTags3.add(new Tag("k1", "v1"));
+		objectTags3.add(new Tag("k5", "v5"));
+		objectTags3.add(new Tag("k2", "v2"));
 		assertEquals(0, (int) findStyleIndex(styles, objectTags3));
 
 		EditableDefenitionTags objectTags4 = new EditableDefenitionTags();
-		objectTags4.add(new MapTag("k1", "v1"));
-		objectTags4.add(new MapTag("k3", "v3"));
-		objectTags4.add(new MapTag("k5", "v5"));
-		objectTags4.add(new MapTag("k4", "v4"));
-		objectTags4.add(new MapTag("k2", "v2"));
+		objectTags4.add(new Tag("k1", "v1"));
+		objectTags4.add(new Tag("k3", "v3"));
+		objectTags4.add(new Tag("k5", "v5"));
+		objectTags4.add(new Tag("k4", "v4"));
+		objectTags4.add(new Tag("k2", "v2"));
 		assertEquals(2, (int) findStyleIndex(styles, objectTags4));
 
 		assertEquals(3, (int) findStyleIndex(styles, new EditableDefenitionTags()));
 
 		EditableDefenitionTags objectTags5 = new EditableDefenitionTags();
-		objectTags5.add(new MapTag("k5", "v5"));
+		objectTags5.add(new Tag("k5", "v5"));
 		assertNull(findStyleIndex(styles, objectTags5));
 	}
 

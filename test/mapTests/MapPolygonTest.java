@@ -4,7 +4,7 @@ import drawingStyles.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.EditableDefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.MapTag;
+import drawingStyles.Tag;
 import drawingStyles.StyleEditor;
 import map.MapPolygon;
 import map.MapPosition;
@@ -107,7 +107,7 @@ public class MapPolygonTest
 	public void assigningStyleIndexCanBePolygonTest()
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
-		tags.add(new MapTag("k1", "v1"));
+		tags.add(new Tag("k1", "v1"));
 		
 		MapObjectDrawSettings style = new MapObjectDrawSettings();
 		style.setCanBePolygon();
@@ -136,7 +136,7 @@ public class MapPolygonTest
 	public void assigningStyleIndexCanNotBePolygonTest()
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
-		tags.add(new MapTag("k1", "v1"));
+		tags.add(new Tag("k1", "v1"));
 		
 		MapObjectDrawSettings style = new MapObjectDrawSettings();
 		style.setCanNotBePolygon();
@@ -162,7 +162,7 @@ public class MapPolygonTest
 	public void assigningStyleIndexNotFoundTest()
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
-		tags.add(new MapTag("k1", "v1"));
+		tags.add(new Tag("k1", "v1"));
 		
 		MapObjectDrawSettings style = new MapObjectDrawSettings();
 		style.setDescription("polygon style");

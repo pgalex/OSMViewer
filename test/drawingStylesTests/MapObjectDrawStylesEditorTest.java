@@ -466,18 +466,18 @@ public class MapObjectDrawStylesEditorTest
 	public void getStyleIndexTest()
 	{
 		EditableDefenitionTags tags1 = new EditableDefenitionTags();
-		tags1.add(new MapTag("k1", "v1"));
-		tags1.add(new MapTag("k2", "v2"));
-		tags1.add(new MapTag("k3", "v3"));
-		tags1.add(new MapTag("k4", "v4"));
+		tags1.add(new Tag("k1", "v1"));
+		tags1.add(new Tag("k2", "v2"));
+		tags1.add(new Tag("k3", "v3"));
+		tags1.add(new Tag("k4", "v4"));
 
 		EditableDefenitionTags tags2 = new EditableDefenitionTags();
-		tags2.add(new MapTag("k1", "v1"));
-		tags2.add(new MapTag("k2", "v2"));
-		tags2.add(new MapTag("k5", "v5"));
+		tags2.add(new Tag("k1", "v1"));
+		tags2.add(new Tag("k2", "v2"));
+		tags2.add(new Tag("k5", "v5"));
 
 		EditableDefenitionTags tags3 = new EditableDefenitionTags();
-		tags3.add(new MapTag("k8", "v8"));
+		tags3.add(new Tag("k8", "v8"));
 
 		MapObjectDrawSettings style1 = new MapObjectDrawSettings();
 		style1.setDescription("style8");
@@ -501,25 +501,25 @@ public class MapObjectDrawStylesEditorTest
 
 		// part equal
 		EditableDefenitionTags testTags1 = new EditableDefenitionTags();
-		testTags1.add(new MapTag("k1", "v1"));
-		testTags1.add(new MapTag("k2", "v2"));
-		testTags1.add(new MapTag("k3", "v3"));
-		testTags1.add(new MapTag("k4", "v4"));
-		testTags1.add(new MapTag("k5", "v5"));
-		testTags1.add(new MapTag("k6", "v6"));
+		testTags1.add(new Tag("k1", "v1"));
+		testTags1.add(new Tag("k2", "v2"));
+		testTags1.add(new Tag("k3", "v3"));
+		testTags1.add(new Tag("k4", "v4"));
+		testTags1.add(new Tag("k5", "v5"));
+		testTags1.add(new Tag("k6", "v6"));
 		assertEquals(0, (int) editor.findStyleIndex(testTags1));
 
 		EditableDefenitionTags testTags2 = new EditableDefenitionTags();
-		testTags2.add(new MapTag("k1", "v1"));
-		testTags2.add(new MapTag("k2", "v2"));
-		testTags2.add(new MapTag("k3", "v3"));
-		testTags2.add(new MapTag("k5", "v5"));
-		testTags2.add(new MapTag("k6", "v6"));
+		testTags2.add(new Tag("k1", "v1"));
+		testTags2.add(new Tag("k2", "v2"));
+		testTags2.add(new Tag("k3", "v3"));
+		testTags2.add(new Tag("k5", "v5"));
+		testTags2.add(new Tag("k6", "v6"));
 		assertEquals(1, (int) editor.findStyleIndex(testTags2));
 
 		// not found
 		EditableDefenitionTags testTags3 = new EditableDefenitionTags();
-		testTags3.add(new MapTag("k9", "v9"));
+		testTags3.add(new Tag("k9", "v9"));
 		assertNull(editor.findStyleIndex(testTags3));
 		assertNull(editor.findStyleIndex(null));
 	}

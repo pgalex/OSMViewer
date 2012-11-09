@@ -6,7 +6,7 @@ import drawingStyles.DrawSettingsOnScaleArray;
 import drawingStyles.EditableDefenitionTags;
 import drawingStyles.LineDrawSettings;
 import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.MapTag;
+import drawingStyles.Tag;
 import drawingStyles.PointDrawSettings;
 import drawingStyles.TextDrawSettings;
 import drawingStyles.TextTagsKeys;
@@ -157,7 +157,7 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 		String tableData[][] = new String[editingTags.count()][2];
 		for (int i = 0; i < editingTags.count(); i++)
 		{
-			MapTag tag = editingTags.get(i);
+			Tag tag = editingTags.get(i);
 			tableData[i][0] = tag.getKey();
 			tableData[i][1] = tag.getValue();
 		}
@@ -350,7 +350,7 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 			String tagValue = (String) defenitionTagsTableModel.getValueAt(i, 1);
 			if (!tagKey.isEmpty())
 			{
-				editingTags.add(new MapTag(tagKey, tagValue));
+				editingTags.add(new Tag(tagKey, tagValue));
 			}
 		}
 	}

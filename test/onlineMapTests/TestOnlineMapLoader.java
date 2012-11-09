@@ -4,7 +4,7 @@ import drawingStyles.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.EditableDefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.MapTag;
+import drawingStyles.Tag;
 import drawingStyles.StyleEditor;
 import java.util.ArrayList;
 import map.MapLine;
@@ -316,7 +316,7 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 	private void createMapTagNormalWorkTest()
 	{
 		OsmTag osmTag = new OsmTag("k1", "v1");
-		MapTag mapTag = createMapTagByOsmTag(osmTag);
+		Tag mapTag = createMapTagByOsmTag(osmTag);
 		assertNotNull(mapTag);
 		assertEquals(osmTag.getKey(), mapTag.getKey());
 		assertEquals(osmTag.getValue(), mapTag.getValue());
@@ -476,7 +476,7 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 		{
 			StyleEditor styleEditor = DrawingStylesFactory.createStyleEditor();
 			EditableDefenitionTags testStyleTags = new EditableDefenitionTags();
-			testStyleTags.add(new MapTag("k1", "v1"));
+			testStyleTags.add(new Tag("k1", "v1"));
 			MapObjectDrawSettings testStyle = new MapObjectDrawSettings();
 			testStyle.setCanBePoint();
 			testStyle.setCanBeLine();

@@ -17,14 +17,14 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 	/**
 	 * Array of tags
 	 */
-	protected ArrayList<MapTag> tags;
+	protected ArrayList<Tag> tags;
 
 	/**
 	 * Create empty defenition tags
 	 */
 	public DefenitionTags()
 	{
-		tags = new ArrayList<MapTag>();
+		tags = new ArrayList<Tag>();
 	}
 
 	/**
@@ -54,7 +54,7 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 	 * @return tag at index. Not null
 	 * @throws IllegalArgumentException index have incorrect value
 	 */
-	public MapTag get(int index) throws IllegalArgumentException
+	public Tag get(int index) throws IllegalArgumentException
 	{
 		if (index < 0 || index >= tags.size())
 		{
@@ -95,13 +95,13 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 			return false;
 		}
 
-		for (MapTag thisTag : tags)
+		for (Tag thisTag : tags)
 		{
 			boolean thisTagFoundInCompatingTags = false;
 
 			for (int i = 0; i < tagsForComparing.count(); i++)
 			{
-				MapTag comparingTag = tagsForComparing.get(i);
+				Tag comparingTag = tagsForComparing.get(i);
 
 				if (thisTag.compareTo(comparingTag))
 				{
@@ -134,7 +134,7 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 			int tagsCount = input.readInt();
 			for (int i = 0; i < tagsCount; i++)
 			{
-				MapTag readingTag = new MapTag();
+				Tag readingTag = new Tag();
 				readingTag.readFromStream(input);
 				tags.add(readingTag);
 			}
@@ -157,7 +157,7 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 		try
 		{
 			output.writeInt(tags.size());
-			for (MapTag tag : tags)
+			for (Tag tag : tags)
 			{
 				tag.writeToStream(output);
 			}

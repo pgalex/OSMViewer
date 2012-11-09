@@ -110,7 +110,7 @@ public class TextTagsKeys implements ReadableMapData, WritableMapData
 		{
 			for (int tagIndex = 0; tagIndex < tagsWhereFindText.count(); tagIndex++)
 			{
-				MapTag tag = tagsWhereFindText.get(tagIndex);
+				Tag tag = tagsWhereFindText.get(tagIndex);
 				if (tag.getKey().equals(tagsKeys.get(keyIndex)))
 				{
 					return tag.getValue();

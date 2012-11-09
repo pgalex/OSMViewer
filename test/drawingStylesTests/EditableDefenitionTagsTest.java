@@ -1,7 +1,7 @@
 package drawingStylesTests;
 
 import drawingStyles.EditableDefenitionTags;
-import drawingStyles.MapTag;
+import drawingStyles.Tag;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -19,13 +19,13 @@ public class EditableDefenitionTagsTest
 	public void addingTagsTest()
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
-		tags.add(new MapTag("k1", "v1"));
-		tags.add(new MapTag("k2", "v2"));
+		tags.add(new Tag("k1", "v1"));
+		tags.add(new Tag("k2", "v2"));
 
 		assertFalse(tags.isEmpty());
 		assertEquals(2, tags.count());
-		assertTrue(tags.get(0).compareTo(new MapTag("k1", "v1")));
-		assertTrue(tags.get(1).compareTo(new MapTag("k2", "v2")));
+		assertTrue(tags.get(0).compareTo(new Tag("k1", "v1")));
+		assertTrue(tags.get(1).compareTo(new Tag("k2", "v2")));
 	}
 
 	/**
@@ -35,7 +35,7 @@ public class EditableDefenitionTagsTest
 	public void addingNullTagTest()
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
-		tags.add(new MapTag("k1", "v1"));
+		tags.add(new Tag("k1", "v1"));
 		try
 		{
 			tags.add(null);
@@ -54,8 +54,8 @@ public class EditableDefenitionTagsTest
 	public void clearTest()
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
-		tags.add(new MapTag("k1", "v1"));
-		tags.add(new MapTag("k2", "v2"));
+		tags.add(new Tag("k1", "v1"));
+		tags.add(new Tag("k2", "v2"));
 
 		tags.clear();
 		assertTrue(tags.isEmpty());
@@ -69,12 +69,12 @@ public class EditableDefenitionTagsTest
 	public void removeTest()
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
-		tags.add(new MapTag("k1", "v1"));
-		tags.add(new MapTag("k2", "v2"));
+		tags.add(new Tag("k1", "v1"));
+		tags.add(new Tag("k2", "v2"));
 
 		tags.remove(1);
 		assertEquals(1, tags.count());
-		assertTrue(tags.get(0).compareTo(new MapTag("k1", "v1")));
+		assertTrue(tags.get(0).compareTo(new Tag("k1", "v1")));
 
 		tags.remove(0);
 		assertTrue(tags.isEmpty());
@@ -88,7 +88,7 @@ public class EditableDefenitionTagsTest
 	public void removeWithIndexLessThanBoundsTest()
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
-		tags.add(new MapTag("k1", "v1"));
+		tags.add(new Tag("k1", "v1"));
 		try
 		{
 			tags.remove(-1);
@@ -107,7 +107,7 @@ public class EditableDefenitionTagsTest
 	public void removeWithIndexMoreThanBoundsTest()
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
-		tags.add(new MapTag("k1", "v1"));
+		tags.add(new Tag("k1", "v1"));
 		try
 		{
 			tags.remove(tags.count());

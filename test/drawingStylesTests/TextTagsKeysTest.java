@@ -3,7 +3,7 @@ package drawingStylesTests;
 import IOTesting.IOTester;
 import drawingStyles.DefenitionTags;
 import drawingStyles.EditableDefenitionTags;
-import drawingStyles.MapTag;
+import drawingStyles.Tag;
 import drawingStyles.TextTagsKeys;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -172,8 +172,8 @@ public class TextTagsKeysTest
 		textTagsKeys.removeAllKeys();
 
 		EditableDefenitionTags tags = new EditableDefenitionTags();
-		tags.add(new MapTag("name", "testName"));
-		tags.add(new MapTag("highway", "residential"));
+		tags.add(new Tag("name", "testName"));
+		tags.add(new Tag("highway", "residential"));
 
 		assertEquals("", textTagsKeys.findTextInTags(tags));
 	}
@@ -190,8 +190,8 @@ public class TextTagsKeysTest
 		textTagsKeys.addKey("name");
 
 		EditableDefenitionTags tags = new EditableDefenitionTags();
-		tags.add(new MapTag("name", "testName"));
-		tags.add(new MapTag("description", "testDescription"));
+		tags.add(new Tag("name", "testName"));
+		tags.add(new Tag("description", "testDescription"));
 
 		assertEquals("testDescription", textTagsKeys.findTextInTags(tags));
 	}
@@ -209,9 +209,9 @@ public class TextTagsKeysTest
 		
 
 		EditableDefenitionTags tags = new EditableDefenitionTags();
-		tags.add(new MapTag("highway", "residential"));
-		tags.add(new MapTag("source", "gps"));
-		tags.add(new MapTag("name", "testName"));
+		tags.add(new Tag("highway", "residential"));
+		tags.add(new Tag("source", "gps"));
+		tags.add(new Tag("name", "testName"));
 
 		assertEquals("testName", textTagsKeys.findTextInTags(tags));
 	}
@@ -228,8 +228,8 @@ public class TextTagsKeysTest
 		textTagsKeys.addKey("name");
 
 		EditableDefenitionTags tags = new EditableDefenitionTags();
-		tags.add(new MapTag("highway", "residential"));
-		tags.add(new MapTag("source", "gps"));
+		tags.add(new Tag("highway", "residential"));
+		tags.add(new Tag("source", "gps"));
 
 		assertEquals("", textTagsKeys.findTextInTags(tags));
 	}

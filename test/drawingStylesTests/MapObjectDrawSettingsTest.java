@@ -6,7 +6,7 @@ import drawingStyles.DrawSettingsOnScaleArray;
 import drawingStyles.EditableDefenitionTags;
 import drawingStyles.FindStyleIndexComparator;
 import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.MapTag;
+import drawingStyles.Tag;
 import java.util.ArrayList;
 import java.util.Collections;
 import static org.junit.Assert.*;
@@ -242,18 +242,18 @@ public class MapObjectDrawSettingsTest
 	public void sortingTest()
 	{
 		EditableDefenitionTags tags1 = new EditableDefenitionTags();
-		tags1.add(new MapTag("k1", "v1"));
-		tags1.add(new MapTag("k2", "v2"));
-		tags1.add(new MapTag("k3", "v3"));
+		tags1.add(new Tag("k1", "v1"));
+		tags1.add(new Tag("k2", "v2"));
+		tags1.add(new Tag("k3", "v3"));
 
 		EditableDefenitionTags tags2 = new EditableDefenitionTags();
-		tags2.add(new MapTag("k4", "v4"));
-		tags2.add(new MapTag("k5", "v5"));
-		tags2.add(new MapTag("k6", "v6"));
-		tags2.add(new MapTag("k7", "v7"));
+		tags2.add(new Tag("k4", "v4"));
+		tags2.add(new Tag("k5", "v5"));
+		tags2.add(new Tag("k6", "v6"));
+		tags2.add(new Tag("k7", "v7"));
 
 		EditableDefenitionTags tags3 = new EditableDefenitionTags();
-		tags3.add(new MapTag("k8", "v8"));
+		tags3.add(new Tag("k8", "v8"));
 
 
 		MapObjectDrawSettings settings1 = new MapObjectDrawSettings();
@@ -301,8 +301,8 @@ public class MapObjectDrawSettingsTest
 
 			scaledStyles.setDrawSettingsOnScale(someScaleLevelAtMiddle, styleOnScale2);
 			EditableDefenitionTags tags = new EditableDefenitionTags();
-			tags.add(new MapTag("k1", "v1"));
-			tags.add(new MapTag("k2", "v2"));
+			tags.add(new Tag("k1", "v1"));
+			tags.add(new Tag("k2", "v2"));
 
 			MapObjectDrawSettings writedStyle = new MapObjectDrawSettings();
 			writedStyle.setCanBePoint();

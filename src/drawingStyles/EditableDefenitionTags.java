@@ -21,7 +21,7 @@ public class EditableDefenitionTags extends DefenitionTags
 	 * @param tagToAdd tag to add
 	 * @throws IllegalArgumentException adding tag is null
 	 */
-	public void add(MapTag tagToAdd) throws IllegalArgumentException
+	public void add(Tag tagToAdd) throws IllegalArgumentException
 	{
 		if (tagToAdd == null)
 		{

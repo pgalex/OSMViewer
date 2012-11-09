@@ -5,7 +5,7 @@ import drawingStyles.DrawingStylesFactory;
 import drawingStyles.EditableDefenitionTags;
 import drawingStyles.MapDrawSettings;
 import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.MapTag;
+import drawingStyles.Tag;
 import drawingStyles.StyleEditor;
 import drawingStyles.StyleViewer;
 import java.awt.Color;
@@ -95,18 +95,18 @@ public class MapObjectDrawStylesViewerTest
 		{
 			// for test normal work need to save some styles
 			EditableDefenitionTags tags1 = new EditableDefenitionTags();
-			tags1.add(new MapTag("k1", "v1"));
-			tags1.add(new MapTag("k2", "v2"));
-			tags1.add(new MapTag("k3", "v3"));
-			tags1.add(new MapTag("k4", "v4"));
+			tags1.add(new Tag("k1", "v1"));
+			tags1.add(new Tag("k2", "v2"));
+			tags1.add(new Tag("k3", "v3"));
+			tags1.add(new Tag("k4", "v4"));
 
 			EditableDefenitionTags tags2 = new EditableDefenitionTags();
-			tags2.add(new MapTag("k1", "v1"));
-			tags2.add(new MapTag("k2", "v2"));
-			tags2.add(new MapTag("k5", "v5"));
+			tags2.add(new Tag("k1", "v1"));
+			tags2.add(new Tag("k2", "v2"));
+			tags2.add(new Tag("k5", "v5"));
 
 			EditableDefenitionTags tags3 = new EditableDefenitionTags();
-			tags3.add(new MapTag("k8", "v8"));
+			tags3.add(new Tag("k8", "v8"));
 
 			MapObjectDrawSettings style1 = new MapObjectDrawSettings();
 			style1.setDescription("style8");
@@ -149,7 +149,7 @@ public class MapObjectDrawStylesViewerTest
 			StyleViewer viewer = DrawingStylesFactory.createStyleViewer();
 
 			EditableDefenitionTags testTags = new EditableDefenitionTags();
-			testTags.add(new MapTag("k9", "v9"));
+			testTags.add(new Tag("k9", "v9"));
 			assertNull(viewer.findStyleIndex(testTags));
 		}
 		catch (Exception ex)
@@ -186,13 +186,13 @@ public class MapObjectDrawStylesViewerTest
 		{
 			// for test normal work need to save some styles
 			EditableDefenitionTags tags1 = new EditableDefenitionTags();
-			tags1.add(new MapTag("k1", "v1"));
+			tags1.add(new Tag("k1", "v1"));
 			MapObjectDrawSettings style1 = new MapObjectDrawSettings();
 			style1.setDescription("style1");
 			style1.setDefenitionTags(tags1);
 			
 			EditableDefenitionTags tags2 = new EditableDefenitionTags();
-			tags2.add(new MapTag("k2", "v2"));
+			tags2.add(new Tag("k2", "v2"));
 			MapObjectDrawSettings style2 = new MapObjectDrawSettings();
 			style2.setDescription("style2");
 			style2.setDefenitionTags(tags2);

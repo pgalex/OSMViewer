@@ -11,7 +11,7 @@ import java.io.IOException;
  *
  * @author pgalex
  */
-public class MapTag implements WritableMapData, ReadableMapData
+public class Tag implements WritableMapData, ReadableMapData
 {
 	/**
 	 * key
@@ -25,7 +25,7 @@ public class MapTag implements WritableMapData, ReadableMapData
 	/**
 	 * Create with empty key and value
 	 */
-	public MapTag()
+	public Tag()
 	{
 		key = "";
 		value = "";
@@ -38,7 +38,7 @@ public class MapTag implements WritableMapData, ReadableMapData
 	 * @param tagValue value of tag
 	 * @throws IllegalArgumentException tagKey or tagValue is null
 	 */
-	public MapTag(String tagKey, String tagValue) throws IllegalArgumentException
+	public Tag(String tagKey, String tagValue) throws IllegalArgumentException
 	{
 		if (tagKey == null)
 		{
@@ -80,7 +80,7 @@ public class MapTag implements WritableMapData, ReadableMapData
 	 * @return is tags eqaul
 	 * @throws IllegalArgumentException tagForComparing is null
 	 */
-	public boolean compareTo(MapTag tagForComparing) throws IllegalArgumentException
+	public boolean compareTo(Tag tagForComparing) throws IllegalArgumentException
 	{
 		if (tagForComparing == null)
 		{

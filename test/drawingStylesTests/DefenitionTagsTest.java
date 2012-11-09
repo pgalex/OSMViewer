@@ -3,7 +3,7 @@ package drawingStylesTests;
 import IOTesting.IOTester;
 import drawingStyles.DefenitionTags;
 import drawingStyles.EditableDefenitionTags;
-import drawingStyles.MapTag;
+import drawingStyles.Tag;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -39,7 +39,7 @@ public class DefenitionTagsTest
 	public void gettingTagLessThenBoundsTest()
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
-		tags.add(new MapTag("k2", "v2"));
+		tags.add(new Tag("k2", "v2"));
 
 		try
 		{
@@ -58,7 +58,7 @@ public class DefenitionTagsTest
 	public void gettingTagMoreThenBoundsTest()
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
-		tags.add(new MapTag("k2", "v2"));
+		tags.add(new Tag("k2", "v2"));
 
 		try
 		{
@@ -109,7 +109,7 @@ public class DefenitionTagsTest
 		EditableDefenitionTags styleTags = new EditableDefenitionTags();
 		EditableDefenitionTags objectTags = new EditableDefenitionTags();
 
-		objectTags.add(new MapTag("k1", "v1"));
+		objectTags.add(new Tag("k1", "v1"));
 
 		assertFalse(styleTags.includingIn(objectTags));
 	}
@@ -123,7 +123,7 @@ public class DefenitionTagsTest
 		EditableDefenitionTags styleTags = new EditableDefenitionTags();
 		EditableDefenitionTags objectTags = new EditableDefenitionTags();
 
-		styleTags.add(new MapTag("k1", "v1"));
+		styleTags.add(new Tag("k1", "v1"));
 
 		assertFalse(styleTags.includingIn(objectTags));
 	}
@@ -138,12 +138,12 @@ public class DefenitionTagsTest
 		EditableDefenitionTags styleTags = new EditableDefenitionTags();
 		EditableDefenitionTags objectTags = new EditableDefenitionTags();
 
-		objectTags.add(new MapTag("k2", "v2"));
-		objectTags.add(new MapTag("k1", "v1"));
-		objectTags.add(new MapTag("k3", "v3"));
-		styleTags.add(new MapTag("k1", "v1"));
-		styleTags.add(new MapTag("k3", "v3"));
-		styleTags.add(new MapTag("k2", "v2"));
+		objectTags.add(new Tag("k2", "v2"));
+		objectTags.add(new Tag("k1", "v1"));
+		objectTags.add(new Tag("k3", "v3"));
+		styleTags.add(new Tag("k1", "v1"));
+		styleTags.add(new Tag("k3", "v3"));
+		styleTags.add(new Tag("k2", "v2"));
 
 		assertTrue(styleTags.includingIn(objectTags));
 	}
@@ -157,12 +157,12 @@ public class DefenitionTagsTest
 		EditableDefenitionTags styleTags = new EditableDefenitionTags();
 		EditableDefenitionTags objectTags = new EditableDefenitionTags();
 
-		objectTags.add(new MapTag("k4", "v4"));
-		objectTags.add(new MapTag("k1", "v1"));
-		objectTags.add(new MapTag("k3", "v3"));
-		styleTags.add(new MapTag("k1", "v1"));
-		styleTags.add(new MapTag("k3", "v3"));
-		styleTags.add(new MapTag("k2", "v2"));
+		objectTags.add(new Tag("k4", "v4"));
+		objectTags.add(new Tag("k1", "v1"));
+		objectTags.add(new Tag("k3", "v3"));
+		styleTags.add(new Tag("k1", "v1"));
+		styleTags.add(new Tag("k3", "v3"));
+		styleTags.add(new Tag("k2", "v2"));
 
 		assertFalse(styleTags.includingIn(objectTags));
 	}
@@ -176,11 +176,11 @@ public class DefenitionTagsTest
 		EditableDefenitionTags styleTags = new EditableDefenitionTags();
 		EditableDefenitionTags objectTags = new EditableDefenitionTags();
 
-		objectTags.add(new MapTag("k4", "v4"));
-		objectTags.add(new MapTag("k1", "v1"));
-		styleTags.add(new MapTag("k1", "v1"));
-		styleTags.add(new MapTag("k3", "v3"));
-		styleTags.add(new MapTag("k2", "v2"));
+		objectTags.add(new Tag("k4", "v4"));
+		objectTags.add(new Tag("k1", "v1"));
+		styleTags.add(new Tag("k1", "v1"));
+		styleTags.add(new Tag("k3", "v3"));
+		styleTags.add(new Tag("k2", "v2"));
 
 		assertFalse(styleTags.includingIn(objectTags));
 	}
@@ -194,11 +194,11 @@ public class DefenitionTagsTest
 		EditableDefenitionTags styleTags = new EditableDefenitionTags();
 		EditableDefenitionTags objectTags = new EditableDefenitionTags();
 
-		objectTags.add(new MapTag("k3", "v3"));
-		objectTags.add(new MapTag("k2", "v2"));
-		objectTags.add(new MapTag("k1", "v1"));
-		styleTags.add(new MapTag("k1", "v1"));
-		styleTags.add(new MapTag("k3", "v3"));
+		objectTags.add(new Tag("k3", "v3"));
+		objectTags.add(new Tag("k2", "v2"));
+		objectTags.add(new Tag("k1", "v1"));
+		styleTags.add(new Tag("k1", "v1"));
+		styleTags.add(new Tag("k3", "v3"));
 
 		assertTrue(styleTags.includingIn(objectTags));
 	}
@@ -212,9 +212,9 @@ public class DefenitionTagsTest
 		try
 		{
 			EditableDefenitionTags writingTags = new EditableDefenitionTags();
-			writingTags.add(new MapTag("k3", "v3"));
-			writingTags.add(new MapTag("k1", "v1"));
-			writingTags.add(new MapTag("k2", "v2"));
+			writingTags.add(new Tag("k3", "v3"));
+			writingTags.add(new Tag("k1", "v1"));
+			writingTags.add(new Tag("k2", "v2"));
 
 			IOTester.writeToTestFile(writingTags);
 

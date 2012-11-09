@@ -4,7 +4,7 @@ import drawingStyles.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.EditableDefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.MapTag;
+import drawingStyles.Tag;
 import drawingStyles.StyleEditor;
 import map.MapLine;
 import map.MapPosition;
@@ -103,7 +103,7 @@ public class MapLineTest
 	public void assigningStyleIndexCanBeLineTest()
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
-		tags.add(new MapTag("k1", "v1"));
+		tags.add(new Tag("k1", "v1"));
 		MapObjectDrawSettings style = new MapObjectDrawSettings();
 		style.setCanBeLine();
 		style.setDescription("line style");
@@ -130,7 +130,7 @@ public class MapLineTest
 	public void assigningStyleIndexCanNotBeLineTest()
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
-		tags.add(new MapTag("k1", "v1"));
+		tags.add(new Tag("k1", "v1"));
 		MapObjectDrawSettings style = new MapObjectDrawSettings();
 		style.setCanNotBeLine();
 		style.setDescription("line style");
@@ -155,7 +155,7 @@ public class MapLineTest
 	public void assigningStyleNotFoundTest()
 	{
 		EditableDefenitionTags tags = new EditableDefenitionTags();
-		tags.add(new MapTag("k1", "v1"));
+		tags.add(new Tag("k1", "v1"));
 		MapObjectDrawSettings style = new MapObjectDrawSettings();
 		style.setDescription("line style");
 		style.setDefenitionTags(tags);

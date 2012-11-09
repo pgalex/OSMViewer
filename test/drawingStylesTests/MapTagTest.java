@@ -1,12 +1,12 @@
 package drawingStylesTests;
 
 import IOTesting.IOTester;
-import drawingStyles.MapTag;
+import drawingStyles.Tag;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * MapTag class tests
+ * Tag class tests
  *
  * @author abc
  */
@@ -20,7 +20,7 @@ public class MapTagTest
 	{
 		try
 		{
-			MapTag tag = new MapTag(null, "23");
+			Tag tag = new Tag(null, "23");
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -37,7 +37,7 @@ public class MapTagTest
 	{
 		try
 		{
-			MapTag tag = new MapTag("123", null);
+			Tag tag = new Tag("123", null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -54,10 +54,10 @@ public class MapTagTest
 	{
 		try
 		{
-			MapTag writingTag = new MapTag("key1", "value1");
+			Tag writingTag = new Tag("key1", "value1");
 			IOTester.writeToTestFile(writingTag);
 
-			MapTag readingTag = new MapTag();
+			Tag readingTag = new Tag();
 			IOTester.readFromTestFile(readingTag);
 
 			assertEquals(writingTag.getKey(), readingTag.getKey());
@@ -77,7 +77,7 @@ public class MapTagTest
 	{
 		try
 		{
-			MapTag tag = new MapTag();
+			Tag tag = new Tag();
 			tag.compareTo(null);
 			fail();
 		}
@@ -93,8 +93,8 @@ public class MapTagTest
 	@Test
 	public void comparingTwoEmptyTagsTest()
 	{
-		MapTag tag1 = new MapTag();
-		MapTag tag2 = new MapTag();
+		Tag tag1 = new Tag();
+		Tag tag2 = new Tag();
 		assertTrue(tag1.compareTo(tag2));
 	}
 
@@ -104,8 +104,8 @@ public class MapTagTest
 	@Test
 	public void compareWithOneEmptyTagTest()
 	{
-		MapTag tag1 = new MapTag("k1", "v1");
-		MapTag tag2 = new MapTag();
+		Tag tag1 = new Tag("k1", "v1");
+		Tag tag2 = new Tag();
 		assertFalse(tag1.compareTo(tag2));
 	}
 
@@ -115,8 +115,8 @@ public class MapTagTest
 	@Test
 	public void compareEqualTagsTest()
 	{
-		MapTag tag1 = new MapTag("k1", "v1");
-		MapTag tag2 = new MapTag("k1", "v1");
+		Tag tag1 = new Tag("k1", "v1");
+		Tag tag2 = new Tag("k1", "v1");
 		assertTrue(tag1.compareTo(tag2));
 	}
 
@@ -126,8 +126,8 @@ public class MapTagTest
 	@Test
 	public void compareNotEqualTagsTest()
 	{
-		MapTag tag1 = new MapTag("k1", "v1");
-		MapTag tag2 = new MapTag("k2", "v2");
+		Tag tag1 = new Tag("k1", "v1");
+		Tag tag2 = new Tag("k2", "v2");
 		assertFalse(tag1.compareTo(tag2));
 	}
 
@@ -137,8 +137,8 @@ public class MapTagTest
 	@Test
 	public void compareEqualWithDifferentCaseTagsTest()
 	{
-		MapTag tag1 = new MapTag("k1", "v1");
-		MapTag tag2 = new MapTag("K1", "V1");
+		Tag tag1 = new Tag("k1", "v1");
+		Tag tag2 = new Tag("K1", "V1");
 		assertTrue(tag1.compareTo(tag2));
 	}
 }

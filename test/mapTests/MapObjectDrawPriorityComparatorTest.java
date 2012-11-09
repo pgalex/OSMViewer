@@ -3,7 +3,7 @@ package mapTests;
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.EditableDefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.MapTag;
+import drawingStyles.Tag;
 import drawingStyles.StyleEditor;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,7 +47,7 @@ public class MapObjectDrawPriorityComparatorTest
 	{
 		StyleEditor editor = DrawingStylesFactory.createStyleEditor();
 		EditableDefenitionTags tags1 = new EditableDefenitionTags();
-		tags1.add(new MapTag("k1", "v1"));
+		tags1.add(new Tag("k1", "v1"));
 		
 		MapObjectDrawSettings style1 = new MapObjectDrawSettings();
 		style1.setCanBePoint();
@@ -56,7 +56,7 @@ public class MapObjectDrawPriorityComparatorTest
 		editor.addMapObjectDrawSettings(style1);
 
 		EditableDefenitionTags tags2 = new EditableDefenitionTags();
-		tags2.add(new MapTag("k2", "v2"));
+		tags2.add(new Tag("k2", "v2"));
 		
 		MapObjectDrawSettings style2 = new MapObjectDrawSettings();
 		style2.setCanBePoint();
@@ -65,7 +65,7 @@ public class MapObjectDrawPriorityComparatorTest
 		editor.addMapObjectDrawSettings(style2);
 
 		EditableDefenitionTags tags3 = new EditableDefenitionTags();
-		tags3.add(new MapTag("k3", "v3"));
+		tags3.add(new Tag("k3", "v3"));
 		
 		MapObjectDrawSettings style3 = new MapObjectDrawSettings();
 		style3.setCanBePoint();
