@@ -1,9 +1,8 @@
 package map.onlineMap;
 
 import drawingStyles.DefenitionTags;
-import drawingStyles.EditableDefenitionTags;
-import drawingStyles.Tag;
 import drawingStyles.StyleViewer;
+import drawingStyles.Tag;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -293,7 +292,7 @@ public class OnlineMapLoader
 			return null;
 		}
 
-		EditableDefenitionTags creatingTags = new EditableDefenitionTags();
+		DefenitionTags creatingTags = new DefenitionTags();
 		for (int i = 0; i < osmTags.size(); i++)
 		{
 			Tag newTag = createMapTagByOsmTag(osmTags.get(i));

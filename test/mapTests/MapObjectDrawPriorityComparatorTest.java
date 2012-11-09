@@ -1,7 +1,7 @@
 package mapTests;
 
 import drawingStyles.DrawingStylesFactory;
-import drawingStyles.EditableDefenitionTags;
+import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.Tag;
 import drawingStyles.StyleEditor;
@@ -46,7 +46,7 @@ public class MapObjectDrawPriorityComparatorTest
 	public void sortingWithComparatorTest()
 	{
 		StyleEditor editor = DrawingStylesFactory.createStyleEditor();
-		EditableDefenitionTags tags1 = new EditableDefenitionTags();
+		DefenitionTags tags1 = new DefenitionTags();
 		tags1.add(new Tag("k1", "v1"));
 		
 		MapObjectDrawSettings style1 = new MapObjectDrawSettings();
@@ -55,7 +55,7 @@ public class MapObjectDrawPriorityComparatorTest
 		style1.setDefenitionTags(tags1);
 		editor.addMapObjectDrawSettings(style1);
 
-		EditableDefenitionTags tags2 = new EditableDefenitionTags();
+		DefenitionTags tags2 = new DefenitionTags();
 		tags2.add(new Tag("k2", "v2"));
 		
 		MapObjectDrawSettings style2 = new MapObjectDrawSettings();
@@ -64,7 +64,7 @@ public class MapObjectDrawPriorityComparatorTest
 		style2.setDefenitionTags(tags2);
 		editor.addMapObjectDrawSettings(style2);
 
-		EditableDefenitionTags tags3 = new EditableDefenitionTags();
+		DefenitionTags tags3 = new DefenitionTags();
 		tags3.add(new Tag("k3", "v3"));
 		
 		MapObjectDrawSettings style3 = new MapObjectDrawSettings();

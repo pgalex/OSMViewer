@@ -2,7 +2,7 @@ package onlineMapTests;
 
 import drawingStyles.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
-import drawingStyles.EditableDefenitionTags;
+import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.Tag;
 import drawingStyles.StyleEditor;
@@ -475,7 +475,7 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 		try
 		{
 			StyleEditor styleEditor = DrawingStylesFactory.createStyleEditor();
-			EditableDefenitionTags testStyleTags = new EditableDefenitionTags();
+			DefenitionTags testStyleTags = new DefenitionTags();
 			testStyleTags.add(new Tag("k1", "v1"));
 			MapObjectDrawSettings testStyle = new MapObjectDrawSettings();
 			testStyle.setCanBePoint();

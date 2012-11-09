@@ -48,7 +48,7 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 	/**
 	 * Tags that define map object
 	 */
-	private EditableDefenitionTags defenitionTags;
+	private DefenitionTags defenitionTags;
 
 	/**
 	 * Create with default values
@@ -64,7 +64,7 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 		description = "";
 		name = "";
 		drawSettingsOnScales = new DrawSettingsOnScaleArray();
-		defenitionTags = new EditableDefenitionTags();
+		defenitionTags = new DefenitionTags();
 	}
 
 	/**
@@ -232,7 +232,7 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 	 *
 	 * @return map object defenition tags
 	 */
-	public EditableDefenitionTags getDefenitionTags()
+	public DefenitionTags getDefenitionTags()
 	{
 		return defenitionTags;
 	}
@@ -243,7 +243,7 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 	 * @param tagsToSet new tags
 	 * @throws IllegalArgumentException tagsToSet is null
 	 */
-	public void setDefenitionTags(EditableDefenitionTags tagsToSet) throws IllegalArgumentException
+	public void setDefenitionTags(DefenitionTags tagsToSet) throws IllegalArgumentException
 	{
 		if (tagsToSet == null)
 		{

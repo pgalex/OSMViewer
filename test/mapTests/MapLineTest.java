@@ -2,7 +2,7 @@ package mapTests;
 
 import drawingStyles.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
-import drawingStyles.EditableDefenitionTags;
+import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.Tag;
 import drawingStyles.StyleEditor;
@@ -102,7 +102,7 @@ public class MapLineTest
 	@Test
 	public void assigningStyleIndexCanBeLineTest()
 	{
-		EditableDefenitionTags tags = new EditableDefenitionTags();
+		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("k1", "v1"));
 		MapObjectDrawSettings style = new MapObjectDrawSettings();
 		style.setCanBeLine();
@@ -129,7 +129,7 @@ public class MapLineTest
 	@Test
 	public void assigningStyleIndexCanNotBeLineTest()
 	{
-		EditableDefenitionTags tags = new EditableDefenitionTags();
+		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("k1", "v1"));
 		MapObjectDrawSettings style = new MapObjectDrawSettings();
 		style.setCanNotBeLine();
@@ -154,7 +154,7 @@ public class MapLineTest
 	@Test
 	public void assigningStyleNotFoundTest()
 	{
-		EditableDefenitionTags tags = new EditableDefenitionTags();
+		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("k1", "v1"));
 		MapObjectDrawSettings style = new MapObjectDrawSettings();
 		style.setDescription("line style");

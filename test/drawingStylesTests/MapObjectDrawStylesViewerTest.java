@@ -2,7 +2,7 @@ package drawingStylesTests;
 
 import IOTesting.IOTester;
 import drawingStyles.DrawingStylesFactory;
-import drawingStyles.EditableDefenitionTags;
+import drawingStyles.DefenitionTags;
 import drawingStyles.MapDrawSettings;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.Tag;
@@ -94,18 +94,18 @@ public class MapObjectDrawStylesViewerTest
 		try
 		{
 			// for test normal work need to save some styles
-			EditableDefenitionTags tags1 = new EditableDefenitionTags();
+			DefenitionTags tags1 = new DefenitionTags();
 			tags1.add(new Tag("k1", "v1"));
 			tags1.add(new Tag("k2", "v2"));
 			tags1.add(new Tag("k3", "v3"));
 			tags1.add(new Tag("k4", "v4"));
 
-			EditableDefenitionTags tags2 = new EditableDefenitionTags();
+			DefenitionTags tags2 = new DefenitionTags();
 			tags2.add(new Tag("k1", "v1"));
 			tags2.add(new Tag("k2", "v2"));
 			tags2.add(new Tag("k5", "v5"));
 
-			EditableDefenitionTags tags3 = new EditableDefenitionTags();
+			DefenitionTags tags3 = new DefenitionTags();
 			tags3.add(new Tag("k8", "v8"));
 
 			MapObjectDrawSettings style1 = new MapObjectDrawSettings();
@@ -148,7 +148,7 @@ public class MapObjectDrawStylesViewerTest
 		{
 			StyleViewer viewer = DrawingStylesFactory.createStyleViewer();
 
-			EditableDefenitionTags testTags = new EditableDefenitionTags();
+			DefenitionTags testTags = new DefenitionTags();
 			testTags.add(new Tag("k9", "v9"));
 			assertNull(viewer.findStyleIndex(testTags));
 		}
@@ -185,13 +185,13 @@ public class MapObjectDrawStylesViewerTest
 		try
 		{
 			// for test normal work need to save some styles
-			EditableDefenitionTags tags1 = new EditableDefenitionTags();
+			DefenitionTags tags1 = new DefenitionTags();
 			tags1.add(new Tag("k1", "v1"));
 			MapObjectDrawSettings style1 = new MapObjectDrawSettings();
 			style1.setDescription("style1");
 			style1.setDefenitionTags(tags1);
 			
-			EditableDefenitionTags tags2 = new EditableDefenitionTags();
+			DefenitionTags tags2 = new DefenitionTags();
 			tags2.add(new Tag("k2", "v2"));
 			MapObjectDrawSettings style2 = new MapObjectDrawSettings();
 			style2.setDescription("style2");

@@ -1,7 +1,7 @@
 package drawingStylesTests;
 
 import IOTesting.IOTester;
-import drawingStyles.EditableDefenitionTags;
+import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.MapObjectDrawStylesContainer;
 import drawingStyles.Tag;
@@ -35,9 +35,9 @@ public class TestMapObjectDrawStylesContainer extends MapObjectDrawStylesContain
 	 */
 	private void findStyleIndexIncorrectParametersTest()
 	{
-		assertNull(findStyleIndex(null, new EditableDefenitionTags()));
+		assertNull(findStyleIndex(null, new DefenitionTags()));
 		assertNull(findStyleIndex(new MapObjectDrawSettings[0], null));
-		assertNull(findStyleIndex(new MapObjectDrawSettings[0], new EditableDefenitionTags()));
+		assertNull(findStyleIndex(new MapObjectDrawSettings[0], new DefenitionTags()));
 	}
 
 	/**
@@ -45,14 +45,14 @@ public class TestMapObjectDrawStylesContainer extends MapObjectDrawStylesContain
 	 */
 	private void findStyleIndexNormalWorkTest()
 	{
-		EditableDefenitionTags tags1 = new EditableDefenitionTags();
+		DefenitionTags tags1 = new DefenitionTags();
 		tags1.add(new Tag("k1", "v1"));
 		tags1.add(new Tag("k2", "v2"));
 
-		EditableDefenitionTags tags2 = new EditableDefenitionTags();
+		DefenitionTags tags2 = new DefenitionTags();
 		tags2.add(new Tag("k1", "v1"));
 
-		EditableDefenitionTags tags3 = new EditableDefenitionTags();
+		DefenitionTags tags3 = new DefenitionTags();
 		tags3.add(new Tag("k1", "v1"));
 		tags3.add(new Tag("k2", "v2"));
 		tags3.add(new Tag("k3", "v3"));
@@ -79,22 +79,22 @@ public class TestMapObjectDrawStylesContainer extends MapObjectDrawStylesContain
 		styles[2] = style3;
 		styles[3] = style4;
 
-		EditableDefenitionTags objectTags1 = new EditableDefenitionTags();
+		DefenitionTags objectTags1 = new DefenitionTags();
 		objectTags1.add(new Tag("k1", "v1"));
 		assertEquals(1, (int) findStyleIndex(styles, objectTags1));
 
-		EditableDefenitionTags objectTags2 = new EditableDefenitionTags();
+		DefenitionTags objectTags2 = new DefenitionTags();
 		objectTags2.add(new Tag("k1", "v1"));
 		objectTags2.add(new Tag("k5", "v5"));
 		assertEquals(1, (int) findStyleIndex(styles, objectTags2));
 
-		EditableDefenitionTags objectTags3 = new EditableDefenitionTags();
+		DefenitionTags objectTags3 = new DefenitionTags();
 		objectTags3.add(new Tag("k1", "v1"));
 		objectTags3.add(new Tag("k5", "v5"));
 		objectTags3.add(new Tag("k2", "v2"));
 		assertEquals(0, (int) findStyleIndex(styles, objectTags3));
 
-		EditableDefenitionTags objectTags4 = new EditableDefenitionTags();
+		DefenitionTags objectTags4 = new DefenitionTags();
 		objectTags4.add(new Tag("k1", "v1"));
 		objectTags4.add(new Tag("k3", "v3"));
 		objectTags4.add(new Tag("k5", "v5"));
@@ -102,9 +102,9 @@ public class TestMapObjectDrawStylesContainer extends MapObjectDrawStylesContain
 		objectTags4.add(new Tag("k2", "v2"));
 		assertEquals(2, (int) findStyleIndex(styles, objectTags4));
 
-		assertEquals(3, (int) findStyleIndex(styles, new EditableDefenitionTags()));
+		assertEquals(3, (int) findStyleIndex(styles, new DefenitionTags()));
 
-		EditableDefenitionTags objectTags5 = new EditableDefenitionTags();
+		DefenitionTags objectTags5 = new DefenitionTags();
 		objectTags5.add(new Tag("k5", "v5"));
 		assertNull(findStyleIndex(styles, objectTags5));
 	}

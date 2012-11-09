@@ -2,7 +2,7 @@ package mapTests;
 
 import drawingStyles.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
-import drawingStyles.EditableDefenitionTags;
+import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.Tag;
 import drawingStyles.StyleEditor;
@@ -59,7 +59,7 @@ public class MapPointTest
 	@Test
 	public void assigningStyleIndexCanBePointTest()
 	{
-		EditableDefenitionTags tags = new EditableDefenitionTags();
+		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("k1", "v1"));
 		
 		MapObjectDrawSettings style = new MapObjectDrawSettings();
@@ -84,7 +84,7 @@ public class MapPointTest
 	@Test
 	public void assigningStyleIndexCanNotBePointTest()
 	{
-		EditableDefenitionTags tags = new EditableDefenitionTags();
+		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("k1", "v1"));
 		
 		MapObjectDrawSettings style = new MapObjectDrawSettings();
@@ -107,7 +107,7 @@ public class MapPointTest
 	@Test
 	public void assigningStyleIndexNotFoundTest()
 	{
-		EditableDefenitionTags tags = new EditableDefenitionTags();
+		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("k1", "v1"));
 		MapObjectDrawSettings style = new MapObjectDrawSettings();
 		style.setDescription("point style");

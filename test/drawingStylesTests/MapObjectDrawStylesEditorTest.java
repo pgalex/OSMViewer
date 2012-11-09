@@ -465,18 +465,18 @@ public class MapObjectDrawStylesEditorTest
 	@Test
 	public void getStyleIndexTest()
 	{
-		EditableDefenitionTags tags1 = new EditableDefenitionTags();
+		DefenitionTags tags1 = new DefenitionTags();
 		tags1.add(new Tag("k1", "v1"));
 		tags1.add(new Tag("k2", "v2"));
 		tags1.add(new Tag("k3", "v3"));
 		tags1.add(new Tag("k4", "v4"));
 
-		EditableDefenitionTags tags2 = new EditableDefenitionTags();
+		DefenitionTags tags2 = new DefenitionTags();
 		tags2.add(new Tag("k1", "v1"));
 		tags2.add(new Tag("k2", "v2"));
 		tags2.add(new Tag("k5", "v5"));
 
-		EditableDefenitionTags tags3 = new EditableDefenitionTags();
+		DefenitionTags tags3 = new DefenitionTags();
 		tags3.add(new Tag("k8", "v8"));
 
 		MapObjectDrawSettings style1 = new MapObjectDrawSettings();
@@ -500,7 +500,7 @@ public class MapObjectDrawStylesEditorTest
 		assertEquals(2, (int) editor.findStyleIndex(tags3));
 
 		// part equal
-		EditableDefenitionTags testTags1 = new EditableDefenitionTags();
+		DefenitionTags testTags1 = new DefenitionTags();
 		testTags1.add(new Tag("k1", "v1"));
 		testTags1.add(new Tag("k2", "v2"));
 		testTags1.add(new Tag("k3", "v3"));
@@ -509,7 +509,7 @@ public class MapObjectDrawStylesEditorTest
 		testTags1.add(new Tag("k6", "v6"));
 		assertEquals(0, (int) editor.findStyleIndex(testTags1));
 
-		EditableDefenitionTags testTags2 = new EditableDefenitionTags();
+		DefenitionTags testTags2 = new DefenitionTags();
 		testTags2.add(new Tag("k1", "v1"));
 		testTags2.add(new Tag("k2", "v2"));
 		testTags2.add(new Tag("k3", "v3"));
@@ -518,7 +518,7 @@ public class MapObjectDrawStylesEditorTest
 		assertEquals(1, (int) editor.findStyleIndex(testTags2));
 
 		// not found
-		EditableDefenitionTags testTags3 = new EditableDefenitionTags();
+		DefenitionTags testTags3 = new DefenitionTags();
 		testTags3.add(new Tag("k9", "v9"));
 		assertNull(editor.findStyleIndex(testTags3));
 		assertNull(editor.findStyleIndex(null));

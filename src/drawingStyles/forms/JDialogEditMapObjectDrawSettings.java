@@ -3,7 +3,7 @@ package drawingStyles.forms;
 import ZoeloeSoft.projects.JFontChooser.JFontChooser;
 import drawingStyles.DrawSettingsOnScale;
 import drawingStyles.DrawSettingsOnScaleArray;
-import drawingStyles.EditableDefenitionTags;
+import drawingStyles.DefenitionTags;
 import drawingStyles.LineDrawSettings;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.Tag;
@@ -153,7 +153,7 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 	 */
 	private void initializeDefenitionTagsTableModel()
 	{
-		EditableDefenitionTags editingTags = editingMapObjectDrawSettings.getDefenitionTags();
+		DefenitionTags editingTags = editingMapObjectDrawSettings.getDefenitionTags();
 		String tableData[][] = new String[editingTags.count()][2];
 		for (int i = 0; i < editingTags.count(); i++)
 		{
@@ -342,7 +342,7 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 	 */
 	private void defenitionTagsTableModelChanged(TableModelEvent event)
 	{
-		EditableDefenitionTags editingTags = editingMapObjectDrawSettings.getDefenitionTags();
+		DefenitionTags editingTags = editingMapObjectDrawSettings.getDefenitionTags();
 		editingTags.clear();
 		for (int i = 0; i < defenitionTagsTableModel.getRowCount(); i++)
 		{

@@ -2,7 +2,7 @@ package onlineMapTests;
 
 import drawingStyles.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
-import drawingStyles.EditableDefenitionTags;
+import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.Tag;
 import drawingStyles.StyleEditor;
@@ -38,7 +38,7 @@ public class OnlineMapTest
 	@Test
 	public void renderingNormalWorkTest()
 	{
-		EditableDefenitionTags someTags = new EditableDefenitionTags();
+		DefenitionTags someTags = new DefenitionTags();
 		someTags.add(new Tag("k1", "v1"));
 
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();

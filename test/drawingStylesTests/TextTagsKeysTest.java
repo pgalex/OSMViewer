@@ -2,7 +2,7 @@ package drawingStylesTests;
 
 import IOTesting.IOTester;
 import drawingStyles.DefenitionTags;
-import drawingStyles.EditableDefenitionTags;
+import drawingStyles.DefenitionTags;
 import drawingStyles.Tag;
 import drawingStyles.TextTagsKeys;
 import static org.junit.Assert.*;
@@ -171,7 +171,7 @@ public class TextTagsKeysTest
 		TextTagsKeys textTagsKeys = new TextTagsKeys();
 		textTagsKeys.removeAllKeys();
 
-		EditableDefenitionTags tags = new EditableDefenitionTags();
+		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("name", "testName"));
 		tags.add(new Tag("highway", "residential"));
 
@@ -189,7 +189,7 @@ public class TextTagsKeysTest
 		textTagsKeys.addKey("description");
 		textTagsKeys.addKey("name");
 
-		EditableDefenitionTags tags = new EditableDefenitionTags();
+		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("name", "testName"));
 		tags.add(new Tag("description", "testDescription"));
 
@@ -208,7 +208,7 @@ public class TextTagsKeysTest
 		textTagsKeys.addKey("description");
 		
 
-		EditableDefenitionTags tags = new EditableDefenitionTags();
+		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("highway", "residential"));
 		tags.add(new Tag("source", "gps"));
 		tags.add(new Tag("name", "testName"));
@@ -227,7 +227,7 @@ public class TextTagsKeysTest
 		textTagsKeys.addKey("description");
 		textTagsKeys.addKey("name");
 
-		EditableDefenitionTags tags = new EditableDefenitionTags();
+		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("highway", "residential"));
 		tags.add(new Tag("source", "gps"));
 

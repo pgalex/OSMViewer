@@ -3,7 +3,7 @@ package drawingStylesTests;
 import IOTesting.IOTester;
 import drawingStyles.DrawSettingsOnScale;
 import drawingStyles.DrawSettingsOnScaleArray;
-import drawingStyles.EditableDefenitionTags;
+import drawingStyles.DefenitionTags;
 import drawingStyles.FindStyleIndexComparator;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.Tag;
@@ -241,18 +241,18 @@ public class MapObjectDrawSettingsTest
 	@Test
 	public void sortingTest()
 	{
-		EditableDefenitionTags tags1 = new EditableDefenitionTags();
+		DefenitionTags tags1 = new DefenitionTags();
 		tags1.add(new Tag("k1", "v1"));
 		tags1.add(new Tag("k2", "v2"));
 		tags1.add(new Tag("k3", "v3"));
 
-		EditableDefenitionTags tags2 = new EditableDefenitionTags();
+		DefenitionTags tags2 = new DefenitionTags();
 		tags2.add(new Tag("k4", "v4"));
 		tags2.add(new Tag("k5", "v5"));
 		tags2.add(new Tag("k6", "v6"));
 		tags2.add(new Tag("k7", "v7"));
 
-		EditableDefenitionTags tags3 = new EditableDefenitionTags();
+		DefenitionTags tags3 = new DefenitionTags();
 		tags3.add(new Tag("k8", "v8"));
 
 
@@ -300,7 +300,7 @@ public class MapObjectDrawSettingsTest
 			styleOnScale2.setDrawPolygon();
 
 			scaledStyles.setDrawSettingsOnScale(someScaleLevelAtMiddle, styleOnScale2);
-			EditableDefenitionTags tags = new EditableDefenitionTags();
+			DefenitionTags tags = new DefenitionTags();
 			tags.add(new Tag("k1", "v1"));
 			tags.add(new Tag("k2", "v2"));
 

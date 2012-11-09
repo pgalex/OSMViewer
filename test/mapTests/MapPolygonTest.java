@@ -2,7 +2,7 @@ package mapTests;
 
 import drawingStyles.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
-import drawingStyles.EditableDefenitionTags;
+import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.Tag;
 import drawingStyles.StyleEditor;
@@ -106,7 +106,7 @@ public class MapPolygonTest
 	@Test
 	public void assigningStyleIndexCanBePolygonTest()
 	{
-		EditableDefenitionTags tags = new EditableDefenitionTags();
+		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("k1", "v1"));
 		
 		MapObjectDrawSettings style = new MapObjectDrawSettings();
@@ -135,7 +135,7 @@ public class MapPolygonTest
 	@Test
 	public void assigningStyleIndexCanNotBePolygonTest()
 	{
-		EditableDefenitionTags tags = new EditableDefenitionTags();
+		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("k1", "v1"));
 		
 		MapObjectDrawSettings style = new MapObjectDrawSettings();
@@ -161,7 +161,7 @@ public class MapPolygonTest
 	@Test
 	public void assigningStyleIndexNotFoundTest()
 	{
-		EditableDefenitionTags tags = new EditableDefenitionTags();
+		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("k1", "v1"));
 		
 		MapObjectDrawSettings style = new MapObjectDrawSettings();

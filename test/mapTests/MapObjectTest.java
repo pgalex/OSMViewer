@@ -1,7 +1,7 @@
 package mapTests;
 
 import drawingStyles.DrawingStylesFactory;
-import drawingStyles.EditableDefenitionTags;
+import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.Tag;
 import drawingStyles.StyleEditor;
@@ -32,20 +32,20 @@ public class MapObjectTest
 	{
 		StyleEditor styleEditor = DrawingStylesFactory.createStyleEditor();
 
-		EditableDefenitionTags tags1 = new EditableDefenitionTags();
+		DefenitionTags tags1 = new DefenitionTags();
 		tags1.add(new Tag("k1", "v1"));
 		tags1.add(new Tag("k2", "v2"));
 		MapObjectDrawSettings style1 = new MapObjectDrawSettings(true, true, true, null, 0, "style1", null, tags1);
 		styleEditor.addMapObjectDrawSettings(style1);
 
-		EditableDefenitionTags tags2 = new EditableDefenitionTags();
+		DefenitionTags tags2 = new DefenitionTags();
 		tags2.add(new Tag("k3", "v3"));
 		tags2.add(new Tag("k4", "v4"));
 		tags2.add(new Tag("k5", "v5"));
 		MapObjectDrawSettings style2 = new MapObjectDrawSettings(false, false, false, null, 0, "style2", null, tags2);
 		styleEditor.addMapObjectDrawSettings(style2);
 
-		EditableDefenitionTags objectTags = new EditableDefenitionTags();
+		DefenitionTags objectTags = new DefenitionTags();
 		objectTags.add(new Tag("k3", "v3"));
 		objectTags.add(new Tag("k4", "v4"));
 		objectTags.add(new Tag("k5", "v5"));
@@ -69,12 +69,12 @@ public class MapObjectTest
 	{
 		StyleEditor styleEditor = DrawingStylesFactory.createStyleEditor();
 
-		EditableDefenitionTags tags1 = new EditableDefenitionTags();
+		DefenitionTags tags1 = new DefenitionTags();
 		tags1.add(new Tag("k1", "v1"));
 		MapObjectDrawSettings style1 = new MapObjectDrawSettings(true, true, true, null, 0, "style1", null, tags1);
 		styleEditor.addMapObjectDrawSettings(style1);
 
-		EditableDefenitionTags objectTags = new EditableDefenitionTags();
+		DefenitionTags objectTags = new DefenitionTags();
 		objectTags.add(new Tag("k1", "v1"));
 		MapObject testObject = new MapObject(0, objectTags);
 
@@ -91,20 +91,20 @@ public class MapObjectTest
 	{
 		StyleEditor styleEditor = DrawingStylesFactory.createStyleEditor();
 
-		EditableDefenitionTags tags1 = new EditableDefenitionTags();
+		DefenitionTags tags1 = new DefenitionTags();
 		tags1.add(new Tag("k1", "v1"));
 		tags1.add(new Tag("k2", "v2"));
 		MapObjectDrawSettings style1 = new MapObjectDrawSettings(true, true, true, null, 0, "style1", null, tags1);
 		styleEditor.addMapObjectDrawSettings(style1);
 
-		EditableDefenitionTags tags2 = new EditableDefenitionTags();
+		DefenitionTags tags2 = new DefenitionTags();
 		tags2.add(new Tag("k3", "v3"));
 		tags2.add(new Tag("k4", "v4"));
 		tags2.add(new Tag("k5", "v5"));
 		MapObjectDrawSettings style2 = new MapObjectDrawSettings(false, false, false, null, 0, "style2", null, tags2);
 		styleEditor.addMapObjectDrawSettings(style2);
 
-		EditableDefenitionTags objectTags = new EditableDefenitionTags();
+		DefenitionTags objectTags = new DefenitionTags();
 		objectTags.add(new Tag("k7", "v7"));
 		objectTags.add(new Tag("k8", "v8"));
 		MapObject testObject = new MapObject(0, objectTags);

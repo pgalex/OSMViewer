@@ -2,25 +2,24 @@ package drawingStylesTests;
 
 import IOTesting.IOTester;
 import drawingStyles.DefenitionTags;
-import drawingStyles.EditableDefenitionTags;
 import drawingStyles.Tag;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Testing methods of DefenitionTags and EditableDefenitionTags
+ * Testing methods of DefenitionTags and DefenitionTags
  *
  * @author pgalex
  */
 public class DefenitionTagsTest
 {
 	/**
-	 * Test getting tag from empty EditableDefenitionTags
+	 * Test getting tag from empty DefenitionTags
 	 */
 	@Test
 	public void gettingTagFromEmptyListTest()
 	{
-		EditableDefenitionTags tags = new EditableDefenitionTags();
+		DefenitionTags tags = new DefenitionTags();
 
 		try
 		{
@@ -38,7 +37,7 @@ public class DefenitionTagsTest
 	@Test
 	public void gettingTagLessThenBoundsTest()
 	{
-		EditableDefenitionTags tags = new EditableDefenitionTags();
+		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("k2", "v2"));
 
 		try
@@ -57,7 +56,7 @@ public class DefenitionTagsTest
 	@Test
 	public void gettingTagMoreThenBoundsTest()
 	{
-		EditableDefenitionTags tags = new EditableDefenitionTags();
+		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("k2", "v2"));
 
 		try
@@ -69,7 +68,7 @@ public class DefenitionTagsTest
 			// ok
 		}
 	}
-	
+
 	/**
 	 * Comparing defenition when other tags are null
 	 */
@@ -82,7 +81,7 @@ public class DefenitionTagsTest
 			tags.includingIn(null);
 			fail();
 		}
-		catch(IllegalArgumentException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
@@ -94,8 +93,8 @@ public class DefenitionTagsTest
 	@Test
 	public void includingInAllTagsEmptyTest()
 	{
-		EditableDefenitionTags styleTags = new EditableDefenitionTags();
-		EditableDefenitionTags objectTags = new EditableDefenitionTags();
+		DefenitionTags styleTags = new DefenitionTags();
+		DefenitionTags objectTags = new DefenitionTags();
 
 		assertTrue(styleTags.includingIn(objectTags));
 	}
@@ -106,8 +105,8 @@ public class DefenitionTagsTest
 	@Test
 	public void includingInNotEmptyWithEmptyTest()
 	{
-		EditableDefenitionTags styleTags = new EditableDefenitionTags();
-		EditableDefenitionTags objectTags = new EditableDefenitionTags();
+		DefenitionTags styleTags = new DefenitionTags();
+		DefenitionTags objectTags = new DefenitionTags();
 
 		objectTags.add(new Tag("k1", "v1"));
 
@@ -120,8 +119,8 @@ public class DefenitionTagsTest
 	@Test
 	public void includingInEmptyWithNotEmptyTest()
 	{
-		EditableDefenitionTags styleTags = new EditableDefenitionTags();
-		EditableDefenitionTags objectTags = new EditableDefenitionTags();
+		DefenitionTags styleTags = new DefenitionTags();
+		DefenitionTags objectTags = new DefenitionTags();
 
 		styleTags.add(new Tag("k1", "v1"));
 
@@ -135,8 +134,8 @@ public class DefenitionTagsTest
 	@Test
 	public void includingInFullEqualTagsTest()
 	{
-		EditableDefenitionTags styleTags = new EditableDefenitionTags();
-		EditableDefenitionTags objectTags = new EditableDefenitionTags();
+		DefenitionTags styleTags = new DefenitionTags();
+		DefenitionTags objectTags = new DefenitionTags();
 
 		objectTags.add(new Tag("k2", "v2"));
 		objectTags.add(new Tag("k1", "v1"));
@@ -154,8 +153,8 @@ public class DefenitionTagsTest
 	@Test
 	public void includingInNotEqualTagsTest()
 	{
-		EditableDefenitionTags styleTags = new EditableDefenitionTags();
-		EditableDefenitionTags objectTags = new EditableDefenitionTags();
+		DefenitionTags styleTags = new DefenitionTags();
+		DefenitionTags objectTags = new DefenitionTags();
 
 		objectTags.add(new Tag("k4", "v4"));
 		objectTags.add(new Tag("k1", "v1"));
@@ -173,8 +172,8 @@ public class DefenitionTagsTest
 	@Test
 	public void includingInNotEqualWithDifferentCountTest()
 	{
-		EditableDefenitionTags styleTags = new EditableDefenitionTags();
-		EditableDefenitionTags objectTags = new EditableDefenitionTags();
+		DefenitionTags styleTags = new DefenitionTags();
+		DefenitionTags objectTags = new DefenitionTags();
 
 		objectTags.add(new Tag("k4", "v4"));
 		objectTags.add(new Tag("k1", "v1"));
@@ -191,8 +190,8 @@ public class DefenitionTagsTest
 	@Test
 	public void includingInNotFullEqualsTest()
 	{
-		EditableDefenitionTags styleTags = new EditableDefenitionTags();
-		EditableDefenitionTags objectTags = new EditableDefenitionTags();
+		DefenitionTags styleTags = new DefenitionTags();
+		DefenitionTags objectTags = new DefenitionTags();
 
 		objectTags.add(new Tag("k3", "v3"));
 		objectTags.add(new Tag("k2", "v2"));
@@ -211,7 +210,7 @@ public class DefenitionTagsTest
 	{
 		try
 		{
-			EditableDefenitionTags writingTags = new EditableDefenitionTags();
+			DefenitionTags writingTags = new DefenitionTags();
 			writingTags.add(new Tag("k3", "v3"));
 			writingTags.add(new Tag("k1", "v1"));
 			writingTags.add(new Tag("k2", "v2"));
@@ -230,6 +229,113 @@ public class DefenitionTagsTest
 		catch (Exception ex)
 		{
 			fail();
+		}
+	}
+
+	/**
+	 * Testing adding new tags - normal work
+	 */
+	@Test
+	public void addingTagsTest()
+	{
+		DefenitionTags tags = new DefenitionTags();
+		tags.add(new Tag("k1", "v1"));
+		tags.add(new Tag("k2", "v2"));
+
+		assertFalse(tags.isEmpty());
+		assertEquals(2, tags.count());
+		assertTrue(tags.get(0).compareTo(new Tag("k1", "v1")));
+		assertTrue(tags.get(1).compareTo(new Tag("k2", "v2")));
+	}
+
+	/**
+	 * Testing adding null tag
+	 */
+	@Test
+	public void addingNullTagTest()
+	{
+		DefenitionTags tags = new DefenitionTags();
+		tags.add(new Tag("k1", "v1"));
+		try
+		{
+			tags.add(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Testing clear method
+	 */
+	@Test
+	public void clearTest()
+	{
+		DefenitionTags tags = new DefenitionTags();
+		tags.add(new Tag("k1", "v1"));
+		tags.add(new Tag("k2", "v2"));
+
+		tags.clear();
+		assertTrue(tags.isEmpty());
+		assertEquals(0, tags.count());
+	}
+
+	/**
+	 * Test removing tags
+	 */
+	@Test
+	public void removeTest()
+	{
+		DefenitionTags tags = new DefenitionTags();
+		tags.add(new Tag("k1", "v1"));
+		tags.add(new Tag("k2", "v2"));
+
+		tags.remove(1);
+		assertEquals(1, tags.count());
+		assertTrue(tags.get(0).compareTo(new Tag("k1", "v1")));
+
+		tags.remove(0);
+		assertTrue(tags.isEmpty());
+		assertEquals(0, tags.count());
+	}
+
+	/**
+	 * Test removing tag with index less then bounds
+	 */
+	@Test
+	public void removeWithIndexLessThanBoundsTest()
+	{
+		DefenitionTags tags = new DefenitionTags();
+		tags.add(new Tag("k1", "v1"));
+		try
+		{
+			tags.remove(-1);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Test removing tag with index more then bounds
+	 */
+	@Test
+	public void removeWithIndexMoreThanBoundsTest()
+	{
+		DefenitionTags tags = new DefenitionTags();
+		tags.add(new Tag("k1", "v1"));
+		try
+		{
+			tags.remove(tags.count());
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
 		}
 	}
 }
