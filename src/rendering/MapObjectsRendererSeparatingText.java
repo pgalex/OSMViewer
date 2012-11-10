@@ -206,15 +206,19 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 
 		Polygon drawingPolygon = createDrawingPolygonByMapPolygon(polygonToRender);
 
-		// inner part
-		objectsCanvas.setPaint(polygonStyle.getPaint());
-		objectsCanvas.fillPolygon(drawingPolygon);
+		if (polygonStyle.isDrawInnerPart())
+		{
+			objectsCanvas.setPaint(polygonStyle.getPaint());
+			objectsCanvas.fillPolygon(drawingPolygon);
+		}
 
-		// border
-		LineDrawSettings borderStyle = polygonStyle.getBorderDrawSettings();
-		objectsCanvas.setStroke(borderStyle.getStroke());
-		objectsCanvas.setColor(borderStyle.getColor());
-		objectsCanvas.drawPolygon(drawingPolygon);
+		if (polygonStyle.isDrawBorder())
+		{
+			LineDrawSettings borderStyle = polygonStyle.getBorderDrawSettings();
+			objectsCanvas.setStroke(borderStyle.getStroke());
+			objectsCanvas.setColor(borderStyle.getColor());
+			objectsCanvas.drawPolygon(drawingPolygon);
+		}
 
 		Point2D textPosition = coordinatesConverter.goegraphicsToCanvas(polygonToRender.getCenterPoint());
 
