@@ -24,9 +24,17 @@ public class PolygonDrawSettings implements ReadableMapData, WritableMapData
 	 */
 	private PolygonFiller filler;
 	/**
+	 * Is need to draw inner part of polygon
+	 */
+	private boolean needDrawInnerPart;
+	/**
 	 * How to draw border
 	 */
 	private LineDrawSettings borderDrawSettings;
+	/**
+	 * Is need to draw border of polygon
+	 */
+	private boolean needDrawBorder;
 
 	/**
 	 * Create with default values
@@ -35,46 +43,8 @@ public class PolygonDrawSettings implements ReadableMapData, WritableMapData
 	{
 		filler = DEFAULT_FILLER;
 		borderDrawSettings = new LineDrawSettings();
-	}
-
-	/**
-	 * Read from stream
-	 *
-	 * @param input input stream
-	 * @throws IOException reading error
-	 */
-	@Override
-	public void readFromStream(DataInputStream input) throws IOException
-	{
-		try
-		{
-			filler = PolygonFillersFactory.readFillerFromStream(input);
-			borderDrawSettings.readFromStream(input);
-		}
-		catch (Exception e)
-		{
-			throw new IOException(e);
-		}
-	}
-
-	/**
-	 * Write into stream
-	 *
-	 * @param output output stream
-	 * @throws IOException writing error
-	 */
-	@Override
-	public void writeToStream(DataOutputStream output) throws IOException
-	{
-		try
-		{
-			PolygonFillersFactory.writeFillerToSream(filler, output);
-			borderDrawSettings.writeToStream(output);
-		}
-		catch (Exception e)
-		{
-			throw new IOException(e);
-		}
+		needDrawInnerPart = true;
+		needDrawBorder = true;
 	}
 
 	/**
@@ -130,6 +100,58 @@ public class PolygonDrawSettings implements ReadableMapData, WritableMapData
 	}
 
 	/**
+	 * Is need to draw inner part of polygon
+	 *
+	 * @return is need to draw inner part
+	 */
+	public boolean isDrawInnerPart()
+	{
+		return needDrawInnerPart;
+	}
+
+	/**
+	 * Set need to draw inner part of polygon
+	 */
+	public void setDrawInnerPart()
+	{
+		needDrawInnerPart = true;
+	}
+
+	/**
+	 * Set not draw inner part of polygon
+	 */
+	public void setNotDrawInnerPart()
+	{
+		needDrawInnerPart = false;
+	}
+
+	/**
+	 * Is need to draw border of polgyon
+	 *
+	 * @return is need to draw border
+	 */
+	public boolean isDrawBorder()
+	{
+		return needDrawBorder;
+	}
+
+	/**
+	 * Set need to draw border of polygon
+	 */
+	public void setDrawBorder()
+	{
+		needDrawBorder = true;
+	}
+
+	/**
+	 * Set not draw border of polygon
+	 */
+	public void setNotDrawBorder()
+	{
+		needDrawBorder = false;
+	}
+
+	/**
 	 * Get paint for drawing inner part of polygon
 	 *
 	 * @return paint for drawing polygon
@@ -137,5 +159,49 @@ public class PolygonDrawSettings implements ReadableMapData, WritableMapData
 	public Paint getPaint()
 	{
 		return filler.getPaint();
+	}
+
+	/**
+	 * Read from stream
+	 *
+	 * @param input input stream
+	 * @throws IOException reading error
+	 */
+	@Override
+	public void readFromStream(DataInputStream input) throws IOException
+	{
+		try
+		{
+			filler = PolygonFillersFactory.readFillerFromStream(input);
+			borderDrawSettings.readFromStream(input);
+			needDrawInnerPart = input.readBoolean();
+			needDrawBorder = input.readBoolean();
+		}
+		catch (Exception e)
+		{
+			throw new IOException(e);
+		}
+	}
+
+	/**
+	 * Write into stream
+	 *
+	 * @param output output stream
+	 * @throws IOException writing error
+	 */
+	@Override
+	public void writeToStream(DataOutputStream output) throws IOException
+	{
+		try
+		{
+			PolygonFillersFactory.writeFillerToSream(filler, output);
+			borderDrawSettings.writeToStream(output);
+			output.writeBoolean(needDrawInnerPart);
+			output.writeBoolean(needDrawBorder);
+		}
+		catch (Exception e)
+		{
+			throw new IOException(e);
+		}
 	}
 }

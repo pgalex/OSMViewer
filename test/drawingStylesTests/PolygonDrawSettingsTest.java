@@ -111,6 +111,8 @@ public class PolygonDrawSettingsTest
 			PolygonDrawSettings writedStyle = new PolygonDrawSettings();
 			writedStyle.setFiller(filler);
 			writedStyle.setBorderDrawSettings(borderStyle);
+			writedStyle.setNotDrawBorder();
+			writedStyle.setDrawInnerPart();
 
 			IOTester.writeToTestFile(writedStyle);
 
@@ -120,6 +122,8 @@ public class PolygonDrawSettingsTest
 			assertEquals(writedStyle.getFiller().getType(), readStyle.getFiller().getType());
 			assertEquals(writedStyle.getBorderDrawSettings().getColor(), readStyle.getBorderDrawSettings().getColor());
 			assertEquals(writedStyle.getBorderDrawSettings().getWidth(), readStyle.getBorderDrawSettings().getWidth(), 0.00001f);
+			assertEquals(writedStyle.isDrawBorder(), readStyle.isDrawBorder());
+			assertEquals(writedStyle.isDrawInnerPart(), readStyle.isDrawInnerPart());
 		}
 		catch (Exception ex)
 		{
