@@ -48,8 +48,12 @@
                               <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="jPanelPolygonPreview" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="82" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jPanelPolygonPreview" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jButtonChoosePolygonFillColor" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jButtonChoosePolygonFillTexture" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace pref="22" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jButtonSelectTextColor" min="-2" max="-2" attributes="0"/>
                                           <Component id="jButtonSelectTextFont" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -191,6 +195,7 @@
                   <Component id="jButtonSelectPointIcon" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonSelectLineColor" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonSelectTextFont" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonChoosePolygonFillColor" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -198,6 +203,7 @@
                   <Component id="jSpinnerLineWidth" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonSelectTextColor" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonChoosePolygonFillTexture" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -468,14 +474,27 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldName">
-      <Events>
-        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldNameKeyTyped"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelName">
       <Properties>
         <Property name="text" type="java.lang.String" value="Name"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonChoosePolygonFillColor">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Use color..."/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonChoosePolygonFillColorActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonChoosePolygonFillTexture">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Use texture ..."/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonChoosePolygonFillTextureActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

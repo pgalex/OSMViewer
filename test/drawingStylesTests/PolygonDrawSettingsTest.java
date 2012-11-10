@@ -54,6 +54,24 @@ public class PolygonDrawSettingsTest
 			// ok
 		}
 	}
+	
+	/**
+	 * Test setting null filler
+	 */
+	@Test
+	public void setNullFillerTest()
+	{
+		try
+		{
+			PolygonDrawSettings testStyle = new PolygonDrawSettings();
+			testStyle.setFiller(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
 
 	/**
 	 * Test creating texture filler

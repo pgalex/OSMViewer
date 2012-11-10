@@ -8,6 +8,8 @@ import drawingStyles.LineDrawSettings;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.Tag;
 import drawingStyles.PointDrawSettings;
+import drawingStyles.PolygonDrawSettings;
+import drawingStyles.PolygonFillersFactory;
 import drawingStyles.TextDrawSettings;
 import drawingStyles.TextTagsKeys;
 import java.awt.Color;
@@ -427,6 +429,8 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
     jButtonApplyName = new javax.swing.JButton();
     jTextFieldName = new javax.swing.JTextField();
     jLabelName = new javax.swing.JLabel();
+    jButtonChoosePolygonFillColor = new javax.swing.JButton();
+    jButtonChoosePolygonFillTexture = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -632,15 +636,25 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
       }
     });
 
-    jTextFieldName.addKeyListener(new java.awt.event.KeyAdapter()
+    jLabelName.setText("Name");
+
+    jButtonChoosePolygonFillColor.setText("Use color...");
+    jButtonChoosePolygonFillColor.addActionListener(new java.awt.event.ActionListener()
     {
-      public void keyTyped(java.awt.event.KeyEvent evt)
+      public void actionPerformed(java.awt.event.ActionEvent evt)
       {
-        jTextFieldNameKeyTyped(evt);
+        jButtonChoosePolygonFillColorActionPerformed(evt);
       }
     });
 
-    jLabelName.setText("Name");
+    jButtonChoosePolygonFillTexture.setText("Use texture ...");
+    jButtonChoosePolygonFillTexture.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jButtonChoosePolygonFillTextureActionPerformed(evt);
+      }
+    });
 
     org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -669,8 +683,11 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
                 .add(65, 65, 65)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                   .add(layout.createSequentialGroup()
-                    .add(jPanelPolygonPreview, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 82, Short.MAX_VALUE)
+                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                      .add(jPanelPolygonPreview, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                      .add(jButtonChoosePolygonFillColor)
+                      .add(jButtonChoosePolygonFillTexture))
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 22, Short.MAX_VALUE)
                     .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                       .add(jButtonSelectTextColor)
                       .add(jButtonSelectTextFont)
@@ -775,13 +792,15 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
           .add(jButtonSelectPointIcon)
           .add(jButtonSelectLineColor)
-          .add(jButtonSelectTextFont))
+          .add(jButtonSelectTextFont)
+          .add(jButtonChoosePolygonFillColor))
         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
           .add(jButtonResetPointIcon)
           .add(jSpinnerLineWidth, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
           .add(jButtonSelectTextColor)
-          .add(jLabel1))
+          .add(jLabel1)
+          .add(jButtonChoosePolygonFillTexture))
         .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
@@ -994,15 +1013,63 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 		editingMapObjectDrawSettings.setName(jTextFieldName.getText());
   }//GEN-LAST:event_jButtonApplyNameActionPerformed
 	
-  private void jTextFieldNameKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jTextFieldNameKeyTyped
-  {//GEN-HEADEREND:event_jTextFieldNameKeyTyped
-		// TODO add your handling code here:
-  }//GEN-LAST:event_jTextFieldNameKeyTyped
+  private void jButtonChoosePolygonFillColorActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonChoosePolygonFillColorActionPerformed
+  {//GEN-HEADEREND:event_jButtonChoosePolygonFillColorActionPerformed
+    DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
+		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
+		PolygonDrawSettings polygonSettingOnCurrentScale = settingOnCurrentScale.getPolygonDrawSettings();
+		
+		Color newFillColor = JColorChooser.showDialog(this, "Choosing polygon fill color", Color.BLACK);
+		if (newFillColor != null)
+		{
+			polygonSettingOnCurrentScale.setFiller(PolygonFillersFactory.createColorFiller(newFillColor));
+			// update preview
+		}
+  }//GEN-LAST:event_jButtonChoosePolygonFillColorActionPerformed
+
+  private void jButtonChoosePolygonFillTextureActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonChoosePolygonFillTextureActionPerformed
+  {//GEN-HEADEREND:event_jButtonChoosePolygonFillTextureActionPerformed
+    JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		
+		int showDialogResult = fileChooser.showOpenDialog(this);
+		if (showDialogResult == JFileChooser.APPROVE_OPTION)
+		{
+			BufferedImage imageFromSelectedFile;
+			try
+			{
+				DataInputStream input = new DataInputStream(new FileInputStream(fileChooser.getSelectedFile()));
+				imageFromSelectedFile = ImageIO.read(input);
+				input.close();
+			}
+			catch (Exception e)
+			{
+				imageFromSelectedFile = null;
+			}
+			
+			DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
+			DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
+			PolygonDrawSettings polygonSettingOnCurrentScale = settingOnCurrentScale.getPolygonDrawSettings();
+			
+			if (imageFromSelectedFile != null)
+			{
+				polygonSettingOnCurrentScale.setFiller(PolygonFillersFactory.createTextureFiller(imageFromSelectedFile));
+				// update preview
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(this, "Can not read image from selected file", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+  }//GEN-LAST:event_jButtonChoosePolygonFillTextureActionPerformed
+
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton jButtonAddDefenitionTag;
   private javax.swing.JButton jButtonAddTextTagKey;
   private javax.swing.JButton jButtonApplyDescription;
   private javax.swing.JButton jButtonApplyName;
+  private javax.swing.JButton jButtonChoosePolygonFillColor;
+  private javax.swing.JButton jButtonChoosePolygonFillTexture;
   private javax.swing.JButton jButtonRemoveDefenitionTag;
   private javax.swing.JButton jButtonRemoveTextTagKey;
   private javax.swing.JButton jButtonResetPointIcon;

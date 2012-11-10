@@ -122,6 +122,22 @@ public class PolygonDrawSettings implements ReadableMapData, WritableMapData
 	}
 
 	/**
+	 * Set new filler (how to full inner part of polygon)
+	 *
+	 * @param fillerToSet new filler
+	 * @throws IllegalArgumentException fillerToSet is null
+	 */
+	public void setFiller(PolygonFiller fillerToSet) throws IllegalArgumentException
+	{
+		if (fillerToSet == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		
+		filler = fillerToSet;
+	}
+
+	/**
 	 * Get paint for drawing filled polygon
 	 *
 	 * @return paint for drawing polygon
