@@ -21,15 +21,15 @@ import org.junit.Test;
 public class PolygonDrawSettingsTest
 {
 	/**
-	 * Test creating with null border draw settings
+	 * Test setting null border draw settings
 	 */
 	@Test
-	public void creatingWithNullBorderDrawSettingsTest()
+	public void setNullBorderDrawSettingsTest()
 	{
 		try
 		{
-			PolygonDrawSettings settings = new PolygonDrawSettings(PolygonFillersFactory.createColorFiller(Color.BLACK),
-							null);
+			PolygonDrawSettings testStyle = new PolygonDrawSettings();
+			testStyle.setBorderDrawSettings(null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -38,23 +38,6 @@ public class PolygonDrawSettingsTest
 		}
 	}
 
-	/**
-	 * Creating with null fill color test
-	 */
-	@Test
-	public void creatingWithNullFillerTest()
-	{
-		try
-		{
-			PolygonDrawSettings testStyle = new PolygonDrawSettings(null, new LineDrawSettings());
-			fail();
-		}
-		catch (IllegalArgumentException ex)
-		{
-			// ok
-		}
-	}
-	
 	/**
 	 * Test setting null filler
 	 */
@@ -83,7 +66,8 @@ public class PolygonDrawSettingsTest
 		{
 			ImageWithIO fillIcon = new ImageWithIO("test/supportFiles/testIcon.png");
 			PolygonFiller filler = PolygonFillersFactory.createTextureFiller(fillIcon.getImage());
-			PolygonDrawSettings polygonStyle = new PolygonDrawSettings(filler, new LineDrawSettings());
+			PolygonDrawSettings polygonStyle = new PolygonDrawSettings();
+			polygonStyle.setFiller(filler);
 			Paint paint = polygonStyle.getPaint();
 
 			assertTrue(paint instanceof TexturePaint);
@@ -101,7 +85,8 @@ public class PolygonDrawSettingsTest
 	public void creatingSolidColorPaintTest()
 	{
 		PolygonFiller filler = PolygonFillersFactory.createColorFiller(Color.GREEN);
-		PolygonDrawSettings polygonStyle = new PolygonDrawSettings(filler, new LineDrawSettings());
+		PolygonDrawSettings polygonStyle = new PolygonDrawSettings();
+		polygonStyle.setFiller(filler);
 		Paint paint = polygonStyle.getPaint();
 
 		assertTrue(paint instanceof Color);
@@ -123,7 +108,9 @@ public class PolygonDrawSettingsTest
 			LineDrawSettings borderStyle = new LineDrawSettings(Color.CYAN, 10, pattern);
 			ImageWithIO fillIcon = new ImageWithIO("test/supportFiles/testIcon.png");
 			PolygonFiller filler = PolygonFillersFactory.createTextureFiller(fillIcon.getImage());
-			PolygonDrawSettings writedStyle = new PolygonDrawSettings(filler, borderStyle);
+			PolygonDrawSettings writedStyle = new PolygonDrawSettings();
+			writedStyle.setFiller(filler);
+			writedStyle.setBorderDrawSettings(borderStyle);
 
 			IOTester.writeToTestFile(writedStyle);
 

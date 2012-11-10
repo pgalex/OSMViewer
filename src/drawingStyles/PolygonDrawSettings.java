@@ -38,30 +38,6 @@ public class PolygonDrawSettings implements ReadableMapData, WritableMapData
 	}
 
 	/**
-	 * Create with parameters
-	 *
-	 * @param polygonFiller filler for polygon
-	 * @param polygonBorderDrawSettings how to draw border of polygon
-	 * @throws IllegalArgumentException polygonFiller or polygonBorderDrawSettings
-	 * is null
-	 */
-	public PolygonDrawSettings(PolygonFiller polygonFiller,
-					LineDrawSettings polygonBorderDrawSettings) throws IllegalArgumentException
-	{
-		if (polygonFiller == null)
-		{
-			throw new IllegalArgumentException();
-		}
-		if (polygonBorderDrawSettings == null)
-		{
-			throw new IllegalArgumentException();
-		}
-
-		filler = polygonFiller;
-		borderDrawSettings = polygonBorderDrawSettings;
-	}
-
-	/**
 	 * Read from stream
 	 *
 	 * @param input input stream
@@ -112,6 +88,22 @@ public class PolygonDrawSettings implements ReadableMapData, WritableMapData
 	}
 
 	/**
+	 * Set new border draw settings (how to draw border of polygon)
+	 *
+	 * @param settingsToSet new border draw settings
+	 * @throws IllegalArgumentException settingsToSet is null
+	 */
+	public void setBorderDrawSettings(LineDrawSettings settingsToSet) throws IllegalArgumentException
+	{
+		if (settingsToSet == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		borderDrawSettings = settingsToSet;
+	}
+
+	/**
 	 * Get filler
 	 *
 	 * @return filler
@@ -133,12 +125,12 @@ public class PolygonDrawSettings implements ReadableMapData, WritableMapData
 		{
 			throw new IllegalArgumentException();
 		}
-		
+
 		filler = fillerToSet;
 	}
 
 	/**
-	 * Get paint for drawing filled polygon
+	 * Get paint for drawing inner part of polygon
 	 *
 	 * @return paint for drawing polygon
 	 */
