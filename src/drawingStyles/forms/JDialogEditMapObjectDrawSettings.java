@@ -821,7 +821,6 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
           .add(jCheckBoxDrawPointOnScaleLevel)
           .add(jCheckBoxDrawLineOnScaleLevel)
           .add(jCheckBoxDrawPolygonOnScaleLevel))
-        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
           .add(layout.createSequentialGroup()
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -849,7 +848,7 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
           .add(jButtonChoosePolygonFillTexture))
         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
         .add(jCheckBoxDrawPolygonBorder)
-        .addContainerGap(27, Short.MAX_VALUE))
+        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
     pack();
