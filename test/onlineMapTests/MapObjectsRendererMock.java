@@ -1,6 +1,6 @@
 package onlineMapTests;
 
-import map.MapLine;
+import map.MapPolyline;
 import map.MapObjectsRenderer;
 import map.MapPoint;
 import map.MapPolygon;
@@ -30,7 +30,7 @@ public class MapObjectsRendererMock implements MapObjectsRenderer
 	}
 
 	@Override
-	public void renderLine(MapLine pLine)
+	public void renderLine(MapPolyline pLine)
 	{
 		linesRendered++;
 	}

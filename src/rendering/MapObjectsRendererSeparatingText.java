@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-import map.MapLine;
+import map.MapPolyline;
 import map.MapObjectsRenderer;
 import map.MapPoint;
 import map.MapPolygon;
@@ -146,7 +146,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * @param lineToRender line for rendering
 	 */
 	@Override
-	public void renderLine(MapLine lineToRender)
+	public void renderLine(MapPolyline lineToRender)
 	{
 		if (lineToRender == null)
 		{

@@ -55,7 +55,7 @@ public class OnlineMapTest
 		somePoints[1] = new MapPosition();
 		somePoints[2] = new MapPosition();
 
-		MapLine line1 = new MapLine(0, someTags, somePoints);
+		MapPolyline line1 = new MapPolyline(0, someTags, somePoints);
 		line1.assignStyleIndex(testEditor);
 
 		MapPoint point1 = new MapPoint(new MapPosition(), 1, someTags);

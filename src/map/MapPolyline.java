@@ -4,11 +4,11 @@ import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
 
 /**
- * Line (non closed way) on a map
+ * Polyline on a map(non closed way). Consists of linear segments
  *
  * @author pgalex
  */
-public class MapLine extends MapObjectByPoints
+public class MapPolyline extends MapObjectByPoints
 {
 	/**
 	 * Minimum points count that can be using for line
@@ -23,7 +23,7 @@ public class MapLine extends MapObjectByPoints
 	 * @param linePoints points of line
 	 * @throws IllegalArgumentException linePoints contains less than 2 elements
 	 */
-	public MapLine(long lineId, DefenitionTags lineDefenitionTags, MapPosition[] linePoints) throws IllegalArgumentException
+	public MapPolyline(long lineId, DefenitionTags lineDefenitionTags, MapPosition[] linePoints) throws IllegalArgumentException
 	{
 		super(lineId, lineDefenitionTags, linePoints);
 
