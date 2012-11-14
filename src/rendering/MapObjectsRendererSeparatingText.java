@@ -220,15 +220,16 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			objectsCanvas.drawPolygon(drawingPolygon);
 		}
 
-		Point2D textPosition = coordinatesConverter.goegraphicsToCanvas(polygonToRender.getCenterPoint());
 
 		TextDrawSettings textDrawSettings = objectStyle.findTextDrawSettings(renderingScaleLevel);
 		if (textDrawSettings != null)
 		{
+			double textPositionX = drawingPolygon.getBounds2D().getCenterX();
+			double textPositionY = drawingPolygon.getBounds2D().getCenterY();
 			textCanvas.drawTextAtPoint(objectStyle.findTextInTags(polygonToRender.getDefenitionTags()),
 							textDrawSettings,
-							textPosition.getX(),
-							textPosition.getY());
+							textPositionX,
+							textPositionY);
 		}
 	}
 

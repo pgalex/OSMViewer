@@ -100,7 +100,10 @@ public class TextCanvas
 
 		FontMetrics textFontMetrics = canvas.getFontMetrics(drawSettings.getFont());
 		int textWidth = textFontMetrics.stringWidth(textToDraw);
+		int textAscent = textFontMetrics.getAscent();
 
-		canvas.drawString(textToDraw, (int) textCenterX - textWidth / 2, (int) textCenterY);
+		canvas.drawString(textToDraw, 
+						(int) textCenterX - textWidth / 2,
+						(int) textCenterY + textAscent / 2);
 	}
 }
