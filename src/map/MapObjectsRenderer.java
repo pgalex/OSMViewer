@@ -15,11 +15,11 @@ public interface MapObjectsRenderer
 	public abstract void renderPoint(MapPoint pointToRender);
 
 	/**
-	 * Render polyline
+	 * Render lineToRender
 	 *
-	 * @param polylineToRender polyline on a map
+	 * @param lineToRender lineToRender on a map
 	 */
-	public abstract void renderPolyline(MapPolyline polylineToRender);
+	public abstract void renderLine(MapPolyline lineToRender);
 
 	/**
 	 * Render polygon

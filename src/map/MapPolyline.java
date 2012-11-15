@@ -46,7 +46,7 @@ public class MapPolyline extends MapObjectByPoints
 			return;
 		}
 
-		objectsRenderer.renderPolyline(this);
+		objectsRenderer.renderLine(this);
 	}
 
 	/**
