@@ -83,7 +83,7 @@ public class OnlineMapLoader
 			onlineParser.convert(openStreetMapConnection.getInputStream());
 
 			fillMapWithPoints(onlineParser.getNodes(), styleViewer, fillingMap);
-			fillMapWithPolygonsAndLines(onlineParser.getNodes(), onlineParser.getWays(), styleViewer, fillingMap);
+			fillMapWithPolygonsAndPolylines(onlineParser.getNodes(), onlineParser.getWays(), styleViewer, fillingMap);
 			
 			onlineParser.clear();
 		}
@@ -106,14 +106,14 @@ public class OnlineMapLoader
 	}
 
 	/**
-	 * Create map polygons and line from osm ways, add them to map
+	 * Create map polygons and polylines from osm ways, add them to map
 	 *
-	 * @param nodes nodes array, using to find points of line or polygon
+	 * @param nodes nodes array, using to find points of polyline or polygon
 	 * @param ways ways array
 	 * @param styleViewer style viewer for assigning style index
-	 * @param fillingMap map, filling with map polygons and lines
+	 * @param fillingMap map, filling with map polygons and polylines
 	 */
-	protected void fillMapWithPolygonsAndLines(ArrayList<OsmNode> nodes, ArrayList<OsmWay> ways,
+	protected void fillMapWithPolygonsAndPolylines(ArrayList<OsmNode> nodes, ArrayList<OsmWay> ways,
 					StyleViewer styleViewer, OnlineMap fillingMap)
 	{
 		if (nodes == null || ways == null || styleViewer == null || fillingMap == null)
@@ -133,11 +133,11 @@ public class OnlineMapLoader
 	}
 
 	/**
-	 * Create map polygon or map line by osm way
+	 * Create map polygon or map polyline by osm way
 	 *
 	 * @param way osm way
 	 * @param nodes nodes, using to find points of way
-	 * @return map polygon or map line created by osm way. null if can not be
+	 * @return map polygon or map polyline created by osm way. null if can not be
 	 * created
 	 */
 	protected MapObject createMapObjectByWay(OsmWay way, ArrayList<OsmNode> nodes)
@@ -171,12 +171,12 @@ public class OnlineMapLoader
 	}
 
 	/**
-	 * Create array of point for map line or map polygon by finding them in nodes
+	 * Create array of point for map polyline or map polygon by finding them in nodes
 	 * array, using ids
 	 *
 	 * @param nodesIds array of way ids
 	 * @param nodes nodes, using to find points of way
-	 * @return array of point for map line or map polygon. Empty if one or more
+	 * @return array of point for map polyline or map polygon. Empty if one or more
 	 * points not founded
 	 */
 	protected MapPosition[] findPointsInOsmNodes(ArrayList<Long> nodesIds, ArrayList<OsmNode> nodes)

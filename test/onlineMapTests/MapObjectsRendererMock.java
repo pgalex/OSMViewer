@@ -30,7 +30,7 @@ public class MapObjectsRendererMock implements MapObjectsRenderer
 	}
 
 	@Override
-	public void renderLine(MapPolyline pLine)
+	public void renderPolyline(MapPolyline pLine)
 	{
 		linesRendered++;
 	}

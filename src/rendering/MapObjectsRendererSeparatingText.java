@@ -141,36 +141,36 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	}
 
 	/**
-	 * Render line
+	 * Render polyline
 	 *
-	 * @param lineToRender line for rendering
+	 * @param polylineToRender polyline for rendering
 	 */
 	@Override
-	public void renderLine(MapPolyline lineToRender)
+	public void renderPolyline(MapPolyline polylineToRender)
 	{
-		if (lineToRender == null)
+		if (polylineToRender == null)
 		{
 			return;
 		}
-		MapObjectDrawSettings objectStyle = styleViewer.getMapObjectDrawSettings(lineToRender.getStyleIndex());
+		MapObjectDrawSettings objectStyle = styleViewer.getMapObjectDrawSettings(polylineToRender.getStyleIndex());
 		if (objectStyle == null)
 		{
 			return;
 		}
 
-		LineDrawSettings lineStyle = objectStyle.findLineDrawSettings(renderingScaleLevel);
-		if (lineStyle == null)
+		LineDrawSettings lineDrawSettings = objectStyle.findLineDrawSettings(renderingScaleLevel);
+		if (lineDrawSettings == null)
 		{
 			return;
 		}
 
-		objectsCanvas.setStroke(lineStyle.getStroke());
-		objectsCanvas.setColor(lineStyle.getColor());
+		objectsCanvas.setStroke(lineDrawSettings.getStroke());
+		objectsCanvas.setColor(lineDrawSettings.getColor());
 
-		for (int i = 0; i < lineToRender.getPoints().length - 1; i++)
+		for (int i = 0; i < polylineToRender.getPoints().length - 1; i++)
 		{
-			Point2D firstPoint = coordinatesConverter.goegraphicsToCanvas(lineToRender.getPoints()[i]);
-			Point2D secondPoint = coordinatesConverter.goegraphicsToCanvas(lineToRender.getPoints()[i + 1]);
+			Point2D firstPoint = coordinatesConverter.goegraphicsToCanvas(polylineToRender.getPoints()[i]);
+			Point2D secondPoint = coordinatesConverter.goegraphicsToCanvas(polylineToRender.getPoints()[i + 1]);
 
 			objectsCanvas.drawLine((int) firstPoint.getX(), (int) firstPoint.getY(),
 							(int) secondPoint.getX(), (int) secondPoint.getY());
@@ -214,9 +214,9 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 
 		if (polygonStyle.isDrawBorder())
 		{
-			LineDrawSettings borderStyle = polygonStyle.getBorderDrawSettings();
-			objectsCanvas.setStroke(borderStyle.getStroke());
-			objectsCanvas.setColor(borderStyle.getColor());
+			LineDrawSettings borderDrawSettings = polygonStyle.getBorderDrawSettings();
+			objectsCanvas.setStroke(borderDrawSettings.getStroke());
+			objectsCanvas.setColor(borderDrawSettings.getColor());
 			objectsCanvas.drawPolygon(drawingPolygon);
 		}
 
