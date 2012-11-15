@@ -9,7 +9,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import map.MapBounds;
-import map.MapPolyline;
+import map.MapLine;
 import map.MapObject;
 import map.MapPoint;
 import map.MapPolygon;
@@ -164,7 +164,7 @@ public class OnlineMapLoader
 		}
 		else
 		{
-			creatingMapObject = new MapPolyline(way.getId(), creatingObjectTags, objectPoints);
+			creatingMapObject = new MapLine(way.getId(), creatingObjectTags, objectPoints);
 		}
 
 		return creatingMapObject;
@@ -267,7 +267,7 @@ public class OnlineMapLoader
 
 		DefenitionTags creatingPointTags = createDefentionTagsByOsmTags(node.getTags());
 		// node without tag is not a MapPoint (can not be displayed), 
-		// it will be included in MapPolyline like MapPosition
+		// it will be included in MapLine like MapPosition
 		if (creatingPointTags == null)
 		{
 			return null;

@@ -19,7 +19,7 @@ public interface MapObjectsRenderer
 	 *
 	 * @param lineToRender lineToRender on a map
 	 */
-	public abstract void renderLine(MapPolyline lineToRender);
+	public abstract void renderLine(MapLine lineToRender);
 
 	/**
 	 * Render polygon

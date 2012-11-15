@@ -7,7 +7,7 @@ import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.Tag;
 import drawingStyles.StyleEditor;
 import java.util.ArrayList;
-import map.MapPolyline;
+import map.MapLine;
 import map.MapObject;
 import map.MapPoint;
 import map.MapPolygon;
@@ -99,9 +99,9 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 		way.setTags(wayTags);
 
 		MapObject createdObject = createMapObjectByWay(way, nodes);
-		assertTrue(createdObject instanceof MapPolyline);
+		assertTrue(createdObject instanceof MapLine);
 		assertEquals(way.getId(), createdObject.getId());
-		assertEquals(way.getNodesIds().size(), ((MapPolyline) createdObject).getPoints().length);
+		assertEquals(way.getNodesIds().size(), ((MapLine) createdObject).getPoints().length);
 		assertEquals(wayTags.size(), createdObject.getDefenitionTags().count());
 		for (int i = 0; i < wayTags.size(); i++)
 		{
