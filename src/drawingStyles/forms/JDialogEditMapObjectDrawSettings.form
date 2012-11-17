@@ -45,7 +45,12 @@
                       </Group>
                       <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jCheckBoxDrawPolygonOnScaleLevel" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="jCheckBoxDrawPolygonOnScaleLevel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                              <Component id="jCheckBoxDrawTextOnScaleLevel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jPanelPolygonPreview" min="-2" max="-2" attributes="0"/>
@@ -188,6 +193,7 @@
                   <Component id="jCheckBoxDrawPointOnScaleLevel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jCheckBoxDrawLineOnScaleLevel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jCheckBoxDrawPolygonOnScaleLevel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jCheckBoxDrawTextOnScaleLevel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
@@ -529,6 +535,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxDrawPolygonBorderActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="jCheckBoxDrawTextOnScaleLevel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Draw text"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxDrawTextOnScaleLevelActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

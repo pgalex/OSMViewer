@@ -244,8 +244,8 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 	}
 
 	/**
-	 * Update "need to draw" (point, line or polygon) controls by draw settings on
-	 * selected scale level
+	 * Update "need to draw" (point, line, polygon, text) controls by draw
+	 * settings on selected scale level
 	 */
 	private void updateNeedToDrawControlsBySettingsOnCurrentScale()
 	{
@@ -254,6 +254,7 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 		jCheckBoxDrawPointOnScaleLevel.setSelected(settingOnCurrentScale.isDrawPoint());
 		jCheckBoxDrawLineOnScaleLevel.setSelected(settingOnCurrentScale.isDrawLine());
 		jCheckBoxDrawPolygonOnScaleLevel.setSelected(settingOnCurrentScale.isDrawPolygon());
+		jCheckBoxDrawTextOnScaleLevel.setSelected(settingOnCurrentScale.isDrawText());
 	}
 
 	/**
@@ -449,6 +450,7 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
     jButtonChoosePolygonFillTexture = new javax.swing.JButton();
     jCheckBoxDrawPolygonInnerPart = new javax.swing.JCheckBox();
     jCheckBoxDrawPolygonBorder = new javax.swing.JCheckBox();
+    jCheckBoxDrawTextOnScaleLevel = new javax.swing.JCheckBox();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -692,6 +694,15 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
       }
     });
 
+    jCheckBoxDrawTextOnScaleLevel.setText("Draw text");
+    jCheckBoxDrawTextOnScaleLevel.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jCheckBoxDrawTextOnScaleLevelActionPerformed(evt);
+      }
+    });
+
     org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
@@ -716,7 +727,11 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
                 .add(jSpinnerLineWidth, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
             .add(65, 65, 65)
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-              .add(jCheckBoxDrawPolygonOnScaleLevel)
+              .add(layout.createSequentialGroup()
+                .add(jCheckBoxDrawPolygonOnScaleLevel)
+                .add(37, 37, 37)
+                .add(jCheckBoxDrawTextOnScaleLevel)
+                .add(0, 0, Short.MAX_VALUE))
               .add(layout.createSequentialGroup()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                   .add(jPanelPolygonPreview, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -822,7 +837,8 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
           .add(jCheckBoxDrawPointOnScaleLevel)
           .add(jCheckBoxDrawLineOnScaleLevel)
-          .add(jCheckBoxDrawPolygonOnScaleLevel))
+          .add(jCheckBoxDrawPolygonOnScaleLevel)
+          .add(jCheckBoxDrawTextOnScaleLevel))
         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
           .add(layout.createSequentialGroup()
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -1115,11 +1131,11 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 
   private void jCheckBoxDrawPolygonInnerPartActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBoxDrawPolygonInnerPartActionPerformed
   {//GEN-HEADEREND:event_jCheckBoxDrawPolygonInnerPartActionPerformed
-    DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
+		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		PolygonDrawSettings polygonSettingOnCurrentScale = settingOnCurrentScale.getPolygonDrawSettings();
 
-		if(jCheckBoxDrawPolygonInnerPart.isSelected())
+		if (jCheckBoxDrawPolygonInnerPart.isSelected())
 		{
 			polygonSettingOnCurrentScale.setDrawInnerPart();
 		}
@@ -1131,11 +1147,11 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 
   private void jCheckBoxDrawPolygonBorderActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBoxDrawPolygonBorderActionPerformed
   {//GEN-HEADEREND:event_jCheckBoxDrawPolygonBorderActionPerformed
-    DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
+		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		PolygonDrawSettings polygonSettingOnCurrentScale = settingOnCurrentScale.getPolygonDrawSettings();
 
-		if(jCheckBoxDrawPolygonBorder.isSelected())
+		if (jCheckBoxDrawPolygonBorder.isSelected())
 		{
 			polygonSettingOnCurrentScale.setDrawBorder();
 		}
@@ -1144,6 +1160,20 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 			polygonSettingOnCurrentScale.setNotDrawBorder();
 		}
   }//GEN-LAST:event_jCheckBoxDrawPolygonBorderActionPerformed
+
+  private void jCheckBoxDrawTextOnScaleLevelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBoxDrawTextOnScaleLevelActionPerformed
+  {//GEN-HEADEREND:event_jCheckBoxDrawTextOnScaleLevelActionPerformed
+    DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
+		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
+		if (jCheckBoxDrawTextOnScaleLevel.isSelected())
+		{
+			settingOnCurrentScale.setDrawText();
+		}
+		else
+		{
+			settingOnCurrentScale.setNotDrawText();
+		}
+  }//GEN-LAST:event_jCheckBoxDrawTextOnScaleLevelActionPerformed
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton jButtonAddDefenitionTag;
@@ -1167,6 +1197,7 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
   private javax.swing.JCheckBox jCheckBoxDrawPolygonBorder;
   private javax.swing.JCheckBox jCheckBoxDrawPolygonInnerPart;
   private javax.swing.JCheckBox jCheckBoxDrawPolygonOnScaleLevel;
+  private javax.swing.JCheckBox jCheckBoxDrawTextOnScaleLevel;
   private javax.swing.JLabel jLabel1;
   private javax.swing.JLabel jLabelDescription;
   private javax.swing.JLabel jLabelName;
