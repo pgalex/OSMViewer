@@ -86,13 +86,14 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * Render point
 	 *
 	 * @param pointToRender point for rendering
+	 * @throws IllegalArgumentException pointToRender is null
 	 */
 	@Override
-	public void renderPoint(MapPoint pointToRender)
+	public void renderPoint(MapPoint pointToRender) throws IllegalArgumentException
 	{
 		if (pointToRender == null)
 		{
-			return;
+			throw new IllegalArgumentException();
 		}
 
 		MapObjectDrawSettings objectStyle = styleViewer.getMapObjectDrawSettings(pointToRender.getStyleIndex());
@@ -144,13 +145,14 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * Render line
 	 *
 	 * @param lineToRender line for rendering
+	 * @throws IllegalArgumentException lineToRender is null
 	 */
 	@Override
-	public void renderLine(MapLine lineToRender)
+	public void renderLine(MapLine lineToRender) throws IllegalArgumentException
 	{
 		if (lineToRender == null)
 		{
-			return;
+			throw new IllegalArgumentException();
 		}
 		MapObjectDrawSettings objectStyle = styleViewer.getMapObjectDrawSettings(lineToRender.getStyleIndex());
 		if (objectStyle == null)
@@ -183,13 +185,14 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * Render polygon
 	 *
 	 * @param polygonToRender polygon for rendering
+	 * @throws IllegalArgumentException polygonToRender is null
 	 */
 	@Override
-	public void renderPolygon(MapPolygon polygonToRender)
+	public void renderPolygon(MapPolygon polygonToRender) throws IllegalArgumentException
 	{
 		if (polygonToRender == null)
 		{
-			return;
+			throw new IllegalArgumentException();
 		}
 
 		MapObjectDrawSettings objectStyle = styleViewer.getMapObjectDrawSettings(polygonToRender.getStyleIndex());
@@ -238,12 +241,13 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 *
 	 * @param mapPolygon polygon on map
 	 * @return polygon on objectsCanvas
+	 * @throws IllegalArgumentException mapPolygon is null
 	 */
-	private Polygon createDrawingPolygonByMapPolygon(MapPolygon mapPolygon)
+	private Polygon createDrawingPolygonByMapPolygon(MapPolygon mapPolygon) throws IllegalArgumentException
 	{
 		if (mapPolygon == null)
 		{
-			return new Polygon();
+			throw new IllegalArgumentException();
 		}
 
 		Polygon drawingPolygon = new Polygon();
