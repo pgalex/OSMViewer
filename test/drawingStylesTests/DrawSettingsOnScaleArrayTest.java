@@ -14,6 +14,36 @@ import org.junit.Test;
 public class DrawSettingsOnScaleArrayTest
 {
 	/**
+	 * Test finding text draw style if draw text is true
+	 */
+	@Test
+	public void findingTextDrawStyleCanDrawText()
+	{
+		DrawSettingsOnScaleArray stylesArray = new DrawSettingsOnScaleArray();
+		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale();
+		styleOnScale.setDrawText();
+
+		stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel(), styleOnScale);
+
+		assertNotNull(stylesArray.findTextDrawSettings(stylesArray.getMinimumScaleLevel()));
+	}
+	
+	/**
+	 * Test finding text draw style if draw text is false
+	 */
+	@Test
+	public void findingTextDrawStyleCanNotDrawText()
+	{
+		DrawSettingsOnScaleArray stylesArray = new DrawSettingsOnScaleArray();
+		DrawSettingsOnScale styleOnScale = new DrawSettingsOnScale();
+		styleOnScale.setNotDrawText();
+
+		stylesArray.setDrawSettingsOnScale(stylesArray.getMinimumScaleLevel(), styleOnScale);
+
+		assertNull(stylesArray.findTextDrawSettings(stylesArray.getMinimumScaleLevel()));
+	}
+
+	/**
 	 * Test finding point draw style if draw point is true
 	 */
 	@Test
@@ -235,12 +265,12 @@ public class DrawSettingsOnScaleArrayTest
 			styleAtBegin.setDrawPoint();
 			styleAtBegin.setNotDrawLine();
 			styleAtBegin.setNotDrawPolygon();
-			
+
 			DrawSettingsOnScale styleAtMiddle = new DrawSettingsOnScale();
 			styleAtMiddle.setNotDrawPoint();
 			styleAtMiddle.setDrawLine();
 			styleAtMiddle.setNotDrawPolygon();
-			
+
 			DrawSettingsOnScale styleAtEnd = new DrawSettingsOnScale();
 			styleAtEnd.setNotDrawPoint();
 			styleAtEnd.setNotDrawLine();

@@ -26,6 +26,10 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 	 */
 	private boolean needDrawPolygon;
 	/**
+	 * Is need to draw text
+	 */
+	private boolean needDrawText;
+	/**
 	 * point drawing settings
 	 */
 	private PointDrawSettings pointDrawSettings;
@@ -54,6 +58,7 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 		needDrawPoint = false;
 		needDrawLine = false;
 		needDrawPolygon = false;
+		needDrawText = false;
 	}
 
 	/**
@@ -70,6 +75,7 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 			needDrawPoint = input.readBoolean();
 			needDrawLine = input.readBoolean();
 			needDrawPolygon = input.readBoolean();
+			needDrawText = input.readBoolean();
 			pointDrawSettings.readFromStream(input);
 			lineDrawSettings.readFromStream(input);
 			polygonDrawSettings.readFromStream(input);
@@ -92,9 +98,10 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 	{
 		try
 		{
-			output.writeBoolean(isDrawPoint());
-			output.writeBoolean(isDrawLine());
-			output.writeBoolean(isDrawPolygon());
+			output.writeBoolean(needDrawPoint);
+			output.writeBoolean(needDrawLine);
+			output.writeBoolean(needDrawPolygon);
+			output.writeBoolean(needDrawText);
 			pointDrawSettings.writeToStream(output);
 			lineDrawSettings.writeToStream(output);
 			polygonDrawSettings.writeToStream(output);
@@ -182,6 +189,32 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 	public void setNotDrawPolygon()
 	{
 		needDrawPolygon = false;
+	}
+
+	/**
+	 * Is need to draw text
+	 *
+	 * @return is need to draw text
+	 */
+	public boolean isDrawText()
+	{
+		return needDrawText;
+	}
+
+	/**
+	 * Set need to draw text
+	 */
+	public void setDrawText()
+	{
+		needDrawText = true;
+	}
+
+	/**
+	 * Set dont need to draw text
+	 */
+	public void setNotDrawText()
+	{
+		needDrawText = false;
 	}
 
 	/**
