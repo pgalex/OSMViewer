@@ -44,7 +44,7 @@ public class PolygonDrawSettings implements ReadableMapData, WritableMapData
 		filler = DEFAULT_FILLER;
 		borderDrawSettings = new LineDrawSettings();
 		needDrawInnerPart = true;
-		needDrawBorder = true;
+		needDrawBorder = false;
 	}
 
 	/**
