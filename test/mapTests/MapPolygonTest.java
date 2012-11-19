@@ -180,23 +180,4 @@ public class MapPolygonTest
 
 		assertNull(testPolygon.getStyleIndex());
 	}
-
-	/**
-	 * Testing computing center of polygon
-	 */
-	@Test
-	public void getCenterPointNormalWorkTest()
-	{
-		MapPosition[] polygonPoints = new MapPosition[4];
-		polygonPoints[0] = new MapPosition(10, 5);
-		polygonPoints[1] = new MapPosition(20, 10);
-		polygonPoints[2] = new MapPosition(-5, 20);
-		polygonPoints[3] = new MapPosition(15, -10);
-
-		MapPolygon testPolygon = new MapPolygon(0, new DefenitionTags(), polygonPoints);
-
-		MapPosition centerPoint = testPolygon.getCenterPoint();
-		assertEquals(10, centerPoint.getLatitude(), 0.0001);
-		assertEquals(6.25, centerPoint.getLongitude(), 0.0001);
-	}
 }

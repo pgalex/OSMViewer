@@ -35,26 +35,6 @@ public class MapPolygon extends MapObjectByPoints
 	}
 
 	/**
-	 * Get center point of polygon
-	 *
-	 * @return center point
-	 */
-	public MapPosition getCenterPoint()
-	{
-		double pointLatitudeSum = 0;
-		double pointLongitudeSum = 0;
-
-		MapPosition[] polygonPoints = getPoints();
-		for (int i = 0; i < polygonPoints.length; i++)
-		{
-			pointLatitudeSum += polygonPoints[i].getLatitude();
-			pointLongitudeSum += polygonPoints[i].getLongitude();
-		}
-
-		return new MapPosition(pointLatitudeSum / polygonPoints.length, pointLongitudeSum / polygonPoints.length);
-	}
-
-	/**
 	 * Render with objects render visitor
 	 *
 	 * @param objectsRenderer objects renderer
