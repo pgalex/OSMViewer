@@ -2,10 +2,9 @@ package mapTests;
 
 import drawingStyles.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
-import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.Tag;
 import drawingStyles.StyleEditor;
+import drawingStyles.Tag;
 import map.MapPolygon;
 import map.MapPosition;
 import static org.junit.Assert.*;
@@ -18,6 +17,50 @@ import org.junit.Test;
  */
 public class MapPolygonTest
 {
+	/**
+	 * Test getting point with index less than bounds
+	 */
+	@Test
+	public void getPointIndexLessThanBoundTest()
+	{
+		try
+		{
+			MapPosition[] points = new MapPosition[3];
+			points[0] = new MapPosition(1, 2);
+			points[1] = new MapPosition(2, 3);
+			points[2] = new MapPosition(5, 6);
+			MapPolygon polygon = new MapPolygon(0, new DefenitionTags(), points);
+			polygon.getPoint(-1);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Test getting point with index more than bounds
+	 */
+	@Test
+	public void getPointIndexMoreThanBoundTest()
+	{
+		try
+		{
+			MapPosition[] points = new MapPosition[3];
+			points[0] = new MapPosition(1, 2);
+			points[1] = new MapPosition(2, 3);
+			points[2] = new MapPosition(5, 6);
+			MapPolygon polygon = new MapPolygon(0, new DefenitionTags(), points);
+			polygon.getPoint(points.length);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
 	/**
 	 * Test creating with incorrect tags
 	 */
@@ -38,7 +81,7 @@ public class MapPolygonTest
 			// ok
 		}
 	}
-	
+
 	/**
 	 * Test creating with null points
 	 */
@@ -55,7 +98,7 @@ public class MapPolygonTest
 			// ok
 		}
 	}
-	
+
 	/**
 	 * Test creating with points count less than 3
 	 */
@@ -75,7 +118,7 @@ public class MapPolygonTest
 			// ok
 		}
 	}
-	
+
 	/**
 	 * Test creating with points contains null
 	 */
@@ -97,7 +140,6 @@ public class MapPolygonTest
 			// ok
 		}
 	}
-	
 
 	/**
 	 * Testing assigning style index and canBeDrawenWithStyle work if object can
@@ -108,12 +150,12 @@ public class MapPolygonTest
 	{
 		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("k1", "v1"));
-		
+
 		MapObjectDrawSettings style = new MapObjectDrawSettings();
 		style.setCanBePolygon();
 		style.setDescription("polygon style");
 		style.setDefenitionTags(tags);
-		
+
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);
 
@@ -137,7 +179,7 @@ public class MapPolygonTest
 	{
 		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("k1", "v1"));
-		
+
 		MapObjectDrawSettings style = new MapObjectDrawSettings();
 		style.setCanNotBePolygon();
 		style.setDescription("polygon style");
@@ -163,11 +205,11 @@ public class MapPolygonTest
 	{
 		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("k1", "v1"));
-		
+
 		MapObjectDrawSettings style = new MapObjectDrawSettings();
 		style.setDescription("polygon style");
 		style.setDefenitionTags(tags);
-		
+
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);
 

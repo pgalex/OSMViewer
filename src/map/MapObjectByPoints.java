@@ -65,12 +65,30 @@ public abstract class MapObjectByPoints extends MapObject
 	}
 
 	/**
-	 * Get points of object
+	 * Get count of object points
 	 *
-	 * @return points defines map object position
+	 * @return count of object points
 	 */
-	public MapPosition[] getPoints()
+	public int getPointsCount()
 	{
-		return points;
+		return points.length;
+	}
+
+	/**
+	 * Get point with index
+	 *
+	 * @param index index of point to get
+	 * @return point with index
+	 * @throws IllegalArgumentException index is less than 0, or more than points
+	 * count
+	 */
+	public MapPosition getPoint(int index) throws IllegalArgumentException
+	{
+		if (index < 0 || index >= points.length)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		return points[index];
 	}
 }

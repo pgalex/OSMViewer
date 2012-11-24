@@ -2,10 +2,9 @@ package mapTests;
 
 import drawingStyles.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
-import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.Tag;
 import drawingStyles.StyleEditor;
+import drawingStyles.Tag;
 import map.MapLine;
 import map.MapPosition;
 import static org.junit.Assert.*;
@@ -18,6 +17,48 @@ import org.junit.Test;
  */
 public class MapLineTest
 {
+	/**
+	 * Test getting point with index less than bounds
+	 */
+	@Test
+	public void getPointIndexLessThanBoundTest()
+	{
+		try
+		{
+			MapPosition[] points = new MapPosition[3];
+			points[0] = new MapPosition(1, 2);
+			points[1] = new MapPosition(2, 3);
+			MapLine testLine = new MapLine(0, new DefenitionTags(), points);
+			testLine.getPoint(-1);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Test getting point with index more than bounds
+	 */
+	@Test
+	public void getPointIndexMoreThanBoundTest()
+	{
+		try
+		{
+			MapPosition[] points = new MapPosition[3];
+			points[0] = new MapPosition(1, 2);
+			points[1] = new MapPosition(2, 3);
+			MapLine testLine = new MapLine(0, new DefenitionTags(), points);
+			testLine.getPoint(points.length);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
 	/**
 	 * Creating MapLine with null tags
 	 */
@@ -108,7 +149,7 @@ public class MapLineTest
 		style.setCanBeLine();
 		style.setDescription("line style");
 		style.setDefenitionTags(tags);
-		
+
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);
 
@@ -135,7 +176,7 @@ public class MapLineTest
 		style.setCanNotBeLine();
 		style.setDescription("line style");
 		style.setDefenitionTags(tags);
-		
+
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);
 

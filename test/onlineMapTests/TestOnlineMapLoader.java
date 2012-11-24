@@ -2,10 +2,9 @@ package onlineMapTests;
 
 import drawingStyles.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
-import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.Tag;
 import drawingStyles.StyleEditor;
+import drawingStyles.Tag;
 import java.util.ArrayList;
 import map.MapLine;
 import map.MapObject;
@@ -101,7 +100,7 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 		MapObject createdObject = createMapObjectByWay(way, nodes);
 		assertTrue(createdObject instanceof MapLine);
 		assertEquals(way.getId(), createdObject.getId());
-		assertEquals(way.getNodesIds().size(), ((MapLine) createdObject).getPoints().length);
+		assertEquals(way.getNodesIds().size(), ((MapLine) createdObject).getPointsCount());
 		assertEquals(wayTags.size(), createdObject.getDefenitionTags().count());
 		for (int i = 0; i < wayTags.size(); i++)
 		{
@@ -156,7 +155,7 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 		MapObject createdObject = createMapObjectByWay(way, nodes);
 		assertTrue(createdObject instanceof MapPolygon);
 		assertEquals(way.getId(), createdObject.getId());
-		assertEquals(way.getNodesIds().size(), ((MapPolygon) createdObject).getPoints().length);
+		assertEquals(way.getNodesIds().size(), ((MapPolygon) createdObject).getPointsCount());
 		assertEquals(wayTags.size(), createdObject.getDefenitionTags().count());
 		for (int i = 0; i < wayTags.size(); i++)
 		{

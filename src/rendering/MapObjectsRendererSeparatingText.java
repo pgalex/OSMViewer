@@ -9,7 +9,6 @@ import map.MapLine;
 import map.MapObjectsRenderer;
 import map.MapPoint;
 import map.MapPolygon;
-import map.MapPosition;
 
 /**
  * Objects renderer that drawes object on one canvas, and it's drawingText on
@@ -169,10 +168,10 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		objectsCanvas.setStroke(lineStyle.getStroke());
 		objectsCanvas.setColor(lineStyle.getColor());
 
-		for (int i = 0; i < lineToRender.getPoints().length - 1; i++)
+		for (int i = 0; i < lineToRender.getPointsCount() - 1; i++)
 		{
-			Point2D firstPoint = coordinatesConverter.goegraphicsToCanvas(lineToRender.getPoints()[i]);
-			Point2D secondPoint = coordinatesConverter.goegraphicsToCanvas(lineToRender.getPoints()[i + 1]);
+			Point2D firstPoint = coordinatesConverter.goegraphicsToCanvas(lineToRender.getPoint(i));
+			Point2D secondPoint = coordinatesConverter.goegraphicsToCanvas(lineToRender.getPoint(i + 1));
 
 			objectsCanvas.drawLine((int) firstPoint.getX(), (int) firstPoint.getY(),
 							(int) secondPoint.getX(), (int) secondPoint.getY());
@@ -252,10 +251,9 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 
 		Polygon drawingPolygon = new Polygon();
 
-		MapPosition[] mapPolygonPoints = mapPolygon.getPoints();
-		for (int i = 0; i < mapPolygonPoints.length; i++)
+		for (int i = 0; i < mapPolygon.getPointsCount(); i++)
 		{
-			Point2D pointOnCanvas = coordinatesConverter.goegraphicsToCanvas(mapPolygonPoints[i]);
+			Point2D pointOnCanvas = coordinatesConverter.goegraphicsToCanvas(mapPolygon.getPoint(i));
 			drawingPolygon.addPoint((int) pointOnCanvas.getX(), (int) pointOnCanvas.getY());
 		}
 
