@@ -165,19 +165,46 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			return;
 		}
 
+		Point2D[] drawingMultiline = createDrawingMultilineByMapLine(lineToRender);
+
 		objectsCanvas.setStroke(lineStyle.getStroke());
 		objectsCanvas.setColor(lineStyle.getColor());
 
-		for (int i = 0; i < lineToRender.getPointsCount() - 1; i++)
+		for (int i = 0; i < drawingMultiline.length - 1; i++)
 		{
-			Point2D firstPoint = coordinatesConverter.goegraphicsToCanvas(lineToRender.getPoint(i));
-			Point2D secondPoint = coordinatesConverter.goegraphicsToCanvas(lineToRender.getPoint(i + 1));
+			Point2D firstPoint = drawingMultiline[i];
+			Point2D secondPoint = drawingMultiline[i + 1];
 
 			objectsCanvas.drawLine((int) firstPoint.getX(), (int) firstPoint.getY(),
 							(int) secondPoint.getX(), (int) secondPoint.getY());
 		}
 
 		// text ...
+	}
+
+	/**
+	 * Create multiline for drawing by converting each point of map line to canvas
+	 * coordinates
+	 *
+	 * @param mapLine line on map
+	 * @return multiline by mapLine, defined by points array
+	 * @throws IllegalArgumentException mapLine is null
+	 */
+	private Point2D[] createDrawingMultilineByMapLine(MapLine mapLine) throws IllegalArgumentException
+	{
+		if (mapLine == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		Point2D[] drawingMultiline = new Point2D[mapLine.getPointsCount()];
+
+		for (int i = 0; i < mapLine.getPointsCount(); i++)
+		{
+			drawingMultiline[i] = coordinatesConverter.goegraphicsToCanvas(mapLine.getPoint(i));
+		}
+
+		return drawingMultiline;
 	}
 
 	/**
@@ -236,7 +263,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	}
 
 	/**
-	 * Create polygon for drawing on objectsCanvas by converting MapPolygon points
+	 * Create polygon for drawing by converting MapPolygon points
 	 *
 	 * @param mapPolygon polygon on map
 	 * @return polygon on objectsCanvas
