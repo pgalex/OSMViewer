@@ -3,6 +3,7 @@ package rendering;
 import drawingStyles.TextDrawSettings;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
+import java.awt.geom.Point2D;
 
 /**
  * Canvas using for text drawing
@@ -102,8 +103,132 @@ public class TextCanvas
 		int textWidth = textFontMetrics.stringWidth(textToDraw);
 		int textAscent = textFontMetrics.getAscent();
 
-		canvas.drawString(textToDraw, 
-						(int) textCenterX - textWidth / 2,
-						(int) textCenterY + textAscent / 2);
+		canvas.drawString(textToDraw,
+						(int) (textCenterX - textWidth / 2),
+						(int) (textCenterY + textAscent / 2));
+	}
+
+	/**
+	 * Draw text on canvas by multiline defined by points array
+	 *
+	 * @param textToDraw text to draw on canvas
+	 * @param drawSettings draw setting of text
+	 * @param multilinePoints points of multiline
+	 * @throws IllegalArgumentException textToDraw, drawSettings or
+	 * multilinePoints is null, multilinePoints contains less than 2 points or
+	 * contains null points
+	 */
+	public void drawTextOnMultiline(String textToDraw, TextDrawSettings drawSettings,
+					Point2D[] multilinePoints) throws IllegalArgumentException
+	{
+		if (textToDraw == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		if (drawSettings == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		if (!isMultilinePointsCorrect(multilinePoints))
+		{
+			throw new IllegalArgumentException();
+		}
+
+		if (textToDraw.isEmpty())
+		{
+			return;
+		}
+
+		canvas.setColor(drawSettings.getColor());
+		canvas.setFont(drawSettings.getFont());
+
+		FontMetrics textFontMetrics = canvas.getFontMetrics(drawSettings.getFont());
+		int textWidth = textFontMetrics.stringWidth(textToDraw);
+
+		for (int i = 0; i < multilinePoints.length - 1; i++)
+		{
+			Point2D firstPoint = multilinePoints[i];
+			Point2D secondPoint = multilinePoints[i + 1];
+
+			if (firstPoint.distance(secondPoint) > textWidth)
+			{
+				drawTextOnLine(textToDraw, firstPoint, secondPoint);
+			}
+		}
+	}
+
+	/**
+	 * Is points of multiline correct: not null, contains 2 or more points and not
+	 * contains null
+	 *
+	 * @param multilinePoints points of multiline to test
+	 * @return is points correct
+	 */
+	private boolean isMultilinePointsCorrect(Point2D[] multilinePoints)
+	{
+		if (multilinePoints == null)
+		{
+			return false;
+		}
+
+		if (multilinePoints.length < 2)
+		{
+			return false;
+		}
+
+		for (int i = 0; i < multilinePoints.length; i++)
+		{
+			if (multilinePoints[i] == null)
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
+	 * Draw text on canvas by line: text starts at fisrt point directed to second.
+	 * Using current font and color for drawing
+	 *
+	 * @param textToDraw text to draw on canvas
+	 * @param linePoint1 first point of line
+	 * @param linePoint2 second point of line
+	 * @throws IllegalArgumentException textToDraw, linePoint1 or linePoint2 is
+	 * null
+	 */
+	private void drawTextOnLine(String textToDraw, Point2D linePoint1,
+					Point2D linePoint2) throws IllegalArgumentException
+	{
+		if (textToDraw == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		if (linePoint1 == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		if (linePoint2 == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		double rotationAngle = Math.atan((linePoint2.getY() - linePoint1.getY())
+						/ (linePoint2.getX() - linePoint1.getX()));
+
+		if (linePoint2.getX() < linePoint1.getX())
+		{
+			rotationAngle -= Math.PI;
+		}
+
+		canvas.rotate(rotationAngle, linePoint1.getX(), linePoint1.getY());
+
+		FontMetrics textFontMetrics = canvas.getFontMetrics(canvas.getFont());
+		int textAscent = textFontMetrics.getAscent();
+		canvas.drawString(textToDraw,
+						(int) linePoint1.getX(),
+						(int) (linePoint1.getY() + textAscent / 2));
+
+		canvas.rotate(-rotationAngle, linePoint1.getX(), linePoint1.getY());
 	}
 }

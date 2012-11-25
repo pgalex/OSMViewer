@@ -169,7 +169,6 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 
 		objectsCanvas.setStroke(lineStyle.getStroke());
 		objectsCanvas.setColor(lineStyle.getColor());
-
 		for (int i = 0; i < drawingMultiline.length - 1; i++)
 		{
 			Point2D firstPoint = drawingMultiline[i];
@@ -179,7 +178,13 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 							(int) secondPoint.getX(), (int) secondPoint.getY());
 		}
 
-		// text ...
+		TextDrawSettings textDrawSettings = objectStyle.findTextDrawSettings(renderingScaleLevel);
+		if (textDrawSettings != null)
+		{
+			textCanvas.drawTextOnMultiline(objectStyle.findTextInTags(lineToRender.getDefenitionTags()), 
+							textDrawSettings, 
+							drawingMultiline);
+		}
 	}
 
 	/**
