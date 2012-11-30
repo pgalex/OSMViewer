@@ -34,7 +34,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author pgalex
  */
-public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
+public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 {
 	/**
 	 * Headers of columns of defenition tags table
@@ -94,7 +94,7 @@ public class JDialogEditMapObjectDrawSettings extends javax.swing.JDialog
 	 * with dialog
 	 * @throws IllegalArgumentException editing map object draw setting is null
 	 */
-	public JDialogEditMapObjectDrawSettings(Frame parent, boolean modal,
+	public EditMapObjectDrawSettingsDialog(Frame parent, boolean modal,
 					MapObjectDrawSettings drawSettingsToEdit) throws IllegalArgumentException
 	{
 		super(parent, modal);

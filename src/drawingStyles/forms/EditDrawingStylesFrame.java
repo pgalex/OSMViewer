@@ -21,7 +21,7 @@ import javax.swing.event.ChangeListener;
  *
  * @author pgalex
  */
-public class JFrameEditDrawingStyles extends javax.swing.JFrame
+public class EditDrawingStylesFrame extends javax.swing.JFrame
 {
 	/**
 	 * Drawing styles editing with dialog
@@ -41,9 +41,9 @@ public class JFrameEditDrawingStyles extends javax.swing.JFrame
 	private DefaultListModel drawPriorityListModel;
 
 	/**
-	 * Creates new form JFrameEditDrawingStyles
+	 * Creates new form EditDrawingStylesFrame
 	 */
-	public JFrameEditDrawingStyles()
+	public EditDrawingStylesFrame()
 	{
 		editingDrawingStyles = DrawingStylesFactory.createStyleEditor();
 
@@ -358,7 +358,7 @@ public class JFrameEditDrawingStyles extends javax.swing.JFrame
 			}
 			catch (IOException ex)
 			{
-				Logger.getLogger(JFrameEditDrawingStyles.class.getName()).log(Level.SEVERE, null, ex);
+				Logger.getLogger(EditDrawingStylesFrame.class.getName()).log(Level.SEVERE, null, ex);
 			}
 
 			updateControlsByEditingStyles();
@@ -375,7 +375,7 @@ public class JFrameEditDrawingStyles extends javax.swing.JFrame
 
 		MapObjectDrawSettings selectedDrawSettings = (MapObjectDrawSettings) mapObjectsListModel.get(selectedMapObjectIndex);
 
-		JDialogEditMapObjectDrawSettings editMapObjectDrawSettingsDialog = new JDialogEditMapObjectDrawSettings(this, true,
+		EditMapObjectDrawSettingsDialog editMapObjectDrawSettingsDialog = new EditMapObjectDrawSettingsDialog(this, true,
 						selectedDrawSettings);
 		editMapObjectDrawSettingsDialog.setLocationRelativeTo(this);
 		editMapObjectDrawSettingsDialog.setVisible(true);
@@ -411,7 +411,7 @@ public class JFrameEditDrawingStyles extends javax.swing.JFrame
 			}
 			catch (IOException ex)
 			{
-				Logger.getLogger(JFrameEditDrawingStyles.class.getName()).log(Level.SEVERE, null, ex);
+				Logger.getLogger(EditDrawingStylesFrame.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		}
   }//GEN-LAST:event_jButtonSaveAsActionPerformed
