@@ -9,7 +9,7 @@ import javax.swing.JPanel;
  *
  * @author pgalex
  */
-public class JDrawingPanel extends JPanel
+public class DrawingPanel extends JPanel
 {
 	/**
 	 * Object that drawes on panel
@@ -20,7 +20,7 @@ public class JDrawingPanel extends JPanel
 	 * Default constructor
 	 *
 	 */
-	public JDrawingPanel()
+	public DrawingPanel()
 	{
 		super();
 
@@ -32,7 +32,7 @@ public class JDrawingPanel extends JPanel
 	 *
 	 * @param pPainter object that will draw on panel
 	 */
-	public JDrawingPanel(DrawableOnPanel pPainter)
+	public DrawingPanel(DrawableOnPanel pPainter)
 	{
 		super();
 

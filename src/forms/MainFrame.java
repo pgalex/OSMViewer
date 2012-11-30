@@ -10,7 +10,7 @@ import map.onlineMap.OnlineMapProcessor;
  *
  * @author preobrazhentsev
  */
-public class JFrameMain extends javax.swing.JFrame
+public class MainFrame extends javax.swing.JFrame
 {
 	/**
 	 * Current map processor
@@ -20,14 +20,14 @@ public class JFrameMain extends javax.swing.JFrame
 	/**
 	 * Creates new main form
 	 */
-	public JFrameMain()
+	public MainFrame()
 	{
 		initComponents();
 
 		mapProcessor = new OnlineMapProcessor(new MapPosition(55.19907, 38.60329), 16,
 						jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
 
-		JDrawingPanel drawingPanel = (JDrawingPanel) jPanelCanvas;
+		DrawingPanel drawingPanel = (DrawingPanel) jPanelCanvas;
 		drawingPanel.setPainter(mapProcessor);
 		jSliderScaleLevel.setValue(mapProcessor.getScaleLevel());
 	}
@@ -42,7 +42,7 @@ public class JFrameMain extends javax.swing.JFrame
   private void initComponents()
   {
 
-    jPanelCanvas = new JDrawingPanel(null);
+    jPanelCanvas = new DrawingPanel(null);
     jSliderScaleLevel = new javax.swing.JSlider();
     jButtonMoveLeft = new javax.swing.JButton();
     jButtonMoveRight = new javax.swing.JButton();
@@ -264,19 +264,19 @@ public class JFrameMain extends javax.swing.JFrame
 		}
 		catch (ClassNotFoundException ex)
 		{
-			java.util.logging.Logger.getLogger(JFrameMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		}
 		catch (InstantiationException ex)
 		{
-			java.util.logging.Logger.getLogger(JFrameMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		}
 		catch (IllegalAccessException ex)
 		{
-			java.util.logging.Logger.getLogger(JFrameMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		}
 		catch (javax.swing.UnsupportedLookAndFeelException ex)
 		{
-			java.util.logging.Logger.getLogger(JFrameMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		}
 		//</editor-fold>
 
@@ -288,7 +288,7 @@ public class JFrameMain extends javax.swing.JFrame
 			@Override
 			public void run()
 			{
-				JFrameMain mainFrame = new JFrameMain();
+				MainFrame mainFrame = new MainFrame();
 				mainFrame.setLocationRelativeTo(null);
 				mainFrame.setVisible(true);
 			}
