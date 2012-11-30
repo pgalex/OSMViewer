@@ -1,6 +1,6 @@
 package forms;
 
-import drawingStyles.forms.JFrameEditDrawingStyles;
+import drawingStyles.forms.EditDrawingStylesFrame;
 import javax.swing.JFrame;
 import map.MapPosition;
 import map.onlineMap.OnlineMapProcessor;
@@ -231,7 +231,7 @@ public class JFrameMain extends javax.swing.JFrame
 
   private void jButtonEditDrawingStylesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonEditDrawingStylesActionPerformed
   {//GEN-HEADEREND:event_jButtonEditDrawingStylesActionPerformed
-		JFrameEditDrawingStyles editDrawingStylesDialog = new JFrameEditDrawingStyles();
+		EditDrawingStylesFrame editDrawingStylesDialog = new EditDrawingStylesFrame();
 		editDrawingStylesDialog.setLocationRelativeTo(this);
 		editDrawingStylesDialog.setVisible(true);
 		editDrawingStylesDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
