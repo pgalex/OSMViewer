@@ -13,7 +13,7 @@ import drawingStyles.Tag;
 import drawingStyles.TextDrawSettings;
 import drawingStyles.TextTagsKeys;
 import java.awt.Color;
-import java.awt.Frame;
+import java.awt.Window;
 import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
@@ -88,16 +88,16 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 	/**
 	 * Creates dialog for editing map object draw style
 	 *
-	 * @param parent parent frame
-	 * @param modal show as modal
+	 * @param parentWindow parent window
+	 * @param modalityType dialog modality type
 	 * @param drawSettingsToEdit map object draw setting, that will be editing
 	 * with dialog
 	 * @throws IllegalArgumentException editing map object draw setting is null
 	 */
-	public EditMapObjectDrawSettingsDialog(Frame parent, boolean modal,
+	public EditMapObjectDrawSettingsDialog(Window parentWindow, ModalityType modalityType,
 					MapObjectDrawSettings drawSettingsToEdit) throws IllegalArgumentException
 	{
-		super(parent, modal);
+		super(parentWindow, modalityType);
 
 		if (drawSettingsToEdit == null)
 		{
@@ -1163,7 +1163,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 
   private void jCheckBoxDrawTextOnScaleLevelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBoxDrawTextOnScaleLevelActionPerformed
   {//GEN-HEADEREND:event_jCheckBoxDrawTextOnScaleLevelActionPerformed
-    DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
+		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		if (jCheckBoxDrawTextOnScaleLevel.isSelected())
 		{
@@ -1174,7 +1174,6 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 			settingOnCurrentScale.setNotDrawText();
 		}
   }//GEN-LAST:event_jCheckBoxDrawTextOnScaleLevelActionPerformed
-
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton jButtonAddDefenitionTag;
   private javax.swing.JButton jButtonAddTextTagKey;

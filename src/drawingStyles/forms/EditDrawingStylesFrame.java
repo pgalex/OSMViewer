@@ -4,6 +4,7 @@ import drawingStyles.DrawingStylesFactory;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleEditor;
 import java.awt.Color;
+import java.awt.Dialog;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -375,10 +376,10 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
 
 		MapObjectDrawSettings selectedDrawSettings = (MapObjectDrawSettings) mapObjectsListModel.get(selectedMapObjectIndex);
 
-		EditMapObjectDrawSettingsDialog editMapObjectDrawSettingsDialog = new EditMapObjectDrawSettingsDialog(this, true,
-						selectedDrawSettings);
-		editMapObjectDrawSettingsDialog.setLocationRelativeTo(this);
-		editMapObjectDrawSettingsDialog.setVisible(true);
+		EditMapObjectDrawSettingsDialog editDrawSettingsDialog = new EditMapObjectDrawSettingsDialog(this,
+						Dialog.ModalityType.DOCUMENT_MODAL, selectedDrawSettings);
+		editDrawSettingsDialog.setLocationRelativeTo(this);
+		editDrawSettingsDialog.setVisible(true);
 		mapObjectsListModel.setElementAt(selectedDrawSettings, selectedMapObjectIndex);
   }//GEN-LAST:event_jButtonEditMapObjectActionPerformed
 
