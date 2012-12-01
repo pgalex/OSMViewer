@@ -13,6 +13,7 @@ import drawingStyles.Tag;
 import drawingStyles.TextDrawSettings;
 import drawingStyles.TextTagsKeys;
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.Window;
 import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
@@ -451,6 +452,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
     jCheckBoxDrawPolygonInnerPart = new javax.swing.JCheckBox();
     jCheckBoxDrawPolygonBorder = new javax.swing.JCheckBox();
     jCheckBoxDrawTextOnScaleLevel = new javax.swing.JCheckBox();
+    jButtonEditLinePattern = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -703,6 +705,15 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
       }
     });
 
+    jButtonEditLinePattern.setText("Line pattern ...");
+    jButtonEditLinePattern.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jButtonEditLinePatternActionPerformed(evt);
+      }
+    });
+
     org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
@@ -724,8 +735,9 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
               .add(layout.createSequentialGroup()
                 .add(jLabel1)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jSpinnerLineWidth, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-            .add(65, 65, 65)
+                .add(jSpinnerLineWidth, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+              .add(jButtonEditLinePattern))
+            .add(62, 62, 62)
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
               .add(layout.createSequentialGroup()
                 .add(jCheckBoxDrawPolygonOnScaleLevel)
@@ -740,7 +752,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
                   .add(layout.createSequentialGroup()
                     .add(16, 16, 16)
                     .add(jCheckBoxDrawPolygonBorder)))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                   .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                     .add(jButtonSelectTextFont)
@@ -866,7 +878,9 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
           .add(jLabel1)
           .add(jButtonChoosePolygonFillTexture))
         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-        .add(jCheckBoxDrawPolygonBorder)
+        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+          .add(jCheckBoxDrawPolygonBorder)
+          .add(jButtonEditLinePattern))
         .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
@@ -1174,6 +1188,18 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 			settingOnCurrentScale.setNotDrawText();
 		}
   }//GEN-LAST:event_jCheckBoxDrawTextOnScaleLevelActionPerformed
+
+  private void jButtonEditLinePatternActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonEditLinePatternActionPerformed
+  {//GEN-HEADEREND:event_jButtonEditLinePatternActionPerformed
+		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
+		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
+		LineDrawSettings lineSettingsOnCurrentScale = settingOnCurrentScale.getLineDrawSettings();
+
+		EditLinePatternDialog editLinePatternDialog = new EditLinePatternDialog(this,
+						Dialog.ModalityType.DOCUMENT_MODAL, lineSettingsOnCurrentScale.getPattern());
+		editLinePatternDialog.setLocationRelativeTo(this);
+		editLinePatternDialog.setVisible(true);
+  }//GEN-LAST:event_jButtonEditLinePatternActionPerformed
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton jButtonAddDefenitionTag;
   private javax.swing.JButton jButtonAddTextTagKey;
@@ -1181,6 +1207,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
   private javax.swing.JButton jButtonApplyName;
   private javax.swing.JButton jButtonChoosePolygonFillColor;
   private javax.swing.JButton jButtonChoosePolygonFillTexture;
+  private javax.swing.JButton jButtonEditLinePattern;
   private javax.swing.JButton jButtonRemoveDefenitionTag;
   private javax.swing.JButton jButtonRemoveTextTagKey;
   private javax.swing.JButton jButtonResetPointIcon;

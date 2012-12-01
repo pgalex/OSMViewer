@@ -10,15 +10,23 @@ import java.awt.Window;
 public class EditLinePatternDialog extends javax.swing.JDialog
 {
 	/**
+	 * Line pattern editing with dialog
+	 */
+	private float[] editingPattern;
+
+	/**
 	 * Create new dialog
 	 *
 	 * @param parentWindow parent window
 	 * @param modalityType modality type of dialog
+	 * @param linePatternToEdit line pattern to edit with dialog
 	 */
-	public EditLinePatternDialog(Window parentWindow, ModalityType modalityType)
+	public EditLinePatternDialog(Window parentWindow, ModalityType modalityType, float[] linePatternToEdit)
 	{
 		super(parentWindow, modalityType);
 		initComponents();
+
+		editingPattern = linePatternToEdit;
 	}
 
 	/**
@@ -31,21 +39,71 @@ public class EditLinePatternDialog extends javax.swing.JDialog
   private void initComponents()
   {
 
+    jSlider1 = new javax.swing.JSlider();
+    jScrollPane1 = new javax.swing.JScrollPane();
+    jTable1 = new javax.swing.JTable();
+
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+    jSlider1.setMajorTickSpacing(1);
+    jSlider1.setMaximum(10);
+    jSlider1.setMinimum(1);
+    jSlider1.setPaintTicks(true);
+    jSlider1.setValue(1);
+
+    jTable1.setModel(new javax.swing.table.DefaultTableModel(
+      new Object [][]
+      {
+        {null},
+        {null}
+      },
+      new String []
+      {
+        "1"
+      }
+    )
+    {
+      Class[] types = new Class []
+      {
+        java.lang.Float.class
+      };
+
+      public Class getColumnClass(int columnIndex)
+      {
+        return types [columnIndex];
+      }
+    });
+    jScrollPane1.setViewportView(jTable1);
 
     org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-      .add(0, 400, Short.MAX_VALUE)
+      .add(layout.createSequentialGroup()
+        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+          .add(layout.createSequentialGroup()
+            .addContainerGap()
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 209, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+          .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+            .add(33, 33, 33)
+            .add(jSlider1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+        .addContainerGap(32, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-      .add(0, 300, Short.MAX_VALUE)
+      .add(layout.createSequentialGroup()
+        .addContainerGap()
+        .add(jSlider1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap(38, Short.MAX_VALUE))
     );
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JScrollPane jScrollPane1;
+  private javax.swing.JSlider jSlider1;
+  private javax.swing.JTable jTable1;
   // End of variables declaration//GEN-END:variables
 }

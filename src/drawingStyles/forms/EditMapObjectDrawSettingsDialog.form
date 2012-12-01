@@ -42,8 +42,9 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jSpinnerLineWidth" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="jButtonEditLinePattern" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jCheckBoxDrawPolygonOnScaleLevel" min="-2" max="-2" attributes="0"/>
@@ -61,7 +62,7 @@
                                       <Component id="jCheckBoxDrawPolygonBorder" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="33" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="jButtonSelectTextFont" min="-2" max="-2" attributes="0"/>
@@ -229,7 +230,10 @@
                   <Component id="jButtonChoosePolygonFillTexture" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jCheckBoxDrawPolygonBorder" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jCheckBoxDrawPolygonBorder" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonEditLinePattern" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -543,6 +547,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxDrawTextOnScaleLevelActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonEditLinePattern">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Line pattern ..."/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEditLinePatternActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
