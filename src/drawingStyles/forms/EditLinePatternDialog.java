@@ -1,6 +1,7 @@
 package drawingStyles.forms;
 
 import java.awt.Window;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * Dialog for editing line patter
@@ -10,23 +11,102 @@ import java.awt.Window;
 public class EditLinePatternDialog extends javax.swing.JDialog
 {
 	/**
-	 * Line pattern editing with dialog
+	 * Headers of columns of defenition tags table
 	 */
-	private float[] editingPattern;
+	private static final String[] PATTERN_COLUMNS_NAMES = new String[]
+	{
+		"Value"
+	};
+	/**
+	 * Default table in dialog
+	 */
+	private static final float[] DEFAULT_LINE_PATTERN = new float[]
+	{
+		1.0f
+	};
+	/**
+	 * Table model of pattern editing table
+	 */
+	private DefaultTableModel patternTableModel;
 
 	/**
 	 * Create new dialog
 	 *
 	 * @param parentWindow parent window
 	 * @param modalityType modality type of dialog
-	 * @param linePatternToEdit line pattern to edit with dialog
 	 */
-	public EditLinePatternDialog(Window parentWindow, ModalityType modalityType, float[] linePatternToEdit)
+	public EditLinePatternDialog(Window parentWindow, ModalityType modalityType)
 	{
 		super(parentWindow, modalityType);
+
+		patternTableModel = new DefaultTableModel(PATTERN_COLUMNS_NAMES, 0);
 		initComponents();
 
-		editingPattern = linePatternToEdit;
+		jSliderPatternLength.setValue(DEFAULT_LINE_PATTERN.length);
+		fillPatternTableByLinePattern(DEFAULT_LINE_PATTERN);
+	}
+
+	/**
+	 * Set line pattern to edit with dialog
+	 *
+	 * @param linePatternToEdit line pattern for editing
+	 * @throws IllegalArgumentException linePatternToEdit is null
+	 */
+	public void setPattern(float[] linePatternToEdit) throws IllegalArgumentException
+	{
+		if (linePatternToEdit == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		jSliderPatternLength.setValue(linePatternToEdit.length);
+		fillPatternTableByLinePattern(linePatternToEdit);
+	}
+
+	/**
+	 * Get pattern from dialog
+	 *
+	 * @return pattern from dialog. Empty cell in dialog will be 0 in result
+	 * pattern
+	 */
+	public float[] getPattern()
+	{
+		float[] linePatternByTable = new float[patternTableModel.getRowCount()];
+
+		for (int i = 0; i < patternTableModel.getRowCount(); i++)
+		{
+			try
+			{
+				Float tableValue = Float.parseFloat((String)patternTableModel.getValueAt(i, 0));
+				linePatternByTable[i] = tableValue;
+			}
+			catch(Exception ex) // can not cast to String or can not parse
+			{
+				linePatternByTable[i] = 0;
+			}
+		}
+
+		return linePatternByTable;
+	}
+
+	/**
+	 * Fill pattern table by line pattern
+	 *
+	 * @param linePattern line pattern using for filling
+	 * @throws IllegalArgumentException linePattern is null
+	 */
+	private void fillPatternTableByLinePattern(float[] linePattern) throws IllegalArgumentException
+	{
+		if (linePattern == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		patternTableModel.setRowCount(linePattern.length);
+		for (int i = 0; i < linePattern.length; i++)
+		{
+			patternTableModel.setValueAt(Float.toString(linePattern[i]), i, 0);
+		}
 	}
 
 	/**
@@ -39,71 +119,60 @@ public class EditLinePatternDialog extends javax.swing.JDialog
   private void initComponents()
   {
 
-    jSlider1 = new javax.swing.JSlider();
+    jSliderPatternLength = new javax.swing.JSlider();
     jScrollPane1 = new javax.swing.JScrollPane();
-    jTable1 = new javax.swing.JTable();
+    jTablePattern = new javax.swing.JTable();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-    jSlider1.setMajorTickSpacing(1);
-    jSlider1.setMaximum(10);
-    jSlider1.setMinimum(1);
-    jSlider1.setPaintTicks(true);
-    jSlider1.setValue(1);
-
-    jTable1.setModel(new javax.swing.table.DefaultTableModel(
-      new Object [][]
-      {
-        {null},
-        {null}
-      },
-      new String []
-      {
-        "1"
-      }
-    )
+    jSliderPatternLength.setMajorTickSpacing(1);
+    jSliderPatternLength.setMaximum(10);
+    jSliderPatternLength.setMinorTickSpacing(1);
+    jSliderPatternLength.setPaintTicks(true);
+    jSliderPatternLength.setValue(1);
+    jSliderPatternLength.addChangeListener(new javax.swing.event.ChangeListener()
     {
-      Class[] types = new Class []
+      public void stateChanged(javax.swing.event.ChangeEvent evt)
       {
-        java.lang.Float.class
-      };
-
-      public Class getColumnClass(int columnIndex)
-      {
-        return types [columnIndex];
+        jSliderPatternLengthStateChanged(evt);
       }
     });
-    jScrollPane1.setViewportView(jTable1);
+
+    jTablePattern.setModel(patternTableModel);
+    jScrollPane1.setViewportView(jTablePattern);
 
     org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
       .add(layout.createSequentialGroup()
-        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
           .add(layout.createSequentialGroup()
-            .addContainerGap()
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 209, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-          .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-            .add(33, 33, 33)
-            .add(jSlider1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-        .addContainerGap(32, Short.MAX_VALUE))
+            .add(6, 6, 6)
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 94, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+          .add(jSliderPatternLength, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-      .add(layout.createSequentialGroup()
+      .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
         .addContainerGap()
-        .add(jSlider1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(38, Short.MAX_VALUE))
+        .add(jSliderPatternLength, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 178, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
+
+  private void jSliderPatternLengthStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_jSliderPatternLengthStateChanged
+  {//GEN-HEADEREND:event_jSliderPatternLengthStateChanged
+		patternTableModel.setRowCount(jSliderPatternLength.getValue());
+  }//GEN-LAST:event_jSliderPatternLengthStateChanged
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JScrollPane jScrollPane1;
-  private javax.swing.JSlider jSlider1;
-  private javax.swing.JTable jTable1;
+  private javax.swing.JSlider jSliderPatternLength;
+  private javax.swing.JTable jTablePattern;
   // End of variables declaration//GEN-END:variables
 }

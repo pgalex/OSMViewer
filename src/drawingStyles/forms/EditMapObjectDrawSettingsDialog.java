@@ -99,20 +99,20 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 					MapObjectDrawSettings drawSettingsToEdit) throws IllegalArgumentException
 	{
 		super(parentWindow, modalityType);
-
+		
 		if (drawSettingsToEdit == null)
 		{
 			throw new IllegalArgumentException();
 		}
-
+		
 		editingMapObjectDrawSettings = drawSettingsToEdit;
-
+		
 		initializeTextTagKeysTableMode();
 		initializeDefenitionTagsTableModel();
 		initializeScaleLevelSpinnerModel();
 		initializeLineWidthSpinnerModel();
 		initComponents();
-
+		
 		updateControlsByEditingSettings();
 	}
 
@@ -140,7 +140,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		scaleLevelSpinnerModel = new SpinnerNumberModel(editingSettingsOnScaleArray.getMaximumScaleLevel(),
 						editingSettingsOnScaleArray.getMinimumScaleLevel(), editingSettingsOnScaleArray.getMaximumScaleLevel(), 1);
-
+		
 		scaleLevelSpinnerModel.addChangeListener(new ChangeListener()
 		{
 			@Override
@@ -164,9 +164,9 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 			tableData[i][0] = tag.getKey();
 			tableData[i][1] = tag.getValue();
 		}
-
+		
 		defenitionTagsTableModel = new DefaultTableModel(tableData, DEFENITION_TAGS_TABLE_HEADERS);
-
+		
 		defenitionTagsTableModel.addTableModelListener(new TableModelListener()
 		{
 			@Override
@@ -188,9 +188,9 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 		{
 			tableData[i][0] = editingTextTagsKeys.getKey(i);
 		}
-
+		
 		textTagsKeysTableModel = new DefaultTableModel(tableData, TEXT_TAG_KEYS_TABLE_HEADERS);
-
+		
 		textTagsKeysTableModel.addTableModelListener(new TableModelListener()
 		{
 			@Override
@@ -267,7 +267,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		LineDrawSettings lineSettingsOnCurrentScale = settingOnCurrentScale.getLineDrawSettings();
-
+		
 		jPanelLinePreview.setBackground(lineSettingsOnCurrentScale.getColor());
 	}
 
@@ -281,7 +281,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		LineDrawSettings lineSettingsOnCurrentScale = settingOnCurrentScale.getLineDrawSettings();
-
+		
 		lineWidthSpinnerModel.setValue(lineSettingsOnCurrentScale.getWidth());
 	}
 
@@ -293,7 +293,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		TextDrawSettings textSettingsOnCurrentScale = settingOnCurrentScale.getTextDrawSettings();
-
+		
 		jLabelTextPreviewExample.setFont(textSettingsOnCurrentScale.getFont());
 		jLabelTextPreviewExample.setForeground(textSettingsOnCurrentScale.getColor());
 	}
@@ -307,7 +307,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		PointDrawSettings pointSettingsOnCurrentScale = settingOnCurrentScale.getPointDrawSettings();
-
+		
 		if (pointSettingsOnCurrentScale.getIcon() != null)
 		{
 			jLabelPointIconPreview.setIcon(new ImageIcon(pointSettingsOnCurrentScale.getIcon()));
@@ -329,7 +329,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		PolygonDrawSettings polygonSettingOnCurrentScale = settingOnCurrentScale.getPolygonDrawSettings();
-
+		
 		jCheckBoxDrawPolygonInnerPart.setSelected(polygonSettingOnCurrentScale.isDrawInnerPart());
 		jCheckBoxDrawPolygonBorder.setSelected(polygonSettingOnCurrentScale.isDrawBorder());
 	}
@@ -343,7 +343,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 	{
 		TextTagsKeys editingTextTagsKeys = editingMapObjectDrawSettings.getTextTagKeys();
 		editingTextTagsKeys.removeAllKeys();
-
+		
 		for (int i = 0; i < textTagsKeysTableModel.getRowCount(); i++)
 		{
 			String tagKey = (String) textTagsKeysTableModel.getValueAt(i, 0);
@@ -399,7 +399,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		LineDrawSettings lineSettingsOnCurrentScale = settingOnCurrentScale.getLineDrawSettings();
-
+		
 		lineSettingsOnCurrentScale.setWidth(lineWidthSpinnerModel.getNumber().intValue());
 	}
 
@@ -891,17 +891,17 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
   {//GEN-HEADEREND:event_jButtonAddTextTagKeyActionPerformed
 		textTagsKeysTableModel.addRow(TEXT_TAG_KEYS_TABLE_NEW_STRING);
   }//GEN-LAST:event_jButtonAddTextTagKeyActionPerformed
-
+	
   private void jButtonRemoveTextTagKeyActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonRemoveTextTagKeyActionPerformed
   {//GEN-HEADEREND:event_jButtonRemoveTextTagKeyActionPerformed
 		int removingRowIndex = jTableTextTagKeys.getSelectedRow();
-
+		
 		if (removingRowIndex >= 0 && removingRowIndex < textTagsKeysTableModel.getRowCount())
 		{
 			textTagsKeysTableModel.removeRow(removingRowIndex);
 		}
   }//GEN-LAST:event_jButtonRemoveTextTagKeyActionPerformed
-
+	
   private void jCheckBoxCanBePointActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBoxCanBePointActionPerformed
   {//GEN-HEADEREND:event_jCheckBoxCanBePointActionPerformed
 		if (jCheckBoxCanBePoint.isSelected())
@@ -913,7 +913,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 			editingMapObjectDrawSettings.setCanNotBePoint();
 		}
   }//GEN-LAST:event_jCheckBoxCanBePointActionPerformed
-
+	
   private void jCheckBoxCanBeLineActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBoxCanBeLineActionPerformed
   {//GEN-HEADEREND:event_jCheckBoxCanBeLineActionPerformed
 		if (jCheckBoxCanBeLine.isSelected())
@@ -925,7 +925,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 			editingMapObjectDrawSettings.setCanNotBeLine();
 		}
   }//GEN-LAST:event_jCheckBoxCanBeLineActionPerformed
-
+	
   private void jCheckBoxCanBePolygonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBoxCanBePolygonActionPerformed
   {//GEN-HEADEREND:event_jCheckBoxCanBePolygonActionPerformed
 		if (jCheckBoxCanBePolygon.isSelected())
@@ -937,22 +937,22 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 			editingMapObjectDrawSettings.setCanNotBePolygon();
 		}
   }//GEN-LAST:event_jCheckBoxCanBePolygonActionPerformed
-
+	
   private void jButtonAddDefenitionTagActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAddDefenitionTagActionPerformed
   {//GEN-HEADEREND:event_jButtonAddDefenitionTagActionPerformed
 		defenitionTagsTableModel.addRow(DEFENITION_TAGS_NEW_STRING);
   }//GEN-LAST:event_jButtonAddDefenitionTagActionPerformed
-
+	
   private void jButtonRemoveDefenitionTagActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonRemoveDefenitionTagActionPerformed
   {//GEN-HEADEREND:event_jButtonRemoveDefenitionTagActionPerformed
 		int removingRowIndex = jTableDefenitionTags.getSelectedRow();
-
+		
 		if (removingRowIndex >= 0 && removingRowIndex < defenitionTagsTableModel.getRowCount())
 		{
 			defenitionTagsTableModel.removeRow(removingRowIndex);
 		}
   }//GEN-LAST:event_jButtonRemoveDefenitionTagActionPerformed
-
+	
   private void jCheckBoxDrawPointOnScaleLevelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBoxDrawPointOnScaleLevelActionPerformed
   {//GEN-HEADEREND:event_jCheckBoxDrawPointOnScaleLevelActionPerformed
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
@@ -966,7 +966,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 			settingOnCurrentScale.setNotDrawPoint();
 		}
   }//GEN-LAST:event_jCheckBoxDrawPointOnScaleLevelActionPerformed
-
+	
   private void jCheckBoxDrawLineOnScaleLevelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBoxDrawLineOnScaleLevelActionPerformed
   {//GEN-HEADEREND:event_jCheckBoxDrawLineOnScaleLevelActionPerformed
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
@@ -980,7 +980,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 			settingOnCurrentScale.setNotDrawLine();
 		}
   }//GEN-LAST:event_jCheckBoxDrawLineOnScaleLevelActionPerformed
-
+	
   private void jCheckBoxDrawPolygonOnScaleLevelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBoxDrawPolygonOnScaleLevelActionPerformed
   {//GEN-HEADEREND:event_jCheckBoxDrawPolygonOnScaleLevelActionPerformed
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
@@ -994,13 +994,13 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 			settingOnCurrentScale.setNotDrawPolygon();
 		}
   }//GEN-LAST:event_jCheckBoxDrawPolygonOnScaleLevelActionPerformed
-
+	
   private void jButtonSelectLineColorActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonSelectLineColorActionPerformed
   {//GEN-HEADEREND:event_jButtonSelectLineColorActionPerformed
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		LineDrawSettings lineSettingsOnCurrentScale = settingOnCurrentScale.getLineDrawSettings();
-
+		
 		Color newLineColor = JColorChooser.showDialog(this, "Choosing line color", lineSettingsOnCurrentScale.getColor());
 		if (newLineColor != null)
 		{
@@ -1008,13 +1008,13 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 			updateLineColorPreviewBySettingsOnCurrentScale();
 		}
   }//GEN-LAST:event_jButtonSelectLineColorActionPerformed
-
+	
   private void jButtonSelectTextColorActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonSelectTextColorActionPerformed
   {//GEN-HEADEREND:event_jButtonSelectTextColorActionPerformed
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		TextDrawSettings textSettingsOnCurrentScale = settingOnCurrentScale.getTextDrawSettings();
-
+		
 		Color newTextColor = JColorChooser.showDialog(this, "Choosing text color", textSettingsOnCurrentScale.getColor());
 		if (newTextColor != null)
 		{
@@ -1022,22 +1022,22 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 			updateTextPreviewBySettingsOnCurrentScale();
 		}
   }//GEN-LAST:event_jButtonSelectTextColorActionPerformed
-
+	
   private void jButtonResetPointIconActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonResetPointIconActionPerformed
   {//GEN-HEADEREND:event_jButtonResetPointIconActionPerformed
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		PointDrawSettings pointSettingsOnCurrentScale = settingOnCurrentScale.getPointDrawSettings();
-
+		
 		pointSettingsOnCurrentScale.setIcon(null);
 		updatePointIconPreviewBySettingsOnCurrentScale();
   }//GEN-LAST:event_jButtonResetPointIconActionPerformed
-
+	
   private void jButtonSelectPointIconActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonSelectPointIconActionPerformed
   {//GEN-HEADEREND:event_jButtonSelectPointIconActionPerformed
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
+		
 		int showDialogResult = fileChooser.showOpenDialog(this);
 		if (showDialogResult == JFileChooser.APPROVE_OPTION)
 		{
@@ -1052,7 +1052,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 			{
 				imageFromSelectedFile = null;
 			}
-
+			
 			DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 			DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 			PointDrawSettings pointSettingsOnCurrentScale = settingOnCurrentScale.getPointDrawSettings();
@@ -1067,13 +1067,13 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 			}
 		}
   }//GEN-LAST:event_jButtonSelectPointIconActionPerformed
-
+	
   private void jButtonSelectTextFontActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonSelectTextFontActionPerformed
   {//GEN-HEADEREND:event_jButtonSelectTextFontActionPerformed
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		TextDrawSettings textSettingsOnCurrentScale = settingOnCurrentScale.getTextDrawSettings();
-
+		
 		JFontChooser fontChooser = new JFontChooser(null);
 		int showDialogResult = fontChooser.showDialog(textSettingsOnCurrentScale.getFont());
 		if (showDialogResult == JFontChooser.OK_OPTION)
@@ -1082,23 +1082,23 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 			updateTextPreviewBySettingsOnCurrentScale();
 		}
   }//GEN-LAST:event_jButtonSelectTextFontActionPerformed
-
+	
   private void jButtonApplyDescriptionActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonApplyDescriptionActionPerformed
   {//GEN-HEADEREND:event_jButtonApplyDescriptionActionPerformed
 		editingMapObjectDrawSettings.setDescription(jTextFieldDescription.getText());
   }//GEN-LAST:event_jButtonApplyDescriptionActionPerformed
-
+	
   private void jButtonApplyNameActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonApplyNameActionPerformed
   {//GEN-HEADEREND:event_jButtonApplyNameActionPerformed
 		editingMapObjectDrawSettings.setName(jTextFieldName.getText());
   }//GEN-LAST:event_jButtonApplyNameActionPerformed
-
+	
   private void jButtonChoosePolygonFillColorActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonChoosePolygonFillColorActionPerformed
   {//GEN-HEADEREND:event_jButtonChoosePolygonFillColorActionPerformed
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		PolygonDrawSettings polygonSettingOnCurrentScale = settingOnCurrentScale.getPolygonDrawSettings();
-
+		
 		Color newFillColor = JColorChooser.showDialog(this, "Choosing polygon fill color", Color.BLACK);
 		if (newFillColor != null)
 		{
@@ -1106,12 +1106,12 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 			// update preview
 		}
   }//GEN-LAST:event_jButtonChoosePolygonFillColorActionPerformed
-
+	
   private void jButtonChoosePolygonFillTextureActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonChoosePolygonFillTextureActionPerformed
   {//GEN-HEADEREND:event_jButtonChoosePolygonFillTextureActionPerformed
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
+		
 		int showDialogResult = fileChooser.showOpenDialog(this);
 		if (showDialogResult == JFileChooser.APPROVE_OPTION)
 		{
@@ -1126,11 +1126,11 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 			{
 				imageFromSelectedFile = null;
 			}
-
+			
 			DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 			DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 			PolygonDrawSettings polygonSettingOnCurrentScale = settingOnCurrentScale.getPolygonDrawSettings();
-
+			
 			if (imageFromSelectedFile != null)
 			{
 				polygonSettingOnCurrentScale.setFiller(PolygonFillersFactory.createTextureFiller(imageFromSelectedFile));
@@ -1142,13 +1142,13 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 			}
 		}
   }//GEN-LAST:event_jButtonChoosePolygonFillTextureActionPerformed
-
+	
   private void jCheckBoxDrawPolygonInnerPartActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBoxDrawPolygonInnerPartActionPerformed
   {//GEN-HEADEREND:event_jCheckBoxDrawPolygonInnerPartActionPerformed
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		PolygonDrawSettings polygonSettingOnCurrentScale = settingOnCurrentScale.getPolygonDrawSettings();
-
+		
 		if (jCheckBoxDrawPolygonInnerPart.isSelected())
 		{
 			polygonSettingOnCurrentScale.setDrawInnerPart();
@@ -1158,13 +1158,13 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 			polygonSettingOnCurrentScale.setNotDrawInnerPart();
 		}
   }//GEN-LAST:event_jCheckBoxDrawPolygonInnerPartActionPerformed
-
+	
   private void jCheckBoxDrawPolygonBorderActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBoxDrawPolygonBorderActionPerformed
   {//GEN-HEADEREND:event_jCheckBoxDrawPolygonBorderActionPerformed
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		PolygonDrawSettings polygonSettingOnCurrentScale = settingOnCurrentScale.getPolygonDrawSettings();
-
+		
 		if (jCheckBoxDrawPolygonBorder.isSelected())
 		{
 			polygonSettingOnCurrentScale.setDrawBorder();
@@ -1174,7 +1174,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 			polygonSettingOnCurrentScale.setNotDrawBorder();
 		}
   }//GEN-LAST:event_jCheckBoxDrawPolygonBorderActionPerformed
-
+	
   private void jCheckBoxDrawTextOnScaleLevelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jCheckBoxDrawTextOnScaleLevelActionPerformed
   {//GEN-HEADEREND:event_jCheckBoxDrawTextOnScaleLevelActionPerformed
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
@@ -1188,17 +1188,25 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 			settingOnCurrentScale.setNotDrawText();
 		}
   }//GEN-LAST:event_jCheckBoxDrawTextOnScaleLevelActionPerformed
-
+	
   private void jButtonEditLinePatternActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonEditLinePatternActionPerformed
   {//GEN-HEADEREND:event_jButtonEditLinePatternActionPerformed
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
 		LineDrawSettings lineSettingsOnCurrentScale = settingOnCurrentScale.getLineDrawSettings();
-
+		
 		EditLinePatternDialog editLinePatternDialog = new EditLinePatternDialog(this,
-						Dialog.ModalityType.DOCUMENT_MODAL, lineSettingsOnCurrentScale.getPattern());
+						Dialog.ModalityType.DOCUMENT_MODAL);
+		editLinePatternDialog.setPattern(lineSettingsOnCurrentScale.getPattern());
 		editLinePatternDialog.setLocationRelativeTo(this);
+		
 		editLinePatternDialog.setVisible(true);
+		
+		float[] newPattern = editLinePatternDialog.getPattern();
+		if (newPattern.length > 0)
+		{
+			lineSettingsOnCurrentScale.setPattern(newPattern);
+		}
   }//GEN-LAST:event_jButtonEditLinePatternActionPerformed
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton jButtonAddDefenitionTag;
