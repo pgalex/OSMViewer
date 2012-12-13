@@ -2,6 +2,7 @@ package map;
 
 import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
+import java.awt.geom.Rectangle2D;
 
 /**
  * Object on a map, consisting of one node
@@ -59,8 +60,16 @@ public class MapPoint extends MapObject
 		{
 			throw new IllegalArgumentException();
 		}
+		
+		if(area.isZero())
+		{
+			return false;
+		}
 
-		return true;
+		Rectangle2D areaAsRectangle = new Rectangle2D.Double(area.getLatitudeMinimum(), area.getLongitudeMinimum(),
+						area.getLatitudeSize(), area.getLongitudeSize());
+
+		return areaAsRectangle.contains(position.getLatitude(), position.getLongitude());
 	}
 
 	/**
