@@ -119,7 +119,7 @@ public class MapBounds
 	}
 
 	/**
-	 * Is bounds defines zero area. Some min/max pair of coordinates is equals
+	 * Is bounds defines zero area. Some min-max pair of coordinates is equals
 	 *
 	 * @return Is bounds defines zero area
 	 */
@@ -136,5 +136,25 @@ public class MapBounds
 		{
 			return false;
 		}
+	}
+
+	/**
+	 * Get size of area by latitude
+	 *
+	 * @return size by latitude
+	 */
+	public double getLatitudeSize()
+	{
+		return latitudeMaximum - latitudeMinimum;
+	}
+
+	/**
+	 * Get size of area by longitude
+	 *
+	 * @return size by longitude
+	 */
+	public double getLongitudeSize()
+	{
+		return longitudeMaximum - longitudeMinimum;
 	}
 }

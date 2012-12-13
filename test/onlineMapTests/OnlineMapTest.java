@@ -2,10 +2,9 @@ package onlineMapTests;
 
 import drawingStyles.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
-import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.Tag;
 import drawingStyles.StyleEditor;
+import drawingStyles.Tag;
 import map.*;
 import map.onlineMap.OnlineMap;
 import static org.junit.Assert.*;
@@ -78,7 +77,7 @@ public class OnlineMapTest
 		testMap.addObject(point3);
 
 		MapObjectsRendererMock objectsRendererMock = new MapObjectsRendererMock();
-		testMap.acceptObjectsRenderer(objectsRendererMock);
+		testMap.rendersObjectInArea(objectsRendererMock, new MapBounds(-10, 10, -10, 10));
 
 		assertEquals(3, objectsRendererMock.pointsRendered);
 		assertEquals(1, objectsRendererMock.linesRendered);
@@ -86,7 +85,7 @@ public class OnlineMapTest
 	}
 
 	/**
-	 * Renderer is null. Should not be any exception
+	 * Rendering with null renderer test
 	 */
 	@Test
 	public void renderingWithNullRendererTest()
@@ -94,12 +93,30 @@ public class OnlineMapTest
 		OnlineMap testMap = new OnlineMap();
 		try
 		{
-			testMap.acceptObjectsRenderer(null);
+			testMap.rendersObjectInArea(null, new MapBounds(1, 2, 3, 4));
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
 			// ok
 		}
-		catch (Exception ex)
+	}
+
+	/**
+	 * Renderering with null area test
+	 */
+	@Test
+	public void renderingWithNullRenderingAreaTest()
+	{
+		OnlineMap testMap = new OnlineMap();
+		try
 		{
+			testMap.rendersObjectInArea(new MapObjectsRendererMock(), null);
 			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
 		}
 	}
 }

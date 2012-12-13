@@ -35,6 +35,24 @@ public class MapPolygon extends MapObjectByPoints
 	}
 
 	/**
+	 * Is object visible in given area
+	 *
+	 * @param area area to test visibility in
+	 * @return is object visible in area
+	 * @throws IllegalArgumentException area is null
+	 */
+	@Override
+	public boolean isVisibleInArea(MapBounds area) throws IllegalArgumentException
+	{
+		if (area == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		return true;
+	}
+
+	/**
 	 * Render with objects render visitor
 	 *
 	 * @param objectsRenderer objects renderer

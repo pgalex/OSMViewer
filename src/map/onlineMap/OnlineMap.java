@@ -4,6 +4,7 @@ import drawingStyles.StyleViewer;
 import java.util.ArrayList;
 import java.util.Collections;
 import map.Map;
+import map.MapBounds;
 import map.MapObject;
 import map.MapObjectDrawPriorityComparator;
 import map.MapObjectsRenderer;
@@ -45,7 +46,7 @@ public class OnlineMap implements Map
 			objects.add(objectToAdd);
 		}
 	}
-	
+
 	/**
 	 * Clear map
 	 */
@@ -67,21 +68,38 @@ public class OnlineMap implements Map
 	}
 
 	/**
-	 * Accept objects renderer visitor. Render every object of map
+	 * Render all map objects, visible in area, with renderer
 	 *
 	 * @param objectsRenderer objects renderer
+	 * @param renderingArea area, using to determine map objects that need to draw
+	 * @throws IllegalArgumentException objectsRenderer or renderingArea is null
 	 */
 	@Override
-	public void acceptObjectsRenderer(MapObjectsRenderer objectsRenderer)
+	public void rendersObjectInArea(MapObjectsRenderer objectsRenderer,
+					MapBounds renderingArea) throws IllegalArgumentException
 	{
 		if (objectsRenderer == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		if (renderingArea == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		// nothing to draw
+		if (renderingArea.isZero())
 		{
 			return;
 		}
 
 		for (int i = 0; i < objects.size(); i++)
 		{
-			objects.get(i).acceptRenderer(objectsRenderer);
+			MapObject renderingObject = objects.get(i);
+			if (renderingObject.isVisibleInArea(renderingArea))
+			{
+				renderingObject.acceptRenderer(objectsRenderer);
+			}
 		}
 	}
 }

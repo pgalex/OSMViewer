@@ -200,7 +200,7 @@ public class MapRenderer implements CoordinatesConverter
 
 		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(targetCanvas,
 						textCanvasGraphics, styleViewer, this, scaleLevel);
-		mapToRender.acceptObjectsRenderer(objectsRenderer);
+		mapToRender.rendersObjectInArea(objectsRenderer, getViewArea());
 
 		targetCanvas.drawImage(textCanvasImage, 0, 0, null);
 	}
@@ -265,7 +265,7 @@ public class MapRenderer implements CoordinatesConverter
 		{
 			throw new IllegalArgumentException();
 		}
-		
+
 		Point2D viewInMercator = MercatorSphericProjection.geographicsToMercator(viewPosition,
 						ScalesArray.getScaleByScaleLevel(scaleLevel));
 

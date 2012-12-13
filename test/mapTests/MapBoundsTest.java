@@ -106,4 +106,64 @@ public class MapBoundsTest
 		MapBounds testBounds = new MapBounds(1, 0, 1, 0);
 		assertFalse(testBounds.isZero());
 	}
+
+	/**
+	 * Testing computing latitude if min-max is less than zero
+	 */
+	@Test
+	public void latitudeSizeBoundsLessThanZeroTest()
+	{
+		MapBounds testBounds = new MapBounds(-5, -4, 1, 0);
+		assertEquals(1.0, testBounds.getLatitudeSize(), 0.001);
+	}
+	
+	/**
+	 * Testing computing latitude if min-max is more than zero
+	 */
+	@Test
+	public void latitudeSizeBoundsMoreThanZeroTest()
+	{
+		MapBounds testBounds = new MapBounds(4, 7, 1, 0);
+		assertEquals(3.0, testBounds.getLatitudeSize(), 0.001);
+	}
+	
+	/**
+	 * Testing computing latitude if min less than zero and max is more than zero
+	 */
+	@Test
+	public void latitudeSizeOneBoundLessThanZeroTest()
+	{
+		MapBounds testBounds = new MapBounds(-5, 5, 1, 0);
+		assertEquals(10.0, testBounds.getLatitudeSize(), 0.001);
+	}
+	
+	/**
+	 * Testing computing latitude if min-max is less than zero
+	 */
+	@Test
+	public void longitudeSizeBoundsLessThanZeroTest()
+	{
+		MapBounds testBounds = new MapBounds(1, 0, -5, -3);
+		assertEquals(2.0, testBounds.getLongitudeSize(), 0.001);
+	}
+	
+	/**
+	 * Testing computing latitude if min-max is more than zero
+	 */
+	@Test
+	public void longitudeSizeBoundsMoreThanZeroTest()
+	{
+		MapBounds testBounds = new MapBounds(1, 0, 4, 7);
+		assertEquals(3.0, testBounds.getLongitudeSize(), 0.001);
+	}
+	
+	/**
+	 * Testing computing latitude if min less than zero and max is more than zero
+	 */
+	@Test
+	public void longitudeSizeOneBoundLessThanZeroTest()
+	{
+		MapBounds testBounds = new MapBounds(1, 0, -5, 5);
+		assertEquals(10.0, testBounds.getLongitudeSize(), 0.001);
+	}
 }

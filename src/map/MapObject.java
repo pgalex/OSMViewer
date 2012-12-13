@@ -102,17 +102,26 @@ public abstract class MapObject
 	}
 
 	/**
+	 * Is object visible in given area
+	 *
+	 * @param area area to test visibility in
+	 * @return is object visible in area
+	 * @throws IllegalArgumentException area is null
+	 */
+	public abstract boolean isVisibleInArea(MapBounds area) throws IllegalArgumentException;
+
+	/**
+	 * Render with objects render
+	 *
+	 * @param objectsRenderer objects renderer
+	 */
+	public abstract void acceptRenderer(MapObjectsRenderer objectsRenderer);
+
+	/**
 	 * Can this type of map object be drawen with this style
 	 *
 	 * @param objectDrawStyle drawing style of object
 	 * @return Can this type of map object be drawen with this style
 	 */
 	protected abstract boolean canBeDrawenWithStyle(MapObjectDrawSettings objectDrawStyle);
-
-	/**
-	 * Render with objects render visitor
-	 *
-	 * @param objectsRenderer objects renderer
-	 */
-	public abstract void acceptRenderer(MapObjectsRenderer objectsRenderer);
 }

@@ -17,9 +17,11 @@ public interface Map
 	public void sortObjectsByDrawPriority(StyleViewer styleViewer);
 
 	/**
-	 * Accept objects objectsRenderer visitor. Render every object of map
+	 * Render all map objects, visible in area, with renderer
 	 *
-	 * @param objectsRenderer objects objectsRenderer
+	 * @param objectsRenderer objects renderer
+	 * @param renderingArea area, using to determine map objects that need to draw
+	 * @throws IllegalArgumentException objectsRenderer or renderingArea is null
 	 */
-	public void acceptObjectsRenderer(MapObjectsRenderer objectsRenderer);
+	public void rendersObjectInArea(MapObjectsRenderer objectsRenderer, MapBounds renderingArea) throws IllegalArgumentException;
 }
