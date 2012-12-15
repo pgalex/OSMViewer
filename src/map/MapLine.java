@@ -1,5 +1,11 @@
 package map;
 
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.LineString;
+import com.vividsolutions.jts.geom.LinearRing;
+import com.vividsolutions.jts.geom.Polygon;
+import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
 import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
 
@@ -32,7 +38,7 @@ public class MapLine extends MapObjectByPoints
 			throw new IllegalArgumentException();
 		}
 	}
-	
+
 	/**
 	 * Is object visible in given area
 	 *
@@ -47,8 +53,34 @@ public class MapLine extends MapObjectByPoints
 		{
 			throw new IllegalArgumentException();
 		}
-	
-		return true;
+
+		if (area.isZero())
+		{
+			return false;
+		}
+
+		GeometryFactory factory = new GeometryFactory();
+
+		Coordinate[] lineCoordinates = new Coordinate[getPointsCount()];
+		for (int i = 0; i < getPointsCount(); i++)
+		{
+			MapPosition point = getPoint(i);
+			lineCoordinates[i] = new Coordinate(point.getLatitude(), point.getLongitude());
+		}
+
+		LineString lineString = new LineString(new CoordinateArraySequence(lineCoordinates), factory);
+
+		Coordinate[] areaCoordinates = new Coordinate[5];
+		areaCoordinates[0] = new Coordinate(area.getLatitudeMinimum(), area.getLongitudeMinimum());
+		areaCoordinates[1] = new Coordinate(area.getLatitudeMinimum(), area.getLongitudeMaximum());
+		areaCoordinates[2] = new Coordinate(area.getLatitudeMaximum(), area.getLongitudeMaximum());
+		areaCoordinates[3] = new Coordinate(area.getLatitudeMaximum(), area.getLongitudeMinimum());
+		areaCoordinates[4] = new Coordinate(area.getLatitudeMinimum(), area.getLongitudeMinimum());
+		LinearRing areaLinearRing = new LinearRing(new CoordinateArraySequence(areaCoordinates), factory);
+		
+		Polygon areaPolygon = new Polygon(areaLinearRing, null, factory);
+
+		return areaPolygon.intersects(lineString);
 	}
 
 	/**
