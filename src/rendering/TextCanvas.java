@@ -1,5 +1,7 @@
 package rendering;
 
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.LineSegment;
 import drawingStyles.TextDrawSettings;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
@@ -213,13 +215,9 @@ public class TextCanvas
 			throw new IllegalArgumentException();
 		}
 
-		double rotationAngle = Math.atan((linePoint2.getY() - linePoint1.getY())
-						/ (linePoint2.getX() - linePoint1.getX()));
-
-		if (linePoint2.getX() < linePoint1.getX())
-		{
-			rotationAngle -= Math.PI;
-		}
+		LineSegment lineSegment = new LineSegment(new Coordinate(linePoint1.getX(), linePoint1.getY()), 
+						new Coordinate(linePoint2.getX(), linePoint2.getY()));
+		double rotationAngle = lineSegment.angle();
 
 		canvas.rotate(rotationAngle, linePoint1.getX(), linePoint1.getY());
 
