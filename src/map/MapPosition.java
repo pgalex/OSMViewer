@@ -76,4 +76,24 @@ public class MapPosition
 	{
 		longitude = longitudeToSet;
 	}
+
+	/**
+	 * Compate with other position
+	 *
+	 * @param pointToCompare position for comparing
+	 * @return is position same
+	 * @throws IllegalArgumentException pointToCompare is null
+	 */
+	public boolean compareTo(MapPosition pointToCompare) throws IllegalArgumentException
+	{
+		if (pointToCompare == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		
+		boolean latitudeSame = Double.compare(latitude, pointToCompare.getLatitude()) == 0;
+		boolean longitudeSame = Double.compare(longitude, pointToCompare.getLongitude()) == 0;
+
+		return latitudeSame && longitudeSame;
+	}
 }

@@ -49,10 +49,11 @@ public class OnlineMapTest
 		style1.setDefenitionTags(someTags);
 		testEditor.addMapObjectDrawSettings(style1);
 
-		MapPosition[] somePoints = new MapPosition[3];
-		somePoints[0] = new MapPosition();
-		somePoints[1] = new MapPosition();
-		somePoints[2] = new MapPosition();
+		MapPosition[] somePoints = new MapPosition[4];
+		somePoints[0] = new MapPosition(1, 2);
+		somePoints[1] = new MapPosition(3, 4);
+		somePoints[2] = new MapPosition(5, 6);
+		somePoints[3] = somePoints[0];
 
 		MapLine line1 = new MapLine(0, someTags, somePoints);
 		line1.assignStyleIndex(testEditor);

@@ -5,6 +5,7 @@ import drawingStyles.DrawingStylesFactory;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleEditor;
 import drawingStyles.Tag;
+import map.MapBounds;
 import map.MapPolygon;
 import map.MapPosition;
 import static org.junit.Assert.*;
@@ -25,10 +26,11 @@ public class MapPolygonTest
 	{
 		try
 		{
-			MapPosition[] points = new MapPosition[3];
+			MapPosition[] points = new MapPosition[4];
 			points[0] = new MapPosition(1, 2);
 			points[1] = new MapPosition(2, 3);
 			points[2] = new MapPosition(5, 6);
+			points[3] = points[0];
 			MapPolygon polygon = new MapPolygon(0, new DefenitionTags(), points);
 			polygon.getPoint(-1);
 			fail();
@@ -47,10 +49,11 @@ public class MapPolygonTest
 	{
 		try
 		{
-			MapPosition[] points = new MapPosition[3];
+			MapPosition[] points = new MapPosition[4];
 			points[0] = new MapPosition(1, 2);
 			points[1] = new MapPosition(2, 3);
 			points[2] = new MapPosition(5, 6);
+			points[3] = points[0];
 			MapPolygon polygon = new MapPolygon(0, new DefenitionTags(), points);
 			polygon.getPoint(points.length);
 			fail();
@@ -69,10 +72,11 @@ public class MapPolygonTest
 	{
 		try
 		{
-			MapPosition[] points = new MapPosition[3];
+			MapPosition[] points = new MapPosition[4];
 			points[0] = new MapPosition(1, 2);
 			points[1] = new MapPosition(2, 3);
 			points[2] = new MapPosition(5, 6);
+			points[3] = points[0];
 			MapPolygon polygon = new MapPolygon(0, null, points);
 			fail();
 		}
@@ -100,16 +104,39 @@ public class MapPolygonTest
 	}
 
 	/**
-	 * Test creating with points count less than 3
+	 * Test creating with points count less than 4
 	 */
 	@Test
-	public void creatingWithPointsLess3Test()
+	public void creatingWithPointsLess4Test()
 	{
 		try
 		{
-			MapPosition[] points = new MapPosition[2];
+			MapPosition[] points = new MapPosition[3];
 			points[0] = new MapPosition(1, 2);
 			points[1] = new MapPosition(2, 3);
+			points[2] = new MapPosition(3, 4);
+			MapPolygon polygon = new MapPolygon(0, new DefenitionTags(), points);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Test creating when first point is not same as last
+	 */
+	@Test
+	public void creatingWithFirstPointNotSameLastTest()
+	{
+		try
+		{
+			MapPosition[] points = new MapPosition[4];
+			points[0] = new MapPosition(1, 2);
+			points[1] = new MapPosition(2, 3);
+			points[2] = new MapPosition(3, 4);
+			points[3] = new MapPosition(5, 6);
 			MapPolygon polygon = new MapPolygon(0, new DefenitionTags(), points);
 			fail();
 		}
@@ -131,7 +158,7 @@ public class MapPolygonTest
 			points[0] = new MapPosition(1, 2);
 			points[1] = null;
 			points[2] = null;
-			points[3] = new MapPosition(2, 3);
+			points[3] = points[0];
 			MapPolygon polygon = new MapPolygon(0, new DefenitionTags(), points);
 			fail();
 		}
@@ -159,10 +186,11 @@ public class MapPolygonTest
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);
 
-		MapPosition[] points = new MapPosition[3];
+		MapPosition[] points = new MapPosition[4];
 		points[0] = new MapPosition(1, 2);
 		points[1] = new MapPosition(2, 3);
 		points[2] = new MapPosition(5, 6);
+		points[3] = points[0];
 		MapPolygon testPolygon = new MapPolygon(1, tags, points);
 		testPolygon.assignStyleIndex(testEditor);
 
@@ -187,10 +215,11 @@ public class MapPolygonTest
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);
 
-		MapPosition[] points = new MapPosition[3];
+		MapPosition[] points = new MapPosition[4];
 		points[0] = new MapPosition(1, 2);
 		points[1] = new MapPosition(2, 3);
 		points[2] = new MapPosition(5, 6);
+		points[3] = points[0];
 		MapPolygon testPolygon = new MapPolygon(1, tags, points);
 		testPolygon.assignStyleIndex(testEditor);
 
@@ -213,13 +242,91 @@ public class MapPolygonTest
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);
 
-		MapPosition[] points = new MapPosition[3];
+		MapPosition[] points = new MapPosition[4];
 		points[0] = new MapPosition(1, 2);
 		points[1] = new MapPosition(2, 3);
 		points[2] = new MapPosition(5, 6);
+		points[3] = points[0];
 		MapPolygon testPolygon = new MapPolygon(1, new DefenitionTags(), points);
 		testPolygon.assignStyleIndex(testEditor);
 
 		assertNull(testPolygon.getStyleIndex());
+	}
+
+	/**
+	 * Testing is visibile - null area
+	 */
+	@Test
+	public void isVisibleInNullAreaTest()
+	{
+		try
+		{
+			MapPosition[] points = new MapPosition[4];
+			points[0] = new MapPosition(-1, -2);
+			points[1] = new MapPosition(1, 0);
+			points[2] = new MapPosition(3, 3);
+			points[3] = points[0];
+			MapPolygon testPolygon = new MapPolygon(1, new DefenitionTags(), points);
+			testPolygon.isVisibleInArea(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Testing is visible - all polygon points inside area
+	 */
+	@Test
+	public void isVisibleAllPointsInAreaTest()
+	{
+		MapPosition[] points = new MapPosition[4];
+		points[0] = new MapPosition(-1, -2);
+		points[1] = new MapPosition(1, 0);
+		points[2] = new MapPosition(3, 3);
+		points[3] = points[0];
+		MapPolygon testPolygon = new MapPolygon(1, new DefenitionTags(), points);
+		MapBounds testArea = new MapBounds(-5, 5, -5, 5);
+		assertTrue(testPolygon.isVisibleInArea(testArea));
+	}
+
+	/**
+	 * Testing is visible - some polygon points inside area, some outside
+	 */
+	@Test
+	public void isVisibleSomePointsInAreaTest()
+	{
+		MapPosition[] points = new MapPosition[5];
+		points[0] = new MapPosition(-1, -2);
+		points[1] = new MapPosition(1, 0);
+		points[2] = new MapPosition(3, 3);
+		points[3] = new MapPosition(7, 7);
+		points[4] = points[0];
+		MapPolygon testPolygon = new MapPolygon(1, new DefenitionTags(), points);
+		MapBounds testArea = new MapBounds(0, 5, 0, 5);
+		assertTrue(testPolygon.isVisibleInArea(testArea));
+	}
+
+	/**
+	 * Testing is visible - all point outside area, and surround area, but not
+	 * intersect (using to test visible, if bounding rectangle intersect area, but
+	 * polygon not )
+	 */
+	@Test
+	public void isVisiblePointsSurroundsAreaNotIntersectTest()
+	{
+		MapPosition[] points = new MapPosition[7];
+		points[0] = new MapPosition(0, 9);
+		points[1] = new MapPosition(9, 9);
+		points[2] = new MapPosition(9, 0);
+		points[3] = new MapPosition(7, 0);
+		points[4] = new MapPosition(7, 7);
+		points[5] = new MapPosition(0, 7);
+		points[6] = points[0];
+		MapPolygon testPolygon = new MapPolygon(1, new DefenitionTags(), points);
+		MapBounds testArea = new MapBounds(0, 5, 0, 5);
+		assertFalse(testPolygon.isVisibleInArea(testArea));
 	}
 }

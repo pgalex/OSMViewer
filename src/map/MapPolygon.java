@@ -1,5 +1,11 @@
 package map;
 
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.LineString;
+import com.vividsolutions.jts.geom.LinearRing;
+import com.vividsolutions.jts.geom.Polygon;
+import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
 import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
 
@@ -13,15 +19,15 @@ public class MapPolygon extends MapObjectByPoints
 	/**
 	 * Minimum points count that can be using for polygon
 	 */
-	private static final int MINIMUM_POINTS_COUNT = 3;
+	private static final int MINIMUM_POINTS_COUNT = 4;
 
 	/**
 	 * Create with parameters
 	 *
 	 * @param polygonId global OpenStreetMap id of object
 	 * @param polygonDefenitionTags Tags, describes the polygon
-	 * @param polygonPoints polygonPoints of polygon
-	 * @throws IllegalArgumentException polygonPointsless contains less than 3
+	 * @param polygonPoints point of polygon. Last and first point should be same
+	 * @throws IllegalArgumentException polygonPointsless contains less than 4
 	 * elements
 	 */
 	public MapPolygon(long polygonId, DefenitionTags polygonDefenitionTags, MapPosition[] polygonPoints) throws IllegalArgumentException
@@ -29,6 +35,11 @@ public class MapPolygon extends MapObjectByPoints
 		super(polygonId, polygonDefenitionTags, polygonPoints);
 
 		if (polygonPoints.length < MINIMUM_POINTS_COUNT)
+		{
+			throw new IllegalArgumentException();
+		}
+		
+		if (!polygonPoints[0].compareTo(polygonPoints[polygonPoints.length - 1]))
 		{
 			throw new IllegalArgumentException();
 		}
@@ -49,7 +60,34 @@ public class MapPolygon extends MapObjectByPoints
 			throw new IllegalArgumentException();
 		}
 
-		return true;
+		if (area.isZero())
+		{
+			return false;
+		}
+
+		GeometryFactory factory = new GeometryFactory();
+
+		Coordinate[] polygonCoordinates = new Coordinate[getPointsCount()];
+		for (int i = 0; i < getPointsCount(); i++)
+		{
+			MapPosition point = getPoint(i);
+			polygonCoordinates[i] = new Coordinate(point.getLatitude(), point.getLongitude());
+		}
+
+		LinearRing polygonLineString = new LinearRing(new CoordinateArraySequence(polygonCoordinates), factory);
+		Polygon polygon = new Polygon(polygonLineString, null, factory);
+
+		Coordinate[] areaCoordinates = new Coordinate[5];
+		areaCoordinates[0] = new Coordinate(area.getLatitudeMinimum(), area.getLongitudeMinimum());
+		areaCoordinates[1] = new Coordinate(area.getLatitudeMinimum(), area.getLongitudeMaximum());
+		areaCoordinates[2] = new Coordinate(area.getLatitudeMaximum(), area.getLongitudeMaximum());
+		areaCoordinates[3] = new Coordinate(area.getLatitudeMaximum(), area.getLongitudeMinimum());
+		areaCoordinates[4] = new Coordinate(area.getLatitudeMinimum(), area.getLongitudeMinimum());
+		LinearRing areaLinearRing = new LinearRing(new CoordinateArraySequence(areaCoordinates), factory);
+
+		Polygon areaPolygon = new Polygon(areaLinearRing, null, factory);
+
+		return areaPolygon.intersects(polygon);
 	}
 
 	/**
