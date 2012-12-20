@@ -107,10 +107,10 @@
         <Component class="javax.swing.JSlider" name="jSliderScaleLevel">
           <Properties>
             <Property name="maximum" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="OnlineMapProcessor.GetMaximumScaleLevel()" type="code"/>
+              <Connection code="map.onlineMap.OnlineMapController.GetMaximumScaleLevel()" type="code"/>
             </Property>
             <Property name="minimum" type="int" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="OnlineMapProcessor.GetMinimumScaleLevel()" type="code"/>
+              <Connection code="map.onlineMap.OnlineMapController.GetMinimumScaleLevel()" type="code"/>
             </Property>
             <Property name="orientation" type="int" value="1"/>
           </Properties>

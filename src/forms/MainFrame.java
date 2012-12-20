@@ -3,7 +3,7 @@ package forms;
 import drawingStyles.forms.EditDrawingStylesFrame;
 import javax.swing.JFrame;
 import map.MapPosition;
-import map.onlineMap.OnlineMapProcessor;
+import map.onlineMap.OnlineMapController;
 
 /**
  * Main form
@@ -15,7 +15,7 @@ public class MainFrame extends javax.swing.JFrame
 	/**
 	 * Current map processor
 	 */
-	private OnlineMapProcessor mapProcessor;
+	private OnlineMapController mapProcessor;
 
 	/**
 	 * Creates new main form
@@ -24,7 +24,7 @@ public class MainFrame extends javax.swing.JFrame
 	{
 		initComponents();
 
-		mapProcessor = new OnlineMapProcessor(new MapPosition(55.19907, 38.60329), 16,
+		mapProcessor = new OnlineMapController(new MapPosition(55.19907, 38.60329), 16,
 						jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
 
 		DrawingPanel drawingPanel = (DrawingPanel) jPanelCanvas;
@@ -64,8 +64,8 @@ public class MainFrame extends javax.swing.JFrame
       }
     });
 
-    jSliderScaleLevel.setMaximum(OnlineMapProcessor.GetMaximumScaleLevel());
-    jSliderScaleLevel.setMinimum(OnlineMapProcessor.GetMinimumScaleLevel());
+    jSliderScaleLevel.setMaximum(OnlineMapController.GetMaximumScaleLevel());
+    jSliderScaleLevel.setMinimum(OnlineMapController.GetMinimumScaleLevel());
     jSliderScaleLevel.setOrientation(javax.swing.JSlider.VERTICAL);
     jSliderScaleLevel.addChangeListener(new javax.swing.event.ChangeListener()
     {
