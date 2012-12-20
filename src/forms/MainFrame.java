@@ -1,6 +1,7 @@
 package forms;
 
 import drawingStyles.forms.EditDrawingStylesFrame;
+import java.awt.Point;
 import javax.swing.JFrame;
 import map.MapPosition;
 import map.onlineMap.OnlineMapController;
@@ -15,7 +16,11 @@ public class MainFrame extends javax.swing.JFrame
 	/**
 	 * Current map processor
 	 */
-	private OnlineMapController mapProcessor;
+	private OnlineMapController mapController;
+	/**
+	 * Previous mouse position while dragging
+	 */
+	private Point mouseDragPreviousPosition;
 
 	/**
 	 * Creates new main form
@@ -24,12 +29,11 @@ public class MainFrame extends javax.swing.JFrame
 	{
 		initComponents();
 
-		mapProcessor = new OnlineMapController(new MapPosition(55.19907, 38.60329), 16,
+		mapController = new OnlineMapController(new MapPosition(55.19907, 38.60329), 16,
 						jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
 
 		DrawingPanel drawingPanel = (DrawingPanel) jPanelCanvas;
-		drawingPanel.setPainter(mapProcessor);
-		jSliderScaleLevel.setValue(mapProcessor.getScaleLevel());
+		drawingPanel.setPainter(mapController);
 	}
 
 	/**
@@ -42,12 +46,7 @@ public class MainFrame extends javax.swing.JFrame
   private void initComponents()
   {
 
-    jPanelCanvas = new DrawingPanel(null);
-    jSliderScaleLevel = new javax.swing.JSlider();
-    jButtonMoveLeft = new javax.swing.JButton();
-    jButtonMoveRight = new javax.swing.JButton();
-    jButtonMoveUp = new javax.swing.JButton();
-    jButtonMoveDown = new javax.swing.JButton();
+    jPanelCanvas = new forms.DrawingPanel(null);
     jButtonReloadMap = new javax.swing.JButton();
     jButtonEditDrawingStyles = new javax.swing.JButton();
 
@@ -56,6 +55,20 @@ public class MainFrame extends javax.swing.JFrame
 
     jPanelCanvas.setBackground(new java.awt.Color(204, 204, 204));
     jPanelCanvas.setForeground(new java.awt.Color(255, 255, 255));
+    jPanelCanvas.addMouseWheelListener(new java.awt.event.MouseWheelListener()
+    {
+      public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt)
+      {
+        jPanelCanvasMouseWheelMoved(evt);
+      }
+    });
+    jPanelCanvas.addMouseListener(new java.awt.event.MouseAdapter()
+    {
+      public void mousePressed(java.awt.event.MouseEvent evt)
+      {
+        jPanelCanvasMousePressed(evt);
+      }
+    });
     jPanelCanvas.addComponentListener(new java.awt.event.ComponentAdapter()
     {
       public void componentResized(java.awt.event.ComponentEvent evt)
@@ -63,51 +76,11 @@ public class MainFrame extends javax.swing.JFrame
         jPanelCanvasComponentResized(evt);
       }
     });
-
-    jSliderScaleLevel.setMaximum(OnlineMapController.GetMaximumScaleLevel());
-    jSliderScaleLevel.setMinimum(OnlineMapController.GetMinimumScaleLevel());
-    jSliderScaleLevel.setOrientation(javax.swing.JSlider.VERTICAL);
-    jSliderScaleLevel.addChangeListener(new javax.swing.event.ChangeListener()
+    jPanelCanvas.addMouseMotionListener(new java.awt.event.MouseMotionAdapter()
     {
-      public void stateChanged(javax.swing.event.ChangeEvent evt)
+      public void mouseDragged(java.awt.event.MouseEvent evt)
       {
-        jSliderScaleLevelStateChanged(evt);
-      }
-    });
-
-    jButtonMoveLeft.setText("Left");
-    jButtonMoveLeft.addActionListener(new java.awt.event.ActionListener()
-    {
-      public void actionPerformed(java.awt.event.ActionEvent evt)
-      {
-        jButtonMoveLeftActionPerformed(evt);
-      }
-    });
-
-    jButtonMoveRight.setText("Right");
-    jButtonMoveRight.addActionListener(new java.awt.event.ActionListener()
-    {
-      public void actionPerformed(java.awt.event.ActionEvent evt)
-      {
-        jButtonMoveRightActionPerformed(evt);
-      }
-    });
-
-    jButtonMoveUp.setText("Up");
-    jButtonMoveUp.addActionListener(new java.awt.event.ActionListener()
-    {
-      public void actionPerformed(java.awt.event.ActionEvent evt)
-      {
-        jButtonMoveUpActionPerformed(evt);
-      }
-    });
-
-    jButtonMoveDown.setText("Down");
-    jButtonMoveDown.addActionListener(new java.awt.event.ActionListener()
-    {
-      public void actionPerformed(java.awt.event.ActionEvent evt)
-      {
-        jButtonMoveDownActionPerformed(evt);
+        jPanelCanvasMouseDragged(evt);
       }
     });
 
@@ -134,43 +107,20 @@ public class MainFrame extends javax.swing.JFrame
     jPanelCanvasLayout.setHorizontalGroup(
       jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(jPanelCanvasLayout.createSequentialGroup()
-        .addComponent(jSliderScaleLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addGap(0, 0, Short.MAX_VALUE))
-      .addGroup(jPanelCanvasLayout.createSequentialGroup()
-        .addGroup(jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addGroup(jPanelCanvasLayout.createSequentialGroup()
-            .addComponent(jButtonMoveLeft)
-            .addGap(40, 40, 40)
-            .addComponent(jButtonMoveRight))
-          .addGroup(jPanelCanvasLayout.createSequentialGroup()
-            .addGap(56, 56, 56)
-            .addComponent(jButtonMoveUp)
-            .addGap(71, 71, 71)
-            .addComponent(jButtonReloadMap)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jButtonEditDrawingStyles))
-          .addGroup(jPanelCanvasLayout.createSequentialGroup()
-            .addGap(55, 55, 55)
-            .addComponent(jButtonMoveDown)))
-        .addContainerGap(140, Short.MAX_VALUE))
+        .addContainerGap()
+        .addComponent(jButtonReloadMap)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addComponent(jButtonEditDrawingStyles)
+        .addContainerGap(336, Short.MAX_VALUE))
     );
     jPanelCanvasLayout.setVerticalGroup(
       jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(jPanelCanvasLayout.createSequentialGroup()
         .addContainerGap()
         .addGroup(jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(jButtonMoveUp)
           .addComponent(jButtonReloadMap)
           .addComponent(jButtonEditDrawingStyles))
-        .addGap(2, 2, 2)
-        .addGroup(jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(jButtonMoveLeft)
-          .addComponent(jButtonMoveRight))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addComponent(jButtonMoveDown)
-        .addGap(22, 22, 22)
-        .addComponent(jSliderScaleLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(241, Short.MAX_VALUE))
+        .addContainerGap(445, Short.MAX_VALUE))
     );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -187,45 +137,15 @@ public class MainFrame extends javax.swing.JFrame
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
-  private void jSliderScaleLevelStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_jSliderScaleLevelStateChanged
-  {//GEN-HEADEREND:event_jSliderScaleLevelStateChanged
-		mapProcessor.setScaleLevel(jSliderScaleLevel.getValue());
-		jPanelCanvas.repaint();
-  }//GEN-LAST:event_jSliderScaleLevelStateChanged
-
-  private void jButtonMoveLeftActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonMoveLeftActionPerformed
-  {//GEN-HEADEREND:event_jButtonMoveLeftActionPerformed
-		mapProcessor.moveViewPositionByPixels(-50, 0);
-		jPanelCanvas.repaint();
-  }//GEN-LAST:event_jButtonMoveLeftActionPerformed
-
-  private void jButtonMoveRightActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonMoveRightActionPerformed
-  {//GEN-HEADEREND:event_jButtonMoveRightActionPerformed
-		mapProcessor.moveViewPositionByPixels(50, 0);
-		jPanelCanvas.repaint();
-  }//GEN-LAST:event_jButtonMoveRightActionPerformed
-
-  private void jButtonMoveUpActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonMoveUpActionPerformed
-  {//GEN-HEADEREND:event_jButtonMoveUpActionPerformed
-		mapProcessor.moveViewPositionByPixels(0, -50);
-		jPanelCanvas.repaint();
-  }//GEN-LAST:event_jButtonMoveUpActionPerformed
-
-  private void jButtonMoveDownActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonMoveDownActionPerformed
-  {//GEN-HEADEREND:event_jButtonMoveDownActionPerformed
-		mapProcessor.moveViewPositionByPixels(0, 50);
-		jPanelCanvas.repaint();
-  }//GEN-LAST:event_jButtonMoveDownActionPerformed
-
   private void jPanelCanvasComponentResized(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_jPanelCanvasComponentResized
   {//GEN-HEADEREND:event_jPanelCanvasComponentResized
-		mapProcessor.setCanvasSize(jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
+		mapController.setCanvasSize(jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
 		jPanelCanvas.repaint();
   }//GEN-LAST:event_jPanelCanvasComponentResized
 
   private void jButtonReloadMapActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonReloadMapActionPerformed
   {//GEN-HEADEREND:event_jButtonReloadMapActionPerformed
-		mapProcessor.testLoadMap();
+		mapController.testLoadMap();
 		jPanelCanvas.repaint();
   }//GEN-LAST:event_jButtonReloadMapActionPerformed
 
@@ -236,6 +156,38 @@ public class MainFrame extends javax.swing.JFrame
 		editDrawingStylesDialog.setVisible(true);
 		editDrawingStylesDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
   }//GEN-LAST:event_jButtonEditDrawingStylesActionPerformed
+
+  private void jPanelCanvasMouseDragged(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jPanelCanvasMouseDragged
+  {//GEN-HEADEREND:event_jPanelCanvasMouseDragged
+		mapController.moveViewPositionByPixels((int) mouseDragPreviousPosition.getX() - evt.getX(),
+						(int) mouseDragPreviousPosition.getY() - evt.getY());
+
+		jPanelCanvas.repaint();
+
+		mouseDragPreviousPosition = evt.getPoint();
+  }//GEN-LAST:event_jPanelCanvasMouseDragged
+
+  private void jPanelCanvasMousePressed(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jPanelCanvasMousePressed
+  {//GEN-HEADEREND:event_jPanelCanvasMousePressed
+		mouseDragPreviousPosition = evt.getPoint();
+  }//GEN-LAST:event_jPanelCanvasMousePressed
+
+  private void jPanelCanvasMouseWheelMoved(java.awt.event.MouseWheelEvent evt)//GEN-FIRST:event_jPanelCanvasMouseWheelMoved
+  {//GEN-HEADEREND:event_jPanelCanvasMouseWheelMoved
+		int scaleByWheel = mapController.getScaleLevel() - evt.getWheelRotation();
+
+		if (scaleByWheel < OnlineMapController.GetMinimumScaleLevel())
+		{
+			scaleByWheel = OnlineMapController.GetMinimumScaleLevel();
+		}
+		if (scaleByWheel > OnlineMapController.GetMaximumScaleLevel())
+		{
+			scaleByWheel = OnlineMapController.GetMaximumScaleLevel();
+		}
+		
+		mapController.setScaleLevel(scaleByWheel);
+		jPanelCanvas.repaint();
+  }//GEN-LAST:event_jPanelCanvasMouseWheelMoved
 
 	/**
 	 * @param args the command line arguments
@@ -296,12 +248,7 @@ public class MainFrame extends javax.swing.JFrame
 	}
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton jButtonEditDrawingStyles;
-  private javax.swing.JButton jButtonMoveDown;
-  private javax.swing.JButton jButtonMoveLeft;
-  private javax.swing.JButton jButtonMoveRight;
-  private javax.swing.JButton jButtonMoveUp;
   private javax.swing.JButton jButtonReloadMap;
   private javax.swing.JPanel jPanelCanvas;
-  private javax.swing.JSlider jSliderScaleLevel;
   // End of variables declaration//GEN-END:variables
 }

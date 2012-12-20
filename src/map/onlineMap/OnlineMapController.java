@@ -13,7 +13,7 @@ import map.MapPosition;
 import rendering.MapRenderer;
 
 /**
- * Organize work between other classes and process user's input
+ * Organize work between other components and process user's input
  *
  * @author pgalex
  */
@@ -112,11 +112,17 @@ public class OnlineMapController implements DrawableOnPanel
 	/**
 	 * Set new scale level
 	 *
-	 * @param scaleLevel new scale level
+	 * @param scaleLevelToSet new scale level
+	 * @throws IllegalArgumentException scaleLevelToSet is out of bounds
 	 */
-	public void setScaleLevel(int scaleLevel)
+	public void setScaleLevel(int scaleLevelToSet) throws IllegalArgumentException
 	{
-		renderer.setScaleLevel(scaleLevel);
+		if (scaleLevelToSet < MINIMUM_SCALE_LEVEL || scaleLevelToSet > MAXIMUM_SCALE_LEVEL)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		renderer.setScaleLevel(scaleLevelToSet);
 	}
 
 	/**
