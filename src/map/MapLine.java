@@ -14,12 +14,16 @@ import drawingStyles.MapObjectDrawSettings;
  *
  * @author pgalex
  */
-public class MapLine extends MapObjectByPoints
+public class MapLine extends MapObject
 {
 	/**
 	 * Minimum points count that can be using for line
 	 */
 	private static final int MINIMUM_POINTS_COUNT = 2;
+	/**
+	 * Points of line
+	 */
+	private MapPosition[] points;
 
 	/**
 	 * Create with parameters
@@ -27,16 +31,81 @@ public class MapLine extends MapObjectByPoints
 	 * @param lineId global OpenStreetMap id of object
 	 * @param lineDefenitionTags Tags, describes the line
 	 * @param linePoints points of line
-	 * @throws IllegalArgumentException linePoints contains less than 2 elements
+	 * @throws IllegalArgumentException linePoints, null, contains less than 2
+	 * elements or contains null elements
 	 */
 	public MapLine(long lineId, DefenitionTags lineDefenitionTags, MapPosition[] linePoints) throws IllegalArgumentException
 	{
-		super(lineId, lineDefenitionTags, linePoints);
+		super(lineId, lineDefenitionTags);
 
-		if (linePoints.length < MINIMUM_POINTS_COUNT)
+		if (!isLinePointsCorrect(linePoints))
 		{
 			throw new IllegalArgumentException();
 		}
+
+		points = linePoints;
+	}
+
+	/**
+	 * Is line points array correct
+	 *
+	 * @param linePoints points for testing
+	 * @return is points array correct
+	 */
+	private boolean isLinePointsCorrect(MapPosition[] linePoints)
+	{
+		if (linePoints == null)
+		{
+			return false;
+		}
+
+		if (linePoints.length == 0)
+		{
+			return false;
+		}
+
+		for (int i = 0; i < linePoints.length; i++)
+		{
+			if (linePoints[i] == null)
+			{
+				return false;
+			}
+		}
+
+		if (linePoints.length < MINIMUM_POINTS_COUNT)
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Get count of points
+	 *
+	 * @return count of points
+	 */
+	public int getPointsCount()
+	{
+		return points.length;
+	}
+
+	/**
+	 * Get point with index
+	 *
+	 * @param index index of point to get
+	 * @return point with index
+	 * @throws IllegalArgumentException index is less than 0, or more than points
+	 * count
+	 */
+	public MapPosition getPoint(int index) throws IllegalArgumentException
+	{
+		if (index < 0 || index >= points.length)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		return points[index];
 	}
 
 	/**
@@ -61,10 +130,10 @@ public class MapLine extends MapObjectByPoints
 
 		GeometryFactory factory = new GeometryFactory();
 
-		Coordinate[] lineCoordinates = new Coordinate[getPointsCount()];
-		for (int i = 0; i < getPointsCount(); i++)
+		Coordinate[] lineCoordinates = new Coordinate[points.length];
+		for (int i = 0; i < points.length; i++)
 		{
-			MapPosition point = getPoint(i);
+			MapPosition point = points[i];
 			lineCoordinates[i] = new Coordinate(point.getLatitude(), point.getLongitude());
 		}
 
@@ -77,7 +146,7 @@ public class MapLine extends MapObjectByPoints
 		areaCoordinates[3] = new Coordinate(area.getLatitudeMaximum(), area.getLongitudeMinimum());
 		areaCoordinates[4] = new Coordinate(area.getLatitudeMinimum(), area.getLongitudeMinimum());
 		LinearRing areaLinearRing = new LinearRing(new CoordinateArraySequence(areaCoordinates), factory);
-		
+
 		Polygon areaPolygon = new Polygon(areaLinearRing, null, factory);
 
 		return areaPolygon.intersects(lineString);

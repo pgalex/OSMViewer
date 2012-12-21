@@ -2,7 +2,6 @@ package map;
 
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.LinearRing;
 import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
@@ -14,12 +13,13 @@ import drawingStyles.MapObjectDrawSettings;
  *
  * @author pgalex
  */
-public class MapPolygon extends MapObjectByPoints
+public class MapPolygon extends MapObject
 {
 	/**
 	 * Minimum points count that can be using for polygon
 	 */
 	private static final int MINIMUM_POINTS_COUNT = 4;
+	private MapPosition[] points;
 
 	/**
 	 * Create with parameters
@@ -27,22 +27,86 @@ public class MapPolygon extends MapObjectByPoints
 	 * @param polygonId global OpenStreetMap id of object
 	 * @param polygonDefenitionTags Tags, describes the polygon
 	 * @param polygonPoints point of polygon. Last and first point should be same
-	 * @throws IllegalArgumentException polygonPointsless contains less than 4
-	 * elements
+	 * @throws IllegalArgumentException polygonPoints null, contains less than 4
+	 * elements, contains null elements, or last point not same as first
 	 */
 	public MapPolygon(long polygonId, DefenitionTags polygonDefenitionTags, MapPosition[] polygonPoints) throws IllegalArgumentException
 	{
-		super(polygonId, polygonDefenitionTags, polygonPoints);
+		super(polygonId, polygonDefenitionTags);
+
+		if (!isPolygonPointsCorrect(polygonPoints))
+		{
+			throw new IllegalArgumentException();
+		}
+
+		points = polygonPoints;
+	}
+
+	/**
+	 * Is polygon points array correct
+	 *
+	 * @param polygonPoints points for testing
+	 * @return is points array correct
+	 */
+	private boolean isPolygonPointsCorrect(MapPosition[] polygonPoints)
+	{
+		if (polygonPoints == null)
+		{
+			return false;
+		}
+
+		if (polygonPoints.length == 0)
+		{
+			return false;
+		}
+
+		for (int i = 0; i < polygonPoints.length; i++)
+		{
+			if (polygonPoints[i] == null)
+			{
+				return false;
+			}
+		}
 
 		if (polygonPoints.length < MINIMUM_POINTS_COUNT)
 		{
-			throw new IllegalArgumentException();
+			return false;
 		}
-		
+
 		if (!polygonPoints[0].compareTo(polygonPoints[polygonPoints.length - 1]))
+		{
+			return false;
+		}
+
+		return true;
+	}
+	
+	/**
+	 * Get count of points
+	 *
+	 * @return count of points
+	 */
+	public int getPointsCount()
+	{
+		return points.length;
+	}
+
+	/**
+	 * Get point with index
+	 *
+	 * @param index index of point to get
+	 * @return point with index
+	 * @throws IllegalArgumentException index is less than 0, or more than points
+	 * count
+	 */
+	public MapPosition getPoint(int index) throws IllegalArgumentException
+	{
+		if (index < 0 || index >= points.length)
 		{
 			throw new IllegalArgumentException();
 		}
+
+		return points[index];
 	}
 
 	/**
@@ -67,10 +131,10 @@ public class MapPolygon extends MapObjectByPoints
 
 		GeometryFactory factory = new GeometryFactory();
 
-		Coordinate[] polygonCoordinates = new Coordinate[getPointsCount()];
-		for (int i = 0; i < getPointsCount(); i++)
+		Coordinate[] polygonCoordinates = new Coordinate[points.length];
+		for (int i = 0; i < points.length; i++)
 		{
-			MapPosition point = getPoint(i);
+			MapPosition point = points[i];
 			polygonCoordinates[i] = new Coordinate(point.getLatitude(), point.getLongitude());
 		}
 
