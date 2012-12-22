@@ -7,6 +7,7 @@ import drawingStyles.StyleEditor;
 import drawingStyles.Tag;
 import map.MapBounds;
 import map.MapLine;
+import map.MapPolygon;
 import map.MapPosition;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -129,6 +130,27 @@ public class MapLineTest
 			points[1] = null;
 			points[2] = new MapPosition();
 			MapLine testLine = new MapLine(10, new DefenitionTags(), points);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Testing assigning style index if style viewer is null
+	 */
+	@Test
+	public void assigningStyleIndexNullStyleViewerTest()
+	{
+		try
+		{
+			MapPosition[] points = new MapPosition[2];
+			points[0] = new MapPosition(1, 2);
+			points[1] = new MapPosition(2, 3);
+			MapLine testLine = new MapLine(0, new DefenitionTags(), points);
+			testLine.assignStyleIndex(null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)

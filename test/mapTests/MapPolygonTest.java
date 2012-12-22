@@ -6,6 +6,7 @@ import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleEditor;
 import drawingStyles.Tag;
 import map.MapBounds;
+import map.MapPoint;
 import map.MapPolygon;
 import map.MapPosition;
 import static org.junit.Assert.*;
@@ -160,6 +161,29 @@ public class MapPolygonTest
 			points[2] = null;
 			points[3] = points[0];
 			MapPolygon polygon = new MapPolygon(0, new DefenitionTags(), points);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+	
+	/**
+	 * Testing assigning style index if style viewer is null
+	 */
+	@Test
+	public void assigningStyleIndexNullStyleViewerTest()
+	{
+		try
+		{
+			MapPosition[] points = new MapPosition[4];
+			points[0] = new MapPosition(1, 2);
+			points[1] = new MapPosition(2, 3);
+			points[2] = new MapPosition(5, 6);
+			points[3] = points[0];
+			MapPolygon polygon = new MapPolygon(0, new DefenitionTags(), points);
+			polygon.assignStyleIndex(null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)

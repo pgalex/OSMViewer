@@ -80,12 +80,13 @@ public abstract class MapObject
 	 * and canBeDrawenWithStyle method
 	 *
 	 * @param styleViewer style viewer, using to find index
+	 * @throws IllegalArgumentException styleViewer is null
 	 */
-	public void assignStyleIndex(StyleViewer styleViewer)
+	public void assignStyleIndex(StyleViewer styleViewer) throws IllegalArgumentException
 	{
 		if (styleViewer == null)
 		{
-			return;
+			throw new IllegalArgumentException();
 		}
 
 		Integer foundedIndex = styleViewer.findStyleIndex(defenitionTags);

@@ -51,6 +51,24 @@ public class MapPointTest
 			// ok
 		}
 	}
+	
+	/**
+	 * Testing assigning style index if style viewer is null
+	 */
+	@Test
+	public void assigningStyleIndexNullStyleViewerTest()
+	{
+		try
+		{
+			MapPoint testPoint = new MapPoint(new MapPosition(), 12, new DefenitionTags());
+			testPoint.assignStyleIndex(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
 
 	/**
 	 * Testing assigning style index and canBeDrawenWithStyle work if object can
