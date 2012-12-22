@@ -17,20 +17,20 @@ import drawingStyles.MapObjectDrawSettings;
 public class MapLine extends MapObject
 {
 	/**
-	 * Minimum points count that can be using for line
+	 * Minimum points count that can be using for lineString
 	 */
 	private static final int MINIMUM_POINTS_COUNT = 2;
 	/**
-	 * Points of line
+	 * Stores lineString. Coordinate x as latitude, y as longitude
 	 */
-	private MapPosition[] points;
+	private LineString lineString;
 
 	/**
 	 * Create with parameters
 	 *
 	 * @param lineId global OpenStreetMap id of object
-	 * @param lineDefenitionTags Tags, describes the line
-	 * @param linePoints points of line
+	 * @param lineDefenitionTags Tags, describes the lineString
+	 * @param linePoints points of lineString
 	 * @throws IllegalArgumentException linePoints, null, contains less than 2
 	 * elements or contains null elements
 	 */
@@ -43,11 +43,19 @@ public class MapLine extends MapObject
 			throw new IllegalArgumentException();
 		}
 
-		points = linePoints;
+		GeometryFactory factory = new GeometryFactory();
+
+		Coordinate[] lineCoordinates = new Coordinate[linePoints.length];
+		for (int i = 0; i < linePoints.length; i++)
+		{
+			lineCoordinates[i] = new Coordinate(linePoints[i].getLatitude(), linePoints[i].getLongitude());
+		}
+
+		lineString = new LineString(new CoordinateArraySequence(lineCoordinates), factory);
 	}
 
 	/**
-	 * Is line points array correct
+	 * Is lineString points array correct
 	 *
 	 * @param linePoints points for testing
 	 * @return is points array correct
@@ -87,7 +95,7 @@ public class MapLine extends MapObject
 	 */
 	public int getPointsCount()
 	{
-		return points.length;
+		return lineString.getNumPoints();
 	}
 
 	/**
@@ -100,12 +108,13 @@ public class MapLine extends MapObject
 	 */
 	public MapPosition getPoint(int index) throws IllegalArgumentException
 	{
-		if (index < 0 || index >= points.length)
+		if (index < 0 || index >= lineString.getNumPoints())
 		{
 			throw new IllegalArgumentException();
 		}
 
-		return points[index];
+		Coordinate coordinateByIndex = lineString.getCoordinateN(index);
+		return new MapPosition(coordinateByIndex.x, coordinateByIndex.y);
 	}
 
 	/**
@@ -130,15 +139,6 @@ public class MapLine extends MapObject
 
 		GeometryFactory factory = new GeometryFactory();
 
-		Coordinate[] lineCoordinates = new Coordinate[points.length];
-		for (int i = 0; i < points.length; i++)
-		{
-			MapPosition point = points[i];
-			lineCoordinates[i] = new Coordinate(point.getLatitude(), point.getLongitude());
-		}
-
-		LineString lineString = new LineString(new CoordinateArraySequence(lineCoordinates), factory);
-
 		Coordinate[] areaCoordinates = new Coordinate[5];
 		areaCoordinates[0] = new Coordinate(area.getLatitudeMinimum(), area.getLongitudeMinimum());
 		areaCoordinates[1] = new Coordinate(area.getLatitudeMinimum(), area.getLongitudeMaximum());
@@ -146,7 +146,6 @@ public class MapLine extends MapObject
 		areaCoordinates[3] = new Coordinate(area.getLatitudeMaximum(), area.getLongitudeMinimum());
 		areaCoordinates[4] = new Coordinate(area.getLatitudeMinimum(), area.getLongitudeMinimum());
 		LinearRing areaLinearRing = new LinearRing(new CoordinateArraySequence(areaCoordinates), factory);
-
 		Polygon areaPolygon = new Polygon(areaLinearRing, null, factory);
 
 		return areaPolygon.intersects(lineString);
