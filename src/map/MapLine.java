@@ -21,7 +21,7 @@ public class MapLine extends MapObject
 	 */
 	private static final int MINIMUM_POINTS_COUNT = 2;
 	/**
-	 * Stores lineString. Coordinate x as latitude, y as longitude
+	 * Stores line. Coordinate x as latitude, y as longitude
 	 */
 	private LineString lineString;
 

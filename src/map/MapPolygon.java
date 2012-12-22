@@ -19,7 +19,11 @@ public class MapPolygon extends MapObject
 	 * Minimum points count that can be using for polygon
 	 */
 	private static final int MINIMUM_POINTS_COUNT = 4;
-	private MapPosition[] points;
+	
+	/**
+	 * Stores polygon. Coordinate x as latitude, y as longitude
+	 */
+	private Polygon polygon;
 
 	/**
 	 * Create with parameters
@@ -39,7 +43,16 @@ public class MapPolygon extends MapObject
 			throw new IllegalArgumentException();
 		}
 
-		points = polygonPoints;
+		GeometryFactory factory = new GeometryFactory();
+		
+		Coordinate[] polygonCoordinates = new Coordinate[polygonPoints.length];
+		for (int i = 0; i < polygonPoints.length; i++)
+		{
+			polygonCoordinates[i] = new Coordinate(polygonPoints[i].getLatitude(), polygonPoints[i].getLongitude());
+		}
+		
+		LinearRing polygonLineString = new LinearRing(new CoordinateArraySequence(polygonCoordinates), factory);
+		polygon = new Polygon(polygonLineString, null, factory);
 	}
 
 	/**
@@ -88,7 +101,7 @@ public class MapPolygon extends MapObject
 	 */
 	public int getPointsCount()
 	{
-		return points.length;
+		return polygon.getNumPoints();
 	}
 
 	/**
@@ -101,12 +114,13 @@ public class MapPolygon extends MapObject
 	 */
 	public MapPosition getPoint(int index) throws IllegalArgumentException
 	{
-		if (index < 0 || index >= points.length)
+		if (index < 0 || index >= polygon.getNumPoints())
 		{
 			throw new IllegalArgumentException();
 		}
 
-		return points[index];
+		Coordinate coordinateByIndex = polygon.getCoordinates()[index];
+		return new MapPosition(coordinateByIndex.x, coordinateByIndex.y);
 	}
 
 	/**
@@ -130,16 +144,6 @@ public class MapPolygon extends MapObject
 		}
 
 		GeometryFactory factory = new GeometryFactory();
-
-		Coordinate[] polygonCoordinates = new Coordinate[points.length];
-		for (int i = 0; i < points.length; i++)
-		{
-			MapPosition point = points[i];
-			polygonCoordinates[i] = new Coordinate(point.getLatitude(), point.getLongitude());
-		}
-
-		LinearRing polygonLineString = new LinearRing(new CoordinateArraySequence(polygonCoordinates), factory);
-		Polygon polygon = new Polygon(polygonLineString, null, factory);
 
 		Coordinate[] areaCoordinates = new Coordinate[5];
 		areaCoordinates[0] = new Coordinate(area.getLatitudeMinimum(), area.getLongitudeMinimum());
