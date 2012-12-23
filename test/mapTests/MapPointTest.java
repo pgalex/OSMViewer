@@ -34,7 +34,7 @@ public class MapPointTest
 			// ok
 		}
 	}
-	
+
 	/**
 	 * Testing creating with null tags
 	 */
@@ -51,7 +51,25 @@ public class MapPointTest
 			// ok
 		}
 	}
-	
+
+	/**
+	 * Testing accept render when render is null
+	 */
+	@Test
+	public void acceptNullRendererViewerTest()
+	{
+		try
+		{
+			MapPoint testPoint = new MapPoint(new MapPosition(), 12, new DefenitionTags());
+			testPoint.acceptRenderer(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
 	/**
 	 * Testing assigning style index if style viewer is null
 	 */
@@ -79,12 +97,12 @@ public class MapPointTest
 	{
 		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("k1", "v1"));
-		
+
 		MapObjectDrawSettings style = new MapObjectDrawSettings();
 		style.setCanBePoint();
 		style.setDescription("point style");
 		style.setDefenitionTags(tags);
-		
+
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);
 
@@ -104,12 +122,12 @@ public class MapPointTest
 	{
 		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("k1", "v1"));
-		
+
 		MapObjectDrawSettings style = new MapObjectDrawSettings();
 		style.setCanNotBePoint();
 		style.setDescription("point style");
 		style.setDefenitionTags(tags);
-		
+
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);
 
@@ -118,7 +136,7 @@ public class MapPointTest
 
 		assertNull(testPoint.getStyleIndex());
 	}
-	
+
 	/**
 	 * Testing assigning style index if style not found
 	 */
@@ -130,7 +148,7 @@ public class MapPointTest
 		MapObjectDrawSettings style = new MapObjectDrawSettings();
 		style.setDescription("point style");
 		style.setDefenitionTags(tags);
-		
+
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);
 
@@ -139,7 +157,7 @@ public class MapPointTest
 
 		assertNull(testPoint.getStyleIndex());
 	}
-	
+
 	/**
 	 * Testing is visible in null area
 	 */
@@ -152,12 +170,12 @@ public class MapPointTest
 			testPoint.isVisibleInArea(null);
 			fail();
 		}
-		catch(IllegalArgumentException ex)
+		catch (IllegalArgumentException ex)
 		{
 			// ok
 		}
 	}
-	
+
 	/**
 	 * Testing is visible in null area
 	 */
@@ -168,7 +186,7 @@ public class MapPointTest
 		MapBounds testArea = new MapBounds(5, 5, 5, 5);
 		assertFalse(testPoint.isVisibleInArea(testArea));
 	}
-	
+
 	/**
 	 * Testing is visible if point in area; bounds more than zero
 	 */
@@ -179,7 +197,7 @@ public class MapPointTest
 		MapBounds testArea = new MapBounds(3, 8, 3, 8);
 		assertTrue(testPoint.isVisibleInArea(testArea));
 	}
-	
+
 	/**
 	 * Testing is visible if point in area; bounds less than zero
 	 */
@@ -190,7 +208,7 @@ public class MapPointTest
 		MapBounds testArea = new MapBounds(-6, -4, -6, -4);
 		assertTrue(testPoint.isVisibleInArea(testArea));
 	}
-	
+
 	/**
 	 * Testing is visible if point in area; bounds less than zero
 	 */
@@ -201,7 +219,7 @@ public class MapPointTest
 		MapBounds testArea = new MapBounds(3, 5, 4, 7);
 		assertTrue(testPoint.isVisibleInArea(testArea));
 	}
-	
+
 	/**
 	 * Testing is visible if point in area; bounds less than zero
 	 */
@@ -212,7 +230,7 @@ public class MapPointTest
 		MapBounds testArea = new MapBounds(3, 5, 4, 7);
 		assertFalse(testPoint.isVisibleInArea(testArea));
 	}
-	
+
 	/**
 	 * Testing is visible if point in area; bounds more than zero
 	 */
@@ -223,7 +241,7 @@ public class MapPointTest
 		MapBounds testArea = new MapBounds(3, 8, 3, 8);
 		assertFalse(testPoint.isVisibleInArea(testArea));
 	}
-	
+
 	/**
 	 * Testing is visible if point in area; bounds less than zero
 	 */

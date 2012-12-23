@@ -7,7 +7,6 @@ import drawingStyles.StyleEditor;
 import drawingStyles.Tag;
 import map.MapBounds;
 import map.MapLine;
-import map.MapPolygon;
 import map.MapPosition;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -139,6 +138,27 @@ public class MapLineTest
 	}
 
 	/**
+	 * Testing accept render when render is null
+	 */
+	@Test
+	public void acceptNullRendererViewerTest()
+	{
+		try
+		{
+			MapPosition[] points = new MapPosition[2];
+			points[0] = new MapPosition(1, 2);
+			points[1] = new MapPosition(2, 3);
+			MapLine testLine = new MapLine(0, new DefenitionTags(), points);
+			testLine.acceptRenderer(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
 	 * Testing assigning style index if style viewer is null
 	 */
 	@Test
@@ -172,16 +192,16 @@ public class MapLineTest
 		style.setCanBeLine();
 		style.setDescription("line style");
 		style.setDefenitionTags(tags);
-
+		
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);
-
+		
 		MapPosition[] points = new MapPosition[2];
 		points[0] = new MapPosition(1, 2);
 		points[1] = new MapPosition(2, 3);
 		MapLine testLine = new MapLine(1, tags, points);
 		testLine.assignStyleIndex(testEditor);
-
+		
 		assertNotNull(testLine.getStyleIndex());
 		assertEquals(style.getDescription(), testEditor.getMapObjectDrawSettings(testLine.getStyleIndex()).getDescription());
 	}
@@ -199,16 +219,16 @@ public class MapLineTest
 		style.setCanNotBeLine();
 		style.setDescription("line style");
 		style.setDefenitionTags(tags);
-
+		
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);
-
+		
 		MapPosition[] points = new MapPosition[2];
 		points[0] = new MapPosition(1, 2);
 		points[1] = new MapPosition(2, 3);
 		MapLine testLine = new MapLine(1, tags, points);
 		testLine.assignStyleIndex(testEditor);
-
+		
 		assertNull(testLine.getStyleIndex());
 	}
 
@@ -223,16 +243,16 @@ public class MapLineTest
 		MapObjectDrawSettings style = new MapObjectDrawSettings();
 		style.setDescription("line style");
 		style.setDefenitionTags(tags);
-
+		
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);
-
+		
 		MapPosition[] points = new MapPosition[2];
 		points[0] = new MapPosition(1, 2);
 		points[1] = new MapPosition(2, 3);
 		MapLine testLine = new MapLine(1, new DefenitionTags(), points);
 		testLine.assignStyleIndex(testEditor);
-
+		
 		assertNull(testLine.getStyleIndex());
 	}
 

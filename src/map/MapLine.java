@@ -155,13 +155,14 @@ public class MapLine extends MapObject
 	 * Render with objects render visitor
 	 *
 	 * @param objectsRenderer objects renderer
+	 * @throws IllegalArgumentException objectsRenderer is null
 	 */
 	@Override
-	public void acceptRenderer(MapObjectsRenderer objectsRenderer)
+	public void acceptRenderer(MapObjectsRenderer objectsRenderer) throws IllegalArgumentException
 	{
 		if (objectsRenderer == null)
 		{
-			return;
+			throw new IllegalArgumentException();
 		}
 
 		objectsRenderer.renderLine(this);

@@ -19,7 +19,6 @@ public class MapPolygon extends MapObject
 	 * Minimum points count that can be using for polygon
 	 */
 	private static final int MINIMUM_POINTS_COUNT = 4;
-	
 	/**
 	 * Stores polygon. Coordinate x as latitude, y as longitude
 	 */
@@ -44,13 +43,13 @@ public class MapPolygon extends MapObject
 		}
 
 		GeometryFactory factory = new GeometryFactory();
-		
+
 		Coordinate[] polygonCoordinates = new Coordinate[polygonPoints.length];
 		for (int i = 0; i < polygonPoints.length; i++)
 		{
 			polygonCoordinates[i] = new Coordinate(polygonPoints[i].getLatitude(), polygonPoints[i].getLongitude());
 		}
-		
+
 		LinearRing polygonLineString = new LinearRing(new CoordinateArraySequence(polygonCoordinates), factory);
 		polygon = new Polygon(polygonLineString, null, factory);
 	}
@@ -93,7 +92,7 @@ public class MapPolygon extends MapObject
 
 		return true;
 	}
-	
+
 	/**
 	 * Get count of points
 	 *
@@ -162,13 +161,14 @@ public class MapPolygon extends MapObject
 	 * Render with objects render visitor
 	 *
 	 * @param objectsRenderer objects renderer
+	 * @throws IllegalArgumentException objectsRenderer is null
 	 */
 	@Override
-	public void acceptRenderer(MapObjectsRenderer objectsRenderer)
+	public void acceptRenderer(MapObjectsRenderer objectsRenderer) throws IllegalArgumentException
 	{
 		if (objectsRenderer == null)
 		{
-			return;
+			throw new IllegalArgumentException();
 		}
 
 		objectsRenderer.renderPolygon(this);

@@ -60,8 +60,8 @@ public class MapPoint extends MapObject
 		{
 			throw new IllegalArgumentException();
 		}
-		
-		if(area.isZero())
+
+		if (area.isZero())
 		{
 			return false;
 		}
@@ -76,13 +76,14 @@ public class MapPoint extends MapObject
 	 * Render with objects render visitor
 	 *
 	 * @param objectsRenderer objects renderer
+	 * @throws IllegalArgumentException objectsRenderer is null
 	 */
 	@Override
-	public void acceptRenderer(MapObjectsRenderer objectsRenderer)
+	public void acceptRenderer(MapObjectsRenderer objectsRenderer) throws IllegalArgumentException
 	{
 		if (objectsRenderer == null)
 		{
-			return;
+			throw new IllegalArgumentException();
 		}
 
 		objectsRenderer.renderPoint(this);

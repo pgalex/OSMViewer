@@ -115,8 +115,9 @@ public abstract class MapObject
 	 * Render with objects render
 	 *
 	 * @param objectsRenderer objects renderer
+	 * @throws IllegalArgumentException objectsRenderer is null
 	 */
-	public abstract void acceptRenderer(MapObjectsRenderer objectsRenderer);
+	public abstract void acceptRenderer(MapObjectsRenderer objectsRenderer) throws IllegalArgumentException;
 
 	/**
 	 * Can this type of map object be drawen with this style

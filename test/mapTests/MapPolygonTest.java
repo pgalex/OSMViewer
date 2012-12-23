@@ -6,7 +6,6 @@ import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleEditor;
 import drawingStyles.Tag;
 import map.MapBounds;
-import map.MapPoint;
 import map.MapPolygon;
 import map.MapPosition;
 import static org.junit.Assert.*;
@@ -168,7 +167,30 @@ public class MapPolygonTest
 			// ok
 		}
 	}
-	
+
+	/**
+	 * Testing accept render when render is null
+	 */
+	@Test
+	public void acceptNullRendererViewerTest()
+	{
+		try
+		{
+			MapPosition[] points = new MapPosition[4];
+			points[0] = new MapPosition(1, 2);
+			points[1] = new MapPosition(2, 3);
+			points[2] = new MapPosition(5, 6);
+			points[3] = points[0];
+			MapPolygon polygon = new MapPolygon(0, new DefenitionTags(), points);
+			polygon.acceptRenderer(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
 	/**
 	 * Testing assigning style index if style viewer is null
 	 */
@@ -201,15 +223,15 @@ public class MapPolygonTest
 	{
 		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("k1", "v1"));
-
+		
 		MapObjectDrawSettings style = new MapObjectDrawSettings();
 		style.setCanBePolygon();
 		style.setDescription("polygon style");
 		style.setDefenitionTags(tags);
-
+		
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);
-
+		
 		MapPosition[] points = new MapPosition[4];
 		points[0] = new MapPosition(1, 2);
 		points[1] = new MapPosition(2, 3);
@@ -217,7 +239,7 @@ public class MapPolygonTest
 		points[3] = points[0];
 		MapPolygon testPolygon = new MapPolygon(1, tags, points);
 		testPolygon.assignStyleIndex(testEditor);
-
+		
 		assertNotNull(testPolygon.getStyleIndex());
 		assertEquals(style.getDescription(), testEditor.getMapObjectDrawSettings(testPolygon.getStyleIndex()).getDescription());
 	}
@@ -231,14 +253,14 @@ public class MapPolygonTest
 	{
 		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("k1", "v1"));
-
+		
 		MapObjectDrawSettings style = new MapObjectDrawSettings();
 		style.setCanNotBePolygon();
 		style.setDescription("polygon style");
 		style.setDefenitionTags(tags);
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);
-
+		
 		MapPosition[] points = new MapPosition[4];
 		points[0] = new MapPosition(1, 2);
 		points[1] = new MapPosition(2, 3);
@@ -246,7 +268,7 @@ public class MapPolygonTest
 		points[3] = points[0];
 		MapPolygon testPolygon = new MapPolygon(1, tags, points);
 		testPolygon.assignStyleIndex(testEditor);
-
+		
 		assertNull(testPolygon.getStyleIndex());
 	}
 
@@ -258,14 +280,14 @@ public class MapPolygonTest
 	{
 		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("k1", "v1"));
-
+		
 		MapObjectDrawSettings style = new MapObjectDrawSettings();
 		style.setDescription("polygon style");
 		style.setDefenitionTags(tags);
-
+		
 		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
 		testEditor.addMapObjectDrawSettings(style);
-
+		
 		MapPosition[] points = new MapPosition[4];
 		points[0] = new MapPosition(1, 2);
 		points[1] = new MapPosition(2, 3);
@@ -273,7 +295,7 @@ public class MapPolygonTest
 		points[3] = points[0];
 		MapPolygon testPolygon = new MapPolygon(1, new DefenitionTags(), points);
 		testPolygon.assignStyleIndex(testEditor);
-
+		
 		assertNull(testPolygon.getStyleIndex());
 	}
 
