@@ -51,9 +51,22 @@ public class MapRenderer implements CoordinatesConverter
 	 * @param renderingMaximumScaleLevel Maximum scale level
 	 * @param startScaleLevel scale level that will be set as current after
 	 * creating
+	 * @throws IllegalArgumentException renderingMinimumScaleLevel more than
+	 * renderingMaximumScaleLevel, or startScaleLevel out of minimum/maximum
+	 * bounds
 	 */
-	public MapRenderer(int renderingMinimumScaleLevel, int renderingMaximumScaleLevel, int startScaleLevel)
+	public MapRenderer(int renderingMinimumScaleLevel, int renderingMaximumScaleLevel,
+					int startScaleLevel) throws IllegalArgumentException
 	{
+		if (renderingMinimumScaleLevel > renderingMaximumScaleLevel)
+		{
+			throw new IllegalArgumentException();
+		}
+		if (startScaleLevel < renderingMinimumScaleLevel || startScaleLevel > renderingMaximumScaleLevel)
+		{
+			throw new IllegalArgumentException();
+		}
+
 		targetCanvasDrawingArea = DEFAULT_DRAWING_AREA;
 		viewPosition = new MapPosition();
 

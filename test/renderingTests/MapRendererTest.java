@@ -20,6 +20,57 @@ import rendering.MapRenderer;
 public class MapRendererTest
 {
 	/**
+	 * Test creating with minimum scale level more than maximum
+	 */
+	@Test
+	public void creatingWithMinimumScaleLevelMoreThanMaximumTest()
+	{
+		try
+		{
+			MapRenderer renderer = new MapRenderer(11, 10, 10);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Test creating with scale level less than minimum
+	 */
+	@Test
+	public void creatingWithScaleLevelLessThanMinimumTest()
+	{
+		try
+		{
+			MapRenderer renderer = new MapRenderer(5, 10, 4);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+	
+	/**
+	 * Test creating with scale level more than maximum
+	 */
+	@Test
+	public void creatingWithScaleLevelMoreThanMaximumTest()
+	{
+		try
+		{
+			MapRenderer renderer = new MapRenderer(5, 10, 11);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
 	 * Test converting null point georaphics to canvas
 	 */
 	@Test
@@ -36,7 +87,7 @@ public class MapRendererTest
 			// ok
 		}
 	}
-	
+
 	/**
 	 * Test converting null point canvas to georaphics
 	 */
