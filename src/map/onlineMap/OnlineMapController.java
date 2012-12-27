@@ -58,15 +58,15 @@ public class OnlineMapController implements DrawableOnPanel
 					int startCanvasWidth, int startCanvasHeight)
 	{
 		map = new OnlineMap();
-
+		
 		mapLoader = new OnlineMapLoader();
-
+		
 		renderer = new MapRenderer(MINIMUM_SCALE_LEVEL, MAXIMUM_SCALE_LEVEL, startScaleLevel);
 		renderer.setViewPosition(startViewPosition);
 		renderer.setTargetCanvasDrawingArea(new Rectangle(0, 0, startCanvasWidth, startCanvasHeight));
-
+		
 		styleViewer = DrawingStylesFactory.createStyleEditor();
-
+		
 		testSetupStyleViewer();
 		testLoadMap();
 	}
@@ -104,7 +104,7 @@ public class OnlineMapController implements DrawableOnPanel
 		Rectangle targetCanvasArea = renderer.getTargetCanvasDrawingArea();
 		Point2D newViewPositionOnCanvas = new Point2D.Double(targetCanvasArea.getWidth() / 2 + deltaXInPixels,
 						targetCanvasArea.getHeight() / 2 + deltaYInPixels);
-
+		
 		MapPosition newViewPositionOnMap = renderer.canvasToGeographics(newViewPositionOnCanvas);
 		renderer.setViewPosition(newViewPositionOnMap);
 	}
@@ -121,7 +121,7 @@ public class OnlineMapController implements DrawableOnPanel
 		{
 			throw new IllegalArgumentException();
 		}
-
+		
 		renderer.setScaleLevel(scaleLevelToSet);
 	}
 
@@ -145,7 +145,7 @@ public class OnlineMapController implements DrawableOnPanel
 	{
 		renderer.renderMap(map, panelGraphics, styleViewer);
 	}
-
+	
 	private void testSetupStyleViewer()
 	{
 		try
@@ -157,7 +157,7 @@ public class OnlineMapController implements DrawableOnPanel
 			Logger.getLogger(OnlineMapController.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
-
+	
 	public void testLoadMap()
 	{
 		try

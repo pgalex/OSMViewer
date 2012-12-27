@@ -87,6 +87,24 @@ public class MapRendererTest
 			// ok
 		}
 	}
+	
+	/**
+	 * Test setting null object to draw as highlighted
+	 */
+	@Test
+	public void setNullObjectToHighlightTest()
+	{
+		try
+		{
+			MapRenderer renderer = new MapRenderer(5, 10, 5);
+			renderer.setObjectToDrawAsHighlighted(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
 
 	/**
 	 * Test converting null point canvas to georaphics

@@ -36,6 +36,29 @@ public class MapObjectsRendererSeparatingTextTest
 			// ok
 		}
 	}
+	
+	/**
+	 * Test setting null object to draw as highlighted
+	 */
+	@Test
+	public void setNullObjectToHighlightTest()
+	{
+		MapRenderer mapRenderer = new MapRenderer(5, 10, 5);
+		BufferedImage textImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
+		BufferedImage objectsImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
+
+		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(objectsImage.createGraphics(),
+						textImage.createGraphics(), DrawingStylesFactory.createStyleViewer(), mapRenderer, 5);
+		try
+		{
+			objectsRenderer.setObjectToDrawAsHighlighted(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
 
 	/**
 	 * Rendering null line test

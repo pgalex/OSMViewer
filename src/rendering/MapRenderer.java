@@ -9,6 +9,7 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import map.Map;
 import map.MapBounds;
+import map.MapObject;
 import map.MapPosition;
 
 /**
@@ -43,6 +44,10 @@ public class MapRenderer implements CoordinatesConverter
 	 * Maximum rendering scale level
 	 */
 	private int maximumScaleLevel;
+	/**
+	 * Object of rendering map, to draw as highlighted. Can be null
+	 */
+	private MapObject objectToDrawAsHighlighted;
 
 	/**
 	 * Create renderer
@@ -73,6 +78,8 @@ public class MapRenderer implements CoordinatesConverter
 		scaleLevel = startScaleLevel;
 		minimumScaleLevel = renderingMinimumScaleLevel;
 		maximumScaleLevel = renderingMaximumScaleLevel;
+
+		objectToDrawAsHighlighted = null;
 	}
 
 	/**
@@ -172,6 +179,30 @@ public class MapRenderer implements CoordinatesConverter
 	}
 
 	/**
+	 * Set object of rendering map to draw as highlighted
+	 *
+	 * @param highlightedObject object to set as highlighted
+	 * @throws IllegalArgumentException highlightedObject is null
+	 */
+	public void setObjectToDrawAsHighlighted(MapObject highlightedObject) throws IllegalArgumentException
+	{
+		if (highlightedObject == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		objectToDrawAsHighlighted = highlightedObject;
+	}
+
+	/**
+	 * Set do not to highlight objectd
+	 */
+	public void resetHighlightedObject()
+	{
+		objectToDrawAsHighlighted = null;
+	}
+
+	/**
 	 * Render map
 	 *
 	 * @param targetCanvas canvas to draw map
@@ -213,6 +244,11 @@ public class MapRenderer implements CoordinatesConverter
 
 		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(targetCanvas,
 						textCanvasGraphics, styleViewer, this, scaleLevel);
+		if (objectToDrawAsHighlighted != null)
+		{
+			objectsRenderer.setObjectToDrawAsHighlighted(objectToDrawAsHighlighted);
+		}
+
 		mapToRender.rendersObjectInArea(objectsRenderer, getViewArea());
 
 		targetCanvas.drawImage(textCanvasImage, 0, 0, null);
