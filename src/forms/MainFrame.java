@@ -78,6 +78,10 @@ public class MainFrame extends javax.swing.JFrame
     });
     jPanelCanvas.addMouseMotionListener(new java.awt.event.MouseMotionAdapter()
     {
+      public void mouseMoved(java.awt.event.MouseEvent evt)
+      {
+        jPanelCanvasMouseMoved(evt);
+      }
       public void mouseDragged(java.awt.event.MouseEvent evt)
       {
         jPanelCanvasMouseDragged(evt);
@@ -188,6 +192,12 @@ public class MainFrame extends javax.swing.JFrame
 		mapController.setScaleLevel(scaleByWheel);
 		jPanelCanvas.repaint();
   }//GEN-LAST:event_jPanelCanvasMouseWheelMoved
+
+  private void jPanelCanvasMouseMoved(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jPanelCanvasMouseMoved
+  {//GEN-HEADEREND:event_jPanelCanvasMouseMoved
+    mapController.highlightFirstObjectUnderPoint(evt.getPoint());
+		jPanelCanvas.repaint();
+  }//GEN-LAST:event_jPanelCanvasMouseMoved
 
 	/**
 	 * @param args the command line arguments

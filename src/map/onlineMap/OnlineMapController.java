@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import map.MapObject;
 import map.MapPosition;
 import rendering.MapRenderer;
 
@@ -58,15 +59,15 @@ public class OnlineMapController implements DrawableOnPanel
 					int startCanvasWidth, int startCanvasHeight)
 	{
 		map = new OnlineMap();
-		
+
 		mapLoader = new OnlineMapLoader();
-		
+
 		renderer = new MapRenderer(MINIMUM_SCALE_LEVEL, MAXIMUM_SCALE_LEVEL, startScaleLevel);
 		renderer.setViewPosition(startViewPosition);
 		renderer.setTargetCanvasDrawingArea(new Rectangle(0, 0, startCanvasWidth, startCanvasHeight));
-		
+
 		styleViewer = DrawingStylesFactory.createStyleEditor();
-		
+
 		testSetupStyleViewer();
 		testLoadMap();
 	}
@@ -104,7 +105,7 @@ public class OnlineMapController implements DrawableOnPanel
 		Rectangle targetCanvasArea = renderer.getTargetCanvasDrawingArea();
 		Point2D newViewPositionOnCanvas = new Point2D.Double(targetCanvasArea.getWidth() / 2 + deltaXInPixels,
 						targetCanvasArea.getHeight() / 2 + deltaYInPixels);
-		
+
 		MapPosition newViewPositionOnMap = renderer.canvasToGeographics(newViewPositionOnCanvas);
 		renderer.setViewPosition(newViewPositionOnMap);
 	}
@@ -121,7 +122,7 @@ public class OnlineMapController implements DrawableOnPanel
 		{
 			throw new IllegalArgumentException();
 		}
-		
+
 		renderer.setScaleLevel(scaleLevelToSet);
 	}
 
@@ -136,6 +137,31 @@ public class OnlineMapController implements DrawableOnPanel
 	}
 
 	/**
+	 * Highlight first found object under point on target canvas
+	 *
+	 * @param pointOnTargetCanvas point on target canvas using to find object to
+	 * highlight
+	 * @throws IllegalArgumentException
+	 */
+	public void highlightFirstObjectUnderPoint(Point2D pointOnTargetCanvas) throws IllegalArgumentException
+	{
+		if (pointOnTargetCanvas == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		MapObject[] objectsUnderPoint = renderer.findObjectsAtPoint(pointOnTargetCanvas);
+		if (objectsUnderPoint.length > 0)
+		{
+			renderer.setObjectToDrawAsHighlighted(objectsUnderPoint[0]);
+		}
+		else
+		{
+			renderer.resetHighlightedObject();
+		}
+	}
+
+	/**
 	 * Draw objects on drawing panel
 	 *
 	 * @param panelGraphics drawing panel graphics
@@ -145,7 +171,7 @@ public class OnlineMapController implements DrawableOnPanel
 	{
 		renderer.renderMap(map, panelGraphics, styleViewer);
 	}
-	
+
 	private void testSetupStyleViewer()
 	{
 		try
@@ -157,7 +183,7 @@ public class OnlineMapController implements DrawableOnPanel
 			Logger.getLogger(OnlineMapController.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
-	
+
 	public void testLoadMap()
 	{
 		try

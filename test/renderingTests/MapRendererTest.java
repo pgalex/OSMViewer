@@ -6,6 +6,7 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import map.Map;
 import map.MapBounds;
+import map.MapObject;
 import map.MapPosition;
 import map.onlineMap.OnlineMap;
 import static org.junit.Assert.*;
@@ -19,6 +20,36 @@ import rendering.MapRenderer;
  */
 public class MapRendererTest
 {
+	/**
+	 * Test find object under point with null point
+	 */
+	@Test
+	public void findObjectAtNullPointTest()
+	{
+		try
+		{
+			MapRenderer renderer = new MapRenderer(5, 10, 5);
+			renderer.findObjectsAtPoint(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Test find object under point if no objects was rendered
+	 */
+	@Test
+	public void findObjectInEmptyRendererTest()
+	{
+		MapRenderer renderer = new MapRenderer(5, 10, 5);
+		MapObject[] foundObjects = renderer.findObjectsAtPoint(new Point2D.Double(0, 0));
+		assertNotNull(foundObjects);
+		assertEquals(0, foundObjects.length);
+	}
+
 	/**
 	 * Test creating with minimum scale level more than maximum
 	 */
@@ -52,7 +83,7 @@ public class MapRendererTest
 			// ok
 		}
 	}
-	
+
 	/**
 	 * Test creating with scale level more than maximum
 	 */
@@ -87,7 +118,7 @@ public class MapRendererTest
 			// ok
 		}
 	}
-	
+
 	/**
 	 * Test setting null object to draw as highlighted
 	 */

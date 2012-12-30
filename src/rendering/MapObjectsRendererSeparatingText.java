@@ -12,6 +12,8 @@ import map.MapObject;
 import map.MapObjectsRenderer;
 import map.MapPoint;
 import map.MapPolygon;
+import rendering.selectng.SelectingBuffer;
+import rendering.selectng.SelectingLine;
 
 /**
  * Objects renderer that drawes object on one canvas, and it's drawingText on
@@ -49,6 +51,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * Object of rendering map, to draw as highlighted. Can be null
 	 */
 	private MapObject objectToDrawAsHighlighted;
+	private SelectingBuffer selectingBuffer;
 
 	/**
 	 * Create renderer
@@ -60,12 +63,14 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * @param converterForRendering object that will be using for coordinates
 	 * converting while drawing
 	 * @param scaleLevelForRendering scale level using for rendering
+	 * @param rendererSelectingBuffer
 	 * @throws IllegalArgumentException targetObjectsCanvas,
 	 * styleViewerForRendering or converterForRendering is null
 	 */
 	public MapObjectsRendererSeparatingText(Graphics2D targetObjectsCanvas,
 					Graphics2D targetTextCanvas, StyleViewer styleViewerForRendering,
-					CoordinatesConverter converterForRendering, int scaleLevelForRendering) throws IllegalArgumentException
+					CoordinatesConverter converterForRendering, int scaleLevelForRendering,
+					SelectingBuffer rendererSelectingBuffer) throws IllegalArgumentException
 	{
 		if (targetObjectsCanvas == null)
 		{
@@ -91,6 +96,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		renderingScaleLevel = scaleLevelForRendering;
 
 		objectToDrawAsHighlighted = null;
+		selectingBuffer = rendererSelectingBuffer;
 	}
 
 	/**
@@ -239,6 +245,10 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			textCanvas.drawTextOnMultiline(objectStyle.findTextInTags(lineToRender.getDefenitionTags()),
 							textDrawSettings, drawingMultiline);
 		}
+		
+		SelectingLine selectingLineByRenderingLine = new SelectingLine(lineToRender, 
+						drawingMultiline, lineStyle.getWidth());
+		selectingBuffer.addSelectingObject(selectingLineByRenderingLine);
 	}
 
 	/**

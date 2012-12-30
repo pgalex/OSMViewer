@@ -5,7 +5,6 @@ import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import map.MapObject;
 
@@ -31,7 +30,7 @@ public class SelectingLine extends SelectingObject
 	/**
 	 * Width of line
 	 */
-	private int lineWidth;
+	private double lineWidth;
 
 	/**
 	 * Create selecting line, associated with map object
@@ -44,7 +43,7 @@ public class SelectingLine extends SelectingObject
 	 * elements; or selectingLineWidth less than 1
 	 */
 	public SelectingLine(MapObject associatedObject, Point2D[] selectingLinePoints,
-					int selectingLineWidth) throws IllegalArgumentException
+					double selectingLineWidth) throws IllegalArgumentException
 	{
 		super(associatedObject);
 

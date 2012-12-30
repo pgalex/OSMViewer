@@ -23,5 +23,5 @@ public interface Map
 	 * @param renderingArea area, using to determine map objects that need to draw
 	 * @throws IllegalArgumentException objectsRenderer or renderingArea is null
 	 */
-	public void rendersObjectInArea(MapObjectsRenderer objectsRenderer, MapBounds renderingArea) throws IllegalArgumentException;
+	public void renderObjectInArea(MapObjectsRenderer objectsRenderer, MapBounds renderingArea) throws IllegalArgumentException;
 }

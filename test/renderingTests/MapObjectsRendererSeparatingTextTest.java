@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import rendering.MapObjectsRendererSeparatingText;
 import rendering.MapRenderer;
+import rendering.selectng.SelectingBuffer;
 
 /**
  * Tests of MapObjectsRendererSeparatingText class
@@ -23,9 +24,11 @@ public class MapObjectsRendererSeparatingTextTest
 		MapRenderer mapRenderer = new MapRenderer(5, 10, 5);
 		BufferedImage textImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
 		BufferedImage objectsImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
+		SelectingBuffer selectingBuffer = new SelectingBuffer();
 
 		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(objectsImage.createGraphics(),
-						textImage.createGraphics(), DrawingStylesFactory.createStyleViewer(), mapRenderer, 5);
+						textImage.createGraphics(), DrawingStylesFactory.createStyleViewer(), mapRenderer, 5,
+						selectingBuffer);
 		try
 		{
 			objectsRenderer.renderPolygon(null);
@@ -46,9 +49,11 @@ public class MapObjectsRendererSeparatingTextTest
 		MapRenderer mapRenderer = new MapRenderer(5, 10, 5);
 		BufferedImage textImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
 		BufferedImage objectsImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
+		SelectingBuffer selectingBuffer = new SelectingBuffer();
 
 		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(objectsImage.createGraphics(),
-						textImage.createGraphics(), DrawingStylesFactory.createStyleViewer(), mapRenderer, 5);
+						textImage.createGraphics(), DrawingStylesFactory.createStyleViewer(), mapRenderer, 5,
+						selectingBuffer);
 		try
 		{
 			objectsRenderer.setObjectToDrawAsHighlighted(null);
@@ -69,9 +74,11 @@ public class MapObjectsRendererSeparatingTextTest
 		MapRenderer mapRenderer = new MapRenderer(5, 10, 5);
 		BufferedImage textImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
 		BufferedImage objectsImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
+		SelectingBuffer selectingBuffer = new SelectingBuffer();
 
 		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(objectsImage.createGraphics(),
-						textImage.createGraphics(), DrawingStylesFactory.createStyleViewer(), mapRenderer, 5);
+						textImage.createGraphics(), DrawingStylesFactory.createStyleViewer(), mapRenderer, 5,
+						selectingBuffer);
 		try
 		{
 			objectsRenderer.renderLine(null);
@@ -92,9 +99,11 @@ public class MapObjectsRendererSeparatingTextTest
 		MapRenderer mapRenderer = new MapRenderer(5, 10, 5);
 		BufferedImage textImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
 		BufferedImage objectsImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
+		SelectingBuffer selectingBuffer = new SelectingBuffer();
 
 		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(objectsImage.createGraphics(),
-						textImage.createGraphics(), DrawingStylesFactory.createStyleViewer(), mapRenderer, 5);
+						textImage.createGraphics(), DrawingStylesFactory.createStyleViewer(), mapRenderer, 5,
+						selectingBuffer);
 		try
 		{
 			objectsRenderer.renderPoint(null);
@@ -115,9 +124,11 @@ public class MapObjectsRendererSeparatingTextTest
 		MapRenderer mapRenderer = new MapRenderer(5, 10, 5);
 		try
 		{
+			SelectingBuffer selectingBuffer = new SelectingBuffer();
 			BufferedImage textImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
 			MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(null,
-							textImage.createGraphics(), DrawingStylesFactory.createStyleViewer(), mapRenderer, 5);
+							textImage.createGraphics(), DrawingStylesFactory.createStyleViewer(), mapRenderer, 5,
+							selectingBuffer);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -135,9 +146,11 @@ public class MapObjectsRendererSeparatingTextTest
 		MapRenderer mapRenderer = new MapRenderer(5, 10, 5);
 		try
 		{
+			SelectingBuffer selectingBuffer = new SelectingBuffer();
 			BufferedImage objectsImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
 			MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(objectsImage.createGraphics(),
-							null, DrawingStylesFactory.createStyleViewer(), mapRenderer, 5);
+							null, DrawingStylesFactory.createStyleViewer(), mapRenderer, 5,
+							selectingBuffer);
 			fail();
 		}
 		catch (IllegalArgumentException ex)

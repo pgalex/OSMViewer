@@ -78,7 +78,7 @@ public class OnlineMapTest
 		testMap.addObject(point3);
 
 		MapObjectsRendererMock objectsRendererMock = new MapObjectsRendererMock();
-		testMap.rendersObjectInArea(objectsRendererMock, new MapBounds(-10, 10, -10, 10));
+		testMap.renderObjectInArea(objectsRendererMock, new MapBounds(-10, 10, -10, 10));
 
 		assertEquals(3, objectsRendererMock.pointsRendered);
 		assertEquals(1, objectsRendererMock.linesRendered);
@@ -94,7 +94,7 @@ public class OnlineMapTest
 		OnlineMap testMap = new OnlineMap();
 		try
 		{
-			testMap.rendersObjectInArea(null, new MapBounds(1, 2, 3, 4));
+			testMap.renderObjectInArea(null, new MapBounds(1, 2, 3, 4));
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -112,7 +112,7 @@ public class OnlineMapTest
 		OnlineMap testMap = new OnlineMap();
 		try
 		{
-			testMap.rendersObjectInArea(new MapObjectsRendererMock(), null);
+			testMap.renderObjectInArea(new MapObjectsRendererMock(), null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)

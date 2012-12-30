@@ -75,7 +75,7 @@ public class OnlineMap implements Map
 	 * @throws IllegalArgumentException objectsRenderer or renderingArea is null
 	 */
 	@Override
-	public void rendersObjectInArea(MapObjectsRenderer objectsRenderer,
+	public void renderObjectInArea(MapObjectsRenderer objectsRenderer,
 					MapBounds renderingArea) throws IllegalArgumentException
 	{
 		if (objectsRenderer == null)

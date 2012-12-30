@@ -38,9 +38,9 @@ public class SelectingBuffer
 		{
 			throw new IllegalArgumentException();
 		}
-		
+
 		ArrayList<MapObject> objectsAtPoint = new ArrayList<MapObject>();
-		
+
 		for (SelectingObject selectingObject : selectingObjects)
 		{
 			if (selectingObject.isHitsByPoint(point))
@@ -48,7 +48,31 @@ public class SelectingBuffer
 				objectsAtPoint.add(selectingObject.getAssociatedMapObject());
 			}
 		}
-		
-		return (MapObject[]) objectsAtPoint.toArray();
+
+		return objectsAtPoint.toArray(new MapObject[objectsAtPoint.size()]);
+	}
+
+	/**
+	 * Add selecting object to buffer
+	 *
+	 * @param selectingObjectToAdd adding selecting object
+	 * @throws IllegalArgumentException selectingObjectToAdd is null
+	 */
+	public void addSelectingObject(SelectingObject selectingObjectToAdd) throws IllegalArgumentException
+	{
+		if (selectingObjectToAdd == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		selectingObjects.add(selectingObjectToAdd);
+	}
+
+	/**
+	 * Remove all selecting objects
+	 */
+	public void clear()
+	{
+		selectingObjects.clear();
 	}
 }

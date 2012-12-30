@@ -11,6 +11,7 @@ import map.Map;
 import map.MapBounds;
 import map.MapObject;
 import map.MapPosition;
+import rendering.selectng.SelectingBuffer;
 
 /**
  * Uses to render Map. Defines order of rendering and container rendring
@@ -48,6 +49,11 @@ public class MapRenderer implements CoordinatesConverter
 	 * Object of rendering map, to draw as highlighted. Can be null
 	 */
 	private MapObject objectToDrawAsHighlighted;
+	/**
+	 * Buffer, contains intpertation of drawen objects using for finding objects
+	 * under point
+	 */
+	private SelectingBuffer selectingBuffer;
 
 	/**
 	 * Create renderer
@@ -80,6 +86,7 @@ public class MapRenderer implements CoordinatesConverter
 		maximumScaleLevel = renderingMaximumScaleLevel;
 
 		objectToDrawAsHighlighted = null;
+		selectingBuffer = new SelectingBuffer();
 	}
 
 	/**
@@ -211,9 +218,12 @@ public class MapRenderer implements CoordinatesConverter
 	 */
 	public MapObject[] findObjectsAtPoint(Point2D pointOnCanvas) throws IllegalArgumentException
 	{
-		// проверка на вхождение точки в область отрисоки
+		if (pointOnCanvas == null)
+		{
+			throw new IllegalArgumentException();
+		}
 
-		return new MapObject[0];
+		return selectingBuffer.findObjectsAtPoint(pointOnCanvas);
 	}
 
 	/**
@@ -256,14 +266,16 @@ public class MapRenderer implements CoordinatesConverter
 		Graphics2D textCanvasGraphics = textCanvasImage.createGraphics();
 		setupRenderingHints(textCanvasGraphics);
 
+		selectingBuffer.clear();
+		
 		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(targetCanvas,
-						textCanvasGraphics, styleViewer, this, scaleLevel);
+						textCanvasGraphics, styleViewer, this, scaleLevel, selectingBuffer);
 		if (objectToDrawAsHighlighted != null)
 		{
 			objectsRenderer.setObjectToDrawAsHighlighted(objectToDrawAsHighlighted);
 		}
 
-		mapToRender.rendersObjectInArea(objectsRenderer, getViewArea());
+		mapToRender.renderObjectInArea(objectsRenderer, getViewArea());
 
 		targetCanvas.drawImage(textCanvasImage, 0, 0, null);
 	}
