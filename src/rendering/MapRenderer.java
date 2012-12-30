@@ -203,6 +203,20 @@ public class MapRenderer implements CoordinatesConverter
 	}
 
 	/**
+	 * Find map object under point
+	 *
+	 * @param pointOnCanvas point on canvas to find map object under it
+	 * @return object under point, empty of no objects found
+	 * @throws IllegalArgumentException pointOnCanvas is null
+	 */
+	public MapObject[] findObjectsAtPoint(Point2D pointOnCanvas) throws IllegalArgumentException
+	{
+		// проверка на вхождение точки в область отрисоки
+
+		return new MapObject[0];
+	}
+
+	/**
 	 * Render map
 	 *
 	 * @param targetCanvas canvas to draw map

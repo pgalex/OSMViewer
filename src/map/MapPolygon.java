@@ -67,11 +67,6 @@ public class MapPolygon extends MapObject
 			return false;
 		}
 
-		if (polygonPoints.length == 0)
-		{
-			return false;
-		}
-
 		for (int i = 0; i < polygonPoints.length; i++)
 		{
 			if (polygonPoints[i] == null)

@@ -67,11 +67,6 @@ public class MapLine extends MapObject
 			return false;
 		}
 
-		if (linePoints.length == 0)
-		{
-			return false;
-		}
-
 		for (int i = 0; i < linePoints.length; i++)
 		{
 			if (linePoints[i] == null)
