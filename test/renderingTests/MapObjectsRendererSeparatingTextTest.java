@@ -39,7 +39,7 @@ public class MapObjectsRendererSeparatingTextTest
 			// ok
 		}
 	}
-	
+
 	/**
 	 * Test setting null object to draw as highlighted
 	 */
@@ -150,6 +150,71 @@ public class MapObjectsRendererSeparatingTextTest
 			BufferedImage objectsImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
 			MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(objectsImage.createGraphics(),
 							null, DrawingStylesFactory.createStyleViewer(), mapRenderer, 5,
+							selectingBuffer);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Creating with null selecting buffer
+	 */
+	@Test
+	public void creatingWithNullSelectingBufferTest()
+	{
+		MapRenderer mapRenderer = new MapRenderer(5, 10, 5);
+		try
+		{
+			BufferedImage objectsImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
+			MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(objectsImage.createGraphics(),
+							objectsImage.createGraphics(), DrawingStylesFactory.createStyleViewer(), mapRenderer, 5,
+							null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Creating with null style viewer test
+	 */
+	@Test
+	public void creatingWithNullStyleViewerTest()
+	{
+		MapRenderer mapRenderer = new MapRenderer(5, 10, 5);
+		try
+		{
+			SelectingBuffer selectingBuffer = new SelectingBuffer();
+			BufferedImage textImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
+			MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(textImage.createGraphics(),
+							textImage.createGraphics(), null, mapRenderer, 5,
+							selectingBuffer);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Creating with null coordinates converter test
+	 */
+	@Test
+	public void creatingWithNullCoordinatesConverterTest()
+	{
+		MapRenderer mapRenderer = new MapRenderer(5, 10, 5);
+		try
+		{
+			SelectingBuffer selectingBuffer = new SelectingBuffer();
+			BufferedImage textImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
+			MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(textImage.createGraphics(),
+							textImage.createGraphics(), DrawingStylesFactory.createStyleViewer(), null, 5,
 							selectingBuffer);
 			fail();
 		}

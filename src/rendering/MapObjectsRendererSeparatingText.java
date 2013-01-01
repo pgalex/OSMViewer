@@ -14,6 +14,7 @@ import map.MapPoint;
 import map.MapPolygon;
 import rendering.selectng.SelectingBuffer;
 import rendering.selectng.SelectingLine;
+import rendering.selectng.SelectingPolygon;
 
 /**
  * Objects renderer that drawes object on one canvas, and it's drawingText on
@@ -51,6 +52,9 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * Object of rendering map, to draw as highlighted. Can be null
 	 */
 	private MapObject objectToDrawAsHighlighted;
+	/**
+	 * Buffer where will be added selecting objects, created by renderer objects
+	 */
 	private SelectingBuffer selectingBuffer;
 
 	/**
@@ -63,14 +67,16 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * @param converterForRendering object that will be using for coordinates
 	 * converting while drawing
 	 * @param scaleLevelForRendering scale level using for rendering
-	 * @param rendererSelectingBuffer
-	 * @throws IllegalArgumentException targetObjectsCanvas,
-	 * styleViewerForRendering or converterForRendering is null
+	 * @param fillingSelectingBuffer Buffer where will be added selecting objects,
+	 * created by renderer objects
+	 * @throws IllegalArgumentException targetObjectsCanvas,targetTextCanvas,
+	 * styleViewerForRendering,converterForRendering, fillingSelectingBuffer is
+	 * null
 	 */
 	public MapObjectsRendererSeparatingText(Graphics2D targetObjectsCanvas,
 					Graphics2D targetTextCanvas, StyleViewer styleViewerForRendering,
 					CoordinatesConverter converterForRendering, int scaleLevelForRendering,
-					SelectingBuffer rendererSelectingBuffer) throws IllegalArgumentException
+					SelectingBuffer fillingSelectingBuffer) throws IllegalArgumentException
 	{
 		if (targetObjectsCanvas == null)
 		{
@@ -88,6 +94,10 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		{
 			throw new IllegalArgumentException();
 		}
+		if (fillingSelectingBuffer == null)
+		{
+			throw new IllegalArgumentException();
+		}
 
 		objectsCanvas = targetObjectsCanvas;
 		textCanvas = new TextCanvas(targetTextCanvas);
@@ -96,7 +106,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		renderingScaleLevel = scaleLevelForRendering;
 
 		objectToDrawAsHighlighted = null;
-		selectingBuffer = rendererSelectingBuffer;
+		selectingBuffer = fillingSelectingBuffer;
 	}
 
 	/**
@@ -245,8 +255,8 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			textCanvas.drawTextOnMultiline(objectStyle.findTextInTags(lineToRender.getDefenitionTags()),
 							textDrawSettings, drawingMultiline);
 		}
-		
-		SelectingLine selectingLineByRenderingLine = new SelectingLine(lineToRender, 
+
+		SelectingLine selectingLineByRenderingLine = new SelectingLine(lineToRender,
 						drawingMultiline, lineStyle.getWidth());
 		selectingBuffer.addSelectingObject(selectingLineByRenderingLine);
 	}
@@ -344,6 +354,10 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 							textPositionX,
 							textPositionY);
 		}
+
+		SelectingPolygon selectingPolygonByRenderedPolygon = new SelectingPolygon(polygonToRender,
+						drawingPolygon);
+		selectingBuffer.addSelectingObject(selectingPolygonByRenderedPolygon);
 	}
 
 	/**
