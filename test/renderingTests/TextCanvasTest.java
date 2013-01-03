@@ -2,6 +2,7 @@ package renderingTests;
 
 import drawingStyles.TextDrawSettings;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -24,7 +25,7 @@ public class TextCanvasTest
 		{
 			BufferedImage someImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
 			TextCanvas textCanvas = new TextCanvas(someImage.createGraphics());
-
+			
 			Point2D[] points = new Point2D[2];
 			points[0] = new Point2D.Double(1, 2);
 			points[1] = null;
@@ -47,7 +48,7 @@ public class TextCanvasTest
 		{
 			BufferedImage someImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
 			TextCanvas textCanvas = new TextCanvas(someImage.createGraphics());
-
+			
 			Point2D[] points = new Point2D[1];
 			points[0] = new Point2D.Double(1, 2);
 			textCanvas.drawTextOnMultiline("123", new TextDrawSettings(), points);
@@ -69,7 +70,7 @@ public class TextCanvasTest
 		{
 			BufferedImage someImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
 			TextCanvas textCanvas = new TextCanvas(someImage.createGraphics());
-
+			
 			textCanvas.drawTextOnMultiline("123", new TextDrawSettings(), null);
 			fail();
 		}
@@ -89,7 +90,7 @@ public class TextCanvasTest
 		{
 			BufferedImage someImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
 			TextCanvas textCanvas = new TextCanvas(someImage.createGraphics());
-
+			
 			Point2D[] points = new Point2D[2];
 			points[0] = new Point2D.Double(1, 2);
 			points[1] = new Point2D.Double(3, 4);
@@ -112,7 +113,7 @@ public class TextCanvasTest
 		{
 			BufferedImage someImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
 			TextCanvas textCanvas = new TextCanvas(someImage.createGraphics());
-
+			
 			Point2D[] points = new Point2D[2];
 			points[0] = new Point2D.Double(1, 2);
 			points[1] = new Point2D.Double(3, 4);
@@ -216,5 +217,70 @@ public class TextCanvasTest
 		{
 			// ok
 		}
+	}
+
+	/**
+	 * Test computing null text at point bounds
+	 */
+	@Test
+	public void computeTextAtPointBoundsWithNullTextTest()
+	{
+		try
+		{
+			BufferedImage someImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
+			TextCanvas textCanvas = new TextCanvas(someImage.createGraphics());
+			textCanvas.computeTextAtPointBounds(null, new TextDrawSettings(), 50, 50);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Test computing text at point bounds with text draw settings
+	 */
+	@Test
+	public void computeTextAtPointBoundsWithNullDrawSettingsTest()
+	{
+		try
+		{
+			BufferedImage someImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
+			TextCanvas textCanvas = new TextCanvas(someImage.createGraphics());
+			textCanvas.computeTextAtPointBounds("", null, 50, 50);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Test computing empty text at point bounds
+	 */
+	@Test
+	public void computeEmptyTextAtPointBoundsTest()
+	{
+		BufferedImage someImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
+		TextCanvas textCanvas = new TextCanvas(someImage.createGraphics());
+		Rectangle2D textBounds = textCanvas.computeTextAtPointBounds("", new TextDrawSettings(), 50, 50);
+		assertTrue(textBounds.isEmpty());
+	}
+
+	/**
+	 * Test computing text at point bounds normal work
+	 */
+	@Test
+	public void computeTextAtPointBoundsTest()
+	{
+		BufferedImage someImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
+		TextCanvas textCanvas = new TextCanvas(someImage.createGraphics());
+		Rectangle2D textBounds = textCanvas.computeTextAtPointBounds("some text", new TextDrawSettings(), 50, 30);
+		assertFalse(textBounds.isEmpty());
+		assertEquals(50, textBounds.getCenterX(), 0.0001);
+		assertEquals(30, textBounds.getCenterY(), 0.0001);
+		assertTrue(textBounds.getWidth() > textBounds.getHeight());
 	}
 }
