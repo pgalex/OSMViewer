@@ -6,6 +6,7 @@ import drawingStyles.TextDrawSettings;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
 /**
  * Canvas using for text drawing
@@ -108,6 +109,36 @@ public class TextCanvas
 		canvas.drawString(textToDraw,
 						(int) (textCenterX - textWidth / 2),
 						(int) (textCenterY + textAscent / 2));
+	}
+
+	/**
+	 * Compute text, drawen at point, bounds on text canvas
+	 *
+	 * @param text text, which bounds will be computed
+	 * @param drawSettings draw settings of text
+	 * @param textCenterX text center x on canvas
+	 * @param textCenterY text center y on canvas
+	 * @return text bounds on target text canvas
+	 * @throws IllegalArgumentException textToDraw or drawSettings is null
+	 */
+	public Rectangle2D computeTextAtPointBounds(String text, TextDrawSettings drawSettings,
+					double textCenterX, double textCenterY) throws IllegalArgumentException
+	{
+		if (text == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		if (drawSettings == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		FontMetrics textFontMetrics = canvas.getFontMetrics(drawSettings.getFont());
+		Rectangle2D textBoundsAtZeroPosition = textFontMetrics.getStringBounds(text, canvas);
+		return new Rectangle2D.Double(textCenterX - textBoundsAtZeroPosition.getWidth() / 2,
+						textCenterY - textBoundsAtZeroPosition.getHeight() / 2,
+						textBoundsAtZeroPosition.getWidth(),
+						textBoundsAtZeroPosition.getHeight());
 	}
 
 	/**
@@ -215,7 +246,7 @@ public class TextCanvas
 			throw new IllegalArgumentException();
 		}
 
-		LineSegment lineSegment = new LineSegment(new Coordinate(linePoint1.getX(), linePoint1.getY()), 
+		LineSegment lineSegment = new LineSegment(new Coordinate(linePoint1.getX(), linePoint1.getY()),
 						new Coordinate(linePoint2.getX(), linePoint2.getY()));
 		double rotationAngle = lineSegment.angle();
 

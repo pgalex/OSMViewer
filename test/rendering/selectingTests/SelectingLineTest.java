@@ -201,7 +201,7 @@ public class SelectingLineTest
 		SelectingLine testLine = new SelectingLine(someObject, linePoints, 5);
 		assertTrue(testLine.isHitsByPoint(new Point2D.Double(0, 0)));
 	}
-	
+
 	/**
 	 * Test is hits by point on line with line width, not hits
 	 */
