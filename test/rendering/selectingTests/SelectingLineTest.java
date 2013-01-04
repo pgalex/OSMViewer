@@ -26,7 +26,7 @@ public class SelectingLineTest
 			Point2D[] linePoints = new Point2D[2];
 			linePoints[0] = new Point2D.Double(1, 2);
 			linePoints[1] = new Point2D.Double(3, 4);
-			SelectingLine testLine = new SelectingLine(null, linePoints, 1);
+			SelectingLine testLine = new SelectingLine(null, 0, linePoints, 1);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -45,7 +45,7 @@ public class SelectingLineTest
 		{
 			MapPoint someObject = new MapPoint(new MapPosition(), 1, new DefenitionTags());
 
-			SelectingLine testLine = new SelectingLine(someObject, null, 1);
+			SelectingLine testLine = new SelectingLine(someObject, 0, null, 1);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -69,7 +69,7 @@ public class SelectingLineTest
 			linePoints[1] = new Point2D.Double(3, 4);
 			linePoints[2] = null;
 
-			SelectingLine testLine = new SelectingLine(someObject, linePoints, 1);
+			SelectingLine testLine = new SelectingLine(someObject, 0, linePoints, 1);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -91,7 +91,7 @@ public class SelectingLineTest
 			Point2D[] linePoints = new Point2D[1];
 			linePoints[0] = new Point2D.Double(1, 2);
 
-			SelectingLine testLine = new SelectingLine(someObject, linePoints, 1);
+			SelectingLine testLine = new SelectingLine(someObject, 0, linePoints, 1);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -114,7 +114,7 @@ public class SelectingLineTest
 			linePoints[0] = new Point2D.Double(1, 2);
 			linePoints[1] = new Point2D.Double(3, 4);
 
-			SelectingLine testLine = new SelectingLine(someObject, linePoints, 0);
+			SelectingLine testLine = new SelectingLine(someObject, 0, linePoints, 0);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -137,7 +137,7 @@ public class SelectingLineTest
 			linePoints[0] = new Point2D.Double(1, 2);
 			linePoints[1] = new Point2D.Double(3, 4);
 
-			SelectingLine testLine = new SelectingLine(someObject, linePoints, -1);
+			SelectingLine testLine = new SelectingLine(someObject, 0, linePoints, -1);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -160,7 +160,7 @@ public class SelectingLineTest
 			linePoints[0] = new Point2D.Double(1, 2);
 			linePoints[1] = new Point2D.Double(3, 4);
 
-			SelectingLine testLine = new SelectingLine(someObject, linePoints, 1);
+			SelectingLine testLine = new SelectingLine(someObject, 0, linePoints, 1);
 			testLine.isHitsByPoint(null);
 			fail();
 		}
@@ -182,7 +182,7 @@ public class SelectingLineTest
 		linePoints[0] = new Point2D.Double(0, 0);
 		linePoints[1] = new Point2D.Double(5, 5);
 
-		SelectingLine testLine = new SelectingLine(someObject, linePoints, 1);
+		SelectingLine testLine = new SelectingLine(someObject, 0, linePoints, 1);
 		assertTrue(testLine.isHitsByPoint(new Point2D.Double(3, 3)));
 	}
 
@@ -198,7 +198,7 @@ public class SelectingLineTest
 		linePoints[0] = new Point2D.Double(0, 5);
 		linePoints[1] = new Point2D.Double(15, 5);
 
-		SelectingLine testLine = new SelectingLine(someObject, linePoints, 5);
+		SelectingLine testLine = new SelectingLine(someObject, 0, linePoints, 5);
 		assertTrue(testLine.isHitsByPoint(new Point2D.Double(0, 0)));
 	}
 
@@ -214,7 +214,7 @@ public class SelectingLineTest
 		linePoints[0] = new Point2D.Double(0, 5);
 		linePoints[1] = new Point2D.Double(15, 5);
 
-		SelectingLine testLine = new SelectingLine(someObject, linePoints, 4);
+		SelectingLine testLine = new SelectingLine(someObject, 0, linePoints, 4);
 		assertFalse(testLine.isHitsByPoint(new Point2D.Double(0, 0)));
 	}
 }

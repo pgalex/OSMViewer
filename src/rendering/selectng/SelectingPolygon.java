@@ -20,14 +20,15 @@ public class SelectingPolygon extends SelectingObject
 	 * Create selecting polygon, associated with map object
 	 *
 	 * @param associatedObject associated object of map
+	 * @param associatedObjectDrawPriority draw priority of associated map object
 	 * @param polygonForSelection polygon, determining selection polygon
 	 * @throws IllegalArgumentException associatedObject or polygonForSelection is
 	 * null
 	 */
-	public SelectingPolygon(MapObject associatedObject,
+	public SelectingPolygon(MapObject associatedObject, int associatedObjectDrawPriority,
 					Polygon polygonForSelection) throws IllegalArgumentException
 	{
-		super(associatedObject);
+		super(associatedObject, associatedObjectDrawPriority);
 
 		if (polygonForSelection == null)
 		{

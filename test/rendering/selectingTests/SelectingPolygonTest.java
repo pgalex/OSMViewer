@@ -1,7 +1,6 @@
 package rendering.selectingTests;
 
 import drawingStyles.DefenitionTags;
-import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.geom.Point2D;
 import map.MapPoint;
@@ -25,7 +24,7 @@ public class SelectingPolygonTest
 	{
 		try
 		{
-			SelectingPolygon testPolygon = new SelectingPolygon(null, new Polygon());
+			SelectingPolygon testPolygon = new SelectingPolygon(null, 0, new Polygon());
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -43,7 +42,7 @@ public class SelectingPolygonTest
 		try
 		{
 			MapPoint someObject = new MapPoint(new MapPosition(), 1, new DefenitionTags());
-			SelectingPolygon testPolygon = new SelectingPolygon(someObject, null);
+			SelectingPolygon testPolygon = new SelectingPolygon(someObject, 0, null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -61,7 +60,7 @@ public class SelectingPolygonTest
 		try
 		{
 			MapPoint someObject = new MapPoint(new MapPosition(), 1, new DefenitionTags());
-			SelectingPolygon testPolygon = new SelectingPolygon(someObject, new Polygon());
+			SelectingPolygon testPolygon = new SelectingPolygon(someObject, 0, new Polygon());
 			testPolygon.isHitsByPoint(null);
 			fail();
 		}
@@ -84,10 +83,10 @@ public class SelectingPolygonTest
 		polygon.addPoint(5, 0);
 		polygon.addPoint(0, 0);
 
-		SelectingPolygon testPolygon = new SelectingPolygon(someObject, polygon);
+		SelectingPolygon testPolygon = new SelectingPolygon(someObject, 0, polygon);
 		assertTrue(testPolygon.isHitsByPoint(new Point2D.Double(3, 1)));
 	}
-	
+
 	/**
 	 * Test is hits method when point outnside polygon
 	 */
@@ -101,7 +100,7 @@ public class SelectingPolygonTest
 		polygon.addPoint(5, 0);
 		polygon.addPoint(0, 0);
 
-		SelectingPolygon testPolygon = new SelectingPolygon(someObject, polygon);
+		SelectingPolygon testPolygon = new SelectingPolygon(someObject, 0, polygon);
 		assertFalse(testPolygon.isHitsByPoint(new Point2D.Double(-2, -2)));
 	}
 }

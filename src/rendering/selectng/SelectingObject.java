@@ -14,14 +14,19 @@ public abstract class SelectingObject
 	 * Associated object of map. Interpretation of which selecting object is
 	 */
 	private MapObject associatedMapObject;
+	/**
+	 * Draw priority of associated map object
+	 */
+	private int associatedMapObjectDrawPriority;
 
 	/**
 	 * Create selection object for map object
 	 *
 	 * @param associatedObject associated object of map
+	 * @param associatedObjectDrawPriority draw priority of associated map object
 	 * @throws IllegalArgumentException associatedObject is null
 	 */
-	public SelectingObject(MapObject associatedObject) throws IllegalArgumentException
+	public SelectingObject(MapObject associatedObject, int associatedObjectDrawPriority) throws IllegalArgumentException
 	{
 		if (associatedObject == null)
 		{
@@ -29,6 +34,7 @@ public abstract class SelectingObject
 		}
 
 		associatedMapObject = associatedObject;
+		associatedMapObjectDrawPriority = associatedObjectDrawPriority;
 	}
 
 	/**
@@ -39,6 +45,16 @@ public abstract class SelectingObject
 	public MapObject getAssociatedMapObject()
 	{
 		return associatedMapObject;
+	}
+
+	/**
+	 * Get draw priority of associated map object
+	 *
+	 * @return draw priority of associated map object
+	 */
+	public int getAssociatedObjectDrawPriority()
+	{
+		return associatedMapObjectDrawPriority;
 	}
 
 	/**

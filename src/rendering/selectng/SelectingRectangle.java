@@ -20,13 +20,15 @@ public class SelectingRectangle extends SelectingObject
 	 * Create selecting rectangle, associated with map object
 	 *
 	 * @param associatedObject associated object of map
+	 * @param associatedObjectDrawPriority draw priority of associated map object
 	 * @param rectangleForSelection rectangle, determines selecting rectangle
 	 * @throws IllegalArgumentException associatedObject, rectangleForSelection is
 	 * null
 	 */
-	public SelectingRectangle(MapObject associatedObject, Rectangle2D rectangleForSelection) throws IllegalArgumentException
+	public SelectingRectangle(MapObject associatedObject, int associatedObjectDrawPriority,
+					Rectangle2D rectangleForSelection) throws IllegalArgumentException
 	{
-		super(associatedObject);
+		super(associatedObject, associatedObjectDrawPriority);
 
 		if (rectangleForSelection == null)
 		{

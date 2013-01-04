@@ -25,7 +25,7 @@ public class SelectingRectangleTest
 	{
 		try
 		{
-			SelectingRectangle testRectangle = new SelectingRectangle(null, new Rectangle2D.Double());
+			SelectingRectangle testRectangle = new SelectingRectangle(null, 0, new Rectangle2D.Double());
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -43,7 +43,7 @@ public class SelectingRectangleTest
 		try
 		{
 			MapPoint someObject = new MapPoint(new MapPosition(), 1, new DefenitionTags());
-			SelectingRectangle testRectangle = new SelectingRectangle(someObject, null);
+			SelectingRectangle testRectangle = new SelectingRectangle(someObject, 0, null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -61,7 +61,7 @@ public class SelectingRectangleTest
 		try
 		{
 			MapPoint someObject = new MapPoint(new MapPosition(), 1, new DefenitionTags());
-			SelectingRectangle testRectangle = new SelectingRectangle(someObject,
+			SelectingRectangle testRectangle = new SelectingRectangle(someObject, 0,
 							new Rectangle2D.Double(10, 20, 5, 10));
 			testRectangle.isHitsByPoint(null);
 			fail();
@@ -79,7 +79,7 @@ public class SelectingRectangleTest
 	public void isHitsByPointInsideRectangleTest()
 	{
 		MapPoint someObject = new MapPoint(new MapPosition(), 1, new DefenitionTags());
-		SelectingRectangle testRectangle = new SelectingRectangle(someObject,
+		SelectingRectangle testRectangle = new SelectingRectangle(someObject, 0,
 						new Rectangle2D.Double(10, 20, 5, 10));
 		assertTrue(testRectangle.isHitsByPoint(new Point2D.Double(12, 25)));
 	}
@@ -91,7 +91,7 @@ public class SelectingRectangleTest
 	public void isHitsByPointOutsideRectangleTest()
 	{
 		MapPoint someObject = new MapPoint(new MapPosition(), 1, new DefenitionTags());
-		SelectingRectangle testRectangle = new SelectingRectangle(someObject,
+		SelectingRectangle testRectangle = new SelectingRectangle(someObject, 0,
 						new Rectangle2D.Double(10, 20, 5, 10));
 		assertFalse(testRectangle.isHitsByPoint(new Point2D.Double(5, 3)));
 	}

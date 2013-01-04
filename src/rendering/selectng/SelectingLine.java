@@ -36,16 +36,17 @@ public class SelectingLine extends SelectingObject
 	 * Create selecting line, associated with map object
 	 *
 	 * @param associatedObject associated object of map
+	 * @param associatedObjectDrawPriority draw priority of associated map object
 	 * @param selectingLinePoints points of line
 	 * @param selectingLineWidth line width
 	 * @throws IllegalArgumentException associatedObject is null or
 	 * selectingLinePoints null, contains less than 2 elements, or contains null
 	 * elements; or selectingLineWidth less than 1
 	 */
-	public SelectingLine(MapObject associatedObject, Point2D[] selectingLinePoints,
+	public SelectingLine(MapObject associatedObject, int associatedObjectDrawPriority, Point2D[] selectingLinePoints,
 					double selectingLineWidth) throws IllegalArgumentException
 	{
-		super(associatedObject);
+		super(associatedObject, associatedObjectDrawPriority);
 
 		if (!isLinePointsCorrect(selectingLinePoints))
 		{
@@ -117,7 +118,7 @@ public class SelectingLine extends SelectingObject
 		Point hitPoint = new Point(new CoordinateArraySequence(hitPointCoordinates), factory);
 
 		double distanceToPoint = lineString.distance(hitPoint);
-		
+
 		return distanceToPoint <= lineWidth;
 	}
 }
