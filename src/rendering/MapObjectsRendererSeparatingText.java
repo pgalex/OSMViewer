@@ -404,18 +404,25 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 
 		Point2D[] drawingMultiline = createDrawingMultilineByMapLine(lineToRender);
 
-		boolean drawAsHightlighted = (lineToRender == objectToDrawAsHighlighted);
-		if (drawAsHightlighted)
+		objectsCanvas.setColor(findLineColor(lineToRender, lineStyle));
+		objectsCanvas.setStroke(lineStyle.getStroke());
+
+		for (int i = 0; i < drawingMultiline.length - 1; i++)
 		{
-			drawHighlightedLine(drawingMultiline, lineStyle,
-							objectStyle.findTextInTags(lineToRender.getDefenitionTags()),
-							objectStyle.findTextDrawSettings(renderingScaleLevel));
+			Point2D firstPoint = drawingMultiline[i];
+			Point2D secondPoint = drawingMultiline[i + 1];
+
+			objectsCanvas.drawLine((int) firstPoint.getX(), (int) firstPoint.getY(),
+							(int) secondPoint.getX(), (int) secondPoint.getY());
 		}
-		else
+
+		TextDrawSettings lineTextDrawSettings = objectStyle.findTextDrawSettings(renderingScaleLevel);
+		boolean needToDrawText = (lineTextDrawSettings != null);
+		if (needToDrawText)
 		{
-			drawNormalLine(drawingMultiline, lineStyle,
-							objectStyle.findTextInTags(lineToRender.getDefenitionTags()),
-							objectStyle.findTextDrawSettings(renderingScaleLevel));
+			String lineText = objectStyle.findTextInTags(lineToRender.getDefenitionTags());
+			textCanvas.drawTextOnMultiline(lineText,
+							findLineTextDrawSettingsColor(lineToRender, lineTextDrawSettings), drawingMultiline);
 		}
 
 		SelectingLine selectingLineByRenderingLine = new SelectingLine(lineToRender,
@@ -424,91 +431,64 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	}
 
 	/**
-	 * Draw line as highlighted
+	 * Find color to draw line
 	 *
-	 * @param linePoints points of line
-	 * @param lineDrawSettings draw settings of line. If null - not draw text
-	 * @param lineText text of line. If null - not draw text
-	 * @param lineTextDrawSettings draw settings of line text
-	 * @throws IllegalArgumentException linePoints null or contains null;
-	 * lineDrawSettings is null
+	 * @param line line, which color need to find
+	 * @param lineDrawSettings draw settings of line
+	 * @return line color
+	 * @throws IllegalArgumentException line or lineDrawSettings is null
 	 */
-	private void drawHighlightedLine(Point2D[] linePoints, LineDrawSettings lineDrawSettings,
-					String lineText, TextDrawSettings lineTextDrawSettings) throws IllegalArgumentException
+	private Color findLineColor(MapLine line,
+					LineDrawSettings lineDrawSettings) throws IllegalArgumentException
 	{
-		if (linePoints == null)
+		if (line == null)
 		{
 			throw new IllegalArgumentException();
 		}
-		for (int i = 0; i < linePoints.length; i++)
+		if (lineDrawSettings == null)
 		{
-			if (linePoints[i] == null)
-			{
-				throw new IllegalArgumentException();
-			}
+			throw new IllegalArgumentException();
 		}
 
-		objectsCanvas.setColor(HIGHLIGHTED_OBJECT_COLOR);
-		objectsCanvas.setStroke(lineDrawSettings.getStroke());
-
-		for (int i = 0; i < linePoints.length - 1; i++)
+		boolean drawAsHighlighted = (line == objectToDrawAsHighlighted);
+		if (drawAsHighlighted)
 		{
-			Point2D firstPoint = linePoints[i];
-			Point2D secondPoint = linePoints[i + 1];
-
-			objectsCanvas.drawLine((int) firstPoint.getX(), (int) firstPoint.getY(),
-							(int) secondPoint.getX(), (int) secondPoint.getY());
+			return HIGHLIGHTED_OBJECT_COLOR;
 		}
-
-		boolean needToDrawText = (lineTextDrawSettings != null && lineText != null);
-		if (needToDrawText)
+		else
 		{
-			textCanvas.drawTextOnMultiline(lineText, computeHighlightedTextDrawSettings(lineTextDrawSettings),
-							linePoints);
+			return lineDrawSettings.getColor();
 		}
 	}
 
 	/**
-	 * Draw line in normal state
+	 * Find draw settings of line text
 	 *
-	 * @param linePoints points of line
-	 * @param lineDrawSettings draw settings of line. If null - not draw text
-	 * @param lineText text of line. If null - not draw text
-	 * @param lineTextDrawSettings draw settings of line text
-	 * @throws IllegalArgumentException linePoints null or contains null;
-	 * lineDrawSettings is null
+	 * @param line line, draw settings of which text need to find
+	 * @param lineTextDrawSettings draw settings of line
+	 * @return line text draw settings
+	 * @throws IllegalArgumentException line or lineTextDrawSettings is null
 	 */
-	private void drawNormalLine(Point2D[] linePoints, LineDrawSettings lineDrawSettings,
-					String lineText, TextDrawSettings lineTextDrawSettings) throws IllegalArgumentException
+	private TextDrawSettings findLineTextDrawSettingsColor(MapLine line,
+					TextDrawSettings lineTextDrawSettings) throws IllegalArgumentException
 	{
-		if (linePoints == null)
+		if (line == null)
 		{
 			throw new IllegalArgumentException();
 		}
-		for (int i = 0; i < linePoints.length; i++)
+		if (lineTextDrawSettings == null)
 		{
-			if (linePoints[i] == null)
-			{
-				throw new IllegalArgumentException();
-			}
+			throw new IllegalArgumentException();
 		}
 
-		objectsCanvas.setColor(lineDrawSettings.getColor());
-		objectsCanvas.setStroke(lineDrawSettings.getStroke());
-
-		for (int i = 0; i < linePoints.length - 1; i++)
+		boolean drawAsHighlighted = (line == objectToDrawAsHighlighted);
+		if (drawAsHighlighted)
 		{
-			Point2D firstPoint = linePoints[i];
-			Point2D secondPoint = linePoints[i + 1];
-
-			objectsCanvas.drawLine((int) firstPoint.getX(), (int) firstPoint.getY(),
-							(int) secondPoint.getX(), (int) secondPoint.getY());
+			return computeHighlightedTextDrawSettings(lineTextDrawSettings);
 		}
-
-		boolean needToDrawText = (lineTextDrawSettings != null && lineText != null);
-		if (needToDrawText)
+		else
 		{
-			textCanvas.drawTextOnMultiline(lineText, lineTextDrawSettings, linePoints);
+			return lineTextDrawSettings;
 		}
 	}
 
@@ -563,9 +543,6 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		}
 
 		Polygon drawingPolygon = createDrawingPolygonByMapPolygon(polygonToRender);
-		String polygonText = objectStyle.findTextInTags(polygonToRender.getDefenitionTags());
-		TextDrawSettings polygonTextDrawSettings = objectStyle.findTextDrawSettings(renderingScaleLevel);
-
 		if (polygonStyle.isDrawInnerPart())
 		{
 			objectsCanvas.setPaint(findPolygonInnerPaint(polygonToRender, polygonStyle));
@@ -579,11 +556,13 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			objectsCanvas.drawPolygon(drawingPolygon);
 		}
 
-		boolean needToDrawText = (polygonTextDrawSettings != null && polygonText != null);
+		TextDrawSettings polygonTextDrawSettings = objectStyle.findTextDrawSettings(renderingScaleLevel);
+		boolean needToDrawText = (polygonTextDrawSettings != null);
 		if (needToDrawText)
 		{
 			double textPositionX = drawingPolygon.getBounds2D().getCenterX();
 			double textPositionY = drawingPolygon.getBounds2D().getCenterY();
+			String polygonText = objectStyle.findTextInTags(polygonToRender.getDefenitionTags());
 			textCanvas.drawTextAtPoint(polygonText,
 							findPolygonTextDrawSettings(polygonToRender, polygonTextDrawSettings),
 							textPositionX, textPositionY);
@@ -629,9 +608,9 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	/**
 	 * Find paint to draw inner part of polygon
 	 *
-	 * @param polygon polygon, color of which border need to find
-	 * @param polygonDrawSettings draw settings of polygon border
-	 * @return color of polygon border
+	 * @param polygon polygon, paint of which border need to find
+	 * @param polygonDrawSettings draw settings of polygon
+	 * @return paint for drawing inner part of polygon
 	 * @throws IllegalArgumentException polygon or polygonDrawSettings is null
 	 */
 	private Paint findPolygonInnerPaint(MapPolygon polygon,
@@ -660,9 +639,9 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	/**
 	 * Find text draw settings to draw polygon text
 	 *
-	 * @param polygon polygon, color of which border need to find
-	 * @param polygonTextDrawSettings draw settings of polygon border
-	 * @return color of polygon border
+	 * @param polygon polygon, text color of which border need to find
+	 * @param polygonTextDrawSettings draw settings of polygon text
+	 * @return draw settings of polygon text
 	 * @throws IllegalArgumentException polygon or polygonTextDrawSettings is null
 	 */
 	private TextDrawSettings findPolygonTextDrawSettings(MapPolygon polygon,
