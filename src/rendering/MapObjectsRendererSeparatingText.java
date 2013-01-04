@@ -104,13 +104,13 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		{
 			throw new IllegalArgumentException();
 		}
-		
+
 		objectsCanvas = targetObjectsCanvas;
 		textCanvas = new TextCanvas(targetTextCanvas);
 		styleViewer = styleViewerForRendering;
 		coordinatesConverter = converterForRendering;
 		renderingScaleLevel = scaleLevelForRendering;
-		
+
 		objectToDrawAsHighlighted = null;
 		selectingBuffer = fillingSelectingBuffer;
 	}
@@ -127,7 +127,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		{
 			throw new IllegalArgumentException();
 		}
-		
+
 		objectToDrawAsHighlighted = highlightedObject;
 	}
 
@@ -144,7 +144,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		{
 			throw new IllegalArgumentException();
 		}
-		
+
 		MapObjectDrawSettings objectStyle = styleViewer.getMapObjectDrawSettings(pointToRender.getStyleIndex());
 		if (objectStyle == null)
 		{
@@ -155,10 +155,10 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		{
 			return;
 		}
-		
+
 		boolean drawAsHightlighted = (pointToRender == objectToDrawAsHighlighted);
 		Point2D pointPositionOnCanvas = coordinatesConverter.goegraphicsToCanvas(pointToRender.getPosition());
-		
+
 		BufferedImage pointImage = pointStyle.getIcon();
 		if (pointImage != null)
 		{
@@ -166,21 +166,16 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			{
 				drawHighlightedPointWithImage(pointPositionOnCanvas, pointImage,
 								objectStyle.findTextInTags(pointToRender.getDefenitionTags()),
-								objectStyle.findTextDrawSettings(renderingScaleLevel));
+								objectStyle.findTextDrawSettings(renderingScaleLevel),
+								pointToRender);
 			}
 			else
 			{
 				drawNormalPointWithImage(pointPositionOnCanvas, pointImage,
 								objectStyle.findTextInTags(pointToRender.getDefenitionTags()),
-								objectStyle.findTextDrawSettings(renderingScaleLevel));
+								objectStyle.findTextDrawSettings(renderingScaleLevel),
+								pointToRender);
 			}
-			
-			int imagePositionX = (int) (pointPositionOnCanvas.getX() - pointImage.getWidth() / 2);
-			int imagePositionY = (int) (pointPositionOnCanvas.getY() - pointImage.getHeight() / 2);
-			SelectingRectangle selectingRectangleByImage = new SelectingRectangle(pointToRender,
-							new Rectangle2D.Double(imagePositionX, imagePositionY,
-							pointImage.getWidth(), pointImage.getHeight()));
-			selectingBuffer.addSelectingObject(selectingRectangleByImage);
 		}
 		else
 		{
@@ -188,18 +183,14 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			TextDrawSettings pointTextDrawSettings = objectStyle.findTextDrawSettings(renderingScaleLevel);
 			if (drawAsHightlighted)
 			{
-				drawHighlightedPointWithoutImage(pointPositionOnCanvas, pointText, pointTextDrawSettings);
+				drawHighlightedPointWithoutImage(pointPositionOnCanvas, pointText, pointTextDrawSettings,
+								pointToRender);
 			}
 			else
 			{
-				drawNormalPointWithoutImage(pointPositionOnCanvas, pointText, pointTextDrawSettings);
+				drawNormalPointWithoutImage(pointPositionOnCanvas, pointText, pointTextDrawSettings,
+								pointToRender);
 			}
-			
-			Rectangle2D pointTextBounds = textCanvas.computeTextAtPointBounds(pointText,
-							pointTextDrawSettings, pointPositionOnCanvas.getX(), pointPositionOnCanvas.getY());
-			SelectingRectangle selectingRectangleByTextBounds = new SelectingRectangle(pointToRender,
-							pointTextBounds);
-			selectingBuffer.addSelectingObject(selectingRectangleByTextBounds);
 		}
 	}
 
@@ -210,16 +201,24 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * @param pointText text of point. If null - not draw text
 	 * @param pointTextDrawSettings draw settings of point text. If null - not
 	 * draw text
-	 * @throws IllegalArgumentException pointPosition is null
+	 * @param objectToAssociateWithSelectingObject drawing point object. Will be
+	 * associated with selecting object
+	 * @throws IllegalArgumentException pointPosition,
+	 * objectToAssociateWithSelectingObject is null
 	 */
 	private void drawHighlightedPointWithoutImage(Point2D pointPosition, String pointText,
-					TextDrawSettings pointTextDrawSettings) throws IllegalArgumentException
+					TextDrawSettings pointTextDrawSettings,
+					MapObject objectToAssociateWithSelectingObject) throws IllegalArgumentException
 	{
 		if (pointPosition == null)
 		{
 			throw new IllegalArgumentException();
 		}
-		
+		if (objectToAssociateWithSelectingObject == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
 		boolean needToDrawText = (pointTextDrawSettings != null && pointText != null);
 		if (needToDrawText)
 		{
@@ -229,6 +228,12 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			textCanvas.drawTextAtPoint(pointText, highlightedTextDrawSettings,
 							pointPosition.getX(), pointPosition.getY());
 		}
+
+		Rectangle2D pointTextBounds = textCanvas.computeTextAtPointBounds(pointText,
+						pointTextDrawSettings, pointPosition.getX(), pointPosition.getY());
+		SelectingRectangle selectingRectangleByTextBounds = new SelectingRectangle(objectToAssociateWithSelectingObject,
+						pointTextBounds);
+		selectingBuffer.addSelectingObject(selectingRectangleByTextBounds);
 	}
 
 	/**
@@ -238,22 +243,36 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * @param pointText text of point. If null - not draw text
 	 * @param pointTextDrawSettings draw settings of point text. If null - not
 	 * draw text
-	 * @throws IllegalArgumentException pointPosition is null
+	 * @param objectToAssociateWithSelectingObject drawing point object. Will be
+	 * associated with selecting object
+	 * @throws IllegalArgumentException pointPosition,
+	 * objectToAssociateWithSelectingObject is null
 	 */
 	private void drawNormalPointWithoutImage(Point2D pointPosition, String pointText,
-					TextDrawSettings pointTextDrawSettings) throws IllegalArgumentException
+					TextDrawSettings pointTextDrawSettings,
+					MapObject objectToAssociateWithSelectingObject) throws IllegalArgumentException
 	{
 		if (pointPosition == null)
 		{
 			throw new IllegalArgumentException();
 		}
-		
+		if (objectToAssociateWithSelectingObject == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
 		boolean needToDrawText = (pointTextDrawSettings != null && pointText != null);
 		if (needToDrawText)
 		{
 			textCanvas.drawTextAtPoint(pointText, pointTextDrawSettings, pointPosition.getX(),
 							pointPosition.getY());
 		}
+
+		Rectangle2D pointTextBounds = textCanvas.computeTextAtPointBounds(pointText,
+						pointTextDrawSettings, pointPosition.getX(), pointPosition.getY());
+		SelectingRectangle selectingRectangleByTextBounds = new SelectingRectangle(objectToAssociateWithSelectingObject,
+						pointTextBounds);
+		selectingBuffer.addSelectingObject(selectingRectangleByTextBounds);
 	}
 
 	/**
@@ -264,10 +283,14 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * @param pointText text of point. If null - not draw text
 	 * @param pointTextDrawSettings draw settings of point text. If null - not
 	 * draw text
-	 * @throws IllegalArgumentException pointPosition or pointImage is null
+	 * @param objectToAssociateWithSelectingObject drawing point object. Will be
+	 * associated with selecting object
+	 * @throws IllegalArgumentException pointPosition, pointImage or
+	 * objectToAssociateWithSelectingObject is null
 	 */
 	private void drawHighlightedPointWithImage(Point2D pointPosition, BufferedImage pointImage,
-					String pointText, TextDrawSettings pointTextDrawSettings) throws IllegalArgumentException
+					String pointText, TextDrawSettings pointTextDrawSettings,
+					MapObject objectToAssociateWithSelectingObject) throws IllegalArgumentException
 	{
 		if (pointPosition == null)
 		{
@@ -277,23 +300,32 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		{
 			throw new IllegalArgumentException();
 		}
-		
+		if (objectToAssociateWithSelectingObject == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
 		int imagePositionX = (int) (pointPosition.getX() - pointImage.getWidth() / 2);
 		int imagePositionY = (int) (pointPosition.getY() - pointImage.getHeight() / 2);
-		
+
 		objectsCanvas.drawImage(pointImage, imagePositionX, imagePositionY, null);
-		
+
 		objectsCanvas.setColor(HIGHLIGHTED_OBJECT_COLOR);
 		objectsCanvas.setStroke(new BasicStroke(2));
 		objectsCanvas.drawRoundRect(imagePositionX - 2, imagePositionY - 2, pointImage.getWidth() + 4,
 						pointImage.getHeight() + 4, 2, 2);
-		
+
 		boolean needToDrawText = (pointTextDrawSettings != null && pointText != null);
 		if (needToDrawText)
 		{
 			textCanvas.drawTextUnderPoint(pointText, pointTextDrawSettings, pointPosition.getX(),
 							pointPosition.getY() + pointImage.getHeight() / 2);
 		}
+
+		SelectingRectangle selectingRectangleByImage = new SelectingRectangle(objectToAssociateWithSelectingObject,
+						new Rectangle2D.Double(imagePositionX, imagePositionY,
+						pointImage.getWidth(), pointImage.getHeight()));
+		selectingBuffer.addSelectingObject(selectingRectangleByImage);
 	}
 
 	/**
@@ -304,10 +336,14 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * @param pointText text of point. If null - not draw text
 	 * @param pointTextDrawSettings draw settings of point text. If null - not
 	 * draw text
-	 * @throws IllegalArgumentException pointPosition or pointImage is null
+	 * @param objectToAssociateWithSelectingObject drawing point object. Will be
+	 * associated with selecting object
+	 * @throws IllegalArgumentException pointPosition,
+	 * objectToAssociateWithSelectingObject or pointImage is null
 	 */
 	private void drawNormalPointWithImage(Point2D pointPosition, BufferedImage pointImage,
-					String pointText, TextDrawSettings pointTextDrawSettings) throws IllegalArgumentException
+					String pointText, TextDrawSettings pointTextDrawSettings,
+					MapObject objectToAssociateWithSelectingObject) throws IllegalArgumentException
 	{
 		if (pointPosition == null)
 		{
@@ -317,18 +353,27 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		{
 			throw new IllegalArgumentException();
 		}
-		
+		if (objectToAssociateWithSelectingObject == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
 		int imagePositionX = (int) (pointPosition.getX() - pointImage.getWidth() / 2);
 		int imagePositionY = (int) (pointPosition.getY() - pointImage.getHeight() / 2);
-		
+
 		objectsCanvas.drawImage(pointImage, imagePositionX, imagePositionY, null);
-		
+
 		boolean needToDrawText = (pointTextDrawSettings != null && pointText != null);
 		if (needToDrawText)
 		{
 			textCanvas.drawTextUnderPoint(pointText, pointTextDrawSettings, pointPosition.getX(),
 							pointPosition.getY() + pointImage.getHeight() / 2);
 		}
+
+		SelectingRectangle selectingRectangleByImage = new SelectingRectangle(objectToAssociateWithSelectingObject,
+						new Rectangle2D.Double(imagePositionX, imagePositionY,
+						pointImage.getWidth(), pointImage.getHeight()));
+		selectingBuffer.addSelectingObject(selectingRectangleByImage);
 	}
 
 	/**
@@ -344,7 +389,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		{
 			throw new IllegalArgumentException();
 		}
-		
+
 		MapObjectDrawSettings objectStyle = styleViewer.getMapObjectDrawSettings(lineToRender.getStyleIndex());
 		if (objectStyle == null)
 		{
@@ -355,9 +400,9 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		{
 			return;
 		}
-		
+
 		Point2D[] drawingMultiline = createDrawingMultilineByMapLine(lineToRender);
-		
+
 		boolean drawAsHightlighted = (lineToRender == objectToDrawAsHighlighted);
 		if (drawAsHightlighted)
 		{
@@ -371,7 +416,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 							objectStyle.findTextInTags(lineToRender.getDefenitionTags()),
 							objectStyle.findTextDrawSettings(renderingScaleLevel));
 		}
-		
+
 		SelectingLine selectingLineByRenderingLine = new SelectingLine(lineToRender,
 						drawingMultiline, lineStyle.getWidth());
 		selectingBuffer.addSelectingObject(selectingLineByRenderingLine);
@@ -401,19 +446,19 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 				throw new IllegalArgumentException();
 			}
 		}
-		
+
 		objectsCanvas.setColor(HIGHLIGHTED_OBJECT_COLOR);
 		objectsCanvas.setStroke(lineDrawSettings.getStroke());
-		
+
 		for (int i = 0; i < linePoints.length - 1; i++)
 		{
 			Point2D firstPoint = linePoints[i];
 			Point2D secondPoint = linePoints[i + 1];
-			
+
 			objectsCanvas.drawLine((int) firstPoint.getX(), (int) firstPoint.getY(),
 							(int) secondPoint.getX(), (int) secondPoint.getY());
 		}
-		
+
 		boolean needToDrawText = (lineTextDrawSettings != null && lineText != null);
 		if (needToDrawText)
 		{
@@ -446,19 +491,19 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 				throw new IllegalArgumentException();
 			}
 		}
-		
+
 		objectsCanvas.setColor(lineDrawSettings.getColor());
 		objectsCanvas.setStroke(lineDrawSettings.getStroke());
-		
+
 		for (int i = 0; i < linePoints.length - 1; i++)
 		{
 			Point2D firstPoint = linePoints[i];
 			Point2D secondPoint = linePoints[i + 1];
-			
+
 			objectsCanvas.drawLine((int) firstPoint.getX(), (int) firstPoint.getY(),
 							(int) secondPoint.getX(), (int) secondPoint.getY());
 		}
-		
+
 		boolean needToDrawText = (lineTextDrawSettings != null && lineText != null);
 		if (needToDrawText)
 		{
@@ -480,14 +525,14 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		{
 			throw new IllegalArgumentException();
 		}
-		
+
 		Point2D[] drawingMultiline = new Point2D[mapLine.getPointsCount()];
-		
+
 		for (int i = 0; i < mapLine.getPointsCount(); i++)
 		{
 			drawingMultiline[i] = coordinatesConverter.goegraphicsToCanvas(mapLine.getPoint(i));
 		}
-		
+
 		return drawingMultiline;
 	}
 
@@ -504,7 +549,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		{
 			throw new IllegalArgumentException();
 		}
-		
+
 		MapObjectDrawSettings objectStyle = styleViewer.getMapObjectDrawSettings(polygonToRender.getStyleIndex());
 		if (objectStyle == null)
 		{
@@ -515,11 +560,11 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		{
 			return;
 		}
-		
+
 		Polygon drawingPolygon = createDrawingPolygonByMapPolygon(polygonToRender);
 		String polygonText = objectStyle.findTextInTags(polygonToRender.getDefenitionTags());
 		TextDrawSettings polygonTextDrawSettings = objectStyle.findTextDrawSettings(renderingScaleLevel);
-		
+
 		boolean drawAsHightlighted = (polygonToRender == objectToDrawAsHighlighted);
 		if (drawAsHightlighted)
 		{
@@ -529,7 +574,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		{
 			drawNormalPolygon(drawingPolygon, polygonStyle, polygonText, polygonTextDrawSettings);
 		}
-		
+
 		SelectingPolygon selectingPolygonByRenderedPolygon = new SelectingPolygon(polygonToRender,
 						drawingPolygon);
 		selectingBuffer.addSelectingObject(selectingPolygonByRenderedPolygon);
@@ -557,7 +602,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		{
 			throw new IllegalArgumentException();
 		}
-		
+
 		if (polygonDrawSettings.isDrawInnerPart())
 		{
 			objectsCanvas.setPaint(polygonDrawSettings.getPaint());
@@ -570,7 +615,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			objectsCanvas.setStroke(borderStyle.getStroke());
 			objectsCanvas.drawPolygon(drawingPolygon);
 		}
-		
+
 		boolean needToDrawText = (polygonTextDrawSettings != null && polygonText != null);
 		if (needToDrawText)
 		{
@@ -602,7 +647,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		{
 			throw new IllegalArgumentException();
 		}
-		
+
 		if (polygonDrawSettings.isDrawInnerPart())
 		{
 			objectsCanvas.setPaint(HIGHLIGHTED_OBJECT_COLOR);
@@ -615,7 +660,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			objectsCanvas.setStroke(borderStyle.getStroke());
 			objectsCanvas.drawPolygon(drawingPolygon);
 		}
-		
+
 		boolean needToDrawText = (polygonTextDrawSettings != null && polygonText != null);
 		if (needToDrawText)
 		{
@@ -639,11 +684,11 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		{
 			throw new IllegalArgumentException();
 		}
-		
+
 		TextDrawSettings highlightedTextDrawSettings = new TextDrawSettings();
 		highlightedTextDrawSettings.setFont(sourceDrawSettings.getFont());
 		highlightedTextDrawSettings.setColor(HIGHLIGHTED_OBJECT_TEXT_COLOR);
-		
+
 		return highlightedTextDrawSettings;
 	}
 
@@ -660,15 +705,15 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		{
 			throw new IllegalArgumentException();
 		}
-		
+
 		Polygon drawingPolygon = new Polygon();
-		
+
 		for (int i = 0; i < mapPolygon.getPointsCount(); i++)
 		{
 			Point2D pointOnCanvas = coordinatesConverter.goegraphicsToCanvas(mapPolygon.getPoint(i));
 			drawingPolygon.addPoint((int) pointOnCanvas.getX(), (int) pointOnCanvas.getY());
 		}
-		
+
 		return drawingPolygon;
 	}
 }
