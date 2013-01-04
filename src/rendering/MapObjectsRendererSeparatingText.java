@@ -157,224 +157,124 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			return;
 		}
 
-		boolean drawAsHightlighted = (pointToRender == objectToDrawAsHighlighted);
 		Point2D pointPositionOnCanvas = coordinatesConverter.goegraphicsToCanvas(pointToRender.getPosition());
 
 		BufferedImage pointImage = pointStyle.getIcon();
 		if (pointImage != null)
 		{
-			if (drawAsHightlighted)
+			int imagePositionX = (int) (pointPositionOnCanvas.getX() - pointImage.getWidth() / 2);
+			int imagePositionY = (int) (pointPositionOnCanvas.getY() - pointImage.getHeight() / 2);
+
+			if (isNeedToDrawPointBoundingRectangle(pointToRender))
 			{
-				drawHighlightedPointWithImage(pointPositionOnCanvas, pointImage,
-								objectStyle.findTextInTags(pointToRender.getDefenitionTags()),
-								objectStyle.findTextDrawSettings(renderingScaleLevel),
-								pointToRender);
+				drawBoundingRectangleAroundPoint(pointPositionOnCanvas, pointImage.getWidth(),
+								pointImage.getHeight());
 			}
-			else
+
+			objectsCanvas.drawImage(pointImage, imagePositionX, imagePositionY, null);
+
+			TextDrawSettings textDrawSettings = objectStyle.findTextDrawSettings(renderingScaleLevel);
+			if (textDrawSettings != null)
 			{
-				drawNormalPointWithImage(pointPositionOnCanvas, pointImage,
-								objectStyle.findTextInTags(pointToRender.getDefenitionTags()),
-								objectStyle.findTextDrawSettings(renderingScaleLevel),
-								pointToRender);
+				textCanvas.drawTextUnderPoint(objectStyle.findTextInTags(pointToRender.getDefenitionTags()),
+								textDrawSettings,
+								pointPositionOnCanvas.getX(),
+								pointPositionOnCanvas.getY() + pointImage.getHeight() / 2);
 			}
+
+			SelectingRectangle selectingRectangleByImage = new SelectingRectangle(pointToRender,
+							new Rectangle2D.Double(imagePositionX, imagePositionY,
+							pointImage.getWidth(), pointImage.getHeight()));
+			selectingBuffer.addSelectingObject(selectingRectangleByImage);
+
 		}
 		else
 		{
-			String pointText = objectStyle.findTextInTags(pointToRender.getDefenitionTags());
-			TextDrawSettings pointTextDrawSettings = objectStyle.findTextDrawSettings(renderingScaleLevel);
-			if (drawAsHightlighted)
+			TextDrawSettings textDrawSettings = objectStyle.findTextDrawSettings(renderingScaleLevel);
+			if (textDrawSettings != null)
 			{
-				drawHighlightedPointWithoutImage(pointPositionOnCanvas, pointText, pointTextDrawSettings,
-								pointToRender);
+				String pointText = objectStyle.findTextInTags(pointToRender.getDefenitionTags());
+				textCanvas.drawTextAtPoint(pointText,
+								findPointTextDrawSettings(pointToRender, textDrawSettings),
+								pointPositionOnCanvas.getX(), pointPositionOnCanvas.getY());
+
+				Rectangle2D pointTextBounds = textCanvas.computeTextAtPointBounds(pointText,
+								textDrawSettings, pointPositionOnCanvas.getX(), pointPositionOnCanvas.getY());
+				SelectingRectangle selectingRectangleByTextBounds = new SelectingRectangle(pointToRender,
+								pointTextBounds);
+				selectingBuffer.addSelectingObject(selectingRectangleByTextBounds);
 			}
-			else
-			{
-				drawNormalPointWithoutImage(pointPositionOnCanvas, pointText, pointTextDrawSettings,
-								pointToRender);
-			}
 		}
 	}
 
 	/**
-	 * Draw point without image as highlighted
+	 * Find point text draw settings by source draw settings
 	 *
-	 * @param pointPosition point position on canvas
-	 * @param pointText text of point. If null - not draw text
-	 * @param pointTextDrawSettings draw settings of point text. If null - not
-	 * draw text
-	 * @param objectToAssociateWithSelectingObject drawing point object. Will be
-	 * associated with selecting object
-	 * @throws IllegalArgumentException pointPosition,
-	 * objectToAssociateWithSelectingObject is null
+	 * @param point point draw settings of which text need to find
+	 * @param sourceDrawSettings source text draw settings
+	 * @return point text draw settings
+	 * @throws IllegalArgumentException point or sourceDrawSettings is null
 	 */
-	private void drawHighlightedPointWithoutImage(Point2D pointPosition, String pointText,
-					TextDrawSettings pointTextDrawSettings,
-					MapObject objectToAssociateWithSelectingObject) throws IllegalArgumentException
+	private TextDrawSettings findPointTextDrawSettings(MapPoint point,
+					TextDrawSettings sourceDrawSettings) throws IllegalArgumentException
 	{
-		if (pointPosition == null)
+		if (point == null)
 		{
 			throw new IllegalArgumentException();
 		}
-		if (objectToAssociateWithSelectingObject == null)
+		if (sourceDrawSettings == null)
 		{
 			throw new IllegalArgumentException();
 		}
 
-		boolean needToDrawText = (pointTextDrawSettings != null && pointText != null);
-		if (needToDrawText)
+		boolean drawAsHightlighted = (point == objectToDrawAsHighlighted);
+		if (drawAsHightlighted)
 		{
-			TextDrawSettings highlightedTextDrawSettings = new TextDrawSettings();
-			highlightedTextDrawSettings.setFont(pointTextDrawSettings.getFont());
-			highlightedTextDrawSettings.setColor(HIGHLIGHTED_OBJECT_COLOR);
-			textCanvas.drawTextAtPoint(pointText, highlightedTextDrawSettings,
-							pointPosition.getX(), pointPosition.getY());
+			return recreateTextDrawSettingsWithColor(sourceDrawSettings, HIGHLIGHTED_OBJECT_COLOR);
 		}
-
-		Rectangle2D pointTextBounds = textCanvas.computeTextAtPointBounds(pointText,
-						pointTextDrawSettings, pointPosition.getX(), pointPosition.getY());
-		SelectingRectangle selectingRectangleByTextBounds = new SelectingRectangle(objectToAssociateWithSelectingObject,
-						pointTextBounds);
-		selectingBuffer.addSelectingObject(selectingRectangleByTextBounds);
+		else
+		{
+			return sourceDrawSettings;
+		}
 	}
 
 	/**
-	 * Draw point without image in normal state
+	 * Draw rectangle around point with image, using image size to find bounding
+	 * rectangle size
 	 *
-	 * @param pointPosition point position on canvas
-	 * @param pointText text of point. If null - not draw text
-	 * @param pointTextDrawSettings draw settings of point text. If null - not
-	 * draw text
-	 * @param objectToAssociateWithSelectingObject drawing point object. Will be
-	 * associated with selecting object
-	 * @throws IllegalArgumentException pointPosition,
-	 * objectToAssociateWithSelectingObject is null
+	 * @param pointPositionOnCanvas point positiong on canvas
+	 * @param pointImageWidth point image width
+	 * @param pointImageHeight point image height
+	 * @throws IllegalArgumentException pointPositionOnCanvas is null
 	 */
-	private void drawNormalPointWithoutImage(Point2D pointPosition, String pointText,
-					TextDrawSettings pointTextDrawSettings,
-					MapObject objectToAssociateWithSelectingObject) throws IllegalArgumentException
+	private void drawBoundingRectangleAroundPoint(Point2D pointPositionOnCanvas, int pointImageWidth,
+					int pointImageHeight) throws IllegalArgumentException
 	{
-		if (pointPosition == null)
-		{
-			throw new IllegalArgumentException();
-		}
-		if (objectToAssociateWithSelectingObject == null)
-		{
-			throw new IllegalArgumentException();
-		}
-
-		boolean needToDrawText = (pointTextDrawSettings != null && pointText != null);
-		if (needToDrawText)
-		{
-			textCanvas.drawTextAtPoint(pointText, pointTextDrawSettings, pointPosition.getX(),
-							pointPosition.getY());
-		}
-
-		Rectangle2D pointTextBounds = textCanvas.computeTextAtPointBounds(pointText,
-						pointTextDrawSettings, pointPosition.getX(), pointPosition.getY());
-		SelectingRectangle selectingRectangleByTextBounds = new SelectingRectangle(objectToAssociateWithSelectingObject,
-						pointTextBounds);
-		selectingBuffer.addSelectingObject(selectingRectangleByTextBounds);
-	}
-
-	/**
-	 * Draw point with image as highlighted
-	 *
-	 * @param pointPosition point position on canvas
-	 * @param pointImage point image
-	 * @param pointText text of point. If null - not draw text
-	 * @param pointTextDrawSettings draw settings of point text. If null - not
-	 * draw text
-	 * @param objectToAssociateWithSelectingObject drawing point object. Will be
-	 * associated with selecting object
-	 * @throws IllegalArgumentException pointPosition, pointImage or
-	 * objectToAssociateWithSelectingObject is null
-	 */
-	private void drawHighlightedPointWithImage(Point2D pointPosition, BufferedImage pointImage,
-					String pointText, TextDrawSettings pointTextDrawSettings,
-					MapObject objectToAssociateWithSelectingObject) throws IllegalArgumentException
-	{
-		if (pointPosition == null)
-		{
-			throw new IllegalArgumentException();
-		}
-		if (pointImage == null)
-		{
-			throw new IllegalArgumentException();
-		}
-		if (objectToAssociateWithSelectingObject == null)
-		{
-			throw new IllegalArgumentException();
-		}
-
-		int imagePositionX = (int) (pointPosition.getX() - pointImage.getWidth() / 2);
-		int imagePositionY = (int) (pointPosition.getY() - pointImage.getHeight() / 2);
-
-		objectsCanvas.drawImage(pointImage, imagePositionX, imagePositionY, null);
-
 		objectsCanvas.setColor(HIGHLIGHTED_OBJECT_COLOR);
 		objectsCanvas.setStroke(new BasicStroke(2));
-		objectsCanvas.drawRoundRect(imagePositionX - 2, imagePositionY - 2, pointImage.getWidth() + 4,
-						pointImage.getHeight() + 4, 2, 2);
-
-		boolean needToDrawText = (pointTextDrawSettings != null && pointText != null);
-		if (needToDrawText)
-		{
-			textCanvas.drawTextUnderPoint(pointText, pointTextDrawSettings, pointPosition.getX(),
-							pointPosition.getY() + pointImage.getHeight() / 2);
-		}
-
-		SelectingRectangle selectingRectangleByImage = new SelectingRectangle(objectToAssociateWithSelectingObject,
-						new Rectangle2D.Double(imagePositionX, imagePositionY,
-						pointImage.getWidth(), pointImage.getHeight()));
-		selectingBuffer.addSelectingObject(selectingRectangleByImage);
+		objectsCanvas.drawRoundRect((int) pointPositionOnCanvas.getX() - (pointImageWidth / 2) - 2,
+						(int) pointPositionOnCanvas.getY() - (pointImageHeight / 2) - 2,
+						pointImageWidth + 2 + 2,
+						pointImageHeight + 2 + 2,
+						2, 2);
 	}
 
 	/**
-	 * Draw point with image in normal state
+	 * Find, is need to draw bounding rectangle around point
 	 *
-	 * @param pointPosition point position on canvas
-	 * @param pointImage point image
-	 * @param pointText text of point. If null - not draw text
-	 * @param pointTextDrawSettings draw settings of point text. If null - not
-	 * draw text
-	 * @param objectToAssociateWithSelectingObject drawing point object. Will be
-	 * associated with selecting object
-	 * @throws IllegalArgumentException pointPosition,
-	 * objectToAssociateWithSelectingObject or pointImage is null
+	 * @param point rendering point
+	 * @return is need to draw bounding rectangle
+	 * @throws IllegalArgumentException point is null
 	 */
-	private void drawNormalPointWithImage(Point2D pointPosition, BufferedImage pointImage,
-					String pointText, TextDrawSettings pointTextDrawSettings,
-					MapObject objectToAssociateWithSelectingObject) throws IllegalArgumentException
+	private boolean isNeedToDrawPointBoundingRectangle(MapPoint point) throws IllegalArgumentException
 	{
-		if (pointPosition == null)
-		{
-			throw new IllegalArgumentException();
-		}
-		if (pointImage == null)
-		{
-			throw new IllegalArgumentException();
-		}
-		if (objectToAssociateWithSelectingObject == null)
+		if (point == null)
 		{
 			throw new IllegalArgumentException();
 		}
 
-		int imagePositionX = (int) (pointPosition.getX() - pointImage.getWidth() / 2);
-		int imagePositionY = (int) (pointPosition.getY() - pointImage.getHeight() / 2);
-
-		objectsCanvas.drawImage(pointImage, imagePositionX, imagePositionY, null);
-
-		boolean needToDrawText = (pointTextDrawSettings != null && pointText != null);
-		if (needToDrawText)
-		{
-			textCanvas.drawTextUnderPoint(pointText, pointTextDrawSettings, pointPosition.getX(),
-							pointPosition.getY() + pointImage.getHeight() / 2);
-		}
-
-		SelectingRectangle selectingRectangleByImage = new SelectingRectangle(objectToAssociateWithSelectingObject,
-						new Rectangle2D.Double(imagePositionX, imagePositionY,
-						pointImage.getWidth(), pointImage.getHeight()));
-		selectingBuffer.addSelectingObject(selectingRectangleByImage);
+		boolean drawAsHightlighted = (point == objectToDrawAsHighlighted);
+		return drawAsHightlighted;
 	}
 
 	/**
@@ -434,18 +334,18 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * Find color to draw line
 	 *
 	 * @param line line, which color need to find
-	 * @param lineDrawSettings draw settings of line
+	 * @param sourceDrawSettings source draw settings of line, using for finding
 	 * @return line color
-	 * @throws IllegalArgumentException line or lineDrawSettings is null
+	 * @throws IllegalArgumentException line or sourceDrawSettings is null
 	 */
 	private Color findLineColor(MapLine line,
-					LineDrawSettings lineDrawSettings) throws IllegalArgumentException
+					LineDrawSettings sourceDrawSettings) throws IllegalArgumentException
 	{
 		if (line == null)
 		{
 			throw new IllegalArgumentException();
 		}
-		if (lineDrawSettings == null)
+		if (sourceDrawSettings == null)
 		{
 			throw new IllegalArgumentException();
 		}
@@ -457,7 +357,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		}
 		else
 		{
-			return lineDrawSettings.getColor();
+			return sourceDrawSettings.getColor();
 		}
 	}
 
@@ -465,18 +365,19 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * Find draw settings of line text
 	 *
 	 * @param line line, draw settings of which text need to find
-	 * @param lineTextDrawSettings draw settings of line
+	 * @param sourceTextDrawSettings source draw settings of line text, using for
+	 * finding
 	 * @return line text draw settings
-	 * @throws IllegalArgumentException line or lineTextDrawSettings is null
+	 * @throws IllegalArgumentException line or sourceTextDrawSettings is null
 	 */
 	private TextDrawSettings findLineTextDrawSettingsColor(MapLine line,
-					TextDrawSettings lineTextDrawSettings) throws IllegalArgumentException
+					TextDrawSettings sourceTextDrawSettings) throws IllegalArgumentException
 	{
 		if (line == null)
 		{
 			throw new IllegalArgumentException();
 		}
-		if (lineTextDrawSettings == null)
+		if (sourceTextDrawSettings == null)
 		{
 			throw new IllegalArgumentException();
 		}
@@ -484,11 +385,11 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		boolean drawAsHighlighted = (line == objectToDrawAsHighlighted);
 		if (drawAsHighlighted)
 		{
-			return computeHighlightedTextDrawSettings(lineTextDrawSettings);
+			return recreateTextDrawSettingsWithColor(sourceTextDrawSettings, HIGHLIGHTED_OBJECT_TEXT_COLOR);
 		}
 		else
 		{
-			return lineTextDrawSettings;
+			return sourceTextDrawSettings;
 		}
 	}
 
@@ -577,19 +478,20 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * Find color to draw polygon border part
 	 *
 	 * @param polygon polygon, color of which border need to find
-	 * @param polygonBorderDrawSettings draw settings of polygon border
+	 * @param sourceBorderDrawSettings draw settings of polygon border, using as
+	 * source for finding
 	 * @return color of polygon border
-	 * @throws IllegalArgumentException polygon or polygonBorderDrawSettings is
+	 * @throws IllegalArgumentException polygon or sourceBorderDrawSettings is
 	 * null
 	 */
 	private Color findPolygonBorderColor(MapPolygon polygon,
-					LineDrawSettings polygonBorderDrawSettings) throws IllegalArgumentException
+					LineDrawSettings sourceBorderDrawSettings) throws IllegalArgumentException
 	{
 		if (polygon == null)
 		{
 			throw new IllegalArgumentException();
 		}
-		if (polygonBorderDrawSettings == null)
+		if (sourceBorderDrawSettings == null)
 		{
 			throw new IllegalArgumentException();
 		}
@@ -601,7 +503,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		}
 		else
 		{
-			return polygonBorderDrawSettings.getColor();
+			return sourceBorderDrawSettings.getColor();
 		}
 	}
 
@@ -609,18 +511,19 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * Find paint to draw inner part of polygon
 	 *
 	 * @param polygon polygon, paint of which border need to find
-	 * @param polygonDrawSettings draw settings of polygon
+	 * @param sourceDrawSettings source draw settings of polygon, using for
+	 * finding
 	 * @return paint for drawing inner part of polygon
-	 * @throws IllegalArgumentException polygon or polygonDrawSettings is null
+	 * @throws IllegalArgumentException polygon or sourceDrawSettings is null
 	 */
 	private Paint findPolygonInnerPaint(MapPolygon polygon,
-					PolygonDrawSettings polygonDrawSettings) throws IllegalArgumentException
+					PolygonDrawSettings sourceDrawSettings) throws IllegalArgumentException
 	{
 		if (polygon == null)
 		{
 			throw new IllegalArgumentException();
 		}
-		if (polygonDrawSettings == null)
+		if (sourceDrawSettings == null)
 		{
 			throw new IllegalArgumentException();
 		}
@@ -632,7 +535,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		}
 		else
 		{
-			return polygonDrawSettings.getPaint();
+			return sourceDrawSettings.getPaint();
 		}
 	}
 
@@ -640,18 +543,19 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * Find text draw settings to draw polygon text
 	 *
 	 * @param polygon polygon, text color of which border need to find
-	 * @param polygonTextDrawSettings draw settings of polygon text
+	 * @param sourceTextDrawSettings source draw settings of polygon text, using
+	 * for finding
 	 * @return draw settings of polygon text
-	 * @throws IllegalArgumentException polygon or polygonTextDrawSettings is null
+	 * @throws IllegalArgumentException polygon or sourceTextDrawSettings is null
 	 */
 	private TextDrawSettings findPolygonTextDrawSettings(MapPolygon polygon,
-					TextDrawSettings polygonTextDrawSettings) throws IllegalArgumentException
+					TextDrawSettings sourceTextDrawSettings) throws IllegalArgumentException
 	{
 		if (polygon == null)
 		{
 			throw new IllegalArgumentException();
 		}
-		if (polygonTextDrawSettings == null)
+		if (sourceTextDrawSettings == null)
 		{
 			throw new IllegalArgumentException();
 		}
@@ -659,22 +563,24 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		boolean drawAsHighlighted = (polygon == objectToDrawAsHighlighted);
 		if (drawAsHighlighted)
 		{
-			return computeHighlightedTextDrawSettings(polygonTextDrawSettings);
+			return recreateTextDrawSettingsWithColor(sourceTextDrawSettings, HIGHLIGHTED_OBJECT_TEXT_COLOR);
 		}
 		else
 		{
-			return polygonTextDrawSettings;
+			return sourceTextDrawSettings;
 		}
 	}
 
 	/**
-	 * Compute highlighted text draw settings by source object draw settings
+	 * Create text draw settings by source draw settings with another color
 	 *
 	 * @param sourceDrawSettings source text draw settings
+	 * @param newColor new text color
 	 * @return highlighted text draw settings by source draw settings
 	 * @throws IllegalArgumentException sourceDrawSettings is null
 	 */
-	private TextDrawSettings computeHighlightedTextDrawSettings(TextDrawSettings sourceDrawSettings) throws IllegalArgumentException
+	private TextDrawSettings recreateTextDrawSettingsWithColor(TextDrawSettings sourceDrawSettings,
+					Color newColor) throws IllegalArgumentException
 	{
 		if (sourceDrawSettings == null)
 		{
@@ -683,7 +589,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 
 		TextDrawSettings highlightedTextDrawSettings = new TextDrawSettings();
 		highlightedTextDrawSettings.setFont(sourceDrawSettings.getFont());
-		highlightedTextDrawSettings.setColor(HIGHLIGHTED_OBJECT_TEXT_COLOR);
+		highlightedTextDrawSettings.setColor(newColor);
 
 		return highlightedTextDrawSettings;
 	}
