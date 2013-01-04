@@ -4,6 +4,7 @@ import drawingStyles.*;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Paint;
 import java.awt.Polygon;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -565,14 +566,27 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 		String polygonText = objectStyle.findTextInTags(polygonToRender.getDefenitionTags());
 		TextDrawSettings polygonTextDrawSettings = objectStyle.findTextDrawSettings(renderingScaleLevel);
 
-		boolean drawAsHightlighted = (polygonToRender == objectToDrawAsHighlighted);
-		if (drawAsHightlighted)
+		if (polygonStyle.isDrawInnerPart())
 		{
-			drawHighlightedPolygon(drawingPolygon, polygonStyle, polygonText, polygonTextDrawSettings);
+			objectsCanvas.setPaint(findPolygonInnerPaint(polygonToRender, polygonStyle));
+			objectsCanvas.fillPolygon(drawingPolygon);
 		}
-		else
+		if (polygonStyle.isDrawBorder())
 		{
-			drawNormalPolygon(drawingPolygon, polygonStyle, polygonText, polygonTextDrawSettings);
+			LineDrawSettings borderStyle = polygonStyle.getBorderDrawSettings();
+			objectsCanvas.setColor(findPolygonBorderColor(polygonToRender, borderStyle));
+			objectsCanvas.setStroke(borderStyle.getStroke());
+			objectsCanvas.drawPolygon(drawingPolygon);
+		}
+
+		boolean needToDrawText = (polygonTextDrawSettings != null && polygonText != null);
+		if (needToDrawText)
+		{
+			double textPositionX = drawingPolygon.getBounds2D().getCenterX();
+			double textPositionY = drawingPolygon.getBounds2D().getCenterY();
+			textCanvas.drawTextAtPoint(polygonText,
+							findPolygonTextDrawSettings(polygonToRender, polygonTextDrawSettings),
+							textPositionX, textPositionY);
 		}
 
 		SelectingPolygon selectingPolygonByRenderedPolygon = new SelectingPolygon(polygonToRender,
@@ -581,65 +595,49 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	}
 
 	/**
-	 * Draw polygon in normal state (not highlighted .., etc)
+	 * Find color to draw polygon border part
 	 *
-	 * @param drawingPolygon polygon on canvas to draw
-	 * @param polygonDrawSettings draw settings of polygon
-	 * @param polygonTextDrawSettings draw settings of polygon text, If null - not
-	 * draw text
-	 * @param polygonText text of polygon. If null - not draw text
-	 * @throws IllegalArgumentException drawingPolygon, polygonDrawSettings is
+	 * @param polygon polygon, color of which border need to find
+	 * @param polygonBorderDrawSettings draw settings of polygon border
+	 * @return color of polygon border
+	 * @throws IllegalArgumentException polygon or polygonBorderDrawSettings is
 	 * null
 	 */
-	private void drawNormalPolygon(Polygon drawingPolygon, PolygonDrawSettings polygonDrawSettings,
-					String polygonText, TextDrawSettings polygonTextDrawSettings) throws IllegalArgumentException
+	private Color findPolygonBorderColor(MapPolygon polygon,
+					LineDrawSettings polygonBorderDrawSettings) throws IllegalArgumentException
 	{
-		if (drawingPolygon == null)
+		if (polygon == null)
 		{
 			throw new IllegalArgumentException();
 		}
-		if (polygonDrawSettings == null)
+		if (polygonBorderDrawSettings == null)
 		{
 			throw new IllegalArgumentException();
 		}
 
-		if (polygonDrawSettings.isDrawInnerPart())
+		boolean drawAsHighlighted = (polygon == objectToDrawAsHighlighted);
+		if (drawAsHighlighted)
 		{
-			objectsCanvas.setPaint(polygonDrawSettings.getPaint());
-			objectsCanvas.fillPolygon(drawingPolygon);
+			return HIGHLIGHTED_OBJECT_COLOR;
 		}
-		if (polygonDrawSettings.isDrawBorder())
+		else
 		{
-			LineDrawSettings borderStyle = polygonDrawSettings.getBorderDrawSettings();
-			objectsCanvas.setColor(borderStyle.getColor());
-			objectsCanvas.setStroke(borderStyle.getStroke());
-			objectsCanvas.drawPolygon(drawingPolygon);
-		}
-
-		boolean needToDrawText = (polygonTextDrawSettings != null && polygonText != null);
-		if (needToDrawText)
-		{
-			double textPositionX = drawingPolygon.getBounds2D().getCenterX();
-			double textPositionY = drawingPolygon.getBounds2D().getCenterY();
-			textCanvas.drawTextAtPoint(polygonText, polygonTextDrawSettings, textPositionX, textPositionY);
+			return polygonBorderDrawSettings.getColor();
 		}
 	}
 
 	/**
-	 * Draw highlighted polygon
+	 * Find paint to draw inner part of polygon
 	 *
-	 * @param drawingPolygon polygon on canvas to draw
-	 * @param polygonDrawSettings draw settings of polygon
-	 * @param polygonTextDrawSettings draw settings of polygon text, If null - not
-	 * draw text
-	 * @param polygonText text of polygon. If null - not draw text
-	 * @throws IllegalArgumentException drawingPolygon, polygonDrawSettings is
-	 * null
+	 * @param polygon polygon, color of which border need to find
+	 * @param polygonDrawSettings draw settings of polygon border
+	 * @return color of polygon border
+	 * @throws IllegalArgumentException polygon or polygonDrawSettings is null
 	 */
-	private void drawHighlightedPolygon(Polygon drawingPolygon, PolygonDrawSettings polygonDrawSettings,
-					String polygonText, TextDrawSettings polygonTextDrawSettings) throws IllegalArgumentException
+	private Paint findPolygonInnerPaint(MapPolygon polygon,
+					PolygonDrawSettings polygonDrawSettings) throws IllegalArgumentException
 	{
-		if (drawingPolygon == null)
+		if (polygon == null)
 		{
 			throw new IllegalArgumentException();
 		}
@@ -648,26 +646,45 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 			throw new IllegalArgumentException();
 		}
 
-		if (polygonDrawSettings.isDrawInnerPart())
+		boolean drawAsHighlighted = (polygon == objectToDrawAsHighlighted);
+		if (drawAsHighlighted)
 		{
-			objectsCanvas.setPaint(HIGHLIGHTED_OBJECT_COLOR);
-			objectsCanvas.fillPolygon(drawingPolygon);
+			return HIGHLIGHTED_OBJECT_COLOR;
 		}
-		if (polygonDrawSettings.isDrawBorder())
+		else
 		{
-			LineDrawSettings borderStyle = polygonDrawSettings.getBorderDrawSettings();
-			objectsCanvas.setColor(HIGHLIGHTED_OBJECT_COLOR);
-			objectsCanvas.setStroke(borderStyle.getStroke());
-			objectsCanvas.drawPolygon(drawingPolygon);
+			return polygonDrawSettings.getPaint();
+		}
+	}
+
+	/**
+	 * Find text draw settings to draw polygon text
+	 *
+	 * @param polygon polygon, color of which border need to find
+	 * @param polygonTextDrawSettings draw settings of polygon border
+	 * @return color of polygon border
+	 * @throws IllegalArgumentException polygon or polygonTextDrawSettings is null
+	 */
+	private TextDrawSettings findPolygonTextDrawSettings(MapPolygon polygon,
+					TextDrawSettings polygonTextDrawSettings) throws IllegalArgumentException
+	{
+		if (polygon == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		if (polygonTextDrawSettings == null)
+		{
+			throw new IllegalArgumentException();
 		}
 
-		boolean needToDrawText = (polygonTextDrawSettings != null && polygonText != null);
-		if (needToDrawText)
+		boolean drawAsHighlighted = (polygon == objectToDrawAsHighlighted);
+		if (drawAsHighlighted)
 		{
-			double textPositionX = drawingPolygon.getBounds2D().getCenterX();
-			double textPositionY = drawingPolygon.getBounds2D().getCenterY();
-			textCanvas.drawTextAtPoint(polygonText, computeHighlightedTextDrawSettings(polygonTextDrawSettings),
-							textPositionX, textPositionY);
+			return computeHighlightedTextDrawSettings(polygonTextDrawSettings);
+		}
+		else
+		{
+			return polygonTextDrawSettings;
 		}
 	}
 
