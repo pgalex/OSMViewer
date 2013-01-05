@@ -141,7 +141,7 @@ public class OnlineMapController implements DrawableOnPanel
 	 *
 	 * @param pointOnTargetCanvas point on target canvas using to find object to
 	 * highlight
-	 * @throws IllegalArgumentException
+	 * @throws IllegalArgumentException pointOnTargetCanvas is null
 	 */
 	public void highlightFirstObjectUnderPoint(Point2D pointOnTargetCanvas) throws IllegalArgumentException
 	{
@@ -158,6 +158,31 @@ public class OnlineMapController implements DrawableOnPanel
 		else
 		{
 			renderer.resetHighlightedObject();
+		}
+	}
+
+	/**
+	 * Select first found object under point on target canvas
+	 *
+	 * @param pointOnTargetCanvas oint on target canvas using to find object to
+	 * select
+	 * @throws IllegalArgumentException pointOnTargetCanvas is null
+	 */
+	public void selectFirstObjectUnderPoint(Point2D pointOnTargetCanvas) throws IllegalArgumentException
+	{
+		if (pointOnTargetCanvas == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		MapObject[] objectsUnderPoint = renderer.findObjectsAtPoint(pointOnTargetCanvas);
+		if (objectsUnderPoint.length > 0)
+		{
+			renderer.setObjectToDrawAsSelected(objectsUnderPoint[0]);
+		}
+		else
+		{
+			renderer.resetSelectedObject();
 		}
 	}
 

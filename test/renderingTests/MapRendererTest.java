@@ -138,6 +138,24 @@ public class MapRendererTest
 	}
 
 	/**
+	 * Test setting null object to draw as selected
+	 */
+	@Test
+	public void setNullObjectToSelectTest()
+	{
+		try
+		{
+			MapRenderer renderer = new MapRenderer(5, 10, 5);
+			renderer.setObjectToDrawAsSelected(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
 	 * Test converting null point canvas to georaphics
 	 */
 	@Test

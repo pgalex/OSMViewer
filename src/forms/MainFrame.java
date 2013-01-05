@@ -68,6 +68,10 @@ public class MainFrame extends javax.swing.JFrame
       {
         jPanelCanvasMousePressed(evt);
       }
+      public void mouseClicked(java.awt.event.MouseEvent evt)
+      {
+        jPanelCanvasMouseClicked(evt);
+      }
     });
     jPanelCanvas.addComponentListener(new java.awt.event.ComponentAdapter()
     {
@@ -198,6 +202,12 @@ public class MainFrame extends javax.swing.JFrame
     mapController.highlightFirstObjectUnderPoint(evt.getPoint());
 		jPanelCanvas.repaint();
   }//GEN-LAST:event_jPanelCanvasMouseMoved
+
+  private void jPanelCanvasMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jPanelCanvasMouseClicked
+  {//GEN-HEADEREND:event_jPanelCanvasMouseClicked
+    mapController.selectFirstObjectUnderPoint(evt.getPoint());
+		jPanelCanvas.repaint();
+  }//GEN-LAST:event_jPanelCanvasMouseClicked
 
 	/**
 	 * @param args the command line arguments

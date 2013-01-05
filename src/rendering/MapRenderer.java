@@ -50,6 +50,10 @@ public class MapRenderer implements CoordinatesConverter
 	 */
 	private MapObject objectToDrawAsHighlighted;
 	/**
+	 * Object of rendering map, to draw as selected. Can be null
+	 */
+	private MapObject objectToDrawAsSelected;
+	/**
 	 * Buffer, contains intpertation of drawen objects using for finding objects
 	 * under point
 	 */
@@ -86,6 +90,7 @@ public class MapRenderer implements CoordinatesConverter
 		maximumScaleLevel = renderingMaximumScaleLevel;
 
 		objectToDrawAsHighlighted = null;
+		objectToDrawAsSelected = null;
 		selectingBuffer = new SelectingBuffer();
 	}
 
@@ -202,11 +207,35 @@ public class MapRenderer implements CoordinatesConverter
 	}
 
 	/**
-	 * Set do not to highlight objectd
+	 * Set do not to highlight object
 	 */
 	public void resetHighlightedObject()
 	{
 		objectToDrawAsHighlighted = null;
+	}
+
+	/**
+	 * Set object of rendering map to draw as selected
+	 *
+	 * @param selectedObject object to draw as selected
+	 * @throws IllegalArgumentException selectedObject is null
+	 */
+	public void setObjectToDrawAsSelected(MapObject selectedObject) throws IllegalArgumentException
+	{
+		if (selectedObject == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		objectToDrawAsSelected = selectedObject;
+	}
+
+	/**
+	 * Set do not draw selected object
+	 */
+	public void resetSelectedObject()
+	{
+		objectToDrawAsSelected = null;
 	}
 
 	/**
@@ -267,12 +296,16 @@ public class MapRenderer implements CoordinatesConverter
 		setupRenderingHints(textCanvasGraphics);
 
 		selectingBuffer.clear();
-		
+
 		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(targetCanvas,
 						textCanvasGraphics, styleViewer, this, scaleLevel, selectingBuffer);
 		if (objectToDrawAsHighlighted != null)
 		{
 			objectsRenderer.setObjectToDrawAsHighlighted(objectToDrawAsHighlighted);
+		}
+		if (objectToDrawAsSelected != null)
+		{
+			objectsRenderer.setObjectToDrawAsSelected(objectToDrawAsSelected);
 		}
 
 		mapToRender.renderObjectInArea(objectsRenderer, getViewArea());
