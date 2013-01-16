@@ -7,19 +7,19 @@ import map.MapObject;
 
 /**
  * Stores interperation of objects, drawen on target canvas, specialized for
- * selection, using to find object under cursor
+ * selection (using to find object under cursor)
  *
  * @author pgalex
  */
 public class SelectingBuffer
 {
 	/**
-	 * Selecting objects link with objects, drawen on target canvas
+	 * Selecting objects of buffer
 	 */
 	private ArrayList<SelectingObject> selectingObjects;
 
 	/**
-	 * Create empty selecting buffer
+	 * Create empty
 	 */
 	public SelectingBuffer()
 	{
@@ -27,11 +27,11 @@ public class SelectingBuffer
 	}
 
 	/**
-	 * Find map objects associated with selecting objects under point
+	 * Find map objects associated with selecting objects at point
 	 *
-	 * @param point point for finding map objects
-	 * @return objects under point sorted by selecting priority. More draw
-	 * priority - less index
+	 * @param point point for finding map objects under it
+	 * @return objects at point sorted by selecting priority (more draw priority -
+	 * less index)
 	 * @throws IllegalArgumentException point is null
 	 */
 	public MapObject[] findObjectsAtPoint(Point2D point) throws IllegalArgumentException
@@ -41,24 +41,41 @@ public class SelectingBuffer
 			throw new IllegalArgumentException();
 		}
 
-		ArrayList<SelectingObject> selectingObjecteAtPoint = new ArrayList<SelectingObject>();
+		ArrayList<SelectingObject> selectingObjectsAtPoint = findSelectingObjectsAtPoint(point);
 
+		MapObject[] mapObjectsAtPoint = new MapObject[selectingObjectsAtPoint.size()];
+		for (int i = 0; i < selectingObjectsAtPoint.size(); i++)
+		{
+			mapObjectsAtPoint[i] = selectingObjectsAtPoint.get(i).getAssociatedMapObject();
+		}
+		return mapObjectsAtPoint;
+	}
+
+	/**
+	 * Find selecting objects of buffer at point
+	 *
+	 * @param point point for finding selecting objects
+	 * @return selecting objects hits by point
+	 * @throws IllegalArgumentException point is null
+	 */
+	private ArrayList<SelectingObject> findSelectingObjectsAtPoint(Point2D point) throws IllegalArgumentException
+	{
+		if (point == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		ArrayList<SelectingObject> selectingObjectsAtPoint = new ArrayList<SelectingObject>();
 		for (SelectingObject selectingObject : selectingObjects)
 		{
 			if (selectingObject.isHitsByPoint(point))
 			{
-				selectingObjecteAtPoint.add(selectingObject);
+				selectingObjectsAtPoint.add(selectingObject);
 			}
 		}
+		Collections.sort(selectingObjectsAtPoint, new SelectingObjectsDrawPriorityComparator());
 
-		Collections.sort(selectingObjecteAtPoint, new SelectingObjectsDrawPriorityComparator());
-
-		MapObject[] mapObjectsAtPoint = new MapObject[selectingObjecteAtPoint.size()];
-		for (int i = 0; i < selectingObjecteAtPoint.size(); i++)
-		{
-			mapObjectsAtPoint[i] = selectingObjecteAtPoint.get(i).getAssociatedMapObject();
-		}
-		return mapObjectsAtPoint;
+		return selectingObjectsAtPoint;
 	}
 
 	/**
