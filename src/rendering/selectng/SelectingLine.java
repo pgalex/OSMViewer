@@ -16,11 +16,11 @@ import map.MapObject;
 public class SelectingLine extends SelectingObject
 {
 	/**
-	 * Minimum points count that can be using for line
+	 * Minimum line points count
 	 */
 	private static final int MINIMUM_POINTS_COUNT = 2;
 	/**
-	 * Line minimum width
+	 * Minimum line width
 	 */
 	private static final int MINIMUM_WIDTH = 1;
 	/**
@@ -39,8 +39,8 @@ public class SelectingLine extends SelectingObject
 	 * @param associatedObjectDrawPriority draw priority of associated map object
 	 * @param selectingLinePoints points of line
 	 * @param selectingLineWidth line width
-	 * @throws IllegalArgumentException associatedObject is null or
-	 * selectingLinePoints null, contains less than 2 elements, or contains null
+	 * @throws IllegalArgumentException associatedObject is null;
+	 * selectingLinePoints null, contains less than 2 elements or contains null
 	 * elements; or selectingLineWidth less than 1
 	 */
 	public SelectingLine(MapObject associatedObject, int associatedObjectDrawPriority, Point2D[] selectingLinePoints,
@@ -57,15 +57,32 @@ public class SelectingLine extends SelectingObject
 			throw new IllegalArgumentException();
 		}
 
-		GeometryFactory factory = new GeometryFactory();
-		Coordinate[] lineCoordinates = new Coordinate[selectingLinePoints.length];
-		for (int i = 0; i < selectingLinePoints.length; i++)
-		{
-			lineCoordinates[i] = new Coordinate(selectingLinePoints[i].getX(), selectingLinePoints[i].getY());
-		}
-		lineString = new LineString(new CoordinateArraySequence(lineCoordinates), factory);
-
+		lineString = createLineStringByPoints(selectingLinePoints);
 		lineWidth = selectingLineWidth;
+	}
+
+	/**
+	 * Create line string by points array
+	 *
+	 * @param lineStringPoints points of line
+	 * @return line string, created by points
+	 * @throws IllegalArgumentException lineStringPoints null, contains less than
+	 * 2 elements or contains null elements
+	 */
+	private LineString createLineStringByPoints(Point2D[] lineStringPoints) throws IllegalArgumentException
+	{
+		if (!isLinePointsCorrect(lineStringPoints))
+		{
+			throw new IllegalArgumentException();
+		}
+
+		GeometryFactory factory = new GeometryFactory();
+		Coordinate[] lineCoordinates = new Coordinate[lineStringPoints.length];
+		for (int i = 0; i < lineStringPoints.length; i++)
+		{
+			lineCoordinates[i] = new Coordinate(lineStringPoints[i].getX(), lineStringPoints[i].getY());
+		}
+		return new LineString(new CoordinateArraySequence(lineCoordinates), factory);
 	}
 
 	/**
@@ -98,10 +115,10 @@ public class SelectingLine extends SelectingObject
 	}
 
 	/**
-	 * Is selecting line hit by point
+	 * Is hits by point
 	 *
 	 * @param point point to test hit
-	 * @return is selecting object hit by point
+	 * @return is selecting line hit by point
 	 * @throws IllegalArgumentException point is null
 	 */
 	@Override
