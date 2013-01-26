@@ -210,11 +210,16 @@ public class MainFrame extends javax.swing.JFrame
 
 		if (objectsAtMousePosition.length > 0)
 		{
-			mapController.setObjectToDrawAsSelected(objectsAtMousePosition[0]);
+			MapObject topDrawenObject = objectsAtMousePosition[0];
+
+			mapController.setObjectToDrawAsSelected(topDrawenObject);
+			// give topDrawenObject to information form
+			// set informaion form visible
 		}
 		else
 		{
 			mapController.resetSelectedObject();
+			// clear object information form
 		}
 
 		jPanelCanvas.repaint();
