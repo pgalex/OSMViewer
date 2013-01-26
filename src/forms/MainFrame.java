@@ -3,6 +3,7 @@ package forms;
 import drawingStyles.forms.EditDrawingStylesFrame;
 import java.awt.Point;
 import javax.swing.JFrame;
+import map.MapObject;
 import map.MapPosition;
 import map.onlineMap.OnlineMapController;
 
@@ -192,20 +193,30 @@ public class MainFrame extends javax.swing.JFrame
 		{
 			scaleByWheel = OnlineMapController.GetMaximumScaleLevel();
 		}
-		
+
 		mapController.setScaleLevel(scaleByWheel);
 		jPanelCanvas.repaint();
   }//GEN-LAST:event_jPanelCanvasMouseWheelMoved
 
   private void jPanelCanvasMouseMoved(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jPanelCanvasMouseMoved
   {//GEN-HEADEREND:event_jPanelCanvasMouseMoved
-    mapController.highlightFirstObjectUnderPoint(evt.getPoint());
+		mapController.highlightTopObjectUnderPoint(evt.getPoint());
 		jPanelCanvas.repaint();
   }//GEN-LAST:event_jPanelCanvasMouseMoved
 
   private void jPanelCanvasMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jPanelCanvasMouseClicked
   {//GEN-HEADEREND:event_jPanelCanvasMouseClicked
-    mapController.selectFirstObjectUnderPoint(evt.getPoint());
+		MapObject[] objectsAtMousePosition = mapController.findObjectsAtPoint(evt.getPoint());
+
+		if (objectsAtMousePosition.length > 0)
+		{
+			mapController.setObjectToDrawAsSelected(objectsAtMousePosition[0]);
+		}
+		else
+		{
+			mapController.resetSelectedObject();
+		}
+
 		jPanelCanvas.repaint();
   }//GEN-LAST:event_jPanelCanvasMouseClicked
 

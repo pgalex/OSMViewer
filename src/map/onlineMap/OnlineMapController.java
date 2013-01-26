@@ -137,13 +137,14 @@ public class OnlineMapController implements DrawableOnPanel
 	}
 
 	/**
-	 * Highlight first found object under point on target canvas
+	 * Highlight top of drawen objects at point on target canvas. If there is not
+	 * objects at point, no objects will be highlighted
 	 *
 	 * @param pointOnTargetCanvas point on target canvas using to find object to
 	 * highlight
 	 * @throws IllegalArgumentException pointOnTargetCanvas is null
 	 */
-	public void highlightFirstObjectUnderPoint(Point2D pointOnTargetCanvas) throws IllegalArgumentException
+	public void highlightTopObjectUnderPoint(Point2D pointOnTargetCanvas) throws IllegalArgumentException
 	{
 		if (pointOnTargetCanvas == null)
 		{
@@ -162,28 +163,45 @@ public class OnlineMapController implements DrawableOnPanel
 	}
 
 	/**
-	 * Select first found object under point on target canvas
+	 * Set object of rendering map to draw as selected
 	 *
-	 * @param pointOnTargetCanvas oint on target canvas using to find object to
-	 * select
-	 * @throws IllegalArgumentException pointOnTargetCanvas is null
+	 * @param selectingObject object to draw as selected
+	 * @throws IllegalArgumentException selectingObject is null
 	 */
-	public void selectFirstObjectUnderPoint(Point2D pointOnTargetCanvas) throws IllegalArgumentException
+	public void setObjectToDrawAsSelected(MapObject selectingObject) throws IllegalArgumentException
 	{
-		if (pointOnTargetCanvas == null)
+		if (selectingObject == null)
 		{
 			throw new IllegalArgumentException();
 		}
 
-		MapObject[] objectsUnderPoint = renderer.findObjectsAtPoint(pointOnTargetCanvas);
-		if (objectsUnderPoint.length > 0)
+		renderer.setObjectToDrawAsSelected(selectingObject);
+	}
+
+	/**
+	 * Reset objects selection
+	 */
+	public void resetSelectedObject()
+	{
+		renderer.resetSelectedObject();
+	}
+
+	/**
+	 * Find map objects at point among drawen on target canvas
+	 *
+	 * @param pointOnCanvas point on canvas to find map object at it
+	 * @return objects at point among drawen on target canvas, Sorted by draw
+	 * priority of drawen objects. Empty if no objects found.
+	 * @throws IllegalArgumentException pointOnCanvas is null
+	 */
+	public MapObject[] findObjectsAtPoint(Point2D pointOnCanvas) throws IllegalArgumentException
+	{
+		if (pointOnCanvas == null)
 		{
-			renderer.setObjectToDrawAsSelected(objectsUnderPoint[0]);
+			throw new IllegalArgumentException();
 		}
-		else
-		{
-			renderer.resetSelectedObject();
-		}
+
+		return renderer.findObjectsAtPoint(pointOnCanvas);
 	}
 
 	/**

@@ -193,21 +193,21 @@ public class MapRenderer implements CoordinatesConverter
 	/**
 	 * Set object of rendering map to draw as highlighted
 	 *
-	 * @param highlightedObject object to set as highlighted
-	 * @throws IllegalArgumentException highlightedObject is null
+	 * @param highlightingObject object to draw as highlighted
+	 * @throws IllegalArgumentException highlightingObject is null
 	 */
-	public void setObjectToDrawAsHighlighted(MapObject highlightedObject) throws IllegalArgumentException
+	public void setObjectToDrawAsHighlighted(MapObject highlightingObject) throws IllegalArgumentException
 	{
-		if (highlightedObject == null)
+		if (highlightingObject == null)
 		{
 			throw new IllegalArgumentException();
 		}
 
-		objectToDrawAsHighlighted = highlightedObject;
+		objectToDrawAsHighlighted = highlightingObject;
 	}
 
 	/**
-	 * Set do not to highlight object
+	 * Reset highlighting (do not highlight)
 	 */
 	public void resetHighlightedObject()
 	{
@@ -217,21 +217,21 @@ public class MapRenderer implements CoordinatesConverter
 	/**
 	 * Set object of rendering map to draw as selected
 	 *
-	 * @param selectedObject object to draw as selected
-	 * @throws IllegalArgumentException selectedObject is null
+	 * @param selectingObject object to draw as selected
+	 * @throws IllegalArgumentException selectingObject is null
 	 */
-	public void setObjectToDrawAsSelected(MapObject selectedObject) throws IllegalArgumentException
+	public void setObjectToDrawAsSelected(MapObject selectingObject) throws IllegalArgumentException
 	{
-		if (selectedObject == null)
+		if (selectingObject == null)
 		{
 			throw new IllegalArgumentException();
 		}
 
-		objectToDrawAsSelected = selectedObject;
+		objectToDrawAsSelected = selectingObject;
 	}
 
 	/**
-	 * Set do not draw selected object
+	 * Reset selecting
 	 */
 	public void resetSelectedObject()
 	{
@@ -239,10 +239,11 @@ public class MapRenderer implements CoordinatesConverter
 	}
 
 	/**
-	 * Find map object under point
+	 * Find map objects at point among drawen on target canvas
 	 *
-	 * @param pointOnCanvas point on canvas to find map object under it
-	 * @return object under point, empty of no objects found
+	 * @param pointOnCanvas point on canvas to find map object at it
+	 * @return objects at point among drawen on target canvas, Sorted by draw
+	 * priority of drawen objects. Empty if no objects found.
 	 * @throws IllegalArgumentException pointOnCanvas is null
 	 */
 	public MapObject[] findObjectsAtPoint(Point2D pointOnCanvas) throws IllegalArgumentException
