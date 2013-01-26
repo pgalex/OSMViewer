@@ -3,14 +3,14 @@ package rendering.selectng;
 import java.util.Comparator;
 
 /**
- * Selecting objects comparator, comparing by draw priority of associated object
+ * Selecting objects comparator. Comparing by draw priority of associated object
  *
  * @author pgalex
  */
 public class SelectingObjectsDrawPriorityComparator implements Comparator<SelectingObject>
 {
 	/**
-	 * Compare selecting objects by its priority
+	 * Compare selecting objects by associated map object draw priority
 	 *
 	 * @param selectingObject1 first selecting object
 	 * @param selectingObject2 second selecting object

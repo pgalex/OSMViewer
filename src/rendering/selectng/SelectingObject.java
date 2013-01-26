@@ -4,7 +4,7 @@ import java.awt.geom.Point2D;
 import map.MapObject;
 
 /**
- * Interpretation for selection of one map object, drawen on canvas,
+ * Interpretation of one map object, using for selection,
  *
  * @author pgalex
  */
@@ -20,7 +20,7 @@ public abstract class SelectingObject
 	private int associatedMapObjectDrawPriority;
 
 	/**
-	 * Create selection object for map object
+	 * Create selection object associated with map object
 	 *
 	 * @param associatedObject associated object of map
 	 * @param associatedObjectDrawPriority draw priority of associated map object
@@ -38,9 +38,9 @@ public abstract class SelectingObject
 	}
 
 	/**
-	 * Get associated object of map
+	 * Get associated map object
 	 *
-	 * @return associated object
+	 * @return associated map object
 	 */
 	public MapObject getAssociatedMapObject()
 	{

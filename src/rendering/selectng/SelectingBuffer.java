@@ -7,7 +7,7 @@ import map.MapObject;
 
 /**
  * Stores interperation of objects, drawen on target canvas, specialized for
- * selection (using to find object under cursor)
+ * selection (using to find object at point on target canvas)
  *
  * @author pgalex
  */
@@ -27,11 +27,11 @@ public class SelectingBuffer
 	}
 
 	/**
-	 * Find map objects associated with selecting objects at point
+	 * Find map objects associated with buffer's selecting objects, hits by point
 	 *
-	 * @param point point for finding map objects under it
-	 * @return objects at point sorted by selecting priority (more draw priority -
-	 * less index)
+	 * @param point point for finding map objects at it
+	 * @return map objects at point, sorted by draw priority (more draw priority -
+	 * less index). Empty if no objects found
 	 * @throws IllegalArgumentException point is null
 	 */
 	public MapObject[] findObjectsAtPoint(Point2D point) throws IllegalArgumentException
@@ -54,8 +54,9 @@ public class SelectingBuffer
 	/**
 	 * Find selecting objects of buffer at point
 	 *
-	 * @param point point for finding selecting objects
-	 * @return selecting objects hits by point
+	 * @param point point for finding selecting objects at
+	 * @return selecting objects of buffer, hits by point. Empty if no objects
+	 * found. Sorted by associated map objects draw priority
 	 * @throws IllegalArgumentException point is null
 	 */
 	private ArrayList<SelectingObject> findSelectingObjectsAtPoint(Point2D point) throws IllegalArgumentException

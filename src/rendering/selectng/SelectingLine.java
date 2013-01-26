@@ -9,7 +9,7 @@ import java.awt.geom.Point2D;
 import map.MapObject;
 
 /**
- * Interpretation of line-like object using for selecting
+ * Interpretation of line-like map object using for selecting
  *
  * @author pgalex
  */
@@ -64,8 +64,8 @@ public class SelectingLine extends SelectingObject
 	/**
 	 * Create line string by points array
 	 *
-	 * @param lineStringPoints points of line
-	 * @return line string, created by points
+	 * @param lineStringPoints points to create line string by
+	 * @return line string, created by given points
 	 * @throws IllegalArgumentException lineStringPoints null, contains less than
 	 * 2 elements or contains null elements
 	 */
@@ -118,7 +118,7 @@ public class SelectingLine extends SelectingObject
 	 * Is hits by point
 	 *
 	 * @param point point to test hit
-	 * @return is selecting line hit by point
+	 * @return is selecting line hits by point
 	 * @throws IllegalArgumentException point is null
 	 */
 	@Override
