@@ -205,6 +205,22 @@ public class OnlineMapController implements DrawableOnPanel
 	}
 
 	/**
+	 * Find draw settings of map object
+	 *
+	 * @param mapObject object to find its draw settings
+	 * @return draw settings of given map object. Null if not found
+	 * @throws IllegalArgumentException mapObject is null
+	 */
+	public MapObjectDrawSettings findMapObjectDrawSettings(MapObject mapObject) throws IllegalArgumentException
+	{
+		if (mapObject == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		return styleViewer.getMapObjectDrawSettings(mapObject.getStyleIndex());
+	}
+
+	/**
 	 * Draw objects on drawing panel
 	 *
 	 * @param panelGraphics drawing panel graphics

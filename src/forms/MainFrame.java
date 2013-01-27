@@ -1,6 +1,8 @@
 package forms;
 
+import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.forms.EditDrawingStylesFrame;
+import java.awt.Dialog;
 import java.awt.Point;
 import javax.swing.JFrame;
 import map.MapObject;
@@ -14,6 +16,10 @@ import map.onlineMap.OnlineMapController;
  */
 public class MainFrame extends javax.swing.JFrame
 {
+	/**
+	 * Dialog using to show information about objects on map
+	 */
+	private MapObjectInformationDialog mapObjectInformationDialog;
 	/**
 	 * Current map processor
 	 */
@@ -35,6 +41,10 @@ public class MainFrame extends javax.swing.JFrame
 
 		DrawingPanel drawingPanel = (DrawingPanel) jPanelCanvas;
 		drawingPanel.setPainter(mapController);
+
+		mapObjectInformationDialog = new MapObjectInformationDialog(this, Dialog.ModalityType.MODELESS);
+		mapObjectInformationDialog.setAlwaysOnTop(true);
+		mapObjectInformationDialog.setLocationRelativeTo(this);
 	}
 
 	/**
@@ -211,15 +221,24 @@ public class MainFrame extends javax.swing.JFrame
 		if (objectsAtMousePosition.length > 0)
 		{
 			MapObject topDrawenObject = objectsAtMousePosition[0];
+			MapObjectDrawSettings topDrawenObjectDrawSettings = mapController.findMapObjectDrawSettings(topDrawenObject);
+			if (topDrawenObjectDrawSettings != null)
+			{
+				mapController.setObjectToDrawAsSelected(topDrawenObject);
+				mapObjectInformationDialog.showMapObjectInformation(topDrawenObject, topDrawenObjectDrawSettings);
+			}
+			else
+			{
+				mapObjectInformationDialog.clearInformation();
+			}
 
-			mapController.setObjectToDrawAsSelected(topDrawenObject);
-			// give topDrawenObject to information form
-			// set informaion form visible
+			mapObjectInformationDialog.setVisible(true);
 		}
 		else
 		{
 			mapController.resetSelectedObject();
-			// clear object information form
+			mapObjectInformationDialog.clearInformation();
+			mapObjectInformationDialog.setVisible(false);
 		}
 
 		jPanelCanvas.repaint();
