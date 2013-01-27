@@ -5,7 +5,7 @@ import java.awt.geom.Rectangle2D;
 import map.MapObject;
 
 /**
- * Interpretation of rectangle-like object using for selection
+ * Interpretation of rectangle-like map object using for selection
  *
  * @author pgalex
  */
@@ -39,10 +39,10 @@ public class SelectingRectangle extends SelectingObject
 	}
 
 	/**
-	 * Is selecting rectangle hit by point
+	 * Is hits by point
 	 *
 	 * @param point point to test hit
-	 * @return is selecting object hit by point
+	 * @return is selecting rectangle hits by point
 	 * @throws IllegalArgumentException point is null
 	 */
 	@Override

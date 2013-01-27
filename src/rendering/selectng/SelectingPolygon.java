@@ -5,7 +5,7 @@ import java.awt.geom.Point2D;
 import map.MapObject;
 
 /**
- * Interpretation of polygon-like object using for selection
+ * Interpretation of polygon-like map object using for selection
  *
  * @author pgalex
  */
@@ -40,10 +40,10 @@ public class SelectingPolygon extends SelectingObject
 	}
 
 	/**
-	 * Is selecting polygon hit by point
+	 * Is hits by point
 	 *
 	 * @param point point to test hit
-	 * @return is selecting object hit by point
+	 * @return is selecting polygon hit by point
 	 * @throws IllegalArgumentException point is null
 	 */
 	@Override
