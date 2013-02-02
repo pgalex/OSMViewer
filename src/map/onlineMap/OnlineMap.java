@@ -1,20 +1,19 @@
 package map.onlineMap;
 
-import drawingStyles.StyleViewer;
 import java.util.ArrayList;
 import java.util.Collections;
-import map.Map;
 import map.MapBounds;
 import map.MapObject;
-import map.MapObjectDrawPriorityComparator;
-import map.MapObjectsRenderer;
+import rendering.MapObjectDrawPriorityComparator;
+import rendering.RenderableMap;
+import rendering.RenderableMapObjectsVisitor;
 
 /**
  * Map that contains not much objects and using for online rendering
  *
  * @author pgalex
  */
-public class OnlineMap implements Map
+public class OnlineMap implements RenderableMap
 {
 	/**
 	 * Objects on a map
@@ -56,49 +55,47 @@ public class OnlineMap implements Map
 	}
 
 	/**
-	 * Sort all objects by draw priority
+	 * Render all map objects, visible in area, with renderer. Object should be
+	 * given to objectsVisitor by its draw priority
 	 *
-	 * @param styleViewer Style viewer to find object draw priority
+	 * @param objectsVisitor objects renderer
+	 * @param area area to determine which object need give to objectsVisitor
+	 * @param objectsDrawPriorityComparator comparator for sorting rendering
+	 * objects by its draw priority
+	 * @throws IllegalArgumentException objectsVisitor, area or
+	 * objectsDrawPriorityComparator is null
 	 */
 	@Override
-	public void sortObjectsByDrawPriority(StyleViewer styleViewer)
+	public void renderObjectsByDrawPriority(RenderableMapObjectsVisitor objectsVisitor, MapBounds area,
+					MapObjectDrawPriorityComparator objectsDrawPriorityComparator) throws IllegalArgumentException
 	{
-		MapObjectDrawPriorityComparator objectsComparator = new MapObjectDrawPriorityComparator(styleViewer);
-		Collections.sort(objects, objectsComparator);
-	}
-
-	/**
-	 * Render all map objects, visible in area, with renderer
-	 *
-	 * @param objectsRenderer objects renderer
-	 * @param renderingArea area, using to determine map objects that need to draw
-	 * @throws IllegalArgumentException objectsRenderer or renderingArea is null
-	 */
-	@Override
-	public void renderObjectInArea(MapObjectsRenderer objectsRenderer,
-					MapBounds renderingArea) throws IllegalArgumentException
-	{
-		if (objectsRenderer == null)
+		if (objectsVisitor == null)
 		{
 			throw new IllegalArgumentException();
 		}
-		if (renderingArea == null)
+		if (area == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		if (objectsDrawPriorityComparator == null)
 		{
 			throw new IllegalArgumentException();
 		}
 
-		// nothing to draw
-		if (renderingArea.isZero())
+		// nothing to visit
+		if (area.isZero())
 		{
 			return;
 		}
 
+		Collections.sort(objects, objectsDrawPriorityComparator);
+
 		for (int i = 0; i < objects.size(); i++)
 		{
 			MapObject renderingObject = objects.get(i);
-			if (renderingObject.isVisibleInArea(renderingArea))
+			if (renderingObject.isVisibleInArea(area))
 			{
-				renderingObject.acceptRenderer(objectsRenderer);
+				renderingObject.acceptRenderer(objectsVisitor);
 			}
 		}
 	}

@@ -7,15 +7,14 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-import map.Map;
 import map.MapBounds;
 import map.MapObject;
 import map.MapPosition;
 import rendering.selectng.SelectingBuffer;
 
 /**
- * Uses to render Map. Defines order of rendering and container rendring
- * parameters
+ * Uses to render RenderableMap. Defines order of rendering and container
+ * rendring parameters
  *
  * @author pgalex
  */
@@ -259,13 +258,13 @@ public class MapRenderer implements CoordinatesConverter
 	/**
 	 * Render map
 	 *
-	 * @param targetCanvas canvas to draw map
-	 * @param mapToRender map for rendering
+	 * @param targetCanvas canvas to draw map on
+	 * @param mapToRender rendering map
 	 * @param styleViewer drawing styles, uses for rendering
 	 * @throws IllegalArgumentException targetCanvas, mapToRender or styleViewer
 	 * is null
 	 */
-	public void renderMap(Map mapToRender, Graphics2D targetCanvas,
+	public void renderMap(RenderableMap mapToRender, Graphics2D targetCanvas,
 					StyleViewer styleViewer) throws IllegalArgumentException
 	{
 		if (mapToRender == null)
@@ -280,8 +279,8 @@ public class MapRenderer implements CoordinatesConverter
 		{
 			throw new IllegalArgumentException();
 		}
-		
-		if(targetCanvasDrawingArea.isEmpty())
+
+		if (targetCanvasDrawingArea.isEmpty())
 		{
 			// need test
 			return;
@@ -294,8 +293,6 @@ public class MapRenderer implements CoordinatesConverter
 
 		targetCanvas.clearRect(targetCanvasDrawingArea.x, targetCanvasDrawingArea.y,
 						targetCanvasDrawingArea.width, targetCanvasDrawingArea.height);
-
-		mapToRender.sortObjectsByDrawPriority(styleViewer);
 
 		BufferedImage textCanvasImage = new BufferedImage(targetCanvasDrawingArea.width, targetCanvasDrawingArea.height,
 						BufferedImage.TYPE_INT_ARGB);
@@ -315,7 +312,8 @@ public class MapRenderer implements CoordinatesConverter
 			objectsRenderer.setObjectToDrawAsSelected(objectToDrawAsSelected);
 		}
 
-		mapToRender.renderObjectInArea(objectsRenderer, getViewArea());
+		mapToRender.renderObjectsByDrawPriority(objectsRenderer, getViewArea(),
+						new MapObjectDrawPriorityComparator(styleViewer));
 
 		targetCanvas.drawImage(textCanvasImage, 0, 0, null);
 	}

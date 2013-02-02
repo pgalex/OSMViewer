@@ -1,10 +1,7 @@
 package formsTests;
 
 import drawingStyles.DefenitionTags;
-import drawingStyles.MapObjectDrawSettings;
 import forms.DefenitionTagsInformationTableModel;
-import forms.MapObjectInformationDialog;
-import java.awt.Dialog;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

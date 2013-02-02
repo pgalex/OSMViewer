@@ -1,5 +1,6 @@
 package map;
 
+import rendering.RenderableMapObjectsVisitor;
 import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
 import java.awt.geom.Rectangle2D;
@@ -79,14 +80,14 @@ public class MapPoint extends MapObject
 	 * @throws IllegalArgumentException objectsRenderer is null
 	 */
 	@Override
-	public void acceptRenderer(MapObjectsRenderer objectsRenderer) throws IllegalArgumentException
+	public void acceptRenderer(RenderableMapObjectsVisitor objectsRenderer) throws IllegalArgumentException
 	{
 		if (objectsRenderer == null)
 		{
 			throw new IllegalArgumentException();
 		}
 
-		objectsRenderer.renderPoint(this);
+		objectsRenderer.visitPoint(this);
 	}
 
 	/**

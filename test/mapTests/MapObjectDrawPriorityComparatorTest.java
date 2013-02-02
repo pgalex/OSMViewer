@@ -8,7 +8,7 @@ import drawingStyles.StyleEditor;
 import java.util.ArrayList;
 import java.util.Collections;
 import map.MapObject;
-import map.MapObjectDrawPriorityComparator;
+import rendering.MapObjectDrawPriorityComparator;
 import map.MapPoint;
 import map.MapPosition;
 import static org.junit.Assert.assertEquals;

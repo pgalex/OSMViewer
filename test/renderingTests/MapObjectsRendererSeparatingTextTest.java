@@ -31,7 +31,7 @@ public class MapObjectsRendererSeparatingTextTest
 						selectingBuffer);
 		try
 		{
-			objectsRenderer.renderPolygon(null);
+			objectsRenderer.visitPolygon(null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -81,7 +81,7 @@ public class MapObjectsRendererSeparatingTextTest
 						selectingBuffer);
 		try
 		{
-			objectsRenderer.renderLine(null);
+			objectsRenderer.visitLine(null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -106,7 +106,7 @@ public class MapObjectsRendererSeparatingTextTest
 						selectingBuffer);
 		try
 		{
-			objectsRenderer.renderPoint(null);
+			objectsRenderer.visitPoint(null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)

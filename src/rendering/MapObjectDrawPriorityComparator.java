@@ -1,8 +1,9 @@
-package map;
+package rendering;
 
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleViewer;
 import java.util.Comparator;
+import map.MapObject;
 
 /**
  * Comparator for sorting map objects by draw priority

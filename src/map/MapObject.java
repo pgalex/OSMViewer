@@ -3,6 +3,7 @@ package map;
 import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleViewer;
+import rendering.RenderableMapObjectsVisitor;
 
 /**
  * Some object on a map
@@ -117,7 +118,7 @@ public abstract class MapObject
 	 * @param objectsRenderer objects renderer
 	 * @throws IllegalArgumentException objectsRenderer is null
 	 */
-	public abstract void acceptRenderer(MapObjectsRenderer objectsRenderer) throws IllegalArgumentException;
+	public abstract void acceptRenderer(RenderableMapObjectsVisitor objectsRenderer) throws IllegalArgumentException;
 
 	/**
 	 * Can this type of map object be drawen with this style

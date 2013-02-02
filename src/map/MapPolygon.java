@@ -1,5 +1,6 @@
 package map;
 
+import rendering.RenderableMapObjectsVisitor;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.LinearRing;
@@ -159,14 +160,14 @@ public class MapPolygon extends MapObject
 	 * @throws IllegalArgumentException objectsRenderer is null
 	 */
 	@Override
-	public void acceptRenderer(MapObjectsRenderer objectsRenderer) throws IllegalArgumentException
+	public void acceptRenderer(RenderableMapObjectsVisitor objectsRenderer) throws IllegalArgumentException
 	{
 		if (objectsRenderer == null)
 		{
 			throw new IllegalArgumentException();
 		}
 
-		objectsRenderer.renderPolygon(this);
+		objectsRenderer.visitPolygon(this);
 	}
 
 	/**

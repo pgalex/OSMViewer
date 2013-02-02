@@ -4,11 +4,13 @@ import drawingStyles.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleEditor;
+import drawingStyles.StyleViewer;
 import drawingStyles.Tag;
 import map.*;
 import map.onlineMap.OnlineMap;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import rendering.MapObjectDrawPriorityComparator;
 
 /**
  * OnlineMap class tests
@@ -78,7 +80,8 @@ public class OnlineMapTest
 		testMap.addObject(point3);
 
 		MapObjectsRendererMock objectsRendererMock = new MapObjectsRendererMock();
-		testMap.renderObjectInArea(objectsRendererMock, new MapBounds(-10, 10, -10, 10));
+		testMap.renderObjectsByDrawPriority(objectsRendererMock, new MapBounds(-10, 10, -10, 10),
+						new MapObjectDrawPriorityComparator(testEditor));
 
 		assertEquals(3, objectsRendererMock.pointsRendered);
 		assertEquals(1, objectsRendererMock.linesRendered);
@@ -94,7 +97,9 @@ public class OnlineMapTest
 		OnlineMap testMap = new OnlineMap();
 		try
 		{
-			testMap.renderObjectInArea(null, new MapBounds(1, 2, 3, 4));
+			StyleViewer viewer = DrawingStylesFactory.createStyleViewer();
+			testMap.renderObjectsByDrawPriority(null, new MapBounds(1, 2, 3, 4),
+							new MapObjectDrawPriorityComparator(viewer));
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -112,7 +117,9 @@ public class OnlineMapTest
 		OnlineMap testMap = new OnlineMap();
 		try
 		{
-			testMap.renderObjectInArea(new MapObjectsRendererMock(), null);
+			StyleViewer viewer = DrawingStylesFactory.createStyleViewer();
+			testMap.renderObjectsByDrawPriority(new MapObjectsRendererMock(), null,
+							new MapObjectDrawPriorityComparator(viewer));
 			fail();
 		}
 		catch (IllegalArgumentException ex)

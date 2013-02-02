@@ -1,7 +1,7 @@
 package onlineMapTests;
 
 import map.MapLine;
-import map.MapObjectsRenderer;
+import rendering.RenderableMapObjectsVisitor;
 import map.MapPoint;
 import map.MapPolygon;
 
@@ -10,7 +10,7 @@ import map.MapPolygon;
  *
  * @author pgalex
  */
-public class MapObjectsRendererMock implements MapObjectsRenderer
+public class MapObjectsRendererMock implements RenderableMapObjectsVisitor
 {
 	public int pointsRendered;
 	public int linesRendered;
@@ -24,19 +24,19 @@ public class MapObjectsRendererMock implements MapObjectsRenderer
 	}
 
 	@Override
-	public void renderPoint(MapPoint pPoint)
+	public void visitPoint(MapPoint pPoint)
 	{
 		pointsRendered++;
 	}
 
 	@Override
-	public void renderLine(MapLine pLine)
+	public void visitLine(MapLine pLine)
 	{
 		linesRendered++;
 	}
 
 	@Override
-	public void renderPolygon(MapPolygon pPolygon)
+	public void visitPolygon(MapPolygon pPolygon)
 	{
 		polygonsRendered++;
 	}

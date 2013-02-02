@@ -2,7 +2,6 @@ package forms;
 
 import drawingStyles.DefenitionTags;
 import drawingStyles.Tag;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 /**

@@ -4,7 +4,7 @@ import drawingStyles.DrawingStylesFactory;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-import map.Map;
+import rendering.RenderableMap;
 import map.MapBounds;
 import map.MapObject;
 import map.MapPosition;
@@ -204,7 +204,7 @@ public class MapRendererTest
 		{
 			MapRenderer renderer = new MapRenderer(5, 10, 5);
 
-			Map map = new OnlineMap();
+			RenderableMap map = new OnlineMap();
 			renderer.renderMap(map, null, DrawingStylesFactory.createStyleViewer());
 
 			fail();
@@ -226,7 +226,7 @@ public class MapRendererTest
 			MapRenderer renderer = new MapRenderer(5, 10, 5);
 
 			BufferedImage someImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB);
-			Map map = new OnlineMap();
+			RenderableMap map = new OnlineMap();
 			renderer.renderMap(map, someImage.createGraphics(), null);
 
 			fail();

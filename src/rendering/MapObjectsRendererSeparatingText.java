@@ -11,7 +11,6 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import map.MapLine;
 import map.MapObject;
-import map.MapObjectsRenderer;
 import map.MapPoint;
 import map.MapPolygon;
 import rendering.selectng.SelectingBuffer;
@@ -25,7 +24,7 @@ import rendering.selectng.SelectingRectangle;
  *
  * @author pgalex
  */
-public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
+public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVisitor
 {
 	/**
 	 * Color using to draw highlighted object instead its own color
@@ -168,7 +167,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * @throws IllegalArgumentException pointToRender is null
 	 */
 	@Override
-	public void renderPoint(MapPoint pointToRender) throws IllegalArgumentException
+	public void visitPoint(MapPoint pointToRender) throws IllegalArgumentException
 	{
 		if (pointToRender == null)
 		{
@@ -371,7 +370,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * @throws IllegalArgumentException lineToRender is null
 	 */
 	@Override
-	public void renderLine(MapLine lineToRender) throws IllegalArgumentException
+	public void visitLine(MapLine lineToRender) throws IllegalArgumentException
 	{
 		if (lineToRender == null)
 		{
@@ -529,7 +528,7 @@ public class MapObjectsRendererSeparatingText implements MapObjectsRenderer
 	 * @throws IllegalArgumentException polygonToRender is null
 	 */
 	@Override
-	public void renderPolygon(MapPolygon polygonToRender) throws IllegalArgumentException
+	public void visitPolygon(MapPolygon polygonToRender) throws IllegalArgumentException
 	{
 		if (polygonToRender == null)
 		{
