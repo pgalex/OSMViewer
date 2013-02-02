@@ -3,10 +3,11 @@ package map.onlineMap;
 import drawingStyles.DefenitionTags;
 import drawingStyles.StyleViewer;
 import drawingStyles.Tag;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import map.MapBounds;
 import map.MapLine;
@@ -47,7 +48,8 @@ public class OnlineMapLoader
 	 * @param loadingSectorBounds bounds of loading map sector
 	 * @param styleViewer viewer, uses to assing style index to objects
 	 * @param fillingMap map, where new object will be added
-	 * @throws IllegalArgumentException style viewer, fillingMap, loadingSectorBounds is null
+	 * @throws IllegalArgumentException style viewer, fillingMap,
+	 * loadingSectorBounds is null
 	 * @throws OutOfMemoryError out of memory
 	 * @throws ConnectionErrorException error while connecting to osm server
 	 * @throws ReadingFromServerErrorException error while reading .osm from
@@ -62,34 +64,35 @@ public class OnlineMapLoader
 		{
 			throw new IllegalArgumentException();
 		}
-		
+
 		fillingMap.clear();
-		
+
 		// nothing to load
 		if (loadingSectorBounds.isZero())
 		{
 			return;
 		}
 
-		String connectionString = "http://api.openstreetmap.org/api/0.6/map?bbox="
-						+ loadingSectorBounds.getLongitudeMinimum() + ","
-						+ loadingSectorBounds.getLatitudeMinimum() + ","
-						+ loadingSectorBounds.getLongitudeMaximum() + ","
-						+ loadingSectorBounds.getLatitudeMaximum();
+		/*String connectionString = "http://api.openstreetmap.org/api/0.6/map?bbox="
+		 + loadingSectorBounds.getLongitudeMinimum() + ","
+		 + loadingSectorBounds.getLatitudeMinimum() + ","
+		 + loadingSectorBounds.getLongitudeMaximum() + ","
+		 + loadingSectorBounds.getLatitudeMaximum();*/
 		try
 		{
-			URL openStreetMapURL = new URL(connectionString);
-			URLConnection openStreetMapConnection = openStreetMapURL.openConnection();
-			onlineParser.convert(openStreetMapConnection.getInputStream());
+			/*URL openStreetMapURL = new URL(connectionString);
+			 URLConnection openStreetMapConnection = openStreetMapURL.openConnection();
+			 onlineParser.convert(openStreetMapConnection.getInputStream());*/
+			onlineParser.convert(new DataInputStream(new FileInputStream(new File("some_map.osm.xml"))));
 
 			fillMapWithPoints(onlineParser.getNodes(), styleViewer, fillingMap);
 			fillMapWithPolygonsAndLines(onlineParser.getNodes(), onlineParser.getWays(), styleViewer, fillingMap);
-			
+
 			onlineParser.clear();
 		}
 		catch (MalformedURLException ex)
 		{
-			throw new ConnectionErrorException(connectionString);
+			//throw new ConnectionErrorException(connectionString);
 		}
 		catch (IOException ex)
 		{

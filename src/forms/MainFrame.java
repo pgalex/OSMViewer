@@ -36,7 +36,7 @@ public class MainFrame extends javax.swing.JFrame
 	{
 		initComponents();
 
-		mapController = new OnlineMapController(new MapPosition(55.19907, 38.60329), 16,
+		mapController = new OnlineMapController(new MapPosition(55.0905, 38.7788), 16,
 						jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
 
 		DrawingPanel drawingPanel = (DrawingPanel) jPanelCanvas;

@@ -5,5 +5,6 @@
 
    <target name="-post-jar">
      <copy file="drawStyles/testdrawstyles.dat" tofile="dist/drawStyles/testdrawstyles.dat" />
+     <copy file="some_map.osm.xml" tofile="dist/some_map.osm.xml" />
    </target>
 </project>
