@@ -12,6 +12,11 @@ import map.MapObject;
 public class MapObjectInformationDialog extends javax.swing.JDialog
 {
 	/**
+	 * Table model of defenition tags table
+	 */
+	private DefenitionTagsInformationTableModel defenitionTagsTableModel;
+
+	/**
 	 * Create new dialog
 	 *
 	 * @param parentWindow parent window
@@ -20,6 +25,9 @@ public class MapObjectInformationDialog extends javax.swing.JDialog
 	public MapObjectInformationDialog(Window parentWindow, ModalityType modalityType)
 	{
 		super(parentWindow, modalityType);
+
+		defenitionTagsTableModel = new DefenitionTagsInformationTableModel();
+
 		initComponents();
 	}
 
@@ -45,6 +53,7 @@ public class MapObjectInformationDialog extends javax.swing.JDialog
 
 		jLabelName.setText(objectDrawSettings.getName());
 		jTextAreaDescription.setText(objectDrawSettings.getDescription());
+		defenitionTagsTableModel.fillWithDefenitionTags(objectToShowInformationAbout.getDefenitionTags());
 	}
 
 	/**
@@ -54,6 +63,7 @@ public class MapObjectInformationDialog extends javax.swing.JDialog
 	{
 		jLabelName.setText("");
 		jTextAreaDescription.setText("");
+		defenitionTagsTableModel.setRowCount(0);
 	}
 
 	/**
@@ -69,8 +79,11 @@ public class MapObjectInformationDialog extends javax.swing.JDialog
     jLabelName = new javax.swing.JLabel();
     jScrollPane1 = new javax.swing.JScrollPane();
     jTextAreaDescription = new javax.swing.JTextArea();
+    jScrollPane2 = new javax.swing.JScrollPane();
+    jTableDefenitionTags = new javax.swing.JTable();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+    setMinimumSize(new java.awt.Dimension(100, 90));
 
     jLabelName.setText("<Object Name>");
 
@@ -81,8 +94,10 @@ public class MapObjectInformationDialog extends javax.swing.JDialog
     jTextAreaDescription.setRows(5);
     jTextAreaDescription.setWrapStyleWord(true);
     jTextAreaDescription.setBorder(null);
-    jTextAreaDescription.setFocusable(false);
     jScrollPane1.setViewportView(jTextAreaDescription);
+
+    jTableDefenitionTags.setModel(defenitionTagsTableModel);
+    jScrollPane2.setViewportView(jTableDefenitionTags);
 
     org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -91,10 +106,9 @@ public class MapObjectInformationDialog extends javax.swing.JDialog
       .add(layout.createSequentialGroup()
         .addContainerGap()
         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-          .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
-          .add(layout.createSequentialGroup()
-            .add(jLabelName)
-            .add(0, 0, Short.MAX_VALUE)))
+          .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+          .add(jLabelName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
+          .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
         .addContainerGap())
     );
     layout.setVerticalGroup(
@@ -103,8 +117,10 @@ public class MapObjectInformationDialog extends javax.swing.JDialog
         .addContainerGap()
         .add(jLabelName)
         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-        .addContainerGap())
+        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 78, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+        .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
     pack();
@@ -112,6 +128,8 @@ public class MapObjectInformationDialog extends javax.swing.JDialog
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JLabel jLabelName;
   private javax.swing.JScrollPane jScrollPane1;
+  private javax.swing.JScrollPane jScrollPane2;
+  private javax.swing.JTable jTableDefenitionTags;
   private javax.swing.JTextArea jTextAreaDescription;
   // End of variables declaration//GEN-END:variables
 }
