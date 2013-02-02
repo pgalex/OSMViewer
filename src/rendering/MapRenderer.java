@@ -280,6 +280,12 @@ public class MapRenderer implements CoordinatesConverter
 		{
 			throw new IllegalArgumentException();
 		}
+		
+		if(targetCanvasDrawingArea.isEmpty())
+		{
+			// need test
+			return;
+		}
 
 		setupRenderingHints(targetCanvas);
 
