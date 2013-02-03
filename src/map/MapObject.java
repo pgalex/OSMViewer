@@ -1,7 +1,7 @@
 package map;
 
-import MapDefenitionUtilities.MapBounds;
-import drawingStyles.DefenitionTags;
+import mapDefenitionUtilities.MapBounds;
+import mapDefenitionUtilities.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleViewer;
 import rendering.RenderableMapObject;

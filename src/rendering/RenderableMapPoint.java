@@ -1,6 +1,6 @@
 package rendering;
 
-import MapDefenitionUtilities.MapPosition;
+import mapDefenitionUtilities.MapPosition;
 
 /**
  * Point-like map object that can be render

@@ -1,16 +1,16 @@
 package mapTests;
 
 import drawingStyles.DrawingStylesFactory;
-import drawingStyles.DefenitionTags;
+import mapDefenitionUtilities.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.Tag;
+import mapDefenitionUtilities.Tag;
 import drawingStyles.StyleEditor;
 import java.util.ArrayList;
 import java.util.Collections;
 import map.MapObject;
 import rendering.RenderableMapObjectsDrawPriorityComparator;
 import map.MapPoint;
-import MapDefenitionUtilities.MapPosition;
+import mapDefenitionUtilities.MapPosition;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import org.junit.Test;

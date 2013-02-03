@@ -1,4 +1,4 @@
-package drawingStyles;
+package mapDefenitionUtilities;
 
 import IO.ReadableMapData;
 import IO.WritableMapData;
