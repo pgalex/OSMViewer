@@ -1,7 +1,6 @@
 package rendering.selectng;
 
 import java.awt.geom.Point2D;
-import map.MapObject;
 import rendering.RenderableMapObject;
 
 /**

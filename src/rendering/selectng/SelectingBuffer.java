@@ -3,7 +3,6 @@ package rendering.selectng;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
-import map.MapObject;
 import rendering.RenderableMapObject;
 
 /**
@@ -44,7 +43,7 @@ public class SelectingBuffer
 
 		ArrayList<SelectingObject> selectingObjectsAtPoint = findSelectingObjectsAtPoint(point);
 
-		RenderableMapObject[] mapObjectsAtPoint = new MapObject[selectingObjectsAtPoint.size()];
+		RenderableMapObject[] mapObjectsAtPoint = new RenderableMapObject[selectingObjectsAtPoint.size()];
 		for (int i = 0; i < selectingObjectsAtPoint.size(); i++)
 		{
 			mapObjectsAtPoint[i] = selectingObjectsAtPoint.get(i).getAssociatedMapObject();
