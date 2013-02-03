@@ -1,5 +1,7 @@
 package drawingStylesTests;
 
+import mapDefenitionUtilities.Tag;
+import mapDefenitionUtilities.DefenitionTags;
 import IOTesting.IOTester;
 import drawingStyles.*;
 import java.awt.Color;

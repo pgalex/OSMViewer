@@ -1,6 +1,6 @@
 package rendering.selectingTests;
 
-import drawingStyles.DefenitionTags;
+import mapDefenitionUtilities.DefenitionTags;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Collections;

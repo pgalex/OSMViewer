@@ -1,10 +1,10 @@
 package mapTests;
 
-import drawingStyles.DefenitionTags;
+import mapDefenitionUtilities.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleEditor;
-import drawingStyles.Tag;
+import mapDefenitionUtilities.Tag;
 import mapDefenitionUtilities.MapBounds;
 import map.MapLine;
 import mapDefenitionUtilities.MapPosition;

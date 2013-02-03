@@ -1,10 +1,10 @@
 package onlineMapTests;
 
-import drawingStyles.DefenitionTags;
+import mapDefenitionUtilities.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleEditor;
-import drawingStyles.Tag;
+import mapDefenitionUtilities.Tag;
 import java.util.ArrayList;
 import map.MapLine;
 import map.MapObject;

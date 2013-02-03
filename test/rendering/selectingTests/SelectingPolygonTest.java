@@ -1,6 +1,6 @@
 package rendering.selectingTests;
 
-import drawingStyles.DefenitionTags;
+import mapDefenitionUtilities.DefenitionTags;
 import java.awt.Polygon;
 import java.awt.geom.Point2D;
 import map.MapPoint;

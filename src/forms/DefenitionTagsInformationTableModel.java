@@ -1,7 +1,7 @@
 package forms;
 
-import drawingStyles.DefenitionTags;
-import drawingStyles.Tag;
+import mapDefenitionUtilities.DefenitionTags;
+import mapDefenitionUtilities.Tag;
 import javax.swing.table.DefaultTableModel;
 
 /**

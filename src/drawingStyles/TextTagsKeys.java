@@ -1,5 +1,7 @@
 package drawingStyles;
 
+import mapDefenitionUtilities.Tag;
+import mapDefenitionUtilities.DefenitionTags;
 import IO.ReadableMapData;
 import IO.WritableMapData;
 import java.io.DataInputStream;

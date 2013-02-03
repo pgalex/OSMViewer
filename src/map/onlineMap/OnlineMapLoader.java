@@ -1,8 +1,8 @@
 package map.onlineMap;
 
-import drawingStyles.DefenitionTags;
+import mapDefenitionUtilities.DefenitionTags;
 import drawingStyles.StyleViewer;
-import drawingStyles.Tag;
+import mapDefenitionUtilities.Tag;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;

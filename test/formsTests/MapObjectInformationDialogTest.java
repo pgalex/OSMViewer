@@ -1,6 +1,6 @@
 package formsTests;
 
-import drawingStyles.DefenitionTags;
+import mapDefenitionUtilities.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
 import forms.MapObjectInformationDialog;
 import java.awt.Dialog;
