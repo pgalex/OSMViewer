@@ -4,7 +4,7 @@ import drawingStyles.DefenitionTags;
 import java.awt.Polygon;
 import java.awt.geom.Point2D;
 import map.MapPoint;
-import mapUtilities.MapPosition;
+import mapDefenitionUtilities.MapPosition;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import rendering.selectng.SelectingPolygon;

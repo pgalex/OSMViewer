@@ -1,7 +1,7 @@
 package map;
 
-import mapUtilities.MapBounds;
-import mapUtilities.MapPosition;
+import mapDefenitionUtilities.MapBounds;
+import mapDefenitionUtilities.MapPosition;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.LinearRing;

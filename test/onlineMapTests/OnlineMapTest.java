@@ -1,7 +1,7 @@
 package onlineMapTests;
 
-import mapUtilities.MapBounds;
-import mapUtilities.MapPosition;
+import mapDefenitionUtilities.MapBounds;
+import mapDefenitionUtilities.MapPosition;
 import drawingStyles.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.MapObjectDrawSettings;

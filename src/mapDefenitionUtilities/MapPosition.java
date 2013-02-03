@@ -1,4 +1,4 @@
-package mapUtilities;
+package mapDefenitionUtilities;
 
 /**
  * Position on a map

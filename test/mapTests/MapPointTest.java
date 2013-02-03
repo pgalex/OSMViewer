@@ -5,9 +5,9 @@ import drawingStyles.DrawingStylesFactory;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleEditor;
 import drawingStyles.Tag;
-import mapUtilities.MapBounds;
+import mapDefenitionUtilities.MapBounds;
 import map.MapPoint;
-import mapUtilities.MapPosition;
+import mapDefenitionUtilities.MapPosition;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

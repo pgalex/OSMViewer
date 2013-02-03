@@ -10,7 +10,7 @@ import java.util.Collections;
 import map.MapObject;
 import rendering.RenderableMapObjectsDrawPriorityComparator;
 import map.MapPoint;
-import mapUtilities.MapPosition;
+import mapDefenitionUtilities.MapPosition;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import org.junit.Test;
