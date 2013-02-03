@@ -2,9 +2,6 @@ package rendering.selectingTests;
 
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import map.MapPoint;
-import mapDefenitionUtilities.DefenitionTags;
-import mapDefenitionUtilities.MapPosition;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import rendering.RenderableMapObject;
@@ -73,13 +70,13 @@ public class SelectingBufferTest
 	@Test
 	public void normalWorkTest()
 	{
-		MapPoint objectUnderPoint = new MapPoint(new MapPosition(), 1, new DefenitionTags());
+		RenderableMapObject objectUnderPoint = new TestRenderableMapObject();
 		Point2D[] lineUnderPointPoints = new Point2D[2];
 		lineUnderPointPoints[0] = new Point2D.Double(0, 0);
 		lineUnderPointPoints[1] = new Point2D.Double(5, 5);
 		SelectingLine lineUnderPoint = new SelectingLine(objectUnderPoint, 1, lineUnderPointPoints, 1);
 
-		MapPoint objectNotUnderPoint = new MapPoint(new MapPosition(), 1, new DefenitionTags());
+		RenderableMapObject objectNotUnderPoint = new TestRenderableMapObject();
 		Point2D[] lineNotUnderPointPoints = new Point2D[2];
 		lineNotUnderPointPoints[0] = new Point2D.Double(10, 10);
 		lineNotUnderPointPoints[1] = new Point2D.Double(7, 7);
@@ -100,11 +97,11 @@ public class SelectingBufferTest
 	@Test
 	public void sortingByDrawPriorityTest()
 	{
-		MapPoint someObject1 = new MapPoint(new MapPosition(), 1, new DefenitionTags());
+		RenderableMapObject someObject1 = new TestRenderableMapObject();
 		SelectingRectangle selectingRectangle1 = new SelectingRectangle(someObject1, -5,
 						new Rectangle2D.Double(0, 0, 5, 5));
 
-		MapPoint someObject2 = new MapPoint(new MapPosition(), 2, new DefenitionTags());
+		RenderableMapObject someObject2 = new TestRenderableMapObject();
 		SelectingRectangle selectingRectangle2 = new SelectingRectangle(someObject2, 3,
 						new Rectangle2D.Double(2, 2, 7, 7));
 

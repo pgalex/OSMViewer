@@ -3,12 +3,12 @@ package drawingStylesTests;
 import IOTesting.IOTester;
 import drawingStyles.DrawSettingsOnScale;
 import drawingStyles.DrawSettingsOnScaleArray;
-import mapDefenitionUtilities.DefenitionTags;
 import drawingStyles.FindStyleIndexComparator;
 import drawingStyles.MapObjectDrawSettings;
-import mapDefenitionUtilities.Tag;
 import java.util.ArrayList;
 import java.util.Collections;
+import mapDefenitionUtilities.DefenitionTags;
+import mapDefenitionUtilities.Tag;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

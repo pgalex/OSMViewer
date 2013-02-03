@@ -1,11 +1,9 @@
 package rendering.selectingTests;
 
 import java.awt.geom.Point2D;
-import map.MapPoint;
-import mapDefenitionUtilities.DefenitionTags;
-import mapDefenitionUtilities.MapPosition;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import rendering.RenderableMapObject;
 import rendering.selectng.SelectingLine;
 
 /**
@@ -43,7 +41,7 @@ public class SelectingLineTest
 	{
 		try
 		{
-			MapPoint someObject = new MapPoint(new MapPosition(), 1, new DefenitionTags());
+			RenderableMapObject someObject = new TestRenderableMapObject();
 
 			SelectingLine testLine = new SelectingLine(someObject, 0, null, 1);
 			fail();
@@ -62,7 +60,7 @@ public class SelectingLineTest
 	{
 		try
 		{
-			MapPoint someObject = new MapPoint(new MapPosition(), 1, new DefenitionTags());
+			RenderableMapObject someObject = new TestRenderableMapObject();
 
 			Point2D[] linePoints = new Point2D[3];
 			linePoints[0] = new Point2D.Double(1, 2);
@@ -86,7 +84,7 @@ public class SelectingLineTest
 	{
 		try
 		{
-			MapPoint someObject = new MapPoint(new MapPosition(), 1, new DefenitionTags());
+			RenderableMapObject someObject = new TestRenderableMapObject();
 
 			Point2D[] linePoints = new Point2D[1];
 			linePoints[0] = new Point2D.Double(1, 2);
@@ -108,7 +106,7 @@ public class SelectingLineTest
 	{
 		try
 		{
-			MapPoint someObject = new MapPoint(new MapPosition(), 1, new DefenitionTags());
+			RenderableMapObject someObject = new TestRenderableMapObject();
 
 			Point2D[] linePoints = new Point2D[2];
 			linePoints[0] = new Point2D.Double(1, 2);
@@ -131,7 +129,7 @@ public class SelectingLineTest
 	{
 		try
 		{
-			MapPoint someObject = new MapPoint(new MapPosition(), 1, new DefenitionTags());
+			RenderableMapObject someObject = new TestRenderableMapObject();
 
 			Point2D[] linePoints = new Point2D[2];
 			linePoints[0] = new Point2D.Double(1, 2);
@@ -154,7 +152,7 @@ public class SelectingLineTest
 	{
 		try
 		{
-			MapPoint someObject = new MapPoint(new MapPosition(), 1, new DefenitionTags());
+			RenderableMapObject someObject = new TestRenderableMapObject();
 
 			Point2D[] linePoints = new Point2D[2];
 			linePoints[0] = new Point2D.Double(1, 2);
@@ -176,7 +174,7 @@ public class SelectingLineTest
 	@Test
 	public void isHitsByPointOnLineTest()
 	{
-		MapPoint someObject = new MapPoint(new MapPosition(), 1, new DefenitionTags());
+		RenderableMapObject someObject = new TestRenderableMapObject();
 
 		Point2D[] linePoints = new Point2D[2];
 		linePoints[0] = new Point2D.Double(0, 0);
@@ -192,7 +190,7 @@ public class SelectingLineTest
 	@Test
 	public void isHitsByPointOnLineIncludingWidthTest()
 	{
-		MapPoint someObject = new MapPoint(new MapPosition(), 1, new DefenitionTags());
+		RenderableMapObject someObject = new TestRenderableMapObject();
 
 		Point2D[] linePoints = new Point2D[2];
 		linePoints[0] = new Point2D.Double(0, 5);
@@ -208,7 +206,7 @@ public class SelectingLineTest
 	@Test
 	public void isNotHitsByPointOnLineIncludingWidthTest()
 	{
-		MapPoint someObject = new MapPoint(new MapPosition(), 1, new DefenitionTags());
+		RenderableMapObject someObject = new TestRenderableMapObject();
 
 		Point2D[] linePoints = new Point2D[2];
 		linePoints[0] = new Point2D.Double(0, 5);

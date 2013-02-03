@@ -3,11 +3,9 @@ package rendering.selectingTests;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Collections;
-import map.MapPoint;
-import mapDefenitionUtilities.DefenitionTags;
-import mapDefenitionUtilities.MapPosition;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import rendering.RenderableMapObject;
 import rendering.selectng.SelectingObject;
 import rendering.selectng.SelectingObjectsDrawPriorityComparator;
 import rendering.selectng.SelectingRectangle;
@@ -25,10 +23,10 @@ public class SelectingObjectsDrawPriorityComparatorTest
 	@Test
 	public void sortingWithComparatorTest()
 	{
-		MapPoint someObject1 = new MapPoint(new MapPosition(), 1, new DefenitionTags());
+		RenderableMapObject someObject1 = new TestRenderableMapObject();
 		SelectingRectangle selectingRectangle1 = new SelectingRectangle(someObject1, -5, new Rectangle2D.Double());
 
-		MapPoint someObject2 = new MapPoint(new MapPosition(), 2, new DefenitionTags());
+		RenderableMapObject someObject2 = new TestRenderableMapObject();
 		SelectingRectangle selectingRectangle2 = new SelectingRectangle(someObject2, 3, new Rectangle2D.Double());
 
 		ArrayList<SelectingObject> selectingObjectsArray = new ArrayList<SelectingObject>();

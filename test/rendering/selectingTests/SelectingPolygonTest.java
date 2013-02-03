@@ -2,11 +2,9 @@ package rendering.selectingTests;
 
 import java.awt.Polygon;
 import java.awt.geom.Point2D;
-import map.MapPoint;
-import mapDefenitionUtilities.DefenitionTags;
-import mapDefenitionUtilities.MapPosition;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import rendering.RenderableMapObject;
 import rendering.selectng.SelectingPolygon;
 
 /**
@@ -41,7 +39,7 @@ public class SelectingPolygonTest
 	{
 		try
 		{
-			MapPoint someObject = new MapPoint(new MapPosition(), 1, new DefenitionTags());
+			RenderableMapObject someObject = new TestRenderableMapObject();
 			SelectingPolygon testPolygon = new SelectingPolygon(someObject, 0, null);
 			fail();
 		}
@@ -59,7 +57,7 @@ public class SelectingPolygonTest
 	{
 		try
 		{
-			MapPoint someObject = new MapPoint(new MapPosition(), 1, new DefenitionTags());
+			RenderableMapObject someObject = new TestRenderableMapObject();
 			SelectingPolygon testPolygon = new SelectingPolygon(someObject, 0, new Polygon());
 			testPolygon.isHitsByPoint(null);
 			fail();
@@ -76,7 +74,7 @@ public class SelectingPolygonTest
 	@Test
 	public void isHitByPointInsidePolygonTest()
 	{
-		MapPoint someObject = new MapPoint(new MapPosition(), 1, new DefenitionTags());
+		RenderableMapObject someObject = new TestRenderableMapObject();
 		Polygon polygon = new Polygon();
 		polygon.addPoint(0, 0);
 		polygon.addPoint(5, 5);
@@ -93,7 +91,7 @@ public class SelectingPolygonTest
 	@Test
 	public void isHitByPointOutnsidePolygonTest()
 	{
-		MapPoint someObject = new MapPoint(new MapPosition(), 1, new DefenitionTags());
+		RenderableMapObject someObject = new TestRenderableMapObject();
 		Polygon polygon = new Polygon();
 		polygon.addPoint(0, 0);
 		polygon.addPoint(5, 5);
