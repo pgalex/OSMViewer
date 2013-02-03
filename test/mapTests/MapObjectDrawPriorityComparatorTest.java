@@ -8,7 +8,7 @@ import drawingStyles.StyleEditor;
 import java.util.ArrayList;
 import java.util.Collections;
 import map.MapObject;
-import rendering.MapObjectDrawPriorityComparator;
+import rendering.RenderableMapObjectsDrawPriorityComparator;
 import map.MapPoint;
 import map.MapPosition;
 import static org.junit.Assert.assertEquals;
@@ -16,7 +16,7 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 /**
- * MapObjectDrawPriorityComparator tests
+ * RenderableMapObjectsDrawPriorityComparator tests
  *
  * @author pgalex
  */
@@ -30,7 +30,7 @@ public class MapObjectDrawPriorityComparatorTest
 	{
 		try
 		{
-			MapObjectDrawPriorityComparator testComparator = new MapObjectDrawPriorityComparator(null);
+			RenderableMapObjectsDrawPriorityComparator testComparator = new RenderableMapObjectsDrawPriorityComparator(null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -87,7 +87,7 @@ public class MapObjectDrawPriorityComparatorTest
 		object3.assignStyleIndex(editor);
 		objects.add(object3);
 
-		MapObjectDrawPriorityComparator testComparator = new MapObjectDrawPriorityComparator(editor);
+		RenderableMapObjectsDrawPriorityComparator testComparator = new RenderableMapObjectsDrawPriorityComparator(editor);
 		Collections.sort(objects, testComparator);
 		assertEquals(3, objects.get(0).getId());
 		assertEquals(1, objects.get(1).getId());

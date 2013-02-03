@@ -21,5 +21,5 @@ public interface RenderableMap
 	 * objectsDrawPriorityComparator is null
 	 */
 	public void renderObjectsByDrawPriority(RenderableMapObjectsVisitor objectsVisitor, MapBounds area,
-					MapObjectDrawPriorityComparator objectsDrawPriorityComparator) throws IllegalArgumentException;
+					RenderableMapObjectsDrawPriorityComparator objectsDrawPriorityComparator) throws IllegalArgumentException;
 }

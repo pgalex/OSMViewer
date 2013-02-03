@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import map.MapBounds;
 import map.MapObject;
-import rendering.MapObjectDrawPriorityComparator;
+import rendering.RenderableMapObjectsDrawPriorityComparator;
 import rendering.RenderableMap;
 import rendering.RenderableMapObjectsVisitor;
 
@@ -67,7 +67,7 @@ public class OnlineMap implements RenderableMap
 	 */
 	@Override
 	public void renderObjectsByDrawPriority(RenderableMapObjectsVisitor objectsVisitor, MapBounds area,
-					MapObjectDrawPriorityComparator objectsDrawPriorityComparator) throws IllegalArgumentException
+					RenderableMapObjectsDrawPriorityComparator objectsDrawPriorityComparator) throws IllegalArgumentException
 	{
 		if (objectsVisitor == null)
 		{

@@ -3,14 +3,13 @@ package rendering;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleViewer;
 import java.util.Comparator;
-import map.MapObject;
 
 /**
  * Comparator for sorting map objects by draw priority
  *
  * @author pgalex
  */
-public class MapObjectDrawPriorityComparator implements Comparator<MapObject>
+public class RenderableMapObjectsDrawPriorityComparator implements Comparator<RenderableMapObject>
 {
 	/**
 	 * Viewer for finding draw priority of objects
@@ -23,7 +22,7 @@ public class MapObjectDrawPriorityComparator implements Comparator<MapObject>
 	 * @param styleViewerUsingForComparing Viewer for finding draw priority of objects
 	 * @throws IllegalArgumentException styleViewerUsingForComparing is null
 	 */
-	public MapObjectDrawPriorityComparator(StyleViewer styleViewerUsingForComparing) throws IllegalArgumentException
+	public RenderableMapObjectsDrawPriorityComparator(StyleViewer styleViewerUsingForComparing) throws IllegalArgumentException
 	{
 		if (styleViewerUsingForComparing == null)
 		{
@@ -41,7 +40,7 @@ public class MapObjectDrawPriorityComparator implements Comparator<MapObject>
 	 * @return 0 - eqaul, -1 - 1 less 2, +1 - 1 more 2
 	 */
 	@Override
-	public int compare(MapObject object1, MapObject object2)
+	public int compare(RenderableMapObject object1, RenderableMapObject object2)
 	{
 		if (object1 == null || object2 == null)
 		{

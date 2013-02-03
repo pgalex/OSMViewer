@@ -312,7 +312,7 @@ public class MapRenderer implements CoordinatesConverter
 		}
 
 		mapToRender.renderObjectsByDrawPriority(objectsRenderer, getViewArea(),
-						new MapObjectDrawPriorityComparator(styleViewer));
+						new RenderableMapObjectsDrawPriorityComparator(styleViewer));
 
 		targetCanvas.drawImage(textCanvasImage, 0, 0, null);
 	}

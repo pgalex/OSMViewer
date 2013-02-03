@@ -10,7 +10,7 @@ import map.*;
 import map.onlineMap.OnlineMap;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import rendering.MapObjectDrawPriorityComparator;
+import rendering.RenderableMapObjectsDrawPriorityComparator;
 
 /**
  * OnlineMap class tests
@@ -81,7 +81,7 @@ public class OnlineMapTest
 
 		MapObjectsRendererMock objectsRendererMock = new MapObjectsRendererMock();
 		testMap.renderObjectsByDrawPriority(objectsRendererMock, new MapBounds(-10, 10, -10, 10),
-						new MapObjectDrawPriorityComparator(testEditor));
+						new RenderableMapObjectsDrawPriorityComparator(testEditor));
 
 		assertEquals(3, objectsRendererMock.pointsRendered);
 		assertEquals(1, objectsRendererMock.linesRendered);
@@ -99,7 +99,7 @@ public class OnlineMapTest
 		{
 			StyleViewer viewer = DrawingStylesFactory.createStyleViewer();
 			testMap.renderObjectsByDrawPriority(null, new MapBounds(1, 2, 3, 4),
-							new MapObjectDrawPriorityComparator(viewer));
+							new RenderableMapObjectsDrawPriorityComparator(viewer));
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -119,7 +119,7 @@ public class OnlineMapTest
 		{
 			StyleViewer viewer = DrawingStylesFactory.createStyleViewer();
 			testMap.renderObjectsByDrawPriority(new MapObjectsRendererMock(), null,
-							new MapObjectDrawPriorityComparator(viewer));
+							new RenderableMapObjectsDrawPriorityComparator(viewer));
 			fail();
 		}
 		catch (IllegalArgumentException ex)
