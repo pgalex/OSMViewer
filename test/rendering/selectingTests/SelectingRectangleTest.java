@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import map.MapPoint;
-import map.MapPosition;
+import MapDefenitionUtilities.MapPosition;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import rendering.selectng.SelectingRectangle;

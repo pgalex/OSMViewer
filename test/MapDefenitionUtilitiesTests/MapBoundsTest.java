@@ -1,6 +1,6 @@
-package mapTests;
+package MapDefenitionUtilitiesTests;
 
-import map.MapBounds;
+import MapDefenitionUtilities.MapBounds;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

@@ -1,5 +1,7 @@
 package map;
 
+import MapDefenitionUtilities.MapBounds;
+import MapDefenitionUtilities.MapPosition;
 import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
 import java.awt.geom.Rectangle2D;

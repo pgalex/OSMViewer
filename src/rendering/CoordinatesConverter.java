@@ -1,7 +1,7 @@
 package rendering;
 
 import java.awt.geom.Point2D;
-import map.MapPosition;
+import MapDefenitionUtilities.MapPosition;
 
 /**
  * Interface of object that using to convert coordinates in current view

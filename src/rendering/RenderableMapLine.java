@@ -1,6 +1,6 @@
 package rendering;
 
-import map.MapPosition;
+import MapDefenitionUtilities.MapPosition;
 
 /**
  * Line-like map object that can be render

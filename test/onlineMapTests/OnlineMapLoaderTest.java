@@ -1,7 +1,7 @@
 package onlineMapTests;
 
 import drawingStyles.DrawingStylesFactory;
-import map.MapBounds;
+import MapDefenitionUtilities.MapBounds;
 import map.onlineMap.OnlineMap;
 import map.onlineMap.OnlineMapLoader;
 import static org.junit.Assert.fail;
