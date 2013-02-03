@@ -1,20 +1,20 @@
 package map.onlineMap;
 
-import drawingStyles.DefenitionTags;
+import mapDefenitionUtilities.DefenitionTags;
 import drawingStyles.StyleViewer;
-import drawingStyles.Tag;
+import mapDefenitionUtilities.Tag;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import MapDefenitionUtilities.MapBounds;
+import mapDefenitionUtilities.MapBounds;
 import map.MapLine;
 import map.MapObject;
 import map.MapPoint;
 import map.MapPolygon;
-import MapDefenitionUtilities.MapPosition;
+import mapDefenitionUtilities.MapPosition;
 import map.exceptions.*;
 import osmXml.OnlineOsmParser;
 import osmXml.OsmNode;

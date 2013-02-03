@@ -1,10 +1,10 @@
 package rendering.selectingTests;
 
-import drawingStyles.DefenitionTags;
+import mapDefenitionUtilities.DefenitionTags;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import map.MapPoint;
-import MapDefenitionUtilities.MapPosition;
+import mapDefenitionUtilities.MapPosition;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import rendering.RenderableMapObject;

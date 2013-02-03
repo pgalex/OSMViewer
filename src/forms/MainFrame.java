@@ -6,7 +6,7 @@ import java.awt.Dialog;
 import java.awt.Point;
 import javax.swing.JFrame;
 import map.MapObject;
-import MapDefenitionUtilities.MapPosition;
+import mapDefenitionUtilities.MapPosition;
 import map.onlineMap.OnlineMapController;
 import rendering.RenderableMapObject;
 
