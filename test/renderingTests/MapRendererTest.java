@@ -4,14 +4,14 @@ import drawingStyles.DrawingStylesFactory;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-import rendering.RenderableMap;
 import map.MapBounds;
-import map.MapObject;
 import map.MapPosition;
 import map.onlineMap.OnlineMap;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import rendering.MapRenderer;
+import rendering.RenderableMap;
+import rendering.RenderableMapObject;
 
 /**
  * MapRenderer class tests
@@ -45,7 +45,7 @@ public class MapRendererTest
 	public void findObjectInEmptyRendererTest()
 	{
 		MapRenderer renderer = new MapRenderer(5, 10, 5);
-		MapObject[] foundObjects = renderer.findObjectsAtPoint(new Point2D.Double(0, 0));
+		RenderableMapObject[] foundObjects = renderer.findObjectsAtPoint(new Point2D.Double(0, 0));
 		assertNotNull(foundObjects);
 		assertEquals(0, foundObjects.length);
 	}

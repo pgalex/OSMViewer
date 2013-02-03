@@ -4,6 +4,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import map.MapObject;
+import rendering.RenderableMapObject;
 
 /**
  * Stores interperation of objects, drawen on target canvas, specialized for
@@ -34,7 +35,7 @@ public class SelectingBuffer
 	 * less index). Empty if no objects found
 	 * @throws IllegalArgumentException point is null
 	 */
-	public MapObject[] findObjectsAtPoint(Point2D point) throws IllegalArgumentException
+	public RenderableMapObject[] findObjectsAtPoint(Point2D point) throws IllegalArgumentException
 	{
 		if (point == null)
 		{
@@ -43,7 +44,7 @@ public class SelectingBuffer
 
 		ArrayList<SelectingObject> selectingObjectsAtPoint = findSelectingObjectsAtPoint(point);
 
-		MapObject[] mapObjectsAtPoint = new MapObject[selectingObjectsAtPoint.size()];
+		RenderableMapObject[] mapObjectsAtPoint = new MapObject[selectingObjectsAtPoint.size()];
 		for (int i = 0; i < selectingObjectsAtPoint.size(); i++)
 		{
 			mapObjectsAtPoint[i] = selectingObjectsAtPoint.get(i).getAssociatedMapObject();

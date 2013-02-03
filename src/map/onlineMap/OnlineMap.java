@@ -95,7 +95,7 @@ public class OnlineMap implements RenderableMap
 			MapObject renderingObject = objects.get(i);
 			if (renderingObject.isVisibleInArea(area))
 			{
-				renderingObject.acceptRenderer(objectsVisitor);
+				renderingObject.acceptRenderingVisitor(objectsVisitor);
 			}
 		}
 	}

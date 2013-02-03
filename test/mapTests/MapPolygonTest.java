@@ -182,7 +182,7 @@ public class MapPolygonTest
 			points[2] = new MapPosition(5, 6);
 			points[3] = points[0];
 			MapPolygon polygon = new MapPolygon(0, new DefenitionTags(), points);
-			polygon.acceptRenderer(null);
+			polygon.acceptRenderingVisitor(null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)

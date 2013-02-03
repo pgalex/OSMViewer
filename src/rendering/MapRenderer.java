@@ -8,7 +8,6 @@ import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import map.MapBounds;
-import map.MapObject;
 import map.MapPosition;
 import rendering.selectng.SelectingBuffer;
 
@@ -47,11 +46,11 @@ public class MapRenderer implements CoordinatesConverter
 	/**
 	 * Object of rendering map, to draw as highlighted. Can be null
 	 */
-	private MapObject objectToDrawAsHighlighted;
+	private RenderableMapObject objectToDrawAsHighlighted;
 	/**
 	 * Object of rendering map, to draw as selected. Can be null
 	 */
-	private MapObject objectToDrawAsSelected;
+	private RenderableMapObject objectToDrawAsSelected;
 	/**
 	 * Buffer, contains intpertation of drawen objects using for finding objects
 	 * under point
@@ -195,7 +194,7 @@ public class MapRenderer implements CoordinatesConverter
 	 * @param highlightingObject object to draw as highlighted
 	 * @throws IllegalArgumentException highlightingObject is null
 	 */
-	public void setObjectToDrawAsHighlighted(MapObject highlightingObject) throws IllegalArgumentException
+	public void setObjectToDrawAsHighlighted(RenderableMapObject highlightingObject) throws IllegalArgumentException
 	{
 		if (highlightingObject == null)
 		{
@@ -219,7 +218,7 @@ public class MapRenderer implements CoordinatesConverter
 	 * @param selectingObject object to draw as selected
 	 * @throws IllegalArgumentException selectingObject is null
 	 */
-	public void setObjectToDrawAsSelected(MapObject selectingObject) throws IllegalArgumentException
+	public void setObjectToDrawAsSelected(RenderableMapObject selectingObject) throws IllegalArgumentException
 	{
 		if (selectingObject == null)
 		{
@@ -245,7 +244,7 @@ public class MapRenderer implements CoordinatesConverter
 	 * priority of drawen objects. Empty if no objects found.
 	 * @throws IllegalArgumentException pointOnCanvas is null
 	 */
-	public MapObject[] findObjectsAtPoint(Point2D pointOnCanvas) throws IllegalArgumentException
+	public RenderableMapObject[] findObjectsAtPoint(Point2D pointOnCanvas) throws IllegalArgumentException
 	{
 		if (pointOnCanvas == null)
 		{

@@ -1,6 +1,5 @@
 package map;
 
-import rendering.RenderableMapObjectsVisitor;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.LineString;
@@ -9,13 +8,15 @@ import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
 import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
+import rendering.RenderableMapLine;
+import rendering.RenderableMapObjectsVisitor;
 
 /**
  * Line (non closed way) on a map
  *
  * @author pgalex
  */
-public class MapLine extends MapObject
+public class MapLine extends MapObject implements RenderableMapLine
 {
 	/**
 	 * Minimum points count that can be using for lineString
@@ -89,6 +90,7 @@ public class MapLine extends MapObject
 	 *
 	 * @return count of points
 	 */
+	@Override
 	public int getPointsCount()
 	{
 		return lineString.getNumPoints();
@@ -102,6 +104,7 @@ public class MapLine extends MapObject
 	 * @throws IllegalArgumentException index is less than 0, or more than points
 	 * count
 	 */
+	@Override
 	public MapPosition getPoint(int index) throws IllegalArgumentException
 	{
 		if (index < 0 || index >= lineString.getNumPoints())
@@ -154,7 +157,7 @@ public class MapLine extends MapObject
 	 * @throws IllegalArgumentException objectsRenderer is null
 	 */
 	@Override
-	public void acceptRenderer(RenderableMapObjectsVisitor objectsRenderer) throws IllegalArgumentException
+	public void acceptRenderingVisitor(RenderableMapObjectsVisitor objectsRenderer) throws IllegalArgumentException
 	{
 		if (objectsRenderer == null)
 		{

@@ -2,6 +2,7 @@ package rendering.selectng;
 
 import java.awt.geom.Point2D;
 import map.MapObject;
+import rendering.RenderableMapObject;
 
 /**
  * Interpretation of one map object, using for selection,
@@ -13,7 +14,7 @@ public abstract class SelectingObject
 	/**
 	 * Associated object of map. Interpretation of which selecting object is
 	 */
-	private MapObject associatedMapObject;
+	private RenderableMapObject associatedMapObject;
 	/**
 	 * Draw priority of associated map object
 	 */
@@ -26,7 +27,7 @@ public abstract class SelectingObject
 	 * @param associatedObjectDrawPriority draw priority of associated map object
 	 * @throws IllegalArgumentException associatedObject is null
 	 */
-	public SelectingObject(MapObject associatedObject, int associatedObjectDrawPriority) throws IllegalArgumentException
+	public SelectingObject(RenderableMapObject associatedObject, int associatedObjectDrawPriority) throws IllegalArgumentException
 	{
 		if (associatedObject == null)
 		{
@@ -42,7 +43,7 @@ public abstract class SelectingObject
 	 *
 	 * @return associated map object
 	 */
-	public MapObject getAssociatedMapObject()
+	public RenderableMapObject getAssociatedMapObject()
 	{
 		return associatedMapObject;
 	}

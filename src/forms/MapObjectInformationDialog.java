@@ -2,7 +2,7 @@ package forms;
 
 import drawingStyles.MapObjectDrawSettings;
 import java.awt.Window;
-import map.MapObject;
+import rendering.RenderableMapObject;
 
 /**
  * Dialog, showes informatoin about map object
@@ -39,7 +39,7 @@ public class MapObjectInformationDialog extends javax.swing.JDialog
 	 * @throws IllegalArgumentException objectToShowInformationAbout or
 	 * objectDrawSettings is null
 	 */
-	public void showMapObjectInformation(MapObject objectToShowInformationAbout,
+	public void showMapObjectInformation(RenderableMapObject objectToShowInformationAbout,
 					MapObjectDrawSettings objectDrawSettings) throws IllegalArgumentException
 	{
 		if (objectToShowInformationAbout == null)

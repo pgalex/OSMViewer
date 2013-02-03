@@ -61,7 +61,7 @@ public class MapPointTest
 		try
 		{
 			MapPoint testPoint = new MapPoint(new MapPosition(), 12, new DefenitionTags());
-			testPoint.acceptRenderer(null);
+			testPoint.acceptRenderingVisitor(null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)

@@ -3,6 +3,7 @@ package map;
 import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleViewer;
+import rendering.RenderableMapObject;
 import rendering.RenderableMapObjectsVisitor;
 
 /**
@@ -10,7 +11,7 @@ import rendering.RenderableMapObjectsVisitor;
  *
  * @author pgalex
  */
-public abstract class MapObject
+public abstract class MapObject implements RenderableMapObject
 {
 	/**
 	 * ID of object, comes from OpenStreetMap
@@ -61,6 +62,7 @@ public abstract class MapObject
 	 *
 	 * @return defenition tags
 	 */
+	@Override
 	public DefenitionTags getDefenitionTags()
 	{
 		return defenitionTags;
@@ -71,6 +73,7 @@ public abstract class MapObject
 	 *
 	 * @return style index. null if not assigned
 	 */
+	@Override
 	public Integer getStyleIndex()
 	{
 		return styleIndex;
@@ -111,14 +114,6 @@ public abstract class MapObject
 	 * @throws IllegalArgumentException area is null
 	 */
 	public abstract boolean isVisibleInArea(MapBounds area) throws IllegalArgumentException;
-
-	/**
-	 * Render with objects render
-	 *
-	 * @param objectsRenderer objects renderer
-	 * @throws IllegalArgumentException objectsRenderer is null
-	 */
-	public abstract void acceptRenderer(RenderableMapObjectsVisitor objectsRenderer) throws IllegalArgumentException;
 
 	/**
 	 * Can this type of map object be drawen with this style

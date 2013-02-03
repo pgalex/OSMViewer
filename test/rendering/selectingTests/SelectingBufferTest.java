@@ -3,11 +3,11 @@ package rendering.selectingTests;
 import drawingStyles.DefenitionTags;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import map.MapObject;
 import map.MapPoint;
 import map.MapPosition;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import rendering.RenderableMapObject;
 import rendering.selectng.SelectingBuffer;
 import rendering.selectng.SelectingLine;
 import rendering.selectng.SelectingRectangle;
@@ -62,7 +62,7 @@ public class SelectingBufferTest
 	public void findObjectsInEmptyBufferTest()
 	{
 		SelectingBuffer testBuffer = new SelectingBuffer();
-		MapObject[] foundObjects = testBuffer.findObjectsAtPoint(new Point2D.Double(0, 0));
+		RenderableMapObject[] foundObjects = testBuffer.findObjectsAtPoint(new Point2D.Double(0, 0));
 		assertNotNull(foundObjects);
 		assertEquals(0, foundObjects.length);
 	}
@@ -88,7 +88,7 @@ public class SelectingBufferTest
 		SelectingBuffer testBuffer = new SelectingBuffer();
 		testBuffer.addSelectingObject(lineUnderPoint);
 		testBuffer.addSelectingObject(lineNotUnderPoint);
-		MapObject[] foundObject = testBuffer.findObjectsAtPoint(new Point2D.Double(3, 3));
+		RenderableMapObject[] foundObject = testBuffer.findObjectsAtPoint(new Point2D.Double(3, 3));
 
 		assertEquals(1, foundObject.length);
 		assertEquals(objectUnderPoint, foundObject[0]);
@@ -111,7 +111,7 @@ public class SelectingBufferTest
 		SelectingBuffer testBuffer = new SelectingBuffer();
 		testBuffer.addSelectingObject(selectingRectangle1);
 		testBuffer.addSelectingObject(selectingRectangle2);
-		MapObject[] foundObject = testBuffer.findObjectsAtPoint(new Point2D.Double(3, 3));
+		RenderableMapObject[] foundObject = testBuffer.findObjectsAtPoint(new Point2D.Double(3, 3));
 
 		assertEquals(someObject2, foundObject[0]);
 		assertEquals(someObject1, foundObject[1]);

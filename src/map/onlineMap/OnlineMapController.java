@@ -9,9 +9,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import map.MapObject;
 import map.MapPosition;
 import rendering.MapRenderer;
+import rendering.RenderableMapObject;
 
 /**
  * Organize work between other components and process user's input
@@ -151,7 +151,7 @@ public class OnlineMapController implements DrawableOnPanel
 			throw new IllegalArgumentException();
 		}
 
-		MapObject[] objectsUnderPoint = renderer.findObjectsAtPoint(pointOnTargetCanvas);
+		RenderableMapObject[] objectsUnderPoint = renderer.findObjectsAtPoint(pointOnTargetCanvas);
 		if (objectsUnderPoint.length > 0)
 		{
 			renderer.setObjectToDrawAsHighlighted(objectsUnderPoint[0]);
@@ -168,7 +168,7 @@ public class OnlineMapController implements DrawableOnPanel
 	 * @param selectingObject object to draw as selected
 	 * @throws IllegalArgumentException selectingObject is null
 	 */
-	public void setObjectToDrawAsSelected(MapObject selectingObject) throws IllegalArgumentException
+	public void setObjectToDrawAsSelected(RenderableMapObject selectingObject) throws IllegalArgumentException
 	{
 		if (selectingObject == null)
 		{
@@ -194,7 +194,7 @@ public class OnlineMapController implements DrawableOnPanel
 	 * priority of drawen objects. Empty if no objects found.
 	 * @throws IllegalArgumentException pointOnCanvas is null
 	 */
-	public MapObject[] findObjectsAtPoint(Point2D pointOnCanvas) throws IllegalArgumentException
+	public RenderableMapObject[] findObjectsAtPoint(Point2D pointOnCanvas) throws IllegalArgumentException
 	{
 		if (pointOnCanvas == null)
 		{
@@ -211,7 +211,7 @@ public class OnlineMapController implements DrawableOnPanel
 	 * @return draw settings of given map object. Null if not found
 	 * @throws IllegalArgumentException mapObject is null
 	 */
-	public MapObjectDrawSettings findMapObjectDrawSettings(MapObject mapObject) throws IllegalArgumentException
+	public MapObjectDrawSettings findMapObjectDrawSettings(RenderableMapObject mapObject) throws IllegalArgumentException
 	{
 		if (mapObject == null)
 		{

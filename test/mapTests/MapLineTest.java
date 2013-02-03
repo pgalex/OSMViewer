@@ -149,7 +149,7 @@ public class MapLineTest
 			points[0] = new MapPosition(1, 2);
 			points[1] = new MapPosition(2, 3);
 			MapLine testLine = new MapLine(0, new DefenitionTags(), points);
-			testLine.acceptRenderer(null);
+			testLine.acceptRenderingVisitor(null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)

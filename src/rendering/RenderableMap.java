@@ -10,8 +10,8 @@ import map.MapBounds;
 public interface RenderableMap
 {
 	/**
-	 * Accept visitor for all map objects in area. Object should be
-	 * given to objectsVisitor by its draw priority
+	 * Accept visitor for all map objects visible in area. Object should be given
+	 * to objectsVisitor by its draw priority
 	 *
 	 * @param objectsVisitor objects renderer
 	 * @param area area to determine which object need give to objectsVisitor

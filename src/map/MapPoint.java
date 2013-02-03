@@ -1,16 +1,17 @@
 package map;
 
-import rendering.RenderableMapObjectsVisitor;
 import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
 import java.awt.geom.Rectangle2D;
+import rendering.RenderableMapObjectsVisitor;
+import rendering.RenderableMapPoint;
 
 /**
  * Object on a map, consisting of one node
  *
  * @author pgalex
  */
-public class MapPoint extends MapObject
+public class MapPoint extends MapObject implements RenderableMapPoint
 {
 	/**
 	 * Position of object on a map (spheric coords)
@@ -42,6 +43,7 @@ public class MapPoint extends MapObject
 	 *
 	 * @return position on a map
 	 */
+	@Override
 	public MapPosition getPosition()
 	{
 		return position;
@@ -80,7 +82,7 @@ public class MapPoint extends MapObject
 	 * @throws IllegalArgumentException objectsRenderer is null
 	 */
 	@Override
-	public void acceptRenderer(RenderableMapObjectsVisitor objectsRenderer) throws IllegalArgumentException
+	public void acceptRenderingVisitor(RenderableMapObjectsVisitor objectsRenderer) throws IllegalArgumentException
 	{
 		if (objectsRenderer == null)
 		{

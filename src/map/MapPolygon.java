@@ -1,6 +1,5 @@
 package map;
 
-import rendering.RenderableMapObjectsVisitor;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.LinearRing;
@@ -8,13 +7,15 @@ import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
 import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
+import rendering.RenderableMapObjectsVisitor;
+import rendering.RenderableMapPolygon;
 
 /**
  * Polygon (closed way) on a map
  *
  * @author pgalex
  */
-public class MapPolygon extends MapObject
+public class MapPolygon extends MapObject implements RenderableMapPolygon
 {
 	/**
 	 * Minimum points count that can be using for polygon
@@ -94,6 +95,7 @@ public class MapPolygon extends MapObject
 	 *
 	 * @return count of points
 	 */
+	@Override
 	public int getPointsCount()
 	{
 		return polygon.getNumPoints();
@@ -107,6 +109,7 @@ public class MapPolygon extends MapObject
 	 * @throws IllegalArgumentException index is less than 0, or more than points
 	 * count
 	 */
+	@Override
 	public MapPosition getPoint(int index) throws IllegalArgumentException
 	{
 		if (index < 0 || index >= polygon.getNumPoints())
@@ -160,7 +163,7 @@ public class MapPolygon extends MapObject
 	 * @throws IllegalArgumentException objectsRenderer is null
 	 */
 	@Override
-	public void acceptRenderer(RenderableMapObjectsVisitor objectsRenderer) throws IllegalArgumentException
+	public void acceptRenderingVisitor(RenderableMapObjectsVisitor objectsRenderer) throws IllegalArgumentException
 	{
 		if (objectsRenderer == null)
 		{

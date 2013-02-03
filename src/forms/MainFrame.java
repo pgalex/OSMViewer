@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import map.MapObject;
 import map.MapPosition;
 import map.onlineMap.OnlineMapController;
+import rendering.RenderableMapObject;
 
 /**
  * Main form
@@ -216,11 +217,11 @@ public class MainFrame extends javax.swing.JFrame
 
   private void jPanelCanvasMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jPanelCanvasMouseClicked
   {//GEN-HEADEREND:event_jPanelCanvasMouseClicked
-		MapObject[] objectsAtMousePosition = mapController.findObjectsAtPoint(evt.getPoint());
+		RenderableMapObject[] objectsAtMousePosition = mapController.findObjectsAtPoint(evt.getPoint());
 
 		if (objectsAtMousePosition.length > 0)
 		{
-			MapObject topDrawenObject = objectsAtMousePosition[0];
+			RenderableMapObject topDrawenObject = objectsAtMousePosition[0];
 			MapObjectDrawSettings topDrawenObjectDrawSettings = mapController.findMapObjectDrawSettings(topDrawenObject);
 			if (topDrawenObjectDrawSettings != null)
 			{

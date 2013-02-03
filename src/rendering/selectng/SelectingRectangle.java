@@ -2,7 +2,7 @@ package rendering.selectng;
 
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import map.MapObject;
+import rendering.RenderableMapObject;
 
 /**
  * Interpretation of rectangle-like map object using for selection
@@ -25,7 +25,7 @@ public class SelectingRectangle extends SelectingObject
 	 * @throws IllegalArgumentException associatedObject, rectangleForSelection is
 	 * null
 	 */
-	public SelectingRectangle(MapObject associatedObject, int associatedObjectDrawPriority,
+	public SelectingRectangle(RenderableMapObject associatedObject, int associatedObjectDrawPriority,
 					Rectangle2D rectangleForSelection) throws IllegalArgumentException
 	{
 		super(associatedObject, associatedObjectDrawPriority);
