@@ -4,6 +4,7 @@ import map.MapLine;
 import rendering.RenderableMapObjectsVisitor;
 import map.MapPoint;
 import map.MapPolygon;
+import rendering.RenderableMapLine;
 import rendering.RenderableMapPoint;
 
 /**
@@ -31,7 +32,7 @@ public class MapObjectsRendererMock implements RenderableMapObjectsVisitor
 	}
 
 	@Override
-	public void visitLine(MapLine pLine)
+	public void visitLine(RenderableMapLine pLine)
 	{
 		linesRendered++;
 	}

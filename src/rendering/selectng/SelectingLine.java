@@ -6,7 +6,7 @@ import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
 import java.awt.geom.Point2D;
-import map.MapObject;
+import rendering.RenderableMapObject;
 
 /**
  * Interpretation of line-like map object using for selecting
@@ -43,7 +43,7 @@ public class SelectingLine extends SelectingObject
 	 * selectingLinePoints null, contains less than 2 elements or contains null
 	 * elements; or selectingLineWidth less than 1
 	 */
-	public SelectingLine(MapObject associatedObject, int associatedObjectDrawPriority, Point2D[] selectingLinePoints,
+	public SelectingLine(RenderableMapObject associatedObject, int associatedObjectDrawPriority, Point2D[] selectingLinePoints,
 					double selectingLineWidth) throws IllegalArgumentException
 	{
 		super(associatedObject, associatedObjectDrawPriority);

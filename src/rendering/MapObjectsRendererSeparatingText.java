@@ -10,7 +10,6 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import map.MapLine;
-import map.MapObject;
 import map.MapPolygon;
 import rendering.selectng.SelectingBuffer;
 import rendering.selectng.SelectingLine;
@@ -369,7 +368,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	 * @throws IllegalArgumentException lineToRender is null
 	 */
 	@Override
-	public void visitLine(MapLine lineToRender) throws IllegalArgumentException
+	public void visitLine(RenderableMapLine lineToRender) throws IllegalArgumentException
 	{
 		if (lineToRender == null)
 		{
@@ -424,7 +423,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	 * @return line color
 	 * @throws IllegalArgumentException line or sourceDrawSettings is null
 	 */
-	private Color findLineColor(MapLine line,
+	private Color findLineColor(RenderableMapLine line,
 					LineDrawSettings sourceDrawSettings) throws IllegalArgumentException
 	{
 		if (line == null)
@@ -464,7 +463,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	 * @return line text draw settings
 	 * @throws IllegalArgumentException line or sourceTextDrawSettings is null
 	 */
-	private TextDrawSettings findLineTextDrawSettingsColor(MapLine line,
+	private TextDrawSettings findLineTextDrawSettingsColor(RenderableMapLine line,
 					TextDrawSettings sourceTextDrawSettings) throws IllegalArgumentException
 	{
 		if (line == null)
@@ -503,7 +502,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	 * @return multiline by mapLine, defined by points array
 	 * @throws IllegalArgumentException mapLine is null
 	 */
-	private Point2D[] createDrawingMultilineByMapLine(MapLine mapLine) throws IllegalArgumentException
+	private Point2D[] createDrawingMultilineByMapLine(RenderableMapLine mapLine) throws IllegalArgumentException
 	{
 		if (mapLine == null)
 		{

@@ -1,6 +1,5 @@
 package rendering;
 
-import map.MapLine;
 import map.MapPolygon;
 
 /**
@@ -19,12 +18,12 @@ public interface RenderableMapObjectsVisitor
 	public abstract void visitPoint(RenderableMapPoint renderablePoint) throws IllegalArgumentException;
 
 	/**
-	 * Visit line
+	 * Visit renderableLine
 	 *
-	 * @param line lineToRender on a map
+	 * @param renderableLine lineToRender on a map
 	 * @throws IllegalArgumentException lineToRender is null
 	 */
-	public abstract void visitLine(MapLine line) throws IllegalArgumentException;
+	public abstract void visitLine(RenderableMapLine renderableLine) throws IllegalArgumentException;
 
 	/**
 	 * Visit polygon
