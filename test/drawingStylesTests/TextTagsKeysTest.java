@@ -1,9 +1,9 @@
 package drawingStylesTests;
 
 import IOTesting.IOTester;
-import mapDefenitionUtilities.DefenitionTags;
-import mapDefenitionUtilities.DefenitionTags;
-import mapDefenitionUtilities.Tag;
+import drawingStyles.DefenitionTags;
+import drawingStyles.DefenitionTags;
+import drawingStyles.Tag;
 import drawingStyles.TextTagsKeys;
 import static org.junit.Assert.*;
 import org.junit.Test;

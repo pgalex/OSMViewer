@@ -1,16 +1,16 @@
 package onlineMapTests;
 
-import mapDefenitionUtilities.DefenitionTags;
+import drawingStyles.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleEditor;
-import mapDefenitionUtilities.Tag;
+import drawingStyles.Tag;
 import java.util.ArrayList;
 import map.MapLine;
 import map.MapObject;
 import map.MapPoint;
 import map.MapPolygon;
-import mapDefenitionUtilities.MapPosition;
+import MapDefenitionUtilities.MapPosition;
 import map.onlineMap.OnlineMap;
 import map.onlineMap.OnlineMapLoader;
 import static org.junit.Assert.*;

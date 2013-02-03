@@ -1,7 +1,7 @@
 package drawingStyles.forms;
 
 import ZoeloeSoft.projects.JFontChooser.JFontChooser;
-import mapDefenitionUtilities.DefenitionTags;
+import drawingStyles.DefenitionTags;
 import drawingStyles.DrawSettingsOnScale;
 import drawingStyles.DrawSettingsOnScaleArray;
 import drawingStyles.LineDrawSettings;
@@ -9,7 +9,7 @@ import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.PointDrawSettings;
 import drawingStyles.PolygonDrawSettings;
 import drawingStyles.PolygonFillersFactory;
-import mapDefenitionUtilities.Tag;
+import drawingStyles.Tag;
 import drawingStyles.TextDrawSettings;
 import drawingStyles.TextTagsKeys;
 import java.awt.Color;

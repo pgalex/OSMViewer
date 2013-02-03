@@ -1,7 +1,7 @@
-package mapDefenitionUtilitiesTests;
+package drawingStylesTests;
 
 import IOTesting.IOTester;
-import mapDefenitionUtilities.Tag;
+import drawingStyles.Tag;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -10,7 +10,7 @@ import org.junit.Test;
  *
  * @author abc
  */
-public class TagTest
+public class MapTagTest
 {
 	/**
 	 * Test creating tag with null key

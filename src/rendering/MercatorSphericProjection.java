@@ -1,7 +1,7 @@
 package rendering;
 
 import java.awt.geom.Point2D;
-import mapDefenitionUtilities.MapPosition;
+import MapDefenitionUtilities.MapPosition;
 
 /**
  * Realization of mercator spheric projection

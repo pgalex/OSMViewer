@@ -1,6 +1,6 @@
 package rendering;
 
-import mapDefenitionUtilities.DefenitionTags;
+import drawingStyles.DefenitionTags;
 
 /**
  * Map object that can be rendered

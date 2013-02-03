@@ -1,10 +1,10 @@
 package drawingStylesTests;
 
 import IOTesting.IOTester;
-import mapDefenitionUtilities.DefenitionTags;
+import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.MapObjectDrawStylesContainer;
-import mapDefenitionUtilities.Tag;
+import drawingStyles.Tag;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;

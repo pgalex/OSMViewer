@@ -1,6 +1,6 @@
 package rendering;
 
-import mapDefenitionUtilities.MapBounds;
+import MapDefenitionUtilities.MapBounds;
 
 /**
  * Interface of map that can be render
