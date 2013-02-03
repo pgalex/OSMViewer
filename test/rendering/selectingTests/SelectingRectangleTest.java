@@ -1,13 +1,12 @@
 package rendering.selectingTests;
 
-import mapDefenitionUtilities.DefenitionTags;
-import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import map.MapPoint;
+import mapDefenitionUtilities.DefenitionTags;
 import mapDefenitionUtilities.MapPosition;
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
 import rendering.selectng.SelectingRectangle;
 
 /**

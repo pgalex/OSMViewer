@@ -19,7 +19,7 @@ public class MapObjectsRendererSeparatingTextTest
 	 * Rendering null polygon test
 	 */
 	@Test
-	public void renderingPolygonLineTest()
+	public void renderingNullPolygonTest()
 	{
 		MapRenderer mapRenderer = new MapRenderer(5, 10, 5);
 		BufferedImage textImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
@@ -32,31 +32,6 @@ public class MapObjectsRendererSeparatingTextTest
 		try
 		{
 			objectsRenderer.visitPolygon(null);
-			fail();
-		}
-		catch (IllegalArgumentException ex)
-		{
-			// ok
-		}
-	}
-
-	/**
-	 * Test setting null object to draw as highlighted
-	 */
-	@Test
-	public void setNullObjectToHighlightTest()
-	{
-		MapRenderer mapRenderer = new MapRenderer(5, 10, 5);
-		BufferedImage textImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
-		BufferedImage objectsImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
-		SelectingBuffer selectingBuffer = new SelectingBuffer();
-
-		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(objectsImage.createGraphics(),
-						textImage.createGraphics(), DrawingStylesFactory.createStyleViewer(), mapRenderer, 5,
-						selectingBuffer);
-		try
-		{
-			objectsRenderer.setObjectToDrawAsHighlighted(null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -107,6 +82,31 @@ public class MapObjectsRendererSeparatingTextTest
 		try
 		{
 			objectsRenderer.visitPoint(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Test setting null object to draw as highlighted
+	 */
+	@Test
+	public void setNullObjectToHighlightTest()
+	{
+		MapRenderer mapRenderer = new MapRenderer(5, 10, 5);
+		BufferedImage textImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
+		BufferedImage objectsImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
+		SelectingBuffer selectingBuffer = new SelectingBuffer();
+
+		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(objectsImage.createGraphics(),
+						textImage.createGraphics(), DrawingStylesFactory.createStyleViewer(), mapRenderer, 5,
+						selectingBuffer);
+		try
+		{
+			objectsRenderer.setObjectToDrawAsHighlighted(null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)

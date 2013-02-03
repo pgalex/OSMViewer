@@ -6,7 +6,6 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import mapDefenitionUtilities.MapBounds;
 import mapDefenitionUtilities.MapPosition;
-import map.onlineMap.OnlineMap;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import rendering.MapRenderer;
@@ -204,7 +203,7 @@ public class MapRendererTest
 		{
 			MapRenderer renderer = new MapRenderer(5, 10, 5);
 
-			RenderableMap map = new OnlineMap();
+			RenderableMap map = new RenderableMapFake();
 			renderer.renderMap(map, null, DrawingStylesFactory.createStyleViewer());
 
 			fail();
@@ -226,7 +225,7 @@ public class MapRendererTest
 			MapRenderer renderer = new MapRenderer(5, 10, 5);
 
 			BufferedImage someImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB);
-			RenderableMap map = new OnlineMap();
+			RenderableMap map = new RenderableMapFake();
 			renderer.renderMap(map, someImage.createGraphics(), null);
 
 			fail();

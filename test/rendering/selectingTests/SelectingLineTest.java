@@ -1,8 +1,8 @@
 package rendering.selectingTests;
 
-import mapDefenitionUtilities.DefenitionTags;
 import java.awt.geom.Point2D;
 import map.MapPoint;
+import mapDefenitionUtilities.DefenitionTags;
 import mapDefenitionUtilities.MapPosition;
 import static org.junit.Assert.*;
 import org.junit.Test;
