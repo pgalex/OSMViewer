@@ -9,8 +9,6 @@ import java.awt.Polygon;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import map.MapLine;
-import map.MapPolygon;
 import rendering.selectng.SelectingBuffer;
 import rendering.selectng.SelectingLine;
 import rendering.selectng.SelectingPolygon;
@@ -526,7 +524,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	 * @throws IllegalArgumentException polygonToRender is null
 	 */
 	@Override
-	public void visitPolygon(MapPolygon polygonToRender) throws IllegalArgumentException
+	public void visitPolygon(RenderableMapPolygon polygonToRender) throws IllegalArgumentException
 	{
 		if (polygonToRender == null)
 		{
@@ -586,7 +584,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	 * @throws IllegalArgumentException polygon or sourceBorderDrawSettings is
 	 * null
 	 */
-	private Color findPolygonBorderColor(MapPolygon polygon,
+	private Color findPolygonBorderColor(RenderableMapPolygon polygon,
 					LineDrawSettings sourceBorderDrawSettings) throws IllegalArgumentException
 	{
 		if (polygon == null)
@@ -626,7 +624,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	 * @return paint for drawing inner part of polygon
 	 * @throws IllegalArgumentException polygon or sourceDrawSettings is null
 	 */
-	private Paint findPolygonInnerPaint(MapPolygon polygon,
+	private Paint findPolygonInnerPaint(RenderableMapPolygon polygon,
 					PolygonDrawSettings sourceDrawSettings) throws IllegalArgumentException
 	{
 		if (polygon == null)
@@ -666,7 +664,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	 * @return draw settings of polygon text
 	 * @throws IllegalArgumentException polygon or sourceTextDrawSettings is null
 	 */
-	private TextDrawSettings findPolygonTextDrawSettings(MapPolygon polygon,
+	private TextDrawSettings findPolygonTextDrawSettings(RenderableMapPolygon polygon,
 					TextDrawSettings sourceTextDrawSettings) throws IllegalArgumentException
 	{
 		if (polygon == null)
@@ -727,7 +725,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	 * @return polygon on objectsCanvas
 	 * @throws IllegalArgumentException mapPolygon is null
 	 */
-	private Polygon createDrawingPolygonByMapPolygon(MapPolygon mapPolygon) throws IllegalArgumentException
+	private Polygon createDrawingPolygonByMapPolygon(RenderableMapPolygon mapPolygon) throws IllegalArgumentException
 	{
 		if (mapPolygon == null)
 		{

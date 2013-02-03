@@ -2,7 +2,7 @@ package rendering.selectng;
 
 import java.awt.Polygon;
 import java.awt.geom.Point2D;
-import map.MapObject;
+import rendering.RenderableMapObject;
 
 /**
  * Interpretation of polygon-like map object using for selection
@@ -25,7 +25,7 @@ public class SelectingPolygon extends SelectingObject
 	 * @throws IllegalArgumentException associatedObject or polygonForSelection is
 	 * null
 	 */
-	public SelectingPolygon(MapObject associatedObject, int associatedObjectDrawPriority,
+	public SelectingPolygon(RenderableMapObject associatedObject, int associatedObjectDrawPriority,
 					Polygon polygonForSelection) throws IllegalArgumentException
 	{
 		super(associatedObject, associatedObjectDrawPriority);

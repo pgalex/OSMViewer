@@ -1,7 +1,5 @@
 package rendering;
 
-import map.MapPolygon;
-
 /**
  * Visitor of renderable objects
  *
@@ -26,10 +24,10 @@ public interface RenderableMapObjectsVisitor
 	public abstract void visitLine(RenderableMapLine renderableLine) throws IllegalArgumentException;
 
 	/**
-	 * Visit polygon
+	 * Visit renderablePolygon
 	 *
-	 * @param polygon polygon on a map
+	 * @param renderablePolygon renderablePolygon on a map
 	 * @throws IllegalArgumentException polygonToRender is null
 	 */
-	public abstract void visitPolygon(MapPolygon polygon) throws IllegalArgumentException;
+	public abstract void visitPolygon(RenderableMapPolygon renderablePolygon) throws IllegalArgumentException;
 }

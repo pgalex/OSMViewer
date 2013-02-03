@@ -6,6 +6,7 @@ import map.MapPoint;
 import map.MapPolygon;
 import rendering.RenderableMapLine;
 import rendering.RenderableMapPoint;
+import rendering.RenderableMapPolygon;
 
 /**
  * Mock class of objects renderer, using for testing
@@ -38,7 +39,7 @@ public class MapObjectsRendererMock implements RenderableMapObjectsVisitor
 	}
 
 	@Override
-	public void visitPolygon(MapPolygon pPolygon)
+	public void visitPolygon(RenderableMapPolygon pPolygon)
 	{
 		polygonsRendered++;
 	}
