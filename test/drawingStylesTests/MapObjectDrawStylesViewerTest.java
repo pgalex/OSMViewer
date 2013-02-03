@@ -2,10 +2,10 @@ package drawingStylesTests;
 
 import IOTesting.IOTester;
 import drawingStyles.DrawingStylesFactory;
-import mapDefenitionUtilities.DefenitionTags;
+import drawingStyles.DefenitionTags;
 import drawingStyles.MapDrawSettings;
 import drawingStyles.MapObjectDrawSettings;
-import mapDefenitionUtilities.Tag;
+import drawingStyles.Tag;
 import drawingStyles.StyleEditor;
 import drawingStyles.StyleViewer;
 import java.awt.Color;

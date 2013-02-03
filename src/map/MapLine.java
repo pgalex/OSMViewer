@@ -1,14 +1,14 @@
 package map;
 
-import mapDefenitionUtilities.MapBounds;
-import mapDefenitionUtilities.MapPosition;
+import MapDefenitionUtilities.MapBounds;
+import MapDefenitionUtilities.MapPosition;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.LinearRing;
 import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
-import mapDefenitionUtilities.DefenitionTags;
+import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
 import rendering.RenderableMapLine;
 import rendering.RenderableMapObjectsVisitor;

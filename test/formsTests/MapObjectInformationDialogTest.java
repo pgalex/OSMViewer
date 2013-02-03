@@ -1,11 +1,11 @@
 package formsTests;
 
-import mapDefenitionUtilities.DefenitionTags;
+import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
 import forms.MapObjectInformationDialog;
 import java.awt.Dialog;
 import map.MapPoint;
-import mapDefenitionUtilities.MapPosition;
+import MapDefenitionUtilities.MapPosition;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

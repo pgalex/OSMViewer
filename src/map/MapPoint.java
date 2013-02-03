@@ -1,8 +1,8 @@
 package map;
 
-import mapDefenitionUtilities.MapBounds;
-import mapDefenitionUtilities.MapPosition;
-import mapDefenitionUtilities.DefenitionTags;
+import MapDefenitionUtilities.MapBounds;
+import MapDefenitionUtilities.MapPosition;
+import drawingStyles.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
 import java.awt.geom.Rectangle2D;
 import rendering.RenderableMapObjectsVisitor;

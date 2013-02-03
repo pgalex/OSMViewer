@@ -1,6 +1,6 @@
 package formsTests;
 
-import mapDefenitionUtilities.DefenitionTags;
+import drawingStyles.DefenitionTags;
 import forms.DefenitionTagsInformationTableModel;
 import org.junit.Test;
 import static org.junit.Assert.*;
