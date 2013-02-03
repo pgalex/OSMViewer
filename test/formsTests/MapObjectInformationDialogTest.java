@@ -5,7 +5,7 @@ import drawingStyles.MapObjectDrawSettings;
 import forms.MapObjectInformationDialog;
 import java.awt.Dialog;
 import map.MapPoint;
-import MapDefenitionUtilities.MapPosition;
+import mapUtilities.MapPosition;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

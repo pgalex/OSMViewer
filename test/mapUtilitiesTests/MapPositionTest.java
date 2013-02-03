@@ -1,6 +1,6 @@
-package MapDefenitionUtilitiesTests;
+package mapUtilitiesTests;
 
-import MapDefenitionUtilities.MapPosition;
+import mapUtilities.MapPosition;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

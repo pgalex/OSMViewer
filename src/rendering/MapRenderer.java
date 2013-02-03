@@ -7,8 +7,8 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-import MapDefenitionUtilities.MapBounds;
-import MapDefenitionUtilities.MapPosition;
+import mapUtilities.MapBounds;
+import mapUtilities.MapPosition;
 import rendering.selectng.SelectingBuffer;
 
 /**

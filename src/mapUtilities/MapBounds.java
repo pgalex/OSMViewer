@@ -1,4 +1,4 @@
-package MapDefenitionUtilities;
+package mapUtilities;
 
 /**
  * Describes area in spheric coordinates by latitude/longitude bounds

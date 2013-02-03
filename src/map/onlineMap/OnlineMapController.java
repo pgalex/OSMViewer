@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import MapDefenitionUtilities.MapPosition;
+import mapUtilities.MapPosition;
 import rendering.MapRenderer;
 import rendering.RenderableMapObject;
 

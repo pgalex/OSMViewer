@@ -1,6 +1,6 @@
 package rendering;
 
-import MapDefenitionUtilities.MapPosition;
+import mapUtilities.MapPosition;
 
 /**
  * Polygon-like map object that can be rendered

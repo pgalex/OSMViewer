@@ -10,7 +10,7 @@ import map.MapLine;
 import map.MapObject;
 import map.MapPoint;
 import map.MapPolygon;
-import MapDefenitionUtilities.MapPosition;
+import mapUtilities.MapPosition;
 import map.onlineMap.OnlineMap;
 import map.onlineMap.OnlineMapLoader;
 import static org.junit.Assert.*;

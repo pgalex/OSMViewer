@@ -2,7 +2,7 @@ package map.onlineMap;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import MapDefenitionUtilities.MapBounds;
+import mapUtilities.MapBounds;
 import map.MapObject;
 import rendering.RenderableMapObjectsDrawPriorityComparator;
 import rendering.RenderableMap;
