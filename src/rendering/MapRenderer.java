@@ -12,27 +12,26 @@ import mapDefenitionUtilities.MapPosition;
 import rendering.selectng.SelectingBuffer;
 
 /**
- * Uses to render RenderableMap. Defines order of rendering and container
- * rendring parameters
+ * Map renderer. Defines order of map rendering and contains rendring parameters
  *
  * @author pgalex
  */
 public class MapRenderer implements CoordinatesConverter
 {
 	/**
-	 * Default drawing area
+	 * Default target canvas drawing area
 	 */
 	private static final Rectangle DEFAULT_DRAWING_AREA = new Rectangle(50, 50, 150, 150);
 	/**
-	 * Rectangle that define area where map will be drawen
+	 * Rectangle on target canvas that define area where map will be drawen
 	 */
 	private Rectangle targetCanvasDrawingArea;
 	/**
-	 * Current view position. Center point of area on a map that will be drawen
+	 * Current view position. Center point of rendering area of a map
 	 */
 	private MapPosition viewPosition;
 	/**
-	 * Current scale level
+	 * Current rendering scale level
 	 */
 	private int scaleLevel;
 	/**
@@ -44,24 +43,26 @@ public class MapRenderer implements CoordinatesConverter
 	 */
 	private int maximumScaleLevel;
 	/**
-	 * Object of rendering map, to draw as highlighted. Can be null
+	 * Object of rendering map, to draw it as highlighted. Can be null - no
+	 * highlighted objects
 	 */
 	private RenderableMapObject objectToDrawAsHighlighted;
 	/**
-	 * Object of rendering map, to draw as selected. Can be null
+	 * Object of rendering map, to draw it as selected. Can be null - no selected
+	 * objects
 	 */
 	private RenderableMapObject objectToDrawAsSelected;
 	/**
 	 * Buffer, contains intpertation of drawen objects using for finding objects
-	 * under point
+	 * under point, for selecting
 	 */
 	private SelectingBuffer selectingBuffer;
 
 	/**
-	 * Create renderer
+	 * Create map renderer
 	 *
-	 * @param renderingMinimumScaleLevel Minimun scale level
-	 * @param renderingMaximumScaleLevel Maximum scale level
+	 * @param renderingMinimumScaleLevel minimun scale level
+	 * @param renderingMaximumScaleLevel maximum scale level
 	 * @param startScaleLevel scale level that will be set as current after
 	 * creating
 	 * @throws IllegalArgumentException renderingMinimumScaleLevel more than
@@ -93,10 +94,11 @@ public class MapRenderer implements CoordinatesConverter
 	}
 
 	/**
-	 * Set new rectangle that define area where map will be drawen (on destenation
+	 * Set rectangle that define area where map will be drawen (on destenation
 	 * graphics)
 	 *
-	 * @param drawingAreaToSet rectangle that define area where map will be drawen
+	 * @param drawingAreaToSet rectangle that define area of target canvas where
+	 * map will be drawen
 	 * @throws IllegalArgumentException drawingAreaToSet is null
 	 */
 	public void setTargetCanvasDrawingArea(Rectangle drawingAreaToSet) throws IllegalArgumentException
@@ -110,10 +112,9 @@ public class MapRenderer implements CoordinatesConverter
 	}
 
 	/**
-	 * Get rectangle that define area where map will be drawen (on destenation
-	 * graphics)
+	 * Get rectangle that define area where map drawen (on destenation graphics)
 	 *
-	 * @return rectangle that define area where map will be drawen
+	 * @return rectangle that define area where map drawen
 	 */
 	public Rectangle getTargetCanvasDrawingArea()
 	{
@@ -123,8 +124,8 @@ public class MapRenderer implements CoordinatesConverter
 	/**
 	 * Set new view positoin
 	 *
-	 * @param viewPositionToSet New view position. Center point of area on a map
-	 * that will be drawen
+	 * @param viewPositionToSet new view position. Center point of map rendering
+	 * area
 	 * @throws IllegalArgumentException viewPositionToSet is null
 	 */
 	public void setViewPosition(MapPosition viewPositionToSet) throws IllegalArgumentException
@@ -151,7 +152,8 @@ public class MapRenderer implements CoordinatesConverter
 	 * Set new rendering scale level
 	 *
 	 * @param scaleLevelToSet new scale level
-	 * @throws IllegalArgumentException scaleLevelToSet is out of bounds
+	 * @throws IllegalArgumentException scaleLevelToSet is less than minimum scale
+	 * level, or more than maximum
 	 */
 	public void setScaleLevel(int scaleLevelToSet) throws IllegalArgumentException
 	{
@@ -164,7 +166,7 @@ public class MapRenderer implements CoordinatesConverter
 	}
 
 	/**
-	 * Get current scale level
+	 * Get scale level
 	 *
 	 * @return current scale level
 	 */
@@ -174,8 +176,8 @@ public class MapRenderer implements CoordinatesConverter
 	}
 
 	/**
-	 * Get area on map around view position that currently displayed. Size of area
-	 * determines by target canvas drawing area size
+	 * Get area on map around view position that currently displaying. Size of
+	 * area determines by target canvas drawing area
 	 *
 	 * @return view area
 	 */
@@ -237,11 +239,11 @@ public class MapRenderer implements CoordinatesConverter
 	}
 
 	/**
-	 * Find map objects at point among drawen on target canvas
+	 * Find map objects at point among map objects drawen on target canvas
 	 *
 	 * @param pointOnCanvas point on canvas to find map object at it
-	 * @return objects at point among drawen on target canvas, Sorted by draw
-	 * priority of drawen objects. Empty if no objects found.
+	 * @return objects at point among drawen on target canvas, sorted by draw its
+	 * priority. Empty if no objects found.
 	 * @throws IllegalArgumentException pointOnCanvas is null
 	 */
 	public RenderableMapObject[] findObjectsAtPoint(Point2D pointOnCanvas) throws IllegalArgumentException
@@ -320,25 +322,25 @@ public class MapRenderer implements CoordinatesConverter
 	/**
 	 * Set graphics rendering hints for map drawing
 	 *
-	 * @param canvas canvas using for setup
+	 * @param graphics graphics to setup setting on
 	 */
-	private void setupRenderingHints(Graphics2D canvas) throws IllegalArgumentException
+	private void setupRenderingHints(Graphics2D graphics) throws IllegalArgumentException
 	{
-		if (canvas == null)
+		if (graphics == null)
 		{
 			throw new IllegalArgumentException();
 		}
 
-		canvas.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		canvas.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		canvas.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		graphics.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 	}
 
 	/**
 	 * Convert point in geographics coordinates on a map to point on drawing
 	 * canvas (using current scale and view position)
 	 *
-	 * @param positionOnMap position of point on a map
+	 * @param positionOnMap position of point on a map to convert
 	 * @return position of point on drawing canvas
 	 * @throws IllegalArgumentException positionOnMap is null
 	 */
@@ -366,7 +368,7 @@ public class MapRenderer implements CoordinatesConverter
 	 * Convert point on drawing canvas to point on a map, using current scale and
 	 * view position
 	 *
-	 * @param positionOnCanvas position of point on drawing canvas
+	 * @param positionOnCanvas position of point on drawing canvas to convert
 	 * @return position of point on map
 	 * @throws IllegalArgumentException positionOnCanvas is null
 	 */

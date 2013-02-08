@@ -8,26 +8,26 @@ package rendering;
 public interface RenderableMapObjectsVisitor
 {
 	/**
-	 * Visit renderablePoint
+	 * Visit renderable point-like map object
 	 *
-	 * @param renderablePoint pointToRender on a map
-	 * @throws IllegalArgumentException pointToRender is null
+	 * @param renderablePoint visiting renderable point
+	 * @throws IllegalArgumentException renderablePoint is null
 	 */
 	public abstract void visitPoint(RenderableMapPoint renderablePoint) throws IllegalArgumentException;
 
 	/**
-	 * Visit renderableLine
+	 * Visit renderable line-like map object
 	 *
-	 * @param renderableLine lineToRender on a map
-	 * @throws IllegalArgumentException lineToRender is null
+	 * @param renderableLine visiting renderable line
+	 * @throws IllegalArgumentException renderableLine is null
 	 */
 	public abstract void visitLine(RenderableMapLine renderableLine) throws IllegalArgumentException;
 
 	/**
-	 * Visit renderablePolygon
+	 * Visit renderable polygon-like map object
 	 *
-	 * @param renderablePolygon renderablePolygon on a map
-	 * @throws IllegalArgumentException polygonToRender is null
+	 * @param renderablePolygon visiting renderable polygon
+	 * @throws IllegalArgumentException renderablePolygon is null
 	 */
 	public abstract void visitPolygon(RenderableMapPolygon renderablePolygon) throws IllegalArgumentException;
 }

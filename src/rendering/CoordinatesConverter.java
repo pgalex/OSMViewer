@@ -4,29 +4,26 @@ import java.awt.geom.Point2D;
 import mapDefenitionUtilities.MapPosition;
 
 /**
- * Interface of object that using to convert coordinates in current view
- * position
+ * Object that can be using to convert coordinates by its view parameters
  *
  * @author pgalex
  */
 public interface CoordinatesConverter
 {
 	/**
-	 * Convert point in geographics coordinates on a map to point on drawing
-	 * canvas (using current scale and view position)
+	 * Convert point on a map to point on drawing canvas
 	 *
-	 * @param positionOnMap position of point on a map
-	 * @return position of point on drawing canvas
+	 * @param positionOnMap position of point on a map in geographics coordinates
+	 * @return position of point on drawing canvas in pixels
 	 * @throws IllegalArgumentException positionOnMap is null
 	 */
 	public Point2D goegraphicsToCanvas(MapPosition positionOnMap) throws IllegalArgumentException;
 
 	/**
-	 * Convert point on drawing canvas to point on a map, using current scale and
-	 * view position
+	 * Convert point on drawing canvas to point on a map
 	 *
-	 * @param positionOnCanvas position of point on drawing canvas
-	 * @return position of point on map
+	 * @param positionOnCanvas position of point on drawing canvas in pixels
+	 * @return position of point on map in geographics coordinates
 	 * @throws IllegalArgumentException positionOnCanvas is null
 	 */
 	public MapPosition canvasToGeographics(Point2D positionOnCanvas) throws IllegalArgumentException;
