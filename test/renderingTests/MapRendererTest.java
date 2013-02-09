@@ -1,6 +1,7 @@
 package renderingTests;
 
 import drawingStyles.DrawingStylesFactory;
+import drawingStyles.MapDrawSettings;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
@@ -183,7 +184,7 @@ public class MapRendererTest
 			MapRenderer renderer = new MapRenderer(5, 10, 5);
 
 			BufferedImage someImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB);
-			renderer.renderMap(null, someImage.createGraphics(), DrawingStylesFactory.createStyleViewer());
+			renderer.renderMap(null, someImage.createGraphics(), new MapDrawSettings());
 
 			fail();
 		}
@@ -204,7 +205,7 @@ public class MapRendererTest
 			MapRenderer renderer = new MapRenderer(5, 10, 5);
 
 			RenderableMap map = new RenderableMapFake();
-			renderer.renderMap(map, null, DrawingStylesFactory.createStyleViewer());
+			renderer.renderMap(map, null, new MapDrawSettings());
 
 			fail();
 		}

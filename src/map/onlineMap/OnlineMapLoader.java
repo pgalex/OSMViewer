@@ -1,21 +1,22 @@
 package map.onlineMap;
 
-import mapDefenitionUtilities.DefenitionTags;
+import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleViewer;
-import mapDefenitionUtilities.Tag;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import mapDefenitionUtilities.MapBounds;
 import map.MapLine;
 import map.MapObject;
 import map.MapPoint;
 import map.MapPolygon;
-import mapDefenitionUtilities.MapPosition;
 import map.exceptions.*;
+import mapDefenitionUtilities.DefenitionTags;
+import mapDefenitionUtilities.MapBounds;
+import mapDefenitionUtilities.MapPosition;
+import mapDefenitionUtilities.Tag;
 import osmXml.OnlineOsmParser;
 import osmXml.OsmNode;
 import osmXml.OsmTag;
@@ -64,7 +65,7 @@ public class OnlineMapLoader
 		{
 			throw new IllegalArgumentException();
 		}
-
+		
 		fillingMap.clear();
 
 		// nothing to load
@@ -84,10 +85,10 @@ public class OnlineMapLoader
 			 URLConnection openStreetMapConnection = openStreetMapURL.openConnection();
 			 onlineParser.convert(openStreetMapConnection.getInputStream());*/
 			onlineParser.convert(new DataInputStream(new FileInputStream(new File("some_map.osm.xml"))));
-
+			
 			fillMapWithPoints(onlineParser.getNodes(), styleViewer, fillingMap);
 			fillMapWithPolygonsAndLines(onlineParser.getNodes(), onlineParser.getWays(), styleViewer, fillingMap);
-
+			
 			onlineParser.clear();
 		}
 		catch (MalformedURLException ex)
@@ -123,13 +124,20 @@ public class OnlineMapLoader
 		{
 			return;
 		}
-
+		
 		for (OsmWay way : ways)
 		{
 			MapObject newObject = createMapObjectByWay(way, nodes);
-			if (newObject != null)
+			if (newObject == null)
 			{
-				newObject.assignStyleIndex(styleViewer);
+				continue;
+			}
+			
+			Integer newObjectStyleIndex = styleViewer.findStyleIndex(newObject.getDefenitionTags());
+			MapObjectDrawSettings newObjectDrawSettings = styleViewer.getMapObjectDrawSettings(newObjectStyleIndex);
+			if (newObject.canBeDrawenWithStyle(newObjectDrawSettings))
+			{
+				newObject.setDrawSettings(newObjectDrawSettings);
 				fillingMap.addObject(newObject);
 			}
 		}
@@ -149,7 +157,7 @@ public class OnlineMapLoader
 		{
 			return null;
 		}
-
+		
 		ArrayList<Long> nodesIds = way.getNodesIds();
 		DefenitionTags creatingObjectTags = createDefentionTagsByOsmTags(way.getTags());
 		MapPosition[] objectPoints = findPointsInOsmNodes(nodesIds, nodes);
@@ -157,9 +165,9 @@ public class OnlineMapLoader
 		{
 			return null;
 		}
-
+		
 		MapObject creatingMapObject;
-
+		
 		boolean wayDescribesPolygon = nodesIds.get(0).equals(nodesIds.get(nodesIds.size() - 1));
 		if (wayDescribesPolygon)
 		{
@@ -169,7 +177,7 @@ public class OnlineMapLoader
 		{
 			creatingMapObject = new MapLine(way.getId(), creatingObjectTags, objectPoints);
 		}
-
+		
 		return creatingMapObject;
 	}
 
@@ -192,13 +200,13 @@ public class OnlineMapLoader
 		{
 			return new MapPosition[0];
 		}
-
+		
 		MapPosition[] foundPoints = new MapPosition[nodesIds.size()];
 		boolean allNodesFounds = true;
 		for (int i = 0; i < nodesIds.size(); i++)
 		{
 			boolean nodeFound = false;
-
+			
 			for (OsmNode osmNode : nodes)
 			{
 				if (osmNode.getId() == nodesIds.get(i))
@@ -208,13 +216,13 @@ public class OnlineMapLoader
 					break;
 				}
 			}
-
+			
 			if (!nodeFound)
 			{
 				allNodesFounds = false;
 			}
 		}
-
+		
 		if (allNodesFounds)
 		{
 			return foundPoints;
@@ -243,13 +251,20 @@ public class OnlineMapLoader
 		{
 			return;
 		}
-
+		
 		for (OsmNode currentNode : nodes)
 		{
 			MapPoint newPoint = createMapPointByOsmNode(currentNode);
-			if (newPoint != null)
+			if (newPoint == null)
 			{
-				newPoint.assignStyleIndex(styleViewer);
+				continue;
+			}
+			
+			Integer newPointStyleIndex = styleViewer.findStyleIndex(newPoint.getDefenitionTags());
+			MapObjectDrawSettings newPointDrawSettings = styleViewer.getMapObjectDrawSettings(newPointStyleIndex);
+			if (newPoint.canBeDrawenWithStyle(newPointDrawSettings))
+			{
+				newPoint.setDrawSettings(newPointDrawSettings);
 				fillingMap.addObject(newPoint);
 			}
 		}
@@ -267,7 +282,7 @@ public class OnlineMapLoader
 		{
 			return null;
 		}
-
+		
 		DefenitionTags creatingPointTags = createDefentionTagsByOsmTags(node.getTags());
 		// node without tag is not a MapPoint (can not be displayed), 
 		// it will be included in MapLine like MapPosition
@@ -275,10 +290,10 @@ public class OnlineMapLoader
 		{
 			return null;
 		}
-
+		
 		MapPoint creatingPoint = new MapPoint(new MapPosition(node.getLatitude(), node.getLongitude()),
 						node.getId(), creatingPointTags);
-
+		
 		return creatingPoint;
 	}
 
@@ -294,7 +309,7 @@ public class OnlineMapLoader
 		{
 			return null;
 		}
-
+		
 		DefenitionTags creatingTags = new DefenitionTags();
 		for (int i = 0; i < osmTags.size(); i++)
 		{
@@ -323,7 +338,7 @@ public class OnlineMapLoader
 		{
 			return null;
 		}
-
+		
 		return new Tag(osmTag.getKey(), osmTag.getValue());
 	}
 }

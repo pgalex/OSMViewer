@@ -2,10 +2,10 @@ package map.onlineMap;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import mapDefenitionUtilities.MapBounds;
 import map.MapObject;
-import rendering.RenderableMapObjectsDrawPriorityComparator;
+import mapDefenitionUtilities.MapBounds;
 import rendering.RenderableMap;
+import rendering.RenderableMapObjectsDrawPriorityComparator;
 import rendering.RenderableMapObjectsVisitor;
 
 /**
@@ -40,10 +40,7 @@ public class OnlineMap implements RenderableMap
 			return;
 		}
 
-		if (objectToAdd.getStyleIndex() != null)
-		{
-			objects.add(objectToAdd);
-		}
+		objects.add(objectToAdd);
 	}
 
 	/**

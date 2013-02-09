@@ -1,13 +1,13 @@
 package mapTests;
 
-import mapDefenitionUtilities.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleEditor;
-import mapDefenitionUtilities.Tag;
-import mapDefenitionUtilities.MapBounds;
 import map.MapPolygon;
+import mapDefenitionUtilities.DefenitionTags;
+import mapDefenitionUtilities.MapBounds;
 import mapDefenitionUtilities.MapPosition;
+import mapDefenitionUtilities.Tag;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -189,114 +189,6 @@ public class MapPolygonTest
 		{
 			// ok
 		}
-	}
-
-	/**
-	 * Testing assigning style index if style viewer is null
-	 */
-	@Test
-	public void assigningStyleIndexNullStyleViewerTest()
-	{
-		try
-		{
-			MapPosition[] points = new MapPosition[4];
-			points[0] = new MapPosition(1, 2);
-			points[1] = new MapPosition(2, 3);
-			points[2] = new MapPosition(5, 6);
-			points[3] = points[0];
-			MapPolygon polygon = new MapPolygon(0, new DefenitionTags(), points);
-			polygon.assignStyleIndex(null);
-			fail();
-		}
-		catch (IllegalArgumentException ex)
-		{
-			// ok
-		}
-	}
-
-	/**
-	 * Testing assigning style index and canBeDrawenWithStyle work if object can
-	 * be polygon
-	 */
-	@Test
-	public void assigningStyleIndexCanBePolygonTest()
-	{
-		DefenitionTags tags = new DefenitionTags();
-		tags.add(new Tag("k1", "v1"));
-		
-		MapObjectDrawSettings style = new MapObjectDrawSettings();
-		style.setCanBePolygon();
-		style.setDescription("polygon style");
-		style.setDefenitionTags(tags);
-		
-		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
-		testEditor.addMapObjectDrawSettings(style);
-		
-		MapPosition[] points = new MapPosition[4];
-		points[0] = new MapPosition(1, 2);
-		points[1] = new MapPosition(2, 3);
-		points[2] = new MapPosition(5, 6);
-		points[3] = points[0];
-		MapPolygon testPolygon = new MapPolygon(1, tags, points);
-		testPolygon.assignStyleIndex(testEditor);
-		
-		assertNotNull(testPolygon.getStyleIndex());
-		assertEquals(style.getDescription(), testEditor.getMapObjectDrawSettings(testPolygon.getStyleIndex()).getDescription());
-	}
-
-	/**
-	 * Testing assigning style index and canBeDrawenWithStyle work if object can
-	 * not be polygon
-	 */
-	@Test
-	public void assigningStyleIndexCanNotBePolygonTest()
-	{
-		DefenitionTags tags = new DefenitionTags();
-		tags.add(new Tag("k1", "v1"));
-		
-		MapObjectDrawSettings style = new MapObjectDrawSettings();
-		style.setCanNotBePolygon();
-		style.setDescription("polygon style");
-		style.setDefenitionTags(tags);
-		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
-		testEditor.addMapObjectDrawSettings(style);
-		
-		MapPosition[] points = new MapPosition[4];
-		points[0] = new MapPosition(1, 2);
-		points[1] = new MapPosition(2, 3);
-		points[2] = new MapPosition(5, 6);
-		points[3] = points[0];
-		MapPolygon testPolygon = new MapPolygon(1, tags, points);
-		testPolygon.assignStyleIndex(testEditor);
-		
-		assertNull(testPolygon.getStyleIndex());
-	}
-
-	/**
-	 * Testing assigning style index if style not found
-	 */
-	@Test
-	public void assigningStyleIndexNotFoundTest()
-	{
-		DefenitionTags tags = new DefenitionTags();
-		tags.add(new Tag("k1", "v1"));
-		
-		MapObjectDrawSettings style = new MapObjectDrawSettings();
-		style.setDescription("polygon style");
-		style.setDefenitionTags(tags);
-		
-		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
-		testEditor.addMapObjectDrawSettings(style);
-		
-		MapPosition[] points = new MapPosition[4];
-		points[0] = new MapPosition(1, 2);
-		points[1] = new MapPosition(2, 3);
-		points[2] = new MapPosition(5, 6);
-		points[3] = points[0];
-		MapPolygon testPolygon = new MapPolygon(1, new DefenitionTags(), points);
-		testPolygon.assignStyleIndex(testEditor);
-		
-		assertNull(testPolygon.getStyleIndex());
 	}
 
 	/**

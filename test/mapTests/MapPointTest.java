@@ -1,13 +1,13 @@
 package mapTests;
 
-import mapDefenitionUtilities.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleEditor;
-import mapDefenitionUtilities.Tag;
-import mapDefenitionUtilities.MapBounds;
 import map.MapPoint;
+import mapDefenitionUtilities.DefenitionTags;
+import mapDefenitionUtilities.MapBounds;
 import mapDefenitionUtilities.MapPosition;
+import mapDefenitionUtilities.Tag;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -68,94 +68,6 @@ public class MapPointTest
 		{
 			// ok
 		}
-	}
-
-	/**
-	 * Testing assigning style index if style viewer is null
-	 */
-	@Test
-	public void assigningStyleIndexNullStyleViewerTest()
-	{
-		try
-		{
-			MapPoint testPoint = new MapPoint(new MapPosition(), 12, new DefenitionTags());
-			testPoint.assignStyleIndex(null);
-			fail();
-		}
-		catch (IllegalArgumentException ex)
-		{
-			// ok
-		}
-	}
-
-	/**
-	 * Testing assigning style index and canBeDrawenWithStyle work if object can
-	 * be point
-	 */
-	@Test
-	public void assigningStyleIndexCanBePointTest()
-	{
-		DefenitionTags tags = new DefenitionTags();
-		tags.add(new Tag("k1", "v1"));
-
-		MapObjectDrawSettings style = new MapObjectDrawSettings();
-		style.setCanBePoint();
-		style.setDescription("point style");
-		style.setDefenitionTags(tags);
-
-		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
-		testEditor.addMapObjectDrawSettings(style);
-
-		MapPoint testPoint = new MapPoint(new MapPosition(0, 0), 0, tags);
-		testPoint.assignStyleIndex(testEditor);
-
-		assertNotNull(testPoint.getStyleIndex());
-		assertEquals(style.getDescription(), testEditor.getMapObjectDrawSettings(testPoint.getStyleIndex()).getDescription());
-	}
-
-	/**
-	 * Testing assigning style index and canBeDrawenWithStyle work if object can
-	 * not be point
-	 */
-	@Test
-	public void assigningStyleIndexCanNotBePointTest()
-	{
-		DefenitionTags tags = new DefenitionTags();
-		tags.add(new Tag("k1", "v1"));
-
-		MapObjectDrawSettings style = new MapObjectDrawSettings();
-		style.setCanNotBePoint();
-		style.setDescription("point style");
-		style.setDefenitionTags(tags);
-
-		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
-		testEditor.addMapObjectDrawSettings(style);
-
-		MapPoint testPoint = new MapPoint(new MapPosition(0, 0), 0, tags);
-		testPoint.assignStyleIndex(testEditor);
-
-		assertNull(testPoint.getStyleIndex());
-	}
-
-	/**
-	 * Testing assigning style index if style not found
-	 */
-	@Test
-	public void assigningStyleIndexNotFoundTest()
-	{
-		DefenitionTags tags = new DefenitionTags();
-		tags.add(new Tag("k1", "v1"));
-		MapObjectDrawSettings style = new MapObjectDrawSettings();
-		style.setDescription("point style");
-		style.setDefenitionTags(tags);
-
-		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
-		testEditor.addMapObjectDrawSettings(style);
-
-		MapPoint testPoint = new MapPoint(new MapPosition(0, 0), 0, new DefenitionTags());
-		testPoint.assignStyleIndex(testEditor);
-
-		assertNull(testPoint.getStyleIndex());
 	}
 
 	/**

@@ -2,12 +2,11 @@ package forms;
 
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.forms.EditDrawingStylesFrame;
-import java.awt.Dialog;
+import java.awt.Dialog.ModalityType;
 import java.awt.Point;
 import javax.swing.JFrame;
-import map.MapObject;
-import mapDefenitionUtilities.MapPosition;
 import map.onlineMap.OnlineMapController;
+import mapDefenitionUtilities.MapPosition;
 import rendering.RenderableMapObject;
 
 /**
@@ -43,7 +42,7 @@ public class MainFrame extends javax.swing.JFrame
 		DrawingPanel drawingPanel = (DrawingPanel) jPanelCanvas;
 		drawingPanel.setPainter(mapController);
 
-		mapObjectInformationDialog = new MapObjectInformationDialog(this, Dialog.ModalityType.MODELESS);
+		mapObjectInformationDialog = new MapObjectInformationDialog(this, ModalityType.MODELESS);
 		mapObjectInformationDialog.setAlwaysOnTop(true);
 		mapObjectInformationDialog.setLocationRelativeTo(this);
 	}
@@ -222,7 +221,7 @@ public class MainFrame extends javax.swing.JFrame
 		if (objectsAtMousePosition.length > 0)
 		{
 			RenderableMapObject topDrawenObject = objectsAtMousePosition[0];
-			MapObjectDrawSettings topDrawenObjectDrawSettings = mapController.findMapObjectDrawSettings(topDrawenObject);
+			MapObjectDrawSettings topDrawenObjectDrawSettings = topDrawenObject.getDrawSettings();
 			if (topDrawenObjectDrawSettings != null)
 			{
 				mapController.setObjectToDrawAsSelected(topDrawenObject);

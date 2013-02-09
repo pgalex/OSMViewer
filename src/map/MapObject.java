@@ -1,11 +1,9 @@
 package map;
 
-import mapDefenitionUtilities.MapBounds;
-import mapDefenitionUtilities.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.StyleViewer;
+import mapDefenitionUtilities.DefenitionTags;
+import mapDefenitionUtilities.MapBounds;
 import rendering.RenderableMapObject;
-import rendering.RenderableMapObjectsVisitor;
 
 /**
  * Some object on a map
@@ -24,10 +22,9 @@ public abstract class MapObject implements RenderableMapObject
 	 */
 	private DefenitionTags defenitionTags;
 	/**
-	 * Index of style, using to identity object on map, and find how to draw this
-	 * object
+	 * Draw settings of map object. If null - not defined
 	 */
-	private Integer styleIndex;
+	private MapObjectDrawSettings drawSettings;
 
 	/**
 	 * Create with parameters
@@ -45,7 +42,7 @@ public abstract class MapObject implements RenderableMapObject
 
 		id = objectId;
 		defenitionTags = objectDefenitionTags;
-		styleIndex = null;
+		drawSettings = null;
 	}
 
 	/**
@@ -70,41 +67,30 @@ public abstract class MapObject implements RenderableMapObject
 	}
 
 	/**
-	 * Get drawing style index
+	 * Get draw settings
 	 *
-	 * @return style index. null if not assigned
+	 * @return draw settings of map object. Null if not defined
 	 */
 	@Override
-	public Integer getStyleIndex()
+	public MapObjectDrawSettings getDrawSettings()
 	{
-		return styleIndex;
+		return drawSettings;
 	}
 
 	/**
-	 * Assign style index by founding it in style viewer, using defenition tags
-	 * and canBeDrawenWithStyle method
+	 * Set draw settings
 	 *
-	 * @param styleViewer style viewer, using to find index
-	 * @throws IllegalArgumentException styleViewer is null
+	 * @param drawSettingsToSet new draw settings
+	 * @throws IllegalArgumentException drawSettingsToSet is null
 	 */
-	public void assignStyleIndex(StyleViewer styleViewer) throws IllegalArgumentException
+	public void setDrawSettings(MapObjectDrawSettings drawSettingsToSet) throws IllegalArgumentException
 	{
-		if (styleViewer == null)
+		if (drawSettingsToSet == null)
 		{
 			throw new IllegalArgumentException();
 		}
 
-		Integer foundedIndex = styleViewer.findStyleIndex(defenitionTags);
-		MapObjectDrawSettings foundedStyle = styleViewer.getMapObjectDrawSettings(foundedIndex);
-
-		if (canBeDrawenWithStyle(foundedStyle))
-		{
-			styleIndex = foundedIndex;
-		}
-		else
-		{
-			styleIndex = null;
-		}
+		drawSettings = drawSettingsToSet;
 	}
 
 	/**
@@ -122,5 +108,5 @@ public abstract class MapObject implements RenderableMapObject
 	 * @param objectDrawStyle drawing style of object
 	 * @return Can this type of map object be drawen with this style
 	 */
-	protected abstract boolean canBeDrawenWithStyle(MapObjectDrawSettings objectDrawStyle);
+	public abstract boolean canBeDrawenWithStyle(MapObjectDrawSettings objectDrawStyle);
 }

@@ -101,7 +101,7 @@ public class MapPoint extends MapObject implements RenderableMapPoint
 	 * @return Can this type of map object be drawen with this style
 	 */
 	@Override
-	protected boolean canBeDrawenWithStyle(MapObjectDrawSettings objectDrawStyle)
+	public boolean canBeDrawenWithStyle(MapObjectDrawSettings objectDrawStyle)
 	{
 		if (objectDrawStyle == null)
 		{

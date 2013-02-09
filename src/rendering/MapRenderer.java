@@ -261,12 +261,12 @@ public class MapRenderer implements CoordinatesConverter
 	 *
 	 * @param targetCanvas canvas to draw map on
 	 * @param mapToRender rendering map
-	 * @param styleViewer drawing styles, uses for rendering
-	 * @throws IllegalArgumentException targetCanvas, mapToRender or styleViewer
-	 * is null
+	 * @param mapDrawSettings common map draw settings
+	 * @throws IllegalArgumentException targetCanvas, mapToRender or
+	 * mapDrawSettings is null
 	 */
 	public void renderMap(RenderableMap mapToRender, Graphics2D targetCanvas,
-					StyleViewer styleViewer) throws IllegalArgumentException
+					MapDrawSettings mapDrawSettings) throws IllegalArgumentException
 	{
 		if (mapToRender == null)
 		{
@@ -276,7 +276,7 @@ public class MapRenderer implements CoordinatesConverter
 		{
 			throw new IllegalArgumentException();
 		}
-		if (styleViewer == null)
+		if (mapDrawSettings == null)
 		{
 			throw new IllegalArgumentException();
 		}
@@ -289,7 +289,6 @@ public class MapRenderer implements CoordinatesConverter
 
 		setupRenderingHints(targetCanvas);
 
-		MapDrawSettings mapDrawSettings = styleViewer.getMapDrawSettings();
 		targetCanvas.setBackground(mapDrawSettings.getMapBackgroundColor());
 
 		targetCanvas.clearRect(targetCanvasDrawingArea.x, targetCanvasDrawingArea.y,
@@ -303,7 +302,7 @@ public class MapRenderer implements CoordinatesConverter
 		selectingBuffer.clear();
 
 		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(targetCanvas,
-						textCanvasGraphics, styleViewer, this, scaleLevel, selectingBuffer);
+						textCanvasGraphics, this, scaleLevel, selectingBuffer);
 		if (objectToDrawAsHighlighted != null)
 		{
 			objectsRenderer.setObjectToDrawAsHighlighted(objectToDrawAsHighlighted);
@@ -314,7 +313,7 @@ public class MapRenderer implements CoordinatesConverter
 		}
 
 		mapToRender.renderObjectsByDrawPriority(objectsRenderer, getViewArea(),
-						new RenderableMapObjectsDrawPriorityComparator(styleViewer));
+						new RenderableMapObjectsDrawPriorityComparator());
 
 		targetCanvas.drawImage(textCanvasImage, 0, 0, null);
 	}

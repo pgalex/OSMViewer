@@ -1,7 +1,6 @@
 package rendering;
 
 import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.StyleViewer;
 import java.util.Comparator;
 
 /**
@@ -11,27 +10,6 @@ import java.util.Comparator;
  */
 public class RenderableMapObjectsDrawPriorityComparator implements Comparator<RenderableMapObject>
 {
-	/**
-	 * Viewer for finding draw priority of objects
-	 */
-	private StyleViewer styleViewer;
-
-	/**
-	 * Create for comparing with style viewer
-	 *
-	 * @param styleViewerUsingForComparing Viewer for finding draw priority of objects
-	 * @throws IllegalArgumentException styleViewerUsingForComparing is null
-	 */
-	public RenderableMapObjectsDrawPriorityComparator(StyleViewer styleViewerUsingForComparing) throws IllegalArgumentException
-	{
-		if (styleViewerUsingForComparing == null)
-		{
-			throw new IllegalArgumentException();
-		}
-
-		styleViewer = styleViewerUsingForComparing;
-	}
-
 	/**
 	 * Comapare objects
 	 *
@@ -46,17 +24,9 @@ public class RenderableMapObjectsDrawPriorityComparator implements Comparator<Re
 		{
 			return 0;
 		}
-		if (styleViewer == null)
-		{
-			return 0;
-		}
-		if (object1.getStyleIndex() == null || object2.getStyleIndex() == null)
-		{
-			return 0;
-		}
 
-		MapObjectDrawSettings object1Style = styleViewer.getMapObjectDrawSettings(object1.getStyleIndex());
-		MapObjectDrawSettings object2Style = styleViewer.getMapObjectDrawSettings(object2.getStyleIndex());
+		MapObjectDrawSettings object1Style = object1.getDrawSettings();
+		MapObjectDrawSettings object2Style = object2.getDrawSettings();
 		if (object1Style == null || object2Style == null)
 		{
 			return 0;
@@ -70,7 +40,7 @@ public class RenderableMapObjectsDrawPriorityComparator implements Comparator<Re
 		{
 			return 1;
 		}
-		
+
 		return 0;
 	}
 }

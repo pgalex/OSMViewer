@@ -1,13 +1,13 @@
 package mapTests;
 
-import mapDefenitionUtilities.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleEditor;
-import mapDefenitionUtilities.Tag;
-import mapDefenitionUtilities.MapBounds;
 import map.MapLine;
+import mapDefenitionUtilities.DefenitionTags;
+import mapDefenitionUtilities.MapBounds;
 import mapDefenitionUtilities.MapPosition;
+import mapDefenitionUtilities.Tag;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -156,104 +156,6 @@ public class MapLineTest
 		{
 			// ok
 		}
-	}
-
-	/**
-	 * Testing assigning style index if style viewer is null
-	 */
-	@Test
-	public void assigningStyleIndexNullStyleViewerTest()
-	{
-		try
-		{
-			MapPosition[] points = new MapPosition[2];
-			points[0] = new MapPosition(1, 2);
-			points[1] = new MapPosition(2, 3);
-			MapLine testLine = new MapLine(0, new DefenitionTags(), points);
-			testLine.assignStyleIndex(null);
-			fail();
-		}
-		catch (IllegalArgumentException ex)
-		{
-			// ok
-		}
-	}
-
-	/**
-	 * Testing assigning style index and canBeDrawenWithStyle work if object can
-	 * be line
-	 */
-	@Test
-	public void assigningStyleIndexCanBeLineTest()
-	{
-		DefenitionTags tags = new DefenitionTags();
-		tags.add(new Tag("k1", "v1"));
-		MapObjectDrawSettings style = new MapObjectDrawSettings();
-		style.setCanBeLine();
-		style.setDescription("line style");
-		style.setDefenitionTags(tags);
-		
-		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
-		testEditor.addMapObjectDrawSettings(style);
-		
-		MapPosition[] points = new MapPosition[2];
-		points[0] = new MapPosition(1, 2);
-		points[1] = new MapPosition(2, 3);
-		MapLine testLine = new MapLine(1, tags, points);
-		testLine.assignStyleIndex(testEditor);
-		
-		assertNotNull(testLine.getStyleIndex());
-		assertEquals(style.getDescription(), testEditor.getMapObjectDrawSettings(testLine.getStyleIndex()).getDescription());
-	}
-
-	/**
-	 * Testing assigning style index and canBeDrawenWithStyle work if object can
-	 * not be line
-	 */
-	@Test
-	public void assigningStyleIndexCanNotBeLineTest()
-	{
-		DefenitionTags tags = new DefenitionTags();
-		tags.add(new Tag("k1", "v1"));
-		MapObjectDrawSettings style = new MapObjectDrawSettings();
-		style.setCanNotBeLine();
-		style.setDescription("line style");
-		style.setDefenitionTags(tags);
-		
-		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
-		testEditor.addMapObjectDrawSettings(style);
-		
-		MapPosition[] points = new MapPosition[2];
-		points[0] = new MapPosition(1, 2);
-		points[1] = new MapPosition(2, 3);
-		MapLine testLine = new MapLine(1, tags, points);
-		testLine.assignStyleIndex(testEditor);
-		
-		assertNull(testLine.getStyleIndex());
-	}
-
-	/**
-	 * Testing assigning style index if style not found
-	 */
-	@Test
-	public void assigningStyleNotFoundTest()
-	{
-		DefenitionTags tags = new DefenitionTags();
-		tags.add(new Tag("k1", "v1"));
-		MapObjectDrawSettings style = new MapObjectDrawSettings();
-		style.setDescription("line style");
-		style.setDefenitionTags(tags);
-		
-		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
-		testEditor.addMapObjectDrawSettings(style);
-		
-		MapPosition[] points = new MapPosition[2];
-		points[0] = new MapPosition(1, 2);
-		points[1] = new MapPosition(2, 3);
-		MapLine testLine = new MapLine(1, new DefenitionTags(), points);
-		testLine.assignStyleIndex(testEditor);
-		
-		assertNull(testLine.getStyleIndex());
 	}
 
 	/**

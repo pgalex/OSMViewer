@@ -1,15 +1,14 @@
 package onlineMapTests;
 
-import mapDefenitionUtilities.MapBounds;
-import mapDefenitionUtilities.MapPosition;
-import mapDefenitionUtilities.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.StyleEditor;
 import drawingStyles.StyleViewer;
-import mapDefenitionUtilities.Tag;
 import map.*;
 import map.onlineMap.OnlineMap;
+import mapDefenitionUtilities.DefenitionTags;
+import mapDefenitionUtilities.MapBounds;
+import mapDefenitionUtilities.MapPosition;
+import mapDefenitionUtilities.Tag;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import rendering.RenderableMapObjectsDrawPriorityComparator;
@@ -22,20 +21,6 @@ import rendering.RenderableMapObjectsDrawPriorityComparator;
 public class OnlineMapTest
 {
 	/**
-	 * Test adding object without style index
-	 */
-	@Test
-	public void addingMapObjectWithoutStyleIndexTest()
-	{
-		MapPoint pointWithoutStyleIndex = new MapPoint(new MapPosition(), 1, new DefenitionTags());
-
-		TestOnlineMap testMap = new TestOnlineMap();
-		testMap.addObject(pointWithoutStyleIndex);
-
-		assertTrue(testMap.getObjects().isEmpty());
-	}
-
-	/**
 	 * Test rendering visitor work, normal work
 	 */
 	@Test
@@ -44,14 +29,11 @@ public class OnlineMapTest
 		DefenitionTags someTags = new DefenitionTags();
 		someTags.add(new Tag("k1", "v1"));
 
-		StyleEditor testEditor = DrawingStylesFactory.createStyleEditor();
-
 		MapObjectDrawSettings style1 = new MapObjectDrawSettings();
 		style1.setCanBePoint();
 		style1.setCanBeLine();
 		style1.setCanBePolygon();
 		style1.setDefenitionTags(someTags);
-		testEditor.addMapObjectDrawSettings(style1);
 
 		MapPosition[] somePoints = new MapPosition[4];
 		somePoints[0] = new MapPosition(1, 2);
@@ -60,19 +42,19 @@ public class OnlineMapTest
 		somePoints[3] = somePoints[0];
 
 		MapLine line1 = new MapLine(0, someTags, somePoints);
-		line1.assignStyleIndex(testEditor);
+		line1.setDrawSettings(style1);
 
 		MapPoint point1 = new MapPoint(new MapPosition(), 1, someTags);
-		point1.assignStyleIndex(testEditor);
+		point1.setDrawSettings(style1);
 
 		MapPolygon polygon1 = new MapPolygon(0, someTags, somePoints);
-		polygon1.assignStyleIndex(testEditor);
+		polygon1.setDrawSettings(style1);
 
 		MapPoint point2 = new MapPoint(new MapPosition(), 1, someTags);
-		point2.assignStyleIndex(testEditor);
+		point2.setDrawSettings(style1);
 
 		MapPoint point3 = new MapPoint(new MapPosition(), 1, someTags);
-		point3.assignStyleIndex(testEditor);
+		point3.setDrawSettings(style1);
 
 		OnlineMap testMap = new OnlineMap();
 		testMap.addObject(line1);
@@ -83,7 +65,7 @@ public class OnlineMapTest
 
 		MapObjectsRendererMock objectsRendererMock = new MapObjectsRendererMock();
 		testMap.renderObjectsByDrawPriority(objectsRendererMock, new MapBounds(-10, 10, -10, 10),
-						new RenderableMapObjectsDrawPriorityComparator(testEditor));
+						new RenderableMapObjectsDrawPriorityComparator());
 
 		assertEquals(3, objectsRendererMock.pointsRendered);
 		assertEquals(1, objectsRendererMock.linesRendered);
@@ -101,7 +83,7 @@ public class OnlineMapTest
 		{
 			StyleViewer viewer = DrawingStylesFactory.createStyleViewer();
 			testMap.renderObjectsByDrawPriority(null, new MapBounds(1, 2, 3, 4),
-							new RenderableMapObjectsDrawPriorityComparator(viewer));
+							new RenderableMapObjectsDrawPriorityComparator());
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -121,7 +103,7 @@ public class OnlineMapTest
 		{
 			StyleViewer viewer = DrawingStylesFactory.createStyleViewer();
 			testMap.renderObjectsByDrawPriority(new MapObjectsRendererMock(), null,
-							new RenderableMapObjectsDrawPriorityComparator(viewer));
+							new RenderableMapObjectsDrawPriorityComparator());
 			fail();
 		}
 		catch (IllegalArgumentException ex)

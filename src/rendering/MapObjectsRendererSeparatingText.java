@@ -51,10 +51,6 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	 */
 	private CoordinatesConverter coordinatesConverter;
 	/**
-	 * Style viewer using to find how to draw rendering object
-	 */
-	private StyleViewer styleViewer;
-	/**
 	 * Scale level using for rendering
 	 */
 	private int renderingScaleLevel;
@@ -76,30 +72,23 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	 *
 	 * @param targetObjectsCanvas canvas to draw map objects
 	 * @param targetTextCanvas canvas to draw text of map objects
-	 * @param renderingStyleViewer style viewer using to find how to draw objects
 	 * @param renderingCoordinatesConverter object that will be using for
 	 * coordinates converting while drawing
 	 * @param rederingScaleLevel scale level using for rendering
 	 * @param fillingSelectingBuffer buffer where will be added selecting objects,
 	 * created by drawen objects
-	 * @throws IllegalArgumentException targetObjectsCanvas,targetTextCanvas,
-	 * renderingStyleViewer, renderingCoordinatesConverter, fillingSelectingBuffer
-	 * is null
+	 * @throws IllegalArgumentException targetObjectsCanvas, targetTextCanvas,
+	 * renderingCoordinatesConverter, fillingSelectingBuffer is null
 	 */
 	public MapObjectsRendererSeparatingText(Graphics2D targetObjectsCanvas,
-					Graphics2D targetTextCanvas, StyleViewer renderingStyleViewer,
-					CoordinatesConverter renderingCoordinatesConverter, int rederingScaleLevel,
-					SelectingBuffer fillingSelectingBuffer) throws IllegalArgumentException
+					Graphics2D targetTextCanvas, CoordinatesConverter renderingCoordinatesConverter,
+					int rederingScaleLevel, SelectingBuffer fillingSelectingBuffer) throws IllegalArgumentException
 	{
 		if (targetObjectsCanvas == null)
 		{
 			throw new IllegalArgumentException();
 		}
 		if (targetTextCanvas == null)
-		{
-			throw new IllegalArgumentException();
-		}
-		if (renderingStyleViewer == null)
 		{
 			throw new IllegalArgumentException();
 		}
@@ -114,7 +103,6 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 
 		objectsCanvas = targetObjectsCanvas;
 		textCanvas = new TextCanvas(targetTextCanvas);
-		styleViewer = renderingStyleViewer;
 		coordinatesConverter = renderingCoordinatesConverter;
 		renderingScaleLevel = rederingScaleLevel;
 
@@ -169,7 +157,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 			throw new IllegalArgumentException();
 		}
 
-		MapObjectDrawSettings objectStyle = styleViewer.getMapObjectDrawSettings(renderablePoint.getStyleIndex());
+		MapObjectDrawSettings objectStyle = renderablePoint.getDrawSettings();
 		if (objectStyle == null)
 		{
 			return;
@@ -373,7 +361,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 			throw new IllegalArgumentException();
 		}
 
-		MapObjectDrawSettings objectStyle = styleViewer.getMapObjectDrawSettings(renderableLine.getStyleIndex());
+		MapObjectDrawSettings objectStyle = renderableLine.getDrawSettings();
 		if (objectStyle == null)
 		{
 			return;
@@ -531,7 +519,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 			throw new IllegalArgumentException();
 		}
 
-		MapObjectDrawSettings objectStyle = styleViewer.getMapObjectDrawSettings(renderablePolygon.getStyleIndex());
+		MapObjectDrawSettings objectStyle = renderablePolygon.getDrawSettings();
 		if (objectStyle == null)
 		{
 			return;

@@ -1,15 +1,15 @@
 package map;
 
-import mapDefenitionUtilities.MapBounds;
-import mapDefenitionUtilities.MapPosition;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.LinearRing;
 import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
-import mapDefenitionUtilities.DefenitionTags;
 import drawingStyles.MapObjectDrawSettings;
+import mapDefenitionUtilities.DefenitionTags;
+import mapDefenitionUtilities.MapBounds;
+import mapDefenitionUtilities.MapPosition;
 import rendering.RenderableMapLine;
 import rendering.RenderableMapObjectsVisitor;
 
@@ -176,7 +176,7 @@ public class MapLine extends MapObject implements RenderableMapLine
 	 * @return Can this type of map object be drawen with this style
 	 */
 	@Override
-	protected boolean canBeDrawenWithStyle(MapObjectDrawSettings objectDrawStyle)
+	public boolean canBeDrawenWithStyle(MapObjectDrawSettings objectDrawStyle)
 	{
 		if (objectDrawStyle == null)
 		{

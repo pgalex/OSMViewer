@@ -1,18 +1,18 @@
 package onlineMapTests;
 
-import mapDefenitionUtilities.DefenitionTags;
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.MapObjectDrawSettings;
 import drawingStyles.StyleEditor;
-import mapDefenitionUtilities.Tag;
 import java.util.ArrayList;
 import map.MapLine;
 import map.MapObject;
 import map.MapPoint;
 import map.MapPolygon;
-import mapDefenitionUtilities.MapPosition;
 import map.onlineMap.OnlineMap;
 import map.onlineMap.OnlineMapLoader;
+import mapDefenitionUtilities.DefenitionTags;
+import mapDefenitionUtilities.MapPosition;
+import mapDefenitionUtilities.Tag;
 import static org.junit.Assert.*;
 import osmXml.OsmNode;
 import osmXml.OsmTag;
@@ -408,7 +408,7 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 
 		MapPoint pointByNode = createMapPointByOsmNode(osmNode);
 		assertNotNull(pointByNode);
-		assertNull(pointByNode.getStyleIndex());
+		assertNull(pointByNode.getDrawSettings());
 		assertEquals(osmNode.getId(), pointByNode.getId());
 		assertEquals(osmNode.getLatitude(), pointByNode.getPosition().getLatitude(), 0.00001);
 		assertEquals(osmNode.getLongitude(), pointByNode.getPosition().getLongitude(), 0.00001);
@@ -481,7 +481,7 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 			testStyle.setCanBeLine();
 			testStyle.setCanBePolygon();
 			testStyle.setDefenitionTags(testStyleTags);
-			
+
 			styleEditor.addMapObjectDrawSettings(testStyle);
 
 
@@ -502,7 +502,7 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 
 			assertEquals(1, testMap.getObjects().size());
 			assertEquals(node.getId(), testMap.getObjects().get(0).getId());
-			assertEquals((Integer) 0, testMap.getObjects().get(0).getStyleIndex());
+			assertEquals(testStyle, testMap.getObjects().get(0).getDrawSettings());
 			for (int i = 0; i < nodeTags.size(); i++)
 			{
 				assertEquals(nodeTags.get(i).getKey(), testMap.getObjects().get(0).getDefenitionTags().get(i).getKey());
