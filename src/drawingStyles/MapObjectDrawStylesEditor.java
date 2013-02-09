@@ -1,6 +1,5 @@
 package drawingStyles;
 
-import mapDefenitionUtilities.DefenitionTags;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -9,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import mapDefenitionUtilities.DefenitionTags;
 
 /**
  * Gives access to drawing style with editing
