@@ -1,8 +1,8 @@
 package forms;
 
+import javax.swing.table.DefaultTableModel;
 import mapDefenitionUtilities.DefenitionTags;
 import mapDefenitionUtilities.Tag;
-import javax.swing.table.DefaultTableModel;
 
 /**
  * Table model for showing defenition tags like information
