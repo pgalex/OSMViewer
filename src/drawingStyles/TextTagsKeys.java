@@ -1,21 +1,19 @@
 package drawingStyles;
 
-import mapDefenitionUtilities.Tag;
-import mapDefenitionUtilities.DefenitionTags;
-import IO.ReadableMapData;
-import IO.WritableMapData;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import mapDefenitionUtilities.DefenitionTags;
+import mapDefenitionUtilities.Tag;
 
 /**
  * Keys of tags, value of, can be use as text under map object.
  *
  * @author pgalex
  */
-public class TextTagsKeys implements ReadableMapData, WritableMapData
+public class TextTagsKeys
 {
 	/**
 	 * Default text tags keys
@@ -129,7 +127,6 @@ public class TextTagsKeys implements ReadableMapData, WritableMapData
 	 * @param input input stream
 	 * @throws IOException reading error
 	 */
-	@Override
 	public void readFromStream(DataInputStream input) throws IOException
 	{
 		try
@@ -155,7 +152,6 @@ public class TextTagsKeys implements ReadableMapData, WritableMapData
 	 * @param output output stream
 	 * @throws IOException writing error
 	 */
-	@Override
 	public void writeToStream(DataOutputStream output) throws IOException
 	{
 		try

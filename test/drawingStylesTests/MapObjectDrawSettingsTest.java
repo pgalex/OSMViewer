@@ -314,10 +314,10 @@ public class MapObjectDrawSettingsTest
 			writedStyle.setDefenitionTags(tags);
 			writedStyle.setName("someName");
 
-			IOTester.writeToTestFile(writedStyle);
+			writedStyle.writeToStream(IOTester.createTestOutputStream());
 
 			MapObjectDrawSettings readStyle = new MapObjectDrawSettings();
-			IOTester.readFromTestFile(readStyle);
+			readStyle.readFromStream(IOTester.createTestInputStream());
 
 			assertEquals(writedStyle.isCanBeLine(), readStyle.isCanBeLine());
 			assertEquals(writedStyle.isCanBePoint(), readStyle.isCanBePoint());

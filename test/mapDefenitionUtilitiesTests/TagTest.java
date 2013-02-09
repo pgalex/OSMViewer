@@ -28,7 +28,7 @@ public class TagTest
 			// ok
 		}
 	}
-	
+
 	/**
 	 * Test creating tag with null value
 	 */
@@ -55,11 +55,11 @@ public class TagTest
 		try
 		{
 			Tag writingTag = new Tag("key1", "value1");
-			IOTester.writeToTestFile(writingTag);
-
+			writingTag.writeToStream(IOTester.createTestOutputStream());
+			
 			Tag readingTag = new Tag();
-			IOTester.readFromTestFile(readingTag);
-
+			readingTag.readFromStream(IOTester.createTestInputStream());
+			
 			assertEquals(writingTag.getKey(), readingTag.getKey());
 			assertEquals(writingTag.getValue(), readingTag.getValue());
 		}
@@ -68,7 +68,7 @@ public class TagTest
 			fail();
 		}
 	}
-	
+
 	/**
 	 * Testing compare with null tag
 	 */

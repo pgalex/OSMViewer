@@ -1,7 +1,5 @@
 package drawingStyles;
 
-import IO.ReadableMapData;
-import IO.WritableMapData;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -17,7 +15,7 @@ import javax.imageio.ImageIO;
  *
  * @author abc
  */
-public class ImageWithIO implements ReadableMapData, WritableMapData
+public class ImageWithIO
 {
 	/**
 	 * Format of image for Writing/reading
@@ -71,7 +69,6 @@ public class ImageWithIO implements ReadableMapData, WritableMapData
 	 * @param input input stream
 	 * @throws IOException reading error
 	 */
-	@Override
 	public void readFromStream(DataInputStream input) throws IOException
 	{
 		try
@@ -82,7 +79,7 @@ public class ImageWithIO implements ReadableMapData, WritableMapData
 				int imageBytesLength = input.readInt();
 				byte[] imageBytes = new byte[imageBytesLength];
 				input.read(imageBytes, 0, imageBytesLength);
-				
+
 				InputStream imageInputStream = new ByteArrayInputStream(imageBytes);
 				image = ImageIO.read(imageInputStream);
 				imageInputStream.close();
@@ -104,7 +101,6 @@ public class ImageWithIO implements ReadableMapData, WritableMapData
 	 * @param output output stream
 	 * @throws IOException writing error
 	 */
-	@Override
 	public void writeToStream(DataOutputStream output) throws IOException
 	{
 		try
@@ -117,10 +113,10 @@ public class ImageWithIO implements ReadableMapData, WritableMapData
 
 				ByteArrayOutputStream bytesStream = new ByteArrayOutputStream();
 				ImageIO.write(image, IMAGE_FORMAT, bytesStream);
-				
+
 				output.writeInt(bytesStream.toByteArray().length);
 				output.write(bytesStream.toByteArray());
-				
+
 				bytesStream.close();
 			}
 		}

@@ -1,8 +1,9 @@
 package drawingStyles;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import mapDefenitionUtilities.DefenitionTags;
-import IO.ReadableMapData;
-import IO.WritableMapData;
 
 /**
  * Main interface of drawingStyles without "set" methods. Optimized for runtime
@@ -12,7 +13,7 @@ import IO.WritableMapData;
  *
  * @author pgalex
  */
-public interface StyleViewer extends ReadableMapData, WritableMapData
+public interface StyleViewer
 {
 	/**
 	 * Find index of map object drawing style
@@ -62,4 +63,20 @@ public interface StyleViewer extends ReadableMapData, WritableMapData
 	 * @return map drawing settings
 	 */
 	public MapDrawSettings getMapDrawSettings();
+
+	/**
+	 * Read from stream
+	 *
+	 * @param input input stream
+	 * @throws IOException reading error
+	 */
+	public void readFromStream(DataInputStream input) throws IOException;
+
+	/**
+	 * Write into stream
+	 *
+	 * @param output output stream
+	 * @throws IOException writing error
+	 */
+	public void writeToStream(DataOutputStream output) throws IOException;
 }

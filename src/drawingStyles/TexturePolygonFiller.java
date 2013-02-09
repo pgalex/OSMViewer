@@ -74,7 +74,7 @@ public class TexturePolygonFiller implements PolygonFiller
 		}
 		catch (Exception ex)
 		{
-			throw new IOException();
+			throw new IOException(ex);
 		}
 	}
 
@@ -93,7 +93,7 @@ public class TexturePolygonFiller implements PolygonFiller
 		}
 		catch (Exception ex)
 		{
-			throw new IOException();
+			throw new IOException(ex);
 		}
 	}
 }

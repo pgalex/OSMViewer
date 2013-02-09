@@ -1,20 +1,18 @@
 package drawingStyles;
 
-import mapDefenitionUtilities.DefenitionTags;
-import IO.ReadableMapData;
-import IO.WritableMapData;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import mapDefenitionUtilities.DefenitionTags;
 
 /**
  * Common part of MapObjectStyleViewer and Editor. Uses to remove duplicating
  *
  * @author pgalex
  */
-public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMapData
+public class MapObjectDrawStylesContainer
 {
 	/**
 	 * Common draw settings of map
@@ -137,7 +135,6 @@ public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMa
 	 * @param input input stream
 	 * @throws IOException reading error
 	 */
-	@Override
 	public void readFromStream(DataInputStream input) throws IOException
 	{
 		try
@@ -146,7 +143,7 @@ public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMa
 		}
 		catch (Exception ex)
 		{
-			throw new IOException();
+			throw new IOException(ex);
 		}
 	}
 
@@ -156,7 +153,6 @@ public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMa
 	 * @param output output stream
 	 * @throws IOException writing error
 	 */
-	@Override
 	public void writeToStream(DataOutputStream output) throws IOException
 	{
 		try
@@ -165,7 +161,7 @@ public class MapObjectDrawStylesContainer implements ReadableMapData, WritableMa
 		}
 		catch (Exception ex)
 		{
-			throw new IOException();
+			throw new IOException(ex);
 		}
 	}
 }

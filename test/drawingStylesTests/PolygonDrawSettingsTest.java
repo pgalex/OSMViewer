@@ -69,7 +69,7 @@ public class PolygonDrawSettingsTest
 			PolygonDrawSettings polygonStyle = new PolygonDrawSettings();
 			polygonStyle.setFiller(filler);
 			Paint paint = polygonStyle.getPaint();
-
+			
 			assertTrue(paint instanceof TexturePaint);
 		}
 		catch (IOException ex)
@@ -88,7 +88,7 @@ public class PolygonDrawSettingsTest
 		PolygonDrawSettings polygonStyle = new PolygonDrawSettings();
 		polygonStyle.setFiller(filler);
 		Paint paint = polygonStyle.getPaint();
-
+		
 		assertTrue(paint instanceof Color);
 	}
 
@@ -113,12 +113,12 @@ public class PolygonDrawSettingsTest
 			writedStyle.setBorderDrawSettings(borderStyle);
 			writedStyle.setNotDrawBorder();
 			writedStyle.setDrawInnerPart();
-
-			IOTester.writeToTestFile(writedStyle);
-
+			
+			writedStyle.writeToStream(IOTester.createTestOutputStream());
+			
 			PolygonDrawSettings readStyle = new PolygonDrawSettings();
-			IOTester.readFromTestFile(readStyle);
-
+			readStyle.readFromStream(IOTester.createTestInputStream());
+			
 			assertEquals(writedStyle.getFiller().getType(), readStyle.getFiller().getType());
 			assertEquals(writedStyle.getBorderDrawSettings().getColor(), readStyle.getBorderDrawSettings().getColor());
 			assertEquals(writedStyle.getBorderDrawSettings().getWidth(), readStyle.getBorderDrawSettings().getWidth(), 0.00001f);

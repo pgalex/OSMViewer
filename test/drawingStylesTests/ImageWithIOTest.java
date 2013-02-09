@@ -56,10 +56,10 @@ public class ImageWithIOTest
 		try
 		{
 			ImageWithIO writedImage = new ImageWithIO(ICON_FILE_NAME);
-			IOTester.writeToTestFile(writedImage);
+			writedImage.writeToStream(IOTester.createTestOutputStream());
 
 			ImageWithIO readImage = new ImageWithIO();
-			IOTester.readFromTestFile(readImage);
+			readImage.readFromStream(IOTester.createTestInputStream());
 
 			assertNotNull(readImage.getImage());
 		}
@@ -78,10 +78,10 @@ public class ImageWithIOTest
 		try
 		{
 			ImageWithIO writedImage = new ImageWithIO();
-			IOTester.writeToTestFile(writedImage);
+			writedImage.writeToStream(IOTester.createTestOutputStream());
 
 			ImageWithIO readImage = new ImageWithIO();
-			IOTester.readFromTestFile(readImage);
+			readImage.readFromStream(IOTester.createTestInputStream());
 
 			assertNull(readImage.getImage());
 		}

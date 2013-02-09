@@ -23,7 +23,7 @@ public class LinePatternTest
 		assertNotNull(pattern.getPattern());
 		assertTrue(pattern.getPattern().length > 0);
 	}
-	
+
 	/**
 	 * Test creating with incorrect pattern
 	 */
@@ -40,7 +40,7 @@ public class LinePatternTest
 			// ok
 		}
 	}
-	
+
 	/**
 	 * Test creating with empty pattern
 	 */
@@ -111,10 +111,10 @@ public class LinePatternTest
 			pattern[3] = 5;
 			LinePattern writingPattern = new LinePattern();
 			writingPattern.setPattern(pattern);
-			IOTester.writeToTestFile(writingPattern);
+			writingPattern.writeToStream(IOTester.createTestOutputStream());
 			
 			LinePattern readingPattern = new LinePattern();
-			IOTester.readFromTestFile(readingPattern);
+			readingPattern.readFromStream(IOTester.createTestInputStream());
 			
 			assertArrayEquals(writingPattern.getPattern(), readingPattern.getPattern(), 0.0001f);
 		}

@@ -30,7 +30,7 @@ public class ColorPolygonFiller implements PolygonFiller
 		{
 			throw new IllegalArgumentException();
 		}
-		
+
 		fillColor = new ColorWithIO(colorForFilling);
 	}
 
@@ -71,7 +71,7 @@ public class ColorPolygonFiller implements PolygonFiller
 		}
 		catch (Exception ex)
 		{
-			throw new IOException();
+			throw new IOException(ex);
 		}
 	}
 
@@ -90,7 +90,7 @@ public class ColorPolygonFiller implements PolygonFiller
 		}
 		catch (Exception ex)
 		{
-			throw new IOException();
+			throw new IOException(ex);
 		}
 	}
 }

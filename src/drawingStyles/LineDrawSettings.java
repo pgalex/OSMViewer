@@ -1,7 +1,5 @@
 package drawingStyles;
 
-import IO.ReadableMapData;
-import IO.WritableMapData;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.io.DataInputStream;
@@ -13,7 +11,7 @@ import java.io.IOException;
  *
  * @author abc
  */
-public class LineDrawSettings implements ReadableMapData, WritableMapData
+public class LineDrawSettings
 {
 	/**
 	 * Default line width
@@ -69,48 +67,6 @@ public class LineDrawSettings implements ReadableMapData, WritableMapData
 		color = new ColorWithIO(lineColor);
 		width = lineWidth;
 		pattern = new LinePattern(linePattern);
-	}
-
-	/**
-	 * Read from stream
-	 *
-	 * @param input input stream
-	 * @throws IOException reading error
-	 */
-	@Override
-	public void readFromStream(DataInputStream input) throws IOException
-	{
-		try
-		{
-			color.readFromStream(input);
-			width = input.readFloat();
-			pattern.readFromStream(input);
-		}
-		catch (Exception e)
-		{
-			throw new IOException(e);
-		}
-	}
-
-	/**
-	 * Write into stream
-	 *
-	 * @param output output stream
-	 * @throws IOException writing error
-	 */
-	@Override
-	public void writeToStream(DataOutputStream output) throws IOException
-	{
-		try
-		{
-			color.writeToStream(output);
-			output.writeFloat(width);
-			pattern.writeToStream(output);
-		}
-		catch (Exception e)
-		{
-			throw new IOException(e);
-		}
 	}
 
 	/**
@@ -198,5 +154,45 @@ public class LineDrawSettings implements ReadableMapData, WritableMapData
 	{
 		return new BasicStroke(getWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
 						1.0f, getPattern(), 0.0f);
+	}
+
+	/**
+	 * Read from stream
+	 *
+	 * @param input input stream
+	 * @throws IOException reading error
+	 */
+	public void readFromStream(DataInputStream input) throws IOException
+	{
+		try
+		{
+			color.readFromStream(input);
+			width = input.readFloat();
+			pattern.readFromStream(input);
+		}
+		catch (Exception e)
+		{
+			throw new IOException(e);
+		}
+	}
+
+	/**
+	 * Write into stream
+	 *
+	 * @param output output stream
+	 * @throws IOException writing error
+	 */
+	public void writeToStream(DataOutputStream output) throws IOException
+	{
+		try
+		{
+			color.writeToStream(output);
+			output.writeFloat(width);
+			pattern.writeToStream(output);
+		}
+		catch (Exception e)
+		{
+			throw new IOException(e);
+		}
 	}
 }

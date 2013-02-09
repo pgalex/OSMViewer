@@ -157,10 +157,10 @@ public class LineDrawSettingsTest
 			pattern[2] = 4;
 			pattern[3] = 5;
 			LineDrawSettings writedStyle = new LineDrawSettings(Color.CYAN, 11, pattern);
-			IOTester.writeToTestFile(writedStyle);
+			writedStyle.writeToStream(IOTester.createTestOutputStream());
 
 			LineDrawSettings readStyle = new LineDrawSettings();
-			IOTester.readFromTestFile(readStyle);
+			readStyle.readFromStream(IOTester.createTestInputStream());
 
 			assertEquals(writedStyle.getColor(), readStyle.getColor());
 			assertEquals(writedStyle.getWidth(), readStyle.getWidth(), 0.000001f);

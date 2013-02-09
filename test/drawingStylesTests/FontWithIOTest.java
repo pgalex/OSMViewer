@@ -69,10 +69,10 @@ public class FontWithIOTest
 		try
 		{
 			FontWithIO writedFont = new FontWithIO(new Font("Arial", 0, 15));
-			IOTester.writeToTestFile(writedFont);
+			writedFont.writeToStream(IOTester.createTestOutputStream());
 
 			FontWithIO readFont = new FontWithIO();
-			IOTester.readFromTestFile(readFont);
+			readFont.readFromStream(IOTester.createTestInputStream());
 
 			assertEquals(writedFont.getStoringFont().getFamily(), readFont.getStoringFont().getFamily());
 			assertEquals(writedFont.getStoringFont().getStyle(), readFont.getStoringFont().getStyle());

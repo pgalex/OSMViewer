@@ -3,6 +3,8 @@ package drawingStylesTests;
 import IOTesting.IOTester;
 import drawingStyles.ColorWithIO;
 import java.awt.Color;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -57,10 +59,10 @@ public class ColorWithIOTest
 		try
 		{
 			ColorWithIO writedColor = new ColorWithIO(Color.MAGENTA);
-			IOTester.writeToTestFile(writedColor);
+			writedColor.writeToStream(IOTester.createTestOutputStream());
 			
 			ColorWithIO readColor = new ColorWithIO();
-			IOTester.readFromTestFile(readColor);
+			readColor.readFromStream(IOTester.createTestInputStream());
 			
 			assertEquals(writedColor.getStoringColor(), readColor.getStoringColor());
 		}

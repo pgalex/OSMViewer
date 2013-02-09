@@ -92,10 +92,10 @@ public class TextDrawSettingsTest
 		try
 		{
 			TextDrawSettings writingSettings = new TextDrawSettings(Color.ORANGE, new Font("Arial", Font.BOLD, 14));
-			IOTester.writeToTestFile(writingSettings);
+			writingSettings.writeToStream(IOTester.createTestOutputStream());
 			
 			TextDrawSettings readingSettings = new TextDrawSettings();
-			IOTester.readFromTestFile(readingSettings);
+			readingSettings.readFromStream(IOTester.createTestInputStream());
 			
 			assertEquals(writingSettings.getColor(), readingSettings.getColor());
 			assertEquals(writingSettings.getFont().getFamily(), readingSettings.getFont().getFamily());

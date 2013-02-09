@@ -20,7 +20,7 @@ public class DefenitionTagsTest
 	public void gettingTagFromEmptyListTest()
 	{
 		DefenitionTags tags = new DefenitionTags();
-
+		
 		try
 		{
 			tags.get(0);
@@ -39,7 +39,7 @@ public class DefenitionTagsTest
 	{
 		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("k2", "v2"));
-
+		
 		try
 		{
 			tags.get(-1);
@@ -58,7 +58,7 @@ public class DefenitionTagsTest
 	{
 		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("k2", "v2"));
-
+		
 		try
 		{
 			tags.get(tags.count());
@@ -95,7 +95,7 @@ public class DefenitionTagsTest
 	{
 		DefenitionTags styleTags = new DefenitionTags();
 		DefenitionTags objectTags = new DefenitionTags();
-
+		
 		assertTrue(styleTags.includingIn(objectTags));
 	}
 
@@ -107,9 +107,9 @@ public class DefenitionTagsTest
 	{
 		DefenitionTags styleTags = new DefenitionTags();
 		DefenitionTags objectTags = new DefenitionTags();
-
+		
 		objectTags.add(new Tag("k1", "v1"));
-
+		
 		assertFalse(styleTags.includingIn(objectTags));
 	}
 
@@ -121,9 +121,9 @@ public class DefenitionTagsTest
 	{
 		DefenitionTags styleTags = new DefenitionTags();
 		DefenitionTags objectTags = new DefenitionTags();
-
+		
 		styleTags.add(new Tag("k1", "v1"));
-
+		
 		assertFalse(styleTags.includingIn(objectTags));
 	}
 
@@ -136,14 +136,14 @@ public class DefenitionTagsTest
 	{
 		DefenitionTags styleTags = new DefenitionTags();
 		DefenitionTags objectTags = new DefenitionTags();
-
+		
 		objectTags.add(new Tag("k2", "v2"));
 		objectTags.add(new Tag("k1", "v1"));
 		objectTags.add(new Tag("k3", "v3"));
 		styleTags.add(new Tag("k1", "v1"));
 		styleTags.add(new Tag("k3", "v3"));
 		styleTags.add(new Tag("k2", "v2"));
-
+		
 		assertTrue(styleTags.includingIn(objectTags));
 	}
 
@@ -155,14 +155,14 @@ public class DefenitionTagsTest
 	{
 		DefenitionTags styleTags = new DefenitionTags();
 		DefenitionTags objectTags = new DefenitionTags();
-
+		
 		objectTags.add(new Tag("k4", "v4"));
 		objectTags.add(new Tag("k1", "v1"));
 		objectTags.add(new Tag("k3", "v3"));
 		styleTags.add(new Tag("k1", "v1"));
 		styleTags.add(new Tag("k3", "v3"));
 		styleTags.add(new Tag("k2", "v2"));
-
+		
 		assertFalse(styleTags.includingIn(objectTags));
 	}
 
@@ -174,13 +174,13 @@ public class DefenitionTagsTest
 	{
 		DefenitionTags styleTags = new DefenitionTags();
 		DefenitionTags objectTags = new DefenitionTags();
-
+		
 		objectTags.add(new Tag("k4", "v4"));
 		objectTags.add(new Tag("k1", "v1"));
 		styleTags.add(new Tag("k1", "v1"));
 		styleTags.add(new Tag("k3", "v3"));
 		styleTags.add(new Tag("k2", "v2"));
-
+		
 		assertFalse(styleTags.includingIn(objectTags));
 	}
 
@@ -192,13 +192,13 @@ public class DefenitionTagsTest
 	{
 		DefenitionTags styleTags = new DefenitionTags();
 		DefenitionTags objectTags = new DefenitionTags();
-
+		
 		objectTags.add(new Tag("k3", "v3"));
 		objectTags.add(new Tag("k2", "v2"));
 		objectTags.add(new Tag("k1", "v1"));
 		styleTags.add(new Tag("k1", "v1"));
 		styleTags.add(new Tag("k3", "v3"));
-
+		
 		assertTrue(styleTags.includingIn(objectTags));
 	}
 
@@ -214,12 +214,12 @@ public class DefenitionTagsTest
 			writingTags.add(new Tag("k3", "v3"));
 			writingTags.add(new Tag("k1", "v1"));
 			writingTags.add(new Tag("k2", "v2"));
-
-			IOTester.writeToTestFile(writingTags);
-
+			
+			writingTags.writeToStream(IOTester.createTestOutputStream());
+			
 			DefenitionTags readingTags = new DefenitionTags();
-			IOTester.readFromTestFile(readingTags);
-
+			readingTags.readFromStream(IOTester.createTestInputStream());
+			
 			assertEquals(writingTags.count(), readingTags.count());
 			for (int i = 0; i < writingTags.count(); i++)
 			{
@@ -241,7 +241,7 @@ public class DefenitionTagsTest
 		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("k1", "v1"));
 		tags.add(new Tag("k2", "v2"));
-
+		
 		assertFalse(tags.isEmpty());
 		assertEquals(2, tags.count());
 		assertTrue(tags.get(0).compareTo(new Tag("k1", "v1")));
@@ -276,7 +276,7 @@ public class DefenitionTagsTest
 		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("k1", "v1"));
 		tags.add(new Tag("k2", "v2"));
-
+		
 		tags.clear();
 		assertTrue(tags.isEmpty());
 		assertEquals(0, tags.count());
@@ -291,11 +291,11 @@ public class DefenitionTagsTest
 		DefenitionTags tags = new DefenitionTags();
 		tags.add(new Tag("k1", "v1"));
 		tags.add(new Tag("k2", "v2"));
-
+		
 		tags.remove(1);
 		assertEquals(1, tags.count());
 		assertTrue(tags.get(0).compareTo(new Tag("k1", "v1")));
-
+		
 		tags.remove(0);
 		assertTrue(tags.isEmpty());
 		assertEquals(0, tags.count());

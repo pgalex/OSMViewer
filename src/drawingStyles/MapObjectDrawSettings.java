@@ -1,18 +1,16 @@
 package drawingStyles;
 
-import mapDefenitionUtilities.DefenitionTags;
-import IO.ReadableMapData;
-import IO.WritableMapData;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import mapDefenitionUtilities.DefenitionTags;
 
 /**
  * How to draw any object on a map
  *
  * @author abc
  */
-public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
+public class MapObjectDrawSettings
 {
 	/**
 	 * Can be object with this tags a point (single node)
@@ -373,7 +371,6 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 	 * @param input input stream
 	 * @throws IOException reading error
 	 */
-	@Override
 	public void readFromStream(DataInputStream input) throws IOException
 	{
 		try
@@ -400,7 +397,6 @@ public class MapObjectDrawSettings implements ReadableMapData, WritableMapData
 	 * @param output output stream
 	 * @throws IOException writing error
 	 */
-	@Override
 	public void writeToStream(DataOutputStream output) throws IOException
 	{
 		try

@@ -1,7 +1,5 @@
 package IOTesting;
 
-import IO.ReadableMapData;
-import IO.WritableMapData;
 import java.io.*;
 
 /**
@@ -16,39 +14,13 @@ public class IOTester
 	 */
 	public static final String TEST_FILE_NAME = "test/supportFiles/testFile.txt";
 
-	/**
-	 * Write object to test file
-	 *
-	 * @param writingObject object to write
-	 * @throws Exception error while writing
-	 */
-	public static void writeToTestFile(WritableMapData writingObject) throws Exception
+	public static DataOutputStream createTestOutputStream() throws FileNotFoundException
 	{
-		if (writingObject == null)
-		{
-			throw new NullPointerException();
-		}
-
-		DataOutputStream output = new DataOutputStream(new FileOutputStream(IOTester.TEST_FILE_NAME));
-		writingObject.writeToStream(output);
-		output.close();
+		return new DataOutputStream(new FileOutputStream(IOTester.TEST_FILE_NAME));
 	}
 
-	/**
-	 * Read from test file to object
-	 *
-	 * @param readingObject object for reading
-	 * @throws Exception error while reading
-	 */
-	public static void readFromTestFile(ReadableMapData readingObject) throws Exception
+	public static DataInputStream createTestInputStream() throws FileNotFoundException
 	{
-		if (readingObject == null)
-		{
-			throw new NullPointerException();
-		}
-
-		DataInputStream input = new DataInputStream(new FileInputStream(IOTester.TEST_FILE_NAME));
-		readingObject.readFromStream(input);
-		input.close();
+		return new DataInputStream(new FileInputStream(IOTester.TEST_FILE_NAME));
 	}
 }

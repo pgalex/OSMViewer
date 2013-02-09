@@ -1,7 +1,5 @@
 package mapDefenitionUtilities;
 
-import IO.ReadableMapData;
-import IO.WritableMapData;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -12,7 +10,7 @@ import java.util.ArrayList;
  *
  * @author pgalex
  */
-public class DefenitionTags implements ReadableMapData, WritableMapData
+public class DefenitionTags
 {
 	/**
 	 * Array of tags
@@ -165,7 +163,6 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 	 * @param input input stream
 	 * @throws IOException reading error
 	 */
-	@Override
 	public void readFromStream(DataInputStream input) throws IOException
 	{
 		try
@@ -191,7 +188,6 @@ public class DefenitionTags implements ReadableMapData, WritableMapData
 	 * @param output output stream
 	 * @throws IOException writing error
 	 */
-	@Override
 	public void writeToStream(DataOutputStream output) throws IOException
 	{
 		try

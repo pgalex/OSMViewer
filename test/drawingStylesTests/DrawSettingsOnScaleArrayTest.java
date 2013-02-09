@@ -3,6 +3,8 @@ package drawingStylesTests;
 import IOTesting.IOTester;
 import drawingStyles.DrawSettingsOnScale;
 import drawingStyles.DrawSettingsOnScaleArray;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -287,10 +289,10 @@ public class DrawSettingsOnScaleArrayTest
 			final int scaleLevelAtEnd = writingStyles.getMaximumScaleLevel();
 			writingStyles.setDrawSettingsOnScale(scaleLevelAtEnd, styleAtEnd);
 
-			IOTester.writeToTestFile(writingStyles);
+			writingStyles.writeToStream(IOTester.createTestOutputStream());
 
 			DrawSettingsOnScaleArray readingStyle = new DrawSettingsOnScaleArray();
-			IOTester.readFromTestFile(readingStyle);
+			readingStyle.readFromStream(IOTester.createTestInputStream());
 
 			assertEquals(readingStyle.getDrawSettingsOnScale(scaleLevelAtBegin).isDrawPoint(), styleAtBegin.isDrawPoint());
 			assertEquals(readingStyle.getDrawSettingsOnScale(scaleLevelAtBegin).isDrawLine(), styleAtBegin.isDrawLine());

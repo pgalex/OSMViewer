@@ -1,7 +1,5 @@
 package mapDefenitionUtilities;
 
-import IO.ReadableMapData;
-import IO.WritableMapData;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -11,7 +9,7 @@ import java.io.IOException;
  *
  * @author pgalex
  */
-public class Tag implements WritableMapData, ReadableMapData
+public class Tag
 {
 	/**
 	 * key
@@ -103,7 +101,6 @@ public class Tag implements WritableMapData, ReadableMapData
 	 * @param output output stream
 	 * @throws IOException writing error
 	 */
-	@Override
 	public void writeToStream(DataOutputStream output) throws IOException
 	{
 		try
@@ -123,7 +120,6 @@ public class Tag implements WritableMapData, ReadableMapData
 	 * @param input input stream
 	 * @throws IOException reading error
 	 */
-	@Override
 	public void readFromStream(DataInputStream input) throws IOException
 	{
 		try

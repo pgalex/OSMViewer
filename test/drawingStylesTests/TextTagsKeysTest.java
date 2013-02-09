@@ -1,10 +1,9 @@
 package drawingStylesTests;
 
 import IOTesting.IOTester;
-import mapDefenitionUtilities.DefenitionTags;
+import drawingStyles.TextTagsKeys;
 import mapDefenitionUtilities.DefenitionTags;
 import mapDefenitionUtilities.Tag;
-import drawingStyles.TextTagsKeys;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -260,11 +259,11 @@ public class TextTagsKeysTest
 			writingTagsKeys.addKey("k1");
 			writingTagsKeys.addKey("k2");
 			
-			IOTester.writeToTestFile(writingTagsKeys);
+			writingTagsKeys.writeToStream(IOTester.createTestOutputStream());
 
 			TextTagsKeys readingTagsKeys = new TextTagsKeys();
-			IOTester.readFromTestFile(readingTagsKeys);
-
+			readingTagsKeys.readFromStream(IOTester.createTestInputStream());
+			
 			assertEquals(writingTagsKeys.getKeysCount(), readingTagsKeys.getKeysCount());
 			for (int i = 0; i < writingTagsKeys.getKeysCount(); i++)
 			{

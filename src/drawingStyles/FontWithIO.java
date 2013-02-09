@@ -1,7 +1,5 @@
 package drawingStyles;
 
-import IO.ReadableMapData;
-import IO.WritableMapData;
 import java.awt.Font;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -12,7 +10,7 @@ import java.io.IOException;
  *
  * @author Евгений
  */
-public class FontWithIO implements ReadableMapData, WritableMapData
+public class FontWithIO
 {
 	/**
 	 * Default font
@@ -79,7 +77,6 @@ public class FontWithIO implements ReadableMapData, WritableMapData
 	 * @param input input stream
 	 * @throws IOException read error
 	 */
-	@Override
 	public void readFromStream(DataInputStream input) throws IOException
 	{
 		try
@@ -101,7 +98,6 @@ public class FontWithIO implements ReadableMapData, WritableMapData
 	 * @param output output stream
 	 * @throws IOException write error
 	 */
-	@Override
 	public void writeToStream(DataOutputStream output) throws IOException
 	{
 		try

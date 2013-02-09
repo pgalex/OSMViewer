@@ -1,7 +1,5 @@
 package drawingStyles;
 
-import IO.ReadableMapData;
-import IO.WritableMapData;
 import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -12,7 +10,7 @@ import java.io.IOException;
  *
  * @author Евгений
  */
-public class ColorWithIO implements WritableMapData, ReadableMapData
+public class ColorWithIO
 {
 	/**
 	 * Default storingColor
@@ -48,51 +46,6 @@ public class ColorWithIO implements WritableMapData, ReadableMapData
 	}
 
 	/**
-	 * Write into stream
-	 *
-	 * @param output write stream
-	 * @throws IOException write error
-	 */
-	@Override
-	public void writeToStream(DataOutputStream output) throws IOException
-	{
-		try
-		{
-			output.writeInt(storingColor.getRed());
-			output.writeInt(storingColor.getGreen());
-			output.writeInt(storingColor.getBlue());
-			output.writeInt(storingColor.getAlpha());
-		}
-		catch (Exception e)
-		{
-			throw new IOException(e);
-		}
-	}
-
-	/**
-	 * Read storingColor from stream
-	 *
-	 * @param input stream
-	 * @throws IOException read error
-	 */
-	@Override
-	public void readFromStream(DataInputStream input) throws IOException
-	{
-		try
-		{
-			int r = input.readInt();
-			int g = input.readInt();
-			int b = input.readInt();
-			int a = input.readInt();
-			storingColor = new Color(r, g, b, a);
-		}
-		catch (Exception e)
-		{
-			throw new IOException(e);
-		}
-	}
-
-	/**
 	 * Set new storing storingColor
 	 *
 	 * @param colorToSet new storing storingColor
@@ -116,5 +69,48 @@ public class ColorWithIO implements WritableMapData, ReadableMapData
 	public Color getStoringColor()
 	{
 		return storingColor;
+	}
+
+	/**
+	 * Write into stream
+	 *
+	 * @param output write stream
+	 * @throws IOException write error
+	 */
+	public void writeToStream(DataOutputStream output) throws IOException
+	{
+		try
+		{
+			output.writeInt(storingColor.getRed());
+			output.writeInt(storingColor.getGreen());
+			output.writeInt(storingColor.getBlue());
+			output.writeInt(storingColor.getAlpha());
+		}
+		catch (Exception e)
+		{
+			throw new IOException(e);
+		}
+	}
+
+	/**
+	 * Read storingColor from stream
+	 *
+	 * @param input stream
+	 * @throws IOException read error
+	 */
+	public void readFromStream(DataInputStream input) throws IOException
+	{
+		try
+		{
+			int r = input.readInt();
+			int g = input.readInt();
+			int b = input.readInt();
+			int a = input.readInt();
+			storingColor = new Color(r, g, b, a);
+		}
+		catch (Exception e)
+		{
+			throw new IOException(e);
+		}
 	}
 }

@@ -1,7 +1,5 @@
 package drawingStyles;
 
-import IO.ReadableMapData;
-import IO.WritableMapData;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -11,7 +9,7 @@ import java.io.IOException;
  *
  * @author pgalex
  */
-public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapData
+public class DrawSettingsOnScaleArray
 {
 	/**
 	 * Default minimum scale level of array. Scale levels that used to store
@@ -43,9 +41,9 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	{
 		minimumScaleLevel = DEFAULT_MINIMUM_SCALE_LEVEL;
 		maximumScaleLevel = DEFAULT_MAXIUMUM_SCALE_LEVEL;
-		
+
 		settingsOnScales = new DrawSettingsOnScale[computeStylesArrayLengthByScaleLevelBounds()];
-		
+
 		for (int i = 0; i < settingsOnScales.length; i++)
 		{
 			settingsOnScales[i] = new DrawSettingsOnScale();
@@ -95,7 +93,7 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 		{
 			throw new IllegalArgumentException();
 		}
-		
+
 		settingsOnScales[convertScaleLevelToArrayIndex(scaleLevel)] = drawSettingToSet;
 	}
 
@@ -113,7 +111,7 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 		{
 			throw new IllegalArgumentException();
 		}
-		
+
 		return scaleLevelToConvert - minimumScaleLevel;
 	}
 
@@ -127,17 +125,17 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	private int normalizeScaleLevel(int scaleLevelToNormalize)
 	{
 		int normalizedScaleLevel = scaleLevelToNormalize;
-		
+
 		if (normalizedScaleLevel < minimumScaleLevel)
 		{
 			normalizedScaleLevel = minimumScaleLevel;
 		}
-		
+
 		if (normalizedScaleLevel > maximumScaleLevel)
 		{
 			normalizedScaleLevel = maximumScaleLevel;
 		}
-		
+
 		return normalizedScaleLevel;
 	}
 
@@ -174,7 +172,7 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 		{
 			return null;
 		}
-		
+
 		if (drawSettingsOnScale.isDrawPoint())
 		{
 			return drawSettingsOnScale.getPointDrawSettings();
@@ -198,7 +196,7 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 		{
 			return null;
 		}
-		
+
 		if (drawSettingsOnScale.isDrawLine())
 		{
 			return drawSettingsOnScale.getLineDrawSettings();
@@ -222,7 +220,7 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 		{
 			return null;
 		}
-		
+
 		if (drawSettingsOnScale.isDrawPolygon())
 		{
 			return drawSettingsOnScale.getPolygonDrawSettings();
@@ -246,7 +244,7 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 		{
 			return null;
 		}
-		
+
 		if (drawSettingsOnScale.isDrawText())
 		{
 			return drawSettingsOnScale.getTextDrawSettings();
@@ -263,14 +261,13 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	 * @param input input stream
 	 * @throws IOException reading error
 	 */
-	@Override
 	public void readFromStream(DataInputStream input) throws IOException
 	{
 		try
 		{
 			minimumScaleLevel = input.readInt();
 			maximumScaleLevel = input.readInt();
-			
+
 			settingsOnScales = new DrawSettingsOnScale[computeStylesArrayLengthByScaleLevelBounds()];
 			for (int i = 0; i < settingsOnScales.length; i++)
 			{
@@ -290,7 +287,6 @@ public class DrawSettingsOnScaleArray implements ReadableMapData, WritableMapDat
 	 * @param output output stream
 	 * @throws IOException writing error
 	 */
-	@Override
 	public void writeToStream(DataOutputStream output) throws IOException
 	{
 		try

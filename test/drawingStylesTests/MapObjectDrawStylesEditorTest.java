@@ -52,22 +52,22 @@ public class MapObjectDrawStylesEditorTest
 	{
 		MapObjectDrawSettings style1 = new MapObjectDrawSettings();
 		style1.setDescription("style1");
-
+		
 		MapObjectDrawSettings style2 = new MapObjectDrawSettings();
 		style2.setDescription("style2");
-
+		
 		MapObjectDrawSettings style3 = new MapObjectDrawSettings();
 		style3.setDescription("style3");
-
+		
 		StyleEditor editor = DrawingStylesFactory.createStyleEditor();
 		assertEquals(0, editor.countOfMapObjectDrawSettings());
-
+		
 		editor.addMapObjectDrawSettings(style1);
 		editor.addMapObjectDrawSettings(style2);
 		editor.addMapObjectDrawSettings(style3);
-
+		
 		assertEquals(3, editor.countOfMapObjectDrawSettings());
-
+		
 		assertEquals(style1.getDescription(), editor.getMapObjectDrawSettings(0).getDescription());
 		assertEquals(style2.getDescription(), editor.getMapObjectDrawSettings(1).getDescription());
 		assertEquals(style3.getDescription(), editor.getMapObjectDrawSettings(2).getDescription());
@@ -101,14 +101,14 @@ public class MapObjectDrawStylesEditorTest
 		{
 			MapObjectDrawSettings style1 = new MapObjectDrawSettings();
 			style1.setDescription("style1");
-
+			
 			MapObjectDrawSettings style2 = new MapObjectDrawSettings();
 			style2.setDescription("style2");
-
+			
 			StyleEditor editor = DrawingStylesFactory.createStyleEditor();
 			editor.addMapObjectDrawSettings(style1);
 			editor.addMapObjectDrawSettings(style2);
-
+			
 			assertEquals(2, editor.countOfMapObjectDrawSettings());
 			assertEquals(style1.getDescription(), editor.getMapObjectDrawSettings(0).getDescription());
 			assertEquals(style2.getDescription(), editor.getMapObjectDrawSettings(1).getDescription());
@@ -127,10 +127,10 @@ public class MapObjectDrawStylesEditorTest
 	{
 		MapObjectDrawSettings style = new MapObjectDrawSettings();
 		style.setDescription("style1");
-
+		
 		StyleEditor editor = DrawingStylesFactory.createStyleEditor();
 		editor.addMapObjectDrawSettings(style);
-
+		
 		assertNull(editor.getMapObjectDrawSettings(-1));
 		assertNull(editor.getMapObjectDrawSettings(editor.countOfMapObjectDrawSettings() + 1));
 		assertNull(editor.getMapObjectDrawSettings(null));
@@ -144,14 +144,14 @@ public class MapObjectDrawStylesEditorTest
 	{
 		MapObjectDrawSettings style1 = new MapObjectDrawSettings();
 		style1.setDescription("style1");
-
+		
 		MapObjectDrawSettings style2 = new MapObjectDrawSettings();
 		style2.setDescription("style2");
-
+		
 		StyleEditor editor = DrawingStylesFactory.createStyleEditor();
 		editor.addMapObjectDrawSettings(style1);
 		editor.setMapObjectDrawSettings(0, style2);
-
+		
 		assertEquals(style2.getDescription(), editor.getMapObjectDrawSettings(0).getDescription());
 	}
 
@@ -163,10 +163,10 @@ public class MapObjectDrawStylesEditorTest
 	{
 		MapObjectDrawSettings style1 = new MapObjectDrawSettings();
 		style1.setDescription("style1");
-
+		
 		MapObjectDrawSettings style2 = new MapObjectDrawSettings();
 		style2.setDescription("style2");
-
+		
 		StyleEditor editor = DrawingStylesFactory.createStyleEditor();
 		editor.addMapObjectDrawSettings(style1);
 		try
@@ -188,10 +188,10 @@ public class MapObjectDrawStylesEditorTest
 	{
 		MapObjectDrawSettings style1 = new MapObjectDrawSettings();
 		style1.setDescription("style1");
-
+		
 		MapObjectDrawSettings style2 = new MapObjectDrawSettings();
 		style2.setDescription("style2");
-
+		
 		StyleEditor editor = DrawingStylesFactory.createStyleEditor();
 		editor.addMapObjectDrawSettings(style1);
 		try
@@ -213,7 +213,7 @@ public class MapObjectDrawStylesEditorTest
 	{
 		MapObjectDrawSettings style1 = new MapObjectDrawSettings();
 		style1.setDescription("style1");
-
+		
 		StyleEditor editor = DrawingStylesFactory.createStyleEditor();
 		editor.addMapObjectDrawSettings(style1);
 		try
@@ -235,7 +235,7 @@ public class MapObjectDrawStylesEditorTest
 	{
 		MapObjectDrawSettings style2 = new MapObjectDrawSettings();
 		style2.setDescription("style2");
-
+		
 		StyleEditor editor = DrawingStylesFactory.createStyleEditor();
 		try
 		{
@@ -256,20 +256,20 @@ public class MapObjectDrawStylesEditorTest
 	{
 		MapObjectDrawSettings style1 = new MapObjectDrawSettings();
 		style1.setDescription("style1");
-
+		
 		MapObjectDrawSettings style2 = new MapObjectDrawSettings();
 		style2.setDescription("style2");
-
+		
 		StyleEditor editor = DrawingStylesFactory.createStyleEditor();
 		editor.addMapObjectDrawSettings(style1);
 		editor.addMapObjectDrawSettings(style2);
-
+		
 		assertEquals(2, editor.countOfMapObjectDrawSettings());
-
+		
 		editor.removeMapObjectDrawSettings(0);
 		assertEquals(1, editor.countOfMapObjectDrawSettings());
 		assertEquals(style2.getDescription(), editor.getMapObjectDrawSettings(0).getDescription());
-
+		
 		editor.removeMapObjectDrawSettings(0);
 		assertEquals(0, editor.countOfMapObjectDrawSettings());
 	}
@@ -282,7 +282,7 @@ public class MapObjectDrawStylesEditorTest
 	{
 		MapObjectDrawSettings style1 = new MapObjectDrawSettings();
 		style1.setDescription("style1");
-
+		
 		StyleEditor editor = DrawingStylesFactory.createStyleEditor();
 		editor.addMapObjectDrawSettings(style1);
 		try
@@ -304,7 +304,7 @@ public class MapObjectDrawStylesEditorTest
 	{
 		MapObjectDrawSettings style1 = new MapObjectDrawSettings();
 		style1.setDescription("style1");
-
+		
 		StyleEditor editor = DrawingStylesFactory.createStyleEditor();
 		editor.addMapObjectDrawSettings(style1);
 		try
@@ -326,7 +326,7 @@ public class MapObjectDrawStylesEditorTest
 	{
 		MapObjectDrawSettings style1 = new MapObjectDrawSettings();
 		style1.setDescription("style1");
-
+		
 		StyleEditor editor = DrawingStylesFactory.createStyleEditor();
 		editor.addMapObjectDrawSettings(style1);
 		try
@@ -354,17 +354,17 @@ public class MapObjectDrawStylesEditorTest
 			style2.setDescription("style9");
 			MapObjectDrawSettings style3 = new MapObjectDrawSettings();
 			style3.setDescription("style10");
-
+			
 			StyleEditor writedEditor = DrawingStylesFactory.createStyleEditor();
 			writedEditor.addMapObjectDrawSettings(style1);
 			writedEditor.addMapObjectDrawSettings(style2);
 			writedEditor.addMapObjectDrawSettings(style3);
 			writedEditor.setMapDrawSettings(new MapDrawSettings(Color.CYAN));
-			IOTester.writeToTestFile(writedEditor);
-
+			writedEditor.writeToStream(IOTester.createTestOutputStream());
+			
 			StyleEditor readEditor = DrawingStylesFactory.createStyleEditor();
-			IOTester.readFromTestFile(readEditor);
-
+			readEditor.readFromStream(IOTester.createTestInputStream());
+			
 			assertEquals(writedEditor.getMapDrawSettings().getMapBackgroundColor(),
 							readEditor.getMapDrawSettings().getMapBackgroundColor());
 			// comparing only by description
@@ -394,18 +394,18 @@ public class MapObjectDrawStylesEditorTest
 			style2.setDescription("style6");
 			MapObjectDrawSettings style3 = new MapObjectDrawSettings();
 			style3.setDescription("style7");
-
+			
 			StyleEditor writedEditor = DrawingStylesFactory.createStyleEditor();
 			writedEditor.addMapObjectDrawSettings(style1);
 			writedEditor.addMapObjectDrawSettings(style2);
 			writedEditor.addMapObjectDrawSettings(style3);
 			writedEditor.setMapDrawSettings(new MapDrawSettings(Color.CYAN));
 			writedEditor.writeToFile(new File(IOTester.TEST_FILE_NAME));
-
+			
 			StyleEditor readEditor = DrawingStylesFactory.createStyleEditor();
-			IOTester.readFromTestFile(readEditor);
-
-
+			readEditor.readFromStream(IOTester.createTestInputStream());
+			
+			
 			assertEquals(writedEditor.getMapDrawSettings().getMapBackgroundColor(),
 							readEditor.getMapDrawSettings().getMapBackgroundColor());
 			// comparing only by description
@@ -435,17 +435,17 @@ public class MapObjectDrawStylesEditorTest
 			style2.setDescription("style2");
 			MapObjectDrawSettings style3 = new MapObjectDrawSettings();
 			style3.setDescription("style3");
-
+			
 			StyleEditor writedEditor = DrawingStylesFactory.createStyleEditor();
 			writedEditor.addMapObjectDrawSettings(style1);
 			writedEditor.addMapObjectDrawSettings(style2);
 			writedEditor.addMapObjectDrawSettings(style3);
 			writedEditor.setMapDrawSettings(new MapDrawSettings(Color.CYAN));
-			IOTester.writeToTestFile(writedEditor);
-
+			writedEditor.writeToStream(IOTester.createTestOutputStream());
+			
 			StyleEditor readEditor = DrawingStylesFactory.createStyleEditor();
 			readEditor.readFromFile(new File(IOTester.TEST_FILE_NAME));
-
+			
 			assertEquals(writedEditor.getMapDrawSettings().getMapBackgroundColor(),
 							readEditor.getMapDrawSettings().getMapBackgroundColor());
 			// comparing only by description
@@ -472,15 +472,15 @@ public class MapObjectDrawStylesEditorTest
 		tags1.add(new Tag("k2", "v2"));
 		tags1.add(new Tag("k3", "v3"));
 		tags1.add(new Tag("k4", "v4"));
-
+		
 		DefenitionTags tags2 = new DefenitionTags();
 		tags2.add(new Tag("k1", "v1"));
 		tags2.add(new Tag("k2", "v2"));
 		tags2.add(new Tag("k5", "v5"));
-
+		
 		DefenitionTags tags3 = new DefenitionTags();
 		tags3.add(new Tag("k8", "v8"));
-
+		
 		MapObjectDrawSettings style1 = new MapObjectDrawSettings();
 		style1.setDescription("style8");
 		style1.setDefenitionTags(tags1);
@@ -490,7 +490,7 @@ public class MapObjectDrawStylesEditorTest
 		MapObjectDrawSettings style3 = new MapObjectDrawSettings();
 		style3.setDescription("style10");
 		style3.setDefenitionTags(tags3);
-
+		
 		StyleEditor editor = DrawingStylesFactory.createStyleEditor();
 		editor.addMapObjectDrawSettings(style1);
 		editor.addMapObjectDrawSettings(style2);
@@ -510,7 +510,7 @@ public class MapObjectDrawStylesEditorTest
 		testTags1.add(new Tag("k5", "v5"));
 		testTags1.add(new Tag("k6", "v6"));
 		assertEquals(0, (int) editor.findStyleIndex(testTags1));
-
+		
 		DefenitionTags testTags2 = new DefenitionTags();
 		testTags2.add(new Tag("k1", "v1"));
 		testTags2.add(new Tag("k2", "v2"));

@@ -2,6 +2,8 @@ package drawingStylesTests;
 
 import IOTesting.IOTester;
 import drawingStyles.DrawSettingsOnScale;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -12,7 +14,6 @@ import org.junit.Test;
  */
 public class DrawSettingsOnScaleTest
 {
-
 	/**
 	 * Reading/writing test
 	 */
@@ -25,12 +26,12 @@ public class DrawSettingsOnScaleTest
 			writedStyle.setDrawPoint();
 			writedStyle.setNotDrawLine();
 			writedStyle.setDrawPolygon();
-
-			IOTester.writeToTestFile(writedStyle);
-
+			
+			writedStyle.writeToStream(IOTester.createTestOutputStream());
+			
 			DrawSettingsOnScale readStyle = new DrawSettingsOnScale();
-			IOTester.readFromTestFile(readStyle);
-
+			readStyle.readFromStream(IOTester.createTestInputStream());
+			
 			assertEquals(writedStyle.isDrawLine(), readStyle.isDrawLine());
 			assertEquals(writedStyle.isDrawPoint(), readStyle.isDrawPoint());
 			assertEquals(writedStyle.isDrawPolygon(), readStyle.isDrawPolygon());

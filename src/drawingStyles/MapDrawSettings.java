@@ -1,7 +1,5 @@
 package drawingStyles;
 
-import IO.ReadableMapData;
-import IO.WritableMapData;
 import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -12,7 +10,7 @@ import java.io.IOException;
  *
  * @author pgalex
  */
-public class MapDrawSettings implements ReadableMapData, WritableMapData
+public class MapDrawSettings
 {
 	/**
 	 * Default map background color
@@ -43,7 +41,7 @@ public class MapDrawSettings implements ReadableMapData, WritableMapData
 		{
 			throw new IllegalArgumentException();
 		}
-		
+
 		mapBackgroundColor = new ColorWithIO(backgroundColor);
 	}
 
@@ -79,7 +77,6 @@ public class MapDrawSettings implements ReadableMapData, WritableMapData
 	 * @param input input stream
 	 * @throws IOException reading error
 	 */
-	@Override
 	public void readFromStream(DataInputStream input) throws IOException
 	{
 		try
@@ -88,7 +85,7 @@ public class MapDrawSettings implements ReadableMapData, WritableMapData
 		}
 		catch (Exception ex)
 		{
-			throw new IOException();
+			throw new IOException(ex);
 		}
 	}
 
@@ -98,7 +95,6 @@ public class MapDrawSettings implements ReadableMapData, WritableMapData
 	 * @param output output stream
 	 * @throws IOException writing error
 	 */
-	@Override
 	public void writeToStream(DataOutputStream output) throws IOException
 	{
 		try
@@ -107,7 +103,7 @@ public class MapDrawSettings implements ReadableMapData, WritableMapData
 		}
 		catch (Exception ex)
 		{
-			throw new IOException();
+			throw new IOException(ex);
 		}
 	}
 }

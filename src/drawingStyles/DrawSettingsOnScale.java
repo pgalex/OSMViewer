@@ -1,7 +1,5 @@
 package drawingStyles;
 
-import IO.ReadableMapData;
-import IO.WritableMapData;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -11,7 +9,7 @@ import java.io.IOException;
  *
  * @author abc
  */
-public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
+public class DrawSettingsOnScale
 {
 	/**
 	 * Is need to draw point
@@ -59,58 +57,6 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 		needDrawLine = false;
 		needDrawPolygon = false;
 		needDrawText = false;
-	}
-
-	/**
-	 * Read from stream
-	 *
-	 * @param input input stream
-	 * @throws IOException reading error
-	 */
-	@Override
-	public void readFromStream(DataInputStream input) throws IOException
-	{
-		try
-		{
-			needDrawPoint = input.readBoolean();
-			needDrawLine = input.readBoolean();
-			needDrawPolygon = input.readBoolean();
-			needDrawText = input.readBoolean();
-			pointDrawSettings.readFromStream(input);
-			lineDrawSettings.readFromStream(input);
-			polygonDrawSettings.readFromStream(input);
-			textDrawSettings.readFromStream(input);
-		}
-		catch (Exception e)
-		{
-			throw new IOException(e);
-		}
-	}
-
-	/**
-	 * Write into stream
-	 *
-	 * @param output output stream
-	 * @throws IOException writing error
-	 */
-	@Override
-	public void writeToStream(DataOutputStream output) throws IOException
-	{
-		try
-		{
-			output.writeBoolean(needDrawPoint);
-			output.writeBoolean(needDrawLine);
-			output.writeBoolean(needDrawPolygon);
-			output.writeBoolean(needDrawText);
-			pointDrawSettings.writeToStream(output);
-			lineDrawSettings.writeToStream(output);
-			polygonDrawSettings.writeToStream(output);
-			textDrawSettings.writeToStream(output);
-		}
-		catch (Exception e)
-		{
-			throw new IOException(e);
-		}
 	}
 
 	/**
@@ -255,5 +201,55 @@ public class DrawSettingsOnScale implements ReadableMapData, WritableMapData
 	public TextDrawSettings getTextDrawSettings()
 	{
 		return textDrawSettings;
+	}
+
+	/**
+	 * Read from stream
+	 *
+	 * @param input input stream
+	 * @throws IOException reading error
+	 */
+	public void readFromStream(DataInputStream input) throws IOException
+	{
+		try
+		{
+			needDrawPoint = input.readBoolean();
+			needDrawLine = input.readBoolean();
+			needDrawPolygon = input.readBoolean();
+			needDrawText = input.readBoolean();
+			pointDrawSettings.readFromStream(input);
+			lineDrawSettings.readFromStream(input);
+			polygonDrawSettings.readFromStream(input);
+			textDrawSettings.readFromStream(input);
+		}
+		catch (Exception e)
+		{
+			throw new IOException(e);
+		}
+	}
+
+	/**
+	 * Write into stream
+	 *
+	 * @param output output stream
+	 * @throws IOException writing error
+	 */
+	public void writeToStream(DataOutputStream output) throws IOException
+	{
+		try
+		{
+			output.writeBoolean(needDrawPoint);
+			output.writeBoolean(needDrawLine);
+			output.writeBoolean(needDrawPolygon);
+			output.writeBoolean(needDrawText);
+			pointDrawSettings.writeToStream(output);
+			lineDrawSettings.writeToStream(output);
+			polygonDrawSettings.writeToStream(output);
+			textDrawSettings.writeToStream(output);
+		}
+		catch (Exception e)
+		{
+			throw new IOException(e);
+		}
 	}
 }

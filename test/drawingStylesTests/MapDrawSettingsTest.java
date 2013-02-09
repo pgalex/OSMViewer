@@ -57,10 +57,10 @@ public class MapDrawSettingsTest
 		try
 		{
 			MapDrawSettings writingSetting = new MapDrawSettings(Color.ORANGE);
-			IOTester.writeToTestFile(writingSetting);
-
+			writingSetting.writeToStream(IOTester.createTestOutputStream());
+			
 			MapDrawSettings readingSettings = new MapDrawSettings();
-			IOTester.readFromTestFile(readingSettings);
+			readingSettings.readFromStream(IOTester.createTestInputStream());
 
 			assertEquals(writingSetting.getMapBackgroundColor(), readingSettings.getMapBackgroundColor());
 		}
