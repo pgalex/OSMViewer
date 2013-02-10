@@ -135,7 +135,12 @@ public class SelectingLine extends SelectingObject
 		Point hitPoint = new Point(new CoordinateArraySequence(hitPointCoordinates), factory);
 
 		double distanceToPoint = lineString.distance(hitPoint);
+		double lineWidthDiv2 = lineWidth / 2;
+		if (lineWidthDiv2 < 1)
+		{
+			lineWidthDiv2 = 1;
+		}
 
-		return distanceToPoint <= lineWidth;
+		return distanceToPoint <= lineWidthDiv2;
 	}
 }

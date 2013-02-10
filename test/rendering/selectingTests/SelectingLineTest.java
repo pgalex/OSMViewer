@@ -193,11 +193,11 @@ public class SelectingLineTest
 		RenderableMapObject someObject = new TestRenderableMapObject();
 
 		Point2D[] linePoints = new Point2D[2];
-		linePoints[0] = new Point2D.Double(0, 5);
-		linePoints[1] = new Point2D.Double(15, 5);
+		linePoints[0] = new Point2D.Double(0, 0);
+		linePoints[1] = new Point2D.Double(15, 0);
 
-		SelectingLine testLine = new SelectingLine(someObject, 0, linePoints, 5);
-		assertTrue(testLine.isHitsByPoint(new Point2D.Double(0, 0)));
+		SelectingLine testLine = new SelectingLine(someObject, 0, linePoints, 14);
+		assertTrue(testLine.isHitsByPoint(new Point2D.Double(8, -7)));
 	}
 
 	/**
@@ -209,10 +209,10 @@ public class SelectingLineTest
 		RenderableMapObject someObject = new TestRenderableMapObject();
 
 		Point2D[] linePoints = new Point2D[2];
-		linePoints[0] = new Point2D.Double(0, 5);
-		linePoints[1] = new Point2D.Double(15, 5);
+		linePoints[0] = new Point2D.Double(0, 0);
+		linePoints[1] = new Point2D.Double(15, 0);
 
-		SelectingLine testLine = new SelectingLine(someObject, 0, linePoints, 4);
-		assertFalse(testLine.isHitsByPoint(new Point2D.Double(0, 0)));
+		SelectingLine testLine = new SelectingLine(someObject, 0, linePoints, 14);
+		assertFalse(testLine.isHitsByPoint(new Point2D.Double(8, 8)));
 	}
 }
