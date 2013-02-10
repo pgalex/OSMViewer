@@ -4,13 +4,14 @@ import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import rendering.RenderableMapDrawSettings;
 
 /**
  * Contains information about map drawing (whole map, not of any object)
  *
  * @author pgalex
  */
-public class MapDrawSettings
+public class StandartMapDrawSettings implements RenderableMapDrawSettings
 {
 	/**
 	 * Default map background color
@@ -24,7 +25,7 @@ public class MapDrawSettings
 	/**
 	 * Create with default values
 	 */
-	public MapDrawSettings()
+	public StandartMapDrawSettings()
 	{
 		mapBackgroundColor = new ColorWithIO(DEFAULT_MAP_BACKGROUND_COLOR);
 	}
@@ -35,7 +36,7 @@ public class MapDrawSettings
 	 * @param backgroundColor map background color. Must be not null
 	 * @throws IllegalArgumentException background color is incorrect
 	 */
-	public MapDrawSettings(Color backgroundColor) throws IllegalArgumentException
+	public StandartMapDrawSettings(Color backgroundColor) throws IllegalArgumentException
 	{
 		if (backgroundColor == null)
 		{

@@ -21,7 +21,7 @@ public class StandartDrawSettingsContainer implements DrawSettingsViewer
 	/**
 	 * Common draw settings of map
 	 */
-	private MapDrawSettings mapDrawSettings;
+	private StandartMapDrawSettings mapDrawSettings;
 	/**
 	 * Array of container's map object draw settings
 	 */
@@ -33,7 +33,7 @@ public class StandartDrawSettingsContainer implements DrawSettingsViewer
 	public StandartDrawSettingsContainer()
 	{
 		mapObjectsDrawSettings = new ArrayList<MapObjectDrawSettings>();
-		mapDrawSettings = new MapDrawSettings();
+		mapDrawSettings = new StandartMapDrawSettings();
 	}
 
 	/**
@@ -138,7 +138,7 @@ public class StandartDrawSettingsContainer implements DrawSettingsViewer
 	 * @return map drawing settings
 	 */
 	@Override
-	public MapDrawSettings getMapDrawSettings()
+	public StandartMapDrawSettings getMapDrawSettings()
 	{
 		return mapDrawSettings;
 	}
@@ -149,7 +149,7 @@ public class StandartDrawSettingsContainer implements DrawSettingsViewer
 	 * @param mapDrawingSettingsToSet new map drawing settings
 	 * @throws IllegalArgumentException new settins is null
 	 */
-	public void setMapDrawSettings(MapDrawSettings mapDrawingSettingsToSet) throws IllegalArgumentException
+	public void setMapDrawSettings(StandartMapDrawSettings mapDrawingSettingsToSet) throws IllegalArgumentException
 	{
 		if (mapDrawingSettingsToSet == null)
 		{

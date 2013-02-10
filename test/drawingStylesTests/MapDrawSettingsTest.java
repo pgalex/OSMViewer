@@ -1,13 +1,13 @@
 package drawingStylesTests;
 
 import IOTesting.IOTester;
-import drawingStyles.MapDrawSettings;
+import drawingStyles.StandartMapDrawSettings;
 import java.awt.Color;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * MapDrawSettings class tests
+ * StandartMapDrawSettings class tests
  *
  * @author pgalex
  */
@@ -21,7 +21,7 @@ public class MapDrawSettingsTest
 	{
 		try
 		{
-			MapDrawSettings testSettings = new MapDrawSettings(null);
+			StandartMapDrawSettings testSettings = new StandartMapDrawSettings(null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -38,7 +38,7 @@ public class MapDrawSettingsTest
 	{
 		try
 		{
-			MapDrawSettings testSettings = new MapDrawSettings();
+			StandartMapDrawSettings testSettings = new StandartMapDrawSettings();
 			testSettings.setMapBackgroundColor(null);
 			fail();
 		}
@@ -56,10 +56,10 @@ public class MapDrawSettingsTest
 	{
 		try
 		{
-			MapDrawSettings writingSetting = new MapDrawSettings(Color.ORANGE);
+			StandartMapDrawSettings writingSetting = new StandartMapDrawSettings(Color.ORANGE);
 			writingSetting.writeToStream(IOTester.createTestOutputStream());
 			
-			MapDrawSettings readingSettings = new MapDrawSettings();
+			StandartMapDrawSettings readingSettings = new StandartMapDrawSettings();
 			readingSettings.readFromStream(IOTester.createTestInputStream());
 
 			assertEquals(writingSetting.getMapBackgroundColor(), readingSettings.getMapBackgroundColor());

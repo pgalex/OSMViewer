@@ -1,6 +1,5 @@
 package rendering;
 
-import drawingStyles.MapDrawSettings;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
@@ -265,7 +264,7 @@ public class MapRenderer implements CoordinatesConverter
 	 * mapDrawSettings is null
 	 */
 	public void renderMap(RenderableMap mapToRender, Graphics2D targetCanvas,
-					MapDrawSettings mapDrawSettings) throws IllegalArgumentException
+					RenderableMapDrawSettings mapDrawSettings) throws IllegalArgumentException
 	{
 		if (mapToRender == null)
 		{

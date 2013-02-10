@@ -1,10 +1,8 @@
 package rendering;
 
-import drawingStyles.MapDrawSettings;
+import drawingStyles.StandartMapDrawSettings;
 import drawingStyles.MapObjectDrawSettings;
-import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import mapDefenitionUtilities.DefenitionTags;
 
@@ -30,7 +28,7 @@ public interface DrawSettingsViewer
 	 *
 	 * @return map drawing settings
 	 */
-	public MapDrawSettings getMapDrawSettings();
+	public StandartMapDrawSettings getMapDrawSettings();
 
 	/**
 	 * Read from file
