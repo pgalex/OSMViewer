@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import mapDefenitionUtilities.MapPosition;
-import rendering.DrawSettingsViewer;
+import drawingStyles.DrawSettingsViewer;
 import rendering.MapRenderer;
 import rendering.RenderableMapObject;
 

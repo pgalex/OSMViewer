@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import mapDefenitionUtilities.DefenitionTags;
-import rendering.DrawSettingsViewer;
 
 /**
  * Gives access to drawing style with editing

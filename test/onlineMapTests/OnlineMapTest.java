@@ -2,7 +2,7 @@ package onlineMapTests;
 
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.MapObjectDrawSettings;
-import rendering.DrawSettingsViewer;
+import drawingStyles.DrawSettingsViewer;
 import map.*;
 import map.onlineMap.OnlineMap;
 import mapDefenitionUtilities.DefenitionTags;

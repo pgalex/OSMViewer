@@ -9,6 +9,7 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import map.MapLine;
 import map.MapObject;
+import map.MapObjectsDrawSettingsFinder;
 import map.MapPoint;
 import map.MapPolygon;
 import map.exceptions.*;
@@ -20,7 +21,6 @@ import osmXml.OnlineOsmParser;
 import osmXml.OsmNode;
 import osmXml.OsmTag;
 import osmXml.OsmWay;
-import rendering.DrawSettingsViewer;
 
 /**
  * Creates connection to openstreetmap.org, loads map data and convertes it to
@@ -47,7 +47,7 @@ public class OnlineMapLoader
 	 * Load osm data from web and fill map with loaded objects
 	 *
 	 * @param loadingSectorBounds bounds of loading map sector
-	 * @param styleViewer viewer, uses to assing style index to objects
+	 * @param drawSettingsFinder finder of map objects draw settings
 	 * @param fillingMap map, where new object will be added
 	 * @throws IllegalArgumentException style viewer, fillingMap,
 	 * loadingSectorBounds is null
@@ -57,11 +57,11 @@ public class OnlineMapLoader
 	 * server
 	 * @throws ParsingOsmErrorException error while parsing readed .osm xml data
 	 */
-	public void loadToMap(MapBounds loadingSectorBounds, DrawSettingsViewer styleViewer, OnlineMap fillingMap) throws
+	public void loadToMap(MapBounds loadingSectorBounds, MapObjectsDrawSettingsFinder drawSettingsFinder, OnlineMap fillingMap) throws
 					IllegalArgumentException,
 					OutOfMemoryError, ConnectionErrorException, ReadingFromServerErrorException, ParsingOsmErrorException
 	{
-		if (styleViewer == null || fillingMap == null || loadingSectorBounds == null)
+		if (drawSettingsFinder == null || fillingMap == null || loadingSectorBounds == null)
 		{
 			throw new IllegalArgumentException();
 		}
@@ -86,8 +86,8 @@ public class OnlineMapLoader
 			 onlineParser.convert(openStreetMapConnection.getInputStream());*/
 			onlineParser.convert(new DataInputStream(new FileInputStream(new File("some_map.osm.xml"))));
 
-			fillMapWithPoints(onlineParser.getNodes(), styleViewer, fillingMap);
-			fillMapWithPolygonsAndLines(onlineParser.getNodes(), onlineParser.getWays(), styleViewer, fillingMap);
+			fillMapWithPoints(onlineParser.getNodes(), drawSettingsFinder, fillingMap);
+			fillMapWithPolygonsAndLines(onlineParser.getNodes(), onlineParser.getWays(), drawSettingsFinder, fillingMap);
 
 			onlineParser.clear();
 		}
@@ -114,13 +114,12 @@ public class OnlineMapLoader
 	 *
 	 * @param nodes nodes array, using to find points of line or polygon
 	 * @param ways ways array
-	 * @param styleViewer style viewer for assigning style index
+	 * @param drawSettingsFinder style viewer for assigning style index
 	 * @param fillingMap map, filling with map polygons and lines
 	 */
-	protected void fillMapWithPolygonsAndLines(ArrayList<OsmNode> nodes, ArrayList<OsmWay> ways,
-					DrawSettingsViewer styleViewer, OnlineMap fillingMap)
+	protected void fillMapWithPolygonsAndLines(ArrayList<OsmNode> nodes, ArrayList<OsmWay> ways, MapObjectsDrawSettingsFinder drawSettingsFinder, OnlineMap fillingMap)
 	{
-		if (nodes == null || ways == null || styleViewer == null || fillingMap == null)
+		if (nodes == null || ways == null || drawSettingsFinder == null || fillingMap == null)
 		{
 			return;
 		}
@@ -133,7 +132,7 @@ public class OnlineMapLoader
 				continue;
 			}
 
-			MapObjectDrawSettings newObjectDrawSettings = styleViewer.findMapObjectDrawSettings(newObject.getDefenitionTags());
+			MapObjectDrawSettings newObjectDrawSettings = drawSettingsFinder.findMapObjectDrawSettings(newObject.getDefenitionTags());
 			if (newObject.canBeDrawenWithStyle(newObjectDrawSettings))
 			{
 				newObject.setDrawSettings(newObjectDrawSettings);
@@ -236,13 +235,12 @@ public class OnlineMapLoader
 	 * Create map points from osm nodes and add them to map
 	 *
 	 * @param nodes array of nodes, readed from .osm
-	 * @param styleViewer style viewer for assigning style index for creating map
-	 * points
+	 * @param drawSettingsFinder
 	 * @param fillingMap map, filling with map points, created by osm nodes
 	 */
-	protected void fillMapWithPoints(ArrayList<OsmNode> nodes, DrawSettingsViewer styleViewer, OnlineMap fillingMap)
+	protected void fillMapWithPoints(ArrayList<OsmNode> nodes, MapObjectsDrawSettingsFinder drawSettingsFinder, OnlineMap fillingMap)
 	{
-		if (fillingMap == null || styleViewer == null || nodes == null)
+		if (fillingMap == null || drawSettingsFinder == null || nodes == null)
 		{
 			return;
 		}
@@ -259,7 +257,7 @@ public class OnlineMapLoader
 				continue;
 			}
 
-			MapObjectDrawSettings newPointDrawSettings = styleViewer.findMapObjectDrawSettings(newPoint.getDefenitionTags());
+			MapObjectDrawSettings newPointDrawSettings = drawSettingsFinder.findMapObjectDrawSettings(newPoint.getDefenitionTags());
 			if (newPoint.canBeDrawenWithStyle(newPointDrawSettings))
 			{
 				newPoint.setDrawSettings(newPointDrawSettings);

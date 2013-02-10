@@ -1,7 +1,5 @@
 package drawingStyles;
 
-import rendering.DrawSettingsViewer;
-
 /**
  * Using for creating DrawSettingsViewer
  *
