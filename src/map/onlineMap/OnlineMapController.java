@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import mapDefenitionUtilities.MapPosition;
+import rendering.DrawSettingsViewer;
 import rendering.MapRenderer;
 import rendering.RenderableMapObject;
 
@@ -45,7 +46,7 @@ public class OnlineMapController implements DrawableOnPanel
 	/**
 	 * Drawing styles currently uses to render map
 	 */
-	private StyleEditor styleViewer;
+	private DrawSettingsViewer styleViewer;
 
 	/**
 	 * Create online map processor
@@ -66,7 +67,7 @@ public class OnlineMapController implements DrawableOnPanel
 		renderer.setViewPosition(startViewPosition);
 		renderer.setTargetCanvasDrawingArea(new Rectangle(0, 0, startCanvasWidth, startCanvasHeight));
 
-		styleViewer = DrawingStylesFactory.createStyleEditor();
+		styleViewer = DrawingStylesFactory.createStandartDrawSettingsViewer();
 
 		testSetupStyleViewer();
 		testLoadMap();

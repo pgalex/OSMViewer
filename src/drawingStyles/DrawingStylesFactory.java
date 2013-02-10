@@ -1,30 +1,21 @@
 package drawingStyles;
 
+import rendering.DrawSettingsViewer;
+
 /**
- * Using for creating StyleViewer and StyleEditor
+ * Using for creating DrawSettingsViewer
  *
  * @author pgalex
  */
 public class DrawingStylesFactory
 {
 	/**
-	 * Create style viewer. Style viewer optimized for runtime work, but not allow
-	 * editing
+	 * Create standart draw settings viewer
 	 *
-	 * @return style viewer
+	 * @return standart draw settings viewer
 	 */
-	static public StyleViewer createStyleViewer()
+	static public DrawSettingsViewer createStandartDrawSettingsViewer()
 	{
-		return new MapObjectDrawStylesViewer();
-	}
-
-	/**
-	 * Create style editor. Slower than style viewer, but allow editing
-	 *
-	 * @return style editor
-	 */
-	static public StyleEditor createStyleEditor()
-	{
-		return new MapObjectDrawStylesEditor();
+		return new StandartDrawSettingsContainer();
 	}
 }

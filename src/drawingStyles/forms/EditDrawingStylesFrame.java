@@ -2,7 +2,7 @@ package drawingStyles.forms;
 
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.StyleEditor;
+import drawingStyles.StandartDrawSettingsContainer;
 import java.awt.Color;
 import java.awt.Dialog;
 import java.io.IOException;
@@ -27,7 +27,7 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
 	/**
 	 * Drawing styles editing with dialog
 	 */
-	private StyleEditor editingDrawingStyles;
+	private StandartDrawSettingsContainer editingDrawSettings;
 	/**
 	 * List model of map object jlist control
 	 */
@@ -46,7 +46,7 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
 	 */
 	public EditDrawingStylesFrame()
 	{
-		editingDrawingStyles = DrawingStylesFactory.createStyleEditor();
+		editingDrawSettings = new StandartDrawSettingsContainer();
 
 		mapObjectsListModel = new DefaultListModel();
 
@@ -67,7 +67,7 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
 	}
 
 	/**
-	 * Update values and states of all dialog controls using editingDrawingStyles
+	 * Update values and states of all dialog controls using editingDrawSettings
 	 */
 	private void updateControlsByEditingStyles()
 	{
@@ -81,7 +81,7 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
 	 */
 	private void updateBackgroundColorControlsByEditingStyles()
 	{
-		jPanelMapBackgroudColorPreview.setBackground(editingDrawingStyles.getMapDrawSettings().getMapBackgroundColor());
+		jPanelMapBackgroudColorPreview.setBackground(editingDrawSettings.getMapDrawSettings().getMapBackgroundColor());
 	}
 
 	/**
@@ -91,9 +91,9 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
 	{
 		mapObjectsListModel.clear();
 
-		for (int i = 0; i < editingDrawingStyles.countOfMapObjectDrawSettings(); i++)
+		for (int i = 0; i < editingDrawSettings.countOfMapObjectDrawSettings(); i++)
 		{
-			mapObjectsListModel.addElement(editingDrawingStyles.getMapObjectDrawSettings(i));
+			mapObjectsListModel.addElement(editingDrawSettings.getMapObjectDrawSettings(i));
 		}
 	}
 
@@ -103,9 +103,9 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
 	private void updateDrawPriorityListByEditingStyles()
 	{
 		ArrayList<MapObjectDrawSettings> arrayForSorting = new ArrayList<MapObjectDrawSettings>();
-		for (int i = 0; i < editingDrawingStyles.countOfMapObjectDrawSettings(); i++)
+		for (int i = 0; i < editingDrawSettings.countOfMapObjectDrawSettings(); i++)
 		{
-			arrayForSorting.add(editingDrawingStyles.getMapObjectDrawSettings(i));
+			arrayForSorting.add(editingDrawSettings.getMapObjectDrawSettings(i));
 		}
 
 		Collections.sort(arrayForSorting, new MapObjectDrawSettingsDrawPriorityComparator());
@@ -126,7 +126,7 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
 	private void drawPriorityOfSelectedChanged(ChangeEvent event)
 	{
 		Integer selectedMapObjectIndex = new Integer(jListMapObjects.getSelectedIndex());
-		if (selectedMapObjectIndex < 0 || selectedMapObjectIndex > editingDrawingStyles.countOfMapObjectDrawSettings())
+		if (selectedMapObjectIndex < 0 || selectedMapObjectIndex > editingDrawSettings.countOfMapObjectDrawSettings())
 		{
 			return;
 		}
@@ -355,7 +355,7 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
 		{
 			try
 			{
-				editingDrawingStyles.readFromFile(fileChooser.getSelectedFile());
+				editingDrawSettings.readFromFile(fileChooser.getSelectedFile());
 			}
 			catch (IOException ex)
 			{
@@ -369,7 +369,7 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
   private void jButtonEditMapObjectActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonEditMapObjectActionPerformed
   {//GEN-HEADEREND:event_jButtonEditMapObjectActionPerformed
 		Integer selectedMapObjectIndex = new Integer(jListMapObjects.getSelectedIndex());
-		if (selectedMapObjectIndex < 0 || selectedMapObjectIndex > editingDrawingStyles.countOfMapObjectDrawSettings())
+		if (selectedMapObjectIndex < 0 || selectedMapObjectIndex > editingDrawSettings.countOfMapObjectDrawSettings())
 		{
 			return;
 		}
@@ -386,11 +386,11 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
   private void jButtonChooseBackgroundColorActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonChooseBackgroundColorActionPerformed
   {//GEN-HEADEREND:event_jButtonChooseBackgroundColorActionPerformed
 		Color newBackgroundColor = JColorChooser.showDialog(this, "Choosing map background color",
-						editingDrawingStyles.getMapDrawSettings().getMapBackgroundColor());
+						editingDrawSettings.getMapDrawSettings().getMapBackgroundColor());
 
 		if (newBackgroundColor != null)
 		{
-			editingDrawingStyles.getMapDrawSettings().setMapBackgroundColor(newBackgroundColor);
+			editingDrawSettings.getMapDrawSettings().setMapBackgroundColor(newBackgroundColor);
 			updateBackgroundColorControlsByEditingStyles();
 		}
   }//GEN-LAST:event_jButtonChooseBackgroundColorActionPerformed
@@ -408,7 +408,7 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
 		{
 			try
 			{
-				editingDrawingStyles.writeToFile(fileChooser.getSelectedFile());
+				editingDrawSettings.writeToFile(fileChooser.getSelectedFile());
 			}
 			catch (IOException ex)
 			{
@@ -419,7 +419,7 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
 
   private void jButtonNewActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonNewActionPerformed
   {//GEN-HEADEREND:event_jButtonNewActionPerformed
-		editingDrawingStyles = DrawingStylesFactory.createStyleEditor();
+		editingDrawSettings = new StandartDrawSettingsContainer();
 		updateControlsByEditingStyles();
   }//GEN-LAST:event_jButtonNewActionPerformed
 
@@ -428,7 +428,7 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
 		MapObjectDrawSettings newDrawSettings = new MapObjectDrawSettings();
 		newDrawSettings.setName("new object");
 
-		editingDrawingStyles.addMapObjectDrawSettings(newDrawSettings);
+		editingDrawSettings.addMapObjectDrawSettings(newDrawSettings);
 		mapObjectsListModel.addElement(newDrawSettings);
 		updateDrawPriorityListByEditingStyles();
   }//GEN-LAST:event_jButtonAddMapObjectActionPerformed
@@ -436,7 +436,7 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
   private void jListMapObjectsValueChanged(javax.swing.event.ListSelectionEvent evt)//GEN-FIRST:event_jListMapObjectsValueChanged
   {//GEN-HEADEREND:event_jListMapObjectsValueChanged
 		Integer selectedMapObjectIndex = new Integer(jListMapObjects.getSelectedIndex());
-		if (selectedMapObjectIndex < 0 || selectedMapObjectIndex > editingDrawingStyles.countOfMapObjectDrawSettings())
+		if (selectedMapObjectIndex < 0 || selectedMapObjectIndex > editingDrawSettings.countOfMapObjectDrawSettings())
 		{
 			return;
 		}

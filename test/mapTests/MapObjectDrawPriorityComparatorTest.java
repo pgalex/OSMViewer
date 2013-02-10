@@ -1,8 +1,6 @@
 package mapTests;
 
-import drawingStyles.DrawingStylesFactory;
 import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.StyleEditor;
 import java.util.ArrayList;
 import java.util.Collections;
 import map.MapObject;
@@ -11,7 +9,6 @@ import mapDefenitionUtilities.DefenitionTags;
 import mapDefenitionUtilities.MapPosition;
 import mapDefenitionUtilities.Tag;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 import org.junit.Test;
 import rendering.RenderableMapObjectsDrawPriorityComparator;
 

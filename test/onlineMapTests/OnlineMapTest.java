@@ -2,7 +2,7 @@ package onlineMapTests;
 
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.StyleViewer;
+import rendering.DrawSettingsViewer;
 import map.*;
 import map.onlineMap.OnlineMap;
 import mapDefenitionUtilities.DefenitionTags;
@@ -81,7 +81,7 @@ public class OnlineMapTest
 		OnlineMap testMap = new OnlineMap();
 		try
 		{
-			StyleViewer viewer = DrawingStylesFactory.createStyleViewer();
+			DrawSettingsViewer viewer = DrawingStylesFactory.createStandartDrawSettingsViewer();
 			testMap.renderObjectsByDrawPriority(null, new MapBounds(1, 2, 3, 4),
 							new RenderableMapObjectsDrawPriorityComparator());
 			fail();
@@ -101,7 +101,7 @@ public class OnlineMapTest
 		OnlineMap testMap = new OnlineMap();
 		try
 		{
-			StyleViewer viewer = DrawingStylesFactory.createStyleViewer();
+			DrawSettingsViewer viewer = DrawingStylesFactory.createStandartDrawSettingsViewer();
 			testMap.renderObjectsByDrawPriority(new MapObjectsRendererMock(), null,
 							new RenderableMapObjectsDrawPriorityComparator());
 			fail();

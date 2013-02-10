@@ -2,7 +2,7 @@ package onlineMapTests;
 
 import drawingStyles.DrawingStylesFactory;
 import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.StyleEditor;
+import drawingStyles.StandartDrawSettingsContainer;
 import java.util.ArrayList;
 import map.MapLine;
 import map.MapObject;
@@ -454,9 +454,9 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 		{
 			fillMapWithPoints(null, null, null);
 			fillMapWithPoints(new ArrayList<OsmNode>(), null, null);
-			fillMapWithPoints(new ArrayList<OsmNode>(1), DrawingStylesFactory.createStyleViewer(), null);
+			fillMapWithPoints(new ArrayList<OsmNode>(1), DrawingStylesFactory.createStandartDrawSettingsViewer(), null);
 			fillMapWithPoints(new ArrayList<OsmNode>(2), null, new OnlineMap());
-			fillMapWithPoints(new ArrayList<OsmNode>(3), DrawingStylesFactory.createStyleViewer(), new OnlineMap());
+			fillMapWithPoints(new ArrayList<OsmNode>(3), DrawingStylesFactory.createStandartDrawSettingsViewer(), new OnlineMap());
 		}
 		catch (Exception ex)
 		{
@@ -473,7 +473,7 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 
 		try
 		{
-			StyleEditor styleEditor = DrawingStylesFactory.createStyleEditor();
+			StandartDrawSettingsContainer styleEditor = new StandartDrawSettingsContainer();
 			DefenitionTags testStyleTags = new DefenitionTags();
 			testStyleTags.add(new Tag("k1", "v1"));
 			MapObjectDrawSettings testStyle = new MapObjectDrawSettings();

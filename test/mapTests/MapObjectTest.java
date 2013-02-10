@@ -1,12 +1,5 @@
 package mapTests;
 
-import drawingStyles.DrawingStylesFactory;
-import mapDefenitionUtilities.DefenitionTags;
-import drawingStyles.MapObjectDrawSettings;
-import mapDefenitionUtilities.Tag;
-import drawingStyles.StyleEditor;
-import map.MapObject;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**

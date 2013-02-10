@@ -1,13 +1,9 @@
 package mapTests;
 
-import drawingStyles.DrawingStylesFactory;
-import drawingStyles.MapObjectDrawSettings;
-import drawingStyles.StyleEditor;
 import map.MapLine;
 import mapDefenitionUtilities.DefenitionTags;
 import mapDefenitionUtilities.MapBounds;
 import mapDefenitionUtilities.MapPosition;
-import mapDefenitionUtilities.Tag;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

@@ -23,7 +23,7 @@ public class OnlineMapLoaderTest
 		OnlineMapLoader testLoader = new OnlineMapLoader();
 		try
 		{
-			testLoader.loadToMap(null, DrawingStylesFactory.createStyleViewer(), new OnlineMap());
+			testLoader.loadToMap(null, DrawingStylesFactory.createStandartDrawSettingsViewer(), new OnlineMap());
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -67,7 +67,7 @@ public class OnlineMapLoaderTest
 		OnlineMapLoader testLoader = new OnlineMapLoader();
 		try
 		{
-			testLoader.loadToMap(new MapBounds(-1, 1, -1, 1), DrawingStylesFactory.createStyleViewer(), null);
+			testLoader.loadToMap(new MapBounds(-1, 1, -1, 1), DrawingStylesFactory.createStandartDrawSettingsViewer(), null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)

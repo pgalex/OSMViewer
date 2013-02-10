@@ -3,20 +3,19 @@ package drawingStyles;
 import java.util.Comparator;
 
 /**
- * Comparator, using to find style index
+ * Comparator, comparing map object draw settings by its tags count
  *
  * @author pgalex
  */
-public class FindStyleIndexComparator implements Comparator<MapObjectDrawSettings>
+public class MapObjectDrawSettingsTagsCountComparator implements Comparator<MapObjectDrawSettings>
 {
 	/**
 	 * Compare map object draw settings by defenition tags count
 	 *
 	 * @param object1 fisrt object. Must be not null
 	 * @param object2 second object. Must be not null
-	 * @return -1 - first have more tags than second and will have more priority
-	 * for finding, 0 - tags count is equal, 1 - first have less tags than second
-	 * and will have less priority for finding
+	 * @return -1 - first have more tags than second, 0 - tags count is equal, 1 -
+	 * first have less tags than second
 	 */
 	@Override
 	public int compare(MapObjectDrawSettings object1, MapObjectDrawSettings object2)
