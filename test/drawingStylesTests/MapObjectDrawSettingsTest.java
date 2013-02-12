@@ -4,7 +4,7 @@ import IOTesting.IOTester;
 import drawingStyles.DrawSettingsOnScale;
 import drawingStyles.DrawSettingsOnScaleArray;
 import drawingStyles.MapObjectDrawSettingsTagsCountComparator;
-import drawingStyles.MapObjectDrawSettings;
+import drawingStyles.StandartMapObjectDrawSettings;
 import java.util.ArrayList;
 import java.util.Collections;
 import mapDefenitionUtilities.DefenitionTags;
@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * MapObjectDrawSettings class tests
+ * StandartMapObjectDrawSettings class tests
  *
  * @author abc
  */
@@ -27,7 +27,7 @@ public class MapObjectDrawSettingsTest
 	{
 		try
 		{
-			MapObjectDrawSettings testSettings = new MapObjectDrawSettings();
+			StandartMapObjectDrawSettings testSettings = new StandartMapObjectDrawSettings();
 			testSettings.setName(null);
 			fail();
 		}
@@ -45,7 +45,7 @@ public class MapObjectDrawSettingsTest
 	{
 		try
 		{
-			MapObjectDrawSettings testSettings = new MapObjectDrawSettings();
+			StandartMapObjectDrawSettings testSettings = new StandartMapObjectDrawSettings();
 			testSettings.setDrawSettingsOnScales(null);
 			fail();
 		}
@@ -63,7 +63,7 @@ public class MapObjectDrawSettingsTest
 	{
 		try
 		{
-			MapObjectDrawSettings testSettings = new MapObjectDrawSettings();
+			StandartMapObjectDrawSettings testSettings = new StandartMapObjectDrawSettings();
 			testSettings.setDefenitionTags(null);
 			fail();
 		}
@@ -81,7 +81,7 @@ public class MapObjectDrawSettingsTest
 	{
 		try
 		{
-			MapObjectDrawSettings testSettings = new MapObjectDrawSettings();
+			StandartMapObjectDrawSettings testSettings = new StandartMapObjectDrawSettings();
 			testSettings.setDescription(null);
 			fail();
 		}
@@ -98,7 +98,7 @@ public class MapObjectDrawSettingsTest
 	public void settingDescriptionNormalWorkTest()
 	{
 		final String someDescription = "some description";
-		MapObjectDrawSettings testSettings = new MapObjectDrawSettings();
+		StandartMapObjectDrawSettings testSettings = new StandartMapObjectDrawSettings();
 		testSettings.setDescription(someDescription);
 		assertEquals(someDescription, testSettings.getDescription());
 	}
@@ -109,7 +109,7 @@ public class MapObjectDrawSettingsTest
 	@Test
 	public void findingPointDrawStyleCanBePointTest()
 	{
-		MapObjectDrawSettings testSettings = new MapObjectDrawSettings();
+		StandartMapObjectDrawSettings testSettings = new StandartMapObjectDrawSettings();
 		testSettings.setCanBePoint();
 		testSettings.setCanNotBeLine();
 		testSettings.setCanNotBePolygon();
@@ -131,7 +131,7 @@ public class MapObjectDrawSettingsTest
 	@Test
 	public void findingPointDrawStyleCannotBePointTest()
 	{
-		MapObjectDrawSettings testSettings = new MapObjectDrawSettings();
+		StandartMapObjectDrawSettings testSettings = new StandartMapObjectDrawSettings();
 		testSettings.setCanNotBePoint();
 		testSettings.setCanBeLine();
 		testSettings.setCanBePolygon();
@@ -153,7 +153,7 @@ public class MapObjectDrawSettingsTest
 	@Test
 	public void findingLineDrawStyleCanBeLineTest()
 	{
-		MapObjectDrawSettings testSettings = new MapObjectDrawSettings();
+		StandartMapObjectDrawSettings testSettings = new StandartMapObjectDrawSettings();
 		testSettings.setCanNotBePoint();
 		testSettings.setCanBeLine();
 		testSettings.setCanNotBePolygon();
@@ -175,7 +175,7 @@ public class MapObjectDrawSettingsTest
 	@Test
 	public void findingLineDrawStyleCannotBeLineTest()
 	{
-		MapObjectDrawSettings testSettings = new MapObjectDrawSettings();
+		StandartMapObjectDrawSettings testSettings = new StandartMapObjectDrawSettings();
 		testSettings.setCanBePoint();
 		testSettings.setCanNotBeLine();
 		testSettings.setCanBePolygon();
@@ -197,7 +197,7 @@ public class MapObjectDrawSettingsTest
 	@Test
 	public void findingPolygonDrawStyleCanBePolygonTest()
 	{
-		MapObjectDrawSettings testSettings = new MapObjectDrawSettings();
+		StandartMapObjectDrawSettings testSettings = new StandartMapObjectDrawSettings();
 		testSettings.setCanNotBePoint();
 		testSettings.setCanNotBeLine();
 		testSettings.setCanBePolygon();
@@ -219,7 +219,7 @@ public class MapObjectDrawSettingsTest
 	@Test
 	public void findingPolygonDrawStyleCannotBePolygonTest()
 	{
-		MapObjectDrawSettings testSettings = new MapObjectDrawSettings();
+		StandartMapObjectDrawSettings testSettings = new StandartMapObjectDrawSettings();
 		testSettings.setCanBePoint();
 		testSettings.setCanBeLine();
 		testSettings.setCanNotBePolygon();
@@ -256,14 +256,14 @@ public class MapObjectDrawSettingsTest
 		tags3.add(new Tag("k8", "v8"));
 
 
-		MapObjectDrawSettings settings1 = new MapObjectDrawSettings();
+		StandartMapObjectDrawSettings settings1 = new StandartMapObjectDrawSettings();
 		settings1.setDefenitionTags(tags1);
-		MapObjectDrawSettings settings2 = new MapObjectDrawSettings();
+		StandartMapObjectDrawSettings settings2 = new StandartMapObjectDrawSettings();
 		settings2.setDefenitionTags(tags2);
-		MapObjectDrawSettings settings3 = new MapObjectDrawSettings();
+		StandartMapObjectDrawSettings settings3 = new StandartMapObjectDrawSettings();
 		settings3.setDefenitionTags(tags3);
 
-		ArrayList<MapObjectDrawSettings> styles = new ArrayList<MapObjectDrawSettings>();
+		ArrayList<StandartMapObjectDrawSettings> styles = new ArrayList<StandartMapObjectDrawSettings>();
 		styles.add(settings1);
 		styles.add(settings2);
 		styles.add(settings3);
@@ -304,7 +304,7 @@ public class MapObjectDrawSettingsTest
 			tags.add(new Tag("k1", "v1"));
 			tags.add(new Tag("k2", "v2"));
 
-			MapObjectDrawSettings writedStyle = new MapObjectDrawSettings();
+			StandartMapObjectDrawSettings writedStyle = new StandartMapObjectDrawSettings();
 			writedStyle.setCanBePoint();
 			writedStyle.setCanNotBeLine();
 			writedStyle.setCanBePolygon();
@@ -316,7 +316,7 @@ public class MapObjectDrawSettingsTest
 
 			writedStyle.writeToStream(IOTester.createTestOutputStream());
 
-			MapObjectDrawSettings readStyle = new MapObjectDrawSettings();
+			StandartMapObjectDrawSettings readStyle = new StandartMapObjectDrawSettings();
 			readStyle.readFromStream(IOTester.createTestInputStream());
 
 			assertEquals(writedStyle.isCanBeLine(), readStyle.isCanBeLine());

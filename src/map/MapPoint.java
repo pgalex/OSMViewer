@@ -3,8 +3,9 @@ package map;
 import mapDefenitionUtilities.MapBounds;
 import mapDefenitionUtilities.MapPosition;
 import mapDefenitionUtilities.DefenitionTags;
-import drawingStyles.MapObjectDrawSettings;
+import drawingStyles.StandartMapObjectDrawSettings;
 import java.awt.geom.Rectangle2D;
+import rendering.RenderableMapObjectDrawSettings;
 import rendering.RenderableMapObjectsVisitor;
 import rendering.RenderableMapPoint;
 
@@ -101,7 +102,7 @@ public class MapPoint extends MapObject implements RenderableMapPoint
 	 * @return Can this type of map object be drawen with this style
 	 */
 	@Override
-	public boolean canBeDrawenWithStyle(MapObjectDrawSettings objectDrawStyle)
+	public boolean canBeDrawenWithStyle(RenderableMapObjectDrawSettings objectDrawStyle)
 	{
 		if (objectDrawStyle == null)
 		{

@@ -1,14 +1,14 @@
 package map;
 
-import drawingStyles.MapObjectDrawSettings;
 import mapDefenitionUtilities.DefenitionTags;
+import rendering.RenderableMapObjectDrawSettings;
 
 /**
  * Finder of map object draw settings
  *
  * @author pgalex
  */
-public interface MapObjectsDrawSettingsFinder
+public interface RenderableMapObjectsDrawSettingsFinder
 {
 	/**
 	 * Find draw settings of map object, by its defention tags
@@ -17,5 +17,5 @@ public interface MapObjectsDrawSettingsFinder
 	 * to find
 	 * @return draw settings of map object. null if not found
 	 */
-	public MapObjectDrawSettings findMapObjectDrawSettings(DefenitionTags mapObjectDefenitionTags);
+	public RenderableMapObjectDrawSettings findMapObjectDrawSettings(DefenitionTags mapObjectDefenitionTags);
 }

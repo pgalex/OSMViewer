@@ -1,6 +1,6 @@
 package forms;
 
-import drawingStyles.MapObjectDrawSettings;
+import drawingStyles.StandartMapObjectDrawSettings;
 import drawingStyles.forms.EditDrawingStylesFrame;
 import java.awt.Dialog.ModalityType;
 import java.awt.Point;
@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import map.onlineMap.OnlineMapController;
 import mapDefenitionUtilities.MapPosition;
 import rendering.RenderableMapObject;
+import rendering.RenderableMapObjectDrawSettings;
 
 /**
  * Main form
@@ -221,7 +222,7 @@ public class MainFrame extends javax.swing.JFrame
 		if (objectsAtMousePosition.length > 0)
 		{
 			RenderableMapObject topDrawenObject = objectsAtMousePosition[0];
-			MapObjectDrawSettings topDrawenObjectDrawSettings = topDrawenObject.getDrawSettings();
+			RenderableMapObjectDrawSettings topDrawenObjectDrawSettings = topDrawenObject.getDrawSettings();
 			if (topDrawenObjectDrawSettings != null)
 			{
 				mapController.setObjectToDrawAsSelected(topDrawenObject);

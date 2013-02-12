@@ -1,6 +1,5 @@
 package map.onlineMap;
 
-import drawingStyles.MapObjectDrawSettings;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,9 +8,9 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import map.MapLine;
 import map.MapObject;
-import map.MapObjectsDrawSettingsFinder;
 import map.MapPoint;
 import map.MapPolygon;
+import map.RenderableMapObjectsDrawSettingsFinder;
 import map.exceptions.*;
 import mapDefenitionUtilities.DefenitionTags;
 import mapDefenitionUtilities.MapBounds;
@@ -21,6 +20,7 @@ import osmXml.OnlineOsmParser;
 import osmXml.OsmNode;
 import osmXml.OsmTag;
 import osmXml.OsmWay;
+import rendering.RenderableMapObjectDrawSettings;
 
 /**
  * Creates connection to openstreetmap.org, loads map data and convertes it to
@@ -57,7 +57,7 @@ public class OnlineMapLoader
 	 * server
 	 * @throws ParsingOsmErrorException error while parsing readed .osm xml data
 	 */
-	public void loadToMap(MapBounds loadingSectorBounds, MapObjectsDrawSettingsFinder drawSettingsFinder, OnlineMap fillingMap) throws
+	public void loadToMap(MapBounds loadingSectorBounds, RenderableMapObjectsDrawSettingsFinder drawSettingsFinder, OnlineMap fillingMap) throws
 					IllegalArgumentException,
 					OutOfMemoryError, ConnectionErrorException, ReadingFromServerErrorException, ParsingOsmErrorException
 	{
@@ -117,7 +117,7 @@ public class OnlineMapLoader
 	 * @param drawSettingsFinder style viewer for assigning style index
 	 * @param fillingMap map, filling with map polygons and lines
 	 */
-	protected void fillMapWithPolygonsAndLines(ArrayList<OsmNode> nodes, ArrayList<OsmWay> ways, MapObjectsDrawSettingsFinder drawSettingsFinder, OnlineMap fillingMap)
+	protected void fillMapWithPolygonsAndLines(ArrayList<OsmNode> nodes, ArrayList<OsmWay> ways, RenderableMapObjectsDrawSettingsFinder drawSettingsFinder, OnlineMap fillingMap)
 	{
 		if (nodes == null || ways == null || drawSettingsFinder == null || fillingMap == null)
 		{
@@ -132,7 +132,7 @@ public class OnlineMapLoader
 				continue;
 			}
 
-			MapObjectDrawSettings newObjectDrawSettings = drawSettingsFinder.findMapObjectDrawSettings(newObject.getDefenitionTags());
+			RenderableMapObjectDrawSettings newObjectDrawSettings = drawSettingsFinder.findMapObjectDrawSettings(newObject.getDefenitionTags());
 			if (newObject.canBeDrawenWithStyle(newObjectDrawSettings))
 			{
 				newObject.setDrawSettings(newObjectDrawSettings);
@@ -238,7 +238,7 @@ public class OnlineMapLoader
 	 * @param drawSettingsFinder
 	 * @param fillingMap map, filling with map points, created by osm nodes
 	 */
-	protected void fillMapWithPoints(ArrayList<OsmNode> nodes, MapObjectsDrawSettingsFinder drawSettingsFinder, OnlineMap fillingMap)
+	protected void fillMapWithPoints(ArrayList<OsmNode> nodes, RenderableMapObjectsDrawSettingsFinder drawSettingsFinder, OnlineMap fillingMap)
 	{
 		if (fillingMap == null || drawSettingsFinder == null || nodes == null)
 		{
@@ -257,7 +257,7 @@ public class OnlineMapLoader
 				continue;
 			}
 
-			MapObjectDrawSettings newPointDrawSettings = drawSettingsFinder.findMapObjectDrawSettings(newPoint.getDefenitionTags());
+			RenderableMapObjectDrawSettings newPointDrawSettings = drawSettingsFinder.findMapObjectDrawSettings(newPoint.getDefenitionTags());
 			if (newPoint.canBeDrawenWithStyle(newPointDrawSettings))
 			{
 				newPoint.setDrawSettings(newPointDrawSettings);

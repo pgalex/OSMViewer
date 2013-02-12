@@ -1,6 +1,5 @@
 package rendering;
 
-import drawingStyles.MapObjectDrawSettings;
 import mapDefenitionUtilities.DefenitionTags;
 
 /**
@@ -22,7 +21,7 @@ public interface RenderableMapObject
 	 *
 	 * @return draw settings of map object. Null if not defined
 	 */
-	public MapObjectDrawSettings getDrawSettings();
+	public RenderableMapObjectDrawSettings getDrawSettings();
 
 	/**
 	 * Accept rendering visitor

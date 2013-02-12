@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import mapDefenitionUtilities.DefenitionTags;
+import rendering.RenderableMapObjectDrawSettings;
 
 /**
  * Gives access to drawing style with editing
@@ -24,14 +25,14 @@ public class StandartDrawSettingsContainer implements DrawSettingsViewer
 	/**
 	 * Array of container's map object draw settings
 	 */
-	private ArrayList<MapObjectDrawSettings> mapObjectsDrawSettings;
+	private ArrayList<StandartMapObjectDrawSettings> mapObjectsDrawSettings;
 
 	/**
 	 * Create with empty map objects draw settings, and other default values
 	 */
 	public StandartDrawSettingsContainer()
 	{
-		mapObjectsDrawSettings = new ArrayList<MapObjectDrawSettings>();
+		mapObjectsDrawSettings = new ArrayList<StandartMapObjectDrawSettings>();
 		mapDrawSettings = new StandartMapDrawSettings();
 	}
 
@@ -53,16 +54,16 @@ public class StandartDrawSettingsContainer implements DrawSettingsViewer
 	 * @return draw settings of map object. null if not found
 	 */
 	@Override
-	public MapObjectDrawSettings findMapObjectDrawSettings(DefenitionTags mapObjectDefenitionTags)
+	public RenderableMapObjectDrawSettings findMapObjectDrawSettings(DefenitionTags mapObjectDefenitionTags)
 	{
 		if (mapObjectDefenitionTags == null)
 		{
 			return null;
 		}
 
-		ArrayList<MapObjectDrawSettings> suitableDrawSettings = new ArrayList<MapObjectDrawSettings>();
+		ArrayList<StandartMapObjectDrawSettings> suitableDrawSettings = new ArrayList<StandartMapObjectDrawSettings>();
 
-		for (MapObjectDrawSettings drawSettings : mapObjectsDrawSettings)
+		for (StandartMapObjectDrawSettings drawSettings : mapObjectsDrawSettings)
 		{
 			if (drawSettings.getDefenitionTags().includingIn(mapObjectDefenitionTags))
 			{
@@ -89,7 +90,7 @@ public class StandartDrawSettingsContainer implements DrawSettingsViewer
 	 * @return map object drawing settings
 	 * @throws IllegalArgumentException index is out of bounds
 	 */
-	public MapObjectDrawSettings getMapObjectDrawSettings(int index) throws IllegalArgumentException
+	public StandartMapObjectDrawSettings getMapObjectDrawSettings(int index) throws IllegalArgumentException
 	{
 		if (index < 0 || index >= mapObjectsDrawSettings.size())
 		{
@@ -105,7 +106,7 @@ public class StandartDrawSettingsContainer implements DrawSettingsViewer
 	 * @param drawSettingsToAdd adding map object draw settings
 	 * @throws IllegalArgumentException drawSettingsToAdd is null
 	 */
-	public void addMapObjectDrawSettings(MapObjectDrawSettings drawSettingsToAdd) throws IllegalArgumentException
+	public void addMapObjectDrawSettings(StandartMapObjectDrawSettings drawSettingsToAdd) throws IllegalArgumentException
 	{
 		if (drawSettingsToAdd == null)
 		{
@@ -215,10 +216,10 @@ public class StandartDrawSettingsContainer implements DrawSettingsViewer
 			mapDrawSettings.readFromStream(input);
 
 			int drawSettingsCount = input.readInt();
-			mapObjectsDrawSettings = new ArrayList<MapObjectDrawSettings>(drawSettingsCount);
+			mapObjectsDrawSettings = new ArrayList<StandartMapObjectDrawSettings>(drawSettingsCount);
 			for (int i = 0; i < drawSettingsCount; i++)
 			{
-				MapObjectDrawSettings readDrawSettings = new MapObjectDrawSettings();
+				StandartMapObjectDrawSettings readDrawSettings = new StandartMapObjectDrawSettings();
 				readDrawSettings.readFromStream(input);
 				mapObjectsDrawSettings.add(readDrawSettings);
 			}

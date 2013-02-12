@@ -157,7 +157,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 			throw new IllegalArgumentException();
 		}
 
-		MapObjectDrawSettings objectStyle = renderablePoint.getDrawSettings();
+		RenderableMapObjectDrawSettings objectStyle = renderablePoint.getDrawSettings();
 		if (objectStyle == null)
 		{
 			return;
@@ -361,7 +361,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 			throw new IllegalArgumentException();
 		}
 
-		MapObjectDrawSettings objectStyle = renderableLine.getDrawSettings();
+		RenderableMapObjectDrawSettings objectStyle = renderableLine.getDrawSettings();
 		if (objectStyle == null)
 		{
 			return;
@@ -519,7 +519,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 			throw new IllegalArgumentException();
 		}
 
-		MapObjectDrawSettings objectStyle = renderablePolygon.getDrawSettings();
+		RenderableMapObjectDrawSettings objectStyle = renderablePolygon.getDrawSettings();
 		if (objectStyle == null)
 		{
 			return;

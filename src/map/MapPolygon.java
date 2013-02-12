@@ -8,7 +8,8 @@ import com.vividsolutions.jts.geom.LinearRing;
 import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
 import mapDefenitionUtilities.DefenitionTags;
-import drawingStyles.MapObjectDrawSettings;
+import drawingStyles.StandartMapObjectDrawSettings;
+import rendering.RenderableMapObjectDrawSettings;
 import rendering.RenderableMapObjectsVisitor;
 import rendering.RenderableMapPolygon;
 
@@ -182,7 +183,7 @@ public class MapPolygon extends MapObject implements RenderableMapPolygon
 	 * @return Can this type of map object be drawen with this style
 	 */
 	@Override
-	public boolean canBeDrawenWithStyle(MapObjectDrawSettings objectDrawStyle)
+	public boolean canBeDrawenWithStyle(RenderableMapObjectDrawSettings objectDrawStyle)
 	{
 		if (objectDrawStyle == null)
 		{

@@ -2,7 +2,7 @@ package drawingStyles;
 
 import java.io.File;
 import java.io.IOException;
-import map.MapObjectsDrawSettingsFinder;
+import map.RenderableMapObjectsDrawSettingsFinder;
 
 /**
  * Draw settings viewer. Provides information about map, map objects, and how to
@@ -10,7 +10,7 @@ import map.MapObjectsDrawSettingsFinder;
  *
  * @author pgalex
  */
-public interface DrawSettingsViewer extends MapObjectsDrawSettingsFinder
+public interface DrawSettingsViewer extends RenderableMapObjectsDrawSettingsFinder
 {
 	/**
 	 * Get map drawing settings

@@ -1,7 +1,7 @@
 package formsTests;
 
 import mapDefenitionUtilities.DefenitionTags;
-import drawingStyles.MapObjectDrawSettings;
+import drawingStyles.StandartMapObjectDrawSettings;
 import forms.MapObjectInformationDialog;
 import java.awt.Dialog;
 import map.MapPoint;
@@ -24,7 +24,7 @@ public class MapObjectInformationDialogTest
 		try
 		{
 			MapObjectInformationDialog dialog = new MapObjectInformationDialog(null, Dialog.ModalityType.MODELESS);
-			MapObjectDrawSettings someDrawSettings = new MapObjectDrawSettings();
+			StandartMapObjectDrawSettings someDrawSettings = new StandartMapObjectDrawSettings();
 			dialog.showMapObjectInformation(null, someDrawSettings);
 			fail();
 		}
@@ -44,7 +44,7 @@ public class MapObjectInformationDialogTest
 		{
 			MapObjectInformationDialog dialog = new MapObjectInformationDialog(null, Dialog.ModalityType.MODELESS);
 			MapPoint someMapObject = new MapPoint(new MapPosition(), 0, new DefenitionTags());
-			MapObjectDrawSettings someDrawSettings = new MapObjectDrawSettings();
+			StandartMapObjectDrawSettings someDrawSettings = new StandartMapObjectDrawSettings();
 			dialog.showMapObjectInformation(someMapObject, null);
 			fail();
 		}

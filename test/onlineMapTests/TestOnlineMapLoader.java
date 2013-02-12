@@ -1,7 +1,7 @@
 package onlineMapTests;
 
 import drawingStyles.DrawingStylesFactory;
-import drawingStyles.MapObjectDrawSettings;
+import drawingStyles.StandartMapObjectDrawSettings;
 import drawingStyles.StandartDrawSettingsContainer;
 import java.util.ArrayList;
 import map.MapLine;
@@ -476,7 +476,7 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 			StandartDrawSettingsContainer styleEditor = new StandartDrawSettingsContainer();
 			DefenitionTags testStyleTags = new DefenitionTags();
 			testStyleTags.add(new Tag("k1", "v1"));
-			MapObjectDrawSettings testStyle = new MapObjectDrawSettings();
+			StandartMapObjectDrawSettings testStyle = new StandartMapObjectDrawSettings();
 			testStyle.setCanBePoint();
 			testStyle.setCanBeLine();
 			testStyle.setCanBePolygon();

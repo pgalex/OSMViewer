@@ -1,7 +1,7 @@
 package drawingStyles.forms;
 
 import drawingStyles.DrawingStylesFactory;
-import drawingStyles.MapObjectDrawSettings;
+import drawingStyles.StandartMapObjectDrawSettings;
 import drawingStyles.StandartDrawSettingsContainer;
 import java.awt.Color;
 import java.awt.Dialog;
@@ -102,7 +102,7 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
 	 */
 	private void updateDrawPriorityListByEditingStyles()
 	{
-		ArrayList<MapObjectDrawSettings> arrayForSorting = new ArrayList<MapObjectDrawSettings>();
+		ArrayList<StandartMapObjectDrawSettings> arrayForSorting = new ArrayList<StandartMapObjectDrawSettings>();
 		for (int i = 0; i < editingDrawSettings.countOfMapObjectDrawSettings(); i++)
 		{
 			arrayForSorting.add(editingDrawSettings.getMapObjectDrawSettings(i));
@@ -113,7 +113,7 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
 		drawPriorityListModel.clear();
 		for (int i = 0; i < arrayForSorting.size(); i++)
 		{
-			MapObjectDrawSettings mapObjectDrawSettings = arrayForSorting.get(i);
+			StandartMapObjectDrawSettings mapObjectDrawSettings = arrayForSorting.get(i);
 			drawPriorityListModel.addElement(mapObjectDrawSettings.getDrawPriority() + " - " + arrayForSorting.get(i).toString());
 		}
 	}
@@ -131,7 +131,7 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
 			return;
 		}
 
-		MapObjectDrawSettings selectedDrawSettings = (MapObjectDrawSettings) mapObjectsListModel.get(selectedMapObjectIndex);
+		StandartMapObjectDrawSettings selectedDrawSettings = (StandartMapObjectDrawSettings) mapObjectsListModel.get(selectedMapObjectIndex);
 		selectedDrawSettings.setDrawPriority(drawPriorityOfSelectedModel.getNumber().intValue());
 		updateDrawPriorityListByEditingStyles();
 	}
@@ -374,7 +374,7 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
 			return;
 		}
 
-		MapObjectDrawSettings selectedDrawSettings = (MapObjectDrawSettings) mapObjectsListModel.get(selectedMapObjectIndex);
+		StandartMapObjectDrawSettings selectedDrawSettings = (StandartMapObjectDrawSettings) mapObjectsListModel.get(selectedMapObjectIndex);
 
 		EditMapObjectDrawSettingsDialog editDrawSettingsDialog = new EditMapObjectDrawSettingsDialog(this,
 						Dialog.ModalityType.DOCUMENT_MODAL, selectedDrawSettings);
@@ -425,7 +425,7 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
 
   private void jButtonAddMapObjectActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonAddMapObjectActionPerformed
   {//GEN-HEADEREND:event_jButtonAddMapObjectActionPerformed
-		MapObjectDrawSettings newDrawSettings = new MapObjectDrawSettings();
+		StandartMapObjectDrawSettings newDrawSettings = new StandartMapObjectDrawSettings();
 		newDrawSettings.setName("new object");
 
 		editingDrawSettings.addMapObjectDrawSettings(newDrawSettings);
@@ -441,7 +441,7 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
 			return;
 		}
 
-		MapObjectDrawSettings selectedDrawSettings = (MapObjectDrawSettings) mapObjectsListModel.get(selectedMapObjectIndex);
+		StandartMapObjectDrawSettings selectedDrawSettings = (StandartMapObjectDrawSettings) mapObjectsListModel.get(selectedMapObjectIndex);
 		drawPriorityOfSelectedModel.setValue(selectedDrawSettings.getDrawPriority());
   }//GEN-LAST:event_jListMapObjectsValueChanged
   // Variables declaration - do not modify//GEN-BEGIN:variables

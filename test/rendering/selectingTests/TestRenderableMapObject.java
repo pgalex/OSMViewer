@@ -1,6 +1,6 @@
 package rendering.selectingTests;
 
-import drawingStyles.MapObjectDrawSettings;
+import drawingStyles.StandartMapObjectDrawSettings;
 import mapDefenitionUtilities.DefenitionTags;
 import rendering.RenderableMapObject;
 import rendering.RenderableMapObjectsVisitor;
@@ -19,7 +19,7 @@ public class TestRenderableMapObject implements RenderableMapObject
 	}
 
 	@Override
-	public MapObjectDrawSettings getDrawSettings()
+	public StandartMapObjectDrawSettings getDrawSettings()
 	{
 		return null;
 	}

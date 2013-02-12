@@ -1,9 +1,9 @@
 package map;
 
-import drawingStyles.MapObjectDrawSettings;
 import mapDefenitionUtilities.DefenitionTags;
 import mapDefenitionUtilities.MapBounds;
 import rendering.RenderableMapObject;
+import rendering.RenderableMapObjectDrawSettings;
 
 /**
  * Some object on a map
@@ -24,7 +24,7 @@ public abstract class MapObject implements RenderableMapObject
 	/**
 	 * Draw settings of map object. If null - not defined
 	 */
-	private MapObjectDrawSettings drawSettings;
+	private RenderableMapObjectDrawSettings drawSettings;
 
 	/**
 	 * Create with parameters
@@ -72,7 +72,7 @@ public abstract class MapObject implements RenderableMapObject
 	 * @return draw settings of map object. Null if not defined
 	 */
 	@Override
-	public MapObjectDrawSettings getDrawSettings()
+	public RenderableMapObjectDrawSettings getDrawSettings()
 	{
 		return drawSettings;
 	}
@@ -83,7 +83,7 @@ public abstract class MapObject implements RenderableMapObject
 	 * @param drawSettingsToSet new draw settings
 	 * @throws IllegalArgumentException drawSettingsToSet is null
 	 */
-	public void setDrawSettings(MapObjectDrawSettings drawSettingsToSet) throws IllegalArgumentException
+	public void setDrawSettings(RenderableMapObjectDrawSettings drawSettingsToSet) throws IllegalArgumentException
 	{
 		if (drawSettingsToSet == null)
 		{
@@ -105,8 +105,8 @@ public abstract class MapObject implements RenderableMapObject
 	/**
 	 * Can this type of map object be drawen with this style
 	 *
-	 * @param objectDrawStyle drawing style of object
+	 * @param drawSettings drawing style of object
 	 * @return Can this type of map object be drawen with this style
 	 */
-	public abstract boolean canBeDrawenWithStyle(MapObjectDrawSettings objectDrawStyle);
+	public abstract boolean canBeDrawenWithStyle(RenderableMapObjectDrawSettings drawSettings);
 }

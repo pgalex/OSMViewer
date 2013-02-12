@@ -1,7 +1,7 @@
 package onlineMapTests;
 
 import drawingStyles.DrawingStylesFactory;
-import drawingStyles.MapObjectDrawSettings;
+import drawingStyles.StandartMapObjectDrawSettings;
 import drawingStyles.DrawSettingsViewer;
 import map.*;
 import map.onlineMap.OnlineMap;
@@ -29,7 +29,7 @@ public class OnlineMapTest
 		DefenitionTags someTags = new DefenitionTags();
 		someTags.add(new Tag("k1", "v1"));
 
-		MapObjectDrawSettings style1 = new MapObjectDrawSettings();
+		StandartMapObjectDrawSettings style1 = new StandartMapObjectDrawSettings();
 		style1.setCanBePoint();
 		style1.setCanBeLine();
 		style1.setCanBePolygon();

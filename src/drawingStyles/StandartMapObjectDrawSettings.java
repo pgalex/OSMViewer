@@ -4,13 +4,14 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import mapDefenitionUtilities.DefenitionTags;
+import rendering.RenderableMapObjectDrawSettings;
 
 /**
  * How to draw any object on a map
  *
  * @author abc
  */
-public class MapObjectDrawSettings
+public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSettings
 {
 	/**
 	 * Can be object with this tags a point (single node)
@@ -53,7 +54,7 @@ public class MapObjectDrawSettings
 	 * Create with default values
 	 *
 	 */
-	public MapObjectDrawSettings()
+	public StandartMapObjectDrawSettings()
 	{
 		canBePoint = false;
 		canBeLine = false;
@@ -71,6 +72,7 @@ public class MapObjectDrawSettings
 	 *
 	 * @return Can object be a point on a map
 	 */
+	@Override
 	public boolean isCanBePoint()
 	{
 		return canBePoint;
@@ -81,6 +83,7 @@ public class MapObjectDrawSettings
 	 *
 	 * @return Can object be a line(non-closed way) on a map
 	 */
+	@Override
 	public boolean isCanBeLine()
 	{
 		return canBeLine;
@@ -91,6 +94,7 @@ public class MapObjectDrawSettings
 	 *
 	 * @return Can object be a polygon(closed way) on a map
 	 */
+	@Override
 	public boolean isCanBePolygon()
 	{
 		return canBePolygon;
@@ -159,6 +163,7 @@ public class MapObjectDrawSettings
 	 *
 	 * @return draw priority
 	 */
+	@Override
 	public int getDrawPriority()
 	{
 		return drawPriority;
@@ -179,6 +184,7 @@ public class MapObjectDrawSettings
 	 *
 	 * @return object description
 	 */
+	@Override
 	public String getDescription()
 	{
 		return description;
@@ -257,6 +263,7 @@ public class MapObjectDrawSettings
 	 *
 	 * @return simple name
 	 */
+	@Override
 	public String getName()
 	{
 		return name;
@@ -284,6 +291,7 @@ public class MapObjectDrawSettings
 	 * @param scaleLevel scale level
 	 * @return point draw style on scale level. Null if not found
 	 */
+	@Override
 	public PointDrawSettings findPointDrawSettings(int scaleLevel)
 	{
 		if (canBePoint)
@@ -302,6 +310,7 @@ public class MapObjectDrawSettings
 	 * @param scaleLevel scale level
 	 * @return line draw style on scale level. Null if not found
 	 */
+	@Override
 	public LineDrawSettings findLineDrawSettings(int scaleLevel)
 	{
 		if (canBeLine)
@@ -320,6 +329,7 @@ public class MapObjectDrawSettings
 	 * @param scaleLevel scale level
 	 * @return polygon draw style on scale level. Null if not found
 	 */
+	@Override
 	public PolygonDrawSettings findPolygonDrawSettings(int scaleLevel)
 	{
 		if (canBePolygon)
@@ -338,6 +348,7 @@ public class MapObjectDrawSettings
 	 * @param scaleLevel scale level
 	 * @return text draw style on scale level. Null if not found
 	 */
+	@Override
 	public TextDrawSettings findTextDrawSettings(int scaleLevel)
 	{
 		return drawSettingsOnScales.findTextDrawSettings(scaleLevel);
@@ -349,6 +360,7 @@ public class MapObjectDrawSettings
 	 * @param tagsWhereFindText tags of object where to find text description
 	 * @return text description of object founded in tags. Empty if not found
 	 */
+	@Override
 	public String findTextInTags(DefenitionTags tagsWhereFindText)
 	{
 		return textTagKeys.findTextInTags(tagsWhereFindText);

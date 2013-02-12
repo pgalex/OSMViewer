@@ -1,6 +1,6 @@
 package mapTests;
 
-import drawingStyles.MapObjectDrawSettings;
+import drawingStyles.StandartMapObjectDrawSettings;
 import java.util.ArrayList;
 import java.util.Collections;
 import map.MapObject;
@@ -28,7 +28,7 @@ public class MapObjectDrawPriorityComparatorTest
 		DefenitionTags tags1 = new DefenitionTags();
 		tags1.add(new Tag("k1", "v1"));
 
-		MapObjectDrawSettings style1 = new MapObjectDrawSettings();
+		StandartMapObjectDrawSettings style1 = new StandartMapObjectDrawSettings();
 		style1.setCanBePoint();
 		style1.setDrawPriority(10);
 		style1.setDefenitionTags(tags1);
@@ -36,7 +36,7 @@ public class MapObjectDrawPriorityComparatorTest
 		DefenitionTags tags2 = new DefenitionTags();
 		tags2.add(new Tag("k2", "v2"));
 
-		MapObjectDrawSettings style2 = new MapObjectDrawSettings();
+		StandartMapObjectDrawSettings style2 = new StandartMapObjectDrawSettings();
 		style2.setCanBePoint();
 		style2.setDrawPriority(11);
 		style2.setDefenitionTags(tags2);
@@ -44,7 +44,7 @@ public class MapObjectDrawPriorityComparatorTest
 		DefenitionTags tags3 = new DefenitionTags();
 		tags3.add(new Tag("k3", "v3"));
 
-		MapObjectDrawSettings style3 = new MapObjectDrawSettings();
+		StandartMapObjectDrawSettings style3 = new StandartMapObjectDrawSettings();
 		style3.setCanBePoint();
 		style3.setDrawPriority(-10);
 		style3.setDefenitionTags(tags3);

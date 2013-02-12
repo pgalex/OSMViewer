@@ -5,7 +5,7 @@ import mapDefenitionUtilities.DefenitionTags;
 import drawingStyles.DrawSettingsOnScale;
 import drawingStyles.DrawSettingsOnScaleArray;
 import drawingStyles.LineDrawSettings;
-import drawingStyles.MapObjectDrawSettings;
+import drawingStyles.StandartMapObjectDrawSettings;
 import drawingStyles.PointDrawSettings;
 import drawingStyles.PolygonDrawSettings;
 import drawingStyles.PolygonFillersFactory;
@@ -68,7 +68,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 	/**
 	 * map object draw setting, editing with dialog
 	 */
-	private MapObjectDrawSettings editingMapObjectDrawSettings;
+	private StandartMapObjectDrawSettings editingMapObjectDrawSettings;
 	/**
 	 * Table model of text tag keys table
 	 */
@@ -96,7 +96,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 	 * @throws IllegalArgumentException editing map object draw setting is null
 	 */
 	public EditMapObjectDrawSettingsDialog(Window parentWindow, ModalityType modalityType,
-					MapObjectDrawSettings drawSettingsToEdit) throws IllegalArgumentException
+					StandartMapObjectDrawSettings drawSettingsToEdit) throws IllegalArgumentException
 	{
 		super(parentWindow, modalityType);
 		

@@ -1,6 +1,6 @@
 package drawingStyles.forms;
 
-import drawingStyles.MapObjectDrawSettings;
+import drawingStyles.StandartMapObjectDrawSettings;
 import java.util.Comparator;
 import map.MapObject;
 
@@ -10,7 +10,7 @@ import map.MapObject;
  *
  * @author pgalex
  */
-public class MapObjectDrawSettingsDrawPriorityComparator implements Comparator<MapObjectDrawSettings>
+public class MapObjectDrawSettingsDrawPriorityComparator implements Comparator<StandartMapObjectDrawSettings>
 {
 	/**
 	 * Comapare draw settings
@@ -20,7 +20,7 @@ public class MapObjectDrawSettingsDrawPriorityComparator implements Comparator<M
 	 * @return 0 - eqaul, -1 - 1 less 2, +1 - 1 more 2
 	 */
 	@Override
-	public int compare(MapObjectDrawSettings settings1, MapObjectDrawSettings settings2)
+	public int compare(StandartMapObjectDrawSettings settings1, StandartMapObjectDrawSettings settings2)
 	{
 		if (settings1 == null || settings2 == null)
 		{

@@ -7,7 +7,7 @@ import java.util.Comparator;
  *
  * @author pgalex
  */
-public class MapObjectDrawSettingsTagsCountComparator implements Comparator<MapObjectDrawSettings>
+public class MapObjectDrawSettingsTagsCountComparator implements Comparator<StandartMapObjectDrawSettings>
 {
 	/**
 	 * Compare map object draw settings by defenition tags count
@@ -18,7 +18,7 @@ public class MapObjectDrawSettingsTagsCountComparator implements Comparator<MapO
 	 * first have less tags than second
 	 */
 	@Override
-	public int compare(MapObjectDrawSettings object1, MapObjectDrawSettings object2)
+	public int compare(StandartMapObjectDrawSettings object1, StandartMapObjectDrawSettings object2)
 	{
 		if (object1 == null || object2 == null)
 		{
