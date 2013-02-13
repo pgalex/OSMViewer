@@ -7,7 +7,7 @@ import drawingStyles.DrawSettingsOnScaleArray;
 import drawingStyles.LineDrawSettings;
 import drawingStyles.StandartMapObjectDrawSettings;
 import drawingStyles.PointDrawSettings;
-import drawingStyles.PolygonDrawSettings;
+import drawingStyles.StandartPolygonDrawSettings;
 import drawingStyles.PolygonFillersFactory;
 import mapDefenitionUtilities.Tag;
 import drawingStyles.StandartTextDrawSettings;
@@ -328,7 +328,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 	{
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
-		PolygonDrawSettings polygonSettingOnCurrentScale = settingOnCurrentScale.getPolygonDrawSettings();
+		StandartPolygonDrawSettings polygonSettingOnCurrentScale = settingOnCurrentScale.getPolygonDrawSettings();
 		
 		jCheckBoxDrawPolygonInnerPart.setSelected(polygonSettingOnCurrentScale.isDrawInnerPart());
 		jCheckBoxDrawPolygonBorder.setSelected(polygonSettingOnCurrentScale.isDrawBorder());
@@ -1097,7 +1097,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
   {//GEN-HEADEREND:event_jButtonChoosePolygonFillColorActionPerformed
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
-		PolygonDrawSettings polygonSettingOnCurrentScale = settingOnCurrentScale.getPolygonDrawSettings();
+		StandartPolygonDrawSettings polygonSettingOnCurrentScale = settingOnCurrentScale.getPolygonDrawSettings();
 		
 		Color newFillColor = JColorChooser.showDialog(this, "Choosing polygon fill color", Color.BLACK);
 		if (newFillColor != null)
@@ -1129,7 +1129,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 			
 			DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 			DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
-			PolygonDrawSettings polygonSettingOnCurrentScale = settingOnCurrentScale.getPolygonDrawSettings();
+			StandartPolygonDrawSettings polygonSettingOnCurrentScale = settingOnCurrentScale.getPolygonDrawSettings();
 			
 			if (imageFromSelectedFile != null)
 			{
@@ -1147,7 +1147,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
   {//GEN-HEADEREND:event_jCheckBoxDrawPolygonInnerPartActionPerformed
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
-		PolygonDrawSettings polygonSettingOnCurrentScale = settingOnCurrentScale.getPolygonDrawSettings();
+		StandartPolygonDrawSettings polygonSettingOnCurrentScale = settingOnCurrentScale.getPolygonDrawSettings();
 		
 		if (jCheckBoxDrawPolygonInnerPart.isSelected())
 		{
@@ -1163,7 +1163,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
   {//GEN-HEADEREND:event_jCheckBoxDrawPolygonBorderActionPerformed
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
-		PolygonDrawSettings polygonSettingOnCurrentScale = settingOnCurrentScale.getPolygonDrawSettings();
+		StandartPolygonDrawSettings polygonSettingOnCurrentScale = settingOnCurrentScale.getPolygonDrawSettings();
 		
 		if (jCheckBoxDrawPolygonBorder.isSelected())
 		{

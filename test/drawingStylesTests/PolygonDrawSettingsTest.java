@@ -3,7 +3,7 @@ package drawingStylesTests;
 import IOTesting.IOTester;
 import drawingStyles.ImageWithIO;
 import drawingStyles.LineDrawSettings;
-import drawingStyles.PolygonDrawSettings;
+import drawingStyles.StandartPolygonDrawSettings;
 import drawingStyles.PolygonFiller;
 import drawingStyles.PolygonFillersFactory;
 import java.awt.Color;
@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * PolygonDrawSettings class tests
+ * StandartPolygonDrawSettings class tests
  *
  * @author abc
  */
@@ -28,7 +28,7 @@ public class PolygonDrawSettingsTest
 	{
 		try
 		{
-			PolygonDrawSettings testStyle = new PolygonDrawSettings();
+			StandartPolygonDrawSettings testStyle = new StandartPolygonDrawSettings();
 			testStyle.setBorderDrawSettings(null);
 			fail();
 		}
@@ -46,7 +46,7 @@ public class PolygonDrawSettingsTest
 	{
 		try
 		{
-			PolygonDrawSettings testStyle = new PolygonDrawSettings();
+			StandartPolygonDrawSettings testStyle = new StandartPolygonDrawSettings();
 			testStyle.setFiller(null);
 			fail();
 		}
@@ -66,7 +66,7 @@ public class PolygonDrawSettingsTest
 		{
 			ImageWithIO fillIcon = new ImageWithIO("test/supportFiles/testIcon.png");
 			PolygonFiller filler = PolygonFillersFactory.createTextureFiller(fillIcon.getImage());
-			PolygonDrawSettings polygonStyle = new PolygonDrawSettings();
+			StandartPolygonDrawSettings polygonStyle = new StandartPolygonDrawSettings();
 			polygonStyle.setFiller(filler);
 			Paint paint = polygonStyle.getPaint();
 			
@@ -85,7 +85,7 @@ public class PolygonDrawSettingsTest
 	public void creatingSolidColorPaintTest()
 	{
 		PolygonFiller filler = PolygonFillersFactory.createColorFiller(Color.GREEN);
-		PolygonDrawSettings polygonStyle = new PolygonDrawSettings();
+		StandartPolygonDrawSettings polygonStyle = new StandartPolygonDrawSettings();
 		polygonStyle.setFiller(filler);
 		Paint paint = polygonStyle.getPaint();
 		
@@ -108,7 +108,7 @@ public class PolygonDrawSettingsTest
 			LineDrawSettings borderStyle = new LineDrawSettings(Color.CYAN, 10, pattern);
 			ImageWithIO fillIcon = new ImageWithIO("test/supportFiles/testIcon.png");
 			PolygonFiller filler = PolygonFillersFactory.createTextureFiller(fillIcon.getImage());
-			PolygonDrawSettings writedStyle = new PolygonDrawSettings();
+			StandartPolygonDrawSettings writedStyle = new StandartPolygonDrawSettings();
 			writedStyle.setFiller(filler);
 			writedStyle.setBorderDrawSettings(borderStyle);
 			writedStyle.setNotDrawBorder();
@@ -116,7 +116,7 @@ public class PolygonDrawSettingsTest
 			
 			writedStyle.writeToStream(IOTester.createTestOutputStream());
 			
-			PolygonDrawSettings readStyle = new PolygonDrawSettings();
+			StandartPolygonDrawSettings readStyle = new StandartPolygonDrawSettings();
 			readStyle.readFromStream(IOTester.createTestInputStream());
 			
 			assertEquals(writedStyle.getFiller().getType(), readStyle.getFiller().getType());

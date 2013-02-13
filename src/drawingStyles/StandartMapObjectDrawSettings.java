@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import mapDefenitionUtilities.DefenitionTags;
 import rendering.RenderableMapObjectDrawSettings;
+import rendering.RenderableMapPolygonDrawSettings;
 import rendering.TextDrawSettings;
 
 /**
@@ -331,7 +332,7 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 	 * @return polygon draw style on scale level. Null if not found
 	 */
 	@Override
-	public PolygonDrawSettings findPolygonDrawSettings(int scaleLevel)
+	public RenderableMapPolygonDrawSettings findPolygonDrawSettings(int scaleLevel)
 	{
 		if (canBePolygon)
 		{

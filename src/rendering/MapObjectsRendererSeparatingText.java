@@ -524,7 +524,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 		{
 			return;
 		}
-		PolygonDrawSettings polygonStyle = objectStyle.findPolygonDrawSettings(renderingScaleLevel);
+		RenderableMapPolygonDrawSettings polygonStyle = objectStyle.findPolygonDrawSettings(renderingScaleLevel);
 		if (polygonStyle == null)
 		{
 			return;
@@ -614,7 +614,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	 * null
 	 */
 	private Paint determinePolygonInnerPaint(RenderableMapPolygon polygon,
-					PolygonDrawSettings sourcePolygonDrawSettings) throws IllegalArgumentException
+					RenderableMapPolygonDrawSettings sourcePolygonDrawSettings) throws IllegalArgumentException
 	{
 		if (polygon == null)
 		{

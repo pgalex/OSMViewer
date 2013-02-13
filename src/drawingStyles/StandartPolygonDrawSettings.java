@@ -5,13 +5,14 @@ import java.awt.Paint;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import rendering.RenderableMapPolygonDrawSettings;
 
 /**
  * How to draw polygon (closed way)
  *
  * @author abc
  */
-public class PolygonDrawSettings
+public class StandartPolygonDrawSettings implements RenderableMapPolygonDrawSettings
 {
 	/**
 	 * Default polygon filler
@@ -37,7 +38,7 @@ public class PolygonDrawSettings
 	/**
 	 * Create with default values
 	 */
-	public PolygonDrawSettings()
+	public StandartPolygonDrawSettings()
 	{
 		filler = DEFAULT_FILLER;
 		borderDrawSettings = new LineDrawSettings();
@@ -50,6 +51,7 @@ public class PolygonDrawSettings
 	 *
 	 * @return how to draw border of polygon
 	 */
+	@Override
 	public LineDrawSettings getBorderDrawSettings()
 	{
 		return borderDrawSettings;
@@ -102,6 +104,7 @@ public class PolygonDrawSettings
 	 *
 	 * @return is need to draw inner part
 	 */
+	@Override
 	public boolean isDrawInnerPart()
 	{
 		return needDrawInnerPart;
@@ -128,6 +131,7 @@ public class PolygonDrawSettings
 	 *
 	 * @return is need to draw border
 	 */
+	@Override
 	public boolean isDrawBorder()
 	{
 		return needDrawBorder;
@@ -154,6 +158,7 @@ public class PolygonDrawSettings
 	 *
 	 * @return paint for drawing polygon
 	 */
+	@Override
 	public Paint getPaint()
 	{
 		return filler.getPaint();

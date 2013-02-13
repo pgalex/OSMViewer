@@ -213,7 +213,7 @@ public class DrawSettingsOnScaleArray
 	 * @param scaleLevel scale level
 	 * @return polygon draw style on scale level. Null if not found
 	 */
-	public PolygonDrawSettings findPolygonDrawSettings(int scaleLevel)
+	public StandartPolygonDrawSettings findPolygonDrawSettings(int scaleLevel)
 	{
 		DrawSettingsOnScale drawSettingsOnScale = getDrawSettingsOnScale(scaleLevel);
 		if (drawSettingsOnScale == null)
