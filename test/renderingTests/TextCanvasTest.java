@@ -1,6 +1,6 @@
 package renderingTests;
 
-import drawingStyles.TextDrawSettings;
+import drawingStyles.StandartTextDrawSettings;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -29,7 +29,7 @@ public class TextCanvasTest
 			Point2D[] points = new Point2D[2];
 			points[0] = new Point2D.Double(1, 2);
 			points[1] = null;
-			textCanvas.drawTextOnMultiline("123", new TextDrawSettings(), points);
+			textCanvas.drawTextOnMultiline("123", new StandartTextDrawSettings(), points);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -51,7 +51,7 @@ public class TextCanvasTest
 			
 			Point2D[] points = new Point2D[1];
 			points[0] = new Point2D.Double(1, 2);
-			textCanvas.drawTextOnMultiline("123", new TextDrawSettings(), points);
+			textCanvas.drawTextOnMultiline("123", new StandartTextDrawSettings(), points);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -71,7 +71,7 @@ public class TextCanvasTest
 			BufferedImage someImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
 			TextCanvas textCanvas = new TextCanvas(someImage.createGraphics());
 			
-			textCanvas.drawTextOnMultiline("123", new TextDrawSettings(), null);
+			textCanvas.drawTextOnMultiline("123", new StandartTextDrawSettings(), null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -117,7 +117,7 @@ public class TextCanvasTest
 			Point2D[] points = new Point2D[2];
 			points[0] = new Point2D.Double(1, 2);
 			points[1] = new Point2D.Double(3, 4);
-			textCanvas.drawTextOnMultiline(null, new TextDrawSettings(), points);
+			textCanvas.drawTextOnMultiline(null, new StandartTextDrawSettings(), points);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -153,7 +153,7 @@ public class TextCanvasTest
 		{
 			BufferedImage someImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
 			TextCanvas textCanvas = new TextCanvas(someImage.createGraphics());
-			textCanvas.drawTextUnderPoint(null, new TextDrawSettings(), 0, 0);
+			textCanvas.drawTextUnderPoint(null, new StandartTextDrawSettings(), 0, 0);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -191,7 +191,7 @@ public class TextCanvasTest
 		{
 			BufferedImage someImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
 			TextCanvas textCanvas = new TextCanvas(someImage.createGraphics());
-			textCanvas.drawTextAtPoint(null, new TextDrawSettings(), 0, 0);
+			textCanvas.drawTextAtPoint(null, new StandartTextDrawSettings(), 0, 0);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -229,7 +229,7 @@ public class TextCanvasTest
 		{
 			BufferedImage someImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
 			TextCanvas textCanvas = new TextCanvas(someImage.createGraphics());
-			textCanvas.computeTextAtPointBounds(null, new TextDrawSettings(), 50, 50);
+			textCanvas.computeTextAtPointBounds(null, new StandartTextDrawSettings(), 50, 50);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -265,7 +265,7 @@ public class TextCanvasTest
 	{
 		BufferedImage someImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
 		TextCanvas textCanvas = new TextCanvas(someImage.createGraphics());
-		Rectangle2D textBounds = textCanvas.computeTextAtPointBounds("", new TextDrawSettings(), 50, 50);
+		Rectangle2D textBounds = textCanvas.computeTextAtPointBounds("", new StandartTextDrawSettings(), 50, 50);
 		assertTrue(textBounds.isEmpty());
 	}
 
@@ -277,7 +277,7 @@ public class TextCanvasTest
 	{
 		BufferedImage someImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
 		TextCanvas textCanvas = new TextCanvas(someImage.createGraphics());
-		Rectangle2D textBounds = textCanvas.computeTextAtPointBounds("some text", new TextDrawSettings(), 50, 30);
+		Rectangle2D textBounds = textCanvas.computeTextAtPointBounds("some text", new StandartTextDrawSettings(), 50, 30);
 		assertFalse(textBounds.isEmpty());
 		assertEquals(50, textBounds.getCenterX(), 0.0001);
 		assertEquals(30, textBounds.getCenterY(), 0.0001);

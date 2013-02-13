@@ -237,7 +237,7 @@ public class DrawSettingsOnScaleArray
 	 * @param scaleLevel scale level
 	 * @return text draw style on scale level. Null if not found
 	 */
-	public TextDrawSettings findTextDrawSettings(int scaleLevel)
+	public StandartTextDrawSettings findTextDrawSettings(int scaleLevel)
 	{
 		DrawSettingsOnScale drawSettingsOnScale = getDrawSettingsOnScale(scaleLevel);
 		if (drawSettingsOnScale == null)

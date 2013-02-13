@@ -10,7 +10,7 @@ import drawingStyles.PointDrawSettings;
 import drawingStyles.PolygonDrawSettings;
 import drawingStyles.PolygonFillersFactory;
 import mapDefenitionUtilities.Tag;
-import drawingStyles.TextDrawSettings;
+import drawingStyles.StandartTextDrawSettings;
 import drawingStyles.TextTagsKeys;
 import java.awt.Color;
 import java.awt.Dialog;
@@ -292,7 +292,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 	{
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
-		TextDrawSettings textSettingsOnCurrentScale = settingOnCurrentScale.getTextDrawSettings();
+		StandartTextDrawSettings textSettingsOnCurrentScale = settingOnCurrentScale.getTextDrawSettings();
 		
 		jLabelTextPreviewExample.setFont(textSettingsOnCurrentScale.getFont());
 		jLabelTextPreviewExample.setForeground(textSettingsOnCurrentScale.getColor());
@@ -1013,7 +1013,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
   {//GEN-HEADEREND:event_jButtonSelectTextColorActionPerformed
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
-		TextDrawSettings textSettingsOnCurrentScale = settingOnCurrentScale.getTextDrawSettings();
+		StandartTextDrawSettings textSettingsOnCurrentScale = settingOnCurrentScale.getTextDrawSettings();
 		
 		Color newTextColor = JColorChooser.showDialog(this, "Choosing text color", textSettingsOnCurrentScale.getColor());
 		if (newTextColor != null)
@@ -1072,7 +1072,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
   {//GEN-HEADEREND:event_jButtonSelectTextFontActionPerformed
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
-		TextDrawSettings textSettingsOnCurrentScale = settingOnCurrentScale.getTextDrawSettings();
+		StandartTextDrawSettings textSettingsOnCurrentScale = settingOnCurrentScale.getTextDrawSettings();
 		
 		JFontChooser fontChooser = new JFontChooser(null);
 		int showDialogResult = fontChooser.showDialog(textSettingsOnCurrentScale.getFont());

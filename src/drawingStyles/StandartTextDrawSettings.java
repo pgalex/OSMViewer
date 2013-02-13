@@ -5,13 +5,14 @@ import java.awt.Font;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import rendering.TextDrawSettings;
 
 /**
  * How to draw text
  *
  * @author pgalex
  */
-public class TextDrawSettings
+public class StandartTextDrawSettings implements TextDrawSettings
 {
 	/**
 	 * Text font
@@ -25,7 +26,7 @@ public class TextDrawSettings
 	/**
 	 * Create with default values
 	 */
-	public TextDrawSettings()
+	public StandartTextDrawSettings()
 	{
 		font = new FontWithIO();
 		color = new ColorWithIO();
@@ -38,7 +39,7 @@ public class TextDrawSettings
 	 * @param textFont text font
 	 * @throws IllegalArgumentException textColor or textFont is null
 	 */
-	public TextDrawSettings(Color textColor, Font textFont) throws IllegalArgumentException
+	public StandartTextDrawSettings(Color textColor, Font textFont) throws IllegalArgumentException
 	{
 		if (textColor == null)
 		{
@@ -58,6 +59,7 @@ public class TextDrawSettings
 	 *
 	 * @return text color
 	 */
+	@Override
 	public Color getColor()
 	{
 		return color.getStoringColor();
@@ -69,6 +71,7 @@ public class TextDrawSettings
 	 * @param textColorToSet new text color
 	 * @throws IllegalArgumentException textColorToSet is null
 	 */
+	@Override
 	public void setColor(Color textColorToSet) throws IllegalArgumentException
 	{
 		if (textColorToSet == null)
@@ -84,6 +87,7 @@ public class TextDrawSettings
 	 *
 	 * @return text font
 	 */
+	@Override
 	public Font getFont()
 	{
 		return font.getStoringFont();
@@ -95,6 +99,7 @@ public class TextDrawSettings
 	 * @param textFontToSet new text font
 	 * @throws IllegalArgumentException textFontToSet is null
 	 */
+	@Override
 	public void setFont(Font textFontToSet) throws IllegalArgumentException
 	{
 		if (textFontToSet == null)

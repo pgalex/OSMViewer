@@ -1,7 +1,7 @@
 package drawingStylesTests;
 
 import IOTesting.IOTester;
-import drawingStyles.TextDrawSettings;
+import drawingStyles.StandartTextDrawSettings;
 import java.awt.Color;
 import java.awt.Font;
 import static org.junit.Assert.*;
@@ -21,7 +21,7 @@ public class TextDrawSettingsTest
 	{
 		try
 		{
-			TextDrawSettings settings = new TextDrawSettings();
+			StandartTextDrawSettings settings = new StandartTextDrawSettings();
 			settings.setColor(null);
 			fail();
 		}
@@ -39,7 +39,7 @@ public class TextDrawSettingsTest
 	{
 		try
 		{
-			TextDrawSettings settings = new TextDrawSettings();
+			StandartTextDrawSettings settings = new StandartTextDrawSettings();
 			settings.setFont(null);
 			fail();
 		}
@@ -57,7 +57,7 @@ public class TextDrawSettingsTest
 	{
 		try
 		{
-			TextDrawSettings settings = new TextDrawSettings(Color.CYAN, null);
+			StandartTextDrawSettings settings = new StandartTextDrawSettings(Color.CYAN, null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -74,7 +74,7 @@ public class TextDrawSettingsTest
 	{
 		try
 		{
-			TextDrawSettings settings = new TextDrawSettings(null, null);
+			StandartTextDrawSettings settings = new StandartTextDrawSettings(null, null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -91,10 +91,10 @@ public class TextDrawSettingsTest
 	{
 		try
 		{
-			TextDrawSettings writingSettings = new TextDrawSettings(Color.ORANGE, new Font("Arial", Font.BOLD, 14));
+			StandartTextDrawSettings writingSettings = new StandartTextDrawSettings(Color.ORANGE, new Font("Arial", Font.BOLD, 14));
 			writingSettings.writeToStream(IOTester.createTestOutputStream());
 			
-			TextDrawSettings readingSettings = new TextDrawSettings();
+			StandartTextDrawSettings readingSettings = new StandartTextDrawSettings();
 			readingSettings.readFromStream(IOTester.createTestInputStream());
 			
 			assertEquals(writingSettings.getColor(), readingSettings.getColor());

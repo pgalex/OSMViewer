@@ -42,7 +42,7 @@ public class DrawSettingsOnScale
 	/**
 	 * text drawing settings
 	 */
-	private TextDrawSettings textDrawSettings;
+	private StandartTextDrawSettings textDrawSettings;
 
 	/**
 	 * Create with default values
@@ -52,7 +52,7 @@ public class DrawSettingsOnScale
 		pointDrawSettings = new PointDrawSettings();
 		lineDrawSettings = new LineDrawSettings();
 		polygonDrawSettings = new PolygonDrawSettings();
-		textDrawSettings = new TextDrawSettings();
+		textDrawSettings = new StandartTextDrawSettings();
 		needDrawPoint = false;
 		needDrawLine = false;
 		needDrawPolygon = false;
@@ -198,7 +198,7 @@ public class DrawSettingsOnScale
 	 *
 	 * @return text drawing settings
 	 */
-	public TextDrawSettings getTextDrawSettings()
+	public StandartTextDrawSettings getTextDrawSettings()
 	{
 		return textDrawSettings;
 	}

@@ -3,7 +3,7 @@ package rendering;
 import drawingStyles.LineDrawSettings;
 import drawingStyles.PointDrawSettings;
 import drawingStyles.PolygonDrawSettings;
-import drawingStyles.TextDrawSettings;
+import drawingStyles.StandartTextDrawSettings;
 import mapDefenitionUtilities.DefenitionTags;
 
 /**

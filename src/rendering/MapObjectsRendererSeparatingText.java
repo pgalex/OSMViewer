@@ -706,7 +706,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 			throw new IllegalArgumentException();
 		}
 
-		TextDrawSettings textDrawSettingsWithOtherColor = new TextDrawSettings();
+		StandartTextDrawSettings textDrawSettingsWithOtherColor = new StandartTextDrawSettings();
 		textDrawSettingsWithOtherColor.setFont(sourceTextDrawSettings.getFont());
 		textDrawSettingsWithOtherColor.setColor(newTextColor);
 
