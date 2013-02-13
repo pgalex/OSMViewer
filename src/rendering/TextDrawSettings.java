@@ -25,18 +25,12 @@ public interface TextDrawSettings
 	public Font getFont();
 
 	/**
-	 * Set new text color
+	 * Create copy of this text draw settings with other color
 	 *
-	 * @param textColorToSet new text color
-	 * @throws IllegalArgumentException textColorToSet is null
+	 * @param newTextColor new text color
+	 * @return text draw settings by source draw settings, but with given color
+	 * @throws IllegalArgumentException sourceTextDrawSettings or newTextColor is
+	 * null
 	 */
-	public void setColor(Color textColorToSet) throws IllegalArgumentException;
-
-	/**
-	 * Set new text font
-	 *
-	 * @param textFontToSet new text font
-	 * @throws IllegalArgumentException textFontToSet is null
-	 */
-	public void setFont(Font textFontToSet) throws IllegalArgumentException;
+	public TextDrawSettings createCopyWithColor(Color newTextColor) throws IllegalArgumentException;
 }

@@ -1,6 +1,5 @@
 package rendering;
 
-import drawingStyles.*;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -248,14 +247,14 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 		boolean drawAsSelected = (point == objectToDrawAsSelected);
 		if (drawAsSelected)
 		{
-			return recreateTextDrawSettingsWithColor(sourcePointTextDrawSettings, SELECTED_OBJECT_COLOR);
+			return sourcePointTextDrawSettings.createCopyWithColor(SELECTED_OBJECT_COLOR);
 		}
 		else
 		{
 			boolean drawAsHightlighted = (point == objectToDrawAsHighlighted);
 			if (drawAsHightlighted)
 			{
-				return recreateTextDrawSettingsWithColor(sourcePointTextDrawSettings, HIGHLIGHTED_OBJECT_COLOR);
+				return sourcePointTextDrawSettings.createCopyWithColor(HIGHLIGHTED_OBJECT_COLOR);
 			}
 			else
 			{
@@ -464,14 +463,14 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 		boolean drawAsSelected = (line == objectToDrawAsSelected);
 		if (drawAsSelected)
 		{
-			return recreateTextDrawSettingsWithColor(sourceLineTextDrawSettings, SELECTED_OBJECT_TEXT_COLOR);
+			return sourceLineTextDrawSettings.createCopyWithColor(SELECTED_OBJECT_TEXT_COLOR);
 		}
 		else
 		{
 			boolean drawAsHighlighted = (line == objectToDrawAsHighlighted);
 			if (drawAsHighlighted)
 			{
-				return recreateTextDrawSettingsWithColor(sourceLineTextDrawSettings, HIGHLIGHTED_OBJECT_TEXT_COLOR);
+				return sourceLineTextDrawSettings.createCopyWithColor(HIGHLIGHTED_OBJECT_TEXT_COLOR);
 			}
 			else
 			{
@@ -669,14 +668,14 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 		boolean drawAsSelected = (polygon == objectToDrawAsSelected);
 		if (drawAsSelected)
 		{
-			return recreateTextDrawSettingsWithColor(sourcePolygonTextDrawSettings, SELECTED_OBJECT_TEXT_COLOR);
+			return sourcePolygonTextDrawSettings.createCopyWithColor(SELECTED_OBJECT_TEXT_COLOR);
 		}
 		else
 		{
 			boolean drawAsHighlighted = (polygon == objectToDrawAsHighlighted);
 			if (drawAsHighlighted)
 			{
-				return recreateTextDrawSettingsWithColor(sourcePolygonTextDrawSettings, HIGHLIGHTED_OBJECT_TEXT_COLOR);
+				return sourcePolygonTextDrawSettings.createCopyWithColor(HIGHLIGHTED_OBJECT_TEXT_COLOR);
 			}
 			else
 			{
@@ -710,33 +709,5 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 		}
 
 		return drawingPolygon;
-	}
-	
-	/**
-	 * Create text draw settings by source draw settings with another text color
-	 *
-	 * @param sourceTextDrawSettings source text draw settings
-	 * @param newTextColor new text color
-	 * @return text draw settings by source draw settings, but with given color
-	 * @throws IllegalArgumentException sourceTextDrawSettings or newTextColor is
-	 * null
-	 */
-	private TextDrawSettings recreateTextDrawSettingsWithColor(TextDrawSettings sourceTextDrawSettings,
-					Color newTextColor) throws IllegalArgumentException
-	{
-		if (sourceTextDrawSettings == null)
-		{
-			throw new IllegalArgumentException();
-		}
-		if (newTextColor == null)
-		{
-			throw new IllegalArgumentException();
-		}
-
-		StandartTextDrawSettings textDrawSettingsWithOtherColor = new StandartTextDrawSettings();
-		textDrawSettingsWithOtherColor.setFont(sourceTextDrawSettings.getFont());
-		textDrawSettingsWithOtherColor.setColor(newTextColor);
-
-		return textDrawSettingsWithOtherColor;
 	}
 }
