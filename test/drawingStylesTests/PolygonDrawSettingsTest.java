@@ -2,7 +2,7 @@ package drawingStylesTests;
 
 import IOTesting.IOTester;
 import drawingStyles.ImageWithIO;
-import drawingStyles.LineDrawSettings;
+import drawingStyles.StandartLineDrawSettings;
 import drawingStyles.StandartPolygonDrawSettings;
 import drawingStyles.PolygonFiller;
 import drawingStyles.PolygonFillersFactory;
@@ -105,7 +105,7 @@ public class PolygonDrawSettingsTest
 			pattern[1] = 3;
 			pattern[2] = 4;
 			pattern[3] = 5;
-			LineDrawSettings borderStyle = new LineDrawSettings(Color.CYAN, 10, pattern);
+			StandartLineDrawSettings borderStyle = new StandartLineDrawSettings(Color.CYAN, 10, pattern);
 			ImageWithIO fillIcon = new ImageWithIO("test/supportFiles/testIcon.png");
 			PolygonFiller filler = PolygonFillersFactory.createTextureFiller(fillIcon.getImage());
 			StandartPolygonDrawSettings writedStyle = new StandartPolygonDrawSettings();

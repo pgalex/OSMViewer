@@ -1,6 +1,6 @@
 package rendering;
 
-import drawingStyles.LineDrawSettings;
+import drawingStyles.StandartLineDrawSettings;
 import java.awt.Paint;
 
 /**
@@ -32,9 +32,9 @@ public interface RenderableMapPolygonDrawSettings
 	public Paint getPaint();
 
 	/**
-	 * Get border drawing settings
+	 * Find border drawing settings
 	 *
-	 * @return how to draw border of polygon
+	 * @return draw settings of polygon border
 	 */
-	public LineDrawSettings getBorderDrawSettings();
+	public RenderableMapLineDrawSettings findBorderDrawSettings();
 }

@@ -4,7 +4,7 @@ import ZoeloeSoft.projects.JFontChooser.JFontChooser;
 import mapDefenitionUtilities.DefenitionTags;
 import drawingStyles.DrawSettingsOnScale;
 import drawingStyles.DrawSettingsOnScaleArray;
-import drawingStyles.LineDrawSettings;
+import drawingStyles.StandartLineDrawSettings;
 import drawingStyles.StandartMapObjectDrawSettings;
 import drawingStyles.PointDrawSettings;
 import drawingStyles.StandartPolygonDrawSettings;
@@ -266,7 +266,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 	{
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
-		LineDrawSettings lineSettingsOnCurrentScale = settingOnCurrentScale.getLineDrawSettings();
+		StandartLineDrawSettings lineSettingsOnCurrentScale = settingOnCurrentScale.getLineDrawSettings();
 		
 		jPanelLinePreview.setBackground(lineSettingsOnCurrentScale.getColor());
 	}
@@ -280,7 +280,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 	{
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
-		LineDrawSettings lineSettingsOnCurrentScale = settingOnCurrentScale.getLineDrawSettings();
+		StandartLineDrawSettings lineSettingsOnCurrentScale = settingOnCurrentScale.getLineDrawSettings();
 		
 		lineWidthSpinnerModel.setValue(lineSettingsOnCurrentScale.getWidth());
 	}
@@ -398,7 +398,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 	{
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
-		LineDrawSettings lineSettingsOnCurrentScale = settingOnCurrentScale.getLineDrawSettings();
+		StandartLineDrawSettings lineSettingsOnCurrentScale = settingOnCurrentScale.getLineDrawSettings();
 		
 		lineSettingsOnCurrentScale.setWidth(lineWidthSpinnerModel.getNumber().intValue());
 	}
@@ -999,7 +999,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
   {//GEN-HEADEREND:event_jButtonSelectLineColorActionPerformed
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
-		LineDrawSettings lineSettingsOnCurrentScale = settingOnCurrentScale.getLineDrawSettings();
+		StandartLineDrawSettings lineSettingsOnCurrentScale = settingOnCurrentScale.getLineDrawSettings();
 		
 		Color newLineColor = JColorChooser.showDialog(this, "Choosing line color", lineSettingsOnCurrentScale.getColor());
 		if (newLineColor != null)
@@ -1193,7 +1193,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
   {//GEN-HEADEREND:event_jButtonEditLinePatternActionPerformed
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
-		LineDrawSettings lineSettingsOnCurrentScale = settingOnCurrentScale.getLineDrawSettings();
+		StandartLineDrawSettings lineSettingsOnCurrentScale = settingOnCurrentScale.getLineDrawSettings();
 		
 		EditLinePatternDialog editLinePatternDialog = new EditLinePatternDialog(this,
 						Dialog.ModalityType.DOCUMENT_MODAL);

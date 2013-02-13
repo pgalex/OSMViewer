@@ -366,7 +366,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 		{
 			return;
 		}
-		LineDrawSettings lineStyle = objectStyle.findLineDrawSettings(renderingScaleLevel);
+		RenderableMapLineDrawSettings lineStyle = objectStyle.findLineDrawSettings(renderingScaleLevel);
 		if (lineStyle == null)
 		{
 			return;
@@ -410,7 +410,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	 * @throws IllegalArgumentException line or sourceLineDrawSettings is null
 	 */
 	private Color determineLineColor(RenderableMapLine line,
-					LineDrawSettings sourceLineDrawSettings) throws IllegalArgumentException
+					RenderableMapLineDrawSettings sourceLineDrawSettings) throws IllegalArgumentException
 	{
 		if (line == null)
 		{
@@ -538,7 +538,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 		}
 		if (polygonStyle.isDrawBorder())
 		{
-			LineDrawSettings borderStyle = polygonStyle.getBorderDrawSettings();
+			RenderableMapLineDrawSettings borderStyle = polygonStyle.findBorderDrawSettings();
 			objectsCanvas.setColor(determinePolygonBorderColor(renderablePolygon, borderStyle));
 			objectsCanvas.setStroke(borderStyle.getStroke());
 			objectsCanvas.drawPolygon(drawingPolygon);
@@ -573,7 +573,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	 * null
 	 */
 	private Color determinePolygonBorderColor(RenderableMapPolygon polygon,
-					LineDrawSettings sourceBorderDrawSettings) throws IllegalArgumentException
+					RenderableMapLineDrawSettings sourceBorderDrawSettings) throws IllegalArgumentException
 	{
 		if (polygon == null)
 		{

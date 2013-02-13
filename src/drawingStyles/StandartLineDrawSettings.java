@@ -5,13 +5,14 @@ import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import rendering.RenderableMapLineDrawSettings;
 
 /**
  * How to draw line (non closed way)
  *
  * @author abc
  */
-public class LineDrawSettings
+public class StandartLineDrawSettings implements RenderableMapLineDrawSettings
 {
 	/**
 	 * Default line width
@@ -33,7 +34,7 @@ public class LineDrawSettings
 	/**
 	 * Create with default values
 	 */
-	public LineDrawSettings()
+	public StandartLineDrawSettings()
 	{
 		color = new ColorWithIO();
 		width = DEFAULT_WIDTH;
@@ -49,7 +50,7 @@ public class LineDrawSettings
 	 * @throws IllegalArgumentException lineColor is null or line pattern null or
 	 * contains 0 elements
 	 */
-	public LineDrawSettings(Color lineColor, float lineWidth, float[] linePattern) throws IllegalArgumentException
+	public StandartLineDrawSettings(Color lineColor, float lineWidth, float[] linePattern) throws IllegalArgumentException
 	{
 		if (lineColor == null)
 		{

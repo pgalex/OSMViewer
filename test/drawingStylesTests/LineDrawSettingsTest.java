@@ -1,14 +1,14 @@
 package drawingStylesTests;
 
 import IOTesting.IOTester;
-import drawingStyles.LineDrawSettings;
+import drawingStyles.StandartLineDrawSettings;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * LineDrawSettings class tests
+ * StandartLineDrawSettings class tests
  *
  * @author abc
  */
@@ -22,7 +22,7 @@ public class LineDrawSettingsTest
 	{
 		try
 		{
-			LineDrawSettings settings = new LineDrawSettings();
+			StandartLineDrawSettings settings = new StandartLineDrawSettings();
 			settings.setPattern(null);
 			fail();
 		}
@@ -40,7 +40,7 @@ public class LineDrawSettingsTest
 	{
 		try
 		{
-			LineDrawSettings settings = new LineDrawSettings();
+			StandartLineDrawSettings settings = new StandartLineDrawSettings();
 			settings.setPattern(new float[0]);
 			fail();
 		}
@@ -58,7 +58,7 @@ public class LineDrawSettingsTest
 	{
 		try
 		{
-			LineDrawSettings settings = new LineDrawSettings();
+			StandartLineDrawSettings settings = new StandartLineDrawSettings();
 			settings.setColor(null);
 			fail();
 		}
@@ -79,7 +79,7 @@ public class LineDrawSettingsTest
 		pattern[1] = 5;
 		pattern[2] = 3;
 		pattern[3] = 2;
-		LineDrawSettings lineStyle = new LineDrawSettings(Color.RED, 5, pattern);
+		StandartLineDrawSettings lineStyle = new StandartLineDrawSettings(Color.RED, 5, pattern);
 
 		BasicStroke stroke = lineStyle.getStroke();
 		assertEquals(stroke.getLineWidth(), lineStyle.getWidth(), 0.00001f);
@@ -94,7 +94,7 @@ public class LineDrawSettingsTest
 	{
 		try
 		{
-			LineDrawSettings testStyle = new LineDrawSettings(Color.RED, 1, null);
+			StandartLineDrawSettings testStyle = new StandartLineDrawSettings(Color.RED, 1, null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -111,7 +111,7 @@ public class LineDrawSettingsTest
 	{
 		try
 		{
-			LineDrawSettings testStyle = new LineDrawSettings(Color.RED, 1, new float[0]);
+			StandartLineDrawSettings testStyle = new StandartLineDrawSettings(Color.RED, 1, new float[0]);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -133,7 +133,7 @@ public class LineDrawSettingsTest
 			pattern[1] = 3;
 			pattern[2] = 4;
 			pattern[3] = 5;
-			LineDrawSettings testStyle = new LineDrawSettings(null, 1, pattern);
+			StandartLineDrawSettings testStyle = new StandartLineDrawSettings(null, 1, pattern);
 			assertNotNull(testStyle.getColor());
 			fail();
 		}
@@ -156,10 +156,10 @@ public class LineDrawSettingsTest
 			pattern[1] = 3;
 			pattern[2] = 4;
 			pattern[3] = 5;
-			LineDrawSettings writedStyle = new LineDrawSettings(Color.CYAN, 11, pattern);
+			StandartLineDrawSettings writedStyle = new StandartLineDrawSettings(Color.CYAN, 11, pattern);
 			writedStyle.writeToStream(IOTester.createTestOutputStream());
 
-			LineDrawSettings readStyle = new LineDrawSettings();
+			StandartLineDrawSettings readStyle = new StandartLineDrawSettings();
 			readStyle.readFromStream(IOTester.createTestInputStream());
 
 			assertEquals(writedStyle.getColor(), readStyle.getColor());

@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import mapDefenitionUtilities.DefenitionTags;
+import rendering.RenderableMapLineDrawSettings;
 import rendering.RenderableMapObjectDrawSettings;
 import rendering.RenderableMapPolygonDrawSettings;
 import rendering.TextDrawSettings;
@@ -313,7 +314,7 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 	 * @return line draw style on scale level. Null if not found
 	 */
 	@Override
-	public LineDrawSettings findLineDrawSettings(int scaleLevel)
+	public RenderableMapLineDrawSettings findLineDrawSettings(int scaleLevel)
 	{
 		if (canBeLine)
 		{

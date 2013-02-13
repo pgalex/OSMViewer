@@ -1,9 +1,6 @@
 package rendering;
 
-import drawingStyles.LineDrawSettings;
 import drawingStyles.PointDrawSettings;
-import drawingStyles.StandartPolygonDrawSettings;
-import drawingStyles.StandartTextDrawSettings;
 import mapDefenitionUtilities.DefenitionTags;
 
 /**
@@ -55,7 +52,7 @@ public interface RenderableMapObjectDrawSettings
 	 * @param scaleLevel scale level
 	 * @return draw settings of line on scale level. Null if not found
 	 */
-	public LineDrawSettings findLineDrawSettings(int scaleLevel);
+	public RenderableMapLineDrawSettings findLineDrawSettings(int scaleLevel);
 
 	/**
 	 * Find draw settings of polygon on scale level

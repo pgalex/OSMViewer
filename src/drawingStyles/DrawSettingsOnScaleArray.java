@@ -3,6 +3,7 @@ package drawingStyles;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import rendering.RenderableMapLineDrawSettings;
 
 /**
  * Array of DrawSettingsOnScale
@@ -189,7 +190,7 @@ public class DrawSettingsOnScaleArray
 	 * @param scaleLevel scale level
 	 * @return line draw style on scale level. Null if not found
 	 */
-	public LineDrawSettings findLineDrawSettings(int scaleLevel)
+	public RenderableMapLineDrawSettings findLineDrawSettings(int scaleLevel)
 	{
 		DrawSettingsOnScale drawSettingsOnScale = getDrawSettingsOnScale(scaleLevel);
 		if (drawSettingsOnScale == null)

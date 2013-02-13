@@ -5,6 +5,7 @@ import java.awt.Paint;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import rendering.RenderableMapLineDrawSettings;
 import rendering.RenderableMapPolygonDrawSettings;
 
 /**
@@ -29,7 +30,7 @@ public class StandartPolygonDrawSettings implements RenderableMapPolygonDrawSett
 	/**
 	 * How to draw border
 	 */
-	private LineDrawSettings borderDrawSettings;
+	private StandartLineDrawSettings borderDrawSettings;
 	/**
 	 * Is need to draw border of polygon
 	 */
@@ -41,7 +42,7 @@ public class StandartPolygonDrawSettings implements RenderableMapPolygonDrawSett
 	public StandartPolygonDrawSettings()
 	{
 		filler = DEFAULT_FILLER;
-		borderDrawSettings = new LineDrawSettings();
+		borderDrawSettings = new StandartLineDrawSettings();
 		needDrawInnerPart = true;
 		needDrawBorder = false;
 	}
@@ -51,8 +52,7 @@ public class StandartPolygonDrawSettings implements RenderableMapPolygonDrawSett
 	 *
 	 * @return how to draw border of polygon
 	 */
-	@Override
-	public LineDrawSettings getBorderDrawSettings()
+	public StandartLineDrawSettings getBorderDrawSettings()
 	{
 		return borderDrawSettings;
 	}
@@ -63,7 +63,7 @@ public class StandartPolygonDrawSettings implements RenderableMapPolygonDrawSett
 	 * @param settingsToSet new border draw settings
 	 * @throws IllegalArgumentException settingsToSet is null
 	 */
-	public void setBorderDrawSettings(LineDrawSettings settingsToSet) throws IllegalArgumentException
+	public void setBorderDrawSettings(StandartLineDrawSettings settingsToSet) throws IllegalArgumentException
 	{
 		if (settingsToSet == null)
 		{
@@ -204,5 +204,16 @@ public class StandartPolygonDrawSettings implements RenderableMapPolygonDrawSett
 		{
 			throw new IOException(e);
 		}
+	}
+
+	/**
+	 * Find border drawing settings
+	 *
+	 * @return draw settings of polygon border
+	 */
+	@Override
+	public RenderableMapLineDrawSettings findBorderDrawSettings()
+	{
+		return borderDrawSettings;
 	}
 }
