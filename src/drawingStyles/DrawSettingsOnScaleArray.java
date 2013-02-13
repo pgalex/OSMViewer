@@ -4,6 +4,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import rendering.RenderableMapLineDrawSettings;
+import rendering.RenderableMapPointDrawSettings;
+import rendering.RenderableMapPolygonDrawSettings;
+import rendering.TextDrawSettings;
 
 /**
  * Array of DrawSettingsOnScale
@@ -166,7 +169,7 @@ public class DrawSettingsOnScaleArray
 	 * @param scaleLevel scale level
 	 * @return point draw style on scale level. Null if not found
 	 */
-	public PointDrawSettings findPointDrawSettings(int scaleLevel)
+	public RenderableMapPointDrawSettings findPointDrawSettings(int scaleLevel)
 	{
 		DrawSettingsOnScale drawSettingsOnScale = getDrawSettingsOnScale(scaleLevel);
 		if (drawSettingsOnScale == null)
@@ -214,7 +217,7 @@ public class DrawSettingsOnScaleArray
 	 * @param scaleLevel scale level
 	 * @return polygon draw style on scale level. Null if not found
 	 */
-	public StandartPolygonDrawSettings findPolygonDrawSettings(int scaleLevel)
+	public RenderableMapPolygonDrawSettings findPolygonDrawSettings(int scaleLevel)
 	{
 		DrawSettingsOnScale drawSettingsOnScale = getDrawSettingsOnScale(scaleLevel);
 		if (drawSettingsOnScale == null)
@@ -238,7 +241,7 @@ public class DrawSettingsOnScaleArray
 	 * @param scaleLevel scale level
 	 * @return text draw style on scale level. Null if not found
 	 */
-	public StandartTextDrawSettings findTextDrawSettings(int scaleLevel)
+	public TextDrawSettings findTextDrawSettings(int scaleLevel)
 	{
 		DrawSettingsOnScale drawSettingsOnScale = getDrawSettingsOnScale(scaleLevel);
 		if (drawSettingsOnScale == null)

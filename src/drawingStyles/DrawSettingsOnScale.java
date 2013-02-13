@@ -30,7 +30,7 @@ public class DrawSettingsOnScale
 	/**
 	 * point drawing settings
 	 */
-	private PointDrawSettings pointDrawSettings;
+	private StandartPointDrawSettings pointDrawSettings;
 	/**
 	 * line drawing settings
 	 */
@@ -49,7 +49,7 @@ public class DrawSettingsOnScale
 	 */
 	public DrawSettingsOnScale()
 	{
-		pointDrawSettings = new PointDrawSettings();
+		pointDrawSettings = new StandartPointDrawSettings();
 		lineDrawSettings = new StandartLineDrawSettings();
 		polygonDrawSettings = new StandartPolygonDrawSettings();
 		textDrawSettings = new StandartTextDrawSettings();
@@ -168,7 +168,7 @@ public class DrawSettingsOnScale
 	 *
 	 * @return point drawing style
 	 */
-	public PointDrawSettings getPointDrawSettings()
+	public StandartPointDrawSettings getPointDrawSettings()
 	{
 		return pointDrawSettings;
 	}

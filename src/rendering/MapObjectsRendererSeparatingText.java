@@ -162,7 +162,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 		{
 			return;
 		}
-		PointDrawSettings pointStyle = objectStyle.findPointDrawSettings(renderingScaleLevel);
+		RenderableMapPointDrawSettings pointStyle = objectStyle.findPointDrawSettings(renderingScaleLevel);
 		if (pointStyle == null)
 		{
 			return;
@@ -686,6 +686,33 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	}
 
 	/**
+	 * Create polygon for drawing by converting renderable polygon points to
+	 * target canvas coordinates
+	 *
+	 * @param polygon polygon, which points will using to create drawing polygon
+	 * @return drawing polygon, created by renderable polygon, in target canvas
+	 * coordinates
+	 * @throws IllegalArgumentException polygon is null
+	 */
+	private Polygon createDrawingPolygonByRenderablePolygonPoints(RenderableMapPolygon polygon) throws IllegalArgumentException
+	{
+		if (polygon == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		Polygon drawingPolygon = new Polygon();
+
+		for (int i = 0; i < polygon.getPointsCount(); i++)
+		{
+			Point2D pointOnCanvas = coordinatesConverter.goegraphicsToCanvas(polygon.getPoint(i));
+			drawingPolygon.addPoint((int) pointOnCanvas.getX(), (int) pointOnCanvas.getY());
+		}
+
+		return drawingPolygon;
+	}
+	
+	/**
 	 * Create text draw settings by source draw settings with another text color
 	 *
 	 * @param sourceTextDrawSettings source text draw settings
@@ -711,32 +738,5 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 		textDrawSettingsWithOtherColor.setColor(newTextColor);
 
 		return textDrawSettingsWithOtherColor;
-	}
-
-	/**
-	 * Create polygon for drawing by converting renderable polygon points to
-	 * target canvas coordinates
-	 *
-	 * @param polygon polygon, which points will using to create drawing polygon
-	 * @return drawing polygon, created by renderable polygon, in target canvas
-	 * coordinates
-	 * @throws IllegalArgumentException polygon is null
-	 */
-	private Polygon createDrawingPolygonByRenderablePolygonPoints(RenderableMapPolygon polygon) throws IllegalArgumentException
-	{
-		if (polygon == null)
-		{
-			throw new IllegalArgumentException();
-		}
-
-		Polygon drawingPolygon = new Polygon();
-
-		for (int i = 0; i < polygon.getPointsCount(); i++)
-		{
-			Point2D pointOnCanvas = coordinatesConverter.goegraphicsToCanvas(polygon.getPoint(i));
-			drawingPolygon.addPoint((int) pointOnCanvas.getX(), (int) pointOnCanvas.getY());
-		}
-
-		return drawingPolygon;
 	}
 }

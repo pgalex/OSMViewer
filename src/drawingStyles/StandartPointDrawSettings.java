@@ -4,13 +4,14 @@ import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import rendering.RenderableMapPointDrawSettings;
 
 /**
  * How to object if its one node
  *
  * @author abc
  */
-public class PointDrawSettings
+public class StandartPointDrawSettings implements RenderableMapPointDrawSettings
 {
 	/**
 	 * Icon
@@ -20,7 +21,7 @@ public class PointDrawSettings
 	/**
 	 * Create with default values
 	 */
-	public PointDrawSettings()
+	public StandartPointDrawSettings()
 	{
 		icon = new ImageWithIO();
 	}
@@ -30,7 +31,7 @@ public class PointDrawSettings
 	 *
 	 * @param pointIcon icon. Can be null
 	 */
-	public PointDrawSettings(BufferedImage pointIcon)
+	public StandartPointDrawSettings(BufferedImage pointIcon)
 	{
 		icon = new ImageWithIO(pointIcon);
 	}
@@ -40,6 +41,7 @@ public class PointDrawSettings
 	 *
 	 * @return icon
 	 */
+	@Override
 	public BufferedImage getIcon()
 	{
 		return icon.getImage();

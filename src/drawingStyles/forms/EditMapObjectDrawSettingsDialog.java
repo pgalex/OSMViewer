@@ -6,7 +6,7 @@ import drawingStyles.DrawSettingsOnScale;
 import drawingStyles.DrawSettingsOnScaleArray;
 import drawingStyles.StandartLineDrawSettings;
 import drawingStyles.StandartMapObjectDrawSettings;
-import drawingStyles.PointDrawSettings;
+import drawingStyles.StandartPointDrawSettings;
 import drawingStyles.StandartPolygonDrawSettings;
 import drawingStyles.PolygonFillersFactory;
 import mapDefenitionUtilities.Tag;
@@ -306,7 +306,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 	{
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
-		PointDrawSettings pointSettingsOnCurrentScale = settingOnCurrentScale.getPointDrawSettings();
+		StandartPointDrawSettings pointSettingsOnCurrentScale = settingOnCurrentScale.getPointDrawSettings();
 		
 		if (pointSettingsOnCurrentScale.getIcon() != null)
 		{
@@ -1027,7 +1027,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
   {//GEN-HEADEREND:event_jButtonResetPointIconActionPerformed
 		DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 		DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
-		PointDrawSettings pointSettingsOnCurrentScale = settingOnCurrentScale.getPointDrawSettings();
+		StandartPointDrawSettings pointSettingsOnCurrentScale = settingOnCurrentScale.getPointDrawSettings();
 		
 		pointSettingsOnCurrentScale.setIcon(null);
 		updatePointIconPreviewBySettingsOnCurrentScale();
@@ -1055,7 +1055,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 			
 			DrawSettingsOnScaleArray editingSettingsOnScaleArray = editingMapObjectDrawSettings.getDrawSettingsOnScales();
 			DrawSettingsOnScale settingOnCurrentScale = editingSettingsOnScaleArray.getDrawSettingsOnScale(scaleLevelSpinnerModel.getNumber().intValue());
-			PointDrawSettings pointSettingsOnCurrentScale = settingOnCurrentScale.getPointDrawSettings();
+			StandartPointDrawSettings pointSettingsOnCurrentScale = settingOnCurrentScale.getPointDrawSettings();
 			if (imageFromSelectedFile != null)
 			{
 				pointSettingsOnCurrentScale.setIcon(imageFromSelectedFile);

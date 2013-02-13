@@ -1,6 +1,5 @@
 package rendering;
 
-import drawingStyles.PointDrawSettings;
 import mapDefenitionUtilities.DefenitionTags;
 
 /**
@@ -44,7 +43,7 @@ public interface RenderableMapObjectDrawSettings
 	 * @param scaleLevel scale level
 	 * @return point draw style on scale level. Null if not found
 	 */
-	public PointDrawSettings findPointDrawSettings(int scaleLevel);
+	public RenderableMapPointDrawSettings findPointDrawSettings(int scaleLevel);
 
 	/**
 	 * Find draw settings of line on scale level

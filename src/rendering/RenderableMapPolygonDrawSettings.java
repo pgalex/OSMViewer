@@ -1,6 +1,5 @@
 package rendering;
 
-import drawingStyles.StandartLineDrawSettings;
 import java.awt.Paint;
 
 /**

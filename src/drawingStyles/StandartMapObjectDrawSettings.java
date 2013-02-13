@@ -6,6 +6,7 @@ import java.io.IOException;
 import mapDefenitionUtilities.DefenitionTags;
 import rendering.RenderableMapLineDrawSettings;
 import rendering.RenderableMapObjectDrawSettings;
+import rendering.RenderableMapPointDrawSettings;
 import rendering.RenderableMapPolygonDrawSettings;
 import rendering.TextDrawSettings;
 
@@ -295,7 +296,7 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 	 * @return point draw style on scale level. Null if not found
 	 */
 	@Override
-	public PointDrawSettings findPointDrawSettings(int scaleLevel)
+	public RenderableMapPointDrawSettings findPointDrawSettings(int scaleLevel)
 	{
 		if (canBePoint)
 		{
