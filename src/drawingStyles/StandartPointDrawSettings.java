@@ -27,16 +27,6 @@ public class StandartPointDrawSettings implements RenderableMapPointDrawSettings
 	}
 
 	/**
-	 * Create with parameters
-	 *
-	 * @param pointIcon icon. Can be null
-	 */
-	public StandartPointDrawSettings(BufferedImage pointIcon)
-	{
-		icon = new ImageWithIO(pointIcon);
-	}
-
-	/**
 	 * Get icon
 	 *
 	 * @return icon
@@ -50,7 +40,7 @@ public class StandartPointDrawSettings implements RenderableMapPointDrawSettings
 	/**
 	 * Set new icon
 	 *
-	 * @param iconToSet new icon
+	 * @param iconToSet new icon. If null - no icon
 	 */
 	public void setIcon(BufferedImage iconToSet)
 	{
