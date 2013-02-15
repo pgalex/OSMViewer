@@ -2,8 +2,6 @@ package drawingStylesTests;
 
 import IOTesting.IOTester;
 import drawingStyles.DrawSettingsOnScale;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

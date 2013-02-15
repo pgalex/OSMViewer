@@ -12,7 +12,7 @@ import org.junit.Test;
  *
  * @author abc
  */
-public class LineDrawSettingsTest
+public class StandartLineDrawSettingsTest
 {
 	/**
 	 * Test setting null pattern

@@ -8,10 +8,10 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- *
+ * StandartTextDrawSettings class tests
  * @author pgalex
  */
-public class TextDrawSettingsTest
+public class StandartTextDrawSettingsTest
 {
 	/**
 	 * Test setting null text color

@@ -144,22 +144,6 @@ public class StandartDrawSettingsContainer implements DrawSettingsViewer
 	}
 
 	/**
-	 * Set new map drawing settings
-	 *
-	 * @param mapDrawingSettingsToSet new map drawing settings
-	 * @throws IllegalArgumentException new settins is null
-	 */
-	public void setMapDrawSettings(StandartMapDrawSettings mapDrawingSettingsToSet) throws IllegalArgumentException
-	{
-		if (mapDrawingSettingsToSet == null)
-		{
-			throw new IllegalArgumentException();
-		}
-
-		mapDrawSettings = mapDrawingSettingsToSet;
-	}
-
-	/**
 	 * Write into stream
 	 *
 	 * @param output output stream

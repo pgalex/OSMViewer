@@ -11,7 +11,7 @@ import org.junit.Test;
  *
  * @author pgalex
  */
-public class MapDrawSettingsTest
+public class StandartMapDrawSettingsTest
 {
 	/**
 	 * Testing creating with null background color in constructor

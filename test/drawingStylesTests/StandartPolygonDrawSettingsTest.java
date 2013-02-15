@@ -2,10 +2,10 @@ package drawingStylesTests;
 
 import IOTesting.IOTester;
 import drawingStyles.ImageWithIO;
-import drawingStyles.StandartLineDrawSettings;
-import drawingStyles.StandartPolygonDrawSettings;
 import drawingStyles.PolygonFiller;
 import drawingStyles.PolygonFillersFactory;
+import drawingStyles.StandartLineDrawSettings;
+import drawingStyles.StandartPolygonDrawSettings;
 import java.awt.Color;
 import java.awt.Paint;
 import java.awt.TexturePaint;
@@ -18,7 +18,7 @@ import org.junit.Test;
  *
  * @author abc
  */
-public class PolygonDrawSettingsTest
+public class StandartPolygonDrawSettingsTest
 {
 	/**
 	 * Test setting null border draw settings

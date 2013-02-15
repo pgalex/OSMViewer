@@ -4,8 +4,8 @@ import drawingStyles.ColorPolygonFiller;
 import drawingStyles.PolygonFillerType;
 import java.awt.Color;
 import java.awt.Paint;
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  *

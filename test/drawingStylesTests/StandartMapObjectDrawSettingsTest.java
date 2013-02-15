@@ -17,7 +17,7 @@ import org.junit.Test;
  *
  * @author abc
  */
-public class MapObjectDrawSettingsTest
+public class StandartMapObjectDrawSettingsTest
 {
 	/**
 	 * Test setting null name
