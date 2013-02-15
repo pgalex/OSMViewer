@@ -51,6 +51,7 @@ public class StandartMapDrawSettings implements RenderableMapDrawSettings
 	 *
 	 * @return map background color
 	 */
+	@Override
 	public Color getMapBackgroundColor()
 	{
 		return mapBackgroundColor.getStoringColor();

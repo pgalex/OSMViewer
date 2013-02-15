@@ -3,6 +3,10 @@ package drawingStylesTests;
 import IOTesting.IOTester;
 import drawingStyles.StandartDrawSettingsContainer;
 import drawingStyles.StandartMapObjectDrawSettings;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import mapDefenitionUtilities.DefenitionTags;
 import mapDefenitionUtilities.Tag;
 import static org.junit.Assert.*;
@@ -233,6 +237,74 @@ public class StandartDrawSettingsContainerTest
 		catch (Exception ex)
 		{
 			fail();
+		}
+	}
+
+	/**
+	 * Reading/writing to stream normal work test
+	 */
+	@Test
+	public void readingWritingToStreamTest()
+	{
+		try
+		{
+			StandartDrawSettingsContainer writingContainer = new StandartDrawSettingsContainer();
+			StandartMapObjectDrawSettings drawSettings1 = new StandartMapObjectDrawSettings();
+			drawSettings1.setDescription("1");
+			writingContainer.addMapObjectDrawSettings(drawSettings1);
+			StandartMapObjectDrawSettings drawSettings2 = new StandartMapObjectDrawSettings();
+			drawSettings2.setDescription("2");
+			writingContainer.addMapObjectDrawSettings(drawSettings2);
+
+			writingContainer.writeToStream(IOTester.createTestOutputStream());
+
+			StandartDrawSettingsContainer readingContainer = new StandartDrawSettingsContainer();
+			readingContainer.readFromStream(IOTester.createTestInputStream());
+
+			assertEquals(writingContainer.countOfMapObjectDrawSettings(), readingContainer.countOfMapObjectDrawSettings());
+			for (int i = 0; i < writingContainer.countOfMapObjectDrawSettings(); i++)
+			{
+				assertEquals(writingContainer.getMapObjectDrawSettings(i).getDescription(),
+								readingContainer.getMapObjectDrawSettings(i).getDescription());
+			}
+		}
+		catch (IOException ex)
+		{
+			Logger.getLogger(StandartDrawSettingsContainerTest.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+	
+	/**
+	 * Reading/writing to file normal work test
+	 */
+	@Test
+	public void readingWritingToFileTest()
+	{
+		try
+		{
+			StandartDrawSettingsContainer writingContainer = new StandartDrawSettingsContainer();
+			StandartMapObjectDrawSettings drawSettings1 = new StandartMapObjectDrawSettings();
+			drawSettings1.setDescription("1");
+			writingContainer.addMapObjectDrawSettings(drawSettings1);
+			StandartMapObjectDrawSettings drawSettings2 = new StandartMapObjectDrawSettings();
+			drawSettings2.setDescription("2");
+			writingContainer.addMapObjectDrawSettings(drawSettings2);
+
+			writingContainer.writeToFile(new File(IOTester.TEST_FILE_NAME));
+
+			StandartDrawSettingsContainer readingContainer = new StandartDrawSettingsContainer();
+			readingContainer.readFromFile(new File(IOTester.TEST_FILE_NAME));
+
+			assertEquals(writingContainer.countOfMapObjectDrawSettings(), readingContainer.countOfMapObjectDrawSettings());
+			for (int i = 0; i < writingContainer.countOfMapObjectDrawSettings(); i++)
+			{
+				assertEquals(writingContainer.getMapObjectDrawSettings(i).getDescription(),
+								readingContainer.getMapObjectDrawSettings(i).getDescription());
+			}
+		}
+		catch (IOException ex)
+		{
+			Logger.getLogger(StandartDrawSettingsContainerTest.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 }
