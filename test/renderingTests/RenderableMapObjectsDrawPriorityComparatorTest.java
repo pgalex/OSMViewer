@@ -1,4 +1,4 @@
-package mapTests;
+package renderingTests;
 
 import drawingStyles.StandartMapObjectDrawSettings;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import rendering.RenderableMapObjectsDrawPriorityComparator;
  *
  * @author pgalex
  */
-public class MapObjectDrawPriorityComparatorTest
+public class RenderableMapObjectsDrawPriorityComparatorTest
 {
 	/**
 	 * Testing sorting with comparator
