@@ -1,4 +1,4 @@
-package rendering.selectingTests;
+package renderingTests;
 
 import mapDefenitionUtilities.DefenitionTags;
 import rendering.RenderableMapObject;
@@ -13,6 +13,8 @@ import rendering.RenderableMapObjectsVisitor;
  */
 public class TestRenderableMapObject implements RenderableMapObject
 {
+	public RenderableMapObjectDrawSettings drawSettings;
+	
 	@Override
 	public DefenitionTags getDefenitionTags()
 	{
@@ -22,7 +24,7 @@ public class TestRenderableMapObject implements RenderableMapObject
 	@Override
 	public RenderableMapObjectDrawSettings getDrawSettings()
 	{
-		return null;
+		return drawSettings;
 	}
 
 	@Override

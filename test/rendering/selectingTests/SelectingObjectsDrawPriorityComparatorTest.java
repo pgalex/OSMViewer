@@ -9,6 +9,7 @@ import rendering.RenderableMapObject;
 import rendering.selectng.SelectingObject;
 import rendering.selectng.SelectingObjectsDrawPriorityComparator;
 import rendering.selectng.SelectingRectangle;
+import renderingTests.TestRenderableMapObject;
 
 /**
  * Tests of SelectingObjectsDrawPriorityComparator class

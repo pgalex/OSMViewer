@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import rendering.RenderableMapObject;
 import rendering.selectng.SelectingPolygon;
+import renderingTests.TestRenderableMapObject;
 
 /**
  * Tests of SelectingPolygon class

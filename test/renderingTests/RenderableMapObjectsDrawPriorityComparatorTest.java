@@ -1,15 +1,12 @@
 package renderingTests;
 
-import drawingStyles.StandartMapObjectDrawSettings;
 import java.util.ArrayList;
 import java.util.Collections;
-import map.MapObject;
-import map.MapPoint;
 import mapDefenitionUtilities.DefenitionTags;
-import mapDefenitionUtilities.MapPosition;
 import mapDefenitionUtilities.Tag;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import rendering.RenderableMapObject;
 import rendering.RenderableMapObjectsDrawPriorityComparator;
 
 /**
@@ -28,45 +25,39 @@ public class RenderableMapObjectsDrawPriorityComparatorTest
 		DefenitionTags tags1 = new DefenitionTags();
 		tags1.add(new Tag("k1", "v1"));
 
-		StandartMapObjectDrawSettings style1 = new StandartMapObjectDrawSettings();
-		style1.setCanBePoint();
-		style1.setDrawPriority(10);
-		style1.setDefenitionTags(tags1);
+		TestRenderableMapObjectDrawSettings style1 = new TestRenderableMapObjectDrawSettings();
+		style1.drawPriority = 10;
 
 		DefenitionTags tags2 = new DefenitionTags();
 		tags2.add(new Tag("k2", "v2"));
 
-		StandartMapObjectDrawSettings style2 = new StandartMapObjectDrawSettings();
-		style2.setCanBePoint();
-		style2.setDrawPriority(11);
-		style2.setDefenitionTags(tags2);
+		TestRenderableMapObjectDrawSettings style2 = new TestRenderableMapObjectDrawSettings();
+		style2.drawPriority = 11;
 
 		DefenitionTags tags3 = new DefenitionTags();
 		tags3.add(new Tag("k3", "v3"));
 
-		StandartMapObjectDrawSettings style3 = new StandartMapObjectDrawSettings();
-		style3.setCanBePoint();
-		style3.setDrawPriority(-10);
-		style3.setDefenitionTags(tags3);
+		TestRenderableMapObjectDrawSettings style3 = new TestRenderableMapObjectDrawSettings();
+		style3.drawPriority = -10;
 
-		ArrayList<MapObject> objects = new ArrayList<MapObject>();
-		MapObject object1 = new MapPoint(new MapPosition(), 1, tags1);
-		object1.setDrawSettings(style1);
+		ArrayList<RenderableMapObject> objects = new ArrayList<RenderableMapObject>();
+		TestRenderableMapObject object1 = new TestRenderableMapObject();
+		object1.drawSettings = style1;
 		objects.add(object1);
 
-		MapObject object2 = new MapPoint(new MapPosition(), 2, tags2);
-		object2.setDrawSettings(style2);
+		TestRenderableMapObject object2 = new TestRenderableMapObject();
+		object2.drawSettings = style2;
 		objects.add(object2);
 
 
-		MapObject object3 = new MapPoint(new MapPosition(), 3, tags3);
-		object3.setDrawSettings(style3);
+		TestRenderableMapObject object3 = new TestRenderableMapObject();
+		object3.drawSettings = style3;
 		objects.add(object3);
 
 		RenderableMapObjectsDrawPriorityComparator testComparator = new RenderableMapObjectsDrawPriorityComparator();
 		Collections.sort(objects, testComparator);
-		assertEquals(3, objects.get(0).getId());
-		assertEquals(1, objects.get(1).getId());
-		assertEquals(2, objects.get(2).getId());
+		assertEquals(object3, objects.get(0));
+		assertEquals(object1, objects.get(1));
+		assertEquals(object2, objects.get(2));
 	}
 }

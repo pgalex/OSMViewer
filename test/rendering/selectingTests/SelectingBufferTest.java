@@ -1,5 +1,6 @@
 package rendering.selectingTests;
 
+import renderingTests.TestRenderableMapObject;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import static org.junit.Assert.*;
