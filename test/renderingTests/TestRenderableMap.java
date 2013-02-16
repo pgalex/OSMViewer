@@ -6,11 +6,11 @@ import rendering.RenderableMapObjectsDrawPriorityComparator;
 import rendering.RenderableMapObjectsVisitor;
 
 /**
- * Fake renderable map
+ * Fake implementation of renderable map
  *
  * @author pgalex
  */
-public class RenderableMapFake implements RenderableMap
+public class TestRenderableMap implements RenderableMap
 {
 	@Override
 	public void renderObjectsByDrawPriority(RenderableMapObjectsVisitor objectsVisitor,

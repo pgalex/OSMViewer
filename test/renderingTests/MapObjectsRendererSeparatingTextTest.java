@@ -1,6 +1,5 @@
 package renderingTests;
 
-import drawingStyles.DrawingStylesFactory;
 import java.awt.image.BufferedImage;
 import static org.junit.Assert.*;
 import org.junit.Test;
