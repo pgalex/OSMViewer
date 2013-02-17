@@ -395,7 +395,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 		}
 
 		SelectingLine selectingLineByRenderingLine = new SelectingLine(renderableLine,
-						objectStyle.getPointDrawPriority(),
+						objectStyle.getLineDrawPriority(),
 						drawingMultiline, lineStyle.getWidth());
 		selectingBuffer.addSelectingObject(selectingLineByRenderingLine);
 	}
@@ -556,7 +556,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 		}
 
 		SelectingPolygon selectingPolygonByRenderedPolygon = new SelectingPolygon(renderablePolygon,
-						objectStyle.getPointDrawPriority(),
+						objectStyle.getPolygonDrawPriority(),
 						drawingPolygon);
 		selectingBuffer.addSelectingObject(selectingPolygonByRenderedPolygon);
 	}
