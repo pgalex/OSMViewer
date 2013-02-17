@@ -76,7 +76,7 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
 				lineDrawPriorityOfSelectedChanged(ce);
 			}
 		});
-		
+
 		polygonDrawPriorityOfSelectedModel = new SpinnerNumberModel(0, 0, 100000, 1);
 		polygonDrawPriorityOfSelectedModel.addChangeListener(new ChangeListener()
 		{
@@ -135,14 +135,23 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
 		{
 			StandartMapObjectDrawSettings drawSettings = editingDrawSettings.getMapObjectDrawSettings(i);
 
-			drawPriorityListItems.add(new DrawingPriorityListItem(drawSettings.getPointDrawPriority(),
-							drawSettings.getName() + " (point)"));
+			if (drawSettings.isCanBePoint())
+			{
+				drawPriorityListItems.add(new DrawingPriorityListItem(drawSettings.getPointDrawPriority(),
+								drawSettings.getName() + " (point)"));
+			}
 
-			drawPriorityListItems.add(new DrawingPriorityListItem(drawSettings.getLineDrawPriority(),
-							drawSettings.getName() + " (line)"));
+			if (drawSettings.isCanBeLine())
+			{
+				drawPriorityListItems.add(new DrawingPriorityListItem(drawSettings.getLineDrawPriority(),
+								drawSettings.getName() + " (line)"));
+			}
 
-			drawPriorityListItems.add(new DrawingPriorityListItem(drawSettings.getPolygonDrawPriority(),
-							drawSettings.getName() + " (polygon)"));
+			if (drawSettings.isCanBePolygon())
+			{
+				drawPriorityListItems.add(new DrawingPriorityListItem(drawSettings.getPolygonDrawPriority(),
+								drawSettings.getName() + " (polygon)"));
+			}
 		}
 
 		Collections.sort(drawPriorityListItems);
@@ -189,7 +198,7 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
 		selectedDrawSettings.setLineDrawPriority(lineDrawPriorityOfSelectedModel.getNumber().intValue());
 		updateDrawPriorityListByEditingStyles();
 	}
-	
+
 	/**
 	 * Event on change in polygon draw priority of selected spinnner
 	 *
