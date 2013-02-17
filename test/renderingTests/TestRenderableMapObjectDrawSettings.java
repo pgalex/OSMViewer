@@ -35,7 +35,19 @@ public class TestRenderableMapObjectDrawSettings implements RenderableMapObjectD
 	}
 
 	@Override
-	public int getDrawPriority()
+	public int getPointDrawPriority()
+	{
+		return drawPriority;
+	}
+
+	@Override
+	public int getLineDrawPriority()
+	{
+		return drawPriority;
+	}
+
+	@Override
+	public int getPolygonDrawPriority()
 	{
 		return drawPriority;
 	}

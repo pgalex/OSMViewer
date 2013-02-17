@@ -308,7 +308,9 @@ public class StandartMapObjectDrawSettingsTest
 			writedStyle.setCanBePoint();
 			writedStyle.setCanNotBeLine();
 			writedStyle.setCanBePolygon();
-			writedStyle.setDrawPriority(10);
+			writedStyle.setPointDrawPriority(1);
+			writedStyle.setLineDrawPriority(2);
+			writedStyle.setPolygonDrawPriority(3);
 			writedStyle.setDescription("object1");
 			writedStyle.setDrawSettingsOnScales(scaledStyles);
 			writedStyle.setDefenitionTags(tags);
@@ -331,7 +333,9 @@ public class StandartMapObjectDrawSettingsTest
 				assertEquals(writedStyle.getTextTagKeys().getKey(i), readStyle.getTextTagKeys().getKey(i));
 			}
 
-			assertEquals(writedStyle.getDrawPriority(), readStyle.getDrawPriority());
+			assertEquals(writedStyle.getPointDrawPriority(), readStyle.getPointDrawPriority());
+			assertEquals(writedStyle.getLineDrawPriority(), readStyle.getLineDrawPriority());
+			assertEquals(writedStyle.getPolygonDrawPriority(), readStyle.getPolygonDrawPriority());
 			assertEquals(writedStyle.getDescription(), readStyle.getDescription());
 			assertEquals(writedStyle.getDrawSettingsOnScales().getDrawSettingsOnScale(someScaleLevelAtBegin).isDrawLine(), readStyle.getDrawSettingsOnScales().getDrawSettingsOnScale(someScaleLevelAtBegin).isDrawLine());
 			assertEquals(writedStyle.getDrawSettingsOnScales().getDrawSettingsOnScale(someScaleLevelAtBegin).isDrawPoint(), readStyle.getDrawSettingsOnScales().getDrawSettingsOnScale(someScaleLevelAtBegin).isDrawPoint());

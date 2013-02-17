@@ -88,6 +88,24 @@ public class MapLine extends MapObject implements RenderableMapLine
 	}
 
 	/**
+	 * Determine draw prority using draw settings
+	 *
+	 * @return draw prority
+	 * @throws NullPointerException draw settings not set
+	 */
+	@Override
+	public int determineDrawPriotity() throws NullPointerException
+	{
+		RenderableMapObjectDrawSettings drawSettings = getDrawSettings();
+		if (drawSettings == null)
+		{
+			throw new NullPointerException();
+		}
+
+		return drawSettings.getLineDrawPriority();
+	}
+
+	/**
 	 * Get count of points
 	 *
 	 * @return count of points

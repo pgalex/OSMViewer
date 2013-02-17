@@ -31,11 +31,11 @@ public class RenderableMapObjectsDrawPriorityComparator implements Comparator<Re
 			return 0;
 		}
 
-		if (object1Style.getDrawPriority() < object2Style.getDrawPriority())
+		if (object1.determineDrawPriotity() < object2.determineDrawPriotity())
 		{
 			return -1;
 		}
-		if (object1Style.getDrawPriority() > object2Style.getDrawPriority())
+		if (object1.determineDrawPriotity() > object2.determineDrawPriotity())
 		{
 			return 1;
 		}

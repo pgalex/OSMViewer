@@ -14,7 +14,7 @@ import rendering.RenderableMapObjectsVisitor;
 public class TestRenderableMapObject implements RenderableMapObject
 {
 	public RenderableMapObjectDrawSettings drawSettings;
-	
+
 	@Override
 	public DefenitionTags getDefenitionTags()
 	{
@@ -30,5 +30,11 @@ public class TestRenderableMapObject implements RenderableMapObject
 	@Override
 	public void acceptRenderingVisitor(RenderableMapObjectsVisitor renderingVisitor) throws IllegalArgumentException
 	{
+	}
+
+	@Override
+	public int determineDrawPriotity() throws NullPointerException
+	{
+		return drawSettings.getPointDrawPriority();
 	}
 }

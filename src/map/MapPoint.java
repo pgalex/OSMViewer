@@ -41,6 +41,24 @@ public class MapPoint extends MapObject implements RenderableMapPoint
 	}
 
 	/**
+	 * Determine draw prority using draw settings
+	 *
+	 * @return draw prority
+	 * @throws NullPointerException draw settings not set
+	 */
+	@Override
+	public int determineDrawPriotity() throws NullPointerException
+	{
+		RenderableMapObjectDrawSettings drawSettings = getDrawSettings();
+		if (drawSettings == null)
+		{
+			throw new NullPointerException();
+		}
+
+		return drawSettings.getPointDrawPriority();
+	}
+	
+	/**
 	 * Get position on a map
 	 *
 	 * @return position on a map

@@ -10,6 +10,14 @@ import mapDefenitionUtilities.DefenitionTags;
 public interface RenderableMapObject
 {
 	/**
+	 * Determine draw prority using draw settings
+	 *
+	 * @return draw prority
+	 * @throws NullPointerException draw settings not set
+	 */
+	public int determineDrawPriotity() throws NullPointerException;
+
+	/**
 	 * Get defenition tags
 	 *
 	 * @return defenition tags

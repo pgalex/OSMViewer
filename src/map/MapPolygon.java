@@ -59,6 +59,24 @@ public class MapPolygon extends MapObject implements RenderableMapPolygon
 	}
 
 	/**
+	 * Determine draw prority using draw settings
+	 *
+	 * @return draw prority
+	 * @throws NullPointerException draw settings not set
+	 */
+	@Override
+	public int determineDrawPriotity() throws NullPointerException
+	{
+		RenderableMapObjectDrawSettings drawSettings = getDrawSettings();
+		if (drawSettings == null)
+		{
+			throw new NullPointerException();
+		}
+
+		return drawSettings.getPolygonDrawPriority();
+	}
+
+	/**
 	 * Is polygon points array correct
 	 *
 	 * @param polygonPoints points for testing

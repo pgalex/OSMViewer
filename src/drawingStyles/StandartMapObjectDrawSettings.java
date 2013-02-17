@@ -34,9 +34,17 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 	 */
 	private TextTagsKeys textTagKeys;
 	/**
-	 * Drawing priority
+	 * Drawing priority if map object - point
 	 */
-	private int drawPriority;
+	private int pointDrawPriority;
+	/**
+	 * Drawing priority if map object - line
+	 */
+	private int lineDrawPriority;
+	/**
+	 * Drawing priority if object - polygon
+	 */
+	private int polygonDrawPriority;
 	/**
 	 * Description of map object
 	 */
@@ -63,7 +71,9 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 		canBePoint = false;
 		canBeLine = false;
 		canBePolygon = false;
-		drawPriority = 0;
+		pointDrawPriority = 0;
+		lineDrawPriority = 0;
+		polygonDrawPriority = 0;
 		textTagKeys = new TextTagsKeys();
 		description = "";
 		name = "";
@@ -168,19 +178,61 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 	 * @return draw priority
 	 */
 	@Override
-	public int getDrawPriority()
+	public int getPointDrawPriority()
 	{
-		return drawPriority;
+		return pointDrawPriority;
 	}
 
 	/**
-	 * Set new draw priority
+	 * Set new point draw priority
 	 *
-	 * @param drawPriorityToSet new draw priority
+	 * @param pointDrawPriorityToSet new point draw priority
 	 */
-	public void setDrawPriority(int drawPriorityToSet)
+	public void setPointDrawPriority(int pointDrawPriorityToSet)
 	{
-		drawPriority = drawPriorityToSet;
+		pointDrawPriority = pointDrawPriorityToSet;
+	}
+
+	/**
+	 * Get draw priority if map object - line
+	 *
+	 * @return line draw priority
+	 */
+	@Override
+	public int getLineDrawPriority()
+	{
+		return lineDrawPriority;
+	}
+
+	/**
+	 * Set new line draw priority
+	 *
+	 * @param lineDrawPriorityToSet new line draw priority
+	 */
+	public void setLineDrawPriority(int lineDrawPriorityToSet)
+	{
+		lineDrawPriority = lineDrawPriorityToSet;
+	}
+
+	/**
+	 * Get draw priority if map object - polygon
+	 *
+	 * @return polygon draw priority
+	 */
+	@Override
+	public int getPolygonDrawPriority()
+	{
+		return polygonDrawPriority;
+	}
+
+	/**
+	 * Set new polygon draw priority
+	 *
+	 * @param polygonDrawPriorityToSet new line draw priority
+	 */
+	public void setPolygonDrawPriority(int polygonDrawPriorityToSet)
+	{
+		polygonDrawPriority = polygonDrawPriorityToSet;
 	}
 
 	/**
@@ -395,7 +447,9 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 			canBeLine = input.readBoolean();
 			canBePolygon = input.readBoolean();
 			textTagKeys.readFromStream(input);
-			drawPriority = input.readInt();
+			pointDrawPriority = input.readInt();
+			lineDrawPriority = input.readInt();
+			polygonDrawPriority = input.readInt();
 			description = input.readUTF();
 			drawSettingsOnScales.readFromStream(input);
 			defenitionTags.readFromStream(input);
@@ -421,7 +475,9 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 			output.writeBoolean(canBeLine);
 			output.writeBoolean(canBePolygon);
 			textTagKeys.writeToStream(output);
-			output.writeInt(drawPriority);
+			output.writeInt(pointDrawPriority);
+			output.writeInt(lineDrawPriority);
+			output.writeInt(polygonDrawPriority);
 			output.writeUTF(description);
 			drawSettingsOnScales.writeToStream(output);
 			defenitionTags.writeToStream(output);

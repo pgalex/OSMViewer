@@ -197,7 +197,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 			}
 
 			SelectingRectangle selectingRectangleByImage = new SelectingRectangle(renderablePoint,
-							objectStyle.getDrawPriority(),
+							objectStyle.getPointDrawPriority(),
 							new Rectangle2D.Double(imagePositionX, imagePositionY,
 							pointImage.getWidth(), pointImage.getHeight()));
 			selectingBuffer.addSelectingObject(selectingRectangleByImage);
@@ -216,7 +216,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 				Rectangle2D pointTextBounds = textCanvas.computeTextAtPointBounds(pointText,
 								textDrawSettings, pointPositionOnCanvas.getX(), pointPositionOnCanvas.getY());
 				SelectingRectangle selectingRectangleByTextBounds = new SelectingRectangle(renderablePoint,
-								objectStyle.getDrawPriority(),
+								objectStyle.getPointDrawPriority(),
 								pointTextBounds);
 				selectingBuffer.addSelectingObject(selectingRectangleByTextBounds);
 			}
@@ -395,7 +395,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 		}
 
 		SelectingLine selectingLineByRenderingLine = new SelectingLine(renderableLine,
-						objectStyle.getDrawPriority(),
+						objectStyle.getPointDrawPriority(),
 						drawingMultiline, lineStyle.getWidth());
 		selectingBuffer.addSelectingObject(selectingLineByRenderingLine);
 	}
@@ -556,7 +556,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 		}
 
 		SelectingPolygon selectingPolygonByRenderedPolygon = new SelectingPolygon(renderablePolygon,
-						objectStyle.getDrawPriority(),
+						objectStyle.getPointDrawPriority(),
 						drawingPolygon);
 		selectingBuffer.addSelectingObject(selectingPolygonByRenderedPolygon);
 	}

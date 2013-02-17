@@ -31,11 +31,25 @@ public interface RenderableMapObjectDrawSettings
 	public boolean isCanBePolygon();
 
 	/**
-	 * Get draw priority
+	 * Get draw priority if map object - point
 	 *
-	 * @return draw priority
+	 * @return point draw priority
 	 */
-	public int getDrawPriority();
+	public int getPointDrawPriority();
+	
+	/**
+	 * Get draw priority if map object - line
+	 *
+	 * @return line draw priority
+	 */
+	public int getLineDrawPriority();
+	
+	/**
+	 * Get draw priority if map object - polygon
+	 *
+	 * @return polygon draw priority
+	 */
+	public int getPolygonDrawPriority();
 
 	/**
 	 * Find draw settings for point on scale level
