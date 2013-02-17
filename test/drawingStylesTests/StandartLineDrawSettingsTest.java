@@ -79,68 +79,14 @@ public class StandartLineDrawSettingsTest
 		pattern[1] = 5;
 		pattern[2] = 3;
 		pattern[3] = 2;
-		StandartLineDrawSettings lineStyle = new StandartLineDrawSettings(Color.RED, 5, pattern);
+		StandartLineDrawSettings lineStyle = new StandartLineDrawSettings();
+		lineStyle.setColor(Color.RED);
+		lineStyle.setWidth(5);
+		lineStyle.setPattern(pattern);
 
 		BasicStroke stroke = lineStyle.getStroke();
 		assertEquals(stroke.getLineWidth(), lineStyle.getWidth(), 0.00001f);
 		assertArrayEquals(lineStyle.getPattern(), stroke.getDashArray(), 0.0001f);
-	}
-
-	/**
-	 * Test creating with null line pattern
-	 */
-	@Test
-	public void creatingWithNullPatternTest()
-	{
-		try
-		{
-			StandartLineDrawSettings testStyle = new StandartLineDrawSettings(Color.RED, 1, null);
-			fail();
-		}
-		catch (IllegalArgumentException ex)
-		{
-			// ok
-		}
-	}
-
-	/**
-	 * Test creating with empty line pattern
-	 */
-	@Test
-	public void creatingWithEmptyPatternTest()
-	{
-		try
-		{
-			StandartLineDrawSettings testStyle = new StandartLineDrawSettings(Color.RED, 1, new float[0]);
-			fail();
-		}
-		catch (IllegalArgumentException ex)
-		{
-			// ok
-		}
-	}
-
-	/**
-	 * Test creating with null line color
-	 */
-	@Test
-	public void creatingWithNullColorTest()
-	{
-		try
-		{
-			float[] pattern = new float[4];
-			pattern[0] = 2;
-			pattern[1] = 3;
-			pattern[2] = 4;
-			pattern[3] = 5;
-			StandartLineDrawSettings testStyle = new StandartLineDrawSettings(null, 1, pattern);
-			assertNotNull(testStyle.getColor());
-			fail();
-		}
-		catch (IllegalArgumentException ex)
-		{
-			// ok
-		}
 	}
 
 	/**
@@ -156,7 +102,11 @@ public class StandartLineDrawSettingsTest
 			pattern[1] = 3;
 			pattern[2] = 4;
 			pattern[3] = 5;
-			StandartLineDrawSettings writedStyle = new StandartLineDrawSettings(Color.CYAN, 11, pattern);
+			StandartLineDrawSettings writedStyle = new StandartLineDrawSettings();
+			writedStyle.setColor(Color.CYAN);
+			writedStyle.setWidth(11);
+			writedStyle.setPattern(pattern);
+			
 			writedStyle.writeToStream(IOTester.createTestOutputStream());
 
 			StandartLineDrawSettings readStyle = new StandartLineDrawSettings();

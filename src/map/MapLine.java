@@ -6,7 +6,6 @@ import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.LinearRing;
 import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
-import drawingStyles.StandartMapObjectDrawSettings;
 import mapDefenitionUtilities.DefenitionTags;
 import mapDefenitionUtilities.MapBounds;
 import mapDefenitionUtilities.MapPosition;

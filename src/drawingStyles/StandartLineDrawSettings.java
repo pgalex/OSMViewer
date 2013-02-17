@@ -42,35 +42,6 @@ public class StandartLineDrawSettings implements RenderableMapLineDrawSettings
 	}
 
 	/**
-	 * Create with parameters
-	 *
-	 * @param lineColor line color
-	 * @param lineWidth line width
-	 * @param linePattern pattern of line
-	 * @throws IllegalArgumentException lineColor is null or line pattern null or
-	 * contains 0 elements
-	 */
-	public StandartLineDrawSettings(Color lineColor, float lineWidth, float[] linePattern) throws IllegalArgumentException
-	{
-		if (lineColor == null)
-		{
-			throw new IllegalArgumentException();
-		}
-		if (linePattern == null)
-		{
-			throw new IllegalArgumentException();
-		}
-		if (linePattern.length == 0)
-		{
-			throw new IllegalArgumentException();
-		}
-
-		color = new ColorWithIO(lineColor);
-		width = lineWidth;
-		pattern = new LinePattern(linePattern);
-	}
-
-	/**
 	 * Set new line color
 	 *
 	 * @param colorToSet new line color
@@ -91,6 +62,7 @@ public class StandartLineDrawSettings implements RenderableMapLineDrawSettings
 	 *
 	 * @return line color
 	 */
+	@Override
 	public Color getColor()
 	{
 		return color.getStoringColor();
@@ -101,6 +73,7 @@ public class StandartLineDrawSettings implements RenderableMapLineDrawSettings
 	 *
 	 * @return line width
 	 */
+	@Override
 	public float getWidth()
 	{
 		return width;
@@ -151,6 +124,7 @@ public class StandartLineDrawSettings implements RenderableMapLineDrawSettings
 	 *
 	 * @return stroke for line drawing
 	 */
+	@Override
 	public BasicStroke getStroke()
 	{
 		return new BasicStroke(getWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,

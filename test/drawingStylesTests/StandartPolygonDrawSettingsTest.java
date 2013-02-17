@@ -105,7 +105,11 @@ public class StandartPolygonDrawSettingsTest
 			pattern[1] = 3;
 			pattern[2] = 4;
 			pattern[3] = 5;
-			StandartLineDrawSettings borderStyle = new StandartLineDrawSettings(Color.CYAN, 10, pattern);
+			StandartLineDrawSettings borderStyle = new StandartLineDrawSettings();
+			borderStyle.setColor(Color.CYAN);
+			borderStyle.setWidth(10);
+			borderStyle.setPattern(pattern);
+			
 			ImageWithIO fillIcon = new ImageWithIO("test/supportFiles/testIcon.png");
 			PolygonFiller filler = PolygonFillersFactory.createTextureFiller(fillIcon.getImage());
 			StandartPolygonDrawSettings writedStyle = new StandartPolygonDrawSettings();
