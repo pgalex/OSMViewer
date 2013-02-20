@@ -1,8 +1,8 @@
 package forms;
 
 import java.awt.Window;
-import rendering.RenderableMapObject;
-import rendering.RenderableMapObjectDrawSettings;
+import com.osmviewer.rendering.RenderableMapObject;
+import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
 
 /**
  * Dialog, showes informatoin about map object

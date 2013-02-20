@@ -1,14 +1,14 @@
 package forms;
 
-import drawingStyles.StandartMapObjectDrawSettings;
-import drawingStyles.forms.EditDrawingStylesFrame;
+import com.osmviewer.drawingStyles.StandartMapObjectDrawSettings;
+import com.osmviewer.drawingStyles.forms.EditDrawingStylesFrame;
 import java.awt.Dialog.ModalityType;
 import java.awt.Point;
 import javax.swing.JFrame;
-import map.onlineMap.OnlineMapController;
-import mapDefenitionUtilities.MapPosition;
-import rendering.RenderableMapObject;
-import rendering.RenderableMapObjectDrawSettings;
+import com.osmviewer.map.onlineMap.OnlineMapController;
+import com.osmviewer.mapDefenitionUtilities.MapPosition;
+import com.osmviewer.rendering.RenderableMapObject;
+import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
 
 /**
  * Main form
