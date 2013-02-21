@@ -1,4 +1,4 @@
-package forms;
+package com.osmviewer.forms;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;

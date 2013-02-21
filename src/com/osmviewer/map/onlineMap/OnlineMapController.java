@@ -1,7 +1,7 @@
 package com.osmviewer.map.onlineMap;
 
 import com.osmviewer.drawingStyles.DrawingStylesFactory;
-import forms.DrawableOnPanel;
+import com.osmviewer.forms.DrawableOnPanel;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;

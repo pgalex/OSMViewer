@@ -2,7 +2,7 @@ package com.osmviewer.formsTests;
 
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.drawingStyles.StandartMapObjectDrawSettings;
-import forms.MapObjectInformationDialog;
+import com.osmviewer.forms.MapObjectInformationDialog;
 import java.awt.Dialog;
 import com.osmviewer.map.MapPoint;
 import com.osmviewer.mapDefenitionUtilities.MapPosition;

@@ -1,4 +1,4 @@
-package forms;
+package com.osmviewer.forms;
 
 import com.osmviewer.drawingStyles.StandartMapObjectDrawSettings;
 import com.osmviewer.drawingStyles.forms.EditDrawingStylesFrame;
@@ -58,7 +58,7 @@ public class MainFrame extends javax.swing.JFrame
   private void initComponents()
   {
 
-    jPanelCanvas = new forms.DrawingPanel(null);
+    jPanelCanvas = new com.osmviewer.forms.DrawingPanel(null);
     jButtonReloadMap = new javax.swing.JButton();
     jButtonEditDrawingStyles = new javax.swing.JButton();
 

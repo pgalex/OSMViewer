@@ -1,4 +1,4 @@
-package forms;
+package com.osmviewer.forms;
 
 import javax.swing.table.DefaultTableModel;
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;

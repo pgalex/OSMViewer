@@ -1,4 +1,4 @@
-package forms;
+package com.osmviewer.forms;
 
 import java.awt.Window;
 import com.osmviewer.rendering.RenderableMapObject;

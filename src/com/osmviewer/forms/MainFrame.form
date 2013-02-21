@@ -51,7 +51,7 @@
         <EventHandler event="mouseDragged" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="jPanelCanvasMouseDragged"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new forms.DrawingPanel(null)"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.osmviewer.forms.DrawingPanel(null)"/>
       </AuxValues>
 
       <Layout>

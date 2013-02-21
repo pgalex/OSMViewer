@@ -1,7 +1,7 @@
 package com.osmviewer.formsTests;
 
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
-import forms.DefenitionTagsInformationTableModel;
+import com.osmviewer.forms.DefenitionTagsInformationTableModel;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
