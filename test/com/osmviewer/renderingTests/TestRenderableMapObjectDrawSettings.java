@@ -14,7 +14,10 @@ import com.osmviewer.rendering.TextDrawSettings;
  */
 public class TestRenderableMapObjectDrawSettings implements RenderableMapObjectDrawSettings
 {
-	public int drawPriority;
+	public int pointDrawPriority;
+	public int lineDrawPriority;
+	public int polygonDrawPriority;
+	public RenderableMapPointDrawSettings pointDrawSettings;
 
 	@Override
 	public boolean isCanBePoint()
@@ -37,25 +40,25 @@ public class TestRenderableMapObjectDrawSettings implements RenderableMapObjectD
 	@Override
 	public int getPointDrawPriority()
 	{
-		return drawPriority;
+		return pointDrawPriority;
 	}
 
 	@Override
 	public int getLineDrawPriority()
 	{
-		return drawPriority;
+		return lineDrawPriority;
 	}
 
 	@Override
 	public int getPolygonDrawPriority()
 	{
-		return drawPriority;
+		return polygonDrawPriority;
 	}
 
 	@Override
 	public RenderableMapPointDrawSettings findPointDrawSettings(int scaleLevel)
 	{
-		return null;
+		return pointDrawSettings;
 	}
 
 	@Override
@@ -73,7 +76,7 @@ public class TestRenderableMapObjectDrawSettings implements RenderableMapObjectD
 	@Override
 	public TextDrawSettings findTextDrawSettings(int scaleLevel)
 	{
-		return null;
+		return new TestTextDrawSettings();
 	}
 
 	@Override

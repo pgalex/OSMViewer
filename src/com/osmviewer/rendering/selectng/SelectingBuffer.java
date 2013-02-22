@@ -1,9 +1,9 @@
 package com.osmviewer.rendering.selectng;
 
+import com.osmviewer.rendering.RenderableMapObject;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
-import com.osmviewer.rendering.RenderableMapObject;
 
 /**
  * Stores interperation of objects, drawen on target canvas, specialized for
@@ -24,6 +24,33 @@ public class SelectingBuffer
 	public SelectingBuffer()
 	{
 		selectingObjects = new ArrayList<SelectingObject>();
+	}
+
+	/**
+	 * Get count of storing selecting objects
+	 *
+	 * @return count of storing selecting objects
+	 */
+	public int getSelectingObjectCount()
+	{
+		return selectingObjects.size();
+	}
+
+	/**
+	 * Get storing selecting object by index
+	 *
+	 * @param index index of selecting object
+	 * @return storing selecting object by index
+	 * @throws IllegalArgumentException index is out of bounds
+	 */
+	public SelectingObject getSelectingObject(int index) throws IllegalArgumentException
+	{
+		if (index < 0 || index >= selectingObjects.size())
+		{
+			throw new IllegalArgumentException();
+		}
+		
+		return selectingObjects.get(index);
 	}
 
 	/**

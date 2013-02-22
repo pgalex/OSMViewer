@@ -1,11 +1,11 @@
 package com.osmviewer.renderingTests;
 
-import java.awt.image.BufferedImage;
-import static org.junit.Assert.*;
-import org.junit.Test;
 import com.osmviewer.rendering.MapObjectsRendererSeparatingText;
 import com.osmviewer.rendering.MapRenderer;
 import com.osmviewer.rendering.selectng.SelectingBuffer;
+import java.awt.image.BufferedImage;
+import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  * Tests of MapObjectsRendererSeparatingText class
@@ -14,6 +14,67 @@ import com.osmviewer.rendering.selectng.SelectingBuffer;
  */
 public class MapObjectsRendererSeparatingTextTest
 {
+	/**
+	 * Test creating selecting object and setting its draw priority by renderable
+	 * point without image
+	 */
+	@Test
+	public void settingSelectingObjectDrawPriorityByRenderedPointWithoutImageTest()
+	{
+		MapRenderer mapRenderer = new MapRenderer(5, 10, 5);
+		BufferedImage textImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
+		BufferedImage objectsImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
+		SelectingBuffer selectingBuffer = new SelectingBuffer();
+
+		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(objectsImage.createGraphics(),
+						textImage.createGraphics(), mapRenderer, 5, selectingBuffer);
+		TestRenderableMapPoint renderablePoint = new TestRenderableMapPoint();
+
+		
+		TestRenderableMapPointDrawSettings testPointDrawSettings = new TestRenderableMapPointDrawSettings();
+		testPointDrawSettings.icon = null;
+		TestRenderableMapObjectDrawSettings testDrawSettings = new TestRenderableMapObjectDrawSettings();
+		testDrawSettings.pointDrawSettings = testPointDrawSettings;
+		renderablePoint.drawSettings = testDrawSettings;
+		
+		renderablePoint.drawPriority = 10;
+		
+		objectsRenderer.visitPoint(renderablePoint);
+
+		assertEquals(1, selectingBuffer.getSelectingObjectCount());
+		assertEquals(renderablePoint.drawPriority, selectingBuffer.getSelectingObject(0).getAssociatedObjectDrawPriority());
+	}
+
+	/**
+	 * Test creating selecting object and setting its draw priority by renderable
+	 * point with image
+	 */
+	@Test
+	public void settingSelectingObjectDrawPriorityByRenderedPointWithImageTest()
+	{
+		MapRenderer mapRenderer = new MapRenderer(5, 10, 5);
+		BufferedImage textImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
+		BufferedImage objectsImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
+		SelectingBuffer selectingBuffer = new SelectingBuffer();
+
+		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(objectsImage.createGraphics(),
+						textImage.createGraphics(), mapRenderer, 5, selectingBuffer);
+		TestRenderableMapPoint renderablePoint = new TestRenderableMapPoint();
+
+		TestRenderableMapPointDrawSettings testPointDrawSettings = new TestRenderableMapPointDrawSettings();
+		testPointDrawSettings.icon = new BufferedImage(16, 16, BufferedImage.TYPE_INT_RGB);
+		TestRenderableMapObjectDrawSettings testDrawSettings = new TestRenderableMapObjectDrawSettings();
+		testDrawSettings.pointDrawSettings = testPointDrawSettings;
+		renderablePoint.drawSettings = testDrawSettings;
+		
+		renderablePoint.drawPriority = 10;
+
+		objectsRenderer.visitPoint(renderablePoint);
+		
+		assertEquals(1, selectingBuffer.getSelectingObjectCount());
+		assertEquals(renderablePoint.drawPriority, selectingBuffer.getSelectingObject(0).getAssociatedObjectDrawPriority());
+	}
+
 	/**
 	 * Rendering null polygon test
 	 */

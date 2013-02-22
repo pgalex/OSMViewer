@@ -1,13 +1,13 @@
 package com.osmviewer.renderingTests;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.Tag;
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
 import com.osmviewer.rendering.RenderableMapObject;
 import com.osmviewer.rendering.RenderableMapObjectsDrawPriorityComparator;
+import java.util.ArrayList;
+import java.util.Collections;
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 /**
  * RenderableMapObjectsDrawPriorityComparator tests
@@ -26,19 +26,19 @@ public class RenderableMapObjectsDrawPriorityComparatorTest
 		tags1.add(new Tag("k1", "v1"));
 
 		TestRenderableMapObjectDrawSettings style1 = new TestRenderableMapObjectDrawSettings();
-		style1.drawPriority = 10;
+		style1.pointDrawPriority = 10;
 
 		DefenitionTags tags2 = new DefenitionTags();
 		tags2.add(new Tag("k2", "v2"));
 
 		TestRenderableMapObjectDrawSettings style2 = new TestRenderableMapObjectDrawSettings();
-		style2.drawPriority = 11;
+		style2.pointDrawPriority = 11;
 
 		DefenitionTags tags3 = new DefenitionTags();
 		tags3.add(new Tag("k3", "v3"));
 
 		TestRenderableMapObjectDrawSettings style3 = new TestRenderableMapObjectDrawSettings();
-		style3.drawPriority = -10;
+		style3.pointDrawPriority = -10;
 
 		ArrayList<RenderableMapObject> objects = new ArrayList<RenderableMapObject>();
 		TestRenderableMapObject object1 = new TestRenderableMapObject();

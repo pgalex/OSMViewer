@@ -1,7 +1,7 @@
 package com.osmviewer.renderingTests;
 
-import java.awt.Color;
 import com.osmviewer.rendering.RenderableMapDrawSettings;
+import java.awt.Color;
 
 /**
  * Test implementation of MapDrawSettings

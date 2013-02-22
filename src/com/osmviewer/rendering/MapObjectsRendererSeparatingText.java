@@ -1,5 +1,9 @@
 package com.osmviewer.rendering;
 
+import com.osmviewer.rendering.selectng.SelectingBuffer;
+import com.osmviewer.rendering.selectng.SelectingLine;
+import com.osmviewer.rendering.selectng.SelectingPolygon;
+import com.osmviewer.rendering.selectng.SelectingRectangle;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -8,10 +12,6 @@ import java.awt.Polygon;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import com.osmviewer.rendering.selectng.SelectingBuffer;
-import com.osmviewer.rendering.selectng.SelectingLine;
-import com.osmviewer.rendering.selectng.SelectingPolygon;
-import com.osmviewer.rendering.selectng.SelectingRectangle;
 
 /**
  * Renderer of map objects that drawes object on one canvas, and it's text on
@@ -197,7 +197,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 			}
 
 			SelectingRectangle selectingRectangleByImage = new SelectingRectangle(renderablePoint,
-							objectStyle.getPointDrawPriority(),
+							renderablePoint.determineDrawPriotity(),
 							new Rectangle2D.Double(imagePositionX, imagePositionY,
 							pointImage.getWidth(), pointImage.getHeight()));
 			selectingBuffer.addSelectingObject(selectingRectangleByImage);
@@ -216,7 +216,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 				Rectangle2D pointTextBounds = textCanvas.computeTextAtPointBounds(pointText,
 								textDrawSettings, pointPositionOnCanvas.getX(), pointPositionOnCanvas.getY());
 				SelectingRectangle selectingRectangleByTextBounds = new SelectingRectangle(renderablePoint,
-								objectStyle.getPointDrawPriority(),
+								renderablePoint.determineDrawPriotity(),
 								pointTextBounds);
 				selectingBuffer.addSelectingObject(selectingRectangleByTextBounds);
 			}
@@ -395,7 +395,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 		}
 
 		SelectingLine selectingLineByRenderingLine = new SelectingLine(renderableLine,
-						objectStyle.getLineDrawPriority(),
+						renderableLine.determineDrawPriotity(),
 						drawingMultiline, lineStyle.getWidth());
 		selectingBuffer.addSelectingObject(selectingLineByRenderingLine);
 	}
@@ -556,7 +556,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 		}
 
 		SelectingPolygon selectingPolygonByRenderedPolygon = new SelectingPolygon(renderablePolygon,
-						objectStyle.getPolygonDrawPriority(),
+						renderablePolygon.determineDrawPriotity(),
 						drawingPolygon);
 		selectingBuffer.addSelectingObject(selectingPolygonByRenderedPolygon);
 	}
