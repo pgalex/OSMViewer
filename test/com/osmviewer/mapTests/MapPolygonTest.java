@@ -53,7 +53,6 @@ public class MapPolygonTest
 		TestRenderableMapObjectDrawSettings testDawSettings = new TestRenderableMapObjectDrawSettings();
 		testDawSettings.polygonDrawPriority = 7;
 		polygon.setDrawSettings(testDawSettings);
-		int polygonDrawPriority = polygon.determineDrawPriotity();
 
 		assertEquals(testDawSettings.polygonDrawPriority, polygon.determineDrawPriotity());
 	}
