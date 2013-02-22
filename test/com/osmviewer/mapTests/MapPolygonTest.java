@@ -15,6 +15,50 @@ import org.junit.Test;
 public class MapPolygonTest
 {
 	/**
+	 * Test determining draw priotiry of draw settings not set
+	 */
+	@Test
+	public void determineDrawPriorityWithNullDrawSettingsTest()
+	{
+		try
+		{
+			MapPosition[] points = new MapPosition[4];
+			points[0] = new MapPosition(1, 2);
+			points[1] = new MapPosition(2, 3);
+			points[2] = new MapPosition(5, 6);
+			points[3] = points[0];
+			MapPolygon polygon = new MapPolygon(0, new DefenitionTags(), points);
+			polygon.determineDrawPriotity();
+			fail();
+		}
+		catch (NullPointerException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Test determining draw priotiry with draw settings
+	 */
+	@Test
+	public void determiningDrawPriorityNormalWorkTest()
+	{
+		MapPosition[] points = new MapPosition[4];
+		points[0] = new MapPosition(1, 2);
+		points[1] = new MapPosition(2, 3);
+		points[2] = new MapPosition(5, 6);
+		points[3] = points[0];
+		MapPolygon polygon = new MapPolygon(0, new DefenitionTags(), points);
+
+		TestRenderableMapObjectDrawSettings testDawSettings = new TestRenderableMapObjectDrawSettings();
+		testDawSettings.polygonDrawPriority = 7;
+		polygon.setDrawSettings(testDawSettings);
+		int polygonDrawPriority = polygon.determineDrawPriotity();
+
+		assertEquals(testDawSettings.polygonDrawPriority, polygon.determineDrawPriotity());
+	}
+
+	/**
 	 * Test getting point with index less than bounds
 	 */
 	@Test

@@ -1,12 +1,12 @@
 package com.osmviewer.map;
 
-import java.awt.geom.Rectangle2D;
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
 import com.osmviewer.mapDefenitionUtilities.MapPosition;
 import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
 import com.osmviewer.rendering.RenderableMapObjectsVisitor;
 import com.osmviewer.rendering.RenderableMapPoint;
+import java.awt.geom.Rectangle2D;
 
 /**
  * Object on a map, consisting of one node

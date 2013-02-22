@@ -1,6 +1,7 @@
 package com.osmviewer.mapTests;
 
 import com.osmviewer.map.MapLine;
+import com.osmviewer.map.MapPoint;
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
 import com.osmviewer.mapDefenitionUtilities.MapPosition;
@@ -14,6 +15,46 @@ import org.junit.Test;
  */
 public class MapLineTest
 {
+	/**
+	 * Test determining draw priotiry of draw settings not set
+	 */
+	@Test
+	public void determineDrawPriorityWithNullDrawSettingsTest()
+	{
+		try
+		{
+			MapPosition[] points = new MapPosition[2];
+			points[0] = new MapPosition(1, 2);
+			points[1] = new MapPosition(2, 3);
+			MapLine testLine = new MapLine(0, new DefenitionTags(), points);
+			testLine.determineDrawPriotity();
+			fail();
+		}
+		catch (NullPointerException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Test determining draw priotiry with draw settings
+	 */
+	@Test
+	public void determiningDrawPriorityNormalWorkTest()
+	{
+
+		MapPosition[] points = new MapPosition[2];
+		points[0] = new MapPosition(1, 2);
+		points[1] = new MapPosition(2, 3);
+		MapLine testLine = new MapLine(0, new DefenitionTags(), points);
+
+		TestRenderableMapObjectDrawSettings testDawSettings = new TestRenderableMapObjectDrawSettings();
+		testDawSettings.lineDrawPriority = 3;
+		testLine.setDrawSettings(testDawSettings);
+
+		assertEquals(testDawSettings.lineDrawPriority, testLine.determineDrawPriotity());
+	}
+
 	/**
 	 * Test getting point with index less than bounds
 	 */

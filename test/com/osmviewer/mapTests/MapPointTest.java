@@ -15,6 +15,38 @@ import org.junit.Test;
 public class MapPointTest
 {
 	/**
+	 * Test determining draw priotiry of draw settings not set
+	 */
+	@Test
+	public void determineDrawPriorityWithNullDrawSettingsTest()
+	{
+		try
+		{
+			MapPoint testPoint = new MapPoint(new MapPosition(), 12, new DefenitionTags());
+			testPoint.determineDrawPriotity();
+			fail();
+		}
+		catch (NullPointerException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Test determining draw priotiry with draw settings
+	 */
+	@Test
+	public void determiningDrawPriorityNormalWorkTest()
+	{
+		MapPoint testPoint = new MapPoint(new MapPosition(), 12, new DefenitionTags());
+		TestRenderableMapObjectDrawSettings testDawSettings = new TestRenderableMapObjectDrawSettings();
+		testDawSettings.pointDrawPriority = 5;
+		testPoint.setDrawSettings(testDawSettings);
+		
+		assertEquals(testDawSettings.pointDrawPriority, testPoint.determineDrawPriotity());
+	}
+
+	/**
 	 * Testing creating with null position
 	 */
 	@Test
