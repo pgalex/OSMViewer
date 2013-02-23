@@ -107,6 +107,36 @@ public class MapObjectsRendererSeparatingTextTest
 	}
 
 	/**
+	 * Test creating selecting object and setting its draw priority by renderable
+	 * polygon
+	 */
+	@Test
+	public void settingSelectingObjectDrawPriorityByRenderedPolygonTest()
+	{
+		MapRenderer mapRenderer = new MapRenderer(5, 10, 5);
+		BufferedImage textImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
+		BufferedImage objectsImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_RGB);
+		SelectingBuffer selectingBuffer = new SelectingBuffer();
+
+		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(objectsImage.createGraphics(),
+						textImage.createGraphics(), mapRenderer, 5, selectingBuffer);
+
+		TestRenderableMapPolygonDrawSettings testPolygonDrawSettings = new TestRenderableMapPolygonDrawSettings();
+		TestRenderableMapObjectDrawSettings testDrawSettings = new TestRenderableMapObjectDrawSettings();
+		testDrawSettings.polygonDrawSettings = testPolygonDrawSettings;
+
+		TestRenderableMapPolygon renderablePolygon = new TestRenderableMapPolygon();
+		renderablePolygon.drawPriority = 10;
+		renderablePolygon.drawSettings = testDrawSettings;
+		
+		objectsRenderer.visitPolygon(renderablePolygon);
+
+		assertEquals(1, selectingBuffer.getSelectingObjectCount());
+		assertEquals(renderablePolygon.drawPriority, selectingBuffer.getSelectingObject(0).getAssociatedObjectDrawPriority());
+
+	}
+
+	/**
 	 * Rendering null polygon test
 	 */
 	@Test
