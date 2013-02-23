@@ -18,6 +18,7 @@ public class TestRenderableMapObjectDrawSettings implements RenderableMapObjectD
 	public int lineDrawPriority;
 	public int polygonDrawPriority;
 	public RenderableMapPointDrawSettings pointDrawSettings;
+	public RenderableMapLineDrawSettings lineDrawSettings;
 
 	@Override
 	public boolean isCanBePoint()
@@ -64,7 +65,7 @@ public class TestRenderableMapObjectDrawSettings implements RenderableMapObjectD
 	@Override
 	public RenderableMapLineDrawSettings findLineDrawSettings(int scaleLevel)
 	{
-		return null;
+		return lineDrawSettings;
 	}
 
 	@Override
