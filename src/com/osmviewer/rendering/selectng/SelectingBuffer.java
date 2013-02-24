@@ -4,6 +4,7 @@ import com.osmviewer.rendering.RenderableMapObject;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 
 /**
  * Stores interperation of objects, drawen on target canvas, specialized for
@@ -16,14 +17,14 @@ public class SelectingBuffer
 	/**
 	 * Selecting objects of buffer
 	 */
-	private ArrayList<SelectingObject> selectingObjects;
+	private LinkedList<SelectingObject> selectingObjects;
 
 	/**
 	 * Create empty
 	 */
 	public SelectingBuffer()
 	{
-		selectingObjects = new ArrayList<SelectingObject>();
+		selectingObjects = new LinkedList<SelectingObject>();
 	}
 
 	/**
