@@ -1,12 +1,12 @@
 package com.osmviewer.drawingStyles;
 
+import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
+import com.osmviewer.mapDefenitionUtilities.Tag;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
-import com.osmviewer.mapDefenitionUtilities.Tag;
 
 /**
  * Keys of tags, value of, can be use as text under map object.

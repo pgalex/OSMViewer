@@ -167,8 +167,8 @@ public class DefenitionTags
 	{
 		try
 		{
-			tags.clear();
 			int tagsCount = input.readInt();
+			tags = new ArrayList<Tag>(tagsCount);
 			for (int i = 0; i < tagsCount; i++)
 			{
 				Tag readingTag = new Tag();

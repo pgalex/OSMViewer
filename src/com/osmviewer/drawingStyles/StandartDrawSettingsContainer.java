@@ -1,5 +1,7 @@
 package com.osmviewer.drawingStyles;
 
+import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
+import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -8,8 +10,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
-import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
 
 /**
  * Gives access to drawing style with editing
