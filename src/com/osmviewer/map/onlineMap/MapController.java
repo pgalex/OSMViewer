@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author pgalex
  */
-public class OnlineMapController implements DrawableOnPanel
+public class MapController implements DrawableOnPanel
 {
 	/**
 	 * Minimum scale level for viewing online map. First level that can be
@@ -56,7 +56,7 @@ public class OnlineMapController implements DrawableOnPanel
 	 * @param startCanvasWidth start target canvas width
 	 * @param startCanvasHeight start target canvas height
 	 */
-	public OnlineMapController(MapPosition startViewPosition, int startScaleLevel,
+	public MapController(MapPosition startViewPosition, int startScaleLevel,
 					int startCanvasWidth, int startCanvasHeight)
 	{
 		map = new OnlineMap();
@@ -224,7 +224,7 @@ public class OnlineMapController implements DrawableOnPanel
 		}
 		catch (IOException ex)
 		{
-			Logger.getLogger(OnlineMapController.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(MapController.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 
@@ -236,7 +236,7 @@ public class OnlineMapController implements DrawableOnPanel
 		}
 		catch (Exception ex)
 		{
-			Logger.getLogger(OnlineMapController.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(MapController.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 
