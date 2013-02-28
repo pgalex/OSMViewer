@@ -1,14 +1,13 @@
 package com.osmviewer.forms;
 
-import com.osmviewer.drawingStyles.StandartMapObjectDrawSettings;
 import com.osmviewer.drawingStyles.forms.EditDrawingStylesFrame;
-import java.awt.Dialog.ModalityType;
-import java.awt.Point;
-import javax.swing.JFrame;
 import com.osmviewer.map.onlineMap.OnlineMapController;
 import com.osmviewer.mapDefenitionUtilities.MapPosition;
 import com.osmviewer.rendering.RenderableMapObject;
 import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
+import java.awt.Dialog.ModalityType;
+import java.awt.Point;
+import javax.swing.JFrame;
 
 /**
  * Main form
@@ -45,7 +44,13 @@ public class MainFrame extends javax.swing.JFrame
 
 		mapObjectInformationDialog = new MapObjectInformationDialog(this, ModalityType.MODELESS);
 		mapObjectInformationDialog.setAlwaysOnTop(true);
-		mapObjectInformationDialog.setLocationRelativeTo(this);
+		mapObjectInformationDialog.setLocationRelativeTo(null);
+
+		jPanelMapManagement.setVisible(false);
+
+		jSliderScaleLevel.setMinimum(mapController.getMinimumScaleLevel());
+		jSliderScaleLevel.setMaximum(mapController.getMaximumScaleLevel());
+		jSliderScaleLevel.setValue(mapController.getScaleLevel());
 	}
 
 	/**
@@ -59,8 +64,11 @@ public class MainFrame extends javax.swing.JFrame
   {
 
     jPanelCanvas = new com.osmviewer.forms.DrawingPanel(null);
+    jToggleButtonMapManagement = new javax.swing.JToggleButton();
+    jPanelMapManagement = new javax.swing.JPanel();
     jButtonReloadMap = new javax.swing.JButton();
     jButtonEditDrawingStyles = new javax.swing.JButton();
+    jSliderScaleLevel = new javax.swing.JSlider();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setTitle("OpenStreetMap Viewer");
@@ -104,6 +112,17 @@ public class MainFrame extends javax.swing.JFrame
       }
     });
 
+    jToggleButtonMapManagement.setText("Управление >");
+    jToggleButtonMapManagement.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jToggleButtonMapManagementActionPerformed(evt);
+      }
+    });
+
+    jPanelMapManagement.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
     jButtonReloadMap.setText("Reload map");
     jButtonReloadMap.addActionListener(new java.awt.event.ActionListener()
     {
@@ -113,12 +132,45 @@ public class MainFrame extends javax.swing.JFrame
       }
     });
 
-    jButtonEditDrawingStyles.setText("How to draw map...");
+    jButtonEditDrawingStyles.setText("Редактор стилей ...");
     jButtonEditDrawingStyles.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
       {
         jButtonEditDrawingStylesActionPerformed(evt);
+      }
+    });
+
+    javax.swing.GroupLayout jPanelMapManagementLayout = new javax.swing.GroupLayout(jPanelMapManagement);
+    jPanelMapManagement.setLayout(jPanelMapManagementLayout);
+    jPanelMapManagementLayout.setHorizontalGroup(
+      jPanelMapManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(jPanelMapManagementLayout.createSequentialGroup()
+        .addContainerGap()
+        .addComponent(jButtonReloadMap, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMapManagementLayout.createSequentialGroup()
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addComponent(jButtonEditDrawingStyles)
+        .addContainerGap())
+    );
+    jPanelMapManagementLayout.setVerticalGroup(
+      jPanelMapManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(jPanelMapManagementLayout.createSequentialGroup()
+        .addContainerGap()
+        .addComponent(jButtonReloadMap)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addComponent(jButtonEditDrawingStyles)
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+    );
+
+    jSliderScaleLevel.setOrientation(javax.swing.JSlider.VERTICAL);
+    jSliderScaleLevel.setSnapToTicks(true);
+    jSliderScaleLevel.addChangeListener(new javax.swing.event.ChangeListener()
+    {
+      public void stateChanged(javax.swing.event.ChangeEvent evt)
+      {
+        jSliderScaleLevelStateChanged(evt);
       }
     });
 
@@ -128,19 +180,24 @@ public class MainFrame extends javax.swing.JFrame
       jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(jPanelCanvasLayout.createSequentialGroup()
         .addContainerGap()
-        .addComponent(jButtonReloadMap)
+        .addGroup(jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(jToggleButtonMapManagement)
+          .addComponent(jSliderScaleLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addComponent(jButtonEditDrawingStyles)
-        .addContainerGap(336, Short.MAX_VALUE))
+        .addComponent(jPanelMapManagement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap(305, Short.MAX_VALUE))
     );
     jPanelCanvasLayout.setVerticalGroup(
       jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(jPanelCanvasLayout.createSequentialGroup()
         .addContainerGap()
-        .addGroup(jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(jButtonReloadMap)
-          .addComponent(jButtonEditDrawingStyles))
-        .addContainerGap(445, Short.MAX_VALUE))
+        .addGroup(jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(jPanelMapManagement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addGroup(jPanelCanvasLayout.createSequentialGroup()
+            .addComponent(jToggleButtonMapManagement)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jSliderScaleLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        .addContainerGap(318, Short.MAX_VALUE))
     );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -196,16 +253,17 @@ public class MainFrame extends javax.swing.JFrame
   {//GEN-HEADEREND:event_jPanelCanvasMouseWheelMoved
 		int scaleByWheel = mapController.getScaleLevel() - evt.getWheelRotation();
 
-		if (scaleByWheel < OnlineMapController.GetMinimumScaleLevel())
+		if (scaleByWheel < mapController.getMinimumScaleLevel())
 		{
-			scaleByWheel = OnlineMapController.GetMinimumScaleLevel();
+			scaleByWheel = mapController.getMinimumScaleLevel();
 		}
-		if (scaleByWheel > OnlineMapController.GetMaximumScaleLevel())
+		if (scaleByWheel > mapController.getMaximumScaleLevel())
 		{
-			scaleByWheel = OnlineMapController.GetMaximumScaleLevel();
+			scaleByWheel = mapController.getMaximumScaleLevel();
 		}
 
 		mapController.setScaleLevel(scaleByWheel);
+		jSliderScaleLevel.setValue(scaleByWheel);
 		jPanelCanvas.repaint();
   }//GEN-LAST:event_jPanelCanvasMouseWheelMoved
 
@@ -244,6 +302,20 @@ public class MainFrame extends javax.swing.JFrame
 
 		jPanelCanvas.repaint();
   }//GEN-LAST:event_jPanelCanvasMouseClicked
+
+  private void jToggleButtonMapManagementActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jToggleButtonMapManagementActionPerformed
+  {//GEN-HEADEREND:event_jToggleButtonMapManagementActionPerformed
+		jPanelMapManagement.setVisible(jToggleButtonMapManagement.isSelected());
+  }//GEN-LAST:event_jToggleButtonMapManagementActionPerformed
+
+  private void jSliderScaleLevelStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_jSliderScaleLevelStateChanged
+  {//GEN-HEADEREND:event_jSliderScaleLevelStateChanged
+		if (jSliderScaleLevel.getValue() >= mapController.getMinimumScaleLevel() && jSliderScaleLevel.getValue() < mapController.getMaximumScaleLevel())
+		{
+			mapController.setScaleLevel(jSliderScaleLevel.getValue());
+			jPanelCanvas.repaint();
+		}
+  }//GEN-LAST:event_jSliderScaleLevelStateChanged
 
 	/**
 	 * @param args the command line arguments
@@ -306,5 +378,8 @@ public class MainFrame extends javax.swing.JFrame
   private javax.swing.JButton jButtonEditDrawingStyles;
   private javax.swing.JButton jButtonReloadMap;
   private javax.swing.JPanel jPanelCanvas;
+  private javax.swing.JPanel jPanelMapManagement;
+  private javax.swing.JSlider jSliderScaleLevel;
+  private javax.swing.JToggleButton jToggleButtonMapManagement;
   // End of variables declaration//GEN-END:variables
 }

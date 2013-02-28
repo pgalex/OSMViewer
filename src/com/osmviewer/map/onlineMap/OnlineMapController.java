@@ -1,7 +1,11 @@
 package com.osmviewer.map.onlineMap;
 
+import com.osmviewer.drawingStyles.DrawSettingsViewer;
 import com.osmviewer.drawingStyles.DrawingStylesFactory;
 import com.osmviewer.forms.DrawableOnPanel;
+import com.osmviewer.mapDefenitionUtilities.MapPosition;
+import com.osmviewer.rendering.MapRenderer;
+import com.osmviewer.rendering.RenderableMapObject;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
@@ -9,10 +13,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.osmviewer.mapDefenitionUtilities.MapPosition;
-import com.osmviewer.drawingStyles.DrawSettingsViewer;
-import com.osmviewer.rendering.MapRenderer;
-import com.osmviewer.rendering.RenderableMapObject;
 
 /**
  * Organize work between other components and process user's input
@@ -245,7 +245,7 @@ public class OnlineMapController implements DrawableOnPanel
 	 *
 	 * @return Minimum scale level for viewing online map
 	 */
-	public static int GetMinimumScaleLevel()
+	public int getMinimumScaleLevel()
 	{
 		return MINIMUM_SCALE_LEVEL;
 	}
@@ -255,7 +255,7 @@ public class OnlineMapController implements DrawableOnPanel
 	 *
 	 * @return Maximum scale level for viewing online map
 	 */
-	public static int GetMaximumScaleLevel()
+	public int getMaximumScaleLevel()
 	{
 		return MAXIMUM_SCALE_LEVEL;
 	}
