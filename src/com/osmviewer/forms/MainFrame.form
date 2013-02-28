@@ -60,11 +60,13 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jToggleButtonMapManagement" min="-2" max="-2" attributes="0"/>
-                      <Component id="jSliderScaleLevel" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="jToggleButtonMapManagement" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jPanelMapManagement" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="jSliderScaleLevel" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jPanelMapManagement" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="305" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -75,13 +77,11 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jPanelMapManagement" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Component id="jToggleButtonMapManagement" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jSliderScaleLevel" min="-2" pref="121" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jToggleButtonMapManagement" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="318" max="32767" attributes="0"/>
+                  <EmptySpace pref="304" max="32767" attributes="0"/>
+                  <Component id="jSliderScaleLevel" min="-2" pref="121" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -107,11 +107,6 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButtonReloadMap" min="-2" pref="167" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jButtonEditDrawingStyles" min="-2" max="-2" attributes="0"/>
@@ -123,8 +118,6 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButtonReloadMap" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButtonEditDrawingStyles" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -132,14 +125,6 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="jButtonReloadMap">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Reload map"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonReloadMapActionPerformed"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JButton" name="jButtonEditDrawingStyles">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&#x420;&#x435;&#x434;&#x430;&#x43a;&#x442;&#x43e;&#x440; &#x441;&#x442;&#x438;&#x43b;&#x435;&#x439; ..."/>

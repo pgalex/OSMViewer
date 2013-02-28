@@ -66,7 +66,6 @@ public class MainFrame extends javax.swing.JFrame
     jPanelCanvas = new com.osmviewer.forms.DrawingPanel(null);
     jToggleButtonMapManagement = new javax.swing.JToggleButton();
     jPanelMapManagement = new javax.swing.JPanel();
-    jButtonReloadMap = new javax.swing.JButton();
     jButtonEditDrawingStyles = new javax.swing.JButton();
     jSliderScaleLevel = new javax.swing.JSlider();
 
@@ -123,15 +122,6 @@ public class MainFrame extends javax.swing.JFrame
 
     jPanelMapManagement.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-    jButtonReloadMap.setText("Reload map");
-    jButtonReloadMap.addActionListener(new java.awt.event.ActionListener()
-    {
-      public void actionPerformed(java.awt.event.ActionEvent evt)
-      {
-        jButtonReloadMapActionPerformed(evt);
-      }
-    });
-
     jButtonEditDrawingStyles.setText("Редактор стилей ...");
     jButtonEditDrawingStyles.addActionListener(new java.awt.event.ActionListener()
     {
@@ -145,10 +135,6 @@ public class MainFrame extends javax.swing.JFrame
     jPanelMapManagement.setLayout(jPanelMapManagementLayout);
     jPanelMapManagementLayout.setHorizontalGroup(
       jPanelMapManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(jPanelMapManagementLayout.createSequentialGroup()
-        .addContainerGap()
-        .addComponent(jButtonReloadMap, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMapManagementLayout.createSequentialGroup()
         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         .addComponent(jButtonEditDrawingStyles)
@@ -158,8 +144,6 @@ public class MainFrame extends javax.swing.JFrame
       jPanelMapManagementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(jPanelMapManagementLayout.createSequentialGroup()
         .addContainerGap()
-        .addComponent(jButtonReloadMap)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(jButtonEditDrawingStyles)
         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
@@ -181,10 +165,11 @@ public class MainFrame extends javax.swing.JFrame
       .addGroup(jPanelCanvasLayout.createSequentialGroup()
         .addContainerGap()
         .addGroup(jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addComponent(jToggleButtonMapManagement)
+          .addGroup(jPanelCanvasLayout.createSequentialGroup()
+            .addComponent(jToggleButtonMapManagement)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jPanelMapManagement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
           .addComponent(jSliderScaleLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-        .addComponent(jPanelMapManagement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addContainerGap(305, Short.MAX_VALUE))
     );
     jPanelCanvasLayout.setVerticalGroup(
@@ -193,11 +178,10 @@ public class MainFrame extends javax.swing.JFrame
         .addContainerGap()
         .addGroup(jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(jPanelMapManagement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addGroup(jPanelCanvasLayout.createSequentialGroup()
-            .addComponent(jToggleButtonMapManagement)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jSliderScaleLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        .addContainerGap(318, Short.MAX_VALUE))
+          .addComponent(jToggleButtonMapManagement))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 304, Short.MAX_VALUE)
+        .addComponent(jSliderScaleLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addContainerGap())
     );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -219,12 +203,6 @@ public class MainFrame extends javax.swing.JFrame
 		mapController.setCanvasSize(jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
 		jPanelCanvas.repaint();
   }//GEN-LAST:event_jPanelCanvasComponentResized
-
-  private void jButtonReloadMapActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonReloadMapActionPerformed
-  {//GEN-HEADEREND:event_jButtonReloadMapActionPerformed
-		mapController.testLoadMap();
-		jPanelCanvas.repaint();
-  }//GEN-LAST:event_jButtonReloadMapActionPerformed
 
   private void jButtonEditDrawingStylesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonEditDrawingStylesActionPerformed
   {//GEN-HEADEREND:event_jButtonEditDrawingStylesActionPerformed
@@ -376,7 +354,6 @@ public class MainFrame extends javax.swing.JFrame
 	}
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton jButtonEditDrawingStyles;
-  private javax.swing.JButton jButtonReloadMap;
   private javax.swing.JPanel jPanelCanvas;
   private javax.swing.JPanel jPanelMapManagement;
   private javax.swing.JSlider jSliderScaleLevel;
