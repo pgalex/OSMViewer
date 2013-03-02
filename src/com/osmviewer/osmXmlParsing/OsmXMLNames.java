@@ -1,4 +1,4 @@
-package com.osmviewer.osmXml;
+package com.osmviewer.osmXmlParsing;
 
 /**
  * Имена тегов xml в .osm файле

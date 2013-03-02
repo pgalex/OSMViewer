@@ -1,5 +1,10 @@
-package com.osmviewer.osmXml;
+package com.osmviewer.osmXmlParsing;
 
+import com.osmviewer.osmXml.OsmBounds;
+import com.osmviewer.osmXml.OsmNode;
+import com.osmviewer.osmXml.OsmTag;
+import com.osmviewer.osmXml.OsmWay;
+import com.osmviewer.osmXml.OsmXmlParsingHandler;
 import java.io.InputStream;
 import java.util.ArrayList;
 import javax.xml.parsers.SAXParser;
@@ -20,22 +25,20 @@ public class OnlineOsmParser
 	 */
 	private class OnlineSaxHandler extends DefaultHandler
 	{
-		private ArrayList<OsmNode> nodes;
-		private ArrayList<OsmWay> ways;
 		private OsmBounds bounds;
 		private OsmNode tempNode;
 		private OsmWay tempWay;
 		public ArrayList<OsmTag> tempTags;
+		private OsmXmlParsingHandler parsingHandler;
 
 		/**
 		 * Constructor
 		 */
-		public OnlineSaxHandler()
+		public OnlineSaxHandler(OsmXmlParsingHandler handler)
 		{
-			nodes = new ArrayList<OsmNode>();
-			ways = new ArrayList<OsmWay>();
 			bounds = new OsmBounds();
 			tempTags = new ArrayList<OsmTag>();
+			parsingHandler = handler;
 		}
 
 		/**
@@ -44,8 +47,6 @@ public class OnlineOsmParser
 		@Override
 		public void startDocument()
 		{
-			nodes.clear();
-			ways.clear();
 			tempTags.clear();
 			bounds.setLatitudeMaximum(0);
 			bounds.setLatitudeMinimum(0);
@@ -110,12 +111,12 @@ public class OnlineOsmParser
 				if (pName.compareTo(OsmXMLNames.NODE) == 0)
 				{
 					tempNode.setTags(tempTags);
-					nodes.add(tempNode);
+					parsingHandler.takeNode(tempNode);
 				}
 				if (pName.compareTo(OsmXMLNames.WAY) == 0)
 				{
 					tempWay.setTags(tempTags);
-					ways.add(tempWay);
+					parsingHandler.takeWay(tempWay);
 				}
 			}
 			catch (Exception ex)
@@ -231,10 +232,12 @@ public class OnlineOsmParser
 
 	/**
 	 * Конструктор
+	 *
+	 * @param parsingHandler
 	 */
-	public OnlineOsmParser()
+	public OnlineOsmParser(OsmXmlParsingHandler parsingHandler)
 	{
-		handler = new OnlineSaxHandler();
+		handler = new OnlineSaxHandler(parsingHandler);
 	}
 
 	/**
@@ -249,48 +252,12 @@ public class OnlineOsmParser
 		{
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			SAXParser parser = factory.newSAXParser();
-
+			
 			parser.parse(pInput, handler);
 		}
 		catch (Exception e)
 		{
 			throw e;
 		}
-	}
-
-	/**
-	 * Получить считанные границы карты
-	 *
-	 * @return
-	 */
-	public OsmBounds getBounds()
-	{
-		return handler.bounds;
-	}
-
-	/**
-	 * Получить точки
-	 *
-	 * @return
-	 */
-	public ArrayList<OsmNode> getNodes()
-	{
-		return handler.nodes;
-	}
-
-	/**
-	 * Получить линии
-	 *
-	 * @return
-	 */
-	public ArrayList<OsmWay> getWays()
-	{
-		return handler.ways;
-	}
-	
-	public void clear()
-	{
-		handler.nodes.clear();
-		handler.ways.clear();
 	}
 }

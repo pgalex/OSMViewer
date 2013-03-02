@@ -1,15 +1,15 @@
 package com.osmviewer.map.onlineMap;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import com.osmviewer.map.MapObject;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
 import com.osmviewer.rendering.RenderableMap;
 import com.osmviewer.rendering.RenderableMapObjectsDrawPriorityComparator;
 import com.osmviewer.rendering.RenderableMapObjectsVisitor;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
- * Map that contains not much objects and using for online rendering
+ * OnlineMap that contains not much objects and using for online rendering
  *
  * @author pgalex
  */

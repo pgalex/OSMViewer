@@ -32,15 +32,15 @@ public class MapController implements DrawableOnPanel
 	 */
 	private static final int MAXIMUM_SCALE_LEVEL = 18;
 	/**
-	 * Map - stored map objects
+	 * OnlineMap - stored map objects
 	 */
 	private OnlineMap map;
 	/**
-	 * Map loader - gets data from OSM server
+	 * OnlineMap loader - gets data from OSM server
 	 */
 	private OnlineMapLoader mapLoader;
 	/**
-	 * Map renderer - drawes object
+	 * OnlineMap renderer - drawes object
 	 */
 	private MapRenderer renderer;
 	/**

@@ -1,48 +1,54 @@
 package com.osmviewer.map.onlineMap;
 
-import com.osmviewer.map.exceptions.ParsingOsmErrorException;
+import com.osmviewer.map.MapLine;
+import com.osmviewer.map.MapObject;
+import com.osmviewer.map.MapPoint;
+import com.osmviewer.map.MapPolygon;
+import com.osmviewer.map.RenderableMapObjectsDrawSettingsFinder;
 import com.osmviewer.map.exceptions.ConnectionErrorException;
 import com.osmviewer.map.exceptions.ReadingFromServerErrorException;
+import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
+import com.osmviewer.mapDefenitionUtilities.MapBounds;
+import com.osmviewer.mapDefenitionUtilities.MapPosition;
+import com.osmviewer.mapDefenitionUtilities.Tag;
+import com.osmviewer.osmXml.OsmNode;
+import com.osmviewer.osmXml.OsmTag;
+import com.osmviewer.osmXml.OsmWay;
+import com.osmviewer.osmXml.OsmXmlParsingHandler;
+import com.osmviewer.osmXml.exceptions.ParsingOsmErrorException;
+import com.osmviewer.osmXmlParsing.OnlineOsmParser;
+import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import com.osmviewer.map.MapLine;
-import com.osmviewer.map.MapObject;
-import com.osmviewer.map.MapPoint;
-import com.osmviewer.map.MapPolygon;
-import com.osmviewer.map.RenderableMapObjectsDrawSettingsFinder;
-import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
-import com.osmviewer.mapDefenitionUtilities.MapBounds;
-import com.osmviewer.mapDefenitionUtilities.MapPosition;
-import com.osmviewer.mapDefenitionUtilities.Tag;
-import com.osmviewer.osmXml.OnlineOsmParser;
-import com.osmviewer.osmXml.OsmNode;
-import com.osmviewer.osmXml.OsmTag;
-import com.osmviewer.osmXml.OsmWay;
-import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
 
 /**
  * Creates connection to openstreetmap.org, loads map data and convertes it to
- * online map for rendering. Knows how to fill Map by osm objects
+ * online map for rendering. Knows how to fill OnlineMap by osm objects
  *
  * @author pgalex
  */
-public class OnlineMapLoader
+public class OnlineMapLoader implements OsmXmlParsingHandler
 {
 	/**
 	 * Parser for converting .osm xml data to map objects
 	 */
 	private OnlineOsmParser onlineParser;
+	
+	private ArrayList<OsmNode> parsedNodes;
+	private ArrayList<OsmWay> parsedWays;
 
 	/**
 	 * Create loader
 	 */
 	public OnlineMapLoader()
 	{
-		onlineParser = new OnlineOsmParser();
+		parsedNodes = new ArrayList<OsmNode>();
+		parsedWays = new ArrayList<OsmWay>();
+		onlineParser = new OnlineOsmParser(this);
 	}
 
 	/**
@@ -86,12 +92,16 @@ public class OnlineMapLoader
 			/*URL openStreetMapURL = new URL(connectionString);
 			 URLConnection openStreetMapConnection = openStreetMapURL.openConnection();
 			 onlineParser.convert(openStreetMapConnection.getInputStream());*/
+			
+			parsedNodes.clear();
+			parsedWays.clear();
 			onlineParser.convert(new DataInputStream(new FileInputStream(new File("some_map.osm.xml"))));
 
-			fillMapWithPoints(onlineParser.getNodes(), drawSettingsFinder, fillingMap);
-			fillMapWithPolygonsAndLines(onlineParser.getNodes(), onlineParser.getWays(), drawSettingsFinder, fillingMap);
+			fillMapWithPoints(parsedNodes, drawSettingsFinder, fillingMap);
+			fillMapWithPolygonsAndLines(parsedNodes, parsedWays, drawSettingsFinder, fillingMap);
 
-			onlineParser.clear();
+			parsedNodes.clear();
+			parsedWays.clear();
 		}
 		catch (MalformedURLException ex)
 		{
@@ -107,7 +117,7 @@ public class OnlineMapLoader
 		}
 		catch (Exception ex)
 		{
-			throw new ParsingOsmErrorException();
+			throw new ParsingOsmErrorException(ex);
 		}
 	}
 
@@ -338,5 +348,17 @@ public class OnlineMapLoader
 		}
 
 		return new Tag(osmTag.getKey(), osmTag.getValue());
+	}
+
+	@Override
+	public void takeNode(OsmNode parsedNode) throws IllegalArgumentException
+	{
+		parsedNodes.add(parsedNode);
+	}
+
+	@Override
+	public void takeWay(OsmWay parsedWay) throws IllegalArgumentException
+	{
+		parsedWays.add(parsedWay);
 	}
 }
