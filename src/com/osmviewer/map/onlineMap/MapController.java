@@ -3,7 +3,7 @@ package com.osmviewer.map.onlineMap;
 import com.osmviewer.drawingStyles.DrawSettingsViewer;
 import com.osmviewer.drawingStyles.DrawingStylesFactory;
 import com.osmviewer.forms.DrawableOnPanel;
-import com.osmviewer.mapDefenitionUtilities.MapPosition;
+import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.rendering.MapRenderer;
 import com.osmviewer.rendering.RenderableMapObject;
 import java.awt.Graphics2D;
@@ -56,7 +56,7 @@ public class MapController implements DrawableOnPanel
 	 * @param startCanvasWidth start target canvas width
 	 * @param startCanvasHeight start target canvas height
 	 */
-	public MapController(MapPosition startViewPosition, int startScaleLevel,
+	public MapController(Location startViewPosition, int startScaleLevel,
 					int startCanvasWidth, int startCanvasHeight)
 	{
 		map = new OnlineMap();
@@ -90,7 +90,7 @@ public class MapController implements DrawableOnPanel
 	 *
 	 * @param positionOnMap new view position
 	 */
-	public void setViewPosition(MapPosition positionOnMap)
+	public void setViewPosition(Location positionOnMap)
 	{
 		renderer.setViewPosition(positionOnMap);
 	}
@@ -107,7 +107,7 @@ public class MapController implements DrawableOnPanel
 		Point2D newViewPositionOnCanvas = new Point2D.Double(targetCanvasArea.getWidth() / 2 + deltaXInPixels,
 						targetCanvasArea.getHeight() / 2 + deltaYInPixels);
 
-		MapPosition newViewPositionOnMap = renderer.canvasToGeographics(newViewPositionOnCanvas);
+		Location newViewPositionOnMap = renderer.canvasToGeographics(newViewPositionOnCanvas);
 		renderer.setViewPosition(newViewPositionOnMap);
 	}
 

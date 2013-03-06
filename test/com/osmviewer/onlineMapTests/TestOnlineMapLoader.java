@@ -11,7 +11,7 @@ import com.osmviewer.map.MapPolygon;
 import com.osmviewer.map.onlineMap.OnlineMap;
 import com.osmviewer.map.onlineMap.OnlineMapLoader;
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
-import com.osmviewer.mapDefenitionUtilities.MapPosition;
+import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.mapDefenitionUtilities.Tag;
 import static org.junit.Assert.*;
 import com.osmviewer.osmXml.OsmNode;
@@ -170,7 +170,7 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 	 */
 	private void findPointsInOsmNodesNullParametersTest()
 	{
-		MapPosition[] points = findPointsInOsmNodes(null, null);
+		Location[] points = findPointsInOsmNodes(null, null);
 		assertNotNull(points);
 		assertEquals(0, points.length);
 	}
@@ -183,7 +183,7 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 		ArrayList<Long> ids = new ArrayList<Long>();
 		ids.add(new Long(10));
 		ArrayList<OsmNode> nodes = new ArrayList<OsmNode>();
-		MapPosition[] points = findPointsInOsmNodes(ids, nodes);
+		Location[] points = findPointsInOsmNodes(ids, nodes);
 		assertNotNull(points);
 		assertEquals(0, points.length);
 	}
@@ -196,7 +196,7 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 		ArrayList<Long> ids = new ArrayList<Long>();
 		ArrayList<OsmNode> nodes = new ArrayList<OsmNode>();
 		nodes.add(new OsmNode());
-		MapPosition[] points = findPointsInOsmNodes(ids, nodes);
+		Location[] points = findPointsInOsmNodes(ids, nodes);
 		assertNotNull(points);
 		assertEquals(0, points.length);
 	}
@@ -236,7 +236,7 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 		ids.add(new Long(10000010));
 		ids.add(new Long(10000020));
 
-		MapPosition[] foundedPoints = findPointsInOsmNodes(ids, nodes);
+		Location[] foundedPoints = findPointsInOsmNodes(ids, nodes);
 		assertEquals(ids.size(), foundedPoints.length);
 
 		assertEquals(node3.getLatitude(), foundedPoints[0].getLatitude(), 0.0001);
@@ -272,7 +272,7 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 		ids.add(new Long(10000040));
 		ids.add(new Long(10000050));
 
-		MapPosition[] foundedPoints = findPointsInOsmNodes(ids, nodes);
+		Location[] foundedPoints = findPointsInOsmNodes(ids, nodes);
 		assertEquals(0, foundedPoints.length);
 	}
 
@@ -305,7 +305,7 @@ public class TestOnlineMapLoader extends OnlineMapLoader
 		ids.add(new Long(10000070));
 		ids.add(new Long(10000030));
 
-		MapPosition[] foundedPoints = findPointsInOsmNodes(ids, nodes);
+		Location[] foundedPoints = findPointsInOsmNodes(ids, nodes);
 		assertEquals(0, foundedPoints.length);
 	}
 

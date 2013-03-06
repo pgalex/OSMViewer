@@ -4,7 +4,7 @@ import com.osmviewer.map.MapLine;
 import com.osmviewer.map.MapPoint;
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
-import com.osmviewer.mapDefenitionUtilities.MapPosition;
+import com.osmviewer.mapDefenitionUtilities.Location;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -23,9 +23,9 @@ public class MapLineTest
 	{
 		try
 		{
-			MapPosition[] points = new MapPosition[2];
-			points[0] = new MapPosition(1, 2);
-			points[1] = new MapPosition(2, 3);
+			Location[] points = new Location[2];
+			points[0] = new Location(1, 2);
+			points[1] = new Location(2, 3);
 			MapLine testLine = new MapLine(0, new DefenitionTags(), points);
 			testLine.determineDrawPriotity();
 			fail();
@@ -43,9 +43,9 @@ public class MapLineTest
 	public void determiningDrawPriorityNormalWorkTest()
 	{
 
-		MapPosition[] points = new MapPosition[2];
-		points[0] = new MapPosition(1, 2);
-		points[1] = new MapPosition(2, 3);
+		Location[] points = new Location[2];
+		points[0] = new Location(1, 2);
+		points[1] = new Location(2, 3);
 		MapLine testLine = new MapLine(0, new DefenitionTags(), points);
 
 		TestRenderableMapObjectDrawSettings testDawSettings = new TestRenderableMapObjectDrawSettings();
@@ -63,9 +63,9 @@ public class MapLineTest
 	{
 		try
 		{
-			MapPosition[] points = new MapPosition[3];
-			points[0] = new MapPosition(1, 2);
-			points[1] = new MapPosition(2, 3);
+			Location[] points = new Location[3];
+			points[0] = new Location(1, 2);
+			points[1] = new Location(2, 3);
 			MapLine testLine = new MapLine(0, new DefenitionTags(), points);
 			testLine.getPoint(-1);
 			fail();
@@ -84,9 +84,9 @@ public class MapLineTest
 	{
 		try
 		{
-			MapPosition[] points = new MapPosition[3];
-			points[0] = new MapPosition(1, 2);
-			points[1] = new MapPosition(2, 3);
+			Location[] points = new Location[3];
+			points[0] = new Location(1, 2);
+			points[1] = new Location(2, 3);
 			MapLine testLine = new MapLine(0, new DefenitionTags(), points);
 			testLine.getPoint(points.length);
 			fail();
@@ -105,9 +105,9 @@ public class MapLineTest
 	{
 		try
 		{
-			MapPosition[] points = new MapPosition[2];
-			points[0] = new MapPosition(1, 2);
-			points[1] = new MapPosition(2, 3);
+			Location[] points = new Location[2];
+			points[0] = new Location(1, 2);
+			points[1] = new Location(2, 3);
 			MapLine testLine = new MapLine(0, null, points);
 			fail();
 		}
@@ -142,8 +142,8 @@ public class MapLineTest
 	{
 		try
 		{
-			MapPosition[] points = new MapPosition[1];
-			points[0] = new MapPosition();
+			Location[] points = new Location[1];
+			points[0] = new Location();
 			MapLine testLine = new MapLine(10, new DefenitionTags(), points);
 			fail();
 		}
@@ -161,10 +161,10 @@ public class MapLineTest
 	{
 		try
 		{
-			MapPosition[] points = new MapPosition[3];
-			points[0] = new MapPosition();
+			Location[] points = new Location[3];
+			points[0] = new Location();
 			points[1] = null;
-			points[2] = new MapPosition();
+			points[2] = new Location();
 			MapLine testLine = new MapLine(10, new DefenitionTags(), points);
 			fail();
 		}
@@ -182,9 +182,9 @@ public class MapLineTest
 	{
 		try
 		{
-			MapPosition[] points = new MapPosition[2];
-			points[0] = new MapPosition(1, 2);
-			points[1] = new MapPosition(2, 3);
+			Location[] points = new Location[2];
+			points[0] = new Location(1, 2);
+			points[1] = new Location(2, 3);
 			MapLine testLine = new MapLine(0, new DefenitionTags(), points);
 			testLine.acceptRenderingVisitor(null);
 			fail();
@@ -203,9 +203,9 @@ public class MapLineTest
 	{
 		try
 		{
-			MapPosition[] points = new MapPosition[2];
-			points[0] = new MapPosition(1, 2);
-			points[1] = new MapPosition(2, 3);
+			Location[] points = new Location[2];
+			points[0] = new Location(1, 2);
+			points[1] = new Location(2, 3);
 			MapLine testLine = new MapLine(1, new DefenitionTags(), points);
 			testLine.isVisibleInArea(null);
 			fail();
@@ -222,10 +222,10 @@ public class MapLineTest
 	@Test
 	public void isVisibleAllPointInAreaTest()
 	{
-		MapPosition[] points = new MapPosition[3];
-		points[0] = new MapPosition(-2, 2);
-		points[1] = new MapPosition(5, -5);
-		points[2] = new MapPosition(3, 5);
+		Location[] points = new Location[3];
+		points[0] = new Location(-2, 2);
+		points[1] = new Location(5, -5);
+		points[2] = new Location(3, 5);
 		MapLine testLine = new MapLine(1, new DefenitionTags(), points);
 		MapBounds testArea = new MapBounds(-5, 7, -8, 10);
 		assertTrue(testLine.isVisibleInArea(testArea));
@@ -237,11 +237,11 @@ public class MapLineTest
 	@Test
 	public void isVisibleAllPointSurroundAreaNotIntersectTest()
 	{
-		MapPosition[] points = new MapPosition[4];
-		points[0] = new MapPosition(-7, -9);
-		points[1] = new MapPosition(-7, 9);
-		points[2] = new MapPosition(7, 9);
-		points[3] = new MapPosition(7, -9);
+		Location[] points = new Location[4];
+		points[0] = new Location(-7, -9);
+		points[1] = new Location(-7, 9);
+		points[2] = new Location(7, 9);
+		points[3] = new Location(7, -9);
 		MapLine testLine = new MapLine(1, new DefenitionTags(), points);
 		MapBounds testArea = new MapBounds(-5, 5, -7, 7);
 		assertFalse(testLine.isVisibleInArea(testArea));
@@ -253,9 +253,9 @@ public class MapLineTest
 	@Test
 	public void isVisibleAllPointOutAreaIntersectTest()
 	{
-		MapPosition[] points = new MapPosition[2];
-		points[0] = new MapPosition(0, 0);
-		points[1] = new MapPosition(5, 5);
+		Location[] points = new Location[2];
+		points[0] = new Location(0, 0);
+		points[1] = new Location(5, 5);
 		MapLine testLine = new MapLine(1, new DefenitionTags(), points);
 		MapBounds testArea = new MapBounds(1, 4, 1, 4);
 		assertTrue(testLine.isVisibleInArea(testArea));
@@ -267,11 +267,11 @@ public class MapLineTest
 	@Test
 	public void isVisibleSomePointOutAreaIntersectTest()
 	{
-		MapPosition[] points = new MapPosition[4];
-		points[0] = new MapPosition(-1, -1);
-		points[1] = new MapPosition(2, 2);
-		points[2] = new MapPosition(2, 10);
-		points[3] = new MapPosition(3, 3);
+		Location[] points = new Location[4];
+		points[0] = new Location(-1, -1);
+		points[1] = new Location(2, 2);
+		points[2] = new Location(2, 10);
+		points[3] = new Location(3, 3);
 		MapLine testLine = new MapLine(1, new DefenitionTags(), points);
 		MapBounds testArea = new MapBounds(0, 5, 0, 5);
 		assertTrue(testLine.isVisibleInArea(testArea));

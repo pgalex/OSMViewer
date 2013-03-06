@@ -1,7 +1,7 @@
 package com.osmviewer.rendering;
 
 import java.awt.geom.Point2D;
-import com.osmviewer.mapDefenitionUtilities.MapPosition;
+import com.osmviewer.mapDefenitionUtilities.Location;
 
 /**
  * Realization of mercator spheric projection
@@ -22,7 +22,7 @@ public class MercatorSphericProjection
 	 * @param scale scale using in converting
 	 * @return position of point in mercator projection
 	 */
-	public static Point2D geographicsToMercator(MapPosition positionOnMap, double scale)
+	public static Point2D geographicsToMercator(Location positionOnMap, double scale)
 	{
 		double c = scale * EARTH_EQUATOR_RADIUS_IN_METERS;
 
@@ -40,13 +40,13 @@ public class MercatorSphericProjection
 	 * @param scale scale using in converting
 	 * @return position of point in mercator projection
 	 */
-	public static MapPosition mercatorToGeographics(Point2D pointInMercator, double scale)
+	public static Location mercatorToGeographics(Point2D pointInMercator, double scale)
 	{
 		double c = scale * EARTH_EQUATOR_RADIUS_IN_METERS;
 
 		double longitude = Math.toDegrees(pointInMercator.getX() / c);
 		double latitude = Math.toDegrees(2 * Math.atan(Math.pow(Math.E, pointInMercator.getY() / c)) - Math.PI / 2);
 
-		return new MapPosition(latitude, longitude);
+		return new Location(latitude, longitude);
 	}
 }

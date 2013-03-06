@@ -1,6 +1,6 @@
 package com.osmviewer.rendering;
 
-import com.osmviewer.mapDefenitionUtilities.MapPosition;
+import com.osmviewer.mapDefenitionUtilities.Location;
 
 /**
  * Point-like map object that can be render
@@ -14,5 +14,5 @@ public interface RenderableMapPoint extends RenderableMapObject
 	 *
 	 * @return position on a map
 	 */
-	public MapPosition getPosition();
+	public Location getPosition();
 }

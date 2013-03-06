@@ -9,7 +9,7 @@ import com.osmviewer.drawingStyles.DrawSettingsViewer;
 import com.osmviewer.map.onlineMap.OnlineMap;
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
-import com.osmviewer.mapDefenitionUtilities.MapPosition;
+import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.mapDefenitionUtilities.Tag;
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -37,25 +37,25 @@ public class OnlineMapTest
 		style1.setCanBePolygon();
 		style1.setDefenitionTags(someTags);
 
-		MapPosition[] somePoints = new MapPosition[4];
-		somePoints[0] = new MapPosition(1, 2);
-		somePoints[1] = new MapPosition(3, 4);
-		somePoints[2] = new MapPosition(5, 6);
+		Location[] somePoints = new Location[4];
+		somePoints[0] = new Location(1, 2);
+		somePoints[1] = new Location(3, 4);
+		somePoints[2] = new Location(5, 6);
 		somePoints[3] = somePoints[0];
 
 		MapLine line1 = new MapLine(0, someTags, somePoints);
 		line1.setDrawSettings(style1);
 
-		MapPoint point1 = new MapPoint(new MapPosition(), 1, someTags);
+		MapPoint point1 = new MapPoint(new Location(), 1, someTags);
 		point1.setDrawSettings(style1);
 
 		MapPolygon polygon1 = new MapPolygon(0, someTags, somePoints);
 		polygon1.setDrawSettings(style1);
 
-		MapPoint point2 = new MapPoint(new MapPosition(), 1, someTags);
+		MapPoint point2 = new MapPoint(new Location(), 1, someTags);
 		point2.setDrawSettings(style1);
 
-		MapPoint point3 = new MapPoint(new MapPosition(), 1, someTags);
+		MapPoint point3 = new MapPoint(new Location(), 1, someTags);
 		point3.setDrawSettings(style1);
 
 		OnlineMap testMap = new OnlineMap();

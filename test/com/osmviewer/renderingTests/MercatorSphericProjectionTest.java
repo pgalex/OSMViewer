@@ -1,7 +1,7 @@
 package com.osmviewer.renderingTests;
 
 import java.awt.geom.Point2D;
-import com.osmviewer.mapDefenitionUtilities.MapPosition;
+import com.osmviewer.mapDefenitionUtilities.Location;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import com.osmviewer.rendering.MercatorSphericProjection;
@@ -20,10 +20,10 @@ public class MercatorSphericProjectionTest
 	 * @param pPositionOnMap position of point on map
 	 * @param pScale scale using in test
 	 */
-	private void testByReconverting(MapPosition pPositionOnMap, double pScale)
+	private void testByReconverting(Location pPositionOnMap, double pScale)
 	{
 		Point2D pointInMercator = MercatorSphericProjection.geographicsToMercator(pPositionOnMap, pScale);
-		MapPosition reconvertedPoint = MercatorSphericProjection.mercatorToGeographics(pointInMercator, pScale);
+		Location reconvertedPoint = MercatorSphericProjection.mercatorToGeographics(pointInMercator, pScale);
 
 		assertEquals(pPositionOnMap.getLatitude(), reconvertedPoint.getLatitude(), 0.000001);
 		assertEquals(pPositionOnMap.getLongitude(), reconvertedPoint.getLongitude(), 0.000001);
@@ -34,7 +34,7 @@ public class MercatorSphericProjectionTest
 	 *
 	 * @param pPositionOnMap
 	 */
-	private void testReconvertingWithDifferentScales(MapPosition pPositionOnMap)
+	private void testReconvertingWithDifferentScales(Location pPositionOnMap)
 	{
 		testByReconverting(pPositionOnMap, 1.2);
 		testByReconverting(pPositionOnMap, 1.0);
@@ -48,7 +48,7 @@ public class MercatorSphericProjectionTest
 	@Test
 	public void reconvertingZeroPointTest()
 	{
-		testReconvertingWithDifferentScales(new MapPosition(0, 0));
+		testReconvertingWithDifferentScales(new Location(0, 0));
 	}
 
 	/**
@@ -57,7 +57,7 @@ public class MercatorSphericProjectionTest
 	@Test
 	public void reconvertingNorthEastTest()
 	{
-		testReconvertingWithDifferentScales(new MapPosition(45, 45));
+		testReconvertingWithDifferentScales(new Location(45, 45));
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class MercatorSphericProjectionTest
 	@Test
 	public void reconvertingNorthWestTest()
 	{
-		testReconvertingWithDifferentScales(new MapPosition(45, -45));
+		testReconvertingWithDifferentScales(new Location(45, -45));
 	}
 
 	/**
@@ -75,7 +75,7 @@ public class MercatorSphericProjectionTest
 	@Test
 	public void reconvertingSouthWestTest()
 	{
-		testReconvertingWithDifferentScales(new MapPosition(-45, -45));
+		testReconvertingWithDifferentScales(new Location(-45, -45));
 	}
 
 	/**
@@ -84,6 +84,6 @@ public class MercatorSphericProjectionTest
 	@Test
 	public void reconvertingSouthEastTest()
 	{
-		testReconvertingWithDifferentScales(new MapPosition(-45, 45));
+		testReconvertingWithDifferentScales(new Location(-45, 45));
 	}
 }

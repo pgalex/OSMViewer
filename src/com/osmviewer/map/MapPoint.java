@@ -2,7 +2,7 @@ package com.osmviewer.map;
 
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
-import com.osmviewer.mapDefenitionUtilities.MapPosition;
+import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
 import com.osmviewer.rendering.RenderableMapObjectsVisitor;
 import com.osmviewer.rendering.RenderableMapPoint;
@@ -18,7 +18,7 @@ public class MapPoint extends MapObject implements RenderableMapPoint
 	/**
 	 * Position of object on a map (spheric coords)
 	 */
-	private MapPosition position;
+	private Location position;
 
 	/**
 	 * Create with parameters
@@ -28,7 +28,7 @@ public class MapPoint extends MapObject implements RenderableMapPoint
 	 * @param pointDefenitionTags defenition tags
 	 * @throws IllegalArgumentException position is null
 	 */
-	public MapPoint(MapPosition pointPosition, long pointId, DefenitionTags pointDefenitionTags) throws IllegalArgumentException
+	public MapPoint(Location pointPosition, long pointId, DefenitionTags pointDefenitionTags) throws IllegalArgumentException
 	{
 		super(pointId, pointDefenitionTags);
 
@@ -64,7 +64,7 @@ public class MapPoint extends MapObject implements RenderableMapPoint
 	 * @return position on a map
 	 */
 	@Override
-	public MapPosition getPosition()
+	public Location getPosition()
 	{
 		return position;
 	}

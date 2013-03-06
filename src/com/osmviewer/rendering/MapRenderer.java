@@ -6,7 +6,7 @@ import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
-import com.osmviewer.mapDefenitionUtilities.MapPosition;
+import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.rendering.selectng.SelectingBuffer;
 
 /**
@@ -27,7 +27,7 @@ public class MapRenderer implements CoordinatesConverter
 	/**
 	 * Current view position. Center point of rendering area of a map
 	 */
-	private MapPosition viewPosition;
+	private Location viewPosition;
 	/**
 	 * Current rendering scale level
 	 */
@@ -80,7 +80,7 @@ public class MapRenderer implements CoordinatesConverter
 		}
 
 		targetCanvasDrawingArea = DEFAULT_DRAWING_AREA;
-		viewPosition = new MapPosition();
+		viewPosition = new Location();
 
 		scaleLevel = startScaleLevel;
 		minimumScaleLevel = renderingMinimumScaleLevel;
@@ -126,7 +126,7 @@ public class MapRenderer implements CoordinatesConverter
 	 * area
 	 * @throws IllegalArgumentException viewPositionToSet is null
 	 */
-	public void setViewPosition(MapPosition viewPositionToSet) throws IllegalArgumentException
+	public void setViewPosition(Location viewPositionToSet) throws IllegalArgumentException
 	{
 		if (viewPositionToSet == null)
 		{
@@ -141,7 +141,7 @@ public class MapRenderer implements CoordinatesConverter
 	 *
 	 * @return current view position
 	 */
-	public MapPosition getViewPosition()
+	public Location getViewPosition()
 	{
 		return viewPosition;
 	}
@@ -181,8 +181,8 @@ public class MapRenderer implements CoordinatesConverter
 	 */
 	public MapBounds getViewArea()
 	{
-		MapPosition positionOfTopLeft = canvasToGeographics(new Point2D.Double(targetCanvasDrawingArea.getMinX(), targetCanvasDrawingArea.getMinY()));
-		MapPosition positionOfBottomRight = canvasToGeographics(new Point2D.Double(targetCanvasDrawingArea.getMaxX(), targetCanvasDrawingArea.getMaxY()));
+		Location positionOfTopLeft = canvasToGeographics(new Point2D.Double(targetCanvasDrawingArea.getMinX(), targetCanvasDrawingArea.getMinY()));
+		Location positionOfBottomRight = canvasToGeographics(new Point2D.Double(targetCanvasDrawingArea.getMaxX(), targetCanvasDrawingArea.getMaxY()));
 
 		return new MapBounds(positionOfTopLeft.getLatitude(), positionOfBottomRight.getLatitude(),
 						positionOfTopLeft.getLongitude(), positionOfBottomRight.getLongitude());
@@ -342,7 +342,7 @@ public class MapRenderer implements CoordinatesConverter
 	 * @throws IllegalArgumentException positionOnMap is null
 	 */
 	@Override
-	public Point2D goegraphicsToCanvas(MapPosition positionOnMap) throws IllegalArgumentException
+	public Point2D goegraphicsToCanvas(Location positionOnMap) throws IllegalArgumentException
 	{
 		if (positionOnMap == null)
 		{
@@ -370,7 +370,7 @@ public class MapRenderer implements CoordinatesConverter
 	 * @throws IllegalArgumentException positionOnCanvas is null
 	 */
 	@Override
-	public MapPosition canvasToGeographics(Point2D positionOnCanvas) throws IllegalArgumentException
+	public Location canvasToGeographics(Point2D positionOnCanvas) throws IllegalArgumentException
 	{
 		if (positionOnCanvas == null)
 		{

@@ -3,7 +3,7 @@ package com.osmviewer.mapTests;
 import com.osmviewer.map.MapPoint;
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
-import com.osmviewer.mapDefenitionUtilities.MapPosition;
+import com.osmviewer.mapDefenitionUtilities.Location;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -22,7 +22,7 @@ public class MapPointTest
 	{
 		try
 		{
-			MapPoint testPoint = new MapPoint(new MapPosition(), 12, new DefenitionTags());
+			MapPoint testPoint = new MapPoint(new Location(), 12, new DefenitionTags());
 			testPoint.determineDrawPriotity();
 			fail();
 		}
@@ -38,7 +38,7 @@ public class MapPointTest
 	@Test
 	public void determiningDrawPriorityNormalWorkTest()
 	{
-		MapPoint testPoint = new MapPoint(new MapPosition(), 12, new DefenitionTags());
+		MapPoint testPoint = new MapPoint(new Location(), 12, new DefenitionTags());
 		TestRenderableMapObjectDrawSettings testDawSettings = new TestRenderableMapObjectDrawSettings();
 		testDawSettings.pointDrawPriority = 5;
 		testPoint.setDrawSettings(testDawSettings);
@@ -71,7 +71,7 @@ public class MapPointTest
 	{
 		try
 		{
-			MapPoint testPoint = new MapPoint(new MapPosition(), 12, null);
+			MapPoint testPoint = new MapPoint(new Location(), 12, null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -88,7 +88,7 @@ public class MapPointTest
 	{
 		try
 		{
-			MapPoint testPoint = new MapPoint(new MapPosition(), 12, new DefenitionTags());
+			MapPoint testPoint = new MapPoint(new Location(), 12, new DefenitionTags());
 			testPoint.acceptRenderingVisitor(null);
 			fail();
 		}
@@ -106,7 +106,7 @@ public class MapPointTest
 	{
 		try
 		{
-			MapPoint testPoint = new MapPoint(new MapPosition(0, 0), 0, new DefenitionTags());
+			MapPoint testPoint = new MapPoint(new Location(0, 0), 0, new DefenitionTags());
 			testPoint.isVisibleInArea(null);
 			fail();
 		}
@@ -122,7 +122,7 @@ public class MapPointTest
 	@Test
 	public void isVisibleInZeroAreaTest()
 	{
-		MapPoint testPoint = new MapPoint(new MapPosition(5, 5), 0, new DefenitionTags());
+		MapPoint testPoint = new MapPoint(new Location(5, 5), 0, new DefenitionTags());
 		MapBounds testArea = new MapBounds(5, 5, 5, 5);
 		assertFalse(testPoint.isVisibleInArea(testArea));
 	}
@@ -133,7 +133,7 @@ public class MapPointTest
 	@Test
 	public void isVisiblePointInAreaMoreThanZeroTest()
 	{
-		MapPoint testPoint = new MapPoint(new MapPosition(5, 5), 0, new DefenitionTags());
+		MapPoint testPoint = new MapPoint(new Location(5, 5), 0, new DefenitionTags());
 		MapBounds testArea = new MapBounds(3, 8, 3, 8);
 		assertTrue(testPoint.isVisibleInArea(testArea));
 	}
@@ -144,7 +144,7 @@ public class MapPointTest
 	@Test
 	public void isVisiblePointInAreaLessThanZeroTest()
 	{
-		MapPoint testPoint = new MapPoint(new MapPosition(-5, -5), 0, new DefenitionTags());
+		MapPoint testPoint = new MapPoint(new Location(-5, -5), 0, new DefenitionTags());
 		MapBounds testArea = new MapBounds(-6, -4, -6, -4);
 		assertTrue(testPoint.isVisibleInArea(testArea));
 	}
@@ -155,7 +155,7 @@ public class MapPointTest
 	@Test
 	public void isVisiblePointOnMinimumCornerTest()
 	{
-		MapPoint testPoint = new MapPoint(new MapPosition(3, 4), 0, new DefenitionTags());
+		MapPoint testPoint = new MapPoint(new Location(3, 4), 0, new DefenitionTags());
 		MapBounds testArea = new MapBounds(3, 5, 4, 7);
 		assertTrue(testPoint.isVisibleInArea(testArea));
 	}
@@ -166,7 +166,7 @@ public class MapPointTest
 	@Test
 	public void isVisiblePointOnMaximumCornerTest()
 	{
-		MapPoint testPoint = new MapPoint(new MapPosition(5, 7), 0, new DefenitionTags());
+		MapPoint testPoint = new MapPoint(new Location(5, 7), 0, new DefenitionTags());
 		MapBounds testArea = new MapBounds(3, 5, 4, 7);
 		assertFalse(testPoint.isVisibleInArea(testArea));
 	}
@@ -177,7 +177,7 @@ public class MapPointTest
 	@Test
 	public void isVisiblePointNotInAreaMoreThanZeroTest()
 	{
-		MapPoint testPoint = new MapPoint(new MapPosition(2, 10), 0, new DefenitionTags());
+		MapPoint testPoint = new MapPoint(new Location(2, 10), 0, new DefenitionTags());
 		MapBounds testArea = new MapBounds(3, 8, 3, 8);
 		assertFalse(testPoint.isVisibleInArea(testArea));
 	}
@@ -188,7 +188,7 @@ public class MapPointTest
 	@Test
 	public void isVisiblePointNotInAreaLessThanZeroTest()
 	{
-		MapPoint testPoint = new MapPoint(new MapPosition(-7, -7), 0, new DefenitionTags());
+		MapPoint testPoint = new MapPoint(new Location(-7, -7), 0, new DefenitionTags());
 		MapBounds testArea = new MapBounds(-6, -4, -6, -4);
 		assertFalse(testPoint.isVisibleInArea(testArea));
 	}

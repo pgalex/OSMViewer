@@ -5,7 +5,7 @@ import com.osmviewer.drawingStyles.StandartMapObjectDrawSettings;
 import com.osmviewer.forms.MapObjectInformationDialog;
 import java.awt.Dialog;
 import com.osmviewer.map.MapPoint;
-import com.osmviewer.mapDefenitionUtilities.MapPosition;
+import com.osmviewer.mapDefenitionUtilities.Location;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -43,7 +43,7 @@ public class MapObjectInformationDialogTest
 		try
 		{
 			MapObjectInformationDialog dialog = new MapObjectInformationDialog(null, Dialog.ModalityType.MODELESS);
-			MapPoint someMapObject = new MapPoint(new MapPosition(), 0, new DefenitionTags());
+			MapPoint someMapObject = new MapPoint(new Location(), 0, new DefenitionTags());
 			StandartMapObjectDrawSettings someDrawSettings = new StandartMapObjectDrawSettings();
 			dialog.showMapObjectInformation(someMapObject, null);
 			fail();

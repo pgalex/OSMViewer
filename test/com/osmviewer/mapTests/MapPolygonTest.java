@@ -3,7 +3,7 @@ package com.osmviewer.mapTests;
 import com.osmviewer.map.MapPolygon;
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
-import com.osmviewer.mapDefenitionUtilities.MapPosition;
+import com.osmviewer.mapDefenitionUtilities.Location;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -22,10 +22,10 @@ public class MapPolygonTest
 	{
 		try
 		{
-			MapPosition[] points = new MapPosition[4];
-			points[0] = new MapPosition(1, 2);
-			points[1] = new MapPosition(2, 3);
-			points[2] = new MapPosition(5, 6);
+			Location[] points = new Location[4];
+			points[0] = new Location(1, 2);
+			points[1] = new Location(2, 3);
+			points[2] = new Location(5, 6);
 			points[3] = points[0];
 			MapPolygon polygon = new MapPolygon(0, new DefenitionTags(), points);
 			polygon.determineDrawPriotity();
@@ -43,10 +43,10 @@ public class MapPolygonTest
 	@Test
 	public void determiningDrawPriorityNormalWorkTest()
 	{
-		MapPosition[] points = new MapPosition[4];
-		points[0] = new MapPosition(1, 2);
-		points[1] = new MapPosition(2, 3);
-		points[2] = new MapPosition(5, 6);
+		Location[] points = new Location[4];
+		points[0] = new Location(1, 2);
+		points[1] = new Location(2, 3);
+		points[2] = new Location(5, 6);
 		points[3] = points[0];
 		MapPolygon polygon = new MapPolygon(0, new DefenitionTags(), points);
 
@@ -65,10 +65,10 @@ public class MapPolygonTest
 	{
 		try
 		{
-			MapPosition[] points = new MapPosition[4];
-			points[0] = new MapPosition(1, 2);
-			points[1] = new MapPosition(2, 3);
-			points[2] = new MapPosition(5, 6);
+			Location[] points = new Location[4];
+			points[0] = new Location(1, 2);
+			points[1] = new Location(2, 3);
+			points[2] = new Location(5, 6);
 			points[3] = points[0];
 			MapPolygon polygon = new MapPolygon(0, new DefenitionTags(), points);
 			polygon.getPoint(-1);
@@ -88,10 +88,10 @@ public class MapPolygonTest
 	{
 		try
 		{
-			MapPosition[] points = new MapPosition[4];
-			points[0] = new MapPosition(1, 2);
-			points[1] = new MapPosition(2, 3);
-			points[2] = new MapPosition(5, 6);
+			Location[] points = new Location[4];
+			points[0] = new Location(1, 2);
+			points[1] = new Location(2, 3);
+			points[2] = new Location(5, 6);
 			points[3] = points[0];
 			MapPolygon polygon = new MapPolygon(0, new DefenitionTags(), points);
 			polygon.getPoint(points.length);
@@ -111,10 +111,10 @@ public class MapPolygonTest
 	{
 		try
 		{
-			MapPosition[] points = new MapPosition[4];
-			points[0] = new MapPosition(1, 2);
-			points[1] = new MapPosition(2, 3);
-			points[2] = new MapPosition(5, 6);
+			Location[] points = new Location[4];
+			points[0] = new Location(1, 2);
+			points[1] = new Location(2, 3);
+			points[2] = new Location(5, 6);
 			points[3] = points[0];
 			MapPolygon polygon = new MapPolygon(0, null, points);
 			fail();
@@ -150,10 +150,10 @@ public class MapPolygonTest
 	{
 		try
 		{
-			MapPosition[] points = new MapPosition[3];
-			points[0] = new MapPosition(1, 2);
-			points[1] = new MapPosition(2, 3);
-			points[2] = new MapPosition(3, 4);
+			Location[] points = new Location[3];
+			points[0] = new Location(1, 2);
+			points[1] = new Location(2, 3);
+			points[2] = new Location(3, 4);
 			MapPolygon polygon = new MapPolygon(0, new DefenitionTags(), points);
 			fail();
 		}
@@ -171,11 +171,11 @@ public class MapPolygonTest
 	{
 		try
 		{
-			MapPosition[] points = new MapPosition[4];
-			points[0] = new MapPosition(1, 2);
-			points[1] = new MapPosition(2, 3);
-			points[2] = new MapPosition(3, 4);
-			points[3] = new MapPosition(5, 6);
+			Location[] points = new Location[4];
+			points[0] = new Location(1, 2);
+			points[1] = new Location(2, 3);
+			points[2] = new Location(3, 4);
+			points[3] = new Location(5, 6);
 			MapPolygon polygon = new MapPolygon(0, new DefenitionTags(), points);
 			fail();
 		}
@@ -193,8 +193,8 @@ public class MapPolygonTest
 	{
 		try
 		{
-			MapPosition[] points = new MapPosition[4];
-			points[0] = new MapPosition(1, 2);
+			Location[] points = new Location[4];
+			points[0] = new Location(1, 2);
 			points[1] = null;
 			points[2] = null;
 			points[3] = points[0];
@@ -215,10 +215,10 @@ public class MapPolygonTest
 	{
 		try
 		{
-			MapPosition[] points = new MapPosition[4];
-			points[0] = new MapPosition(1, 2);
-			points[1] = new MapPosition(2, 3);
-			points[2] = new MapPosition(5, 6);
+			Location[] points = new Location[4];
+			points[0] = new Location(1, 2);
+			points[1] = new Location(2, 3);
+			points[2] = new Location(5, 6);
 			points[3] = points[0];
 			MapPolygon polygon = new MapPolygon(0, new DefenitionTags(), points);
 			polygon.acceptRenderingVisitor(null);
@@ -238,10 +238,10 @@ public class MapPolygonTest
 	{
 		try
 		{
-			MapPosition[] points = new MapPosition[4];
-			points[0] = new MapPosition(-1, -2);
-			points[1] = new MapPosition(1, 0);
-			points[2] = new MapPosition(3, 3);
+			Location[] points = new Location[4];
+			points[0] = new Location(-1, -2);
+			points[1] = new Location(1, 0);
+			points[2] = new Location(3, 3);
 			points[3] = points[0];
 			MapPolygon testPolygon = new MapPolygon(1, new DefenitionTags(), points);
 			testPolygon.isVisibleInArea(null);
@@ -259,10 +259,10 @@ public class MapPolygonTest
 	@Test
 	public void isVisibleAllPointsInAreaTest()
 	{
-		MapPosition[] points = new MapPosition[4];
-		points[0] = new MapPosition(-1, -2);
-		points[1] = new MapPosition(1, 0);
-		points[2] = new MapPosition(3, 3);
+		Location[] points = new Location[4];
+		points[0] = new Location(-1, -2);
+		points[1] = new Location(1, 0);
+		points[2] = new Location(3, 3);
 		points[3] = points[0];
 		MapPolygon testPolygon = new MapPolygon(1, new DefenitionTags(), points);
 		MapBounds testArea = new MapBounds(-5, 5, -5, 5);
@@ -275,11 +275,11 @@ public class MapPolygonTest
 	@Test
 	public void isVisibleSomePointsInAreaTest()
 	{
-		MapPosition[] points = new MapPosition[5];
-		points[0] = new MapPosition(-1, -2);
-		points[1] = new MapPosition(1, 0);
-		points[2] = new MapPosition(3, 3);
-		points[3] = new MapPosition(7, 7);
+		Location[] points = new Location[5];
+		points[0] = new Location(-1, -2);
+		points[1] = new Location(1, 0);
+		points[2] = new Location(3, 3);
+		points[3] = new Location(7, 7);
 		points[4] = points[0];
 		MapPolygon testPolygon = new MapPolygon(1, new DefenitionTags(), points);
 		MapBounds testArea = new MapBounds(0, 5, 0, 5);
@@ -294,13 +294,13 @@ public class MapPolygonTest
 	@Test
 	public void isVisiblePointsSurroundsAreaNotIntersectTest()
 	{
-		MapPosition[] points = new MapPosition[7];
-		points[0] = new MapPosition(0, 9);
-		points[1] = new MapPosition(9, 9);
-		points[2] = new MapPosition(9, 0);
-		points[3] = new MapPosition(7, 0);
-		points[4] = new MapPosition(7, 7);
-		points[5] = new MapPosition(0, 7);
+		Location[] points = new Location[7];
+		points[0] = new Location(0, 9);
+		points[1] = new Location(9, 9);
+		points[2] = new Location(9, 0);
+		points[3] = new Location(7, 0);
+		points[4] = new Location(7, 7);
+		points[5] = new Location(0, 7);
 		points[6] = points[0];
 		MapPolygon testPolygon = new MapPolygon(1, new DefenitionTags(), points);
 		MapBounds testArea = new MapBounds(0, 5, 0, 5);

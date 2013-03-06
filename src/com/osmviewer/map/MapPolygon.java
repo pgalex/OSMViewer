@@ -2,7 +2,7 @@ package com.osmviewer.map;
 
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
-import com.osmviewer.mapDefenitionUtilities.MapPosition;
+import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
 import com.osmviewer.rendering.RenderableMapObjectsVisitor;
 import com.osmviewer.rendering.RenderableMapPolygon;
@@ -37,7 +37,7 @@ public class MapPolygon extends MapObject implements RenderableMapPolygon
 	 * @throws IllegalArgumentException polygonPoints null, contains less than 4
 	 * elements, contains null elements, or last point not same as first
 	 */
-	public MapPolygon(long polygonId, DefenitionTags polygonDefenitionTags, MapPosition[] polygonPoints) throws IllegalArgumentException
+	public MapPolygon(long polygonId, DefenitionTags polygonDefenitionTags, Location[] polygonPoints) throws IllegalArgumentException
 	{
 		super(polygonId, polygonDefenitionTags);
 
@@ -82,7 +82,7 @@ public class MapPolygon extends MapObject implements RenderableMapPolygon
 	 * @param polygonPoints points for testing
 	 * @return is points array correct
 	 */
-	private boolean isPolygonPointsCorrect(MapPosition[] polygonPoints)
+	private boolean isPolygonPointsCorrect(Location[] polygonPoints)
 	{
 		if (polygonPoints == null)
 		{
@@ -130,7 +130,7 @@ public class MapPolygon extends MapObject implements RenderableMapPolygon
 	 * count
 	 */
 	@Override
-	public MapPosition getPoint(int index) throws IllegalArgumentException
+	public Location getPoint(int index) throws IllegalArgumentException
 	{
 		if (index < 0 || index >= polygon.getNumPoints())
 		{
@@ -138,7 +138,7 @@ public class MapPolygon extends MapObject implements RenderableMapPolygon
 		}
 
 		Coordinate coordinateByIndex = polygon.getCoordinates()[index];
-		return new MapPosition(coordinateByIndex.x, coordinateByIndex.y);
+		return new Location(coordinateByIndex.x, coordinateByIndex.y);
 	}
 
 	/**

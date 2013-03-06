@@ -1,7 +1,7 @@
 package com.osmviewer.renderingTests;
 
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
-import com.osmviewer.mapDefenitionUtilities.MapPosition;
+import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
 import com.osmviewer.rendering.RenderableMapObjectsVisitor;
 import com.osmviewer.rendering.RenderableMapPoint;
@@ -17,9 +17,9 @@ public class TestRenderableMapPoint implements RenderableMapPoint
 	public RenderableMapObjectDrawSettings drawSettings;
 
 	@Override
-	public MapPosition getPosition()
+	public Location getPosition()
 	{
-		return new MapPosition();
+		return new Location();
 	}
 	
 	@Override

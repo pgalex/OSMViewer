@@ -2,7 +2,7 @@ package com.osmviewer.map;
 
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
-import com.osmviewer.mapDefenitionUtilities.MapPosition;
+import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.rendering.RenderableMapLine;
 import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
 import com.osmviewer.rendering.RenderableMapObjectsVisitor;
@@ -38,7 +38,7 @@ public class MapLine extends MapObject implements RenderableMapLine
 	 * @throws IllegalArgumentException linePoints, null, contains less than 2
 	 * elements or contains null elements
 	 */
-	public MapLine(long lineId, DefenitionTags lineDefenitionTags, MapPosition[] linePoints) throws IllegalArgumentException
+	public MapLine(long lineId, DefenitionTags lineDefenitionTags, Location[] linePoints) throws IllegalArgumentException
 	{
 		super(lineId, lineDefenitionTags);
 
@@ -64,7 +64,7 @@ public class MapLine extends MapObject implements RenderableMapLine
 	 * @param linePoints points for testing
 	 * @return is points array correct
 	 */
-	private boolean isLinePointsCorrect(MapPosition[] linePoints)
+	private boolean isLinePointsCorrect(Location[] linePoints)
 	{
 		if (linePoints == null)
 		{
@@ -125,7 +125,7 @@ public class MapLine extends MapObject implements RenderableMapLine
 	 * count
 	 */
 	@Override
-	public MapPosition getPoint(int index) throws IllegalArgumentException
+	public Location getPoint(int index) throws IllegalArgumentException
 	{
 		if (index < 0 || index >= lineString.getNumPoints())
 		{
@@ -133,7 +133,7 @@ public class MapLine extends MapObject implements RenderableMapLine
 		}
 
 		Coordinate coordinateByIndex = lineString.getCoordinateN(index);
-		return new MapPosition(coordinateByIndex.x, coordinateByIndex.y);
+		return new Location(coordinateByIndex.x, coordinateByIndex.y);
 	}
 
 	/**

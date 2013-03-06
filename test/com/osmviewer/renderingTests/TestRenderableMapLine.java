@@ -1,7 +1,7 @@
 package com.osmviewer.renderingTests;
 
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
-import com.osmviewer.mapDefenitionUtilities.MapPosition;
+import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.rendering.RenderableMapLine;
 import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
 import com.osmviewer.rendering.RenderableMapObjectsVisitor;
@@ -24,10 +24,10 @@ public class TestRenderableMapLine implements RenderableMapLine
 	}
 	
 	@Override
-	public MapPosition getPoint(int index) throws IllegalArgumentException
+	public Location getPoint(int index) throws IllegalArgumentException
 	{
 		Random random = new Random();
-		return new MapPosition(random.nextDouble(), random.nextDouble());
+		return new Location(random.nextDouble(), random.nextDouble());
 	}
 	
 	@Override

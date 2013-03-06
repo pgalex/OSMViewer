@@ -1,7 +1,7 @@
 package com.osmviewer.rendering;
 
 import java.awt.geom.Point2D;
-import com.osmviewer.mapDefenitionUtilities.MapPosition;
+import com.osmviewer.mapDefenitionUtilities.Location;
 
 /**
  * Object that can be using to convert coordinates by its view parameters
@@ -17,7 +17,7 @@ public interface CoordinatesConverter
 	 * @return position of point on drawing canvas in pixels
 	 * @throws IllegalArgumentException positionOnMap is null
 	 */
-	public Point2D goegraphicsToCanvas(MapPosition positionOnMap) throws IllegalArgumentException;
+	public Point2D goegraphicsToCanvas(Location positionOnMap) throws IllegalArgumentException;
 
 	/**
 	 * Convert point on drawing canvas to point on a map
@@ -26,5 +26,5 @@ public interface CoordinatesConverter
 	 * @return position of point on map in geographics coordinates
 	 * @throws IllegalArgumentException positionOnCanvas is null
 	 */
-	public MapPosition canvasToGeographics(Point2D positionOnCanvas) throws IllegalArgumentException;
+	public Location canvasToGeographics(Point2D positionOnCanvas) throws IllegalArgumentException;
 }

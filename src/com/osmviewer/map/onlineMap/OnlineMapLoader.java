@@ -9,7 +9,7 @@ import com.osmviewer.map.exceptions.ConnectionErrorException;
 import com.osmviewer.map.exceptions.ReadingFromServerErrorException;
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
-import com.osmviewer.mapDefenitionUtilities.MapPosition;
+import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.mapDefenitionUtilities.Tag;
 import com.osmviewer.osmXml.OsmNode;
 import com.osmviewer.osmXml.OsmTag;
@@ -170,7 +170,7 @@ public class OnlineMapLoader implements OsmXmlParsingHandler
 
 		ArrayList<Long> nodesIds = way.getNodesIds();
 		DefenitionTags creatingObjectTags = createDefentionTagsByOsmTags(way.getTags());
-		MapPosition[] objectPoints = findPointsInOsmNodes(nodesIds, nodes);
+		Location[] objectPoints = findPointsInOsmNodes(nodesIds, nodes);
 		if (nodesIds.isEmpty() || objectPoints.length == 0 || creatingObjectTags == null)
 		{
 			return null;
@@ -200,18 +200,18 @@ public class OnlineMapLoader implements OsmXmlParsingHandler
 	 * @return array of point for map line or map polygon. Empty if one or more
 	 * points not founded
 	 */
-	protected MapPosition[] findPointsInOsmNodes(ArrayList<Long> nodesIds, ArrayList<OsmNode> nodes)
+	protected Location[] findPointsInOsmNodes(ArrayList<Long> nodesIds, ArrayList<OsmNode> nodes)
 	{
 		if (nodesIds == null || nodes == null)
 		{
-			return new MapPosition[0];
+			return new Location[0];
 		}
 		if (nodesIds.isEmpty() || nodes.isEmpty())
 		{
-			return new MapPosition[0];
+			return new Location[0];
 		}
 
-		MapPosition[] foundPoints = new MapPosition[nodesIds.size()];
+		Location[] foundPoints = new Location[nodesIds.size()];
 		boolean allNodesFounds = true;
 		for (int i = 0; i < nodesIds.size(); i++)
 		{
@@ -221,7 +221,7 @@ public class OnlineMapLoader implements OsmXmlParsingHandler
 			{
 				if (osmNode.getId() == nodesIds.get(i))
 				{
-					foundPoints[i] = new MapPosition(osmNode.getLatitude(), osmNode.getLongitude());
+					foundPoints[i] = new Location(osmNode.getLatitude(), osmNode.getLongitude());
 					nodeFound = true;
 					break;
 				}
@@ -239,7 +239,7 @@ public class OnlineMapLoader implements OsmXmlParsingHandler
 		}
 		else
 		{
-			return new MapPosition[0];
+			return new Location[0];
 		}
 	}
 
@@ -293,13 +293,13 @@ public class OnlineMapLoader implements OsmXmlParsingHandler
 
 		DefenitionTags creatingPointTags = createDefentionTagsByOsmTags(node.getTags());
 		// node without tag is not a MapPoint (can not be displayed), 
-		// it will be included in MapLine like MapPosition
+		// it will be included in MapLine like Location
 		if (creatingPointTags == null)
 		{
 			return null;
 		}
 
-		MapPoint creatingPoint = new MapPoint(new MapPosition(node.getLatitude(), node.getLongitude()),
+		MapPoint creatingPoint = new MapPoint(new Location(node.getLatitude(), node.getLongitude()),
 						node.getId(), creatingPointTags);
 
 		return creatingPoint;

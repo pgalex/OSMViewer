@@ -5,7 +5,7 @@ package com.osmviewer.mapDefenitionUtilities;
  *
  * @author pgalex
  */
-public class MapPosition
+public class Location
 {
 	/**
 	 * Latitude in degrees
@@ -19,7 +19,7 @@ public class MapPosition
 	/**
 	 * Create zero position
 	 */
-	public MapPosition()
+	public Location()
 	{
 		latitude = 0;
 		longitude = 0;
@@ -31,7 +31,7 @@ public class MapPosition
 	 * @param positionLatitude latitude in degrees
 	 * @param positionLongitude longitude in degrees
 	 */
-	public MapPosition(double positionLatitude, double positionLongitude)
+	public Location(double positionLatitude, double positionLongitude)
 	{
 		latitude = positionLatitude;
 		longitude = positionLongitude;
@@ -84,7 +84,7 @@ public class MapPosition
 	 * @return is position same
 	 * @throws IllegalArgumentException pointToCompare is null
 	 */
-	public boolean compareTo(MapPosition pointToCompare) throws IllegalArgumentException
+	public boolean compareTo(Location pointToCompare) throws IllegalArgumentException
 	{
 		if (pointToCompare == null)
 		{

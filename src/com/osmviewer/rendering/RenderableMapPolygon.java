@@ -1,6 +1,6 @@
 package com.osmviewer.rendering;
 
-import com.osmviewer.mapDefenitionUtilities.MapPosition;
+import com.osmviewer.mapDefenitionUtilities.Location;
 
 /**
  * Polygon-like map object that can be rendered
@@ -24,5 +24,5 @@ public interface RenderableMapPolygon extends RenderableMapObject
 	 * @throws IllegalArgumentException index is less than 0, or more than points
 	 * count
 	 */
-	public MapPosition getPoint(int index) throws IllegalArgumentException;
+	public Location getPoint(int index) throws IllegalArgumentException;
 }

@@ -4,7 +4,7 @@ import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
-import com.osmviewer.mapDefenitionUtilities.MapPosition;
+import com.osmviewer.mapDefenitionUtilities.Location;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import com.osmviewer.rendering.MapRenderer;
@@ -336,13 +336,13 @@ public class MapRendererTest
 	{
 		MapRenderer renderer = new MapRenderer(10, 18, 16);
 
-		renderer.setViewPosition(new MapPosition(0, 0));
+		renderer.setViewPosition(new Location(0, 0));
 		MapBounds viewAreaOnZero = renderer.getViewArea();
 
-		renderer.setViewPosition(new MapPosition(45, 45));
+		renderer.setViewPosition(new Location(45, 45));
 		MapBounds viewAreaMoreZero = renderer.getViewArea();
 
-		renderer.setViewPosition(new MapPosition(-45, -45));
+		renderer.setViewPosition(new Location(-45, -45));
 		MapBounds viewAreaLessZero = renderer.getViewArea();
 
 		assertTrue(viewAreaMoreZero.getLatitudeMinimum() > viewAreaOnZero.getLatitudeMinimum());
@@ -363,7 +363,7 @@ public class MapRendererTest
 	public void viewAreaDependesOnDrawingArea()
 	{
 		MapRenderer renderer = new MapRenderer(10, 18, 16);
-		renderer.setViewPosition(new MapPosition(0, 0));
+		renderer.setViewPosition(new Location(0, 0));
 
 		renderer.setTargetCanvasDrawingArea(new Rectangle(0, 0, 100, 100));
 		MapBounds areaOnBeforeChanging = renderer.getViewArea();
@@ -390,7 +390,7 @@ public class MapRendererTest
 	 *
 	 * @param pViewPosition view position using for test
 	 */
-	private void testConvertingViewPosition(MapPosition pViewPosition)
+	private void testConvertingViewPosition(Location pViewPosition)
 	{
 		MapRenderer renderer = new MapRenderer(10, 18, 14);
 
@@ -408,18 +408,18 @@ public class MapRendererTest
 	 *
 	 * @param pViewPosition view position using for test
 	 */
-	private void testConvertingViewArea(MapPosition pViewPosition)
+	private void testConvertingViewArea(Location pViewPosition)
 	{
 		MapRenderer renderer = new MapRenderer(10, 18, 12);
 
 		renderer.setTargetCanvasDrawingArea(new Rectangle(50, 40, 100, 90));
 		renderer.setViewPosition(pViewPosition);
 
-		MapPosition viewAreaLeftTop = new MapPosition(renderer.getViewArea().getLatitudeMinimum(),
+		Location viewAreaLeftTop = new Location(renderer.getViewArea().getLatitudeMinimum(),
 						renderer.getViewArea().getLongitudeMinimum());
 		Point2D viewAreaLeftTopOnCanvas = renderer.goegraphicsToCanvas(viewAreaLeftTop);
 
-		MapPosition viewAreaRightBottom = new MapPosition(renderer.getViewArea().getLatitudeMaximum(),
+		Location viewAreaRightBottom = new Location(renderer.getViewArea().getLatitudeMaximum(),
 						renderer.getViewArea().getLongitudeMaximum());
 		Point2D viewAreaRightBottomOnCanvas = renderer.goegraphicsToCanvas(viewAreaRightBottom);
 
@@ -439,8 +439,8 @@ public class MapRendererTest
 	@Test
 	public void convertingViewPositionMoreZeroToCanvas()
 	{
-		testConvertingViewPosition(new MapPosition(45, 45));
-		testConvertingViewArea(new MapPosition(45, 45));
+		testConvertingViewPosition(new Location(45, 45));
+		testConvertingViewArea(new Location(45, 45));
 	}
 
 	/**
@@ -450,8 +450,8 @@ public class MapRendererTest
 	@Test
 	public void convertingViewPositionZeroToCanvas()
 	{
-		testConvertingViewPosition(new MapPosition(0, 0));
-		testConvertingViewArea(new MapPosition(0, 0));
+		testConvertingViewPosition(new Location(0, 0));
+		testConvertingViewArea(new Location(0, 0));
 	}
 
 	/**
@@ -461,8 +461,8 @@ public class MapRendererTest
 	@Test
 	public void convertingViewPositionLessZeroToCanvas()
 	{
-		testConvertingViewPosition(new MapPosition(-45, -45));
-		testConvertingViewArea(new MapPosition(-45, -45));
+		testConvertingViewPosition(new Location(-45, -45));
+		testConvertingViewArea(new Location(-45, -45));
 	}
 
 	/**
@@ -471,12 +471,12 @@ public class MapRendererTest
 	 *
 	 * @param pPositionOnMap position of point on map
 	 */
-	private void testByReconverting(MapPosition pPositionOnMap)
+	private void testByReconverting(Location pPositionOnMap)
 	{
 		MapRenderer renderer = new MapRenderer(10, 18, 10);
 
 		Point2D pointOnCanvas = renderer.goegraphicsToCanvas(pPositionOnMap);
-		MapPosition reconvertedPointOnMap = renderer.canvasToGeographics(pointOnCanvas);
+		Location reconvertedPointOnMap = renderer.canvasToGeographics(pointOnCanvas);
 
 		assertEquals(pPositionOnMap.getLatitude(), reconvertedPointOnMap.getLatitude(), 0.000001);
 		assertEquals(pPositionOnMap.getLongitude(), reconvertedPointOnMap.getLongitude(), 0.000001);
@@ -488,7 +488,7 @@ public class MapRendererTest
 	@Test
 	public void convertingPointOnMapMoreZeroToCanvas()
 	{
-		testByReconverting(new MapPosition(45, 45));
+		testByReconverting(new Location(45, 45));
 	}
 
 	/**
@@ -497,7 +497,7 @@ public class MapRendererTest
 	@Test
 	public void convertingPointOnMapZeroToCanvas()
 	{
-		testByReconverting(new MapPosition(0, 0));
+		testByReconverting(new Location(0, 0));
 	}
 
 	/**
@@ -506,6 +506,6 @@ public class MapRendererTest
 	@Test
 	public void convertingPointOnMapLessZeroToCanvas()
 	{
-		testByReconverting(new MapPosition(-45, -45));
+		testByReconverting(new Location(-45, -45));
 	}
 }

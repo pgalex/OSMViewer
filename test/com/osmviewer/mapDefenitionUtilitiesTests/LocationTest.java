@@ -1,15 +1,15 @@
 package com.osmviewer.mapDefenitionUtilitiesTests;
 
-import com.osmviewer.mapDefenitionUtilities.MapPosition;
+import com.osmviewer.mapDefenitionUtilities.Location;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Tests of MapPosition class
+ * Tests of Location class
  *
  * @author pgalex
  */
-public class MapPositionTest
+public class LocationTest
 {
 	/**
 	 * Test comparing with null other position
@@ -19,7 +19,7 @@ public class MapPositionTest
 	{
 		try
 		{
-			MapPosition position = new MapPosition();
+			Location position = new Location();
 			position.compareTo(null);
 			fail();
 		}
@@ -35,8 +35,8 @@ public class MapPositionTest
 	@Test
 	public void comparingEqualPositionTest()
 	{
-		MapPosition position = new MapPosition(-2, 3);
-		assertTrue(position.compareTo(new MapPosition(-2.0, 3.0)));
+		Location position = new Location(-2, 3);
+		assertTrue(position.compareTo(new Location(-2.0, 3.0)));
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class MapPositionTest
 	@Test
 	public void comparingNotEqualPositionTest()
 	{
-		MapPosition position = new MapPosition(-2, 3);
-		assertFalse(position.compareTo(new MapPosition(-1.0, 2.0)));
+		Location position = new Location(-2, 3);
+		assertFalse(position.compareTo(new Location(-1.0, 2.0)));
 	}
 }

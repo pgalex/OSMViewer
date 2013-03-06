@@ -2,7 +2,7 @@ package com.osmviewer.forms;
 
 import com.osmviewer.drawingStyles.forms.EditDrawingStylesFrame;
 import com.osmviewer.map.onlineMap.MapController;
-import com.osmviewer.mapDefenitionUtilities.MapPosition;
+import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.rendering.RenderableMapObject;
 import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
 import java.awt.Dialog.ModalityType;
@@ -36,7 +36,7 @@ public class MainFrame extends javax.swing.JFrame
 	{
 		initComponents();
 
-		mapController = new MapController(new MapPosition(55.0905, 38.7788), 16,
+		mapController = new MapController(new Location(55.0905, 38.7788), 16,
 						jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
 
 		DrawingPanel drawingPanel = (DrawingPanel) jPanelCanvas;
