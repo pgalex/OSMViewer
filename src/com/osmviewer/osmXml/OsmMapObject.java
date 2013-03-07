@@ -66,4 +66,9 @@ public class OsmMapObject
 	{
 		return tags;
 	}
+	
+	public void addTag(OsmTag tagToAdd)
+	{
+		tags.add(tagToAdd);
+	}
 }

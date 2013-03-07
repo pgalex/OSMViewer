@@ -1,5 +1,8 @@
 package com.osmviewer.osmXml;
 
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+
 /**
  * Osm node (one point)
  *
@@ -22,9 +25,38 @@ public class OsmNode extends OsmMapObject
 	public OsmNode()
 	{
 		super();
-		
+
 		latitude = 0;
 		longitude = 0;
+	}
+
+	/**
+	 * Creating noe by xml attributes
+	 *
+	 * @param attributes node xml tag attributes
+	 * @throws IllegalArgumentException attributes is null
+	 * @throws SAXException error while parsing attributes
+	 */
+	public OsmNode(Attributes attributes) throws IllegalArgumentException, SAXException
+	{
+		super();
+
+		if (attributes == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		try
+		{
+			setId(Long.valueOf(attributes.getValue("id")));
+			latitude = Double.valueOf(attributes.getValue("lat"));
+			longitude = Double.valueOf(attributes.getValue("lon"));
+		}
+		catch (Exception ex)
+		{
+			throw new SAXException(ex);
+		}
+
 	}
 
 	/**

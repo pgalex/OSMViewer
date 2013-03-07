@@ -1,7 +1,10 @@
 package com.osmviewer.osmXml;
 
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+
 /**
- * Tag from .osm file. MapTag not using for better seperating of packages
+ * Tag of osm xml
  *
  * @author pgalex
  */
@@ -18,7 +21,7 @@ public class OsmTag
 
 	/**
 	 * Create tag with parameters
-	 * 
+	 *
 	 * @param tagKey Key of tag
 	 * @param tagValue Value of tag
 	 */
@@ -26,6 +29,31 @@ public class OsmTag
 	{
 		key = tagKey;
 		value = tagValue;
+	}
+
+	/**
+	 * Create tag from xml attributes
+	 *
+	 * @param attributes attributes of xml tag using to create tag
+	 * @throws IllegalArgumentException attributes is null
+	 * @throws SAXException can not create tag from given attributes
+	 */
+	public OsmTag(Attributes attributes) throws IllegalArgumentException, SAXException
+	{
+		if (attributes == null)
+		{
+			throw new IllegalArgumentException();
+		}
+
+		try
+		{
+			key = attributes.getValue("k");
+			value = attributes.getValue("v");
+		}
+		catch (Exception ex)
+		{
+			throw new SAXException(ex);
+		}
 	}
 
 	/**
