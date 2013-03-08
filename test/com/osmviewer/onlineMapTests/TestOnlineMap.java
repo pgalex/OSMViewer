@@ -2,14 +2,14 @@ package com.osmviewer.onlineMapTests;
 
 import java.util.ArrayList;
 import com.osmviewer.map.MapObject;
-import com.osmviewer.map.onlineMap.OnlineMap;
+import com.osmviewer.map.onlineMap.Map;
 
 /**
- * Uses to get access to private section of OnlineMap, for testing
+ * Uses to get access to private section of Map, for testing
  *
  * @author pgalex
  */
-public class TestOnlineMap extends OnlineMap
+public class TestOnlineMap extends Map
 {
 	/**
 	 * Get stored map objects

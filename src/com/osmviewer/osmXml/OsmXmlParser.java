@@ -14,8 +14,9 @@ public interface OsmXmlParser
 	 * Parse openstreetmap xml map data from stream
 	 *
 	 * @param input input osm xml data stream
-	 * @throws IllegalArgumentException input is null
+	 * @param handler handler, taking results of parsing
+	 * @throws IllegalArgumentException input or handler is null
 	 * @throws ParsingOsmErrorException error while parsing data from input
 	 */
-	void parse(InputStream input) throws IllegalArgumentException, ParsingOsmErrorException;
+	void parse(InputStream input, OsmXmlParsingHandler handler) throws IllegalArgumentException, ParsingOsmErrorException;
 }

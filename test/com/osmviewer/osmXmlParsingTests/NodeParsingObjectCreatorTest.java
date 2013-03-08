@@ -35,9 +35,44 @@ public class NodeParsingObjectCreatorTest
 		TestAttributes testNodeAttributes = new TestAttributes();
 		testNodeAttributes.attributesData = testNodeAttributesMap;
 		NodeParsingObjectCreator nodeCreator = new NodeParsingObjectCreator(testNodeAttributes);
-		assertEquals((long) Long.valueOf(testNodeAttributesMap.get("id")), (long) nodeCreator.getCreatingNode().getId());
-		assertEquals((double) Double.valueOf(testNodeAttributesMap.get("lat")), (double) nodeCreator.getCreatingNode().getLatitude(), 0.001);
-		assertEquals((double) Double.valueOf(testNodeAttributesMap.get("lon")), (double) nodeCreator.getCreatingNode().getLongitude(), 0.001);
+
+		TestOsmXmlParsingHandler parsingHandler = new TestOsmXmlParsingHandler();
+		nodeCreator.sendCreatedObjectToHandler(parsingHandler);
+
+		assertEquals((long) Long.valueOf(testNodeAttributesMap.get("id")), (long) parsingHandler.nodes.get(0).getId());
+		assertEquals((double) Double.valueOf(testNodeAttributesMap.get("lat")), (double) parsingHandler.nodes.get(0).getLatitude(), 0.001);
+		assertEquals((double) Double.valueOf(testNodeAttributesMap.get("lon")), (double) parsingHandler.nodes.get(0).getLongitude(), 0.001);
+	}
+
+	/**
+	 * Test adding and parsing tags
+	 *
+	 * @throws SAXException
+	 */
+	@Test
+	public void addingTagsTest() throws SAXException
+	{
+		TestAttributes testNodeAttributes = new TestAttributes();
+		testNodeAttributes.attributesData = testNodeAttributesMap;
+		NodeParsingObjectCreator nodeCreator = new NodeParsingObjectCreator(testNodeAttributes);
+
+
+		TestAttributes tagAttributes = new TestAttributes();
+		tagAttributes.attributesData = new TreeMap<String, String>();
+		final String KEY = "key1";
+		final String VALUE = "value";
+		tagAttributes.attributesData.put("k", KEY);
+		tagAttributes.attributesData.put("v", VALUE);
+
+		nodeCreator.startElement("", "", "tag", tagAttributes);
+
+
+		TestOsmXmlParsingHandler parsingHandler = new TestOsmXmlParsingHandler();
+		nodeCreator.sendCreatedObjectToHandler(parsingHandler);
+
+		assertEquals(1, parsingHandler.nodes.get(0).getTagsCount());
+		assertEquals(KEY, parsingHandler.nodes.get(0).getTag(0).getKey());
+		assertEquals(VALUE, parsingHandler.nodes.get(0).getTag(0).getValue());
 	}
 
 	/**

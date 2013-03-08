@@ -1,101 +1,46 @@
 package com.osmviewer.osmXml;
 
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-
 /**
- * Osm node (one point)
+ * Osm xml node
  *
- * @author preobrazhentsev
+ * @author pgalex
  */
-public class OsmNode extends OsmMapObject
+public interface OsmNode
 {
 	/**
-	 * Position - latitude
-	 */
-	private double latitude;
-	/**
-	 * Position - longitude
-	 */
-	private double longitude;
-
-	/**
-	 * Create with default values
-	 */
-	public OsmNode()
-	{
-		super();
-
-		latitude = 0;
-		longitude = 0;
-	}
-
-	/**
-	 * Creating noe by xml attributes
+	 * Get unique global osm id
 	 *
-	 * @param attributes node xml tag attributes
-	 * @throws IllegalArgumentException attributes is null
-	 * @throws SAXException error while parsing attributes
+	 * @return unique global osm id
 	 */
-	public OsmNode(Attributes attributes) throws IllegalArgumentException, SAXException
-	{
-		super();
-
-		if (attributes == null)
-		{
-			throw new IllegalArgumentException();
-		}
-
-		try
-		{
-			setId(Long.valueOf(attributes.getValue("id")));
-			latitude = Double.valueOf(attributes.getValue("lat"));
-			longitude = Double.valueOf(attributes.getValue("lon"));
-		}
-		catch (Exception ex)
-		{
-			throw new SAXException(ex);
-		}
-
-	}
+	public long getId();
 
 	/**
-	 * Set node position latitude
-	 *
-	 * @param latitudeToSet position latitude
-	 */
-	public void setLatitude(double latitudeToSet)
-	{
-		latitude = latitudeToSet;
-	}
-
-	/**
-	 * Get node position latitude
+	 * Get position latitude
 	 *
 	 * @return position latitude
 	 */
-	public double getLatitude()
-	{
-		return latitude;
-	}
+	public double getLatitude();
 
 	/**
-	 * Set node position longitude
-	 *
-	 * @param longitudeToSet position longitude
-	 */
-	public void setLongitude(double longitudeToSet)
-	{
-		longitude = longitudeToSet;
-	}
-
-	/**
-	 * Get node position longitude
+	 * Get position longitude
 	 *
 	 * @return position longitude
 	 */
-	public double getLongitude()
-	{
-		return longitude;
-	}
+	public double getLongitude();
+
+	/**
+	 * Get count of tags
+	 *
+	 * @return count of tags
+	 */
+	public int getTagsCount();
+
+	/**
+	 * Get tag by index
+	 *
+	 * @param index index of tag
+	 * @return tag by index
+	 * @throws IllegalArgumentException index is out of bounds
+	 */
+	public OsmTag getTag(int index) throws IllegalArgumentException;
 }

@@ -6,7 +6,7 @@ import com.osmviewer.map.MapPolygon;
 import com.osmviewer.drawingStyles.DrawingStylesFactory;
 import com.osmviewer.drawingStyles.StandartMapObjectDrawSettings;
 import com.osmviewer.drawingStyles.DrawSettingsViewer;
-import com.osmviewer.map.onlineMap.OnlineMap;
+import com.osmviewer.map.onlineMap.Map;
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
 import com.osmviewer.mapDefenitionUtilities.Location;
@@ -16,7 +16,7 @@ import org.junit.Test;
 import com.osmviewer.rendering.RenderableMapObjectsDrawPriorityComparator;
 
 /**
- * OnlineMap class tests
+ * Map class tests
  *
  * @author pgalex
  */
@@ -58,7 +58,7 @@ public class OnlineMapTest
 		MapPoint point3 = new MapPoint(new Location(), 1, someTags);
 		point3.setDrawSettings(style1);
 
-		OnlineMap testMap = new OnlineMap();
+		Map testMap = new Map();
 		testMap.addObject(line1);
 		testMap.addObject(point1);
 		testMap.addObject(polygon1);
@@ -80,7 +80,7 @@ public class OnlineMapTest
 	@Test
 	public void renderingWithNullRendererTest()
 	{
-		OnlineMap testMap = new OnlineMap();
+		Map testMap = new Map();
 		try
 		{
 			DrawSettingsViewer viewer = DrawingStylesFactory.createStandartDrawSettingsViewer();
@@ -100,7 +100,7 @@ public class OnlineMapTest
 	@Test
 	public void renderingWithNullRenderingAreaTest()
 	{
-		OnlineMap testMap = new OnlineMap();
+		Map testMap = new Map();
 		try
 		{
 			DrawSettingsViewer viewer = DrawingStylesFactory.createStandartDrawSettingsViewer();

@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * OnlineMap that contains not much objects and using for online rendering
+ * Map that contains not much objects and using for online rendering
  *
  * @author pgalex
  */
-public class OnlineMap implements RenderableMap
+public class Map implements RenderableMap
 {
 	/**
 	 * Objects on a map
@@ -23,7 +23,7 @@ public class OnlineMap implements RenderableMap
 	/**
 	 * Create empty map
 	 */
-	public OnlineMap()
+	public Map()
 	{
 		objects = new ArrayList<MapObject>();
 	}

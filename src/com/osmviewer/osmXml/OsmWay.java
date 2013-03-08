@@ -1,46 +1,48 @@
 package com.osmviewer.osmXml;
 
-import java.util.ArrayList;
-
 /**
- * Way in .osm file
+ * Osm xml way
  *
- * @author preobrazhentsev
+ * @author pgalex
  */
-public class OsmWay extends OsmMapObject
+public interface OsmWay
 {
 	/**
-	 * Ids of nodes of way
-	 */
-	private ArrayList<Long> nodesIds;
-
-	/**
-	 * Create with default values
-	 */
-	public OsmWay()
-	{
-		super();
-		
-		nodesIds = new ArrayList<Long>();
-	}
-
-	/**
-	 * Add id of node of way
+	 * Get unique global osm id
 	 *
-	 * @param nodeIdToAdd id of way's node
+	 * @return unique global osm id
 	 */
-	public void addNodeId(long nodeIdToAdd)
-	{
-		nodesIds.add(nodeIdToAdd);
-	}
+	public long getId();
 
 	/**
-	 * Get ids of nodes of way
+	 * Get count of tags
 	 *
-	 * @return ids of nodes
+	 * @return count of tags
 	 */
-	public ArrayList<Long> getNodesIds()
-	{
-		return nodesIds;
-	}
+	public int getTagsCount();
+
+	/**
+	 * Get tag by index
+	 *
+	 * @param index index of tag
+	 * @return tag by index
+	 * @throws IllegalArgumentException index is out of bounds
+	 */
+	public OsmTag getTag(int index) throws IllegalArgumentException;
+
+	/**
+	 * Get count of nodes ids
+	 *
+	 * @return count of nodes ids
+	 */
+	public int getNodesIdsCount();
+
+	/**
+	 * Get node id by index
+	 *
+	 * @param index index of node id
+	 * @return node id by index
+	 * @throws IllegalArgumentException index is out of bounds
+	 */
+	public long getNodeId(int index) throws IllegalArgumentException;
 }

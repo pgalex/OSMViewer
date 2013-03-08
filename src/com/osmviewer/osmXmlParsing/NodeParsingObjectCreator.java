@@ -1,7 +1,5 @@
 package com.osmviewer.osmXmlParsing;
 
-import com.osmviewer.osmXml.OsmNode;
-import com.osmviewer.osmXml.OsmTag;
 import com.osmviewer.osmXml.OsmXmlParsingHandler;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -20,7 +18,7 @@ public class NodeParsingObjectCreator implements ParsingObjectCreator
 	/**
 	 * Osm node, creating by parsing
 	 */
-	private OsmNode creatingNode;
+	private OsmSAXNode creatingNode;
 
 	/**
 	 * Create node parsing creator, taking node parameters from node xml tag
@@ -32,7 +30,7 @@ public class NodeParsingObjectCreator implements ParsingObjectCreator
 	 */
 	public NodeParsingObjectCreator(Attributes nodeAttributes) throws IllegalArgumentException, SAXException
 	{
-		creatingNode = new OsmNode(nodeAttributes);
+		creatingNode = new OsmSAXNode(nodeAttributes);
 	}
 
 	/**
@@ -48,8 +46,8 @@ public class NodeParsingObjectCreator implements ParsingObjectCreator
 		{
 			throw new IllegalArgumentException();
 		}
-
-		creatingNode = new OsmNode();
+		
+		handler.takeNode(creatingNode);
 	}
 
 	/**
@@ -70,7 +68,7 @@ public class NodeParsingObjectCreator implements ParsingObjectCreator
 	{
 		if (qualifiedName.compareToIgnoreCase(ParsingObjectCreator.TAG_XML_TAG_NAME) == 0)
 		{
-			creatingNode.addTag(new OsmTag(attributes));
+			creatingNode.addTag(new OsmSAXTag(attributes));
 		}
 	}
 
@@ -108,17 +106,7 @@ public class NodeParsingObjectCreator implements ParsingObjectCreator
 		{
 			throw new IllegalArgumentException();
 		}
-
+		
 		return qualifiedElementName.compareToIgnoreCase(NODE_XML_TAG_NAME) == 0;
-	}
-
-	/**
-	 * Get creating osm node
-	 *
-	 * @return creating osm node
-	 */
-	public OsmNode getCreatingNode()
-	{
-		return creatingNode;
 	}
 }

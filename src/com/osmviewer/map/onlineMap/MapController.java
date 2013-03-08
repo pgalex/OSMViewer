@@ -32,15 +32,15 @@ public class MapController implements DrawableOnPanel
 	 */
 	private static final int MAXIMUM_SCALE_LEVEL = 18;
 	/**
-	 * OnlineMap - stored map objects
+	 * Map - stored map objects
 	 */
-	private OnlineMap map;
+	private Map map;
 	/**
-	 * OnlineMap loader - gets data from OSM server
+	 * Map loader - gets data from OSM server
 	 */
-	private OnlineMapLoader mapLoader;
+	//private OnlineMapLoader mapLoader;
 	/**
-	 * OnlineMap renderer - drawes object
+	 * Map renderer - drawes object
 	 */
 	private MapRenderer renderer;
 	/**
@@ -59,9 +59,9 @@ public class MapController implements DrawableOnPanel
 	public MapController(Location startViewPosition, int startScaleLevel,
 					int startCanvasWidth, int startCanvasHeight)
 	{
-		map = new OnlineMap();
+		map = new Map();
 
-		mapLoader = new OnlineMapLoader();
+		//mapLoader = new OnlineMapLoader();
 
 		renderer = new MapRenderer(MINIMUM_SCALE_LEVEL, MAXIMUM_SCALE_LEVEL, startScaleLevel);
 		renderer.setViewPosition(startViewPosition);
@@ -232,7 +232,7 @@ public class MapController implements DrawableOnPanel
 	{
 		try
 		{
-			mapLoader.loadToMap(renderer.getViewArea(), styleViewer, map);
+			//mapLoader.loadToMap(renderer.getViewArea(), styleViewer, map);
 		}
 		catch (Exception ex)
 		{
