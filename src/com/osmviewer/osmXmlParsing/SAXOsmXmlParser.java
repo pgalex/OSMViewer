@@ -1,131 +1,63 @@
 package com.osmviewer.osmXmlParsing;
 
-import com.osmviewer.osmXml.OsmXmlParsingHandler;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.helpers.DefaultHandler;
+import com.osmviewer.osmXml.OsmXmlParser;
+import com.osmviewer.osmXml.OsmXmlParsingResultsHandler;
+import com.osmviewer.osmXml.exceptions.ParsingOsmErrorException;
+import java.io.InputStream;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 /**
  * SAX .osm xml map data parser
  *
- * @author preobrazhentsev
+ * @author pgalex
  */
-public class SAXOsmXmlParser extends DefaultHandler
+public class SAXOsmXmlParser implements OsmXmlParser
 {
 	/**
-	 * Currently working(handling parsing events) parsing osm object creator
+	 * Handler of SAX parsing
 	 */
-	private ParsingObjectCreator currentlyObjectCreator;
+	private SAXOsmXmlParserHandler saxHandler;
+
 	/**
-	 * Handler, taking created while parsing osm map objects
+	 * Create parser
 	 */
-	private OsmXmlParsingHandler osmParsingHandler;
-	
-	public SAXOsmXmlParser(OsmXmlParsingHandler handler)
+	public SAXOsmXmlParser()
 	{
-		currentlyObjectCreator = null;
-		osmParsingHandler = handler;
+		saxHandler = null;
 	}
 
 	/**
-	 * Receive notification of the beginning of the document.
+	 * Parse openstreetmap xml map data from stream
 	 *
-	 * @throws SAXException error while begining parsing
+	 * @param input input osm xml data stream
+	 * @param handler handler, taking results of parsing
+	 * @throws IllegalArgumentException input or handler is null
+	 * @throws ParsingOsmErrorException error while parsing data from input
 	 */
 	@Override
-	public void startDocument() throws SAXException
+	public void parse(InputStream input, OsmXmlParsingResultsHandler handler) throws IllegalArgumentException, ParsingOsmErrorException
 	{
-		currentlyObjectCreator = null;
-	}
-
-	/**
-	 * Receive notification of the end of the document.
-	 *
-	 * @throws SAXException error while ending parsing
-	 */
-	@Override
-	public void endDocument() throws SAXException
-	{
-		currentlyObjectCreator = null;
-	}
-
-	/**
-	 * Receive notification of the start of an element.
-	 *
-	 * @param uri The Namespace URI, or the empty string if the element has no
-	 * Namespace URI or if Namespace processing is not being performed.
-	 * @param localName The local name (without prefix), or the empty string if
-	 * Namespace processing is not being performed.
-	 * @param qualifiedName The qualified name (with prefix), or the empty string
-	 * if qualified names are not available.
-	 * @param attributes The attributes attached to the element. If there are no
-	 * attributes, it shall be an empty Attributes object.
-	 * @throws SAXException error while element parsing
-	 */
-	@Override
-	public void startElement(String uri, String localName, String qualifiedName, Attributes attributes) throws SAXException
-	{
-		if (currentlyObjectCreator != null)
+		if (input == null)
 		{
-			currentlyObjectCreator.startElement(uri, localName, qualifiedName, attributes);
+			throw new IllegalArgumentException();
 		}
-		else
+		if (handler == null)
 		{
-			// "node"
-			// инициализировать "текущий создаваемый объект" как node
-			// "way"
-			// инициализировать "текущий создаваемый объект" как way
+			throw new IllegalArgumentException();
 		}
-	}
 
-	/**
-	 * Receive notification of the end of an element.
-	 *
-	 * <p>By default, do nothing. Application writers may override this method in
-	 * a subclass to take specific actions at the end of each element (such as
-	 * finalising a tree node or writing output to a file).</p>
-	 *
-	 * @param uri The Namespace URI, or the empty string if the element has no
-	 * Namespace URI or if Namespace processing is not being performed.
-	 * @param localName The local name (without prefix), or the empty string if
-	 * Namespace processing is not being performed.
-	 * @param qualifiedName The qualified name (with prefix), or the empty string
-	 * if qualified names are not available.
-	 * @exception SAXException error while parsing end of element
-	 */
-	@Override
-	public void endElement(String uri, String localName, String qualifiedName) throws SAXException
-	{
-		if (currentlyObjectCreator != null)
+		saxHandler = new SAXOsmXmlParserHandler(handler);
+		try
 		{
-			if (currentlyObjectCreator.isEndCreatingElementName(qualifiedName))
-			{
-				currentlyObjectCreator.sendCreatedObjectToHandler(osmParsingHandler);
-				currentlyObjectCreator = null;
-			}
-			else
-			{
-				currentlyObjectCreator.endElement(uri, localName, qualifiedName);
-			}
+			SAXParserFactory factory = SAXParserFactory.newInstance();
+			SAXParser parser = factory.newSAXParser();
+
+			parser.parse(input, saxHandler);
 		}
-	}
-	
-	@Override
-	public void warning(SAXParseException e) throws SAXException
-	{
-		throw new SAXException(e);
-	}
-	
-	@Override
-	public void error(SAXParseException e) throws SAXException
-	{
-		throw new SAXException(e);
-	}
-	
-	@Override
-	public void fatalError(SAXParseException e) throws SAXException
-	{
-		throw new SAXException(e);
+		catch (Exception ex)
+		{
+			throw new ParsingOsmErrorException(ex);
+		}
 	}
 }

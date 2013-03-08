@@ -18,5 +18,5 @@ public interface OsmXmlParser
 	 * @throws IllegalArgumentException input or handler is null
 	 * @throws ParsingOsmErrorException error while parsing data from input
 	 */
-	void parse(InputStream input, OsmXmlParsingHandler handler) throws IllegalArgumentException, ParsingOsmErrorException;
+	void parse(InputStream input, OsmXmlParsingResultsHandler handler) throws IllegalArgumentException, ParsingOsmErrorException;
 }

@@ -36,7 +36,7 @@ public class NodeParsingObjectCreatorTest
 		testNodeAttributes.attributesData = testNodeAttributesMap;
 		NodeParsingObjectCreator nodeCreator = new NodeParsingObjectCreator(testNodeAttributes);
 
-		TestOsmXmlParsingHandler parsingHandler = new TestOsmXmlParsingHandler();
+		TestOsmXmlParsingResultsHandler parsingHandler = new TestOsmXmlParsingResultsHandler();
 		nodeCreator.sendCreatedObjectToHandler(parsingHandler);
 
 		assertEquals((long) Long.valueOf(testNodeAttributesMap.get("id")), (long) parsingHandler.nodes.get(0).getId());
@@ -67,7 +67,7 @@ public class NodeParsingObjectCreatorTest
 		nodeCreator.startElement("", "", "tag", tagAttributes);
 
 
-		TestOsmXmlParsingHandler parsingHandler = new TestOsmXmlParsingHandler();
+		TestOsmXmlParsingResultsHandler parsingHandler = new TestOsmXmlParsingResultsHandler();
 		nodeCreator.sendCreatedObjectToHandler(parsingHandler);
 
 		assertEquals(1, parsingHandler.nodes.get(0).getTagsCount());

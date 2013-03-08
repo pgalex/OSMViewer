@@ -2,20 +2,20 @@ package com.osmviewer.osmXmlParsingTests;
 
 import com.osmviewer.osmXml.OsmNode;
 import com.osmviewer.osmXml.OsmWay;
-import com.osmviewer.osmXml.OsmXmlParsingHandler;
+import com.osmviewer.osmXml.OsmXmlParsingResultsHandler;
 import java.util.ArrayList;
 
 /**
- * Test implementation of OsmXmlParsingHandler
+ * Test implementation of OsmXmlParsingResultsHandler
  *
  * @author pgalex
  */
-public class TestOsmXmlParsingHandler implements OsmXmlParsingHandler
+public class TestOsmXmlParsingResultsHandler implements OsmXmlParsingResultsHandler
 {
 	public ArrayList<OsmNode> nodes;
 	public ArrayList<OsmWay> ways;
 	
-	public TestOsmXmlParsingHandler()
+	public TestOsmXmlParsingResultsHandler()
 	{
 		nodes = new ArrayList<OsmNode>();
 		ways = new ArrayList<OsmWay>();

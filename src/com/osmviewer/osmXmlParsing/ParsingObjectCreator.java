@@ -1,6 +1,6 @@
 package com.osmviewer.osmXmlParsing;
 
-import com.osmviewer.osmXml.OsmXmlParsingHandler;
+import com.osmviewer.osmXml.OsmXmlParsingResultsHandler;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
@@ -22,7 +22,7 @@ public interface ParsingObjectCreator
 	 * @param handler handler, taking created osm map object
 	 * @throws IllegalArgumentException handler is null
 	 */
-	public void sendCreatedObjectToHandler(OsmXmlParsingHandler handler) throws IllegalArgumentException;
+	public void sendCreatedObjectToHandler(OsmXmlParsingResultsHandler handler) throws IllegalArgumentException;
 
 	/**
 	 * Receive notification of the start of an element.

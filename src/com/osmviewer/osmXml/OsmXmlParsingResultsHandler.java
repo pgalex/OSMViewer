@@ -5,7 +5,7 @@ package com.osmviewer.osmXml;
  *
  * @author pgalex
  */
-public interface OsmXmlParsingHandler
+public interface OsmXmlParsingResultsHandler
 {
 	/**
 	 * Take and process parsed osm node

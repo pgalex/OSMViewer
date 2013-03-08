@@ -1,6 +1,6 @@
 package com.osmviewer.osmXmlParsing;
 
-import com.osmviewer.osmXml.OsmXmlParsingHandler;
+import com.osmviewer.osmXml.OsmXmlParsingResultsHandler;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
@@ -40,7 +40,7 @@ public class NodeParsingObjectCreator implements ParsingObjectCreator
 	 * @throws IllegalArgumentException handler is null
 	 */
 	@Override
-	public void sendCreatedObjectToHandler(OsmXmlParsingHandler handler) throws IllegalArgumentException
+	public void sendCreatedObjectToHandler(OsmXmlParsingResultsHandler handler) throws IllegalArgumentException
 	{
 		if (handler == null)
 		{
