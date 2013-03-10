@@ -34,6 +34,7 @@ public class SAXOsmXmlParserTest
 		assertEquals(123456789, resultsHandler.nodes.get(0).getId());
 		assertEquals(55.55, resultsHandler.nodes.get(0).getLatitude(), 0.001);
 		assertEquals(38.38, resultsHandler.nodes.get(0).getLongitude(), 0.001);
+		assertEquals(2, resultsHandler.nodes.get(0).getTagsCount());
 
 		assertEquals(1233435413, resultsHandler.nodes.get(1).getId());
 		assertEquals(55.2090925, resultsHandler.nodes.get(1).getLatitude(), 0.00001);
@@ -46,5 +47,9 @@ public class SAXOsmXmlParserTest
 		assertEquals(1233435465, resultsHandler.nodes.get(3).getId());
 		assertEquals(55.2048968, resultsHandler.nodes.get(3).getLatitude(), 0.00001);
 		assertEquals(38.6050110, resultsHandler.nodes.get(3).getLongitude(), 0.00001);
+		
+		assertEquals(1, resultsHandler.ways.size());
+		assertEquals(3, resultsHandler.ways.get(0).getNodesIdsCount());
+		assertEquals(2, resultsHandler.ways.get(0).getTagsCount());
 	}
 }

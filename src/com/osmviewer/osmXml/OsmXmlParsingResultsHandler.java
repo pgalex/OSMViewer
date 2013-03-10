@@ -13,7 +13,7 @@ public interface OsmXmlParsingResultsHandler
 	 * @param parsedNode parsed osm node
 	 * @throws IllegalArgumentException parsedNode is null
 	 */
-	void takeNode(OsmNode parsedNode) throws IllegalArgumentException;
+	public void takeNode(OsmNode parsedNode) throws IllegalArgumentException;
 
 	/**
 	 * Take and process parsed osm way
@@ -21,5 +21,5 @@ public interface OsmXmlParsingResultsHandler
 	 * @param parsedWay parsed osm way
 	 * @throws IllegalArgumentException parsedWay is null
 	 */
-	void takeWay(OsmWay parsedWay) throws IllegalArgumentException;
+	public void takeWay(OsmWay parsedWay) throws IllegalArgumentException;
 }

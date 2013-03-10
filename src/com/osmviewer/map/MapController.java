@@ -1,4 +1,4 @@
-package com.osmviewer.map.onlineMap;
+package com.osmviewer.map;
 
 import com.osmviewer.drawingStyles.DrawSettingsViewer;
 import com.osmviewer.drawingStyles.DrawingStylesFactory;
@@ -10,6 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,15 +33,11 @@ public class MapController implements DrawableOnPanel
 	 */
 	private static final int MAXIMUM_SCALE_LEVEL = 18;
 	/**
-	 * Map - stored map objects
+	 * MapByOsmXmlData - stored map objects
 	 */
-	private Map map;
+	private MapByOsmXmlData map;
 	/**
-	 * Map loader - gets data from OSM server
-	 */
-	//private OnlineMapLoader mapLoader;
-	/**
-	 * Map renderer - drawes object
+	 * MapByOsmXmlData renderer - drawes object
 	 */
 	private MapRenderer renderer;
 	/**
@@ -59,9 +56,7 @@ public class MapController implements DrawableOnPanel
 	public MapController(Location startViewPosition, int startScaleLevel,
 					int startCanvasWidth, int startCanvasHeight)
 	{
-		map = new Map();
-
-		//mapLoader = new OnlineMapLoader();
+		map = new MapByOsmXmlData();
 
 		renderer = new MapRenderer(MINIMUM_SCALE_LEVEL, MAXIMUM_SCALE_LEVEL, startScaleLevel);
 		renderer.setViewPosition(startViewPosition);
@@ -232,7 +227,7 @@ public class MapController implements DrawableOnPanel
 	{
 		try
 		{
-			//mapLoader.loadToMap(renderer.getViewArea(), styleViewer, map);
+			map.loadFromStream(new FileInputStream(new File("some_map.osm.xml")), styleViewer);
 		}
 		catch (Exception ex)
 		{

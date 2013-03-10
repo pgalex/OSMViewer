@@ -76,10 +76,10 @@ public class SAXOsmXmlParserHandler extends DefaultHandler
 			{
 				currentlyObjectCreator = new NodeParsingObjectCreator(attributes);
 			}
-			// "node"
-			// инициализировать "текущий создаваемый объект" как node
-			// "way"
-			// инициализировать "текущий создаваемый объект" как way
+			else if (qualifiedName.compareToIgnoreCase(WayParsingObjectCreator.WAY_XML_TAG_NAME) == 0)
+			{
+				currentlyObjectCreator = new WayParsingObjectCreator(attributes);
+			}
 		}
 	}
 

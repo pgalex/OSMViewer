@@ -5,37 +5,41 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 /**
- * Handler of parsing, creating osm node
+ * Handler of sax parsing, creating osm way
  *
  * @author pgalex
  */
-public class NodeParsingObjectCreator implements ParsingObjectCreator
+public class WayParsingObjectCreator implements ParsingObjectCreator
 {
 	/**
-	 * Xml tag of node
+	 * Xml tag of way
 	 */
-	public static final String NODE_XML_TAG_NAME = "node";
+	public static final String WAY_XML_TAG_NAME = "way";
 	/**
-	 * Osm node, creating by parsing
+	 * Xml tag of node id of way
 	 */
-	private OsmSAXNode creatingNode;
+	private static final String WAY_NODE_ID_TAG_NAME = "nd";
+	/**
+	 * Osm way, creating while parsing
+	 */
+	private OsmSAXWay creatingWay;
 
 	/**
-	 * Create node parsing creator, taking node parameters from node xml tag
-	 * attributes
+	 * Create way parsing creator, gets way parameters from attributes of xml way
+	 * tag
 	 *
-	 * @param nodeAttributes node xml tag attributes
-	 * @throws IllegalArgumentException nodeAttributes is null
+	 * @param wayAttributes attributes of way xml tag
+	 * @throws IllegalArgumentException attributes is null
 	 * @throws SAXException error while parsing attributes
 	 */
-	public NodeParsingObjectCreator(Attributes nodeAttributes) throws IllegalArgumentException, SAXException
+	public WayParsingObjectCreator(Attributes wayAttributes) throws IllegalArgumentException, SAXException
 	{
-		if (nodeAttributes == null)
+		if (wayAttributes == null)
 		{
 			throw new IllegalArgumentException();
 		}
-		
-		creatingNode = new OsmSAXNode(nodeAttributes);
+
+		creatingWay = new OsmSAXWay(wayAttributes);
 	}
 
 	/**
@@ -52,7 +56,7 @@ public class NodeParsingObjectCreator implements ParsingObjectCreator
 			throw new IllegalArgumentException();
 		}
 
-		handler.takeNode(creatingNode);
+		handler.takeWay(creatingWay);
 	}
 
 	/**
@@ -73,7 +77,11 @@ public class NodeParsingObjectCreator implements ParsingObjectCreator
 	{
 		if (qualifiedName.compareToIgnoreCase(ParsingObjectCreator.TAG_XML_TAG_NAME) == 0)
 		{
-			creatingNode.addTag(new OsmSAXTag(attributes));
+			creatingWay.addTag(new OsmSAXTag(attributes));
+		}
+		else if (qualifiedName.compareToIgnoreCase(WAY_NODE_ID_TAG_NAME) == 0)
+		{
+			creatingWay.addNodeId(Long.valueOf(attributes.getValue("ref")));
 		}
 	}
 
@@ -112,6 +120,6 @@ public class NodeParsingObjectCreator implements ParsingObjectCreator
 			throw new IllegalArgumentException();
 		}
 
-		return qualifiedElementName.compareToIgnoreCase(NODE_XML_TAG_NAME) == 0;
+		return qualifiedElementName.compareToIgnoreCase(WAY_XML_TAG_NAME) == 0;
 	}
 }

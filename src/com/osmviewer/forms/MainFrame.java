@@ -1,7 +1,7 @@
 package com.osmviewer.forms;
 
 import com.osmviewer.drawingStyles.forms.EditDrawingStylesFrame;
-import com.osmviewer.map.onlineMap.MapController;
+import com.osmviewer.map.MapController;
 import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.rendering.RenderableMapObject;
 import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
