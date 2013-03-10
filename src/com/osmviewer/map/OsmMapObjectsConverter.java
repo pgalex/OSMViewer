@@ -28,7 +28,15 @@ public class OsmMapObjectsConverter
 	{
 		if (way == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("way is null");
+		}
+		if (nodes == null)
+		{
+			throw new IllegalArgumentException("nodes is null");
+		}
+		if (isOsmNodesArrayContainsNullElements(nodes))
+		{
+			throw new IllegalArgumentException("nodes contains null elements");
 		}
 
 		DefenitionTags wayTags = new DefenitionTags();
@@ -59,6 +67,30 @@ public class OsmMapObjectsConverter
 	}
 
 	/**
+	 *
+	 *
+	 * Is nodes array contains null elements
+	 *
+	 * @param nodes osm nodes array
+	 * @return is nodes array contains null elements
+	 * @throws IllegalArgumentException nodes is null
+	 */
+	private static boolean isOsmNodesArrayContainsNullElements(ArrayList<OsmNode> nodes) throws IllegalArgumentException
+	{
+		boolean isContainsNull = false;
+		for (OsmNode osmNode : nodes)
+		{
+			if (osmNode == null)
+			{
+				isContainsNull = true;
+				break;
+			}
+		}
+
+		return isContainsNull;
+	}
+
+	/**
 	 * Create array of point for map line or map polygon by finding them in nodes
 	 * array, using ids
 	 *
@@ -72,11 +104,15 @@ public class OsmMapObjectsConverter
 	{
 		if (way == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("way is null");
 		}
 		if (nodes == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("nodes is null");
+		}
+		if (isOsmNodesArrayContainsNullElements(nodes))
+		{
+			throw new IllegalArgumentException("nodes contains null elements");
 		}
 
 		Location[] foundPoints = new Location[way.getNodesIdsCount()];
@@ -122,7 +158,7 @@ public class OsmMapObjectsConverter
 	{
 		if (node == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("node is null");
 		}
 
 		// node without tag is not a MapPoint (can not be displayed), 
@@ -152,7 +188,7 @@ public class OsmMapObjectsConverter
 	{
 		if (osmTag == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("osmTag is null");
 		}
 
 		return new Tag(osmTag.getKey(), osmTag.getValue());
