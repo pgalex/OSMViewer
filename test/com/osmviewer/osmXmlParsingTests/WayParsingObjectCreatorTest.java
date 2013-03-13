@@ -59,4 +59,61 @@ public class WayParsingObjectCreatorTest
 		assertEquals(1, testResultsHandler.ways.size());
 		assertEquals((long) ID, testResultsHandler.ways.get(0).getId());
 	}
+	
+	/**
+	 * Test adding and parsing tags
+	 *
+	 * @throws SAXException
+	 */
+	@Test
+	public void addingTagsTest() throws SAXException
+	{
+		TestAttributes testAttributes = new TestAttributes();
+		testAttributes.attributesData = testAttributesMap;
+		WayParsingObjectCreator wayCreator = new WayParsingObjectCreator(testAttributes);
+
+
+		TestAttributes tagAttributes = new TestAttributes();
+		tagAttributes.attributesData = new TreeMap<String, String>();
+		final String KEY = "key1";
+		final String VALUE = "value";
+		tagAttributes.attributesData.put("k", KEY);
+		tagAttributes.attributesData.put("v", VALUE);
+
+		wayCreator.startElement("", "", "tag", tagAttributes);
+
+
+		TestOsmXmlParsingResultsHandler parsingHandler = new TestOsmXmlParsingResultsHandler();
+		wayCreator.sendCreatedObjectToHandler(parsingHandler);
+
+		assertEquals(1, parsingHandler.ways.get(0).getTagsCount());
+		assertEquals(KEY, parsingHandler.ways.get(0).getTag(0).getKey());
+		assertEquals(VALUE, parsingHandler.ways.get(0).getTag(0).getValue());
+	}
+	
+	/**
+	 * Test adding and parsing nodes ids
+	 *
+	 * @throws SAXException
+	 */
+	@Test
+	public void addingNodesIdsTest() throws SAXException
+	{
+		TestAttributes testAttributes = new TestAttributes();
+		testAttributes.attributesData = testAttributesMap;
+		WayParsingObjectCreator wayCreator = new WayParsingObjectCreator(testAttributes);
+		
+		TestAttributes nodeIdAttributes = new TestAttributes();
+		nodeIdAttributes.attributesData = new TreeMap<String, String>();
+		final Long REF = new Long(12345678);
+		nodeIdAttributes.attributesData.put("ref", REF.toString());
+		
+		wayCreator.startElement("", "", "nd", nodeIdAttributes);
+		
+		TestOsmXmlParsingResultsHandler parsingHandler = new TestOsmXmlParsingResultsHandler();
+		wayCreator.sendCreatedObjectToHandler(parsingHandler);
+		
+		assertEquals(1, parsingHandler.ways.get(0).getNodesIdsCount());
+		assertEquals((long)REF, parsingHandler.ways.get(0).getNodeId(0));
+	}
 }
