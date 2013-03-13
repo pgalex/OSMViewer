@@ -1,0 +1,1 @@
+To try, download and run OSMViewer.jar from dist.zip
