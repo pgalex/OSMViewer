@@ -22,7 +22,7 @@ public class MapObjectDrawSettingsTagsCountComparator implements Comparator<Stan
 	{
 		if (object1 == null || object2 == null)
 		{
-			throw new NullPointerException();
+			throw new NullPointerException("some of objects to compare is null");
 		}
 
 		if (object1.getDefenitionTags().count() > object2.getDefenitionTags().count())

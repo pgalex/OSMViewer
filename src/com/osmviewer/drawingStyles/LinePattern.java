@@ -42,7 +42,7 @@ public class LinePattern
 	{
 		if (isLinePatternIncorrect(linePattern))
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("linePattern incorrect");
 		}
 
 		pattern = linePattern;
@@ -87,7 +87,7 @@ public class LinePattern
 	{
 		if (isLinePatternIncorrect(patternToSet))
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("patternToSet incorrect");
 		}
 
 		pattern = patternToSet;

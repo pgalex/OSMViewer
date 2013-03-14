@@ -57,7 +57,7 @@ public class TextTagsKeys
 	{
 		if (index < 0 || index >= tagsKeys.size())
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("index is out of bounds");
 		}
 
 		return tagsKeys.get(index);
@@ -73,16 +73,16 @@ public class TextTagsKeys
 	{
 		if (keyToAdd == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("keyToAdd is null");
 		}
 		if (keyToAdd.isEmpty())
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("keyToAdd is empty");
 		}
 
 		tagsKeys.add(keyToAdd);
 	}
-	
+
 	/**
 	 * Remove all tag keys
 	 */
@@ -103,7 +103,7 @@ public class TextTagsKeys
 	{
 		if (tagsWhereFindText == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("tagsWhereFindText is null");
 		}
 
 		for (int keyIndex = 0; keyIndex < tagsKeys.size(); keyIndex++)

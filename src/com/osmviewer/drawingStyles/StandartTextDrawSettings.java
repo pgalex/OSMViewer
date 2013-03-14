@@ -43,11 +43,11 @@ public class StandartTextDrawSettings implements TextDrawSettings
 	{
 		if (textColor == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("textColor is null");
 		}
 		if (textFont == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("textFont is null");
 		}
 
 		color = new ColorWithIO(textColor);
@@ -75,7 +75,7 @@ public class StandartTextDrawSettings implements TextDrawSettings
 	{
 		if (textColorToSet == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("textColorToSet is null");
 		}
 
 		color.setStoringColor(textColorToSet);
@@ -102,7 +102,7 @@ public class StandartTextDrawSettings implements TextDrawSettings
 	{
 		if (textFontToSet == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("textFontToSet is null");
 		}
 
 		font.setStoringFont(textFontToSet);
@@ -159,7 +159,7 @@ public class StandartTextDrawSettings implements TextDrawSettings
 	{
 		if (newTextColor == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("newTextColor is null");
 		}
 
 		StandartTextDrawSettings textDrawSettingsWithOtherColor = new StandartTextDrawSettings();

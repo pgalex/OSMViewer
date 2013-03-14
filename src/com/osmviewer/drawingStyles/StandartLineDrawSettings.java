@@ -51,7 +51,7 @@ public class StandartLineDrawSettings implements RenderableMapLineDrawSettings
 	{
 		if (colorToSet == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("colorToSet is null");
 		}
 
 		color.setStoringColor(colorToSet);
@@ -109,11 +109,11 @@ public class StandartLineDrawSettings implements RenderableMapLineDrawSettings
 	{
 		if (patternToSet == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("patternToSet is null");
 		}
 		if (patternToSet.length == 0)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("patternToSet is empty");
 		}
 
 		pattern.setPattern(patternToSet);

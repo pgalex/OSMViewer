@@ -39,7 +39,7 @@ public class ColorWithIO
 	{
 		if (colorToStore == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("colorToStore is null");
 		}
 
 		storingColor = colorToStore;
@@ -55,7 +55,7 @@ public class ColorWithIO
 	{
 		if (colorToSet == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("colorToSet is null");
 		}
 
 		storingColor = colorToSet;

@@ -91,11 +91,11 @@ public class DrawSettingsOnScaleArray
 	{
 		if (drawSettingToSet == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("drawSettingToSet is null");
 		}
 		if (scaleLevel < minimumScaleLevel || scaleLevel > maximumScaleLevel)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("scaleLevel is out of bounds");
 		}
 
 		settingsOnScales[convertScaleLevelToArrayIndex(scaleLevel)] = drawSettingToSet;
@@ -113,7 +113,7 @@ public class DrawSettingsOnScaleArray
 	{
 		if (scaleLevelToConvert < minimumScaleLevel || scaleLevelToConvert > maximumScaleLevel)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("scaleLevelToConvert is out of bounds");
 		}
 
 		return scaleLevelToConvert - minimumScaleLevel;

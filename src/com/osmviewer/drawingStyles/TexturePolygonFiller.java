@@ -30,7 +30,7 @@ public class TexturePolygonFiller implements PolygonFiller
 	{
 		if (textureForFilling == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("textureForFilling is null");
 		}
 
 		fillTexture = new ImageWithIO(textureForFilling);

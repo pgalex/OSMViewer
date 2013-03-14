@@ -67,7 +67,7 @@ public class StandartPolygonDrawSettings implements RenderableMapPolygonDrawSett
 	{
 		if (settingsToSet == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("settingsToSet is null");
 		}
 
 		borderDrawSettings = settingsToSet;
@@ -93,7 +93,7 @@ public class StandartPolygonDrawSettings implements RenderableMapPolygonDrawSett
 	{
 		if (fillerToSet == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("fillerToSet is null");
 		}
 
 		filler = fillerToSet;

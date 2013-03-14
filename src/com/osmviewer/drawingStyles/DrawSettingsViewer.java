@@ -5,8 +5,8 @@ import java.io.IOException;
 import com.osmviewer.map.RenderableMapObjectsDrawSettingsFinder;
 
 /**
- * Draw settings viewer. Provides information about map, map objects, and how to
- * draw them
+ * Draw settings viewer. Provides information about how to draw map and map
+ * objects
  *
  * @author pgalex
  */

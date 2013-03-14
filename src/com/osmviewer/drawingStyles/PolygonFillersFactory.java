@@ -24,7 +24,7 @@ public class PolygonFillersFactory
 	{
 		if (fillColor == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("fillColor is null");
 		}
 
 		return new ColorPolygonFiller(fillColor);
@@ -41,7 +41,7 @@ public class PolygonFillersFactory
 	{
 		if (fillTexture == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("fillTexture is null");
 		}
 
 		return new TexturePolygonFiller(fillTexture);
@@ -67,7 +67,7 @@ public class PolygonFillersFactory
 		}
 		catch (Exception ex)
 		{
-			throw new IOException();
+			throw new IOException(ex);
 		}
 	}
 
@@ -92,7 +92,7 @@ public class PolygonFillersFactory
 				break;
 
 			default:
-				throw new IllegalArgumentException();
+				throw new IllegalArgumentException("filler type not supported");
 		}
 
 		return fillerByType;
@@ -114,7 +114,7 @@ public class PolygonFillersFactory
 		}
 		catch (Exception ex)
 		{
-			throw new IOException();
+			throw new IOException(ex);
 		}
 	}
 }

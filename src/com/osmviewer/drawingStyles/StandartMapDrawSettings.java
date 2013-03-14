@@ -40,7 +40,7 @@ public class StandartMapDrawSettings implements RenderableMapDrawSettings
 	{
 		if (backgroundColor == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("backgroundColor is null");
 		}
 
 		mapBackgroundColor = new ColorWithIO(backgroundColor);
@@ -67,7 +67,7 @@ public class StandartMapDrawSettings implements RenderableMapDrawSettings
 	{
 		if (backgroundColorToSet == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("backgroundColorToSet is null");
 		}
 
 		mapBackgroundColor.setStoringColor(backgroundColorToSet);

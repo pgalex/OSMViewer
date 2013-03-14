@@ -256,7 +256,7 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 	{
 		if (descriptionToSet == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("descriptionToSet is null");
 		}
 
 		description = descriptionToSet;
@@ -282,7 +282,7 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 	{
 		if (settingsOnScalesToSet == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("settingsOnScalesToSet is null");
 		}
 
 		drawSettingsOnScales = settingsOnScalesToSet;
@@ -308,7 +308,7 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 	{
 		if (tagsToSet == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("tagsToSet is null");
 		}
 
 		defenitionTags = tagsToSet;
@@ -335,7 +335,7 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 	{
 		if (nameToSet == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("nameToSet is null");
 		}
 
 		name = nameToSet;

@@ -94,7 +94,7 @@ public class StandartDrawSettingsContainer implements DrawSettingsViewer
 	{
 		if (index < 0 || index >= mapObjectsDrawSettings.size())
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("index is out of bounds");
 		}
 
 		return mapObjectsDrawSettings.get(index);
@@ -110,7 +110,7 @@ public class StandartDrawSettingsContainer implements DrawSettingsViewer
 	{
 		if (drawSettingsToAdd == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("drawSettingsToAdd is null");
 		}
 
 		mapObjectsDrawSettings.add(drawSettingsToAdd);
@@ -126,7 +126,7 @@ public class StandartDrawSettingsContainer implements DrawSettingsViewer
 	{
 		if (index < 0 || index >= mapObjectsDrawSettings.size())
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("index is null");
 		}
 
 		mapObjectsDrawSettings.remove(index);

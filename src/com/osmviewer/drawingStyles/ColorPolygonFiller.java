@@ -28,7 +28,7 @@ public class ColorPolygonFiller implements PolygonFiller
 	{
 		if (colorForFilling == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("colorForFilling is null");
 		}
 
 		fillColor = new ColorWithIO(colorForFilling);

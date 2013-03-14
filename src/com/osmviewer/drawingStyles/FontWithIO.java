@@ -39,7 +39,7 @@ public class FontWithIO
 	{
 		if (fontToStore == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("fontToStore is null");
 		}
 
 		storingFont = fontToStore;
@@ -65,7 +65,7 @@ public class FontWithIO
 	{
 		if (fontToSet == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("fontToSet is null");
 		}
 
 		storingFont = fontToSet;
