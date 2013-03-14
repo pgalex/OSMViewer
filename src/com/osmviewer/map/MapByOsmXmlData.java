@@ -55,7 +55,7 @@ public class MapByOsmXmlData implements RenderableMap
 		OsmXmlParser osmParser = new SAXOsmXmlParser();
 		osmParser.parse(input, parsingResultsCollector);
 		
-		ArrayList<OsmNode> parsedNodes = parsingResultsCollector.getParsedNodes();
+		ArrayList<OsmNode> parsedNodes = parsingResultsCollector.getTakedNodes();
 		for (OsmNode osmNode : parsedNodes)
 		{
 			MapPoint pointByNode = OsmMapObjectsConverter.createMapPointByOsmNode(osmNode);
@@ -72,7 +72,7 @@ public class MapByOsmXmlData implements RenderableMap
 			}
 		}
 		
-		ArrayList<OsmWay> parsedWays = parsingResultsCollector.getParsedWays();
+		ArrayList<OsmWay> parsedWays = parsingResultsCollector.getTakedWays();
 		for (OsmWay osmWay : parsedWays)
 		{
 			MapObject mapObjectByWay = OsmMapObjectsConverter.createMapObjectByWay(osmWay, parsedNodes);

@@ -13,21 +13,21 @@ import java.util.ArrayList;
 public class OsmParsingResultsCollector implements OsmXmlParsingResultsHandler
 {
 	/**
-	 * Parsed osm nodes
+	 * Taked from parser osm nodes
 	 */
-	private ArrayList<OsmNode> parsedNodes;
+	private ArrayList<OsmNode> takedNodes;
 	/**
-	 * Parsed osm ways
+	 * ParTaked from parser osm ways
 	 */
-	private ArrayList<OsmWay> parsingWays;
+	private ArrayList<OsmWay> takedWays;
 
 	/**
-	 * Create empty collector
+	 * Create empty
 	 */
 	public OsmParsingResultsCollector()
 	{
-		parsedNodes = new ArrayList<OsmNode>();
-		parsingWays = new ArrayList<OsmWay>();
+		takedNodes = new ArrayList<OsmNode>();
+		takedWays = new ArrayList<OsmWay>();
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class OsmParsingResultsCollector implements OsmXmlParsingResultsHandler
 			throw new IllegalArgumentException();
 		}
 
-		parsedNodes.add(parsedNode);
+		takedNodes.add(parsedNode);
 	}
 
 	/**
@@ -61,16 +61,26 @@ public class OsmParsingResultsCollector implements OsmXmlParsingResultsHandler
 			throw new IllegalArgumentException();
 		}
 
-		parsingWays.add(parsedWay);
+		takedWays.add(parsedWay);
 	}
 
-	public ArrayList<OsmNode> getParsedNodes()
+	/**
+	 * Get osm nodes taked from parser
+	 *
+	 * @return osm nodes taked from parser
+	 */
+	public ArrayList<OsmNode> getTakedNodes()
 	{
-		return parsedNodes;
+		return takedNodes;
 	}
 
-	public ArrayList<OsmWay> getParsedWays()
+	/**
+	 * Get osm ways taked from parser
+	 *
+	 * @return osm ways taked from parserF
+	 */
+	public ArrayList<OsmWay> getTakedWays()
 	{
-		return parsingWays;
+		return takedWays;
 	}
 }
