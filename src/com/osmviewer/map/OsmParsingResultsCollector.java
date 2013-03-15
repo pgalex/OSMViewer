@@ -41,7 +41,7 @@ public class OsmParsingResultsCollector implements OsmXmlParsingResultsHandler
 	{
 		if (parsedNode == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("parsedNode is null");
 		}
 
 		takedNodes.add(parsedNode);
@@ -58,7 +58,7 @@ public class OsmParsingResultsCollector implements OsmXmlParsingResultsHandler
 	{
 		if (parsedWay == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("parsedWay is null");
 		}
 
 		takedWays.add(parsedWay);

@@ -116,7 +116,7 @@ public class MapController implements DrawableOnPanel
 	{
 		if (scaleLevelToSet < MINIMUM_SCALE_LEVEL || scaleLevelToSet > MAXIMUM_SCALE_LEVEL)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("scaleLevelToSet is out of bounds");
 		}
 
 		renderer.setScaleLevel(scaleLevelToSet);
@@ -144,7 +144,7 @@ public class MapController implements DrawableOnPanel
 	{
 		if (pointOnTargetCanvas == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("pointOnTargetCanvas is null");
 		}
 
 		RenderableMapObject[] objectsUnderPoint = renderer.findObjectsAtPoint(pointOnTargetCanvas);
@@ -168,7 +168,7 @@ public class MapController implements DrawableOnPanel
 	{
 		if (selectingObject == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("selectingObject is null");
 		}
 
 		renderer.setObjectToDrawAsSelected(selectingObject);
@@ -194,7 +194,7 @@ public class MapController implements DrawableOnPanel
 	{
 		if (pointOnCanvas == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("pointOnCanvas is null");
 		}
 
 		return renderer.findObjectsAtPoint(pointOnCanvas);

@@ -46,15 +46,19 @@ public class MapByOsmXmlData implements RenderableMap
 	{
 		if (input == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("input is null");
 		}
-		
+		if (drawSettingsFinder == null)
+		{
+			throw new IllegalArgumentException("drawSettingsFinder is null");
+		}
+
 		objects = new ArrayList<MapObject>();
-		
+
 		OsmParsingResultsCollector parsingResultsCollector = new OsmParsingResultsCollector();
 		OsmXmlParser osmParser = new SAXOsmXmlParser();
 		osmParser.parse(input, parsingResultsCollector);
-		
+
 		ArrayList<OsmNode> parsedNodes = parsingResultsCollector.getTakedNodes();
 		for (OsmNode osmNode : parsedNodes)
 		{
@@ -63,7 +67,7 @@ public class MapByOsmXmlData implements RenderableMap
 			{
 				continue;
 			}
-			
+
 			RenderableMapObjectDrawSettings pointDrawSettings = drawSettingsFinder.findMapObjectDrawSettings(pointByNode.getDefenitionTags());
 			if (pointDrawSettings != null)
 			{
@@ -71,7 +75,7 @@ public class MapByOsmXmlData implements RenderableMap
 				objects.add(pointByNode);
 			}
 		}
-		
+
 		ArrayList<OsmWay> parsedWays = parsingResultsCollector.getTakedWays();
 		for (OsmWay osmWay : parsedWays)
 		{
@@ -80,7 +84,7 @@ public class MapByOsmXmlData implements RenderableMap
 			{
 				continue;
 			}
-			
+
 			RenderableMapObjectDrawSettings objectByWayDrawSettings = drawSettingsFinder.findMapObjectDrawSettings(mapObjectByWay.getDefenitionTags());
 			if (objectByWayDrawSettings != null)
 			{
@@ -107,15 +111,15 @@ public class MapByOsmXmlData implements RenderableMap
 	{
 		if (objectsVisitor == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("objectsVisitor is null");
 		}
 		if (area == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("area is null");
 		}
 		if (objectsDrawPriorityComparator == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("objectsDrawPriorityComparator is null");
 		}
 
 		// nothing to visit
@@ -123,9 +127,9 @@ public class MapByOsmXmlData implements RenderableMap
 		{
 			return;
 		}
-		
+
 		Collections.sort(objects, objectsDrawPriorityComparator);
-		
+
 		for (int i = 0; i < objects.size(); i++)
 		{
 			MapObject renderingObject = objects.get(i);

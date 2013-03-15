@@ -43,7 +43,7 @@ public class MapPolygon extends MapObject implements RenderableMapPolygon
 
 		if (!isPolygonPointsCorrect(polygonPoints))
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("polygonPoints incorrect");
 		}
 
 		GeometryFactory factory = new GeometryFactory();
@@ -70,7 +70,7 @@ public class MapPolygon extends MapObject implements RenderableMapPolygon
 		RenderableMapObjectDrawSettings drawSettings = getDrawSettings();
 		if (drawSettings == null)
 		{
-			throw new NullPointerException();
+			throw new NullPointerException("draw settings not set (null)");
 		}
 
 		return drawSettings.getPolygonDrawPriority();
@@ -134,7 +134,7 @@ public class MapPolygon extends MapObject implements RenderableMapPolygon
 	{
 		if (index < 0 || index >= polygon.getNumPoints())
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("index is out of bounds");
 		}
 
 		Coordinate coordinateByIndex = polygon.getCoordinates()[index];
@@ -153,7 +153,7 @@ public class MapPolygon extends MapObject implements RenderableMapPolygon
 	{
 		if (area == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("area is null");
 		}
 
 		if (area.isZero())
@@ -187,7 +187,7 @@ public class MapPolygon extends MapObject implements RenderableMapPolygon
 	{
 		if (objectsRenderer == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("objectsRenderer is null");
 		}
 
 		objectsRenderer.visitPolygon(this);

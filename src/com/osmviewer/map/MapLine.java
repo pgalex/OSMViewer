@@ -44,7 +44,7 @@ public class MapLine extends MapObject implements RenderableMapLine
 
 		if (!isLinePointsCorrect(linePoints))
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("linePoints incorrect");
 		}
 
 		GeometryFactory factory = new GeometryFactory();
@@ -99,7 +99,7 @@ public class MapLine extends MapObject implements RenderableMapLine
 		RenderableMapObjectDrawSettings drawSettings = getDrawSettings();
 		if (drawSettings == null)
 		{
-			throw new NullPointerException();
+			throw new NullPointerException("draw settings not set (null)");
 		}
 
 		return drawSettings.getLineDrawPriority();
@@ -129,7 +129,7 @@ public class MapLine extends MapObject implements RenderableMapLine
 	{
 		if (index < 0 || index >= lineString.getNumPoints())
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("index is out of bounds");
 		}
 
 		Coordinate coordinateByIndex = lineString.getCoordinateN(index);
@@ -148,7 +148,7 @@ public class MapLine extends MapObject implements RenderableMapLine
 	{
 		if (area == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("area is null");
 		}
 
 		if (area.isZero())
@@ -181,7 +181,7 @@ public class MapLine extends MapObject implements RenderableMapLine
 	{
 		if (objectsRenderer == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("objectsRenderer is null");
 		}
 
 		objectsRenderer.visitLine(this);

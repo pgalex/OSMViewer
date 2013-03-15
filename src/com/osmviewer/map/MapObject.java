@@ -37,7 +37,7 @@ public abstract class MapObject implements RenderableMapObject
 	{
 		if (objectDefenitionTags == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("objectDefenitionTags is null");
 		}
 
 		id = objectId;
@@ -87,7 +87,7 @@ public abstract class MapObject implements RenderableMapObject
 	{
 		if (drawSettingsToSet == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("drawSettingsToSet is null");
 		}
 
 		drawSettings = drawSettingsToSet;

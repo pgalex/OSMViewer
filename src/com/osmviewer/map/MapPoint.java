@@ -34,7 +34,7 @@ public class MapPoint extends MapObject implements RenderableMapPoint
 
 		if (pointPosition == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("pointPosition is null");
 		}
 
 		position = pointPosition;
@@ -52,12 +52,12 @@ public class MapPoint extends MapObject implements RenderableMapPoint
 		RenderableMapObjectDrawSettings drawSettings = getDrawSettings();
 		if (drawSettings == null)
 		{
-			throw new NullPointerException();
+			throw new NullPointerException("draw settings not set (null)");
 		}
 
 		return drawSettings.getPointDrawPriority();
 	}
-	
+
 	/**
 	 * Get position on a map
 	 *
@@ -81,7 +81,7 @@ public class MapPoint extends MapObject implements RenderableMapPoint
 	{
 		if (area == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("area is null");
 		}
 
 		if (area.isZero())
@@ -106,7 +106,7 @@ public class MapPoint extends MapObject implements RenderableMapPoint
 	{
 		if (objectsRenderer == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("objectsRenderer is null");
 		}
 
 		objectsRenderer.visitPoint(this);
