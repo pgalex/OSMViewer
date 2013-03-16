@@ -40,11 +40,11 @@ public class Tag
 	{
 		if (tagKey == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("tagKey is null");
 		}
 		if (tagValue == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("tagValue is null");
 		}
 
 		key = tagKey;
@@ -82,7 +82,7 @@ public class Tag
 	{
 		if (tagForComparing == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("tagForComparing is null");
 		}
 
 		if ((tagForComparing.key.compareToIgnoreCase(key) == 0) && (tagForComparing.value.compareToIgnoreCase(value) == 0))

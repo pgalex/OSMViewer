@@ -56,7 +56,7 @@ public class DefenitionTags
 	{
 		if (index < 0 || index >= tags.size())
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("index is out of bounds");
 		}
 
 		return tags.get(index);
@@ -72,7 +72,7 @@ public class DefenitionTags
 	{
 		if (tagToAdd == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("tagToAdd is null");
 		}
 
 		tags.add(tagToAdd);
@@ -96,7 +96,7 @@ public class DefenitionTags
 	{
 		if (index < 0 || index >= tags.size())
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("index is out of bounds");
 		}
 
 		tags.remove(index);
@@ -116,7 +116,7 @@ public class DefenitionTags
 
 		if (tagsForComparing == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("tagsForComparing is null");
 		}
 
 		if (tags.size() > tagsForComparing.count())

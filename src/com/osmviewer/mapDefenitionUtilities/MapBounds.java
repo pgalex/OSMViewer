@@ -1,7 +1,7 @@
 package com.osmviewer.mapDefenitionUtilities;
 
 /**
- * Describes area in spheric coordinates by latitude/longitude bounds
+ * Describes an area on map
  *
  * @author pgalex
  */
@@ -25,7 +25,7 @@ public class MapBounds
 	private double longitudeMaximum;
 
 	/**
-	 * Create with parameters
+	 * Create with values
 	 *
 	 * @param boundsLatitudeMinimum Latitude minimum
 	 * @param boundsLatitudeMaximum Latitude maximum

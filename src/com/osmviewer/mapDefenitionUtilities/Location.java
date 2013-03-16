@@ -26,7 +26,7 @@ public class Location
 	}
 
 	/**
-	 * Create with parameters
+	 * Create with values
 	 *
 	 * @param positionLatitude latitude in degrees
 	 * @param positionLongitude longitude in degrees
@@ -80,19 +80,19 @@ public class Location
 	/**
 	 * Compate with other position
 	 *
-	 * @param pointToCompare position for comparing
+	 * @param locationToCompare position for comparing
 	 * @return is position same
 	 * @throws IllegalArgumentException pointToCompare is null
 	 */
-	public boolean compareTo(Location pointToCompare) throws IllegalArgumentException
+	public boolean compareTo(Location locationToCompare) throws IllegalArgumentException
 	{
-		if (pointToCompare == null)
+		if (locationToCompare == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("locationToCompare is null");
 		}
-		
-		boolean latitudeSame = Double.compare(latitude, pointToCompare.getLatitude()) == 0;
-		boolean longitudeSame = Double.compare(longitude, pointToCompare.getLongitude()) == 0;
+
+		boolean latitudeSame = Double.compare(latitude, locationToCompare.getLatitude()) == 0;
+		boolean longitudeSame = Double.compare(longitude, locationToCompare.getLongitude()) == 0;
 
 		return latitudeSame && longitudeSame;
 	}
