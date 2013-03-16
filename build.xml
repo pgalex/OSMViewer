@@ -4,7 +4,7 @@
     <import file="nbproject/build-impl.xml"/>
 
    <target name="-post-jar">
-     <copy file="drawStyles/testdrawstyles.dat" tofile="dist/drawStyles/testdrawstyles.dat" />
+     <copy file="standartDrawStyles/defaultMapStyle.dat" tofile="dist/standartDrawStyles/defaultMapStyle.dat" />
      <copy file="some_map.osm.xml" tofile="dist/some_map.osm.xml" />
    </target>
 </project>

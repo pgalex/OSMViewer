@@ -65,7 +65,15 @@ public class MapController implements DrawableOnPanel
 		styleViewer = DrawingStylesFactory.createStandartDrawSettingsViewer();
 
 		testSetupStyleViewer();
-		testLoadMap();
+
+		try
+		{
+			map.loadFromStream(new FileInputStream(new File("some_map.osm.xml")), styleViewer);
+		}
+		catch (Exception ex)
+		{
+			Logger.getLogger(MapController.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 
 	/**
@@ -215,21 +223,9 @@ public class MapController implements DrawableOnPanel
 	{
 		try
 		{
-			styleViewer.readFromFile(new File("drawStyles/testdrawstyles.dat"));
+			styleViewer.readFromFile(new File("standartDrawStyles/defaultMapStyle.dat"));
 		}
 		catch (IOException ex)
-		{
-			Logger.getLogger(MapController.class.getName()).log(Level.SEVERE, null, ex);
-		}
-	}
-
-	public void testLoadMap()
-	{
-		try
-		{
-			map.loadFromStream(new FileInputStream(new File("some_map.osm.xml")), styleViewer);
-		}
-		catch (Exception ex)
 		{
 			Logger.getLogger(MapController.class.getName()).log(Level.SEVERE, null, ex);
 		}
