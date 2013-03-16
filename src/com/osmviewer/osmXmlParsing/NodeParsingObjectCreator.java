@@ -32,9 +32,9 @@ public class NodeParsingObjectCreator implements ParsingObjectCreator
 	{
 		if (nodeAttributes == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("nodeAttributes is null");
 		}
-		
+
 		creatingNode = new OsmSAXNode(nodeAttributes);
 	}
 
@@ -49,7 +49,7 @@ public class NodeParsingObjectCreator implements ParsingObjectCreator
 	{
 		if (handler == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("handler is null");
 		}
 
 		handler.takeNode(creatingNode);
@@ -109,7 +109,7 @@ public class NodeParsingObjectCreator implements ParsingObjectCreator
 	{
 		if (qualifiedElementName == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("qualifiedElementName is null");
 		}
 
 		return qualifiedElementName.compareToIgnoreCase(NODE_XML_TAG_NAME) == 0;

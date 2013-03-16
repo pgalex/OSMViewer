@@ -41,7 +41,7 @@ public class OsmSAXNode implements OsmNode
 	{
 		if (attributes == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("attributes is null");
 		}
 
 		tags = new ArrayList<OsmTag>();
@@ -114,7 +114,7 @@ public class OsmSAXNode implements OsmNode
 	{
 		if (index < 0 || index >= tags.size())
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("index is out of bounds");
 		}
 
 		return tags.get(index);
@@ -130,7 +130,7 @@ public class OsmSAXNode implements OsmNode
 	{
 		if (tagToAdd == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("tagToAdd is null");
 		}
 
 		tags.add(tagToAdd);

@@ -40,11 +40,11 @@ public class SAXOsmXmlParser implements OsmXmlParser
 	{
 		if (input == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("input is null");
 		}
 		if (handler == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("handler is null");
 		}
 
 		saxHandler = new SAXOsmXmlParserHandler(handler);

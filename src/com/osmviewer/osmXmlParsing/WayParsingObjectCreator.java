@@ -36,7 +36,7 @@ public class WayParsingObjectCreator implements ParsingObjectCreator
 	{
 		if (wayAttributes == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("wayAttributes is null");
 		}
 
 		creatingWay = new OsmSAXWay(wayAttributes);
@@ -53,7 +53,7 @@ public class WayParsingObjectCreator implements ParsingObjectCreator
 	{
 		if (handler == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("handler is null");
 		}
 
 		handler.takeWay(creatingWay);
@@ -117,7 +117,7 @@ public class WayParsingObjectCreator implements ParsingObjectCreator
 	{
 		if (qualifiedElementName == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("qualifiedElementName is null");
 		}
 
 		return qualifiedElementName.compareToIgnoreCase(WAY_XML_TAG_NAME) == 0;

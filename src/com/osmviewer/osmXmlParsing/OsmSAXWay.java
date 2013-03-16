@@ -37,7 +37,7 @@ public class OsmSAXWay implements OsmWay
 	{
 		if (attributes == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("attributes is null");
 		}
 
 		tags = new ArrayList<OsmTag>();
@@ -87,7 +87,7 @@ public class OsmSAXWay implements OsmWay
 	{
 		if (index < 0 || index >= tags.size())
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("index is out of bounds");
 		}
 
 		return tags.get(index);
@@ -116,7 +116,7 @@ public class OsmSAXWay implements OsmWay
 	{
 		if (index < 0 || index >= nodesIds.size())
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("index is out of bounds");
 		}
 
 		return nodesIds.get(index);
@@ -132,7 +132,7 @@ public class OsmSAXWay implements OsmWay
 	{
 		if (tagToAdd == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("tagToAdd is null");
 		}
 
 		tags.add(tagToAdd);

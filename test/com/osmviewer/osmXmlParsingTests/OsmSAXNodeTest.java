@@ -1,7 +1,6 @@
 package com.osmviewer.osmXmlParsingTests;
 
 import com.osmviewer.osmXmlParsing.OsmSAXNode;
-import com.osmviewer.osmXmlParsing.TestOsmTag;
 import java.util.TreeMap;
 import org.junit.Test;
 import static org.junit.Assert.*;

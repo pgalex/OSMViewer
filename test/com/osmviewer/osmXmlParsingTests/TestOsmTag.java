@@ -1,4 +1,4 @@
-package com.osmviewer.osmXmlParsing;
+package com.osmviewer.osmXmlParsingTests;
 
 import com.osmviewer.osmXml.OsmTag;
 

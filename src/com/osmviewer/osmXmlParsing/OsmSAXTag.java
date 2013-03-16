@@ -31,7 +31,7 @@ public class OsmSAXTag implements OsmTag
 	{
 		if (attributes == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("attributes is null");
 		}
 
 		try
