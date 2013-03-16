@@ -117,7 +117,7 @@ public class MainFrame extends javax.swing.JFrame
       }
     });
 
-    jButtonEditDrawingStyles.setText("Редактор стилей ...");
+    jButtonEditDrawingStyles.setText("Редактор стилей _...");
     jButtonEditDrawingStyles.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -135,7 +135,7 @@ public class MainFrame extends javax.swing.JFrame
         .addGroup(jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(jButtonEditDrawingStyles)
           .addComponent(jSliderScaleLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addContainerGap(459, Short.MAX_VALUE))
+        .addContainerGap(452, Short.MAX_VALUE))
     );
     jPanelCanvasLayout.setVerticalGroup(
       jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
