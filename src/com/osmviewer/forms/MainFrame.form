@@ -92,7 +92,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButtonEditDrawingStyles">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#x420;&#x435;&#x434;&#x430;&#x43a;&#x442;&#x43e;&#x440; &#x441;&#x442;&#x438;&#x43b;&#x435;&#x439; _..."/>
+            <Property name="text" type="java.lang.String" value="&#x420;&#x435;&#x434;&#x430;&#x43a;&#x442;&#x43e;&#x440; &#x441;&#x442;&#x438;&#x43b;&#x435;&#x439; ..."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEditDrawingStylesActionPerformed"/>

@@ -117,7 +117,7 @@ public class MainFrame extends javax.swing.JFrame
       }
     });
 
-    jButtonEditDrawingStyles.setText("Редактор стилей _...");
+    jButtonEditDrawingStyles.setText("Редактор стилей ...");
     jButtonEditDrawingStyles.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
