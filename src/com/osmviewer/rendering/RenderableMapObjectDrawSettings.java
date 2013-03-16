@@ -94,7 +94,7 @@ public interface RenderableMapObjectDrawSettings
 	/**
 	 * Get name of object
 	 *
-	 * @return name of object
+	 * @return name of 
 	 */
 	public String getName();
 
