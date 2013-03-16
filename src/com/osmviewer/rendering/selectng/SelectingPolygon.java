@@ -32,7 +32,7 @@ public class SelectingPolygon extends SelectingObject
 
 		if (polygonForSelection == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("polygonForSelection is null");
 		}
 
 		// mb test correction points of polygon
@@ -51,7 +51,7 @@ public class SelectingPolygon extends SelectingObject
 	{
 		if (point == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("point is null");
 		}
 
 		return polygon.contains(point);

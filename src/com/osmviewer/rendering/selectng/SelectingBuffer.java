@@ -48,7 +48,7 @@ public class SelectingBuffer
 	{
 		if (index < 0 || index >= selectingObjects.size())
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("index is out of bounds");
 		}
 		
 		return selectingObjects.get(index);
@@ -66,7 +66,7 @@ public class SelectingBuffer
 	{
 		if (point == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("point is null");
 		}
 
 		ArrayList<SelectingObject> selectingObjectsAtPoint = findSelectingObjectsAtPoint(point);
@@ -91,7 +91,7 @@ public class SelectingBuffer
 	{
 		if (point == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("point is null");
 		}
 
 		ArrayList<SelectingObject> selectingObjectsAtPoint = new ArrayList<SelectingObject>();
@@ -117,7 +117,7 @@ public class SelectingBuffer
 	{
 		if (selectingObjectToAdd == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("selectingObjectToAdd is null");
 		}
 
 		selectingObjects.add(selectingObjectToAdd);

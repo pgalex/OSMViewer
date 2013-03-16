@@ -30,7 +30,7 @@ public abstract class SelectingObject
 	{
 		if (associatedObject == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("associatedObject is null");
 		}
 
 		associatedMapObject = associatedObject;

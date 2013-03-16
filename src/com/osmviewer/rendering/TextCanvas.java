@@ -29,7 +29,7 @@ public class TextCanvas
 	{
 		if (canvasForText == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("canvasForText is null");
 		}
 
 		canvas = canvasForText;
@@ -49,11 +49,11 @@ public class TextCanvas
 	{
 		if (textToDraw == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("textToDraw is null");
 		}
 		if (drawSettings == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("drawSettings is null");
 		}
 
 		if (textToDraw.isEmpty())
@@ -86,11 +86,11 @@ public class TextCanvas
 	{
 		if (textToDraw == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("textToDraw is null");
 		}
 		if (drawSettings == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("drawSettings is null");
 		}
 
 		if (textToDraw.isEmpty())
@@ -125,11 +125,11 @@ public class TextCanvas
 	{
 		if (text == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("text is null");
 		}
 		if (drawSettings == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("drawSettings is null");
 		}
 
 		FontMetrics textFontMetrics = canvas.getFontMetrics(drawSettings.getFont());
@@ -155,15 +155,15 @@ public class TextCanvas
 	{
 		if (textToDraw == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("textToDraw is null");
 		}
 		if (drawSettings == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("drawSettings is null");
 		}
 		if (!isMultilinePointsCorrect(multilinePoints))
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("multilinePoints incorrect");
 		}
 
 		if (textToDraw.isEmpty())
@@ -234,15 +234,15 @@ public class TextCanvas
 	{
 		if (textToDraw == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("textToDraw is null");
 		}
 		if (linePoint1 == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("linePoint1 is null");
 		}
 		if (linePoint2 == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("linePoint2 is null");
 		}
 
 		LineSegment lineSegment = new LineSegment(new Coordinate(linePoint1.getX(), linePoint1.getY()),

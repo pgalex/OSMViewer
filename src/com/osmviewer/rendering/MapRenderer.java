@@ -72,11 +72,11 @@ public class MapRenderer implements CoordinatesConverter
 	{
 		if (renderingMinimumScaleLevel > renderingMaximumScaleLevel)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("renderingMinimumScaleLevel is more than renderingMaximumScaleLevel");
 		}
 		if (startScaleLevel < renderingMinimumScaleLevel || startScaleLevel > renderingMaximumScaleLevel)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("startScaleLevel is out of bounds");
 		}
 
 		targetCanvasDrawingArea = DEFAULT_DRAWING_AREA;
@@ -103,7 +103,7 @@ public class MapRenderer implements CoordinatesConverter
 	{
 		if (drawingAreaToSet == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("drawingAreaToSet is null");
 		}
 
 		targetCanvasDrawingArea = drawingAreaToSet;
@@ -130,7 +130,7 @@ public class MapRenderer implements CoordinatesConverter
 	{
 		if (viewPositionToSet == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("viewPositionToSet is null");
 		}
 
 		viewPosition = viewPositionToSet;
@@ -157,7 +157,7 @@ public class MapRenderer implements CoordinatesConverter
 	{
 		if (scaleLevelToSet < minimumScaleLevel || scaleLevelToSet > maximumScaleLevel)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("scaleLevelToSet is out of bounds");
 		}
 
 		scaleLevel = scaleLevelToSet;
@@ -198,7 +198,7 @@ public class MapRenderer implements CoordinatesConverter
 	{
 		if (highlightingObject == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("highlightingObject is null");
 		}
 
 		objectToDrawAsHighlighted = highlightingObject;
@@ -222,7 +222,7 @@ public class MapRenderer implements CoordinatesConverter
 	{
 		if (selectingObject == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("selectingObject is null");
 		}
 
 		objectToDrawAsSelected = selectingObject;
@@ -248,7 +248,7 @@ public class MapRenderer implements CoordinatesConverter
 	{
 		if (pointOnCanvas == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("pointOnCanvas is null");
 		}
 
 		return selectingBuffer.findObjectsAtPoint(pointOnCanvas);
@@ -268,15 +268,15 @@ public class MapRenderer implements CoordinatesConverter
 	{
 		if (mapToRender == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("mapToRender is null");
 		}
 		if (targetCanvas == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("targetCanvas is null");
 		}
 		if (mapDrawSettings == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("mapDrawSettings is null");
 		}
 
 		if (targetCanvasDrawingArea.isEmpty())
@@ -325,7 +325,7 @@ public class MapRenderer implements CoordinatesConverter
 	{
 		if (graphics == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("graphics is null");
 		}
 
 		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -346,7 +346,7 @@ public class MapRenderer implements CoordinatesConverter
 	{
 		if (positionOnMap == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("positionOnMap is null");
 		}
 
 		Point2D pointInMeractor = MercatorSphericProjection.geographicsToMercator(positionOnMap,
@@ -374,7 +374,7 @@ public class MapRenderer implements CoordinatesConverter
 	{
 		if (positionOnCanvas == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("positionOnCanvas is null");
 		}
 
 		Point2D viewInMercator = MercatorSphericProjection.geographicsToMercator(viewPosition,

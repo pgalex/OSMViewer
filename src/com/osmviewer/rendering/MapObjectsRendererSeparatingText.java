@@ -85,19 +85,19 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	{
 		if (targetObjectsCanvas == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("targetObjectsCanvas is null");
 		}
 		if (targetTextCanvas == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("targetTextCanvas is null");
 		}
 		if (renderingCoordinatesConverter == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("renderingCoordinatesConverter is null");
 		}
 		if (fillingSelectingBuffer == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("fillingSelectingBuffer is null");
 		}
 
 		objectsCanvas = targetObjectsCanvas;
@@ -120,7 +120,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	{
 		if (highlightedObject == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("highlightedObject is null");
 		}
 
 		objectToDrawAsHighlighted = highlightedObject;
@@ -136,7 +136,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	{
 		if (selectedObject == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("selectedObject is null");
 		}
 
 		objectToDrawAsSelected = selectedObject;
@@ -153,7 +153,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	{
 		if (renderablePoint == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("renderablePoint is null");
 		}
 
 		RenderableMapObjectDrawSettings objectStyle = renderablePoint.getDrawSettings();
@@ -237,11 +237,11 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	{
 		if (point == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("point is null");
 		}
 		if (sourcePointTextDrawSettings == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("sourcePointTextDrawSettings is null");
 		}
 
 		boolean drawAsSelected = (point == objectToDrawAsSelected);
@@ -278,11 +278,11 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	{
 		if (pointPositionOnCanvas == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("pointPositionOnCanvas is null");
 		}
 		if (boundingRectangleColor == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("boundingRectangleColor is null");
 		}
 		objectsCanvas.setColor(boundingRectangleColor);
 		objectsCanvas.setStroke(new BasicStroke(2));
@@ -305,7 +305,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	{
 		if (point == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("point is null");
 		}
 
 		boolean drawAsSelected = (point == objectToDrawAsSelected);
@@ -338,7 +338,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	{
 		if (point == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("point is null");
 		}
 
 		boolean drawAsHightlighted = (point == objectToDrawAsHighlighted);
@@ -357,7 +357,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	{
 		if (renderableLine == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("renderableLine is null");
 		}
 
 		RenderableMapObjectDrawSettings objectStyle = renderableLine.getDrawSettings();
@@ -413,11 +413,11 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	{
 		if (line == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("line is null");
 		}
 		if (sourceLineDrawSettings == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("sourceLineDrawSettings is null");
 		}
 
 		boolean drawAsSelected = (line == objectToDrawAsSelected);
@@ -453,11 +453,11 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	{
 		if (line == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("line is null");
 		}
 		if (sourceLineTextDrawSettings == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("sourceLineTextDrawSettings is null");
 		}
 
 		boolean drawAsSelected = (line == objectToDrawAsSelected);
@@ -491,7 +491,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	{
 		if (renderableLine == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("renderableLine is null");
 		}
 
 		Point2D[] drawingMultiline = new Point2D[renderableLine.getPointsCount()];
@@ -515,7 +515,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	{
 		if (renderablePolygon == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("renderablePolygon is null");
 		}
 
 		RenderableMapObjectDrawSettings objectStyle = renderablePolygon.getDrawSettings();
@@ -576,11 +576,11 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	{
 		if (polygon == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("polygon is null");
 		}
 		if (sourceBorderDrawSettings == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("sourceBorderDrawSettings is null");
 		}
 
 		boolean drawAsSelected = (polygon == objectToDrawAsSelected);
@@ -617,11 +617,11 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	{
 		if (polygon == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("polygon is null");
 		}
 		if (sourcePolygonDrawSettings == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("sourcePolygonDrawSettings is null");
 		}
 
 		boolean drawAsSelected = (polygon == objectToDrawAsSelected);
@@ -658,11 +658,11 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	{
 		if (polygon == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("polygon is null");
 		}
 		if (sourcePolygonTextDrawSettings == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("sourcePolygonTextDrawSettings is null");
 		}
 
 		boolean drawAsSelected = (polygon == objectToDrawAsSelected);
@@ -697,7 +697,7 @@ public class MapObjectsRendererSeparatingText implements RenderableMapObjectsVis
 	{
 		if (polygon == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("polygon is null");
 		}
 
 		Polygon drawingPolygon = new Polygon();

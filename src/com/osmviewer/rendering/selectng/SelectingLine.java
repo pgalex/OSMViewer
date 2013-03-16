@@ -50,11 +50,11 @@ public class SelectingLine extends SelectingObject
 
 		if (!isLinePointsCorrect(selectingLinePoints))
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("selectingLinePoints incorrect");
 		}
 		if (selectingLineWidth < MINIMUM_WIDTH)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("selectingLineWidth less than minimum valid");
 		}
 
 		lineString = createLineStringByPoints(selectingLinePoints);
@@ -73,7 +73,7 @@ public class SelectingLine extends SelectingObject
 	{
 		if (!isLinePointsCorrect(lineStringPoints))
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("lineStringPoints incorrect");
 		}
 
 		GeometryFactory factory = new GeometryFactory();
@@ -126,7 +126,7 @@ public class SelectingLine extends SelectingObject
 	{
 		if (point == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("point is null");
 		}
 
 		GeometryFactory factory = new GeometryFactory();

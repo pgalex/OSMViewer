@@ -32,7 +32,7 @@ public class SelectingRectangle extends SelectingObject
 
 		if (rectangleForSelection == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("rectangleForSelection is null");
 		}
 
 		rectangle = rectangleForSelection;
@@ -50,7 +50,7 @@ public class SelectingRectangle extends SelectingObject
 	{
 		if (point == null)
 		{
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("point is null");
 		}
 
 		return rectangle.contains(point);
