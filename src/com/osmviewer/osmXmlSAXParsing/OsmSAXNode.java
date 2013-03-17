@@ -1,8 +1,6 @@
 package com.osmviewer.osmXmlSAXParsing;
 
 import com.osmviewer.osmXml.OsmNode;
-import com.osmviewer.osmXml.OsmTag;
-import java.util.ArrayList;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
@@ -11,16 +9,8 @@ import org.xml.sax.SAXException;
  *
  * @author preobrazhentsev
  */
-public class OsmSAXNode implements OsmNode
+public class OsmSAXNode extends OsmSAXMapObject implements OsmNode
 {
-	/**
-	 * Unique global osm id of object
-	 */
-	private long id;
-	/**
-	 * Object tags
-	 */
-	private ArrayList<OsmTag> tags;
 	/**
 	 * Position - latitude
 	 */
@@ -44,11 +34,9 @@ public class OsmSAXNode implements OsmNode
 			throw new IllegalArgumentException("attributes is null");
 		}
 
-		tags = new ArrayList<OsmTag>();
-
 		try
 		{
-			id = Long.valueOf(attributes.getValue("id"));
+			setId(Long.valueOf(attributes.getValue("id")));
 			latitude = Double.valueOf(attributes.getValue("lat"));
 			longitude = Double.valueOf(attributes.getValue("lon"));
 		}
@@ -78,61 +66,5 @@ public class OsmSAXNode implements OsmNode
 	public double getLongitude()
 	{
 		return longitude;
-	}
-
-	/**
-	 * Get unique global osm id of object
-	 *
-	 * @return Unique global osm id of object
-	 */
-	@Override
-	public long getId()
-	{
-		return id;
-	}
-
-	/**
-	 * Get object tags count
-	 *
-	 * @return tags count
-	 */
-	@Override
-	public int getTagsCount()
-	{
-		return tags.size();
-	}
-
-	/**
-	 * Get tag by index
-	 *
-	 * @param index index of tag
-	 * @return tag by index
-	 * @throws IllegalArgumentException index is out of bounds
-	 */
-	@Override
-	public OsmTag getTag(int index) throws IllegalArgumentException
-	{
-		if (index < 0 || index >= tags.size())
-		{
-			throw new IllegalArgumentException("index is out of bounds");
-		}
-
-		return tags.get(index);
-	}
-
-	/**
-	 * Add tag
-	 *
-	 * @param tagToAdd adding tag
-	 * @throws IllegalArgumentException tagToAdd is null
-	 */
-	public void addTag(OsmTag tagToAdd) throws IllegalArgumentException
-	{
-		if (tagToAdd == null)
-		{
-			throw new IllegalArgumentException("tagToAdd is null");
-		}
-
-		tags.add(tagToAdd);
 	}
 }
