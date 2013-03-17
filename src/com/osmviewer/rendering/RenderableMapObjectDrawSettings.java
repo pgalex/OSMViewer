@@ -17,14 +17,14 @@ public interface RenderableMapObjectDrawSettings
 	public boolean isCanBePoint();
 
 	/**
-	 * Can map object be a line(non-closed way)
+	 * Can map object be a line (non-closed way)
 	 *
 	 * @return can map object be a line(non-closed way) on a map
 	 */
 	public boolean isCanBeLine();
 
 	/**
-	 * Can map object be a polygon(closed way)
+	 * Can map object be a polygon (closed way)
 	 *
 	 * @return can map object be a polygon(closed way)
 	 */
