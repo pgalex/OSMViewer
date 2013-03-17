@@ -106,7 +106,7 @@ public class DefenitionTags
 	 * Is all tags of this defenition tags including in tagsForComparing
 	 *
 	 * @param tagsForComparing tags for comparing
-	 * @return is tagsForComparing contains this all of this tags
+	 * @return is tagsForComparing contains all of this tags
 	 * @throws IllegalArgumentException tagsForComparing is null
 	 */
 	public boolean includingIn(DefenitionTags tagsForComparing) throws IllegalArgumentException
@@ -123,7 +123,7 @@ public class DefenitionTags
 		{
 			return false;
 		}
-		// null tags are equal
+		// empty tags are equal
 		if (tags.isEmpty() && tagsForComparing.isEmpty())
 		{
 			return true;

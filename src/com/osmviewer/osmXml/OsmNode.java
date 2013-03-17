@@ -1,7 +1,7 @@
 package com.osmviewer.osmXml;
 
 /**
- * Osm xml node
+ * Osm xml node (one point on map)
  *
  * @author pgalex
  */

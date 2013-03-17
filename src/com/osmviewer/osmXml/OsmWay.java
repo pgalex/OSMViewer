@@ -1,7 +1,8 @@
 package com.osmviewer.osmXml;
 
 /**
- * Osm xml way
+ * Osm xml way. Can describe linear object if first and last nodes not equals
+ * and closed area if equals
  *
  * @author pgalex
  */
@@ -33,7 +34,7 @@ public interface OsmWay
 	/**
 	 * Get count of nodes ids
 	 *
-	 * @return count of nodes ids
+	 * @return count of nodes ids determining points of way
 	 */
 	public int getNodesIdsCount();
 
