@@ -78,22 +78,37 @@ public class Location
 	}
 
 	/**
-	 * Compate with other position
+	 * Is equals to object
 	 *
-	 * @param locationToCompare position for comparing
-	 * @return is position same
-	 * @throws IllegalArgumentException pointToCompare is null
+	 * @param objectToCompare object to compare. Must be instance of Location
+	 * @return is equals to given object
 	 */
-	public boolean compareTo(Location locationToCompare) throws IllegalArgumentException
+	@Override
+	public boolean equals(Object objectToCompare)
 	{
-		if (locationToCompare == null)
+		if (!(objectToCompare instanceof Location))
 		{
-			throw new IllegalArgumentException("locationToCompare is null");
+			throw new IllegalArgumentException("objectToCompate is not instance of location");
 		}
 
+		Location locationToCompare = (Location) objectToCompare;
 		boolean latitudeSame = Double.compare(latitude, locationToCompare.getLatitude()) == 0;
 		boolean longitudeSame = Double.compare(longitude, locationToCompare.getLongitude()) == 0;
 
 		return latitudeSame && longitudeSame;
+	}
+
+	/**
+	 * Get hash code value
+	 *
+	 * @return hash code value
+	 */
+	@Override
+	public int hashCode()
+	{
+		int hash = 5;
+		hash = 41 * hash + (int) (Double.doubleToLongBits(this.latitude) ^ (Double.doubleToLongBits(this.latitude) >>> 32));
+		hash = 41 * hash + (int) (Double.doubleToLongBits(this.longitude) ^ (Double.doubleToLongBits(this.longitude) >>> 32));
+		return hash;
 	}
 }

@@ -102,7 +102,7 @@ public class MapPolygon extends MapObject implements RenderableMapPolygon
 			return false;
 		}
 
-		if (!polygonPoints[0].compareTo(polygonPoints[polygonPoints.length - 1]))
+		if (!polygonPoints[0].equals(polygonPoints[polygonPoints.length - 1]))
 		{
 			return false;
 		}
