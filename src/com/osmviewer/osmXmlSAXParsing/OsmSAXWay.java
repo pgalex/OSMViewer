@@ -1,6 +1,5 @@
-package com.osmviewer.osmXmlParsing;
+package com.osmviewer.osmXmlSAXParsing;
 
-import com.osmviewer.osmXml.OsmTag;
 import com.osmviewer.osmXml.OsmWay;
 import java.util.ArrayList;
 import org.xml.sax.Attributes;
@@ -11,16 +10,8 @@ import org.xml.sax.SAXException;
  *
  * @author preobrazhentsev
  */
-public class OsmSAXWay implements OsmWay
+public class OsmSAXWay extends OsmSAXMapObject implements OsmWay
 {
-	/**
-	 * Unique global osm id of object
-	 */
-	private long id;
-	/**
-	 * Object tags
-	 */
-	private ArrayList<OsmTag> tags;
 	/**
 	 * Ids of nodes of way
 	 */
@@ -35,62 +26,23 @@ public class OsmSAXWay implements OsmWay
 	 */
 	public OsmSAXWay(Attributes attributes) throws IllegalArgumentException, SAXException
 	{
+		super();
+
 		if (attributes == null)
 		{
 			throw new IllegalArgumentException("attributes is null");
 		}
 
-		tags = new ArrayList<OsmTag>();
 		nodesIds = new ArrayList<Long>();
 
 		try
 		{
-			id = Long.valueOf(attributes.getValue("id"));
+			setId(Long.valueOf(attributes.getValue("id")));
 		}
 		catch (Exception ex)
 		{
 			throw new SAXException(ex);
 		}
-	}
-
-	/**
-	 * Get unique global osm id of object
-	 *
-	 * @return Unique global osm id of object
-	 */
-	@Override
-	public long getId()
-	{
-		return id;
-	}
-
-	/**
-	 * Get object tags count
-	 *
-	 * @return tags count
-	 */
-	@Override
-	public int getTagsCount()
-	{
-		return tags.size();
-	}
-
-	/**
-	 * Get tag by index
-	 *
-	 * @param index index of tag
-	 * @return tag by index
-	 * @throws IllegalArgumentException index is out of bounds
-	 */
-	@Override
-	public OsmTag getTag(int index) throws IllegalArgumentException
-	{
-		if (index < 0 || index >= tags.size())
-		{
-			throw new IllegalArgumentException("index is out of bounds");
-		}
-
-		return tags.get(index);
 	}
 
 	/**
@@ -120,22 +72,6 @@ public class OsmSAXWay implements OsmWay
 		}
 
 		return nodesIds.get(index);
-	}
-
-	/**
-	 * Add tag
-	 *
-	 * @param tagToAdd adding tag
-	 * @throws IllegalArgumentException tagToAdd is null
-	 */
-	public void addTag(OsmTag tagToAdd) throws IllegalArgumentException
-	{
-		if (tagToAdd == null)
-		{
-			throw new IllegalArgumentException("tagToAdd is null");
-		}
-
-		tags.add(tagToAdd);
 	}
 
 	/**

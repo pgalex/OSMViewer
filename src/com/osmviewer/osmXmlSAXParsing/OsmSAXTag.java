@@ -1,4 +1,4 @@
-package com.osmviewer.osmXmlParsing;
+package com.osmviewer.osmXmlSAXParsing;
 
 import com.osmviewer.osmXml.OsmTag;
 import org.xml.sax.Attributes;

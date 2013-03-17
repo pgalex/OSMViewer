@@ -1,6 +1,6 @@
 package com.osmviewer.osmXmlParsingTests;
 
-import com.osmviewer.osmXmlParsing.NodeParsingObjectCreator;
+import com.osmviewer.osmXmlSAXParsing.NodeParsingObjectCreator;
 import java.util.Map;
 import java.util.TreeMap;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.osmviewer.osmXmlParsing;
+package com.osmviewer.osmXmlSAXParsing;
 
 import com.osmviewer.osmXml.OsmXmlParser;
 import com.osmviewer.osmXml.OsmXmlParsingResultsHandler;

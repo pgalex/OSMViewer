@@ -1,7 +1,7 @@
 package com.osmviewer.osmXmlParsingTests;
 
 import com.osmviewer.osmXml.exceptions.ParsingOsmErrorException;
-import com.osmviewer.osmXmlParsing.SAXOsmXmlParser;
+import com.osmviewer.osmXmlSAXParsing.SAXOsmXmlParser;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

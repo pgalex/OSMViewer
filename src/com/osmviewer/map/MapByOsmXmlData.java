@@ -5,7 +5,7 @@ import com.osmviewer.osmXml.OsmNode;
 import com.osmviewer.osmXml.OsmWay;
 import com.osmviewer.osmXml.OsmXmlParser;
 import com.osmviewer.osmXml.exceptions.ParsingOsmErrorException;
-import com.osmviewer.osmXmlParsing.SAXOsmXmlParser;
+import com.osmviewer.osmXmlSAXParsing.SAXOsmXmlParser;
 import com.osmviewer.rendering.RenderableMap;
 import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
 import com.osmviewer.rendering.RenderableMapObjectsDrawPriorityComparator;

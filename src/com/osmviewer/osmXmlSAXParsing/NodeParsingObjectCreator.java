@@ -1,20 +1,42 @@
-package com.osmviewer.osmXmlParsing;
+package com.osmviewer.osmXmlSAXParsing;
 
 import com.osmviewer.osmXml.OsmXmlParsingResultsHandler;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 /**
- * Handler of parsing creating osm map object
+ * Handler of parsing, creating osm node
  *
  * @author pgalex
  */
-public interface ParsingObjectCreator
+public class NodeParsingObjectCreator implements ParsingObjectCreator
 {
 	/**
-	 * Name of xml tag of osm tag
+	 * Xml tag of node
 	 */
-	public static final String TAG_XML_TAG_NAME = "tag";
+	public static final String NODE_XML_TAG_NAME = "node";
+	/**
+	 * Osm node, creating by parsing
+	 */
+	private OsmSAXNode creatingNode;
+
+	/**
+	 * Create node parsing creator, taking node parameters from node xml tag
+	 * attributes
+	 *
+	 * @param nodeAttributes node xml tag attributes
+	 * @throws IllegalArgumentException nodeAttributes is null
+	 * @throws SAXException error while parsing attributes
+	 */
+	public NodeParsingObjectCreator(Attributes nodeAttributes) throws IllegalArgumentException, SAXException
+	{
+		if (nodeAttributes == null)
+		{
+			throw new IllegalArgumentException("nodeAttributes is null");
+		}
+
+		creatingNode = new OsmSAXNode(nodeAttributes);
+	}
 
 	/**
 	 * End creating osm map object and send it to handler
@@ -22,7 +44,16 @@ public interface ParsingObjectCreator
 	 * @param handler handler, taking created osm map object
 	 * @throws IllegalArgumentException handler is null
 	 */
-	public void sendCreatedObjectToHandler(OsmXmlParsingResultsHandler handler) throws IllegalArgumentException;
+	@Override
+	public void sendCreatedObjectToHandler(OsmXmlParsingResultsHandler handler) throws IllegalArgumentException
+	{
+		if (handler == null)
+		{
+			throw new IllegalArgumentException("handler is null");
+		}
+
+		handler.takeNode(creatingNode);
+	}
 
 	/**
 	 * Receive notification of the start of an element.
@@ -37,7 +68,14 @@ public interface ParsingObjectCreator
 	 * attributes, it shall be an empty Attributes object.
 	 * @throws SAXException error while element parsing
 	 */
-	public void startElement(String uri, String localName, String qualifiedName, Attributes attributes) throws SAXException;
+	@Override
+	public void startElement(String uri, String localName, String qualifiedName, Attributes attributes) throws SAXException
+	{
+		if (qualifiedName.compareToIgnoreCase(ParsingObjectCreator.TAG_XML_TAG_NAME) == 0)
+		{
+			creatingNode.addTag(new OsmSAXTag(attributes));
+		}
+	}
 
 	/**
 	 * Receive notification of the end of an element.
@@ -54,7 +92,10 @@ public interface ParsingObjectCreator
 	 * if qualified names are not available.
 	 * @exception SAXException error while parsing end of element
 	 */
-	public void endElement(String uri, String localName, String qualifiedName) throws SAXException;
+	@Override
+	public void endElement(String uri, String localName, String qualifiedName) throws SAXException
+	{
+	}
 
 	/**
 	 * Is element name end for creating osm map object
@@ -63,5 +104,14 @@ public interface ParsingObjectCreator
 	 * @return is element name end for creating
 	 * @throws IllegalArgumentException qualifiedElementName is null
 	 */
-	public boolean isEndCreatingElementName(String qualifiedElementName) throws IllegalArgumentException;
+	@Override
+	public boolean isEndCreatingElementName(String qualifiedElementName) throws IllegalArgumentException
+	{
+		if (qualifiedElementName == null)
+		{
+			throw new IllegalArgumentException("qualifiedElementName is null");
+		}
+
+		return qualifiedElementName.compareToIgnoreCase(NODE_XML_TAG_NAME) == 0;
+	}
 }
