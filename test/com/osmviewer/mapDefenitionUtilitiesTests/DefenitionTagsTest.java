@@ -223,7 +223,7 @@ public class DefenitionTagsTest
 			assertEquals(writingTags.count(), readingTags.count());
 			for (int i = 0; i < writingTags.count(); i++)
 			{
-				assertTrue(writingTags.get(i).compareTo(readingTags.get(i)));
+				assertTrue(writingTags.get(i).equals(readingTags.get(i)));
 			}
 		}
 		catch (Exception ex)
@@ -244,8 +244,8 @@ public class DefenitionTagsTest
 		
 		assertFalse(tags.isEmpty());
 		assertEquals(2, tags.count());
-		assertTrue(tags.get(0).compareTo(new Tag("k1", "v1")));
-		assertTrue(tags.get(1).compareTo(new Tag("k2", "v2")));
+		assertTrue(tags.get(0).equals(new Tag("k1", "v1")));
+		assertTrue(tags.get(1).equals(new Tag("k2", "v2")));
 	}
 
 	/**
@@ -294,7 +294,7 @@ public class DefenitionTagsTest
 		
 		tags.remove(1);
 		assertEquals(1, tags.count());
-		assertTrue(tags.get(0).compareTo(new Tag("k1", "v1")));
+		assertTrue(tags.get(0).equals(new Tag("k1", "v1")));
 		
 		tags.remove(0);
 		assertTrue(tags.isEmpty());

@@ -141,7 +141,7 @@ public class DefenitionTags
 			{
 				Tag comparingTag = tagsForComparing.get(i);
 
-				if (thisTag.compareTo(comparingTag))
+				if (thisTag.equals(comparingTag))
 				{
 					thisTagFoundInCompatingTags = true;
 					break;

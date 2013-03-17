@@ -56,34 +56,16 @@ public class TagTest
 		{
 			Tag writingTag = new Tag("key1", "value1");
 			writingTag.writeToStream(IOTester.createTestOutputStream());
-			
+
 			Tag readingTag = new Tag();
 			readingTag.readFromStream(IOTester.createTestInputStream());
-			
+
 			assertEquals(writingTag.getKey(), readingTag.getKey());
 			assertEquals(writingTag.getValue(), readingTag.getValue());
 		}
 		catch (Exception ex)
 		{
 			fail();
-		}
-	}
-
-	/**
-	 * Testing compare with null tag
-	 */
-	@Test
-	public void comparingWithNullTagTest()
-	{
-		try
-		{
-			Tag tag = new Tag();
-			tag.compareTo(null);
-			fail();
-		}
-		catch (IllegalArgumentException ex)
-		{
-			// ok
 		}
 	}
 
@@ -95,7 +77,7 @@ public class TagTest
 	{
 		Tag tag1 = new Tag();
 		Tag tag2 = new Tag();
-		assertTrue(tag1.compareTo(tag2));
+		assertTrue(tag1.equals(tag2));
 	}
 
 	/**
@@ -106,7 +88,7 @@ public class TagTest
 	{
 		Tag tag1 = new Tag("k1", "v1");
 		Tag tag2 = new Tag();
-		assertFalse(tag1.compareTo(tag2));
+		assertFalse(tag1.equals(tag2));
 	}
 
 	/**
@@ -117,7 +99,7 @@ public class TagTest
 	{
 		Tag tag1 = new Tag("k1", "v1");
 		Tag tag2 = new Tag("k1", "v1");
-		assertTrue(tag1.compareTo(tag2));
+		assertTrue(tag1.equals(tag2));
 	}
 
 	/**
@@ -128,7 +110,7 @@ public class TagTest
 	{
 		Tag tag1 = new Tag("k1", "v1");
 		Tag tag2 = new Tag("k2", "v2");
-		assertFalse(tag1.compareTo(tag2));
+		assertFalse(tag1.equals(tag2));
 	}
 
 	/**
@@ -139,6 +121,6 @@ public class TagTest
 	{
 		Tag tag1 = new Tag("k1", "v1");
 		Tag tag2 = new Tag("K1", "V1");
-		assertTrue(tag1.compareTo(tag2));
+		assertTrue(tag1.equals(tag2));
 	}
 }

@@ -72,20 +72,22 @@ public class Tag
 	}
 
 	/**
-	 * Compare with tag. Ingnore case
+	 * Is equals to object
 	 *
-	 * @param tagForComparing tag for comparing
-	 * @return is tags eqaul
-	 * @throws IllegalArgumentException tagForComparing is null
+	 * @param objectToCompare object for comparing. Must be isntance of Tag class
+	 * @return is equals to given object
 	 */
-	public boolean compareTo(Tag tagForComparing) throws IllegalArgumentException
+	@Override
+	public boolean equals(Object objectToCompare)
 	{
-		if (tagForComparing == null)
+		if (!(objectToCompare instanceof Tag))
 		{
-			throw new IllegalArgumentException("tagForComparing is null");
+			throw new IllegalArgumentException("objectToCompare is not instance of Tag");
 		}
 
-		if ((tagForComparing.key.compareToIgnoreCase(key) == 0) && (tagForComparing.value.compareToIgnoreCase(value) == 0))
+		Tag tagToCompare = (Tag) objectToCompare;
+
+		if ((tagToCompare.key.compareToIgnoreCase(key) == 0) && (tagToCompare.value.compareToIgnoreCase(value) == 0))
 		{
 			return true;
 		}
@@ -93,6 +95,20 @@ public class Tag
 		{
 			return false;
 		}
+	}
+
+	/**
+	 * Get hash code value
+	 *
+	 * @return hash code value
+	 */
+	@Override
+	public int hashCode()
+	{
+		int hash = 7;
+		hash = 17 * hash + (this.key != null ? this.key.hashCode() : 0);
+		hash = 17 * hash + (this.value != null ? this.value.hashCode() : 0);
+		return hash;
 	}
 
 	/**

@@ -80,7 +80,8 @@ public class Location
 	/**
 	 * Is equals to object
 	 *
-	 * @param objectToCompare object to compare. Must be instance of Location
+	 * @param objectToCompare object for comparing. Must be instance of Location
+	 * class
 	 * @return is equals to given object
 	 */
 	@Override
