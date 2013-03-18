@@ -12,7 +12,7 @@ public class IOTester
 	/**
 	 * Name of file used of reading/writing testing
 	 */
-	public static final String TEST_FILE_NAME = "test/supportFiles/testFile.txt";
+	public static final String TEST_FILE_NAME = "test/temporaryFiles/testFile.txt";
 
 	public static DataOutputStream createTestOutputStream() throws FileNotFoundException
 	{
