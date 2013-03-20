@@ -1,5 +1,7 @@
 package com.osmviewer.map;
 
+import com.osmviewer.osmXml.OsmXmlParser;
+import com.osmviewer.osmXmlSAXParsing.SAXOsmXmlParser;
 import java.io.InputStream;
 
 /**
@@ -9,11 +11,14 @@ import java.io.InputStream;
  */
 public class OsmXmlToSQLiteDatabaseConverter
 {
+	private OsmXmlParser osmXmlParser;
+
 	/**
 	 * Create converter
 	 */
 	public OsmXmlToSQLiteDatabaseConverter()
 	{
+		osmXmlParser = new SAXOsmXmlParser();
 	}
 
 	/**
