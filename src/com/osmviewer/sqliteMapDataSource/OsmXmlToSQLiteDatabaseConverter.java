@@ -1,4 +1,4 @@
-package com.osmviewer.map;
+package com.osmviewer.sqliteMapDataSource;
 
 import com.osmviewer.osmXml.OsmXmlParser;
 import com.osmviewer.osmXmlSAXParsing.SAXOsmXmlParser;

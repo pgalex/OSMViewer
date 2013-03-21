@@ -1,7 +1,6 @@
 package com.osmviewer.map;
 
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
-import java.util.List;
 
 /**
  * Source of map objects
@@ -11,11 +10,11 @@ import java.util.List;
 public interface MapDataSource
 {
 	/**
-	 * Add all map objects, exists in area to array
+	 * Fetch map objects exists in area, and send them to fetchResultsHandler
 	 *
-	 * @param area area on map, determining what objects need to get
-	 * @param arrayToFill fill map objects array
-	 * @throws IllegalArgumentException area is null, arrayToFill is null
+	 * @param area area on map, deteriming what map objects need to fetch
+	 * @param fetchResultsHandler handler of fetch results
+	 * @throws IllegalArgumentException area is null, fetchResultsHandler is null
 	 */
-	public void addMapObjectsInAreaToArray(MapBounds area, List<MapObject> arrayToFill) throws IllegalArgumentException;
+	public void fetchMapObjectsInArea(MapBounds area, MapDataSourceFetchResultsHandler fetchResultsHandler) throws IllegalArgumentException;
 }

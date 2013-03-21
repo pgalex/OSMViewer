@@ -1,7 +1,7 @@
-package com.osmviewer.mapTests;
+package com.osmviewer.sqliteMapDataSourceTests;
 
 import com.osmviewer.IOTesting.IOTester;
-import com.osmviewer.map.OsmXmlToSQLiteDatabaseConverter;
+import com.osmviewer.sqliteMapDataSource.OsmXmlToSQLiteDatabaseConverter;
 import java.io.FileNotFoundException;
 import org.junit.Test;
 import static org.junit.Assert.*;
