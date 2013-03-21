@@ -1,6 +1,7 @@
 package com.osmviewer.sqliteMapDataSourceTests;
 
 import com.osmviewer.IOTesting.IOTester;
+import com.osmviewer.osmXml.exceptions.ParsingOsmErrorException;
 import com.osmviewer.sqliteMapDataSource.OsmXmlToSQLiteDatabaseConverter;
 import java.io.FileNotFoundException;
 import org.junit.Test;
@@ -29,10 +30,14 @@ public class OsmXmlToSQLiteDatabaseConverterTest
 		{
 			// ok
 		}
+		catch (ParsingOsmErrorException ex)
+		{
+			fail();
+		}
 	}
 
 	/**
-	 * Test converting with null database file name
+	 * Test converting with null database file
 	 */
 	@Test
 	public void convertingWithNullDatabaseFileNameTest()
@@ -51,10 +56,14 @@ public class OsmXmlToSQLiteDatabaseConverterTest
 		{
 			// ok
 		}
+		catch (ParsingOsmErrorException ex)
+		{
+			fail();
+		}
 	}
-
+	
 	/**
-	 * Test converting with empty database file name
+	 * Test converting with empty database file
 	 */
 	@Test
 	public void convertingWithEmptyDatabaseFileNameTest()
@@ -72,6 +81,10 @@ public class OsmXmlToSQLiteDatabaseConverterTest
 		catch (IllegalArgumentException ex)
 		{
 			// ok
+		}
+		catch (ParsingOsmErrorException ex)
+		{
+			fail();
 		}
 	}
 }
