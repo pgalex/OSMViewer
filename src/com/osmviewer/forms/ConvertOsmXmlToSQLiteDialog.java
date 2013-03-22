@@ -18,6 +18,15 @@ import javax.swing.JOptionPane;
 public class ConvertOsmXmlToSQLiteDialog extends javax.swing.JDialog
 {
 	/**
+	 * Choosed source .osm xml file
+	 */
+	private File sourceFile;
+	/**
+	 * Choosed destenation sqlite database file
+	 */
+	private File destenationFile;
+
+	/**
 	 * Create new dialog
 	 *
 	 * @param parentWindow parent window
@@ -28,6 +37,18 @@ public class ConvertOsmXmlToSQLiteDialog extends javax.swing.JDialog
 		super(parentWindow, modalityType);
 		initComponents();
 		setTitle("Конвертирование osm xml");
+		
+		sourceFile = null;
+		destenationFile = null;
+		updateConvertButtonEnabledByFilesChoosing();
+	}
+
+	/**
+	 * Update enabled of convert button by all or not necessary choosed
+	 */
+	private void updateConvertButtonEnabledByFilesChoosing()
+	{
+		jButtonConvert.setEnabled(sourceFile != null && destenationFile != null);
 	}
 
 	/**
@@ -37,7 +58,7 @@ public class ConvertOsmXmlToSQLiteDialog extends javax.swing.JDialog
 	 * @param destenationFile destenation (database)file
 	 * @throws IllegalArgumentException sourceFile or destenationFile is null
 	 */
-	private void runConvertion(File sourceFile, File destenationFile) throws IllegalArgumentException
+	private void runConverting() throws IllegalArgumentException
 	{
 		if (sourceFile == null)
 		{
@@ -47,7 +68,7 @@ public class ConvertOsmXmlToSQLiteDialog extends javax.swing.JDialog
 		{
 			throw new IllegalArgumentException("destenationFile is null");
 		}
-
+		
 		OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter();
 		try
 		{
@@ -78,6 +99,12 @@ public class ConvertOsmXmlToSQLiteDialog extends javax.swing.JDialog
   {
 
     jButtonConvert = new javax.swing.JButton();
+    jLabel1 = new javax.swing.JLabel();
+    jLabel2 = new javax.swing.JLabel();
+    jTextFieldSourceFileName = new javax.swing.JTextField();
+    jButtonChooseSourceFile = new javax.swing.JButton();
+    jTextFieldDestenationFileName = new javax.swing.JTextField();
+    jButtonChooseDestenationFile = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -90,43 +117,120 @@ public class ConvertOsmXmlToSQLiteDialog extends javax.swing.JDialog
       }
     });
 
+    jLabel1.setText("Исходный .osm файл");
+
+    jLabel2.setText("Файл БД:");
+
+    jTextFieldSourceFileName.setEditable(false);
+
+    jButtonChooseSourceFile.setText("Выбрать");
+    jButtonChooseSourceFile.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jButtonChooseSourceFileActionPerformed(evt);
+      }
+    });
+
+    jTextFieldDestenationFileName.setEditable(false);
+
+    jButtonChooseDestenationFile.setText("Выбрать");
+    jButtonChooseDestenationFile.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jButtonChooseDestenationFileActionPerformed(evt);
+      }
+    });
+
     org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
       layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
       .add(layout.createSequentialGroup()
-        .add(jButtonConvert)
-        .add(0, 419, Short.MAX_VALUE))
+        .addContainerGap()
+        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+          .add(layout.createSequentialGroup()
+            .add(jButtonConvert)
+            .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+          .add(layout.createSequentialGroup()
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+              .add(jLabel1)
+              .add(jLabel2))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+              .add(jTextFieldSourceFileName)
+              .add(jTextFieldDestenationFileName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+              .add(jButtonChooseSourceFile)
+              .add(jButtonChooseDestenationFile))
+            .add(69, 69, 69))))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-      .add(layout.createSequentialGroup()
+      .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
         .addContainerGap()
+        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+          .add(jLabel1)
+          .add(jTextFieldSourceFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+          .add(jButtonChooseSourceFile))
+        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+          .add(jTextFieldDestenationFileName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+          .add(jLabel2)
+          .add(jButtonChooseDestenationFile))
+        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
         .add(jButtonConvert)
-        .addContainerGap(78, Short.MAX_VALUE))
+        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
 
-  private void jButtonConvertActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonConvertActionPerformed
-  {//GEN-HEADEREND:event_jButtonConvertActionPerformed
+  private void jButtonChooseSourceFileActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonChooseSourceFileActionPerformed
+  {//GEN-HEADEREND:event_jButtonChooseSourceFileActionPerformed
 		JFileChooser sourceFileChooser = new JFileChooser();
 		sourceFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
 		int sourceFileShowDialogResult = sourceFileChooser.showOpenDialog(this);
 		if (sourceFileShowDialogResult == JFileChooser.APPROVE_OPTION)
 		{
-			File sourceFile = sourceFileChooser.getSelectedFile();
-			JFileChooser destenationFileChooser = new JFileChooser(sourceFile.getPath());
-			int destenationFileShowDialogResult = destenationFileChooser.showSaveDialog(this);
-			if (destenationFileShowDialogResult == JFileChooser.APPROVE_OPTION)
-			{
-				runConvertion(sourceFile, destenationFileChooser.getSelectedFile());
-			}
+			sourceFile = sourceFileChooser.getSelectedFile();
+			
+			jTextFieldSourceFileName.setText(sourceFile.getPath());
+			updateConvertButtonEnabledByFilesChoosing();
+		}
+		
+  }//GEN-LAST:event_jButtonChooseSourceFileActionPerformed
+	
+  private void jButtonChooseDestenationFileActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonChooseDestenationFileActionPerformed
+  {//GEN-HEADEREND:event_jButtonChooseDestenationFileActionPerformed
+		JFileChooser destenationFileChooser = new JFileChooser();
+		int destenationFileShowDialogResult = destenationFileChooser.showSaveDialog(this);
+		if (destenationFileShowDialogResult == JFileChooser.APPROVE_OPTION)
+		{
+			destenationFile = destenationFileChooser.getSelectedFile();
+			
+			jTextFieldDestenationFileName.setText(destenationFile.getPath());
+			updateConvertButtonEnabledByFilesChoosing();
+		}
+		
+  }//GEN-LAST:event_jButtonChooseDestenationFileActionPerformed
+	
+  private void jButtonConvertActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonConvertActionPerformed
+  {//GEN-HEADEREND:event_jButtonConvertActionPerformed
+		if (sourceFile != null && destenationFile != null)
+		{
+			runConverting();
 		}
   }//GEN-LAST:event_jButtonConvertActionPerformed
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JButton jButtonChooseDestenationFile;
+  private javax.swing.JButton jButtonChooseSourceFile;
   private javax.swing.JButton jButtonConvert;
+  private javax.swing.JLabel jLabel1;
+  private javax.swing.JLabel jLabel2;
+  private javax.swing.JTextField jTextFieldDestenationFileName;
+  private javax.swing.JTextField jTextFieldSourceFileName;
   // End of variables declaration//GEN-END:variables
 }

@@ -117,13 +117,12 @@ public class OsmXmlToSQLiteDatabaseConverterTest
 	@Test
 	public void deletingExistsDatabaseTest()
 	{
-		
 		try
 		{
 			DataOutputStream testFileOutput = IOTester.createTestOutputStream();
 			testFileOutput.writeBoolean(true);
 			testFileOutput.close();
-			
+
 			OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter();
 			converter.convert(createTestMapInputStream(), IOTester.TEST_FILE_NAME);
 		}
@@ -143,8 +142,44 @@ public class OsmXmlToSQLiteDatabaseConverterTest
 		{
 			fail();
 		}
-		
+
 		File testFile = new File(IOTester.TEST_FILE_NAME);
 		assertFalse(testFile.exists());
+	}
+
+	/**
+	 * Test taking null node from parser
+	 */
+	@Test
+	public void takingNullNodeTest()
+	{
+		try
+		{
+			OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter();
+			converter.takeNode(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	/**
+	 * Test taking null way from parser
+	 */
+	@Test
+	public void takingNullWayTest()
+	{
+		try
+		{
+			OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter();
+			converter.takeWay(null);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
 	}
 }
