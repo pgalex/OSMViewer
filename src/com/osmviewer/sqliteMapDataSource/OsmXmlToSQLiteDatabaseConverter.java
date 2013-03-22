@@ -39,8 +39,8 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 	 * @throws IllegalArgumentException sourceOsmXmlInputStream is null,
 	 * databaseFileName is null or empty
 	 * @throws ParsingOsmErrorException error while parsing osm xml data
-	 * @throws CanNotDeleteExistsDatabaseFileErrorException can not delete
-	 * exists database file
+	 * @throws CanNotDeleteExistsDatabaseFileErrorException can not delete exists
+	 * database file
 	 */
 	public void convert(InputStream sourceOsmXmlInputStream, String databaseFileName) throws IllegalArgumentException, ParsingOsmErrorException, CanNotDeleteExistsDatabaseFileErrorException
 	{
@@ -90,8 +90,6 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 			throw new IllegalArgumentException("parsedNode is null");
 		}
 
-		System.out.println("OsmNode");
-
 		// добавить точку во временную БД
 		// если точка с тегами, добавить объект в результирующую БД
 	}
@@ -109,8 +107,6 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 		{
 			throw new IllegalArgumentException("parsedWay is null");
 		}
-
-		System.out.println("OsmWay");
 
 		// найти точки из временной БД
 		// добавить в результирующую БД объект
