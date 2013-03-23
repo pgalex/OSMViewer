@@ -28,7 +28,10 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 	 * Database for temporary storing parsed osm nodes
 	 */
 	private TemporaryOsmNodesDatabase nodesTemporaryDatabase;
-
+	/**
+	 * Database for temporary storing parsed osm nodes
+	 */
+	private SQLiteDataBaseMapDataSource database;
 	/**
 	 * Create converter
 	 */
@@ -79,11 +82,13 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 
 		nodesTemporaryDatabase = new TemporaryOsmNodesDatabase();
 
+	//	database = new SQLiteDataBaseMapDataSource(databaseFileName);
 		// инициализировать результирующую БД
 
 		osmXmlParser.parse(sourceOsmXmlInputStream, this);
 
 		nodesTemporaryDatabase.closeAndDeleteDatabaseFile();
+	//	database.closeAndDeleteDatabaseFile();
 	}
 
 	/**
