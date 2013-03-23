@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -39,7 +40,6 @@ public class TemporaryOsmNodesDatabase
 			Class.forName("org.sqlite.JDBC");
 			databaseFile = File.createTempFile("osmViewer", "TempDatabase");
 			databaseConnection = DriverManager.getConnection("jdbc:sqlite:" + databaseFile.getPath());
-			System.out.println(databaseFile.getPath());
 
 			String creatingNodesTableQuery = "CREATE TABLE IF NOT EXISTS Nodes ( id INTEGER PRIMARY KEY, "
 							+ "latitude REAL, longitude REAL )";
@@ -101,6 +101,38 @@ public class TemporaryOsmNodesDatabase
 			addNodeStatement.setDouble(3, nodeToAdd.getLongitude());
 			addNodeStatement.executeUpdate();
 			addNodeStatement.close();
+		}
+		catch (SQLException ex)
+		{
+			throw new DatabaseErrorExcetion(ex);
+		}
+	}
+
+	/**
+	 * Find osm node in database by its openstreetmap unique id
+	 *
+	 * @param nodeId openstreetmap id of node to find
+	 * @return found node. Null if not found
+	 * @throws DatabaseErrorExcetion error while getting node from database
+	 */
+	public TemporaryDatabaseOsmNode findNodeById(long nodeId) throws DatabaseErrorExcetion
+	{
+		try
+		{
+			PreparedStatement selectNodeStatement = databaseConnection.prepareStatement("SELECT * FROM Nodes WHERE id=?");
+			selectNodeStatement.setLong(1, nodeId);
+			
+			ResultSet selectedNodeResultSet = selectNodeStatement.executeQuery();
+			boolean resultsExists = selectedNodeResultSet.next();
+			
+			TemporaryDatabaseOsmNode foundNode = null;
+			if (resultsExists)
+			{
+				foundNode = new TemporaryDatabaseOsmNode(selectedNodeResultSet);
+			}
+			selectedNodeResultSet.close();
+			selectNodeStatement.close();
+			return foundNode;
 		}
 		catch (SQLException ex)
 		{
