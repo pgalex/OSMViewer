@@ -32,6 +32,10 @@ public class TemporaryOsmNodesDatabaseTest
 		{
 			// ok
 		}
+		finally
+		{
+			database.closeAndDeleteDatabaseFile();
+		}
 	}
 
 	/**
