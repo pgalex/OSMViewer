@@ -99,6 +99,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 		{
 			throw new IllegalArgumentException("parsedNode is null");
 		}
+		
 		try
 		{
 			nodesTemporaryDatabase.addNode(parsedNode);
@@ -106,6 +107,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 		}
 		catch (DatabaseErrorExcetion ex)
 		{
+			// вести учет не добавленных точек
 			Logger.getLogger(OsmXmlToSQLiteDatabaseConverter.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
