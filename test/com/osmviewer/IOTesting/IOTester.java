@@ -10,7 +10,7 @@ import java.io.*;
 public class IOTester
 {
 	/**
-	 * Name of file used of reading/writing testing
+	 * Name of file used of reading/writing
 	 */
 	public static final String TEST_FILE_NAME = "test/temporaryFiles/testFile.txt";
 
