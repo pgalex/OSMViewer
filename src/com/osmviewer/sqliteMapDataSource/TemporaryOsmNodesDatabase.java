@@ -39,7 +39,6 @@ public class TemporaryOsmNodesDatabase
 			Class.forName("org.sqlite.JDBC");
 			databaseFile = File.createTempFile("osmViewer", "TempDatabase");
 			databaseConnection = DriverManager.getConnection("jdbc:sqlite:" + databaseFile.getPath());
-			System.out.println(databaseFile.getPath());
 
 			String creatingNodesTableQuery = "CREATE TABLE IF NOT EXISTS Nodes ( id INTEGER PRIMARY KEY, "
 							+ "latitude REAL, longitude REAL )";
