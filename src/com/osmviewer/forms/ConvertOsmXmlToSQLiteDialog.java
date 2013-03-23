@@ -2,7 +2,8 @@ package com.osmviewer.forms;
 
 import com.osmviewer.osmXml.exceptions.ParsingOsmErrorException;
 import com.osmviewer.sqliteMapDataSource.OsmXmlToSQLiteDatabaseConverter;
-import com.osmviewer.sqliteMapDataSource.exceptions.CanNotDeleteExistsDatabaseFileErrorException;
+import com.osmviewer.sqliteMapDataSource.exceptions.DatabaseErrorExcetion;
+import com.osmviewer.sqliteMapDataSource.exceptions.DeletingExistsDatabaseFileErrorException;
 import java.awt.Window;
 import java.io.File;
 import java.io.FileInputStream;
@@ -37,7 +38,7 @@ public class ConvertOsmXmlToSQLiteDialog extends javax.swing.JDialog
 		super(parentWindow, modalityType);
 		initComponents();
 		setTitle("Конвертирование osm xml");
-		
+
 		sourceFile = null;
 		destenationFile = null;
 		updateConvertButtonEnabledByFilesChoosing();
@@ -68,7 +69,7 @@ public class ConvertOsmXmlToSQLiteDialog extends javax.swing.JDialog
 		{
 			throw new IllegalArgumentException("destenationFile is null");
 		}
-		
+
 		OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter();
 		try
 		{
@@ -76,15 +77,19 @@ public class ConvertOsmXmlToSQLiteDialog extends javax.swing.JDialog
 		}
 		catch (FileNotFoundException ex)
 		{
-			JOptionPane.showMessageDialog(this, "Can not read from source file", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Невозможно прочитать исходный файл", "Ошибка", JOptionPane.ERROR_MESSAGE);
 		}
 		catch (ParsingOsmErrorException ex)
 		{
-			JOptionPane.showMessageDialog(this, "Error while parsing source file", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Ошибка разбора xml", "Ошибка", JOptionPane.ERROR_MESSAGE);
 		}
-		catch (CanNotDeleteExistsDatabaseFileErrorException ex)
+		catch (DeletingExistsDatabaseFileErrorException ex)
 		{
-			JOptionPane.showMessageDialog(this, "Can not delete exists database file", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Существующая БД не может быть удалена", "Ошибка", JOptionPane.ERROR_MESSAGE);
+		}
+		catch (DatabaseErrorExcetion ex)
+		{
+			JOptionPane.showMessageDialog(this, "Ошибка работы с базой данных", "Ошибка", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -196,13 +201,13 @@ public class ConvertOsmXmlToSQLiteDialog extends javax.swing.JDialog
 		if (sourceFileShowDialogResult == JFileChooser.APPROVE_OPTION)
 		{
 			sourceFile = sourceFileChooser.getSelectedFile();
-			
+
 			jTextFieldSourceFileName.setText(sourceFile.getPath());
 			updateConvertButtonEnabledByFilesChoosing();
 		}
-		
+
   }//GEN-LAST:event_jButtonChooseSourceFileActionPerformed
-	
+
   private void jButtonChooseDestenationFileActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonChooseDestenationFileActionPerformed
   {//GEN-HEADEREND:event_jButtonChooseDestenationFileActionPerformed
 		JFileChooser destenationFileChooser = new JFileChooser();
@@ -210,13 +215,13 @@ public class ConvertOsmXmlToSQLiteDialog extends javax.swing.JDialog
 		if (destenationFileShowDialogResult == JFileChooser.APPROVE_OPTION)
 		{
 			destenationFile = destenationFileChooser.getSelectedFile();
-			
+
 			jTextFieldDestenationFileName.setText(destenationFile.getPath());
 			updateConvertButtonEnabledByFilesChoosing();
 		}
-		
+
   }//GEN-LAST:event_jButtonChooseDestenationFileActionPerformed
-	
+
   private void jButtonConvertActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonConvertActionPerformed
   {//GEN-HEADEREND:event_jButtonConvertActionPerformed
 		if (sourceFile != null && destenationFile != null)

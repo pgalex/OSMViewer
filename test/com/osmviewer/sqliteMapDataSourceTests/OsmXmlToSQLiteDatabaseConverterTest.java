@@ -3,7 +3,8 @@ package com.osmviewer.sqliteMapDataSourceTests;
 import com.osmviewer.IOTesting.IOTester;
 import com.osmviewer.osmXml.exceptions.ParsingOsmErrorException;
 import com.osmviewer.sqliteMapDataSource.OsmXmlToSQLiteDatabaseConverter;
-import com.osmviewer.sqliteMapDataSource.exceptions.CanNotDeleteExistsDatabaseFileErrorException;
+import com.osmviewer.sqliteMapDataSource.exceptions.DatabaseErrorExcetion;
+import com.osmviewer.sqliteMapDataSource.exceptions.DeletingExistsDatabaseFileErrorException;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -45,7 +46,11 @@ public class OsmXmlToSQLiteDatabaseConverterTest
 		{
 			fail();
 		}
-		catch (CanNotDeleteExistsDatabaseFileErrorException ex)
+		catch (DeletingExistsDatabaseFileErrorException ex)
+		{
+			fail();
+		}
+		catch (DatabaseErrorExcetion ex)
 		{
 			fail();
 		}
@@ -63,19 +68,23 @@ public class OsmXmlToSQLiteDatabaseConverterTest
 			converter.convert(createTestMapInputStream(), null);
 			fail();
 		}
-		catch (FileNotFoundException ex)
-		{
-			fail();
-		}
 		catch (IllegalArgumentException ex)
 		{
 			// ok
+		}
+		catch (FileNotFoundException ex)
+		{
+			fail();
 		}
 		catch (ParsingOsmErrorException ex)
 		{
 			fail();
 		}
-		catch (CanNotDeleteExistsDatabaseFileErrorException ex)
+		catch (DeletingExistsDatabaseFileErrorException ex)
+		{
+			fail();
+		}
+		catch (DatabaseErrorExcetion ex)
 		{
 			fail();
 		}
@@ -93,19 +102,23 @@ public class OsmXmlToSQLiteDatabaseConverterTest
 			converter.convert(createTestMapInputStream(), "");
 			fail();
 		}
-		catch (FileNotFoundException ex)
-		{
-			fail();
-		}
 		catch (IllegalArgumentException ex)
 		{
 			// ok
+		}
+		catch (FileNotFoundException ex)
+		{
+			fail();
 		}
 		catch (ParsingOsmErrorException ex)
 		{
 			fail();
 		}
-		catch (CanNotDeleteExistsDatabaseFileErrorException ex)
+		catch (DeletingExistsDatabaseFileErrorException ex)
+		{
+			fail();
+		}
+		catch (DatabaseErrorExcetion ex)
 		{
 			fail();
 		}
@@ -134,11 +147,19 @@ public class OsmXmlToSQLiteDatabaseConverterTest
 		{
 			fail();
 		}
-		catch (CanNotDeleteExistsDatabaseFileErrorException ex)
+		catch (DeletingExistsDatabaseFileErrorException ex)
 		{
 			fail();
 		}
 		catch (IOException ex)
+		{
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			fail();
+		}
+		catch (DatabaseErrorExcetion ex)
 		{
 			fail();
 		}

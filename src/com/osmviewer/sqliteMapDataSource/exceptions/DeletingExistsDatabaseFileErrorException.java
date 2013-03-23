@@ -5,9 +5,9 @@ package com.osmviewer.sqliteMapDataSource.exceptions;
  *
  * @author pgalex
  */
-public class CanNotDeleteExistsDatabaseFileErrorException extends Exception
+public class DeletingExistsDatabaseFileErrorException extends Exception
 {
-	public CanNotDeleteExistsDatabaseFileErrorException(String string)
+	public DeletingExistsDatabaseFileErrorException(String string)
 	{
 		super(string);
 	}
