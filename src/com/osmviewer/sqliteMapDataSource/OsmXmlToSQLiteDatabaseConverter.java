@@ -66,7 +66,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 		{
 			throw new IllegalArgumentException("databaseFileName is empty");
 		}
-		
+
 		File databaseFile = new File(databaseFileName);
 		if (databaseFile.exists())
 		{
@@ -76,14 +76,14 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 				throw new DeletingExistsDatabaseFileErrorException("Can not delete exists database file");
 			}
 		}
-		
+
 		nodesTemporaryDatabase = new TemporaryOsmNodesDatabase();
 
 		// инициализировать результирующую БД
 
 		osmXmlParser.parse(sourceOsmXmlInputStream, this);
-		
-		//nodesTemporaryDatabase.closeAndDeleteDatabaseFile();
+
+		nodesTemporaryDatabase.closeAndDeleteDatabaseFile();
 	}
 
 	/**
