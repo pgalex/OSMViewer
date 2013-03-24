@@ -5,7 +5,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 /**
- * Handler of parsing, creating osm node
+ * Handler of osm xml parsing, creating osm node
  *
  * @author pgalex
  */
@@ -16,7 +16,7 @@ public class NodeParsingObjectCreator implements ParsingObjectCreator
 	 */
 	public static final String NODE_XML_TAG_NAME = "node";
 	/**
-	 * Osm node, creating by parsing
+	 * Creating osm node
 	 */
 	private OsmSAXNode creatingNode;
 
@@ -98,7 +98,7 @@ public class NodeParsingObjectCreator implements ParsingObjectCreator
 	}
 
 	/**
-	 * Is element name end for creating osm map object
+	 * Is element name means end of creating osm map object
 	 *
 	 * @param qualifiedElementName xml element qualified name
 	 * @return is element name end for creating

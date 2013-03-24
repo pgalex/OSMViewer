@@ -47,7 +47,7 @@ public class OsmSAXNode extends OsmSAXMapObject implements OsmNode
 	}
 
 	/**
-	 * Get node position latitude
+	 * Get position latitude
 	 *
 	 * @return position latitude
 	 */
@@ -58,7 +58,7 @@ public class OsmSAXNode extends OsmSAXMapObject implements OsmNode
 	}
 
 	/**
-	 * Get node position longitude
+	 * Get position longitude
 	 *
 	 * @return position longitude
 	 */

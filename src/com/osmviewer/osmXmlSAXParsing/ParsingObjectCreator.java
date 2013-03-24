@@ -5,7 +5,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 /**
- * Handler of parsing creating osm map object
+ * Handler of parsing, creating osm map object
  *
  * @author pgalex
  */

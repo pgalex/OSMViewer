@@ -46,7 +46,7 @@ public class OsmSAXTag implements OsmTag
 	}
 
 	/**
-	 * Get key of tag
+	 * Get key
 	 *
 	 * @return key of tag
 	 */
@@ -57,7 +57,7 @@ public class OsmSAXTag implements OsmTag
 	}
 
 	/**
-	 * Get value of tag
+	 * Get value
 	 *
 	 * @return value of tag
 	 */

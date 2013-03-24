@@ -5,18 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Osm sax map object parsing result
+ * SAX Parsed osm map object
  *
  * @author pgalex
  */
 public abstract class OsmSAXMapObject
 {
 	/**
-	 * Unique global osm id of object
+	 * Unique global osm id
 	 */
 	private long id;
 	/**
-	 * Object tags
+	 * Tags
 	 */
 	private List<OsmTag> tags;
 
@@ -30,9 +30,9 @@ public abstract class OsmSAXMapObject
 	}
 
 	/**
-	 * Get unique global osm id of object
+	 * Get unique global osm id
 	 *
-	 * @return Unique global osm id of object
+	 * @return Unique global osm
 	 */
 	public long getId()
 	{
@@ -50,7 +50,7 @@ public abstract class OsmSAXMapObject
 	}
 
 	/**
-	 * Get object tags count
+	 * Get tags count
 	 *
 	 * @return tags count
 	 */
