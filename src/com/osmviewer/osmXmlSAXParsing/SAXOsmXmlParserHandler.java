@@ -18,10 +18,15 @@ public class SAXOsmXmlParserHandler extends DefaultHandler
 	 */
 	private ParsingObjectCreator currentlyObjectCreator;
 	/**
-	 * Handler, taking created while parsing osm map objects
+	 * Handler, taking osm map objects created while parsing
 	 */
 	private OsmXmlParsingResultsHandler osmParsingHandler;
 
+	/**
+	 * Create with handler, taking parsing results
+	 *
+	 * @param handler handler, taking parsing results
+	 */
 	public SAXOsmXmlParserHandler(OsmXmlParsingResultsHandler handler)
 	{
 		currentlyObjectCreator = null;

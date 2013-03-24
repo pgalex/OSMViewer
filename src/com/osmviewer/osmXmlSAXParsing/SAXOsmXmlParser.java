@@ -17,21 +17,21 @@ public class SAXOsmXmlParser implements OsmXmlParser
 	/**
 	 * Handler of SAX parsing
 	 */
-	private SAXOsmXmlParserHandler saxHandler;
+	private SAXOsmXmlParserHandler saxParsingHandler;
 
 	/**
 	 * Create parser
 	 */
 	public SAXOsmXmlParser()
 	{
-		saxHandler = null;
+		saxParsingHandler = null;
 	}
 
 	/**
 	 * Parse openstreetmap xml map data from stream
 	 *
 	 * @param input input osm xml data stream
-	 * @param handler handler, taking results of parsing
+	 * @param handler handler, taking parsing results
 	 * @throws IllegalArgumentException input or handler is null
 	 * @throws ParsingOsmErrorException error while parsing data from input
 	 */
@@ -47,13 +47,13 @@ public class SAXOsmXmlParser implements OsmXmlParser
 			throw new IllegalArgumentException("handler is null");
 		}
 
-		saxHandler = new SAXOsmXmlParserHandler(handler);
+		saxParsingHandler = new SAXOsmXmlParserHandler(handler);
 		try
 		{
-			SAXParserFactory factory = SAXParserFactory.newInstance();
-			SAXParser parser = factory.newSAXParser();
+			SAXParserFactory parserFactory = SAXParserFactory.newInstance();
+			SAXParser parser = parserFactory.newSAXParser();
 
-			parser.parse(input, saxHandler);
+			parser.parse(input, saxParsingHandler);
 		}
 		catch (Exception ex)
 		{
