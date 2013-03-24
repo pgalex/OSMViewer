@@ -135,7 +135,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 		try
 		{
 			// when first way found means that all nodes parsed
-			nodesTemporaryDatabase.commitAddedNodes();
+			nodesTemporaryDatabase.commitLastBatchedNodes();
 
 			// найти точки из временной БД
 			// добавить в результирующую БД объект

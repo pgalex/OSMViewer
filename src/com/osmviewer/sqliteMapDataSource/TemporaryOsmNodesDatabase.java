@@ -19,6 +19,10 @@ import java.sql.Statement;
 public class TemporaryOsmNodesDatabase
 {
 	/**
+	 * Number of insert commands in adding statement bactch
+	 */
+	private static int ADD_NODES_MAXIMUM_BATCH_SIZE = 1000;
+	/**
 	 * Connection to temponary SQLite database
 	 */
 	private Connection databaseConnection;
@@ -29,7 +33,11 @@ public class TemporaryOsmNodesDatabase
 	/**
 	 * Statement using for batched adding nodes
 	 */
-	PreparedStatement addNodeStatement;
+	private PreparedStatement addNodeStatement;
+	/**
+	 * Currently batch size of adding statement
+	 */
+	private int addingNodesCurrentBatchSize;
 
 	/**
 	 * Create temporary database on file. If database not exists it will be
@@ -53,6 +61,7 @@ public class TemporaryOsmNodesDatabase
 			createNodesTableStatement.close();
 
 			addNodeStatement = databaseConnection.prepareStatement("INSERT INTO Nodes VALUES (?,?,?)");
+			addingNodesCurrentBatchSize = 0;
 		}
 		catch (ClassNotFoundException ex)
 		{
@@ -107,6 +116,30 @@ public class TemporaryOsmNodesDatabase
 			addNodeStatement.setDouble(2, nodeToAdd.getLatitude());
 			addNodeStatement.setDouble(3, nodeToAdd.getLongitude());
 			addNodeStatement.addBatch();
+			addingNodesCurrentBatchSize++;
+			if (addingNodesCurrentBatchSize >= ADD_NODES_MAXIMUM_BATCH_SIZE)
+			{
+				commitAddedNodes();
+				addingNodesCurrentBatchSize = 0;
+			}
+		}
+		catch (SQLException ex)
+		{
+			throw new DatabaseErrorExcetion(ex);
+		}
+	}
+
+	/**
+	 * Commit added nodes to database
+	 *
+	 * @throws DatabaseErrorExcetion error while executing commit
+	 */
+	private void commitAddedNodes() throws DatabaseErrorExcetion
+	{
+		try
+		{
+			addNodeStatement.executeBatch();
+			databaseConnection.commit();
 		}
 		catch (SQLException ex)
 		{
@@ -148,20 +181,15 @@ public class TemporaryOsmNodesDatabase
 	}
 
 	/**
-	 * Commit added nodes to database
+	 * Commit last batched but not commited added nodes to database
 	 *
-	 * @throws DatabaseErrorExcetion error while executing commit
+	 * @throws DatabaseErrorExcetion error while commiting
 	 */
-	public void commitAddedNodes() throws DatabaseErrorExcetion
+	public void commitLastBatchedNodes() throws DatabaseErrorExcetion
 	{
-		try
+		if (addingNodesCurrentBatchSize > 0)
 		{
-			addNodeStatement.executeBatch();
-			databaseConnection.commit();
-		}
-		catch (SQLException ex)
-		{
-			throw new DatabaseErrorExcetion(ex);
+			commitAddedNodes();
 		}
 	}
 }
