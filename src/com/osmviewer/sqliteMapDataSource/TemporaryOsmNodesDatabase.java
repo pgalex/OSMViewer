@@ -26,6 +26,10 @@ public class TemporaryOsmNodesDatabase
 	 * File of database
 	 */
 	private File databaseFile;
+	/**
+	 * Statement using for batched adding nodes
+	 */
+	PreparedStatement addNodeStatement;
 
 	/**
 	 * Create temporary database on file. If database not exists it will be
@@ -40,12 +44,15 @@ public class TemporaryOsmNodesDatabase
 			Class.forName("org.sqlite.JDBC");
 			databaseFile = File.createTempFile("osmViewer", "TempDatabase");
 			databaseConnection = DriverManager.getConnection("jdbc:sqlite:" + databaseFile.getPath());
+			databaseConnection.setAutoCommit(false);
 
-			String creatingNodesTableQuery = "CREATE TABLE IF NOT EXISTS Nodes ( id INTEGER PRIMARY KEY, "
-							+ "latitude REAL, longitude REAL )";
 			Statement createNodesTableStatement = databaseConnection.createStatement();
-			createNodesTableStatement.executeUpdate(creatingNodesTableQuery);
+			createNodesTableStatement.executeUpdate("CREATE TABLE IF NOT EXISTS Nodes ( id INTEGER PRIMARY KEY, "
+							+ "latitude REAL, longitude REAL )");
+			databaseConnection.commit();
 			createNodesTableStatement.close();
+
+			addNodeStatement = databaseConnection.prepareStatement("INSERT INTO Nodes VALUES (?,?,?)");
 		}
 		catch (ClassNotFoundException ex)
 		{
@@ -70,6 +77,7 @@ public class TemporaryOsmNodesDatabase
 	{
 		try
 		{
+			addNodeStatement.close();
 			databaseConnection.close();
 			databaseFile.delete();
 		}
@@ -80,7 +88,7 @@ public class TemporaryOsmNodesDatabase
 	}
 
 	/**
-	 * Add osm node to database
+	 * Add osm node to database. After adding call commitAddedNodes method
 	 *
 	 * @param nodeToAdd adding node
 	 * @throws IllegalArgumentException nodeToAdd is null
@@ -95,12 +103,10 @@ public class TemporaryOsmNodesDatabase
 
 		try
 		{
-			PreparedStatement addNodeStatement = databaseConnection.prepareStatement("INSERT INTO Nodes VALUES (?,?,?)");
 			addNodeStatement.setLong(1, nodeToAdd.getId());
 			addNodeStatement.setDouble(2, nodeToAdd.getLatitude());
 			addNodeStatement.setDouble(3, nodeToAdd.getLongitude());
-			addNodeStatement.executeUpdate();
-			addNodeStatement.close();
+			addNodeStatement.addBatch();
 		}
 		catch (SQLException ex)
 		{
@@ -109,7 +115,8 @@ public class TemporaryOsmNodesDatabase
 	}
 
 	/**
-	 * Find osm node in database by its openstreetmap unique id
+	 * Find osm node in database by its openstreetmap unique id. Call
+	 * commitAddedNodes before using finding
 	 *
 	 * @param nodeId openstreetmap id of node to find
 	 * @return found node. Null if not found
@@ -121,10 +128,10 @@ public class TemporaryOsmNodesDatabase
 		{
 			PreparedStatement selectNodeStatement = databaseConnection.prepareStatement("SELECT * FROM Nodes WHERE id=?");
 			selectNodeStatement.setLong(1, nodeId);
-			
+
 			ResultSet selectedNodeResultSet = selectNodeStatement.executeQuery();
 			boolean resultsExists = selectedNodeResultSet.next();
-			
+
 			TemporaryDatabaseOsmNode foundNode = null;
 			if (resultsExists)
 			{
@@ -133,6 +140,24 @@ public class TemporaryOsmNodesDatabase
 			selectedNodeResultSet.close();
 			selectNodeStatement.close();
 			return foundNode;
+		}
+		catch (SQLException ex)
+		{
+			throw new DatabaseErrorExcetion(ex);
+		}
+	}
+
+	/**
+	 * Commit added nodes to database
+	 *
+	 * @throws DatabaseErrorExcetion error while executing commit
+	 */
+	public void commitAddedNodes() throws DatabaseErrorExcetion
+	{
+		try
+		{
+			addNodeStatement.executeBatch();
+			databaseConnection.commit();
 		}
 		catch (SQLException ex)
 		{

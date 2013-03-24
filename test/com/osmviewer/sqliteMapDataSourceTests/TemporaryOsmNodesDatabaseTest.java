@@ -53,6 +53,7 @@ public class TemporaryOsmNodesDatabaseTest
 		addingNode.latitude = 12.15;
 		addingNode.longitude = -5.5;
 		database.addNode(addingNode);
+		database.commitAddedNodes();
 
 		TemporaryDatabaseOsmNode gettedNode = database.findNodeById(addingNode.id);
 		database.closeAndDeleteDatabaseFile();
@@ -78,6 +79,7 @@ public class TemporaryOsmNodesDatabaseTest
 		addingNode.latitude = 12.15;
 		addingNode.longitude = -5.5;
 		database.addNode(addingNode);
+		database.commitAddedNodes();
 
 		TemporaryDatabaseOsmNode gettedNode = database.findNodeById(123);
 		database.closeAndDeleteDatabaseFile();

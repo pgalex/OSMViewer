@@ -32,6 +32,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 	 * Database for temporary storing parsed osm nodes
 	 */
 	private SQLiteDataBaseMapDataSource database;
+
 	/**
 	 * Create converter
 	 */
@@ -82,13 +83,13 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 
 		nodesTemporaryDatabase = new TemporaryOsmNodesDatabase();
 
-	//	database = new SQLiteDataBaseMapDataSource(databaseFileName);
+		//	database = new SQLiteDataBaseMapDataSource(databaseFileName);
 		// инициализировать результирующую БД
 
 		osmXmlParser.parse(sourceOsmXmlInputStream, this);
 
 		nodesTemporaryDatabase.closeAndDeleteDatabaseFile();
-	//	database.closeAndDeleteDatabaseFile();
+		//	database.closeAndDeleteDatabaseFile();
 	}
 
 	/**
@@ -104,7 +105,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 		{
 			throw new IllegalArgumentException("parsedNode is null");
 		}
-		
+
 		try
 		{
 			nodesTemporaryDatabase.addNode(parsedNode);
@@ -131,7 +132,17 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 			throw new IllegalArgumentException("parsedWay is null");
 		}
 
-		// найти точки из временной БД
-		// добавить в результирующую БД объект
+		try
+		{
+			// when first way found means that all nodes parsed
+			nodesTemporaryDatabase.commitAddedNodes();
+
+			// найти точки из временной БД
+			// добавить в результирующую БД объект
+		}
+		catch (DatabaseErrorExcetion ex)
+		{
+			Logger.getLogger(OsmXmlToSQLiteDatabaseConverter.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 }
