@@ -8,8 +8,14 @@ import com.osmviewer.osmXml.exceptions.ParsingOsmErrorException;
 import com.osmviewer.osmXmlSAXParsing.SAXOsmXmlParser;
 import com.osmviewer.sqliteMapDataSource.exceptions.DatabaseErrorExcetion;
 import com.osmviewer.sqliteMapDataSource.exceptions.DeletingExistsDatabaseFileErrorException;
+import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
+import com.osmviewer.mapDefenitionUtilities.Location;
+import com.osmviewer.mapDefenitionUtilities.Tag;
+import com.osmviewer.osmXml.OsmTag;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -83,13 +89,30 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 
 		nodesTemporaryDatabase = new TemporaryOsmNodesDatabase();
 
-		//	database = new SQLiteDataBaseMapDataSource(databaseFileName);
 		// инициализировать результирующую БД
+		database = new SQLiteDataBaseMapDataSource(databaseFileName);
 
 		osmXmlParser.parse(sourceOsmXmlInputStream, this);
 
 		nodesTemporaryDatabase.closeAndDeleteDatabaseFile();
-		//	database.closeAndDeleteDatabaseFile();
+		database.closeDatabaseFile();
+	}
+	
+		/**
+	 * Create map tag by osm tag
+	 *
+	 * @param osmTag osm tag
+	 * @return map tag created by osm tag
+	 * @throws IllegalArgumentException osmTag is null
+	 */
+	private static Tag createMapTagByOsmTag(OsmTag osmTag) throws IllegalArgumentException
+	{
+		if (osmTag == null)
+		{
+			throw new IllegalArgumentException("osmTag is null");
+		}
+
+		return new Tag(osmTag.getKey(), osmTag.getValue());
 	}
 
 	/**
@@ -109,12 +132,35 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 		try
 		{
 			nodesTemporaryDatabase.addNode(parsedNode);
+			
 			// если точка с тегами, добавить объект в результирующую БД
+			DefenitionTags wayTags = new DefenitionTags();
+			for (int i = 0; i < parsedNode.getTagsCount(); i++)
+			{
+				wayTags.add(createMapTagByOsmTag(parsedNode.getTag(i)));
+			}
+			if (!wayTags.isEmpty())
+			{
+				Location[] points = new Location[1];
+				points[0] = new Location(parsedNode.getLatitude(), parsedNode.getLongitude());
+				long nodeId = parsedNode.getId();
+				database.addMapObject(nodeId, wayTags, points);
+			}
 		}
 		catch (DatabaseErrorExcetion ex)
 		{
 			// вести учет не добавленных точек
 			Logger.getLogger(OsmXmlToSQLiteDatabaseConverter.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		catch (SQLException sqlEx)
+		{
+			// вести учет не добавленных точек
+			Logger.getLogger(OsmXmlToSQLiteDatabaseConverter.class.getName()).log(Level.SEVERE, null, sqlEx);
+		}
+		catch (IOException ioEx)
+		{
+			// вести учет не добавленных точек
+			Logger.getLogger(OsmXmlToSQLiteDatabaseConverter.class.getName()).log(Level.SEVERE, null, ioEx);
 		}
 	}
 

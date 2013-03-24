@@ -1,5 +1,9 @@
 package com.osmviewer.mapDefenitionUtilities;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 /**
  * Position on a map
  *
@@ -77,6 +81,44 @@ public class Location
 		longitude = longitudeToSet;
 	}
 
+	/**
+	 * Write into stream
+	 *
+	 * @param output output stream
+	 * @throws IOException wriiting error
+	 */
+	public void writeToStream(DataOutputStream output) throws IOException
+	{
+		try
+		{
+			output.writeDouble(latitude);
+			output.writeDouble(longitude);
+		}
+		catch (Exception e)
+		{
+			throw new IOException(e);
+		}
+	}
+
+	/**
+	 * Read from stream
+	 *
+	 * @param input input stream
+	 * @throws IOException reading error
+	 */
+	public void readFromStream(DataInputStream input) throws IOException
+	{
+		try
+		{
+			latitude = input.readDouble();
+			longitude = input.readDouble();
+		}
+		catch (Exception e)
+		{
+			throw new IOException(e);
+		}
+	}
+	
 	/**
 	 * Is equals to object
 	 *
