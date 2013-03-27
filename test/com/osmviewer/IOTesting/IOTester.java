@@ -9,7 +9,7 @@ import java.io.*;
  */
 public class IOTester
 {
-	public static final String TEST_FILE_NAME = "test/temporaryFiles/testFile.txt";
+	public static final String TEST_FILE_NAME = "test/supportFiles/testFile.txt";
 
 	public static DataOutputStream createTestOutputStream() throws FileNotFoundException
 	{
