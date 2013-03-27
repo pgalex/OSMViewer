@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.osmviewer.sqliteMapDataSource;
 
 import com.osmviewer.map.MapDataSource;
@@ -20,45 +16,46 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
+ * Map data source by SQLite database
  *
  * @author Nocomment85
  */
 public class SQLiteDataBaseMapDataSource implements MapDataSource
 {
 	/**
-	 * Connection to temponary SQLite database
+	 * Connection to database
 	 */
 	private Connection databaseConnection;
 
 	/**
-	 * Create temporary database on file. If database not exists it will be
-	 * created, if exists - open
+	 * Create map database by path. If database not exists it will be created, if
+	 * exists - open
 	 *
-	 * @param path path to database
-	 * @throws DatabaseErrorExcetion can not connect to database file
+	 * @param databasePath path to database
+	 * @throws IllegalArgumentException databasePath is null or empty
+	 * @throws DatabaseErrorExcetion error while connecting to database
 	 */
-	public SQLiteDataBaseMapDataSource(String path) throws DatabaseErrorExcetion
+	public SQLiteDataBaseMapDataSource(String databasePath) throws IllegalArgumentException, DatabaseErrorExcetion
 	{
-		if (path == null)
+		if (databasePath == null)
 		{
-			throw new IllegalArgumentException("path is null");
+			throw new IllegalArgumentException("databasePath is null");
 		}
-		if (path.isEmpty())
+		if (databasePath.isEmpty())
 		{
-			throw new IllegalArgumentException("path is empty");
+			throw new IllegalArgumentException("databasePath is empty");
 		}
+
 		try
 		{
 			Class.forName("org.sqlite.JDBC");
-			databaseConnection = DriverManager.getConnection("jdbc:sqlite:" + path);
-			System.out.println(path);
+			databaseConnection = DriverManager.getConnection("jdbc:sqlite:" + databasePath);
 
-			String creatingTableQuery = "CREATE TABLE MapObjects ( id INTEGER PRIMARY KEY, "
-							+ "tags BLOB, points BLOB," 
-							+ "minLatitude REAL, maxLatitude REAL, minLongitude REAL, maxLongitude REAL )";
-			Statement createTableStatement = databaseConnection.createStatement();
-			createTableStatement.executeUpdate(creatingTableQuery);
-			createTableStatement.close();
+			Statement createMapObjectsStatementTableStatement = databaseConnection.createStatement();
+			createMapObjectsStatementTableStatement.executeUpdate("CREATE TABLE MapObjects ( id INTEGER PRIMARY KEY, "
+							+ "tags BLOB, points BLOB,"
+							+ "minLatitude REAL, maxLatitude REAL, minLongitude REAL, maxLongitude REAL )");
+			createMapObjectsStatementTableStatement.close();
 		}
 		catch (ClassNotFoundException ex)
 		{
@@ -69,22 +66,90 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 			throw new DatabaseErrorExcetion(ex);
 		}
 	}
+
 	/**
 	 * Add points into database
-	 * 
-	 * @param id mapObject id
-	 * @param tags describes map object
-	 * @param points points positions on map
-	 * @throws SQLException sql error
-	 * @throws IOException input/output error
+	 *
+	 * @param id adding map object id
+	 * @param tags adding map object tags
+	 * @param points points, defines map objects position on map
+	 * @throws IllegalArgumentException tags is null, points is null or empty
+	 * @throws DatabaseErrorExcetion error while adding map object
 	 */
-	public void addMapObject(long id, DefenitionTags tags, Location[] points) throws SQLException, IOException
+	public void addMapObject(long id, DefenitionTags tags, Location[] points) throws IllegalArgumentException, DatabaseErrorExcetion
 	{
+		if (tags == null)
+		{
+			throw new IllegalArgumentException("tags is null");
+		}
+		if (!isMapObjectPointsCorrect(points))
+		{
+			throw new IllegalArgumentException("points incorrect");
+		}
+
+		try
+		{
+
+			PreparedStatement insertStatement = databaseConnection.prepareStatement("INSERT INTO MapObjects VALUES (?,?,?,?,?,?,?)");
+			insertStatement.setLong(1, id);
+			ByteArrayOutputStream tagsByteArrayOutputStream = new ByteArrayOutputStream();
+			DataOutputStream tagsDataOutputStream = new DataOutputStream(tagsByteArrayOutputStream);
+			tags.writeToStream(tagsDataOutputStream);
+			insertStatement.setBytes(2, tagsByteArrayOutputStream.toByteArray());
+			tagsByteArrayOutputStream.close();
+			tagsDataOutputStream.close();
+
+			ByteArrayOutputStream pointsByteArrayOutputStream = new ByteArrayOutputStream();
+			DataOutputStream pointsDataOutputStream = new DataOutputStream(pointsByteArrayOutputStream);
+			pointsDataOutputStream.writeInt(points.length);
+			for (int i = 0; i < points.length; i++)
+			{
+				points[i].writeToStream(pointsDataOutputStream);
+			}
+			insertStatement.setBytes(3, pointsByteArrayOutputStream.toByteArray());
+
+			pointsByteArrayOutputStream.close();
+			pointsDataOutputStream.close();
+
+			MapBounds pointsBounds = findPointsBounds(points);
+			insertStatement.setDouble(4, pointsBounds.getLatitudeMinimum());
+			insertStatement.setDouble(5, pointsBounds.getLatitudeMaximum());
+			insertStatement.setDouble(6, pointsBounds.getLongitudeMinimum());
+			insertStatement.setDouble(7, pointsBounds.getLongitudeMaximum());
+
+			insertStatement.executeUpdate();
+
+			insertStatement.close();
+		}
+		catch (SQLException ex)
+		{
+			throw new DatabaseErrorExcetion(ex);
+		}
+		catch (IOException ex)
+		{
+			throw new DatabaseErrorExcetion(ex);
+		}
+	}
+
+	/**
+	 * Find bounds including all given points
+	 *
+	 * @param points points on map which surrounding bounds need to find
+	 * @return bounds including all given points
+	 * @throws IllegalArgumentException points is null, empty or contains null
+	 */
+	private MapBounds findPointsBounds(Location[] points) throws IllegalArgumentException
+	{
+		if (!isMapObjectPointsCorrect(points))
+		{
+			throw new IllegalArgumentException("points incorrect");
+		}
+
 		double minLatitude = points[0].getLatitude();
 		double minLongitude = points[0].getLongitude();
 		double maxLatitude = points[0].getLatitude();
 		double maxLongitude = points[0].getLatitude();
-		
+
 		for (int i = 0; i < points.length; i++)
 		{
 			Location mapPosition = points[i];
@@ -92,67 +157,74 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 			{
 				minLatitude = mapPosition.getLatitude();
 			}
- 			if (mapPosition.getLongitude() < minLongitude)
+			if (mapPosition.getLongitude() < minLongitude)
 			{
 				minLongitude = mapPosition.getLongitude();
 			}
 			if (mapPosition.getLatitude() > maxLatitude)
 			{
-			 maxLatitude = mapPosition.getLatitude();
+				maxLatitude = mapPosition.getLatitude();
 			}
 			if (mapPosition.getLongitude() > maxLongitude)
 			{
-			 maxLongitude = mapPosition.getLongitude();
+				maxLongitude = mapPosition.getLongitude();
 			}
 		}
-		PreparedStatement insertStatement = databaseConnection.prepareStatement("INSERT INTO MapObjects VALUES (?,?,?,?,?,?,?)");
-		insertStatement.setLong(1, id);
-		ByteArrayOutputStream tagsByteArrayOutputStream = new ByteArrayOutputStream();
-		DataOutputStream tagsDataOutputStream = new DataOutputStream(tagsByteArrayOutputStream);
-		tags.writeToStream(tagsDataOutputStream);
-		insertStatement.setBytes(2, tagsByteArrayOutputStream.toByteArray());
-		tagsByteArrayOutputStream.close();
-		tagsDataOutputStream.close();
-		 
-		ByteArrayOutputStream pointsByteArrayOutputStream = new ByteArrayOutputStream();
-		DataOutputStream pointsDataOutputStream = new DataOutputStream(pointsByteArrayOutputStream);
-		pointsDataOutputStream.writeInt(points.length);
+
+		return new MapBounds(minLatitude, maxLatitude, minLongitude, maxLongitude);
+	}
+
+	/**
+	 * Is map objects points correct
+	 *
+	 * @param points map objects points
+	 * @return is map object points not null, not empty, not contains null
+	 * elements
+	 */
+	private boolean isMapObjectPointsCorrect(Location[] points)
+	{
+		if (points == null)
+		{
+			return false;
+		}
+		if (points.length == 0)
+		{
+			return false;
+		}
 		for (int i = 0; i < points.length; i++)
 		{
-			points[i].writeToStream(pointsDataOutputStream);
+			if (points[i] == null)
+			{
+				return false;
+			}
 		}
-		insertStatement.setBytes(3, pointsByteArrayOutputStream.toByteArray());
-		
-		pointsByteArrayOutputStream.close();
-		pointsDataOutputStream.close();
-		
-		insertStatement.setDouble(4, minLatitude);
-		insertStatement.setDouble(5, maxLatitude);
-		insertStatement.setDouble(6, minLongitude);
-		insertStatement.setDouble(7, maxLongitude);
-		
-		insertStatement.executeUpdate();
-		
-		insertStatement.close();
+		return true;
 	}
 
 	/**
 	 * Close database.
 	 *
-	 * @throws DatabaseErrorExcetion
+	 * @throws DatabaseErrorExcetion error while closing
 	 */
-	public void closeDatabaseFile() throws DatabaseErrorExcetion
+	public void close() throws DatabaseErrorExcetion
 	{
 		try
 		{
 			databaseConnection.close();
 		}
-		catch (Exception ex)
+		catch (SQLException ex)
 		{
 			throw new DatabaseErrorExcetion(ex);
 		}
 	}
 
+	/**
+	 * Fetch map objects exists in area, and send them to fetchResultsHandler
+	 *
+	 * @param area area on map, deteriming what map objects need to fetch
+	 * @param fetchResultsHandler handler of fetch results
+	 * @throws IllegalArgumentException area is null, fetchResultsHandler is null
+	 */
 	@Override
 	public void fetchMapObjectsInArea(MapBounds area, MapDataSourceFetchResultsHandler fetchResultsHandler) throws IllegalArgumentException
 	{

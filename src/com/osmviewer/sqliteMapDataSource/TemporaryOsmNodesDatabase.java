@@ -43,7 +43,7 @@ public class TemporaryOsmNodesDatabase
 	 * Create temporary database on file. If database not exists it will be
 	 * created, if exists - open
 	 *
-	 * @throws DatabaseErrorExcetion can not connect to database file
+	 * @throws DatabaseErrorExcetion error while creating database
 	 */
 	public TemporaryOsmNodesDatabase() throws DatabaseErrorExcetion
 	{

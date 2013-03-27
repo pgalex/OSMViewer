@@ -13,9 +13,7 @@ import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.mapDefenitionUtilities.Tag;
 import com.osmviewer.osmXml.OsmTag;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -95,10 +93,10 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 		osmXmlParser.parse(sourceOsmXmlInputStream, this);
 
 		nodesTemporaryDatabase.closeAndDeleteDatabaseFile();
-		database.closeDatabaseFile();
+		database.close();
 	}
-	
-		/**
+
+	/**
 	 * Create map tag by osm tag
 	 *
 	 * @param osmTag osm tag
@@ -132,7 +130,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 		try
 		{
 			nodesTemporaryDatabase.addNode(parsedNode);
-			
+
 			// если точка с тегами, добавить объект в результирующую БД
 			DefenitionTags wayTags = new DefenitionTags();
 			for (int i = 0; i < parsedNode.getTagsCount(); i++)
@@ -151,16 +149,6 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 		{
 			// вести учет не добавленных точек
 			Logger.getLogger(OsmXmlToSQLiteDatabaseConverter.class.getName()).log(Level.SEVERE, null, ex);
-		}
-		catch (SQLException sqlEx)
-		{
-			// вести учет не добавленных точек
-			Logger.getLogger(OsmXmlToSQLiteDatabaseConverter.class.getName()).log(Level.SEVERE, null, sqlEx);
-		}
-		catch (IOException ioEx)
-		{
-			// вести учет не добавленных точек
-			Logger.getLogger(OsmXmlToSQLiteDatabaseConverter.class.getName()).log(Level.SEVERE, null, ioEx);
 		}
 	}
 
