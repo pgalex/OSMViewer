@@ -33,9 +33,9 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 	 */
 	private TemporaryOsmNodesDatabase nodesTemporaryDatabase;
 	/**
-	 * Database for temporary storing parsed osm nodes
+	 * Destenation map objects database
 	 */
-	private SQLiteDataBaseMapDataSource database;
+	private SQLiteDataBaseMapDataSource mapObjectsDatabase;
 
 	/**
 	 * Create converter
@@ -44,6 +44,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 	{
 		osmXmlParser = new SAXOsmXmlParser();
 		nodesTemporaryDatabase = null;
+		mapObjectsDatabase = null;
 	}
 
 	/**
@@ -74,7 +75,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 		{
 			throw new IllegalArgumentException("databaseFileName is empty");
 		}
-
+		
 		File databaseFile = new File(databaseFileName);
 		if (databaseFile.exists())
 		{
@@ -84,16 +85,14 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 				throw new DeletingExistsDatabaseFileErrorException("Can not delete exists database file");
 			}
 		}
-
+		
 		nodesTemporaryDatabase = new TemporaryOsmNodesDatabase();
-
-		// инициализировать результирующую БД
-		database = new SQLiteDataBaseMapDataSource(databaseFileName);
-
+		mapObjectsDatabase = new SQLiteDataBaseMapDataSource(databaseFileName);
+		
 		osmXmlParser.parse(sourceOsmXmlInputStream, this);
-
+		
 		nodesTemporaryDatabase.closeAndDeleteDatabaseFile();
-		database.close();
+		mapObjectsDatabase.close();
 	}
 
 	/**
@@ -109,7 +108,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 		{
 			throw new IllegalArgumentException("osmTag is null");
 		}
-
+		
 		return new Tag(osmTag.getKey(), osmTag.getValue());
 	}
 
@@ -126,23 +125,14 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 		{
 			throw new IllegalArgumentException("parsedNode is null");
 		}
-
+		
 		try
 		{
 			nodesTemporaryDatabase.addNode(parsedNode);
-
-			// если точка с тегами, добавить объект в результирующую БД
-			DefenitionTags wayTags = new DefenitionTags();
-			for (int i = 0; i < parsedNode.getTagsCount(); i++)
+			
+			if (parsedNode.getTagsCount() > 0)
 			{
-				wayTags.add(createMapTagByOsmTag(parsedNode.getTag(i)));
-			}
-			if (!wayTags.isEmpty())
-			{
-				Location[] points = new Location[1];
-				points[0] = new Location(parsedNode.getLatitude(), parsedNode.getLongitude());
-				long nodeId = parsedNode.getId();
-				database.addMapObject(nodeId, wayTags, points);
+				addNodeToMapObjectsDatabase(parsedNode);
 			}
 		}
 		catch (DatabaseErrorExcetion ex)
@@ -150,6 +140,35 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 			// вести учет не добавленных точек
 			Logger.getLogger(OsmXmlToSQLiteDatabaseConverter.class.getName()).log(Level.SEVERE, null, ex);
 		}
+	}
+
+	/**
+	 * Add osm node to map objects database
+	 *
+	 * @param nodeToAdd adding node
+	 * @throws IllegalArgumentException nodeToAdd is null or have not tags
+	 * @throws DatabaseErrorExcetion error while adding
+	 */
+	private void addNodeToMapObjectsDatabase(OsmNode nodeToAdd) throws IllegalArgumentException, DatabaseErrorExcetion
+	{
+		if (nodeToAdd == null)
+		{
+			throw new IllegalArgumentException("nodeToAdd is null");
+		}
+		if (nodeToAdd.getTagsCount() == 0)
+		{
+			throw new IllegalArgumentException("nodeToAdd havo no tags");
+		}
+		
+		DefenitionTags nodeTags = new DefenitionTags();
+		for (int i = 0; i < nodeToAdd.getTagsCount(); i++)
+		{
+			nodeTags.add(createMapTagByOsmTag(nodeToAdd.getTag(i)));
+		}
+		
+		Location[] nodePoints = new Location[1];
+		nodePoints[0] = new Location(nodeToAdd.getLatitude(), nodeToAdd.getLongitude());
+		mapObjectsDatabase.addMapObject(nodeToAdd.getId(), nodeTags, nodePoints);
 	}
 
 	/**
@@ -165,7 +184,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 		{
 			throw new IllegalArgumentException("parsedWay is null");
 		}
-
+		
 		try
 		{
 			// when first way found means that all nodes parsed
@@ -176,6 +195,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 		}
 		catch (DatabaseErrorExcetion ex)
 		{
+			// вести учет не добавленных way
 			Logger.getLogger(OsmXmlToSQLiteDatabaseConverter.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}

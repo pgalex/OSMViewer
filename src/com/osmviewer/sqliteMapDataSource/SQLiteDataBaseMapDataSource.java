@@ -51,11 +51,11 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 			Class.forName("org.sqlite.JDBC");
 			databaseConnection = DriverManager.getConnection("jdbc:sqlite:" + databasePath);
 
-			Statement createMapObjectsStatementTableStatement = databaseConnection.createStatement();
-			createMapObjectsStatementTableStatement.executeUpdate("CREATE TABLE MapObjects ( id INTEGER PRIMARY KEY, "
+			Statement createMapObjectsTableStatement = databaseConnection.createStatement();
+			createMapObjectsTableStatement.executeUpdate("CREATE TABLE MapObjects ( id INTEGER PRIMARY KEY, "
 							+ "tags BLOB, points BLOB,"
 							+ "minLatitude REAL, maxLatitude REAL, minLongitude REAL, maxLongitude REAL )");
-			createMapObjectsStatementTableStatement.close();
+			createMapObjectsTableStatement.close();
 		}
 		catch (ClassNotFoundException ex)
 		{
@@ -89,27 +89,11 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 
 		try
 		{
-
 			PreparedStatement insertStatement = databaseConnection.prepareStatement("INSERT INTO MapObjects VALUES (?,?,?,?,?,?,?)");
+
 			insertStatement.setLong(1, id);
-			ByteArrayOutputStream tagsByteArrayOutputStream = new ByteArrayOutputStream();
-			DataOutputStream tagsDataOutputStream = new DataOutputStream(tagsByteArrayOutputStream);
-			tags.writeToStream(tagsDataOutputStream);
-			insertStatement.setBytes(2, tagsByteArrayOutputStream.toByteArray());
-			tagsByteArrayOutputStream.close();
-			tagsDataOutputStream.close();
-
-			ByteArrayOutputStream pointsByteArrayOutputStream = new ByteArrayOutputStream();
-			DataOutputStream pointsDataOutputStream = new DataOutputStream(pointsByteArrayOutputStream);
-			pointsDataOutputStream.writeInt(points.length);
-			for (int i = 0; i < points.length; i++)
-			{
-				points[i].writeToStream(pointsDataOutputStream);
-			}
-			insertStatement.setBytes(3, pointsByteArrayOutputStream.toByteArray());
-
-			pointsByteArrayOutputStream.close();
-			pointsDataOutputStream.close();
+			insertStatement.setBytes(2, convertTagsToBLOB(tags));
+			insertStatement.setBytes(3, convertPointsToBLOB(points));
 
 			MapBounds pointsBounds = findPointsBounds(points);
 			insertStatement.setDouble(4, pointsBounds.getLatitudeMinimum());
@@ -129,6 +113,63 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 		{
 			throw new DatabaseErrorExcetion(ex);
 		}
+	}
+
+	/**
+	 * Convert map object points to bytes array
+	 *
+	 * @param points map object points for converting
+	 * @return bytes array of points
+	 * @throws IllegalArgumentException points is null, empty or contains null
+	 * @throws IOException error while converting
+	 */
+	private byte[] convertPointsToBLOB(Location[] points) throws IllegalArgumentException, IOException
+	{
+		if (!isMapObjectPointsCorrect(points))
+		{
+			throw new IllegalArgumentException("point incorrect");
+		}
+
+		ByteArrayOutputStream pointsByteArrayOutputStream = new ByteArrayOutputStream();
+		DataOutputStream pointsDataOutputStream = new DataOutputStream(pointsByteArrayOutputStream);
+		pointsDataOutputStream.writeInt(points.length);
+		for (int i = 0; i < points.length; i++)
+		{
+			points[i].writeToStream(pointsDataOutputStream);
+		}
+		byte[] pointsBLOB = pointsByteArrayOutputStream.toByteArray();
+
+		pointsByteArrayOutputStream.close();
+		pointsDataOutputStream.close();
+
+		return pointsBLOB;
+	}
+
+	/**
+	 * Convert map object tags to array of bytes
+	 *
+	 * @param tags tags for converting
+	 * @return bytes array of tags. Not null
+	 * @throws IllegalArgumentException tags is null
+	 * @throws IOException error while converting
+	 */
+	private byte[] convertTagsToBLOB(DefenitionTags tags) throws IllegalArgumentException, IOException
+	{
+		if (tags == null)
+		{
+			throw new IllegalArgumentException("tags is null");
+		}
+
+		ByteArrayOutputStream tagsByteArrayOutputStream = new ByteArrayOutputStream();
+		DataOutputStream tagsDataOutputStream = new DataOutputStream(tagsByteArrayOutputStream);
+
+		tags.writeToStream(tagsDataOutputStream);
+		byte[] tagsBLOB = tagsByteArrayOutputStream.toByteArray();
+
+		tagsByteArrayOutputStream.close();
+		tagsDataOutputStream.close();
+
+		return tagsBLOB;
 	}
 
 	/**
