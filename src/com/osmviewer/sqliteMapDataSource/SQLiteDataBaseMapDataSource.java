@@ -23,9 +23,21 @@ import java.sql.Statement;
 public class SQLiteDataBaseMapDataSource implements MapDataSource
 {
 	/**
+	 * Maximum number of insert commands in adding map objects statement bactch
+	 */
+	private static int ADD_MAP_OBJECTS_MAXIMUM_BATCH_SIZE = 1000;
+	/**
 	 * Connection to database
 	 */
 	private Connection databaseConnection;
+	/**
+	 * Statement using for adding map objects
+	 */
+	PreparedStatement insertMapObjectStatement;
+	/**
+	 * Currently batch size of adding map objects statement
+	 */
+	private int addingMapObjectsCurrentBatchSize;
 
 	/**
 	 * Create map database by path. If database not exists it will be created, if
@@ -50,12 +62,17 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 		{
 			Class.forName("org.sqlite.JDBC");
 			databaseConnection = DriverManager.getConnection("jdbc:sqlite:" + databasePath);
+			databaseConnection.setAutoCommit(false);
 
 			Statement createMapObjectsTableStatement = databaseConnection.createStatement();
 			createMapObjectsTableStatement.executeUpdate("CREATE TABLE MapObjects ( id INTEGER PRIMARY KEY, "
 							+ "tags BLOB, points BLOB,"
 							+ "minLatitude REAL, maxLatitude REAL, minLongitude REAL, maxLongitude REAL )");
+			databaseConnection.commit();
 			createMapObjectsTableStatement.close();
+
+			insertMapObjectStatement = databaseConnection.prepareStatement("INSERT INTO MapObjects VALUES (?,?,?,?,?,?,?)");
+			addingMapObjectsCurrentBatchSize = 0;
 		}
 		catch (ClassNotFoundException ex)
 		{
@@ -89,21 +106,21 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 
 		try
 		{
-			PreparedStatement insertStatement = databaseConnection.prepareStatement("INSERT INTO MapObjects VALUES (?,?,?,?,?,?,?)");
-
-			insertStatement.setLong(1, id);
-			insertStatement.setBytes(2, convertTagsToBLOB(tags));
-			insertStatement.setBytes(3, convertPointsToBLOB(points));
-
+			insertMapObjectStatement.setLong(1, id);
+			insertMapObjectStatement.setBytes(2, convertTagsToBLOB(tags));
+			insertMapObjectStatement.setBytes(3, convertPointsToBLOB(points));
 			MapBounds pointsBounds = findPointsBounds(points);
-			insertStatement.setDouble(4, pointsBounds.getLatitudeMinimum());
-			insertStatement.setDouble(5, pointsBounds.getLatitudeMaximum());
-			insertStatement.setDouble(6, pointsBounds.getLongitudeMinimum());
-			insertStatement.setDouble(7, pointsBounds.getLongitudeMaximum());
-
-			insertStatement.executeUpdate();
-
-			insertStatement.close();
+			insertMapObjectStatement.setDouble(4, pointsBounds.getLatitudeMinimum());
+			insertMapObjectStatement.setDouble(5, pointsBounds.getLatitudeMaximum());
+			insertMapObjectStatement.setDouble(6, pointsBounds.getLongitudeMinimum());
+			insertMapObjectStatement.setDouble(7, pointsBounds.getLongitudeMaximum());
+			insertMapObjectStatement.addBatch();
+			addingMapObjectsCurrentBatchSize++;
+			if (addingMapObjectsCurrentBatchSize >= ADD_MAP_OBJECTS_MAXIMUM_BATCH_SIZE)
+			{
+				commitAddedMapObjects();
+				addingMapObjectsCurrentBatchSize = 0;
+			}
 		}
 		catch (SQLException ex)
 		{
@@ -112,6 +129,37 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 		catch (IOException ex)
 		{
 			throw new DatabaseErrorExcetion(ex);
+		}
+	}
+
+	/**
+	 * Commit added map objects to database
+	 *
+	 * @throws DatabaseErrorExcetion error while commiting
+	 */
+	private void commitAddedMapObjects() throws DatabaseErrorExcetion
+	{
+		try
+		{
+			insertMapObjectStatement.executeBatch();
+			databaseConnection.commit();
+		}
+		catch (SQLException ex)
+		{
+			throw new DatabaseErrorExcetion(ex);
+		}
+	}
+
+	/**
+	 * Commit last batched but not commited added map objects to database
+	 *
+	 * @throws DatabaseErrorExcetion error while commiting
+	 */
+	public void commitLastBatchedMapObjects() throws DatabaseErrorExcetion
+	{
+		if (addingMapObjectsCurrentBatchSize > 0)
+		{
+			commitAddedMapObjects();
 		}
 	}
 
@@ -251,6 +299,7 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 	{
 		try
 		{
+			insertMapObjectStatement.close();
 			databaseConnection.close();
 		}
 		catch (SQLException ex)

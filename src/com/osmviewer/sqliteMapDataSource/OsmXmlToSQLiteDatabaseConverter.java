@@ -96,6 +96,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 
 		firstWayFoundWhileConverting = false;
 		osmXmlParser.parse(sourceOsmXmlInputStream, this);
+		mapObjectsDatabase.commitLastBatchedMapObjects();
 
 		nodesTemporaryDatabase.closeAndDeleteDatabaseFile();
 		mapObjectsDatabase.close();

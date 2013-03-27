@@ -19,7 +19,7 @@ import java.sql.Statement;
 public class TemporaryOsmNodesDatabase
 {
 	/**
-	 * Number of insert commands in adding statement bactch
+	 * Maximum number of insert commands in adding statement bactch
 	 */
 	private static int ADD_NODES_MAXIMUM_BATCH_SIZE = 1000;
 	/**
