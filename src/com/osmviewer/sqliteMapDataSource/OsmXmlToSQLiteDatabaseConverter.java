@@ -199,6 +199,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 			{
 				// when first way found means that all nodes parsed
 				nodesTemporaryDatabase.commitLastBatchedNodes();
+				nodesTemporaryDatabase.createIndexes();
 				firstWayFoundWhileConverting = true;
 			}
 

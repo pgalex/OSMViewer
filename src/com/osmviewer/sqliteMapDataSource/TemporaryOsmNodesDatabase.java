@@ -192,4 +192,19 @@ public class TemporaryOsmNodesDatabase
 			commitAddedNodes();
 		}
 	}
+
+	public void createIndexes() throws DatabaseErrorExcetion
+	{
+		try
+		{
+			Statement createIndexStatement = databaseConnection.createStatement();
+			createIndexStatement.executeUpdate("CREATE INDEX IF NOT EXISTS NodesIdsIndex ON Nodes (id)");
+			databaseConnection.commit();
+			createIndexStatement.close();
+		}
+		catch (SQLException ex)
+		{
+			throw new DatabaseErrorExcetion(ex);
+		}
+	}
 }
