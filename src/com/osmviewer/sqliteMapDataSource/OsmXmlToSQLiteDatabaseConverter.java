@@ -36,6 +36,10 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 	 * Destenation map objects database
 	 */
 	private SQLiteDataBaseMapDataSource mapObjectsDatabase;
+	/**
+	 * Is first osm way found while handling converting results
+	 */
+	private boolean firstWayFoundWhileConverting;
 
 	/**
 	 * Create converter
@@ -45,6 +49,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 		osmXmlParser = new SAXOsmXmlParser();
 		nodesTemporaryDatabase = null;
 		mapObjectsDatabase = null;
+		firstWayFoundWhileConverting = false;
 	}
 
 	/**
@@ -75,7 +80,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 		{
 			throw new IllegalArgumentException("databaseFileName is empty");
 		}
-		
+
 		File databaseFile = new File(databaseFileName);
 		if (databaseFile.exists())
 		{
@@ -85,12 +90,13 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 				throw new DeletingExistsDatabaseFileErrorException("Can not delete exists database file");
 			}
 		}
-		
+
 		nodesTemporaryDatabase = new TemporaryOsmNodesDatabase();
 		mapObjectsDatabase = new SQLiteDataBaseMapDataSource(databaseFileName);
-		
+
+		firstWayFoundWhileConverting = false;
 		osmXmlParser.parse(sourceOsmXmlInputStream, this);
-		
+
 		nodesTemporaryDatabase.closeAndDeleteDatabaseFile();
 		mapObjectsDatabase.close();
 	}
@@ -108,7 +114,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 		{
 			throw new IllegalArgumentException("osmTag is null");
 		}
-		
+
 		return new Tag(osmTag.getKey(), osmTag.getValue());
 	}
 
@@ -125,11 +131,11 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 		{
 			throw new IllegalArgumentException("parsedNode is null");
 		}
-		
+
 		try
 		{
 			nodesTemporaryDatabase.addNode(parsedNode);
-			
+
 			if (parsedNode.getTagsCount() > 0)
 			{
 				addNodeToMapObjectsDatabase(parsedNode);
@@ -159,13 +165,13 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 		{
 			throw new IllegalArgumentException("nodeToAdd havo no tags");
 		}
-		
+
 		DefenitionTags nodeTags = new DefenitionTags();
 		for (int i = 0; i < nodeToAdd.getTagsCount(); i++)
 		{
 			nodeTags.add(createMapTagByOsmTag(nodeToAdd.getTag(i)));
 		}
-		
+
 		Location[] nodePoints = new Location[1];
 		nodePoints[0] = new Location(nodeToAdd.getLatitude(), nodeToAdd.getLongitude());
 		mapObjectsDatabase.addMapObject(nodeToAdd.getId(), nodeTags, nodePoints);
@@ -184,11 +190,15 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 		{
 			throw new IllegalArgumentException("parsedWay is null");
 		}
-		
+
 		try
 		{
-			// when first way found means that all nodes parsed
-			nodesTemporaryDatabase.commitLastBatchedNodes();
+			if (!firstWayFoundWhileConverting)
+			{
+				// when first way found means that all nodes parsed
+				nodesTemporaryDatabase.commitLastBatchedNodes();
+				firstWayFoundWhileConverting = true;
+			}
 
 			// найти точки из временной БД
 			// добавить в результирующую БД объект
