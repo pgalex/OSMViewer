@@ -139,6 +139,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 
 			if (parsedNode.getTagsCount() > 0)
 			{
+				// tags with nodes are another map objects
 				addNodeToMapObjectsDatabase(parsedNode);
 			}
 		}
@@ -201,13 +202,64 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 				firstWayFoundWhileConverting = true;
 			}
 
-			// найти точки из временной БД
+			Location[] wayPoints = findWayPointsInNodesTemporaryDatabase(parsedWay);
+			DefenitionTags wayTags = new DefenitionTags();
+			for (int i = 0; i < parsedWay.getTagsCount(); i++)
+			{
+				wayTags.add(createMapTagByOsmTag(parsedWay.getTag(i)));
+			}
+
+			if (wayPoints.length > 0)
+			{
+				mapObjectsDatabase.addMapObject(parsedWay.getId(), wayTags, wayPoints);
+			}
+
 			// добавить в результирующую БД объект
 		}
 		catch (DatabaseErrorExcetion ex)
 		{
 			// вести учет не добавленных way
 			Logger.getLogger(OsmXmlToSQLiteDatabaseConverter.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	/**
+	 * Find nodes of way locations in temporary nodes database
+	 *
+	 * @param way way, which nodes positions need to find
+	 * @return way points, empty if can not find one or more points
+	 * @throws IllegalArgumentException way is null
+	 * @throws DatabaseErrorExcetion error while finding in temporary database
+	 */
+	private Location[] findWayPointsInNodesTemporaryDatabase(OsmWay way) throws IllegalArgumentException, DatabaseErrorExcetion
+	{
+		if (way == null)
+		{
+			throw new IllegalArgumentException("way is null");
+		}
+
+		boolean allPointsFound = true;
+		Location[] wayPoints = new Location[way.getNodesIdsCount()];
+		for (int i = 0; i < way.getNodesIdsCount(); i++)
+		{
+			TemporaryDatabaseOsmNode foundNode = nodesTemporaryDatabase.findNodeById(way.getNodeId(i));
+			if (foundNode != null)
+			{
+				wayPoints[i] = new Location(foundNode.getLatitude(), foundNode.getLongitude());
+			}
+			else
+			{
+				allPointsFound = false;
+			}
+		}
+
+		if (allPointsFound)
+		{
+			return wayPoints;
+		}
+		else
+		{
+			return new Location[0];
 		}
 	}
 }
