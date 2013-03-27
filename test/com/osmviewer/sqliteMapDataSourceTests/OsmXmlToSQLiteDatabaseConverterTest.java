@@ -6,11 +6,8 @@ import com.osmviewer.sqliteMapDataSource.OsmXmlToSQLiteDatabaseConverter;
 import com.osmviewer.sqliteMapDataSource.exceptions.DatabaseErrorExcetion;
 import com.osmviewer.sqliteMapDataSource.exceptions.DeletingExistsDatabaseFileErrorException;
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -122,50 +119,6 @@ public class OsmXmlToSQLiteDatabaseConverterTest
 		{
 			fail();
 		}
-	}
-
-	/**
-	 * Test deleting exists database file
-	 */
-	@Test
-	public void deletingExistsDatabaseTest()
-	{
-		try
-		{
-			DataOutputStream testFileOutput = IOTester.createTestOutputStream();
-			testFileOutput.writeBoolean(true);
-			testFileOutput.close();
-
-			OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter();
-			converter.convert(createTestMapInputStream(), IOTester.TEST_FILE_NAME);
-		}
-		catch (FileNotFoundException ex)
-		{
-			fail();
-		}
-		catch (ParsingOsmErrorException ex)
-		{
-			fail();
-		}
-		catch (DeletingExistsDatabaseFileErrorException ex)
-		{
-			fail();
-		}
-		catch (IOException ex)
-		{
-			fail();
-		}
-		catch (IllegalArgumentException ex)
-		{
-			fail();
-		}
-		catch (DatabaseErrorExcetion ex)
-		{
-			fail();
-		}
-
-		File testFile = new File(IOTester.TEST_FILE_NAME);
-		assertFalse(testFile.exists());
 	}
 
 	/**
