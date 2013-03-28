@@ -3,7 +3,7 @@ package com.osmviewer.IOTesting;
 import java.io.*;
 
 /**
- * Common parameters of all drawing style tests
+ * Using for read/write testing
  *
  * @author pgalex
  */
