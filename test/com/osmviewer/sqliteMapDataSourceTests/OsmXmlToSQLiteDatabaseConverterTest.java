@@ -5,8 +5,6 @@ import com.osmviewer.osmXml.exceptions.ParsingOsmErrorException;
 import com.osmviewer.sqliteMapDataSource.OsmXmlToSQLiteDatabaseConverter;
 import com.osmviewer.sqliteMapDataSource.exceptions.DatabaseErrorExcetion;
 import com.osmviewer.sqliteMapDataSource.exceptions.DeletingExistsDatabaseFileErrorException;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -18,21 +16,52 @@ import static org.junit.Assert.*;
  */
 public class OsmXmlToSQLiteDatabaseConverterTest
 {
-	private DataInputStream createTestMapInputStream() throws FileNotFoundException
-	{
-		return new DataInputStream(new FileInputStream("test/supportFiles/testmap.osm"));
-	}
+	private static String TEST_MAP_FILE = "test/supportFiles/testmap.osm";
 
 	/**
-	 * Test converting with null osm xml data input
+	 * Test converting with source osm xml data file name
+	 *
+	 * @throws FileNotFoundException
 	 */
 	@Test
-	public void convertingWithNullInputStreamTest()
+	public void convertingWithNullSourceFileTest() throws FileNotFoundException
 	{
 		try
 		{
 			OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter();
 			converter.convert(null, IOTester.TEST_FILE_NAME);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+		catch (ParsingOsmErrorException ex)
+		{
+			fail();
+		}
+		catch (DeletingExistsDatabaseFileErrorException ex)
+		{
+			fail();
+		}
+		catch (DatabaseErrorExcetion ex)
+		{
+			fail();
+		}
+	}
+
+	/**
+	 * Test converting with empty source osm xml data file name
+	 *
+	 * @throws FileNotFoundException
+	 */
+	@Test
+	public void convertingWithEmptySourceFileTest() throws FileNotFoundException
+	{
+		try
+		{
+			OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter();
+			converter.convert("", IOTester.TEST_FILE_NAME);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -62,7 +91,7 @@ public class OsmXmlToSQLiteDatabaseConverterTest
 		try
 		{
 			OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter();
-			converter.convert(createTestMapInputStream(), null);
+			converter.convert(IOTester.TEST_FILE_NAME, null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -96,7 +125,7 @@ public class OsmXmlToSQLiteDatabaseConverterTest
 		try
 		{
 			OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter();
-			converter.convert(createTestMapInputStream(), "");
+			converter.convert(TEST_MAP_FILE, "");
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -106,6 +135,38 @@ public class OsmXmlToSQLiteDatabaseConverterTest
 		catch (FileNotFoundException ex)
 		{
 			fail();
+		}
+		catch (ParsingOsmErrorException ex)
+		{
+			fail();
+		}
+		catch (DeletingExistsDatabaseFileErrorException ex)
+		{
+			fail();
+		}
+		catch (DatabaseErrorExcetion ex)
+		{
+			fail();
+		}
+	}
+
+	/**
+	 * Test converting with equals source and destenation database files
+	 *
+	 * @throws FileNotFoundException
+	 */
+	@Test
+	public void convertingWithEqualsSourceAndDatabaseFileTest() throws FileNotFoundException
+	{
+		try
+		{
+			OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter();
+			converter.convert(IOTester.TEST_FILE_NAME, IOTester.TEST_FILE_NAME);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
 		}
 		catch (ParsingOsmErrorException ex)
 		{

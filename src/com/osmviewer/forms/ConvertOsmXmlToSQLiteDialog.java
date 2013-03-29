@@ -6,7 +6,6 @@ import com.osmviewer.sqliteMapDataSource.exceptions.DatabaseErrorExcetion;
 import com.osmviewer.sqliteMapDataSource.exceptions.DeletingExistsDatabaseFileErrorException;
 import java.awt.Window;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -49,7 +48,15 @@ public class ConvertOsmXmlToSQLiteDialog extends javax.swing.JDialog
 	 */
 	private void updateConvertButtonEnabledByFilesChoosing()
 	{
-		jButtonConvert.setEnabled(sourceFile != null && destenationFile != null);
+		boolean canRunConverting = false;
+		if (sourceFile != null && destenationFile != null)
+		{
+			if (!sourceFile.getPath().equalsIgnoreCase(destenationFile.getPath()))
+			{
+				canRunConverting = true;
+			}
+		}
+		jButtonConvert.setEnabled(canRunConverting);
 	}
 
 	/**
@@ -73,7 +80,7 @@ public class ConvertOsmXmlToSQLiteDialog extends javax.swing.JDialog
 		OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter();
 		try
 		{
-			converter.convert(new FileInputStream(sourceFile), destenationFile.getPath());
+			converter.convert(sourceFile.getPath(), destenationFile.getPath());
 		}
 		catch (FileNotFoundException ex)
 		{

@@ -13,7 +13,8 @@ import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.mapDefenitionUtilities.Tag;
 import com.osmviewer.osmXml.OsmTag;
 import java.io.File;
-import java.io.InputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -55,33 +56,42 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 	/**
 	 * Create and fill database with converted from osm xml input data
 	 *
-	 * @param sourceOsmXmlInputStream source osm xml input
-	 * @param databaseFileName path to result database. If database not exists it
+	 * @param sourceFilePath path to source osm xml map data file
+	 * @param databaseFilePath path to result database. If database not exists it
 	 * will be created, if exists - overwrited
-	 * @throws IllegalArgumentException sourceOsmXmlInputStream is null,
-	 * databaseFileName is null or empty
+	 * @throws IllegalArgumentException sourceFilePath is null or empty,
+	 * databaseFileName is null or empty; sourceFilePath equals databaseFilePath
 	 * @throws ParsingOsmErrorException error while parsing osm xml data
 	 * @throws DeletingExistsDatabaseFileErrorException can not delete exists
 	 * database file
 	 * @throws DatabaseErrorExcetion error while working with database
+	 * @throws FileNotFoundException source file not found
 	 */
-	public void convert(InputStream sourceOsmXmlInputStream, String databaseFileName) throws IllegalArgumentException,
-					ParsingOsmErrorException, DeletingExistsDatabaseFileErrorException, DatabaseErrorExcetion
+	public void convert(String sourceFilePath, String databaseFilePath) throws IllegalArgumentException,
+					ParsingOsmErrorException, DeletingExistsDatabaseFileErrorException, DatabaseErrorExcetion, FileNotFoundException
 	{
-		if (sourceOsmXmlInputStream == null)
+		if (sourceFilePath == null)
 		{
-			throw new IllegalArgumentException("sourceOsmXmlInputStream is null");
+			throw new IllegalArgumentException("sourceFilePath is null");
 		}
-		if (databaseFileName == null)
+		if (sourceFilePath.isEmpty())
+		{
+			throw new IllegalArgumentException("sourceFilePath is empty");
+		}
+		if (databaseFilePath == null)
 		{
 			throw new IllegalArgumentException("databaseFileName is null");
 		}
-		if (databaseFileName.isEmpty())
+		if (databaseFilePath.isEmpty())
 		{
 			throw new IllegalArgumentException("databaseFileName is empty");
 		}
+		if (sourceFilePath.equalsIgnoreCase(databaseFilePath))
+		{
+			throw new IllegalArgumentException("sourceFilePath and databaseFilePath are same");
+		}
 
-		File databaseFile = new File(databaseFileName);
+		File databaseFile = new File(databaseFilePath);
 		if (databaseFile.exists())
 		{
 			boolean existsDatabaseDeleted = databaseFile.delete();
@@ -92,10 +102,10 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 		}
 
 		nodesTemporaryDatabase = new TemporaryOsmNodesDatabase();
-		mapObjectsDatabase = new SQLiteDataBaseMapDataSource(databaseFileName);
+		mapObjectsDatabase = new SQLiteDataBaseMapDataSource(databaseFilePath);
 
 		firstWayFoundWhileConverting = false;
-		osmXmlParser.parse(sourceOsmXmlInputStream, this);
+		osmXmlParser.parse(new FileInputStream(sourceFilePath), this);
 		mapObjectsDatabase.commitLastBatchedMapObjects();
 
 		nodesTemporaryDatabase.closeAndDeleteDatabaseFile();
