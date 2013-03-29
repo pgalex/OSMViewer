@@ -78,6 +78,16 @@ public class TemporaryOsmNodesDatabase
 	}
 
 	/**
+	 * Get path to database file
+	 *
+	 * @return path to database file
+	 */
+	public String getDatabaseFilePath()
+	{
+		return databaseFile.getPath();
+	}
+
+	/**
 	 * Close database. File of database will be deleted
 	 *
 	 * @throws DatabaseErrorExcetion
@@ -161,17 +171,18 @@ public class TemporaryOsmNodesDatabase
 		{
 			PreparedStatement selectNodeStatement = databaseConnection.prepareStatement("SELECT * FROM Nodes WHERE id=?");
 			selectNodeStatement.setLong(1, nodeId);
-
 			ResultSet selectedNodeResultSet = selectNodeStatement.executeQuery();
-			boolean resultsExists = selectedNodeResultSet.next();
-
+			
+			boolean isResultsExists = selectedNodeResultSet.next();
 			TemporaryDatabaseOsmNode foundNode = null;
-			if (resultsExists)
+			if (isResultsExists)
 			{
 				foundNode = new TemporaryDatabaseOsmNode(selectedNodeResultSet);
 			}
+			
 			selectedNodeResultSet.close();
 			selectNodeStatement.close();
+			
 			return foundNode;
 		}
 		catch (SQLException ex)
@@ -193,6 +204,11 @@ public class TemporaryOsmNodesDatabase
 		}
 	}
 
+	/**
+	 * Create indexes for temporary nodes table
+	 *
+	 * @throws DatabaseErrorExcetion error while creating indexes
+	 */
 	public void createIndexes() throws DatabaseErrorExcetion
 	{
 		try
