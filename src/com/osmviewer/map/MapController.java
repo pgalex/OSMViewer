@@ -3,14 +3,16 @@ package com.osmviewer.map;
 import com.osmviewer.drawingStyles.DrawSettingsViewer;
 import com.osmviewer.drawingStyles.DrawingStylesFactory;
 import com.osmviewer.forms.DrawableOnPanel;
+import com.osmviewer.map.exceptions.FetchingErrorException;
 import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.rendering.MapRenderer;
 import com.osmviewer.rendering.RenderableMapObject;
+import com.osmviewer.sqliteMapDataSource.SQLiteDataBaseMapDataSource;
+import com.osmviewer.sqliteMapDataSource.exceptions.DatabaseErrorExcetion;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,9 +35,9 @@ public class MapController implements DrawableOnPanel
 	 */
 	private static final int MAXIMUM_SCALE_LEVEL = 18;
 	/**
-	 * MapByOsmXmlData - stored map objects
+	 * Map
 	 */
-	private MapByOsmXmlData map;
+	private MapByDataSource map;
 	/**
 	 * MapByOsmXmlData renderer - drawes object
 	 */
@@ -56,7 +58,7 @@ public class MapController implements DrawableOnPanel
 	public MapController(Location startViewPosition, int startScaleLevel,
 					int startCanvasWidth, int startCanvasHeight)
 	{
-		map = new MapByOsmXmlData();
+		map = new MapByDataSource();
 
 		renderer = new MapRenderer(MINIMUM_SCALE_LEVEL, MAXIMUM_SCALE_LEVEL, startScaleLevel);
 		renderer.setViewPosition(startViewPosition);
@@ -65,15 +67,6 @@ public class MapController implements DrawableOnPanel
 		styleViewer = DrawingStylesFactory.createStandartDrawSettingsViewer();
 
 		testSetupStyleViewer();
-
-		try
-		{
-			map.loadFromStream(new FileInputStream(new File("some_map.osm.xml")), styleViewer);
-		}
-		catch (Exception ex)
-		{
-			Logger.getLogger(MapController.class.getName()).log(Level.SEVERE, null, ex);
-		}
 	}
 
 	/**
@@ -249,5 +242,33 @@ public class MapController implements DrawableOnPanel
 	public int getMaximumScaleLevel()
 	{
 		return MAXIMUM_SCALE_LEVEL;
+	}
+
+	/**
+	 * Load full map from database file
+	 *
+	 * @param databaseFilePath path to map objects database
+	 * @throws IllegalArgumentException databaseFilePath is null or empty
+	 * @throws FetchingErrorException
+	 */
+	public void loadMapFromDatabase(String databaseFilePath) throws IllegalArgumentException, FetchingErrorException
+	{
+		if (databaseFilePath == null)
+		{
+			throw new IllegalArgumentException("databaseFilePath is null");
+		}
+		if (databaseFilePath.isEmpty())
+		{
+			throw new IllegalArgumentException("databaseFilePath is empty");
+		}
+
+		try
+		{
+			map.loadFromDataSource(new SQLiteDataBaseMapDataSource(databaseFilePath), styleViewer);
+		}
+		catch (DatabaseErrorExcetion ex)
+		{
+			throw new FetchingErrorException(ex);
+		}
 	}
 }

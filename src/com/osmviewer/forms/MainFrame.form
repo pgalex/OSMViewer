@@ -65,10 +65,12 @@
                           <Component id="jButtonEditDrawingStyles" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jButtonConvertOsmToSQLite" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jButtonLoadMapFromDatabase" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jSliderScaleLevel" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="252" max="32767" attributes="0"/>
+                  <EmptySpace pref="49" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -79,6 +81,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButtonEditDrawingStyles" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonConvertOsmToSQLite" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonLoadMapFromDatabase" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jSliderScaleLevel" min="-2" pref="121" max="-2" attributes="0"/>
@@ -111,6 +114,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonConvertOsmToSQLiteActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonLoadMapFromDatabase">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x417;&#x430;&#x433;&#x440;&#x443;&#x437;&#x438;&#x442;&#x44c; &#x43a;&#x430;&#x440;&#x442;&#x443; &#x438;&#x437; &#x411;&#x414;..."/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonLoadMapFromDatabaseActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

@@ -69,7 +69,7 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 			databaseConnection.setAutoCommit(false);
 
 			Statement createMapObjectsTableStatement = databaseConnection.createStatement();
-			createMapObjectsTableStatement.executeUpdate("CREATE TABLE MapObjects ("
+			createMapObjectsTableStatement.executeUpdate("CREATE TABLE IF NOT EXISTS MapObjects ("
 							+ "osmId INTEGER, tags BLOB, points BLOB,"
 							+ "minLatitude REAL, maxLatitude REAL, minLongitude REAL, maxLongitude REAL )");
 			databaseConnection.commit();
