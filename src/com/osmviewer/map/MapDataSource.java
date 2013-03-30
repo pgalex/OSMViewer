@@ -1,5 +1,6 @@
 package com.osmviewer.map;
 
+import com.osmviewer.map.exceptions.FetchingErrorException;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
 
 /**
@@ -15,6 +16,8 @@ public interface MapDataSource
 	 * @param area area on map, deteriming what map objects need to fetch
 	 * @param fetchResultsHandler handler of fetch results
 	 * @throws IllegalArgumentException area is null, fetchResultsHandler is null
+	 * @throws FetchingErrorException error while fetching 
 	 */
-	public void fetchMapObjectsInArea(MapBounds area, MapDataSourceFetchResultsHandler fetchResultsHandler) throws IllegalArgumentException;
+	public void fetchMapObjectsInArea(MapBounds area, MapDataSourceFetchResultsHandler fetchResultsHandler) throws IllegalArgumentException,
+					FetchingErrorException;
 }

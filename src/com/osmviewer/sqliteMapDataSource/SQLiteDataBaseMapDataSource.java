@@ -2,18 +2,24 @@ package com.osmviewer.sqliteMapDataSource;
 
 import com.osmviewer.map.MapDataSource;
 import com.osmviewer.map.MapDataSourceFetchResultsHandler;
+import com.osmviewer.map.exceptions.FetchingErrorException;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.sqliteMapDataSource.exceptions.DatabaseErrorExcetion;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Map data source by SQLite database
@@ -57,20 +63,20 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 		{
 			throw new IllegalArgumentException("databasePath is empty");
 		}
-
+		
 		try
 		{
 			Class.forName("org.sqlite.JDBC");
 			databaseConnection = DriverManager.getConnection("jdbc:sqlite:" + databasePath);
 			databaseConnection.setAutoCommit(false);
-
+			
 			Statement createMapObjectsTableStatement = databaseConnection.createStatement();
 			createMapObjectsTableStatement.executeUpdate("CREATE TABLE MapObjects ("
 							+ "osmId INTEGER, tags BLOB, points BLOB,"
 							+ "minLatitude REAL, maxLatitude REAL, minLongitude REAL, maxLongitude REAL )");
 			databaseConnection.commit();
 			createMapObjectsTableStatement.close();
-
+			
 			insertMapObjectStatement = databaseConnection.prepareStatement("INSERT INTO MapObjects VALUES (?,?,?,?,?,?,?)");
 			addingMapObjectsCurrentBatchSize = 0;
 		}
@@ -103,7 +109,7 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 		{
 			throw new IllegalArgumentException("points incorrect");
 		}
-
+		
 		try
 		{
 			insertMapObjectStatement.setLong(1, id);
@@ -177,7 +183,7 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 		{
 			throw new IllegalArgumentException("point incorrect");
 		}
-
+		
 		ByteArrayOutputStream pointsByteArrayOutputStream = new ByteArrayOutputStream();
 		DataOutputStream pointsDataOutputStream = new DataOutputStream(pointsByteArrayOutputStream);
 		pointsDataOutputStream.writeInt(points.length);
@@ -186,10 +192,10 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 			points[i].writeToStream(pointsDataOutputStream);
 		}
 		byte[] pointsBLOB = pointsByteArrayOutputStream.toByteArray();
-
+		
 		pointsByteArrayOutputStream.close();
 		pointsDataOutputStream.close();
-
+		
 		return pointsBLOB;
 	}
 
@@ -207,16 +213,16 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 		{
 			throw new IllegalArgumentException("tags is null");
 		}
-
+		
 		ByteArrayOutputStream tagsByteArrayOutputStream = new ByteArrayOutputStream();
 		DataOutputStream tagsDataOutputStream = new DataOutputStream(tagsByteArrayOutputStream);
-
+		
 		tags.writeToStream(tagsDataOutputStream);
 		byte[] tagsBLOB = tagsByteArrayOutputStream.toByteArray();
-
+		
 		tagsByteArrayOutputStream.close();
 		tagsDataOutputStream.close();
-
+		
 		return tagsBLOB;
 	}
 
@@ -233,12 +239,12 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 		{
 			throw new IllegalArgumentException("points incorrect");
 		}
-
+		
 		double minLatitude = points[0].getLatitude();
 		double minLongitude = points[0].getLongitude();
 		double maxLatitude = points[0].getLatitude();
 		double maxLongitude = points[0].getLatitude();
-
+		
 		for (int i = 0; i < points.length; i++)
 		{
 			Location mapPosition = points[i];
@@ -259,7 +265,7 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 				maxLongitude = mapPosition.getLongitude();
 			}
 		}
-
+		
 		return new MapBounds(minLatitude, maxLatitude, minLongitude, maxLongitude);
 	}
 
@@ -314,10 +320,108 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 	 * @param area area on map, deteriming what map objects need to fetch
 	 * @param fetchResultsHandler handler of fetch results
 	 * @throws IllegalArgumentException area is null, fetchResultsHandler is null
+	 * @throws FetchingErrorException error while fetching
 	 */
 	@Override
-	public void fetchMapObjectsInArea(MapBounds area, MapDataSourceFetchResultsHandler fetchResultsHandler) throws IllegalArgumentException
+	public void fetchMapObjectsInArea(MapBounds area, MapDataSourceFetchResultsHandler fetchResultsHandler) throws IllegalArgumentException,
+					FetchingErrorException
 	{
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		try
+		{
+			if (area == null)
+			{
+				throw new IllegalArgumentException("area is null");
+			}
+			if (fetchResultsHandler == null)
+			{
+				throw new IllegalArgumentException("fetchResultsHandler is null");
+			}
+			
+			if (area.isZero())
+			{
+				return;
+			}
+			
+			PreparedStatement selectMapObjectsStatement = databaseConnection.prepareStatement("SELECT * FROM MapObjects "
+							+ "WHERE minLatitude>=? AND maxLatitude<=? AND minLongitude>=? AND maxLongitude<=?");
+			selectMapObjectsStatement.setDouble(1, area.getLatitudeMinimum());
+			selectMapObjectsStatement.setDouble(2, area.getLatitudeMaximum());
+			selectMapObjectsStatement.setDouble(3, area.getLongitudeMinimum());
+			selectMapObjectsStatement.setDouble(4, area.getLongitudeMaximum());
+			ResultSet selectedMapObjectsResultSet = selectMapObjectsStatement.executeQuery();
+			
+			while (selectedMapObjectsResultSet.next())
+			{
+				long id = selectedMapObjectsResultSet.getLong(1);
+				DefenitionTags tags = readTagFromBLOB(selectedMapObjectsResultSet.getBytes(2));
+				Location[] points = readPointsFromBLOB(selectedMapObjectsResultSet.getBytes(3));
+				if (tags != null && points != null)
+				{
+					fetchResultsHandler.takeMapObjectData(id, tags, points);
+				}
+			}
+			
+			selectedMapObjectsResultSet.close();
+			selectMapObjectsStatement.close();
+		}
+		catch (SQLException ex)
+		{
+			throw new FetchingErrorException(ex);
+		}
+	}
+
+	/**
+	 * Read map object tags from BLOB
+	 *
+	 * @param tagsBLOB map object tags BLOB
+	 * @return tags read from BLOB. null if can not read
+	 */
+	private DefenitionTags readTagFromBLOB(byte[] tagsBLOB)
+	{
+		try
+		{
+			DefenitionTags tagFromBLOB = new DefenitionTags();
+			
+			ByteArrayInputStream tagsByteArrayInputStream = new ByteArrayInputStream(tagsBLOB);
+			DataInputStream tagsDataInputStream = new DataInputStream(tagsByteArrayInputStream);
+			tagFromBLOB.readFromStream(tagsDataInputStream);
+			tagsByteArrayInputStream.close();
+			
+			return tagFromBLOB;
+		}
+		catch (Exception ex)
+		{
+			return null;
+		}
+	}
+
+	/**
+	 * Read map object points from BLOB
+	 *
+	 * @param pointsBLOB map object points BLOB
+	 * @return points read from BLOB. null if can not read
+	 */
+	private Location[] readPointsFromBLOB(byte[] pointsBLOB)
+	{
+		try
+		{
+			ByteArrayInputStream pointsByteArrayInputStream = new ByteArrayInputStream(pointsBLOB);
+			DataInputStream pointDataInputStream = new DataInputStream(pointsByteArrayInputStream);
+			int pointsCount = pointDataInputStream.readInt();
+			Location[] pointsFromBLOB = new Location[pointsCount];
+			for (int i = 0; i < pointsCount; i++)
+			{
+				pointsFromBLOB[i] = new Location();
+				pointsFromBLOB[i].readFromStream(pointDataInputStream);
+			}
+			pointsByteArrayInputStream.close();
+			pointDataInputStream.close();
+			
+			return pointsFromBLOB;
+		}
+		catch (Exception ex)
+		{
+			return null;
+		}
 	}
 }
