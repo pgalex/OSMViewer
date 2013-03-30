@@ -278,7 +278,7 @@ public class MainFrame extends javax.swing.JFrame
 
   private void jSliderScaleLevelStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_jSliderScaleLevelStateChanged
   {//GEN-HEADEREND:event_jSliderScaleLevelStateChanged
-		if (jSliderScaleLevel.getValue() >= mapController.getMinimumScaleLevel() && jSliderScaleLevel.getValue() < mapController.getMaximumScaleLevel())
+		if (jSliderScaleLevel.getValue() >= mapController.getMinimumScaleLevel() && jSliderScaleLevel.getValue() <= mapController.getMaximumScaleLevel())
 		{
 			mapController.setScaleLevel(jSliderScaleLevel.getValue());
 			jPanelCanvas.repaint();
