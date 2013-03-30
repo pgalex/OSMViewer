@@ -33,7 +33,7 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 	/**
 	 * Statement using for adding map objects
 	 */
-	PreparedStatement insertMapObjectStatement;
+	private PreparedStatement insertMapObjectStatement;
 	/**
 	 * Currently batch size of adding map objects statement
 	 */
