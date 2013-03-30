@@ -1,8 +1,11 @@
 package com.osmviewer.sqliteMapDataSourceTests;
 
 import com.osmviewer.IOTesting.IOTester;
+import com.osmviewer.map.exceptions.FetchingErrorException;
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.Location;
+import com.osmviewer.mapDefenitionUtilities.MapBounds;
+import com.osmviewer.mapDefenitionUtilities.Tag;
 import com.osmviewer.sqliteMapDataSource.SQLiteDataBaseMapDataSource;
 import com.osmviewer.sqliteMapDataSource.exceptions.DatabaseErrorExcetion;
 import java.io.File;
@@ -149,5 +152,40 @@ public class SQLiteDatabaseMapDataSourceTest
 		{
 			testFile.delete();
 		}
+	}
+
+	/**
+	 * Test fetching map objects normal work
+	 *
+	 * @throws DatabaseErrorExcetion
+	 * @throws IllegalArgumentException
+	 * @throws FetchingErrorException
+	 */
+	@Test
+	public void fetchingMapObjectsNormalWorkTest() throws DatabaseErrorExcetion, IllegalArgumentException, FetchingErrorException
+	{
+		deleteTestFile();
+		SQLiteDataBaseMapDataSource database = new SQLiteDataBaseMapDataSource(IOTester.TEST_FILE_NAME);
+
+		Location[] points1 = new Location[1];
+		points1[0] = new Location(15, 20);
+		DefenitionTags tags1 = new DefenitionTags();
+		tags1.add(new Tag("k1", "v1"));
+		database.addMapObject(15, tags1, points1);
+		database.commitLastBatchedMapObjects();
+
+		TestMapDataSourceFetchResultsHandler resultsHandler = new TestMapDataSourceFetchResultsHandler();
+		database.fetchMapObjectsInArea(new MapBounds(0, 30, 0, 25), resultsHandler);
+
+		assertEquals(1, resultsHandler.fetchedIds.size());
+		assertEquals(1, resultsHandler.fetchedTags.size());
+		assertEquals(1, resultsHandler.fetchedPoints.size());
+		assertEquals(new Long(15), resultsHandler.fetchedIds.get(0));
+		assertEquals(1, resultsHandler.fetchedTags.get(0).count());
+		assertEquals("k1", resultsHandler.fetchedTags.get(0).get(0).getKey());
+		assertEquals("v1", resultsHandler.fetchedTags.get(0).get(0).getValue());
+		assertEquals(1, resultsHandler.fetchedPoints.get(0).length);
+		assertEquals(15, resultsHandler.fetchedPoints.get(0)[0].getLatitude(), 0.0001);
+		assertEquals(20, resultsHandler.fetchedPoints.get(0)[0].getLongitude(), 0.0001);
 	}
 }

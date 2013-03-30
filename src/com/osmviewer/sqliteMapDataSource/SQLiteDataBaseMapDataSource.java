@@ -61,20 +61,20 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 		{
 			throw new IllegalArgumentException("databasePath is empty");
 		}
-		
+
 		try
 		{
 			Class.forName("org.sqlite.JDBC");
 			databaseConnection = DriverManager.getConnection("jdbc:sqlite:" + databasePath);
 			databaseConnection.setAutoCommit(false);
-			
+
 			Statement createMapObjectsTableStatement = databaseConnection.createStatement();
 			createMapObjectsTableStatement.executeUpdate("CREATE TABLE MapObjects ("
 							+ "osmId INTEGER, tags BLOB, points BLOB,"
 							+ "minLatitude REAL, maxLatitude REAL, minLongitude REAL, maxLongitude REAL )");
 			databaseConnection.commit();
 			createMapObjectsTableStatement.close();
-			
+
 			insertMapObjectStatement = databaseConnection.prepareStatement("INSERT INTO MapObjects VALUES (?,?,?,?,?,?,?)");
 			addingMapObjectsCurrentBatchSize = 0;
 		}
@@ -107,7 +107,7 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 		{
 			throw new IllegalArgumentException("points incorrect");
 		}
-		
+
 		try
 		{
 			insertMapObjectStatement.setLong(1, id);
@@ -181,7 +181,7 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 		{
 			throw new IllegalArgumentException("point incorrect");
 		}
-		
+
 		ByteArrayOutputStream pointsByteArrayOutputStream = new ByteArrayOutputStream();
 		DataOutputStream pointsDataOutputStream = new DataOutputStream(pointsByteArrayOutputStream);
 		pointsDataOutputStream.writeInt(points.length);
@@ -190,10 +190,10 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 			points[i].writeToStream(pointsDataOutputStream);
 		}
 		byte[] pointsBLOB = pointsByteArrayOutputStream.toByteArray();
-		
+
 		pointsByteArrayOutputStream.close();
 		pointsDataOutputStream.close();
-		
+
 		return pointsBLOB;
 	}
 
@@ -211,16 +211,16 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 		{
 			throw new IllegalArgumentException("tags is null");
 		}
-		
+
 		ByteArrayOutputStream tagsByteArrayOutputStream = new ByteArrayOutputStream();
 		DataOutputStream tagsDataOutputStream = new DataOutputStream(tagsByteArrayOutputStream);
-		
+
 		tags.writeToStream(tagsDataOutputStream);
 		byte[] tagsBLOB = tagsByteArrayOutputStream.toByteArray();
-		
+
 		tagsByteArrayOutputStream.close();
 		tagsDataOutputStream.close();
-		
+
 		return tagsBLOB;
 	}
 
@@ -237,12 +237,12 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 		{
 			throw new IllegalArgumentException("points incorrect");
 		}
-		
+
 		double minLatitude = points[0].getLatitude();
 		double minLongitude = points[0].getLongitude();
 		double maxLatitude = points[0].getLatitude();
 		double maxLongitude = points[0].getLatitude();
-		
+
 		for (int i = 0; i < points.length; i++)
 		{
 			Location mapPosition = points[i];
@@ -263,7 +263,7 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 				maxLongitude = mapPosition.getLongitude();
 			}
 		}
-		
+
 		return new MapBounds(minLatitude, maxLatitude, minLongitude, maxLongitude);
 	}
 
@@ -334,12 +334,12 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 			{
 				throw new IllegalArgumentException("fetchResultsHandler is null");
 			}
-			
+
 			if (area.isZero())
 			{
 				return;
 			}
-			
+
 			PreparedStatement selectMapObjectsStatement = databaseConnection.prepareStatement("SELECT * FROM MapObjects "
 							+ "WHERE minLatitude>=? AND maxLatitude<=? AND minLongitude>=? AND maxLongitude<=?");
 			selectMapObjectsStatement.setDouble(1, area.getLatitudeMinimum());
@@ -347,7 +347,7 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 			selectMapObjectsStatement.setDouble(3, area.getLongitudeMinimum());
 			selectMapObjectsStatement.setDouble(4, area.getLongitudeMaximum());
 			ResultSet selectedMapObjectsResultSet = selectMapObjectsStatement.executeQuery();
-			
+
 			while (selectedMapObjectsResultSet.next())
 			{
 				long id = selectedMapObjectsResultSet.getLong(1);
@@ -358,7 +358,7 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 					fetchResultsHandler.takeMapObjectData(id, tags, points);
 				}
 			}
-			
+
 			selectedMapObjectsResultSet.close();
 			selectMapObjectsStatement.close();
 		}
@@ -379,12 +379,12 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 		try
 		{
 			DefenitionTags tagFromBLOB = new DefenitionTags();
-			
+
 			ByteArrayInputStream tagsByteArrayInputStream = new ByteArrayInputStream(tagsBLOB);
 			DataInputStream tagsDataInputStream = new DataInputStream(tagsByteArrayInputStream);
 			tagFromBLOB.readFromStream(tagsDataInputStream);
 			tagsByteArrayInputStream.close();
-			
+
 			return tagFromBLOB;
 		}
 		catch (Exception ex)
@@ -414,7 +414,7 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 			}
 			pointsByteArrayInputStream.close();
 			pointDataInputStream.close();
-			
+
 			return pointsFromBLOB;
 		}
 		catch (Exception ex)
