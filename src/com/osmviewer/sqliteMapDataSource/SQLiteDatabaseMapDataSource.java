@@ -24,7 +24,7 @@ import java.sql.Statement;
  *
  * @author Nocomment85
  */
-public class SQLiteDataBaseMapDataSource1 implements MapDataSource
+public class SQLiteDatabaseMapDataSource implements MapDataSource
 {
 	/**
 	 * Maximum number of insert commands in adding map objects statement bactch
@@ -51,7 +51,7 @@ public class SQLiteDataBaseMapDataSource1 implements MapDataSource
 	 * @throws IllegalArgumentException databasePath is null or empty
 	 * @throws DatabaseErrorExcetion error while connecting to database
 	 */
-	public SQLiteDataBaseMapDataSource1(String databasePath) throws IllegalArgumentException, DatabaseErrorExcetion
+	public SQLiteDatabaseMapDataSource(String databasePath) throws IllegalArgumentException, DatabaseErrorExcetion
 	{
 		if (databasePath == null)
 		{

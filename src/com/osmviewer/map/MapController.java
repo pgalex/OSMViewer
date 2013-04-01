@@ -7,7 +7,7 @@ import com.osmviewer.map.exceptions.FetchingErrorException;
 import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.rendering.MapRenderer;
 import com.osmviewer.rendering.RenderableMapObject;
-import com.osmviewer.sqliteMapDataSource.SQLiteDataBaseMapDataSource1;
+import com.osmviewer.sqliteMapDataSource.SQLiteDatabaseMapDataSource;
 import com.osmviewer.sqliteMapDataSource.exceptions.DatabaseErrorExcetion;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -264,7 +264,7 @@ public class MapController implements DrawableOnPanel
 
 		try
 		{
-			map.loadFromDataSource(new SQLiteDataBaseMapDataSource1(databaseFilePath), styleViewer);
+			map.loadFromDataSource(new SQLiteDatabaseMapDataSource(databaseFilePath), styleViewer);
 		}
 		catch (DatabaseErrorExcetion ex)
 		{
