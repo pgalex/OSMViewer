@@ -155,31 +155,46 @@ public class SQLiteDatabaseMapDataSourceTest
 	}
 
 	/**
-	 * Test fetching map objects normal work
+	 * Test fetching map objects in area normal work
 	 *
 	 * @throws DatabaseErrorExcetion
 	 * @throws IllegalArgumentException
 	 * @throws FetchingErrorException
 	 */
 	@Test
-	public void fetchingMapObjectsNormalWorkTest() throws DatabaseErrorExcetion, IllegalArgumentException, FetchingErrorException
+	public void fetchingMapObjectsInAreaWorkTest() throws DatabaseErrorExcetion, IllegalArgumentException, FetchingErrorException
 	{
 		deleteTestFile();
 		SQLiteDatabaseMapDataSource database = new SQLiteDatabaseMapDataSource(IOTester.TEST_FILE_NAME);
 
-		Location[] points1 = new Location[1];
-		points1[0] = new Location(15, 20);
-		DefenitionTags tags1 = new DefenitionTags();
-		tags1.add(new Tag("k1", "v1"));
-		database.addMapObject(15, tags1, points1);
+		Location[] objectFullInAreaPoints = new Location[1];
+		objectFullInAreaPoints[0] = new Location(15, 20);
+		DefenitionTags objectFullInAreaTags = new DefenitionTags();
+		objectFullInAreaTags.add(new Tag("k1", "v1"));
+		database.addMapObject(15, objectFullInAreaTags, objectFullInAreaPoints);
+
+		Location[] objectNotInAreaPoints = new Location[2];
+		objectNotInAreaPoints[0] = new Location(2, 2);
+		objectNotInAreaPoints[1] = new Location(-5, -8);
+		DefenitionTags objectNotInAreaTags = new DefenitionTags();
+		database.addMapObject(16, objectNotInAreaTags, objectNotInAreaPoints);
+		
+		Location[] objectCrossingAreaPoints = new Location[3];
+		objectCrossingAreaPoints[0] = new Location(8, 2);
+		objectCrossingAreaPoints[1] = new Location(18, 20);
+		objectCrossingAreaPoints[2] = new Location(38, 32);
+		DefenitionTags objectCrossingAreaTags = new DefenitionTags();
+		database.addMapObject(17, objectCrossingAreaTags, objectCrossingAreaPoints);
+
 		database.commitLastBatchedMapObjects();
 
 		TestMapDataSourceFetchResultsHandler resultsHandler = new TestMapDataSourceFetchResultsHandler();
-		database.fetchMapObjectsInArea(new MapBounds(0, 30, 0, 25), resultsHandler);
+		database.fetchMapObjectsInArea(new MapBounds(10, 30, 5, 25), resultsHandler);
 
-		assertEquals(1, resultsHandler.fetchedIds.size());
-		assertEquals(1, resultsHandler.fetchedTags.size());
-		assertEquals(1, resultsHandler.fetchedPoints.size());
+		assertEquals(2, resultsHandler.fetchedIds.size());
+		assertEquals(2, resultsHandler.fetchedTags.size());
+		assertEquals(2, resultsHandler.fetchedPoints.size());
+		
 		assertEquals(new Long(15), resultsHandler.fetchedIds.get(0));
 		assertEquals(1, resultsHandler.fetchedTags.get(0).count());
 		assertEquals("k1", resultsHandler.fetchedTags.get(0).get(0).getKey());
@@ -187,5 +202,9 @@ public class SQLiteDatabaseMapDataSourceTest
 		assertEquals(1, resultsHandler.fetchedPoints.get(0).length);
 		assertEquals(15, resultsHandler.fetchedPoints.get(0)[0].getLatitude(), 0.0001);
 		assertEquals(20, resultsHandler.fetchedPoints.get(0)[0].getLongitude(), 0.0001);
+		
+		assertEquals(new Long(17), resultsHandler.fetchedIds.get(1));
+		assertEquals(0, resultsHandler.fetchedTags.get(1).count());
+		assertEquals(3, resultsHandler.fetchedPoints.get(1).length);
 	}
 }
