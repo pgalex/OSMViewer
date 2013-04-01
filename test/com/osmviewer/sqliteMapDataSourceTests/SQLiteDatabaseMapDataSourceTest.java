@@ -6,7 +6,7 @@ import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
 import com.osmviewer.mapDefenitionUtilities.Tag;
-import com.osmviewer.sqliteMapDataSource.SQLiteDataBaseMapDataSource;
+import com.osmviewer.sqliteMapDataSource.SQLiteDataBaseMapDataSource1;
 import com.osmviewer.sqliteMapDataSource.exceptions.DatabaseErrorExcetion;
 import java.io.File;
 import org.junit.Test;
@@ -29,7 +29,7 @@ public class SQLiteDatabaseMapDataSourceTest
 	{
 		try
 		{
-			SQLiteDataBaseMapDataSource database = new SQLiteDataBaseMapDataSource(null);
+			SQLiteDataBaseMapDataSource1 database = new SQLiteDataBaseMapDataSource1(null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -48,7 +48,7 @@ public class SQLiteDatabaseMapDataSourceTest
 	{
 		try
 		{
-			SQLiteDataBaseMapDataSource database = new SQLiteDataBaseMapDataSource("");
+			SQLiteDataBaseMapDataSource1 database = new SQLiteDataBaseMapDataSource1("");
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -68,7 +68,7 @@ public class SQLiteDatabaseMapDataSourceTest
 		try
 		{
 			deleteTestFile();
-			SQLiteDataBaseMapDataSource database = new SQLiteDataBaseMapDataSource(IOTester.TEST_FILE_NAME);
+			SQLiteDataBaseMapDataSource1 database = new SQLiteDataBaseMapDataSource1(IOTester.TEST_FILE_NAME);
 			Location[] points = new Location[1];
 			points[0] = new Location(10.0, 20.0);
 			database.addMapObject(1, null, points);
@@ -91,7 +91,7 @@ public class SQLiteDatabaseMapDataSourceTest
 		try
 		{
 			deleteTestFile();
-			SQLiteDataBaseMapDataSource database = new SQLiteDataBaseMapDataSource(IOTester.TEST_FILE_NAME);
+			SQLiteDataBaseMapDataSource1 database = new SQLiteDataBaseMapDataSource1(IOTester.TEST_FILE_NAME);
 			database.addMapObject(1, new DefenitionTags(), null);
 			fail();
 		}
@@ -112,7 +112,7 @@ public class SQLiteDatabaseMapDataSourceTest
 		try
 		{
 			deleteTestFile();
-			SQLiteDataBaseMapDataSource database = new SQLiteDataBaseMapDataSource(IOTester.TEST_FILE_NAME);
+			SQLiteDataBaseMapDataSource1 database = new SQLiteDataBaseMapDataSource1(IOTester.TEST_FILE_NAME);
 			Location[] points = new Location[3];
 			points[0] = new Location(10.0, 20.0);
 			database.addMapObject(1, new DefenitionTags(), points);
@@ -135,7 +135,7 @@ public class SQLiteDatabaseMapDataSourceTest
 		try
 		{
 			deleteTestFile();
-			SQLiteDataBaseMapDataSource database = new SQLiteDataBaseMapDataSource(IOTester.TEST_FILE_NAME);
+			SQLiteDataBaseMapDataSource1 database = new SQLiteDataBaseMapDataSource1(IOTester.TEST_FILE_NAME);
 			database.addMapObject(1, new DefenitionTags(), new Location[3]);
 			fail();
 		}
@@ -165,7 +165,7 @@ public class SQLiteDatabaseMapDataSourceTest
 	public void fetchingMapObjectsNormalWorkTest() throws DatabaseErrorExcetion, IllegalArgumentException, FetchingErrorException
 	{
 		deleteTestFile();
-		SQLiteDataBaseMapDataSource database = new SQLiteDataBaseMapDataSource(IOTester.TEST_FILE_NAME);
+		SQLiteDataBaseMapDataSource1 database = new SQLiteDataBaseMapDataSource1(IOTester.TEST_FILE_NAME);
 
 		Location[] points1 = new Location[1];
 		points1[0] = new Location(15, 20);
