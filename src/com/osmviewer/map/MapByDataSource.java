@@ -51,12 +51,12 @@ public class MapByDataSource implements RenderableMap, MapDataSourceFetchResults
 		{
 			throw new IllegalArgumentException("drawSettingsFinder is null");
 		}
-		
+
 		objects.clear();
 		dataSource.fetchMapObjectsInArea(new MapBounds(-90, 90, -180, 180), this);
-		
+
 		LinkedList<MapObject> objectsWithoutDrawSettings = new LinkedList<MapObject>();
-		
+
 		for (MapObject mapObject : objects)
 		{
 			RenderableMapObjectDrawSettings drawSettings = drawSettingsFinder.findMapObjectDrawSettings(mapObject.getDefenitionTags());
@@ -69,7 +69,7 @@ public class MapByDataSource implements RenderableMap, MapDataSourceFetchResults
 				objectsWithoutDrawSettings.add(mapObject);
 			}
 		}
-		
+
 		for (MapObject objectWithoutSettings : objectsWithoutDrawSettings)
 		{
 			objects.remove(objectWithoutSettings);
@@ -96,7 +96,7 @@ public class MapByDataSource implements RenderableMap, MapDataSourceFetchResults
 		{
 			throw new IllegalArgumentException("points incorrect");
 		}
-		
+
 		if (points.length == 1)
 		{
 			objects.add(new MapPoint(points[0], uniqueId, tags));
@@ -105,11 +105,17 @@ public class MapByDataSource implements RenderableMap, MapDataSourceFetchResults
 		{
 			if (points[0].equals(points[points.length - 1]))
 			{
-				objects.add(new MapPolygon(uniqueId, tags, points));
+				if (points.length >= 3)
+				{
+					objects.add(new MapPolygon(uniqueId, tags, points));
+				}
 			}
 			else
 			{
-				objects.add(new MapLine(uniqueId, tags, points));
+				if (points.length >= 2)
+				{
+					objects.add(new MapLine(uniqueId, tags, points));
+				}
 			}
 		}
 	}
@@ -173,9 +179,9 @@ public class MapByDataSource implements RenderableMap, MapDataSourceFetchResults
 		{
 			return;
 		}
-		
+
 		Collections.sort(objects, objectsDrawPriorityComparator);
-		
+
 		for (MapObject renderingObject : objects)
 		{
 			if (renderingObject.isVisibleInArea(area))

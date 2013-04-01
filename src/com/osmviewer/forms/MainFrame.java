@@ -297,7 +297,7 @@ public class MainFrame extends javax.swing.JFrame
 		try
 		{
 			JFileChooser databaseFileChooser = new JFileChooser();
-			int databaseFileShowDialogResult = databaseFileChooser.showSaveDialog(this);
+			int databaseFileShowDialogResult = databaseFileChooser.showOpenDialog(this);
 			if (databaseFileShowDialogResult == JFileChooser.APPROVE_OPTION)
 			{
 				File databaseFile = databaseFileChooser.getSelectedFile();

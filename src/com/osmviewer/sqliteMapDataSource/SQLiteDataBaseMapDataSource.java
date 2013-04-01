@@ -341,11 +341,12 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 			}
 
 			PreparedStatement selectMapObjectsStatement = databaseConnection.prepareStatement("SELECT * FROM MapObjects "
-							+ "WHERE minLatitude>=? AND maxLatitude<=? AND minLongitude>=? AND maxLongitude<=?");
-			selectMapObjectsStatement.setDouble(1, area.getLatitudeMinimum());
-			selectMapObjectsStatement.setDouble(2, area.getLatitudeMaximum());
-			selectMapObjectsStatement.setDouble(3, area.getLongitudeMinimum());
-			selectMapObjectsStatement.setDouble(4, area.getLongitudeMaximum());
+							+ "WHERE minLatitude<=? AND maxLatitude>=? "
+							+ "AND minLongitude<=? AND maxLongitude>=?");
+			selectMapObjectsStatement.setDouble(1, area.getLatitudeMaximum());
+			selectMapObjectsStatement.setDouble(2, area.getLatitudeMinimum());
+			selectMapObjectsStatement.setDouble(3, area.getLongitudeMaximum());
+			selectMapObjectsStatement.setDouble(4, area.getLongitudeMinimum());
 			ResultSet selectedMapObjectsResultSet = selectMapObjectsStatement.executeQuery();
 
 			while (selectedMapObjectsResultSet.next())
@@ -365,6 +366,27 @@ public class SQLiteDataBaseMapDataSource implements MapDataSource
 		catch (SQLException ex)
 		{
 			throw new FetchingErrorException(ex);
+		}
+	}
+
+	/**
+	 * Create indexes
+	 *
+	 * @throws DatabaseErrorExcetion error while creating indexes
+	 */
+	public void createIndexes() throws DatabaseErrorExcetion
+	{
+		try
+		{
+			Statement createIndexStatement = databaseConnection.createStatement();
+			createIndexStatement.executeUpdate("CREATE INDEX IF NOT EXISTS MapObjectBoundsIndex ON "
+							+ "MapObjects (minLatitude, maxLatitude, minLongitude, maxLongitude)");
+			databaseConnection.commit();
+			createIndexStatement.close();
+		}
+		catch (SQLException ex)
+		{
+			throw new DatabaseErrorExcetion(ex);
 		}
 	}
 
