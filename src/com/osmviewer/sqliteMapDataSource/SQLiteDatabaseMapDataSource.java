@@ -241,7 +241,7 @@ public class SQLiteDatabaseMapDataSource implements MapDataSource
 		double minLatitude = points[0].getLatitude();
 		double minLongitude = points[0].getLongitude();
 		double maxLatitude = points[0].getLatitude();
-		double maxLongitude = points[0].getLatitude();
+		double maxLongitude = points[0].getLongitude();
 
 		for (int i = 0; i < points.length; i++)
 		{

@@ -4,6 +4,10 @@ import com.osmviewer.map.exceptions.FetchingErrorException;
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
+import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
+import com.osmviewer.rendering.RenderableMapObjectsDrawPriorityComparator;
+import com.osmviewer.rendering.RenderableMapObjectsVisitor;
+import java.util.Collections;
 import java.util.LinkedList;
 
 /**
@@ -16,11 +20,11 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	/**
 	 * Sector area size by latitude
 	 */
-	public static double LATITUDE_SIZE = 0.5;
+	public static double LATITUDE_SIZE = 0.05;
 	/**
 	 * Sector area size by longitude
 	 */
-	public static double LONGITUDE_SIZE = 0.5;
+	public static double LONGITUDE_SIZE = 0.05;
 	/**
 	 * Index of sector by latitude
 	 */
@@ -33,9 +37,17 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	 * Objects in sector
 	 */
 	private LinkedList<MapObject> objects;
+	/**
+	 * Finder, using to find draw settings while loading objects
+	 */
+	private RenderableMapObjectsDrawSettingsFinder drawSettingsFinder;
+	/**
+	 * Is objects already sorted by draw priority
+	 */
+	private boolean sortedByDrawPriority;
 
 	/**
-	 * Create with bounds
+	 * Create empty
 	 *
 	 * @param sectorLatitudeIndex index of sector by latitude
 	 * @param sectorLongitudeIndex index of sector by longitude
@@ -43,26 +55,37 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	public MapSector(int sectorLatitudeIndex, int sectorLongitudeIndex)
 	{
 		objects = new LinkedList<MapObject>();
-		
+		drawSettingsFinder = null;
+
 		latitudeIndex = sectorLatitudeIndex;
 		longitudeIndex = sectorLongitudeIndex;
+
+		sortedByDrawPriority = false;
 	}
 
 	/**
 	 * Load object by given map data source int sector bounds
 	 *
 	 * @param mapDataSource data source, using to fetch map objects, in given
-	 * @throws IllegalArgumentException mapDataSource is null
+	 * @param objectsDrawSettingsFinder finder of loading objects draw settings
+	 * @throws IllegalArgumentException mapDataSource or objectsDrawSettingsFinder
+	 * is null
 	 * @throws FetchingErrorException error while loading
 	 */
-	public void loadObjects(MapDataSource mapDataSource) throws IllegalArgumentException, FetchingErrorException
+	public void loadObjects(MapDataSource mapDataSource, RenderableMapObjectsDrawSettingsFinder objectsDrawSettingsFinder) throws IllegalArgumentException, FetchingErrorException
 	{
 		if (mapDataSource == null)
 		{
 			throw new IllegalArgumentException("mapDataSource is null");
 		}
+		if (objectsDrawSettingsFinder == null)
+		{
+			throw new IllegalArgumentException("objectsDrawSettingsFinder is null");
+		}
 
+		drawSettingsFinder = objectsDrawSettingsFinder;
 		mapDataSource.fetchMapObjectsInArea(getBounds(), this);
+		sortedByDrawPriority = false;
 	}
 
 	/**
@@ -97,9 +120,16 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 			throw new IllegalArgumentException("points incorrent");
 		}
 
+		if (tags.isEmpty())
+		{
+			return;
+		}
+
+		MapObject createdMapObject = null;
+
 		if (points.length == 1)
 		{
-			objects.add(new MapPoint(points[0], uniqueId, tags));
+			createdMapObject = new MapPoint(points[0], uniqueId, tags);
 		}
 		else
 		{
@@ -107,15 +137,25 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 			{
 				if (points.length >= 3)
 				{
-					objects.add(new MapPolygon(uniqueId, tags, points));
+					createdMapObject = new MapPolygon(uniqueId, tags, points);
 				}
 			}
 			else
 			{
 				if (points.length >= 2)
 				{
-					objects.add(new MapLine(uniqueId, tags, points));
+					createdMapObject = new MapLine(uniqueId, tags, points);
 				}
+			}
+		}
+
+		if (createdMapObject != null)
+		{
+			RenderableMapObjectDrawSettings drawSettings = drawSettingsFinder.findMapObjectDrawSettings(createdMapObject.getDefenitionTags());
+			if (drawSettings != null)
+			{
+				createdMapObject.setDrawSettings(drawSettings);
+				objects.add(createdMapObject);
 			}
 		}
 	}
@@ -155,6 +195,53 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	public int getObjectsCount()
 	{
 		return objects.size();
+	}
+
+	/**
+	 * Accept visitor for all map objects visible in area. Object should be given
+	 * to objectsVisitor by its draw priority
+	 *
+	 * @param objectsRenderingVisitor objects renderer
+	 * @param renderingArea area to determine which object need give to
+	 * objectsVisitor
+	 * @param objectsDrawPriorityComparator comparator for sorting rendering
+	 * objects by its draw priority
+	 * @throws IllegalArgumentException objectsVisitor, area or
+	 * objectsDrawPriorityComparator is null
+	 */
+	public void renderObjectsByDrawPriority(RenderableMapObjectsVisitor objectsRenderingVisitor, MapBounds renderingArea, RenderableMapObjectsDrawPriorityComparator objectsDrawPriorityComparator) throws IllegalArgumentException
+	{
+		if (objectsRenderingVisitor == null)
+		{
+			throw new IllegalArgumentException("objectsRenderingVisitor is null");
+		}
+		if (renderingArea == null)
+		{
+			throw new IllegalArgumentException("renderingArea is null");
+		}
+		if (objectsDrawPriorityComparator == null)
+		{
+			throw new IllegalArgumentException("objectsDrawPriorityComparator is null");
+		}
+
+		if (renderingArea.isZero())
+		{
+			return;
+		}
+
+		if (!sortedByDrawPriority)
+		{
+			Collections.sort(objects, objectsDrawPriorityComparator);
+			sortedByDrawPriority = true;
+		}
+
+		for (MapObject mapObject : objects)
+		{
+			if (mapObject.isVisibleInArea(renderingArea))
+			{
+				mapObject.acceptRenderingVisitor(objectsRenderingVisitor);
+			}
+		}
 	}
 
 	/**

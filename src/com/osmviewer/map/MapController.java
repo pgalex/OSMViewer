@@ -37,7 +37,7 @@ public class MapController implements DrawableOnPanel
 	/**
 	 * Map
 	 */
-	private MapByDataSource map;
+	private SectoredMap map;
 	/**
 	 * MapByOsmXmlData renderer - drawes object
 	 */
@@ -58,7 +58,7 @@ public class MapController implements DrawableOnPanel
 	public MapController(Location startViewPosition, int startScaleLevel,
 					int startCanvasWidth, int startCanvasHeight)
 	{
-		map = new MapByDataSource();
+		map = new SectoredMap();
 
 		renderer = new MapRenderer(MINIMUM_SCALE_LEVEL, MAXIMUM_SCALE_LEVEL, startScaleLevel);
 		renderer.setViewPosition(startViewPosition);
@@ -264,7 +264,7 @@ public class MapController implements DrawableOnPanel
 
 		try
 		{
-			map.loadFromDataSource(new SQLiteDatabaseMapDataSource(databaseFilePath), styleViewer);
+			map.loadObjectsInArea(renderer.getViewArea(), new SQLiteDatabaseMapDataSource(databaseFilePath), styleViewer);
 		}
 		catch (DatabaseErrorExcetion ex)
 		{

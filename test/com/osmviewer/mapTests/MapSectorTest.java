@@ -5,7 +5,6 @@ import com.osmviewer.map.exceptions.FetchingErrorException;
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
-import java.util.ArrayList;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -125,7 +124,7 @@ public class MapSectorTest
 		try
 		{
 			MapSector sector = new MapSector(1, 2);
-			sector.loadObjects(null);
+			sector.loadObjects(null, new TestRenderableMapObjectsDrawSettingsFinder());
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -143,7 +142,7 @@ public class MapSectorTest
 	public void loadingWithObjectsInAreaTest() throws FetchingErrorException
 	{
 		TestMapDataSource testMapDataSource = new TestMapDataSource();
-		
+
 		testMapDataSource.storingIds.add(new Long(15));
 		testMapDataSource.storingTags.add(new DefenitionTags());
 		Location[] points1 = new Location[1];
@@ -156,7 +155,7 @@ public class MapSectorTest
 		points2[0] = new Location(MapSector.LATITUDE_SIZE / 2, MapSector.LONGITUDE_SIZE / 2);
 		points2[1] = new Location(MapSector.LATITUDE_SIZE / 3, MapSector.LONGITUDE_SIZE / 3);
 		testMapDataSource.storingPoints.add(points2);
-		
+
 		testMapDataSource.storingIds.add(new Long(17));
 		testMapDataSource.storingTags.add(new DefenitionTags());
 		Location[] points3 = new Location[3];
@@ -165,8 +164,8 @@ public class MapSectorTest
 		points3[2] = new Location(MapSector.LATITUDE_SIZE / 4, MapSector.LONGITUDE_SIZE / 4);
 		testMapDataSource.storingPoints.add(points3);
 
-		MapSector sector = new MapSector(1, 2);
-		sector.loadObjects(testMapDataSource);
+		MapSector sector = new MapSector(0, 0);
+		sector.loadObjects(testMapDataSource, new TestRenderableMapObjectsDrawSettingsFinder());
 
 		assertEquals(3, sector.getObjectsCount());
 	}

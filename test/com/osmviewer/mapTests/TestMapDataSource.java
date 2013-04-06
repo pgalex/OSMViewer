@@ -31,7 +31,46 @@ public class TestMapDataSource implements MapDataSource
 	{
 		for (int i = 0; i < storingIds.size(); i++)
 		{
-			fetchResultsHandler.takeMapObjectData(storingIds.get(i), storingTags.get(i), storingPoints.get(i));
+			MapBounds pointsBounds = findPointsBounds(storingPoints.get(i));
+			if (pointsBounds.getLatitudeMinimum() <= area.getLatitudeMaximum()
+							&& pointsBounds.getLatitudeMaximum() >= area.getLatitudeMinimum()
+							&& pointsBounds.getLongitudeMinimum() <= area.getLongitudeMaximum()
+							&& pointsBounds.getLongitudeMaximum() >= area.getLongitudeMinimum())
+			{
+				fetchResultsHandler.takeMapObjectData(storingIds.get(i), storingTags.get(i), storingPoints.get(i));
+			}
 		}
+	}
+
+	private MapBounds findPointsBounds(Location[] points)
+	{
+
+		double minLatitude = points[0].getLatitude();
+		double minLongitude = points[0].getLongitude();
+		double maxLatitude = points[0].getLatitude();
+		double maxLongitude = points[0].getLatitude();
+
+		for (int i = 0; i < points.length; i++)
+		{
+			Location mapPosition = points[i];
+			if (mapPosition.getLatitude() < minLatitude)
+			{
+				minLatitude = mapPosition.getLatitude();
+			}
+			if (mapPosition.getLongitude() < minLongitude)
+			{
+				minLongitude = mapPosition.getLongitude();
+			}
+			if (mapPosition.getLatitude() > maxLatitude)
+			{
+				maxLatitude = mapPosition.getLatitude();
+			}
+			if (mapPosition.getLongitude() > maxLongitude)
+			{
+				maxLongitude = mapPosition.getLongitude();
+			}
+		}
+
+		return new MapBounds(minLatitude, maxLatitude, minLongitude, maxLongitude);
 	}
 }
