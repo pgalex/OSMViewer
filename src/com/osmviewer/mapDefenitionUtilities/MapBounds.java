@@ -1,5 +1,8 @@
 package com.osmviewer.mapDefenitionUtilities;
 
+import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
+
 /**
  * Describes an area on map
  *
@@ -156,5 +159,21 @@ public class MapBounds
 	public double getLongitudeSize()
 	{
 		return longitudeMaximum - longitudeMinimum;
+	}
+
+	/**
+	 * Is intersects with other bounds
+	 *
+	 * @param bounds bounds to test intersction with
+	 * @return is this bounds intersects with given bounds.
+	 * @throws IllegalArgumentException
+	 */
+	public boolean intersects(MapBounds bounds) throws IllegalArgumentException
+	{
+		Rectangle2D thisBoundsRectangle = new Rectangle2D.Double(latitudeMinimum, longitudeMinimum, 
+						getLatitudeSize(), getLongitudeSize());
+		Rectangle2D givenBoundsRectangle = new Rectangle2D.Double(bounds.getLatitudeMinimum(), 
+						bounds.getLongitudeMinimum(), bounds.getLatitudeSize(), bounds.getLongitudeSize());
+		return thisBoundsRectangle.intersects(givenBoundsRectangle);
 	}
 }

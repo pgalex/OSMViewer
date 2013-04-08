@@ -5,6 +5,7 @@ import com.osmviewer.map.exceptions.FetchingErrorException;
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
+import com.osmviewer.mapDefenitionUtilities.Tag;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -141,23 +142,26 @@ public class MapSectorTest
 	@Test
 	public void loadingWithObjectsInAreaTest() throws FetchingErrorException
 	{
+		DefenitionTags someNoteEmptyTags = new DefenitionTags();
+		someNoteEmptyTags.add(new Tag("k1", "v1"));
+		
 		TestMapDataSource testMapDataSource = new TestMapDataSource();
 
 		testMapDataSource.storingIds.add(new Long(15));
-		testMapDataSource.storingTags.add(new DefenitionTags());
+		testMapDataSource.storingTags.add(someNoteEmptyTags);
 		Location[] points1 = new Location[1];
 		points1[0] = new Location(MapSector.LATITUDE_SIZE / 2, MapSector.LONGITUDE_SIZE / 2);
 		testMapDataSource.storingPoints.add(points1);
 
 		testMapDataSource.storingIds.add(new Long(16));
-		testMapDataSource.storingTags.add(new DefenitionTags());
+		testMapDataSource.storingTags.add(someNoteEmptyTags);
 		Location[] points2 = new Location[2];
 		points2[0] = new Location(MapSector.LATITUDE_SIZE / 2, MapSector.LONGITUDE_SIZE / 2);
 		points2[1] = new Location(MapSector.LATITUDE_SIZE / 3, MapSector.LONGITUDE_SIZE / 3);
 		testMapDataSource.storingPoints.add(points2);
 
 		testMapDataSource.storingIds.add(new Long(17));
-		testMapDataSource.storingTags.add(new DefenitionTags());
+		testMapDataSource.storingTags.add(someNoteEmptyTags);
 		Location[] points3 = new Location[3];
 		points3[0] = new Location(MapSector.LATITUDE_SIZE / 2, MapSector.LONGITUDE_SIZE / 2);
 		points3[1] = new Location(MapSector.LATITUDE_SIZE / 3, MapSector.LONGITUDE_SIZE / 3);

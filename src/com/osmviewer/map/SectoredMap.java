@@ -56,8 +56,6 @@ public class SectoredMap implements RenderableMap
 			return;
 		}
 
-		sectors.clear();
-
 		int minLatitudeSectorIndex = MapSector.findSectorLatitudeIndex(area.getLatitudeMinimum());
 		int minLongitudeSectorIndex = MapSector.findSectorLongitudeIndex(area.getLongitudeMinimum());
 
@@ -124,10 +122,13 @@ public class SectoredMap implements RenderableMap
 		{
 			return;
 		}
-		
+
 		for (MapSector mapSector : sectors)
 		{
-			mapSector.renderObjectsByDrawPriority(objectsRenderingVisitor, renderingArea, objectsDrawPriorityComparator);
+			if (renderingArea.intersects(mapSector.getBounds()))
+			{
+				mapSector.renderObjectsByDrawPriority(objectsRenderingVisitor, renderingArea, objectsDrawPriorityComparator);
+			}
 		}
 	}
 }

@@ -120,11 +120,6 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 			throw new IllegalArgumentException("points incorrent");
 		}
 
-		if (tags.isEmpty())
-		{
-			return;
-		}
-
 		MapObject createdMapObject = null;
 
 		if (points.length == 1)
