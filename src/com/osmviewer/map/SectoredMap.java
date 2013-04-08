@@ -66,11 +66,36 @@ public class SectoredMap implements RenderableMap
 		{
 			for (int longitudeIndex = minLongitudeSectorIndex; longitudeIndex <= maxLongitudeSectorIndex; longitudeIndex++)
 			{
+				if (isExistsSectorWithIndexes(latitudeIndex, longitudeIndex))
+				{
+					continue;
+				}
 				MapSector newSector = new MapSector(latitudeIndex, longitudeIndex);
 				newSector.loadObjects(mapDataSource, objectsDrawSettingsFinder);
 				sectors.add(newSector);
 			}
 		}
+	}
+
+	/**
+	 * Is exists in aleardy loaded sectors sector with given indexes
+	 *
+	 * @param sectorLatitudeIndex index of sector by latitude
+	 * @param sectorLongitudeIndex index of sector by longitude
+	 * @return is aleardy exists sector with given indexes
+	 */
+	private boolean isExistsSectorWithIndexes(int sectorLatitudeIndex, int sectorLongitudeIndex)
+	{
+		for (MapSector mapSector : sectors)
+		{
+			if (mapSector.getLatitudeIndex() == sectorLatitudeIndex
+							&& mapSector.getLongitudeIndex() == sectorLongitudeIndex)
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**

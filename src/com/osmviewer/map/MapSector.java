@@ -64,6 +64,26 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	}
 
 	/**
+	 * Get latitude index
+	 *
+	 * @return index by latitude
+	 */
+	public int getLatitudeIndex()
+	{
+		return latitudeIndex;
+	}
+
+	/**
+	 * Get longitude index
+	 *
+	 * @return index by longitude
+	 */
+	public int getLongitudeIndex()
+	{
+		return longitudeIndex;
+	}
+
+	/**
 	 * Load object by given map data source int sector bounds
 	 *
 	 * @param mapDataSource data source, using to fetch map objects, in given
