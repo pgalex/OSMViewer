@@ -18,6 +18,10 @@ import java.util.List;
 public class SectoredMap implements RenderableMap
 {
 	/**
+	 * Maximum count of storing invisible sectors
+	 */
+	private int MAXIMUM_INVISIBLE_SECTOR_COUNT = 8;
+	/**
 	 * Sectors of map
 	 */
 	private LinkedList<MapSector> sectors;
@@ -77,6 +81,20 @@ public class SectoredMap implements RenderableMap
 				newSector.loadObjects(mapDataSource, objectsDrawSettingsFinder);
 				sectors.add(newSector);
 			}
+		}
+		
+		ArrayList<MapSector> invisibleSectors = new ArrayList<MapSector>();
+		for (MapSector mapSector : sectors)
+		{
+			if(!mapSector.getBounds().intersects(area))
+			{
+				invisibleSectors.add(mapSector);
+			}
+		}
+		
+		for (int i = MAXIMUM_INVISIBLE_SECTOR_COUNT; i < invisibleSectors.size(); i++)
+		{
+			sectors.remove(invisibleSectors.get(i));
 		}
 	}
 

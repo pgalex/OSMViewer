@@ -6,9 +6,12 @@ import com.osmviewer.map.exceptions.FetchingErrorException;
 import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.rendering.RenderableMapObject;
 import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
+import com.osmviewer.sqliteMapDataSource.exceptions.DatabaseErrorExcetion;
 import java.awt.Dialog.ModalityType;
 import java.awt.Point;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -69,7 +72,7 @@ public class MainFrame extends javax.swing.JFrame
     jSliderScaleLevel = new javax.swing.JSlider();
     jButtonEditDrawingStyles = new javax.swing.JButton();
     jButtonConvertOsmToSQLite = new javax.swing.JButton();
-    jButtonLoadMapFromDatabase = new javax.swing.JButton();
+    jButtonChooseMapDataSource = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setTitle("OpenStreetMap Viewer");
@@ -88,6 +91,10 @@ public class MainFrame extends javax.swing.JFrame
       public void mousePressed(java.awt.event.MouseEvent evt)
       {
         jPanelCanvasMousePressed(evt);
+      }
+      public void mouseReleased(java.awt.event.MouseEvent evt)
+      {
+        jPanelCanvasMouseReleased(evt);
       }
       public void mouseClicked(java.awt.event.MouseEvent evt)
       {
@@ -141,12 +148,12 @@ public class MainFrame extends javax.swing.JFrame
       }
     });
 
-    jButtonLoadMapFromDatabase.setText("Загрузить карту из БД...");
-    jButtonLoadMapFromDatabase.addActionListener(new java.awt.event.ActionListener()
+    jButtonChooseMapDataSource.setText("Открыть карту...");
+    jButtonChooseMapDataSource.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
       {
-        jButtonLoadMapFromDatabaseActionPerformed(evt);
+        jButtonChooseMapDataSourceActionPerformed(evt);
       }
     });
 
@@ -162,9 +169,9 @@ public class MainFrame extends javax.swing.JFrame
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(jButtonConvertOsmToSQLite)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jButtonLoadMapFromDatabase))
+            .addComponent(jButtonChooseMapDataSource))
           .addComponent(jSliderScaleLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addContainerGap(49, Short.MAX_VALUE))
+        .addContainerGap(98, Short.MAX_VALUE))
     );
     jPanelCanvasLayout.setVerticalGroup(
       jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,7 +180,7 @@ public class MainFrame extends javax.swing.JFrame
         .addGroup(jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(jButtonEditDrawingStyles)
           .addComponent(jButtonConvertOsmToSQLite)
-          .addComponent(jButtonLoadMapFromDatabase))
+          .addComponent(jButtonChooseMapDataSource))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(jSliderScaleLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addContainerGap(318, Short.MAX_VALUE))
@@ -235,9 +242,18 @@ public class MainFrame extends javax.swing.JFrame
 			scaleByWheel = mapController.getMaximumScaleLevel();
 		}
 
-		mapController.setScaleLevel(scaleByWheel);
-		jSliderScaleLevel.setValue(scaleByWheel);
-		jPanelCanvas.repaint();
+		try
+		{
+			mapController.setScaleLevel(scaleByWheel);
+			jSliderScaleLevel.setValue(scaleByWheel);
+			mapController.loadMapByCurrentViewPosition();
+			jPanelCanvas.repaint();
+		}
+		catch (FetchingErrorException ex)
+		{
+			Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
   }//GEN-LAST:event_jPanelCanvasMouseWheelMoved
 
   private void jPanelCanvasMouseMoved(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jPanelCanvasMouseMoved
@@ -280,8 +296,16 @@ public class MainFrame extends javax.swing.JFrame
   {//GEN-HEADEREND:event_jSliderScaleLevelStateChanged
 		if (jSliderScaleLevel.getValue() >= mapController.getMinimumScaleLevel() && jSliderScaleLevel.getValue() <= mapController.getMaximumScaleLevel())
 		{
-			mapController.setScaleLevel(jSliderScaleLevel.getValue());
-			jPanelCanvas.repaint();
+			try
+			{
+				mapController.setScaleLevel(jSliderScaleLevel.getValue());
+				mapController.loadMapByCurrentViewPosition();
+				jPanelCanvas.repaint();
+			}
+			catch (FetchingErrorException ex)
+			{
+				Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+			}
 		}
   }//GEN-LAST:event_jSliderScaleLevelStateChanged
 
@@ -292,8 +316,8 @@ public class MainFrame extends javax.swing.JFrame
 		convertDialog.setVisible(true);
   }//GEN-LAST:event_jButtonConvertOsmToSQLiteActionPerformed
 
-  private void jButtonLoadMapFromDatabaseActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonLoadMapFromDatabaseActionPerformed
-  {//GEN-HEADEREND:event_jButtonLoadMapFromDatabaseActionPerformed
+  private void jButtonChooseMapDataSourceActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonChooseMapDataSourceActionPerformed
+  {//GEN-HEADEREND:event_jButtonChooseMapDataSourceActionPerformed
 		try
 		{
 			JFileChooser databaseFileChooser = new JFileChooser();
@@ -302,15 +326,34 @@ public class MainFrame extends javax.swing.JFrame
 			{
 				File databaseFile = databaseFileChooser.getSelectedFile();
 
-				mapController.loadMapFromDatabase(databaseFile.getPath());
+				mapController.setMapDataSourceByDatabase(databaseFile.getPath());
+				mapController.loadMapByCurrentViewPosition();
 				jPanelCanvas.repaint();
 			}
 		}
+		catch (DatabaseErrorExcetion ex)
+		{
+			JOptionPane.showMessageDialog(this, "Невозможно открыть карту", "Ошибка", JOptionPane.ERROR_MESSAGE);
+		}
 		catch (FetchingErrorException ex)
 		{
-			JOptionPane.showMessageDialog(this, "Невозможно загрузить карту", "Ошибка", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Невозможно загрузить объекты из карты", "Ошибка", JOptionPane.ERROR_MESSAGE);
+
 		}
-  }//GEN-LAST:event_jButtonLoadMapFromDatabaseActionPerformed
+  }//GEN-LAST:event_jButtonChooseMapDataSourceActionPerformed
+
+  private void jPanelCanvasMouseReleased(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jPanelCanvasMouseReleased
+  {//GEN-HEADEREND:event_jPanelCanvasMouseReleased
+		try
+		{
+			mapController.loadMapByCurrentViewPosition();
+			jPanelCanvas.repaint();
+		}
+		catch (FetchingErrorException ex)
+		{
+			Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+		}
+  }//GEN-LAST:event_jPanelCanvasMouseReleased
 
 	/**
 	 * @param args the command line arguments
@@ -370,9 +413,9 @@ public class MainFrame extends javax.swing.JFrame
 		});
 	}
   // Variables declaration - do not modify//GEN-BEGIN:variables
+  private javax.swing.JButton jButtonChooseMapDataSource;
   private javax.swing.JButton jButtonConvertOsmToSQLite;
   private javax.swing.JButton jButtonEditDrawingStyles;
-  private javax.swing.JButton jButtonLoadMapFromDatabase;
   private javax.swing.JPanel jPanelCanvas;
   private javax.swing.JSlider jSliderScaleLevel;
   // End of variables declaration//GEN-END:variables

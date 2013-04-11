@@ -46,6 +46,7 @@
       <Events>
         <EventHandler event="mouseWheelMoved" listener="java.awt.event.MouseWheelListener" parameters="java.awt.event.MouseWheelEvent" handler="jPanelCanvasMouseWheelMoved"/>
         <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanelCanvasMousePressed"/>
+        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanelCanvasMouseReleased"/>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanelCanvasMouseClicked"/>
         <EventHandler event="componentResized" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="jPanelCanvasComponentResized"/>
         <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="jPanelCanvasMouseMoved"/>
@@ -66,11 +67,11 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jButtonConvertOsmToSQLite" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButtonLoadMapFromDatabase" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonChooseMapDataSource" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jSliderScaleLevel" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="49" max="32767" attributes="0"/>
+                  <EmptySpace pref="98" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -81,7 +82,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButtonEditDrawingStyles" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonConvertOsmToSQLite" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButtonLoadMapFromDatabase" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonChooseMapDataSource" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jSliderScaleLevel" min="-2" pref="121" max="-2" attributes="0"/>
@@ -116,12 +117,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonConvertOsmToSQLiteActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButtonLoadMapFromDatabase">
+        <Component class="javax.swing.JButton" name="jButtonChooseMapDataSource">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#x417;&#x430;&#x433;&#x440;&#x443;&#x437;&#x438;&#x442;&#x44c; &#x43a;&#x430;&#x440;&#x442;&#x443; &#x438;&#x437; &#x411;&#x414;..."/>
+            <Property name="text" type="java.lang.String" value="&#x41e;&#x442;&#x43a;&#x440;&#x44b;&#x442;&#x44c; &#x43a;&#x430;&#x440;&#x442;&#x443;..."/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonLoadMapFromDatabaseActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonChooseMapDataSourceActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

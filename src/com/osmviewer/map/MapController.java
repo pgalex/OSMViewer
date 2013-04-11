@@ -46,6 +46,11 @@ public class MapController implements DrawableOnPanel
 	 * Drawing styles currently uses to render map
 	 */
 	private DrawSettingsViewer styleViewer;
+	/**
+	 * Currently using map data source for map loading. Null if data source not
+	 * set
+	 */
+	private MapDataSource mapDataSource;
 
 	/**
 	 * Create online map processor
@@ -59,6 +64,7 @@ public class MapController implements DrawableOnPanel
 					int startCanvasWidth, int startCanvasHeight)
 	{
 		map = new SectoredMap();
+		mapDataSource = null;
 
 		renderer = new MapRenderer(MINIMUM_SCALE_LEVEL, MAXIMUM_SCALE_LEVEL, startScaleLevel);
 		renderer.setViewPosition(startViewPosition);
@@ -245,13 +251,13 @@ public class MapController implements DrawableOnPanel
 	}
 
 	/**
-	 * Load full map from database file
+	 * Set currently map data source by map database file
 	 *
 	 * @param databaseFilePath path to map objects database
 	 * @throws IllegalArgumentException databaseFilePath is null or empty
-	 * @throws FetchingErrorException
+	 * @throws DatabaseErrorExcetion error while creating datasource by given file
 	 */
-	public void loadMapFromDatabase(String databaseFilePath) throws IllegalArgumentException, FetchingErrorException
+	public void setMapDataSourceByDatabase(String databaseFilePath) throws IllegalArgumentException, DatabaseErrorExcetion
 	{
 		if (databaseFilePath == null)
 		{
@@ -262,13 +268,21 @@ public class MapController implements DrawableOnPanel
 			throw new IllegalArgumentException("databaseFilePath is empty");
 		}
 
-		try
+		mapDataSource = new SQLiteDatabaseMapDataSource(databaseFilePath);
+	}
+
+	/**
+	 * Load map objects, that exists in current view position (including scale
+	 * level and view area size), from current data source. If map data source not
+	 * set, no object will be loaded
+	 *
+	 * @throws FetchingErrorException error while loading map objects
+	 */
+	public void loadMapByCurrentViewPosition() throws FetchingErrorException
+	{
+		if (mapDataSource != null)
 		{
-			map.loadObjectsInArea(renderer.getViewArea(), new SQLiteDatabaseMapDataSource(databaseFilePath), styleViewer);
-		}
-		catch (DatabaseErrorExcetion ex)
-		{
-			throw new FetchingErrorException(ex);
+			map.loadObjectsInArea(renderer.getViewArea(), mapDataSource, styleViewer);
 		}
 	}
 }
