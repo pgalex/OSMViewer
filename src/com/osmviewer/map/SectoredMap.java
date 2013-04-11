@@ -5,7 +5,10 @@ import com.osmviewer.mapDefenitionUtilities.MapBounds;
 import com.osmviewer.rendering.RenderableMap;
 import com.osmviewer.rendering.RenderableMapObjectsDrawPriorityComparator;
 import com.osmviewer.rendering.RenderableMapObjectsVisitor;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Map, storing and processings map objects by sectors
@@ -148,11 +151,40 @@ public class SectoredMap implements RenderableMap
 			return;
 		}
 
+		ArrayList<MapSector> renderedSectors = new ArrayList<MapSector>();
+		LinkedList<MapObject> objectsToRender = new LinkedList<MapObject>();
 		for (MapSector mapSector : sectors)
 		{
 			if (renderingArea.intersects(mapSector.getBounds()))
 			{
-				mapSector.renderObjectsByDrawPriority(objectsRenderingVisitor, renderingArea, objectsDrawPriorityComparator);
+				List<MapObject> sectorObjects = mapSector.getObjects();
+				for (MapObject mapObject : sectorObjects)
+				{
+					boolean objectAlreadyRendered = false;
+					for (int i = 0; i < renderedSectors.size(); i++)
+					{
+						if (mapObject.isVisibleInArea(renderedSectors.get(i).getBounds()))
+						{
+							objectAlreadyRendered = true;
+						}
+					}
+					if (!objectAlreadyRendered)
+					{
+						objectsToRender.add(mapObject);
+					}
+				}
+
+				renderedSectors.add(mapSector);
+			}
+		}
+
+		Collections.sort(objectsToRender, objectsDrawPriorityComparator);
+
+		for (MapObject mapObject : objectsToRender)
+		{
+			if (mapObject.isVisibleInArea(renderingArea))
+			{
+				mapObject.acceptRenderingVisitor(objectsRenderingVisitor);
 			}
 		}
 	}

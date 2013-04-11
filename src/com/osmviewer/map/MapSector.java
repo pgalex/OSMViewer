@@ -9,6 +9,7 @@ import com.osmviewer.rendering.RenderableMapObjectsDrawPriorityComparator;
 import com.osmviewer.rendering.RenderableMapObjectsVisitor;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Sector of sectored map
@@ -61,6 +62,11 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 		longitudeIndex = sectorLongitudeIndex;
 
 		sortedByDrawPriority = false;
+	}
+
+	public List<MapObject> getObjects()
+	{
+		return objects;
 	}
 
 	/**
@@ -169,8 +175,11 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 			RenderableMapObjectDrawSettings drawSettings = drawSettingsFinder.findMapObjectDrawSettings(createdMapObject.getDefenitionTags());
 			if (drawSettings != null)
 			{
-				createdMapObject.setDrawSettings(drawSettings);
-				objects.add(createdMapObject);
+				if (createdMapObject.isVisibleInArea(getBounds()))
+				{
+					createdMapObject.setDrawSettings(drawSettings);
+					objects.add(createdMapObject);
+				}
 			}
 		}
 	}
