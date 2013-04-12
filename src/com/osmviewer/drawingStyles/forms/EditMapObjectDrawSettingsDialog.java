@@ -456,9 +456,9 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 
     setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-    jLabelDescription.setText("Description");
+    jLabelDescription.setText("Описание");
 
-    jCheckBoxCanBePoint.setText("Can be point");
+    jCheckBoxCanBePoint.setText("Может быть точкой");
     jCheckBoxCanBePoint.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -467,7 +467,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
       }
     });
 
-    jCheckBoxCanBeLine.setText("Can be line");
+    jCheckBoxCanBeLine.setText("Может быть линией");
     jCheckBoxCanBeLine.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -476,7 +476,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
       }
     });
 
-    jCheckBoxCanBePolygon.setText("Can be polygon");
+    jCheckBoxCanBePolygon.setText("Может быть многоугольником");
     jCheckBoxCanBePolygon.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -486,6 +486,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
     });
 
     jTableTextTagKeys.setModel(textTagsKeysTableModel);
+    jTableTextTagKeys.setToolTipText("Теги, значения которых отображаются как текст");
     jTableTextTagKeys.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
     jScrollPane1.setViewportView(jTableTextTagKeys);
 
@@ -508,6 +509,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
     });
 
     jTableDefenitionTags.setModel(defenitionTagsTableModel);
+    jTableDefenitionTags.setToolTipText("Теги");
     jTableDefenitionTags.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
     jScrollPane2.setViewportView(jTableDefenitionTags);
 
@@ -529,11 +531,11 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
       }
     });
 
-    jLabelScaleLevel.setText("Scale level");
+    jLabelScaleLevel.setText("Масштаб");
 
     jSpinnerScaleLevel.setModel(scaleLevelSpinnerModel);
 
-    jCheckBoxDrawPointOnScaleLevel.setText("Draw point");
+    jCheckBoxDrawPointOnScaleLevel.setText("Рисовать точку");
     jCheckBoxDrawPointOnScaleLevel.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -542,7 +544,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
       }
     });
 
-    jCheckBoxDrawLineOnScaleLevel.setText("Draw line");
+    jCheckBoxDrawLineOnScaleLevel.setText("Рисовать линию");
     jCheckBoxDrawLineOnScaleLevel.setToolTipText("");
     jCheckBoxDrawLineOnScaleLevel.addActionListener(new java.awt.event.ActionListener()
     {
@@ -552,7 +554,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
       }
     });
 
-    jCheckBoxDrawPolygonOnScaleLevel.setText("Draw polygon");
+    jCheckBoxDrawPolygonOnScaleLevel.setText("Рисовать многоугольник");
     jCheckBoxDrawPolygonOnScaleLevel.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -561,9 +563,9 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
       }
     });
 
-    jLabelPointIcon.setText("Icon");
+    jLabelPointIcon.setText("Значок");
 
-    jButtonSelectPointIcon.setText("Select ...");
+    jButtonSelectPointIcon.setText("Выбрать ...");
     jButtonSelectPointIcon.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -572,7 +574,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
       }
     });
 
-    jButtonResetPointIcon.setText("Reset");
+    jButtonResetPointIcon.setText("Сбросить");
     jButtonResetPointIcon.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -594,7 +596,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
       .add(0, 42, Short.MAX_VALUE)
     );
 
-    jButtonSelectLineColor.setText("Color ...");
+    jButtonSelectLineColor.setText("Цвет...");
     jButtonSelectLineColor.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -605,7 +607,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
 
     jSpinnerLineWidth.setModel(lineWidthSpinnerModel);
 
-    jButtonSelectTextFont.setText("Text font ...");
+    jButtonSelectTextFont.setText("Шрифт ...");
     jButtonSelectTextFont.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -614,7 +616,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
       }
     });
 
-    jButtonSelectTextColor.setText("Text color ...");
+    jButtonSelectTextColor.setText("Цвет ...");
     jButtonSelectTextColor.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -623,7 +625,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
       }
     });
 
-    jLabel1.setText("Width");
+    jLabel1.setText("Толщина");
 
     jPanelPolygonPreview.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
@@ -638,9 +640,9 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
       .add(0, 42, Short.MAX_VALUE)
     );
 
-    jLabelTextPreviewExample.setText("Sample text");
+    jLabelTextPreviewExample.setText("<<< Текст >>>");
 
-    jButtonApplyDescription.setText("Apply");
+    jButtonApplyDescription.setText("Применить");
     jButtonApplyDescription.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -649,7 +651,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
       }
     });
 
-    jButtonApplyName.setText("Apply");
+    jButtonApplyName.setText("Применить");
     jButtonApplyName.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -658,9 +660,9 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
       }
     });
 
-    jLabelName.setText("Name");
+    jLabelName.setText("Название");
 
-    jButtonChoosePolygonFillColor.setText("Use color...");
+    jButtonChoosePolygonFillColor.setText("Заливка цветом...");
     jButtonChoosePolygonFillColor.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -669,7 +671,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
       }
     });
 
-    jButtonChoosePolygonFillTexture.setText("Use texture ...");
+    jButtonChoosePolygonFillTexture.setText("Заливка текстурой ...");
     jButtonChoosePolygonFillTexture.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -678,7 +680,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
       }
     });
 
-    jCheckBoxDrawPolygonInnerPart.setText("Draw inner part");
+    jCheckBoxDrawPolygonInnerPart.setText("Использовать заливку");
     jCheckBoxDrawPolygonInnerPart.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -687,7 +689,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
       }
     });
 
-    jCheckBoxDrawPolygonBorder.setText("Draw border");
+    jCheckBoxDrawPolygonBorder.setText("Рисовать границу");
     jCheckBoxDrawPolygonBorder.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -696,7 +698,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
       }
     });
 
-    jCheckBoxDrawTextOnScaleLevel.setText("Draw text");
+    jCheckBoxDrawTextOnScaleLevel.setText("Рисовать текст");
     jCheckBoxDrawTextOnScaleLevel.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -705,7 +707,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
       }
     });
 
-    jButtonEditLinePattern.setText("Line pattern ...");
+    jButtonEditLinePattern.setText("Шаблон ...");
     jButtonEditLinePattern.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -719,7 +721,7 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
     layout.setHorizontalGroup(
       layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
       .add(layout.createSequentialGroup()
-        .addContainerGap()
+        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
           .add(layout.createSequentialGroup()
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -727,89 +729,69 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
               .add(jButtonSelectPointIcon)
               .add(jButtonResetPointIcon)
               .add(jLabelPointIconPreview))
-            .add(62, 62, 62)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-              .add(jCheckBoxDrawLineOnScaleLevel)
               .add(jButtonSelectLineColor)
-              .add(jPanelLinePreview, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
               .add(layout.createSequentialGroup()
                 .add(jLabel1)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jSpinnerLineWidth, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+              .add(jPanelLinePreview, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+              .add(jCheckBoxDrawLineOnScaleLevel)
               .add(jButtonEditLinePattern))
-            .add(62, 62, 62)
+            .add(18, 18, 18)
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-              .add(layout.createSequentialGroup()
-                .add(jCheckBoxDrawPolygonOnScaleLevel)
-                .add(37, 37, 37)
-                .add(jCheckBoxDrawTextOnScaleLevel)
-                .add(0, 0, Short.MAX_VALUE))
-              .add(layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                  .add(jPanelPolygonPreview, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                  .add(jButtonChoosePolygonFillColor)
-                  .add(jButtonChoosePolygonFillTexture)
-                  .add(layout.createSequentialGroup()
-                    .add(16, 16, 16)
-                    .add(jCheckBoxDrawPolygonBorder)))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                  .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                    .add(jButtonSelectTextFont)
-                    .add(12, 12, 12))
-                  .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                    .add(jLabelTextPreviewExample)
-                    .add(64, 64, 64))
-                  .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                    .add(jButtonSelectTextColor)
-                    .addContainerGap())))))
+              .add(jCheckBoxDrawPolygonOnScaleLevel)
+              .add(jButtonChoosePolygonFillTexture)
+              .add(jButtonChoosePolygonFillColor)
+              .add(jPanelPolygonPreview, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+              .add(jCheckBoxDrawPolygonBorder))
+            .add(30, 30, 30)
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+              .add(jLabelTextPreviewExample)
+              .add(jCheckBoxDrawTextOnScaleLevel)
+              .add(jButtonSelectTextFont)
+              .add(jButtonSelectTextColor)))
           .add(layout.createSequentialGroup()
-            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-              .add(layout.createSequentialGroup()
-                .add(jLabelScaleLevel)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jSpinnerScaleLevel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-              .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                  .add(jLabelPointIcon)
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                  .add(jCheckBoxDrawPolygonInnerPart))
-                .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                  .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                      .add(jLabelDescription)
-                      .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                      .add(jTextFieldDescription, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 303, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                      .add(jCheckBoxCanBePoint)
-                      .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                      .add(jCheckBoxCanBeLine)
-                      .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                      .add(jCheckBoxCanBePolygon))
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                      .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 156, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(layout.createSequentialGroup()
-                          .add(jButtonAddTextTagKey)
-                          .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                          .add(jButtonRemoveTextTagKey)))
-                      .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                      .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                        .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .add(layout.createSequentialGroup()
-                          .add(jButtonAddDefenitionTag)
-                          .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                          .add(jButtonRemoveDefenitionTag)))))
-                  .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                  .add(jButtonApplyDescription))))
-            .add(0, 0, Short.MAX_VALUE))
+            .add(jLabelScaleLevel)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+            .add(jSpinnerScaleLevel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+          .add(layout.createSequentialGroup()
+            .add(jLabelPointIcon)
+            .add(258, 258, 258)
+            .add(jCheckBoxDrawPolygonInnerPart))
           .add(layout.createSequentialGroup()
             .add(jLabelName)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(jTextFieldName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 190, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jButtonApplyName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 74, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap())))
+            .add(jButtonApplyName))
+          .add(layout.createSequentialGroup()
+            .add(jLabelDescription)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jTextFieldDescription, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 303, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jButtonApplyDescription))
+          .add(layout.createSequentialGroup()
+            .add(jCheckBoxCanBePoint)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jCheckBoxCanBeLine)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jCheckBoxCanBePolygon))
+          .add(layout.createSequentialGroup()
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+              .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 156, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+              .add(layout.createSequentialGroup()
+                .add(jButtonAddTextTagKey)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jButtonRemoveTextTagKey)))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+              .add(layout.createSequentialGroup()
+                .add(jButtonAddDefenitionTag)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jButtonRemoveDefenitionTag))
+              .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 188, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -851,36 +833,37 @@ public class EditMapObjectDrawSettingsDialog extends javax.swing.JDialog
           .add(jCheckBoxDrawLineOnScaleLevel)
           .add(jCheckBoxDrawPolygonOnScaleLevel)
           .add(jCheckBoxDrawTextOnScaleLevel))
-        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+          .add(jLabelPointIcon)
+          .add(jCheckBoxDrawPolygonInnerPart))
+        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
           .add(layout.createSequentialGroup()
-            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-              .add(jLabelPointIcon)
-              .add(jCheckBoxDrawPolygonInnerPart))
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+              .add(jPanelPolygonPreview, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
               .add(jPanelLinePreview, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-              .add(jLabelPointIconPreview)
-              .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .add(jLabelTextPreviewExample)
-                .add(11, 11, 11))))
-          .add(jPanelPolygonPreview, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-          .add(jButtonSelectPointIcon)
-          .add(jButtonSelectLineColor)
-          .add(jButtonSelectTextFont)
-          .add(jButtonChoosePolygonFillColor))
-        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-          .add(jButtonResetPointIcon)
-          .add(jSpinnerLineWidth, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-          .add(jButtonSelectTextColor)
-          .add(jLabel1)
-          .add(jButtonChoosePolygonFillTexture))
-        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-          .add(jCheckBoxDrawPolygonBorder)
-          .add(jButtonEditLinePattern))
+              .add(jLabelPointIconPreview))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+              .add(jButtonSelectPointIcon)
+              .add(jButtonSelectLineColor)
+              .add(jButtonChoosePolygonFillColor, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 29, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+              .add(jButtonResetPointIcon)
+              .add(jSpinnerLineWidth, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+              .add(jLabel1)
+              .add(jButtonChoosePolygonFillTexture))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+              .add(jCheckBoxDrawPolygonBorder)
+              .add(jButtonEditLinePattern)))
+          .add(layout.createSequentialGroup()
+            .add(jLabelTextPreviewExample)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+            .add(jButtonSelectTextFont)
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+            .add(jButtonSelectTextColor)))
         .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 

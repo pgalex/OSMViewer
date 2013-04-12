@@ -6,6 +6,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -23,7 +24,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -32,115 +33,83 @@
                           <Component id="jButtonResetPointIcon" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelPointIconPreview" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jCheckBoxDrawLineOnScaleLevel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButtonSelectLineColor" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jPanelLinePreview" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
+                          <Component id="jButtonSelectLineColor" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jSpinnerLineWidth" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="jPanelLinePreview" min="-2" max="-2" attributes="0"/>
+                          <Component id="jCheckBoxDrawLineOnScaleLevel" min="-2" max="-2" attributes="0"/>
                           <Component id="jButtonEditLinePattern" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jCheckBoxDrawPolygonOnScaleLevel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="jCheckBoxDrawTextOnScaleLevel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jPanelPolygonPreview" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButtonChoosePolygonFillColor" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButtonChoosePolygonFillTexture" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                                      <Component id="jCheckBoxDrawPolygonBorder" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jButtonSelectTextFont" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jLabelTextPreviewExample" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jButtonSelectTextColor" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
+                          <Component id="jCheckBoxDrawPolygonOnScaleLevel" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonChoosePolygonFillTexture" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonChoosePolygonFillColor" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanelPolygonPreview" min="-2" max="-2" attributes="0"/>
+                          <Component id="jCheckBoxDrawPolygonBorder" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabelTextPreviewExample" min="-2" max="-2" attributes="0"/>
+                          <Component id="jCheckBoxDrawTextOnScaleLevel" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonSelectTextFont" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonSelectTextColor" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabelScaleLevel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jSpinnerScaleLevel" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabelPointIcon" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jCheckBoxDrawPolygonInnerPart" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabelDescription" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jTextFieldDescription" min="-2" pref="303" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jCheckBoxCanBePoint" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jCheckBoxCanBeLine" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jCheckBoxCanBePolygon" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jScrollPane1" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jButtonAddTextTagKey" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="jButtonRemoveTextTagKey" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jButtonAddDefenitionTag" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="jButtonRemoveDefenitionTag" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jButtonApplyDescription" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jLabelScaleLevel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jSpinnerScaleLevel" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jLabelPointIcon" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="258" max="-2" attributes="0"/>
+                      <Component id="jCheckBoxDrawPolygonInnerPart" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabelName" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jTextFieldName" min="-2" pref="190" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButtonApplyName" min="-2" pref="74" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jButtonApplyName" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jLabelDescription" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jTextFieldDescription" min="-2" pref="303" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jButtonApplyDescription" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jCheckBoxCanBePoint" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jCheckBoxCanBeLine" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jCheckBoxCanBePolygon" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jScrollPane1" alignment="0" min="-2" pref="156" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jButtonAddTextTagKey" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jButtonRemoveTextTagKey" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="jButtonAddDefenitionTag" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jButtonRemoveDefenitionTag" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jScrollPane2" min="-2" pref="188" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
           </Group>
@@ -196,43 +165,44 @@
                   <Component id="jCheckBoxDrawPolygonOnScaleLevel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jCheckBoxDrawTextOnScaleLevel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <Group type="103" groupAlignment="1" attributes="0">
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabelPointIcon" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jCheckBoxDrawPolygonInnerPart" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabelPointIcon" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jCheckBoxDrawPolygonInnerPart" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jPanelPolygonPreview" min="-2" max="-2" attributes="0"/>
                           <Component id="jPanelLinePreview" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelPointIconPreview" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabelTextPreviewExample" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                          </Group>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jButtonSelectPointIcon" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonSelectLineColor" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonChoosePolygonFillColor" alignment="0" min="-2" pref="29" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jButtonResetPointIcon" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jSpinnerLineWidth" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonChoosePolygonFillTexture" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jCheckBoxDrawPolygonBorder" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonEditLinePattern" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="jPanelPolygonPreview" alignment="1" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButtonSelectPointIcon" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButtonSelectLineColor" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButtonSelectTextFont" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButtonChoosePolygonFillColor" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButtonResetPointIcon" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jSpinnerLineWidth" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButtonSelectTextColor" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButtonChoosePolygonFillTexture" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jCheckBoxDrawPolygonBorder" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButtonEditLinePattern" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="jLabelTextPreviewExample" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jButtonSelectTextFont" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jButtonSelectTextColor" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -242,14 +212,14 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabelDescription">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Description"/>
+        <Property name="text" type="java.lang.String" value="&#x41e;&#x43f;&#x438;&#x441;&#x430;&#x43d;&#x438;&#x435;"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldDescription">
     </Component>
     <Component class="javax.swing.JCheckBox" name="jCheckBoxCanBePoint">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Can be point"/>
+        <Property name="text" type="java.lang.String" value="&#x41c;&#x43e;&#x436;&#x435;&#x442; &#x431;&#x44b;&#x442;&#x44c; &#x442;&#x43e;&#x447;&#x43a;&#x43e;&#x439;"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxCanBePointActionPerformed"/>
@@ -257,7 +227,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="jCheckBoxCanBeLine">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Can be line"/>
+        <Property name="text" type="java.lang.String" value="&#x41c;&#x43e;&#x436;&#x435;&#x442; &#x431;&#x44b;&#x442;&#x44c; &#x43b;&#x438;&#x43d;&#x438;&#x435;&#x439;"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxCanBeLineActionPerformed"/>
@@ -265,7 +235,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="jCheckBoxCanBePolygon">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Can be polygon"/>
+        <Property name="text" type="java.lang.String" value="&#x41c;&#x43e;&#x436;&#x435;&#x442; &#x431;&#x44b;&#x442;&#x44c; &#x43c;&#x43d;&#x43e;&#x433;&#x43e;&#x443;&#x433;&#x43e;&#x43b;&#x44c;&#x43d;&#x438;&#x43a;&#x43e;&#x43c;"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxCanBePolygonActionPerformed"/>
@@ -283,6 +253,7 @@
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="textTagsKeysTableModel" type="code"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="&#x422;&#x435;&#x433;&#x438;, &#x437;&#x43d;&#x430;&#x447;&#x435;&#x43d;&#x438;&#x44f; &#x43a;&#x43e;&#x442;&#x43e;&#x440;&#x44b;&#x445; &#x43e;&#x442;&#x43e;&#x431;&#x440;&#x430;&#x436;&#x430;&#x44e;&#x442;&#x441;&#x44f; &#x43a;&#x430;&#x43a; &#x442;&#x435;&#x43a;&#x441;&#x442;"/>
             <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
               <JTableSelectionModel selectionMode="0"/>
             </Property>
@@ -318,6 +289,7 @@
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="defenitionTagsTableModel" type="code"/>
             </Property>
+            <Property name="toolTipText" type="java.lang.String" value="&#x422;&#x435;&#x433;&#x438;"/>
             <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
               <JTableSelectionModel selectionMode="0"/>
             </Property>
@@ -343,7 +315,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelScaleLevel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Scale level"/>
+        <Property name="text" type="java.lang.String" value="&#x41c;&#x430;&#x441;&#x448;&#x442;&#x430;&#x431;"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JSpinner" name="jSpinnerScaleLevel">
@@ -355,7 +327,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="jCheckBoxDrawPointOnScaleLevel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Draw point"/>
+        <Property name="text" type="java.lang.String" value="&#x420;&#x438;&#x441;&#x43e;&#x432;&#x430;&#x442;&#x44c; &#x442;&#x43e;&#x447;&#x43a;&#x443;"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxDrawPointOnScaleLevelActionPerformed"/>
@@ -363,7 +335,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="jCheckBoxDrawLineOnScaleLevel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Draw line"/>
+        <Property name="text" type="java.lang.String" value="&#x420;&#x438;&#x441;&#x43e;&#x432;&#x430;&#x442;&#x44c; &#x43b;&#x438;&#x43d;&#x438;&#x44e;"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <Events>
@@ -372,7 +344,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="jCheckBoxDrawPolygonOnScaleLevel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Draw polygon"/>
+        <Property name="text" type="java.lang.String" value="&#x420;&#x438;&#x441;&#x43e;&#x432;&#x430;&#x442;&#x44c; &#x43c;&#x43d;&#x43e;&#x433;&#x43e;&#x443;&#x433;&#x43e;&#x43b;&#x44c;&#x43d;&#x438;&#x43a;"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxDrawPolygonOnScaleLevelActionPerformed"/>
@@ -380,12 +352,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelPointIcon">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Icon"/>
+        <Property name="text" type="java.lang.String" value="&#x417;&#x43d;&#x430;&#x447;&#x43e;&#x43a;"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonSelectPointIcon">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Select ..."/>
+        <Property name="text" type="java.lang.String" value="&#x412;&#x44b;&#x431;&#x440;&#x430;&#x442;&#x44c; ..."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSelectPointIconActionPerformed"/>
@@ -393,7 +365,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonResetPointIcon">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Reset"/>
+        <Property name="text" type="java.lang.String" value="&#x421;&#x431;&#x440;&#x43e;&#x441;&#x438;&#x442;&#x44c;"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonResetPointIconActionPerformed"/>
@@ -423,7 +395,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="jButtonSelectLineColor">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Color ..."/>
+        <Property name="text" type="java.lang.String" value="&#x426;&#x432;&#x435;&#x442;..."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSelectLineColorActionPerformed"/>
@@ -438,7 +410,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonSelectTextFont">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Text font ..."/>
+        <Property name="text" type="java.lang.String" value="&#x428;&#x440;&#x438;&#x444;&#x442; ..."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSelectTextFontActionPerformed"/>
@@ -446,7 +418,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonSelectTextColor">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Text color ..."/>
+        <Property name="text" type="java.lang.String" value="&#x426;&#x432;&#x435;&#x442; ..."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSelectTextColorActionPerformed"/>
@@ -454,7 +426,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Width"/>
+        <Property name="text" type="java.lang.String" value="&#x422;&#x43e;&#x43b;&#x449;&#x438;&#x43d;&#x430;"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanelPolygonPreview">
@@ -481,14 +453,14 @@
     </Container>
     <Component class="javax.swing.JLabel" name="jLabelTextPreviewExample">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Sample text"/>
+        <Property name="text" type="java.lang.String" value="&lt;&lt;&lt; &#x422;&#x435;&#x43a;&#x441;&#x442; &gt;&gt;&gt;"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelPointIconPreview">
     </Component>
     <Component class="javax.swing.JButton" name="jButtonApplyDescription">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Apply"/>
+        <Property name="text" type="java.lang.String" value="&#x41f;&#x440;&#x438;&#x43c;&#x435;&#x43d;&#x438;&#x442;&#x44c;"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonApplyDescriptionActionPerformed"/>
@@ -496,7 +468,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonApplyName">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Apply"/>
+        <Property name="text" type="java.lang.String" value="&#x41f;&#x440;&#x438;&#x43c;&#x435;&#x43d;&#x438;&#x442;&#x44c;"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonApplyNameActionPerformed"/>
@@ -506,12 +478,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelName">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Name"/>
+        <Property name="text" type="java.lang.String" value="&#x41d;&#x430;&#x437;&#x432;&#x430;&#x43d;&#x438;&#x435;"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonChoosePolygonFillColor">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Use color..."/>
+        <Property name="text" type="java.lang.String" value="&#x417;&#x430;&#x43b;&#x438;&#x432;&#x43a;&#x430; &#x446;&#x432;&#x435;&#x442;&#x43e;&#x43c;..."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonChoosePolygonFillColorActionPerformed"/>
@@ -519,7 +491,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonChoosePolygonFillTexture">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Use texture ..."/>
+        <Property name="text" type="java.lang.String" value="&#x417;&#x430;&#x43b;&#x438;&#x432;&#x43a;&#x430; &#x442;&#x435;&#x43a;&#x441;&#x442;&#x443;&#x440;&#x43e;&#x439; ..."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonChoosePolygonFillTextureActionPerformed"/>
@@ -527,7 +499,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="jCheckBoxDrawPolygonInnerPart">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Draw inner part"/>
+        <Property name="text" type="java.lang.String" value="&#x418;&#x441;&#x43f;&#x43e;&#x43b;&#x44c;&#x437;&#x43e;&#x432;&#x430;&#x442;&#x44c; &#x437;&#x430;&#x43b;&#x438;&#x432;&#x43a;&#x443;"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxDrawPolygonInnerPartActionPerformed"/>
@@ -535,7 +507,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="jCheckBoxDrawPolygonBorder">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Draw border"/>
+        <Property name="text" type="java.lang.String" value="&#x420;&#x438;&#x441;&#x43e;&#x432;&#x430;&#x442;&#x44c; &#x433;&#x440;&#x430;&#x43d;&#x438;&#x446;&#x443;"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxDrawPolygonBorderActionPerformed"/>
@@ -543,7 +515,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="jCheckBoxDrawTextOnScaleLevel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Draw text"/>
+        <Property name="text" type="java.lang.String" value="&#x420;&#x438;&#x441;&#x43e;&#x432;&#x430;&#x442;&#x44c; &#x442;&#x435;&#x43a;&#x441;&#x442;"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxDrawTextOnScaleLevelActionPerformed"/>
@@ -551,7 +523,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButtonEditLinePattern">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Line pattern ..."/>
+        <Property name="text" type="java.lang.String" value="&#x428;&#x430;&#x431;&#x43b;&#x43e;&#x43d; ..."/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEditLinePatternActionPerformed"/>

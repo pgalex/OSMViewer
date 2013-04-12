@@ -286,7 +286,6 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
   private void initComponents()
   {
 
-    jButtonSave = new javax.swing.JButton();
     jPanelMapBackgroudColorPreview = new javax.swing.JPanel();
     jLabelMapBackgroundColor = new javax.swing.JLabel();
     jButtonRemoveMapObject = new javax.swing.JButton();
@@ -312,15 +311,6 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-    jButtonSave.setText("Save");
-    jButtonSave.addActionListener(new java.awt.event.ActionListener()
-    {
-      public void actionPerformed(java.awt.event.ActionEvent evt)
-      {
-        jButtonSaveActionPerformed(evt);
-      }
-    });
-
     jPanelMapBackgroudColorPreview.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
     org.jdesktop.layout.GroupLayout jPanelMapBackgroudColorPreviewLayout = new org.jdesktop.layout.GroupLayout(jPanelMapBackgroudColorPreview);
@@ -334,11 +324,18 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
       .add(0, 35, Short.MAX_VALUE)
     );
 
-    jLabelMapBackgroundColor.setText("Map background color");
+    jLabelMapBackgroundColor.setText("Цвет фона");
 
-    jButtonRemoveMapObject.setText("Remove");
+    jButtonRemoveMapObject.setText("Удалить");
+    jButtonRemoveMapObject.addActionListener(new java.awt.event.ActionListener()
+    {
+      public void actionPerformed(java.awt.event.ActionEvent evt)
+      {
+        jButtonRemoveMapObjectActionPerformed(evt);
+      }
+    });
 
-    jButtonAddMapObject.setText("Add");
+    jButtonAddMapObject.setText("Добавить");
     jButtonAddMapObject.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -347,7 +344,7 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
       }
     });
 
-    jButtonOpen.setText("Open ...");
+    jButtonOpen.setText("Открыть ...");
     jButtonOpen.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -356,7 +353,7 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
       }
     });
 
-    jButtonEditMapObject.setText("Edit");
+    jButtonEditMapObject.setText("Редактировать");
     jButtonEditMapObject.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -365,7 +362,7 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
       }
     });
 
-    jButtonChooseBackgroundColor.setText("Choose ...");
+    jButtonChooseBackgroundColor.setText("Выбрать ...");
     jButtonChooseBackgroundColor.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -384,7 +381,7 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
     });
     jScrollPane1.setViewportView(jListMapObjects);
 
-    jButtonSaveAs.setText("Save as ...");
+    jButtonSaveAs.setText("Сохранить как ...");
     jButtonSaveAs.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -393,7 +390,7 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
       }
     });
 
-    jButtonNew.setText("New");
+    jButtonNew.setText("Новый");
     jButtonNew.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -402,15 +399,15 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
       }
     });
 
-    jLabelDrawPriority.setText("Point draw prority");
+    jLabelDrawPriority.setText("Приоритет отрисовки (точка)");
 
     jListObjectsByDrawPriority.setFont(new java.awt.Font("Lucida Grande", 0, 10)); // NOI18N
     jListObjectsByDrawPriority.setModel(drawPriorityListModel);
     jScrollPane2.setViewportView(jListObjectsByDrawPriority);
 
-    jLabelDrawPriority1.setText("Line draw prority");
+    jLabelDrawPriority1.setText("Приоритет отрисовки (линия)");
 
-    jLabelDrawPriority2.setText("Polygon draw prority");
+    jLabelDrawPriority2.setText("Приоритет отрисовки (многоугольник)");
 
     jButtonIncreaseSelectedPointDrawPriority.setText("+");
     jButtonIncreaseSelectedPointDrawPriority.addActionListener(new java.awt.event.ActionListener()
@@ -474,15 +471,15 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
         .addContainerGap()
         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
           .add(layout.createSequentialGroup()
-            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-              .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1)
-              .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+              .add(layout.createSequentialGroup()
                 .add(jLabelMapBackgroundColor)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanelMapBackgroudColorPreview, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jButtonChooseBackgroundColor)))
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jButtonChooseBackgroundColor))
+              .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 266, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
               .add(jScrollPane2)
               .add(layout.createSequentialGroup()
@@ -509,19 +506,20 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
                     .add(jButtonDecreaseSelectedPolygonDrawPriority, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 45, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(0, 0, Short.MAX_VALUE))))))
           .add(layout.createSequentialGroup()
-            .add(jButtonNew)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jButtonOpen)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jButtonSave)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jButtonSaveAs))
-          .add(layout.createSequentialGroup()
-            .add(jButtonAddMapObject)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jButtonEditMapObject)
-            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-            .add(jButtonRemoveMapObject)))
+            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+              .add(layout.createSequentialGroup()
+                .add(jButtonNew)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jButtonOpen)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jButtonSaveAs))
+              .add(layout.createSequentialGroup()
+                .add(jButtonAddMapObject)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jButtonEditMapObject)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jButtonRemoveMapObject)))
+            .add(0, 0, Short.MAX_VALUE)))
         .addContainerGap())
     );
     layout.setVerticalGroup(
@@ -563,7 +561,6 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 29, Short.MAX_VALUE)
         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
           .add(jButtonOpen)
-          .add(jButtonSave)
           .add(jButtonSaveAs)
           .add(jButtonNew))
         .addContainerGap())
@@ -571,11 +568,6 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
-
-  private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonSaveActionPerformed
-  {//GEN-HEADEREND:event_jButtonSaveActionPerformed
-		//
-  }//GEN-LAST:event_jButtonSaveActionPerformed
 
   private void jButtonOpenActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonOpenActionPerformed
   {//GEN-HEADEREND:event_jButtonOpenActionPerformed
@@ -792,6 +784,12 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
 
 		updateDrawPriorityListByEditingStyles();
   }//GEN-LAST:event_jButtonDecreaseSelectedPolygonDrawPriorityActionPerformed
+
+  private void jButtonRemoveMapObjectActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonRemoveMapObjectActionPerformed
+  {//GEN-HEADEREND:event_jButtonRemoveMapObjectActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_jButtonRemoveMapObjectActionPerformed
+
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton jButtonAddMapObject;
   private javax.swing.JButton jButtonChooseBackgroundColor;
@@ -805,7 +803,6 @@ public class EditDrawingStylesFrame extends javax.swing.JFrame
   private javax.swing.JButton jButtonNew;
   private javax.swing.JButton jButtonOpen;
   private javax.swing.JButton jButtonRemoveMapObject;
-  private javax.swing.JButton jButtonSave;
   private javax.swing.JButton jButtonSaveAs;
   private javax.swing.JLabel jLabelDrawPriority;
   private javax.swing.JLabel jLabelDrawPriority1;
