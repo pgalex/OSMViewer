@@ -5,9 +5,6 @@ import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
 import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
-import com.osmviewer.rendering.RenderableMapObjectsDrawPriorityComparator;
-import com.osmviewer.rendering.RenderableMapObjectsVisitor;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,6 +32,12 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	 */
 	private int longitudeIndex;
 	/**
+	 * Sector bounds. Linked and can be computed by latitude and longitude
+	 * indexes. Using like field to prevent unnessesary computing while map
+	 * rendering
+	 */
+	private MapBounds bounds;
+	/**
 	 * Objects in sector
 	 */
 	private LinkedList<MapObject> objects;
@@ -42,10 +45,6 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	 * Finder, using to find draw settings while loading objects
 	 */
 	private RenderableMapObjectsDrawSettingsFinder drawSettingsFinder;
-	/**
-	 * Is objects already sorted by draw priority
-	 */
-	private boolean sortedByDrawPriority;
 
 	/**
 	 * Create empty
@@ -61,7 +60,8 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 		latitudeIndex = sectorLatitudeIndex;
 		longitudeIndex = sectorLongitudeIndex;
 
-		sortedByDrawPriority = false;
+		bounds = new MapBounds(latitudeIndex * LATITUDE_SIZE, latitudeIndex * LATITUDE_SIZE + LATITUDE_SIZE,
+						longitudeIndex * LONGITUDE_SIZE, longitudeIndex * LONGITUDE_SIZE + LONGITUDE_SIZE);
 	}
 
 	public List<MapObject> getObjects()
@@ -111,7 +111,6 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 
 		drawSettingsFinder = objectsDrawSettingsFinder;
 		mapDataSource.fetchMapObjectsInArea(getBounds(), this);
-		sortedByDrawPriority = false;
 	}
 
 	/**
@@ -121,8 +120,7 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	 */
 	public MapBounds getBounds()
 	{
-		return new MapBounds(latitudeIndex * LATITUDE_SIZE, latitudeIndex * LATITUDE_SIZE + LATITUDE_SIZE,
-						longitudeIndex * LONGITUDE_SIZE, longitudeIndex * LONGITUDE_SIZE + LONGITUDE_SIZE);
+		return bounds;
 	}
 
 	/**
@@ -219,53 +217,6 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	public int getObjectsCount()
 	{
 		return objects.size();
-	}
-
-	/**
-	 * Accept visitor for all map objects visible in area. Object should be given
-	 * to objectsVisitor by its draw priority
-	 *
-	 * @param objectsRenderingVisitor objects renderer
-	 * @param renderingArea area to determine which object need give to
-	 * objectsVisitor
-	 * @param objectsDrawPriorityComparator comparator for sorting rendering
-	 * objects by its draw priority
-	 * @throws IllegalArgumentException objectsVisitor, area or
-	 * objectsDrawPriorityComparator is null
-	 */
-	public void renderObjectsByDrawPriority(RenderableMapObjectsVisitor objectsRenderingVisitor, MapBounds renderingArea, RenderableMapObjectsDrawPriorityComparator objectsDrawPriorityComparator) throws IllegalArgumentException
-	{
-		if (objectsRenderingVisitor == null)
-		{
-			throw new IllegalArgumentException("objectsRenderingVisitor is null");
-		}
-		if (renderingArea == null)
-		{
-			throw new IllegalArgumentException("renderingArea is null");
-		}
-		if (objectsDrawPriorityComparator == null)
-		{
-			throw new IllegalArgumentException("objectsDrawPriorityComparator is null");
-		}
-
-		if (renderingArea.isZero())
-		{
-			return;
-		}
-
-		if (!sortedByDrawPriority)
-		{
-			Collections.sort(objects, objectsDrawPriorityComparator);
-			sortedByDrawPriority = true;
-		}
-
-		for (MapObject mapObject : objects)
-		{
-			if (mapObject.isVisibleInArea(renderingArea))
-			{
-				mapObject.acceptRenderingVisitor(objectsRenderingVisitor);
-			}
-		}
 	}
 
 	/**
