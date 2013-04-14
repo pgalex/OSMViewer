@@ -171,6 +171,6 @@ public class MapSectorTest
 		MapSector sector = new MapSector(0, 0);
 		sector.loadObjects(testMapDataSource, new TestRenderableMapObjectsDrawSettingsFinder());
 
-		assertEquals(3, sector.getObjectsCount());
+		assertEquals(3, sector.getStoringObjectsCount());
 	}
 }

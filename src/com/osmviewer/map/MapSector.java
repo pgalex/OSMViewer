@@ -24,17 +24,16 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	 */
 	public static double LONGITUDE_SIZE = 0.05;
 	/**
-	 * Index of sector by latitude
+	 * Index by latitude
 	 */
 	private int latitudeIndex;
 	/**
-	 * Index of sector by longitude
+	 * Index by longitude
 	 */
 	private int longitudeIndex;
 	/**
-	 * Sector bounds. Linked and can be computed by latitude and longitude
-	 * indexes. Using like field to prevent unnessesary computing while map
-	 * rendering
+	 * Bounds. Linked and can be computed by latitude and longitude indexes. Using
+	 * like field to prevent unnessesary computing while map rendering
 	 */
 	private MapBounds bounds;
 	/**
@@ -56,17 +55,30 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	{
 		objects = new LinkedList<MapObject>();
 		drawSettingsFinder = null;
-
 		latitudeIndex = sectorLatitudeIndex;
 		longitudeIndex = sectorLongitudeIndex;
-
 		bounds = new MapBounds(latitudeIndex * LATITUDE_SIZE, latitudeIndex * LATITUDE_SIZE + LATITUDE_SIZE,
 						longitudeIndex * LONGITUDE_SIZE, longitudeIndex * LONGITUDE_SIZE + LONGITUDE_SIZE);
 	}
 
-	public List<MapObject> getObjects()
+	/**
+	 * Add all storing map objects to end of given list
+	 *
+	 * @param list list to add map objects to
+	 */
+	public void addAllStoringObjectsToList(List<MapObject> list)
 	{
-		return objects;
+		list.addAll(objects);
+	}
+
+	/**
+	 * Get count of storing objects
+	 *
+	 * @return count of storing objects
+	 */
+	public int getStoringObjectsCount()
+	{
+		return objects.size();
 	}
 
 	/**
@@ -90,7 +102,17 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	}
 
 	/**
-	 * Load object by given map data source int sector bounds
+	 * Get bounds of sector area
+	 *
+	 * @return bounds of sector area
+	 */
+	public MapBounds getBounds()
+	{
+		return bounds;
+	}
+
+	/**
+	 * Load object by given map data source in sector bounds
 	 *
 	 * @param mapDataSource data source, using to fetch map objects, in given
 	 * @param objectsDrawSettingsFinder finder of loading objects draw settings
@@ -111,16 +133,6 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 
 		drawSettingsFinder = objectsDrawSettingsFinder;
 		mapDataSource.fetchMapObjectsInArea(getBounds(), this);
-	}
-
-	/**
-	 * Get bounds of sector area
-	 *
-	 * @return bounds of sector area
-	 */
-	public MapBounds getBounds()
-	{
-		return bounds;
 	}
 
 	/**
@@ -145,23 +157,20 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 		}
 
 		MapObject createdMapObject = null;
-
-		if (points.length == 1)
+		boolean pointsDefinesMapPoint = points.length == 1;
+		if (pointsDefinesMapPoint)
 		{
 			createdMapObject = new MapPoint(points[0], uniqueId, tags);
 		}
 		else
 		{
-			if (points[0].equals(points[points.length - 1]))
+			if (MapPolygon.isLocationsCanBeUsedToCreatePolygon(points))
 			{
-				if (points.length >= 3)
-				{
-					createdMapObject = new MapPolygon(uniqueId, tags, points);
-				}
+				createdMapObject = new MapPolygon(uniqueId, tags, points);
 			}
 			else
 			{
-				if (points.length >= 2)
+				if (MapLine.isLocationsCanBeUsedToCreateLine(points))
 				{
 					createdMapObject = new MapLine(uniqueId, tags, points);
 				}
@@ -207,16 +216,6 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 		}
 
 		return true;
-	}
-
-	/**
-	 * Get count of storing objects
-	 *
-	 * @return count of storing objects
-	 */
-	public int getObjectsCount()
-	{
-		return objects.size();
 	}
 
 	/**

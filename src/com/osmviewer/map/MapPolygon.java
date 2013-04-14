@@ -41,7 +41,7 @@ public class MapPolygon extends MapObject implements RenderableMapPolygon
 	{
 		super(polygonId, polygonDefenitionTags);
 
-		if (!isPolygonPointsCorrect(polygonPoints))
+		if (!isLocationsCanBeUsedToCreatePolygon(polygonPoints))
 		{
 			throw new IllegalArgumentException("polygonPoints incorrect");
 		}
@@ -56,6 +56,40 @@ public class MapPolygon extends MapObject implements RenderableMapPolygon
 
 		LinearRing polygonLineString = new LinearRing(new CoordinateArraySequence(polygonCoordinates), factory);
 		polygon = new Polygon(polygonLineString, null, factory);
+	}
+
+	/**
+	 * Is array of locations can be used to create MapPolgyon
+	 *
+	 * @param locations lcations for testing
+	 * @return is array of locations can be used to create MapPolgyon
+	 */
+	public static boolean isLocationsCanBeUsedToCreatePolygon(Location[] locations)
+	{
+		if (locations == null)
+		{
+			return false;
+		}
+
+		for (int i = 0; i < locations.length; i++)
+		{
+			if (locations[i] == null)
+			{
+				return false;
+			}
+		}
+
+		if (locations.length < MINIMUM_POINTS_COUNT)
+		{
+			return false;
+		}
+
+		if (!locations[0].equals(locations[locations.length - 1]))
+		{
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
@@ -74,40 +108,6 @@ public class MapPolygon extends MapObject implements RenderableMapPolygon
 		}
 
 		return drawSettings.getPolygonDrawPriority();
-	}
-
-	/**
-	 * Is polygon points array correct
-	 *
-	 * @param polygonPoints points for testing
-	 * @return is points array correct
-	 */
-	private boolean isPolygonPointsCorrect(Location[] polygonPoints)
-	{
-		if (polygonPoints == null)
-		{
-			return false;
-		}
-
-		for (int i = 0; i < polygonPoints.length; i++)
-		{
-			if (polygonPoints[i] == null)
-			{
-				return false;
-			}
-		}
-
-		if (polygonPoints.length < MINIMUM_POINTS_COUNT)
-		{
-			return false;
-		}
-
-		if (!polygonPoints[0].equals(polygonPoints[polygonPoints.length - 1]))
-		{
-			return false;
-		}
-
-		return true;
 	}
 
 	/**

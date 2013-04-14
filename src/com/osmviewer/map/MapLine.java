@@ -42,7 +42,7 @@ public class MapLine extends MapObject implements RenderableMapLine
 	{
 		super(lineId, lineDefenitionTags);
 
-		if (!isLinePointsCorrect(linePoints))
+		if (!isLocationsCanBeUsedToCreateLine(linePoints))
 		{
 			throw new IllegalArgumentException("linePoints incorrect");
 		}
@@ -59,27 +59,27 @@ public class MapLine extends MapObject implements RenderableMapLine
 	}
 
 	/**
-	 * Is lineString points array correct
+	 * Is array of locations can be used to create MapLine
 	 *
-	 * @param linePoints points for testing
-	 * @return is points array correct
+	 * @param locations points for testing
+	 * @return is array of locations can be used to create MapLine
 	 */
-	private boolean isLinePointsCorrect(Location[] linePoints)
+	public static boolean isLocationsCanBeUsedToCreateLine(Location[] locations)
 	{
-		if (linePoints == null)
+		if (locations == null)
 		{
 			return false;
 		}
 
-		for (int i = 0; i < linePoints.length; i++)
+		for (int i = 0; i < locations.length; i++)
 		{
-			if (linePoints[i] == null)
+			if (locations[i] == null)
 			{
 				return false;
 			}
 		}
 
-		if (linePoints.length < MINIMUM_POINTS_COUNT)
+		if (locations.length < MINIMUM_POINTS_COUNT)
 		{
 			return false;
 		}
