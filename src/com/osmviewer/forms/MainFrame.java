@@ -202,8 +202,16 @@ public class MainFrame extends javax.swing.JFrame
 
   private void jPanelCanvasComponentResized(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_jPanelCanvasComponentResized
   {//GEN-HEADEREND:event_jPanelCanvasComponentResized
-		mapController.setCanvasSize(jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
-		jPanelCanvas.repaint();
+		try
+		{
+			mapController.setCanvasSize(jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
+			mapController.loadMapByCurrentViewPosition();
+			jPanelCanvas.repaint();
+		}
+		catch (FetchingErrorException ex)
+		{
+			Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+		}
   }//GEN-LAST:event_jPanelCanvasComponentResized
 
   private void jButtonEditDrawingStylesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonEditDrawingStylesActionPerformed
