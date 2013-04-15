@@ -65,9 +65,15 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	 * Add all storing map objects to end of given list
 	 *
 	 * @param list list to add map objects to
+	 * @throws IllegalArgumentException list is null
 	 */
-	public void addAllStoringObjectsToList(List<MapObject> list)
+	public void addAllStoringObjectsToList(List<MapObject> list) throws IllegalArgumentException
 	{
+		if (list == null)
+		{
+			throw new IllegalArgumentException("list is null");
+		}
+		
 		list.addAll(objects);
 	}
 
