@@ -20,7 +20,7 @@ public class SectoredMap implements RenderableMap
 	/**
 	 * Maximum count of storing invisible sectors
 	 */
-	private int MAXIMUM_INVISIBLE_SECTOR_COUNT = 8;
+	private int MAXIMUM_INVISIBLE_SECTOR_COUNT = 5;
 	/**
 	 * Sectors of map
 	 */
@@ -56,19 +56,19 @@ public class SectoredMap implements RenderableMap
 		{
 			throw new IllegalArgumentException("mapDataSource is null");
 		}
-		
+
 		if (area.isZero())
 		{
 			sectors.clear();
 			return;
 		}
-		
+
 		int minLatitudeSectorIndex = MapSector.findSectorLatitudeIndex(area.getLatitudeMinimum());
 		int minLongitudeSectorIndex = MapSector.findSectorLongitudeIndex(area.getLongitudeMinimum());
-		
+
 		int maxLatitudeSectorIndex = MapSector.findSectorLatitudeIndex(area.getLatitudeMaximum());
 		int maxLongitudeSectorIndex = MapSector.findSectorLongitudeIndex(area.getLongitudeMaximum());
-		
+
 		for (int latitudeIndex = minLatitudeSectorIndex; latitudeIndex <= maxLatitudeSectorIndex; latitudeIndex++)
 		{
 			for (int longitudeIndex = minLongitudeSectorIndex; longitudeIndex <= maxLongitudeSectorIndex; longitudeIndex++)
@@ -82,7 +82,24 @@ public class SectoredMap implements RenderableMap
 				sectors.add(newSector);
 			}
 		}
-		
+
+		keepAndRemoveInvisibleSectors(area);
+	}
+
+	/**
+	 * Keep MAXIMUM_INVISIBLE_SECTOR_COUNT invisible in area sectors, and remove
+	 * other
+	 *
+	 * @param area area to determine sectors visiblity in
+	 * @throws IllegalArgumentException area is null
+	 */
+	private void keepAndRemoveInvisibleSectors(MapBounds area) throws IllegalArgumentException
+	{
+		if (area == null)
+		{
+			throw new IllegalArgumentException("area is null");
+		}
+
 		ArrayList<MapSector> invisibleSectors = new ArrayList<MapSector>();
 		for (MapSector mapSector : sectors)
 		{
@@ -91,7 +108,7 @@ public class SectoredMap implements RenderableMap
 				invisibleSectors.add(mapSector);
 			}
 		}
-		
+
 		for (int i = MAXIMUM_INVISIBLE_SECTOR_COUNT; i < invisibleSectors.size(); i++)
 		{
 			sectors.remove(invisibleSectors.get(i));
@@ -115,7 +132,7 @@ public class SectoredMap implements RenderableMap
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 
@@ -127,12 +144,12 @@ public class SectoredMap implements RenderableMap
 	public int getObjectsCount()
 	{
 		int storingObjectsCount = 0;
-		
+
 		for (MapSector mapSector : sectors)
 		{
 			storingObjectsCount += mapSector.getStoringObjectsCount();
 		}
-		
+
 		return storingObjectsCount;
 	}
 
@@ -163,12 +180,17 @@ public class SectoredMap implements RenderableMap
 		{
 			throw new IllegalArgumentException("objectsDrawPriorityComparator is null");
 		}
-		
+
 		if (renderingArea.isZero())
 		{
 			return;
 		}
-		
+
+		// определить сектора, которые следует нарисовать
+		// добавить в массив объекты этих секторов с учетом повторов
+		// сортировать массив
+		// нарисовать объекты
+
 		ArrayList<MapSector> renderedSectors = new ArrayList<MapSector>();
 		LinkedList<MapObject> objectsToRender = new LinkedList<MapObject>();
 		for (MapSector renderingSector : sectors)
@@ -192,13 +214,13 @@ public class SectoredMap implements RenderableMap
 						objectsToRender.add(mapObject);
 					}
 				}
-				
+
 				renderedSectors.add(renderingSector);
 			}
 		}
-		
+
 		Collections.sort(objectsToRender, objectsDrawPriorityComparator);
-		
+
 		for (MapObject mapObject : objectsToRender)
 		{
 			if (mapObject.isVisibleInArea(renderingArea))
