@@ -29,7 +29,7 @@ public class SQLiteDatabaseMapDataSource implements MapDataSource
 	/**
 	 * Maximum number of insert commands in adding map objects statement bactch
 	 */
-	private static int ADD_MAP_OBJECTS_MAXIMUM_BATCH_SIZE = 1000;
+	private static int ADD_MAP_OBJECTS_MAXIMUM_BATCH_SIZE = 8000;
 	/**
 	 * Connection to database
 	 */
