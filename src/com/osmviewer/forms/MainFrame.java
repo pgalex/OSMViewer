@@ -35,6 +35,10 @@ public class MainFrame extends javax.swing.JFrame
 	 * Previous mouse position while dragging
 	 */
 	private Point mouseDragPreviousPosition;
+	/**
+	 * Osm conversion dialog
+	 */
+	ConvertOsmXmlToSQLiteDialog convertOsmDialog;
 
 	/**
 	 * Creates new main form
@@ -46,12 +50,15 @@ public class MainFrame extends javax.swing.JFrame
 		mapController = new MapController(new Location(55.0905, 38.7788), 16,
 						jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
 
-		DrawingPanel drawingPanel = (DrawingPanel) jPanelCanvas;
-		drawingPanel.setPainter(mapController);
+		convertOsmDialog = new ConvertOsmXmlToSQLiteDialog(this, ModalityType.MODELESS);
+		convertOsmDialog.setLocationRelativeTo(this);
 
 		mapObjectInformationDialog = new MapObjectInformationDialog(this, ModalityType.MODELESS);
 		mapObjectInformationDialog.setAlwaysOnTop(true);
 		mapObjectInformationDialog.setLocationRelativeTo(null);
+
+		DrawingPanel drawingPanel = (DrawingPanel) jPanelCanvas;
+		drawingPanel.setPainter(mapController);
 
 		jSliderScaleLevel.setMinimum(mapController.getMinimumScaleLevel());
 		jSliderScaleLevel.setMaximum(mapController.getMaximumScaleLevel());
@@ -319,9 +326,8 @@ public class MainFrame extends javax.swing.JFrame
 
   private void jButtonConvertOsmToSQLiteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonConvertOsmToSQLiteActionPerformed
   {//GEN-HEADEREND:event_jButtonConvertOsmToSQLiteActionPerformed
-		ConvertOsmXmlToSQLiteDialog convertDialog = new ConvertOsmXmlToSQLiteDialog(this, ModalityType.MODELESS);
-		convertDialog.setLocationRelativeTo(this);
-		convertDialog.setVisible(true);
+
+		convertOsmDialog.setVisible(true);
   }//GEN-LAST:event_jButtonConvertOsmToSQLiteActionPerformed
 
   private void jButtonChooseMapDataSourceActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonChooseMapDataSourceActionPerformed

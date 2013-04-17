@@ -154,7 +154,7 @@ public class SectoredMap implements RenderableMap
 	}
 
 	/**
-	 * Accept visitor for all map objects visible in area. Object should be given
+	 * Accept rendering visitor for all map objects visible in area. Object should be given
 	 * to objectsVisitor by its draw priority
 	 *
 	 * @param objectsRenderingVisitor objects renderer
