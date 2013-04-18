@@ -97,7 +97,7 @@ public class SQLiteDatabaseMapDataSource implements MapDataSource
 	 * @throws IllegalArgumentException tags is null, points is null or empty
 	 * @throws DatabaseErrorExcetion error while adding map object
 	 */
-	public void addMapObject(long id, DefenitionTags tags, Location[] points) throws IllegalArgumentException, DatabaseErrorExcetion
+	public synchronized void addMapObject(long id, DefenitionTags tags, Location[] points) throws IllegalArgumentException, DatabaseErrorExcetion
 	{
 		if (tags == null)
 		{
@@ -141,7 +141,7 @@ public class SQLiteDatabaseMapDataSource implements MapDataSource
 	 *
 	 * @throws DatabaseErrorExcetion error while commiting
 	 */
-	private void commitAddedMapObjects() throws DatabaseErrorExcetion
+	private synchronized void commitAddedMapObjects() throws DatabaseErrorExcetion
 	{
 		try
 		{
@@ -159,7 +159,7 @@ public class SQLiteDatabaseMapDataSource implements MapDataSource
 	 *
 	 * @throws DatabaseErrorExcetion error while commiting
 	 */
-	public void commitLastBatchedMapObjects() throws DatabaseErrorExcetion
+	public synchronized void commitLastBatchedMapObjects() throws DatabaseErrorExcetion
 	{
 		if (addingMapObjectsCurrentBatchSize > 0)
 		{
@@ -299,7 +299,7 @@ public class SQLiteDatabaseMapDataSource implements MapDataSource
 	 *
 	 * @throws DatabaseErrorExcetion error while closing
 	 */
-	public void close() throws DatabaseErrorExcetion
+	public synchronized void close() throws DatabaseErrorExcetion
 	{
 		try
 		{
@@ -321,7 +321,7 @@ public class SQLiteDatabaseMapDataSource implements MapDataSource
 	 * @throws FetchingErrorException error while fetching
 	 */
 	@Override
-	public void fetchMapObjectsInArea(MapBounds area, MapDataSourceFetchResultsHandler fetchResultsHandler) throws IllegalArgumentException,
+	public synchronized void fetchMapObjectsInArea(MapBounds area, MapDataSourceFetchResultsHandler fetchResultsHandler) throws IllegalArgumentException,
 					FetchingErrorException
 	{
 		try
@@ -374,7 +374,7 @@ public class SQLiteDatabaseMapDataSource implements MapDataSource
 	 *
 	 * @throws DatabaseErrorExcetion error while creating indexes
 	 */
-	public void createIndexes() throws DatabaseErrorExcetion
+	public synchronized void createIndexes() throws DatabaseErrorExcetion
 	{
 		try
 		{

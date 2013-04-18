@@ -44,6 +44,10 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	 * Finder, using to find draw settings while loading objects
 	 */
 	private RenderableMapObjectsDrawSettingsFinder drawSettingsFinder;
+	/**
+	 * Is sector already loaded (with load method), using for multithreading work
+	 */
+	private boolean loaded;
 
 	/**
 	 * Create empty
@@ -59,6 +63,7 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 		longitudeIndex = sectorLongitudeIndex;
 		bounds = new MapBounds(latitudeIndex * LATITUDE_SIZE, latitudeIndex * LATITUDE_SIZE + LATITUDE_SIZE,
 						longitudeIndex * LONGITUDE_SIZE, longitudeIndex * LONGITUDE_SIZE + LONGITUDE_SIZE);
+		loaded = false;
 	}
 
 	/**
@@ -73,7 +78,12 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 		{
 			throw new IllegalArgumentException("list is null");
 		}
-		
+
+		if (!loaded)
+		{
+			return;
+		}
+
 		list.addAll(objects);
 	}
 
@@ -84,7 +94,14 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	 */
 	public int getStoringObjectsCount()
 	{
-		return objects.size();
+		if (loaded)
+		{
+			return objects.size();
+		}
+		else
+		{
+			return 0;
+		}
 	}
 
 	/**
@@ -126,7 +143,7 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	 * is null
 	 * @throws FetchingErrorException error while loading
 	 */
-	public void loadObjects(MapDataSource mapDataSource, RenderableMapObjectsDrawSettingsFinder objectsDrawSettingsFinder) throws IllegalArgumentException, FetchingErrorException
+	public void loadObjects(final MapDataSource mapDataSource, RenderableMapObjectsDrawSettingsFinder objectsDrawSettingsFinder) throws IllegalArgumentException, FetchingErrorException
 	{
 		if (mapDataSource == null)
 		{
@@ -137,8 +154,27 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 			throw new IllegalArgumentException("objectsDrawSettingsFinder is null");
 		}
 
+		loaded = false;
 		drawSettingsFinder = objectsDrawSettingsFinder;
-		mapDataSource.fetchMapObjectsInArea(getBounds(), this);
+
+		final MapDataSourceFetchResultsHandler resultsHandler = this;
+		Thread loadingObjectsThread = new Thread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				try
+				{
+					mapDataSource.fetchMapObjectsInArea(getBounds(), resultsHandler);
+					loaded = true;
+				}
+				catch (Exception ex)
+				{
+					objects.clear();
+				}
+			}
+		});
+		loadingObjectsThread.start();
 	}
 
 	/**
