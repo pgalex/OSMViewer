@@ -89,7 +89,7 @@ public class SQLiteDatabaseMapDataSource implements MapDataSource
 	}
 
 	/**
-	 * Add points into database
+	 * Add map object to database
 	 *
 	 * @param id adding map object id
 	 * @param tags adding map object tags
