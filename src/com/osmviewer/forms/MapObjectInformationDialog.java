@@ -29,6 +29,8 @@ public class MapObjectInformationDialog extends javax.swing.JDialog
 		defenitionTagsTableModel = new DefenitionTagsInformationTableModel();
 
 		initComponents();
+
+		setLocationRelativeTo(parentWindow);
 	}
 
 	/**

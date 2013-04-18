@@ -40,13 +40,15 @@ public class SectoredMap implements RenderableMap
 	 * @param area area, determining which objects need to load
 	 * @param mapDataSource map data source using for loading
 	 * @param objectsDrawSettingsFinder loading objects draw settings finder
+	 * @param loadingHandler handler of map loading results
 	 * @throws IllegalArgumentException area is null, mapDataSource is null,
-	 * objectsDrawSettingsFinder is null
+	 * objectsDrawSettingsFinder is null, loadingHandler is null
 	 *
 	 * @throws FetchingErrorException error while loading
 	 */
 	public void loadObjectsInArea(MapBounds area, MapDataSource mapDataSource,
-					RenderableMapObjectsDrawSettingsFinder objectsDrawSettingsFinder) throws IllegalArgumentException, FetchingErrorException
+					RenderableMapObjectsDrawSettingsFinder objectsDrawSettingsFinder,
+					MapLoadingHandler loadingHandler) throws IllegalArgumentException, FetchingErrorException
 	{
 		if (area == null)
 		{
@@ -55,6 +57,10 @@ public class SectoredMap implements RenderableMap
 		if (mapDataSource == null)
 		{
 			throw new IllegalArgumentException("mapDataSource is null");
+		}
+		if (loadingHandler == null)
+		{
+			throw new IllegalArgumentException("loadingHandler is null");
 		}
 
 		if (area.isZero())
@@ -78,7 +84,7 @@ public class SectoredMap implements RenderableMap
 					continue;
 				}
 				MapSector newSector = new MapSector(latitudeIndex, longitudeIndex);
-				newSector.loadObjects(mapDataSource, objectsDrawSettingsFinder);
+				newSector.loadObjects(mapDataSource, objectsDrawSettingsFinder, loadingHandler);
 				sectors.add(newSector);
 			}
 		}
@@ -154,8 +160,8 @@ public class SectoredMap implements RenderableMap
 	}
 
 	/**
-	 * Accept rendering visitor for all map objects visible in area. Object should be given
-	 * to objectsVisitor by its draw priority
+	 * Accept rendering visitor for all map objects visible in area. Object should
+	 * be given to objectsVisitor by its draw priority
 	 *
 	 * @param objectsRenderingVisitor objects renderer
 	 * @param renderingArea area to determine which object need give to

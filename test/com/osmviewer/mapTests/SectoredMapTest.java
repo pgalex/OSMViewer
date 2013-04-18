@@ -84,7 +84,8 @@ public class SectoredMapTest
 		try
 		{
 			SectoredMap map = new SectoredMap();
-			map.loadObjectsInArea(null, new TestMapDataSource(), new TestRenderableMapObjectsDrawSettingsFinder());
+			map.loadObjectsInArea(null, new TestMapDataSource(),
+							new TestRenderableMapObjectsDrawSettingsFinder(), new TestMapLoadingHandler());
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -104,7 +105,8 @@ public class SectoredMapTest
 		try
 		{
 			SectoredMap map = new SectoredMap();
-			map.loadObjectsInArea(new MapBounds(0, 5, 0, 5), null, new TestRenderableMapObjectsDrawSettingsFinder());
+			map.loadObjectsInArea(new MapBounds(0, 5, 0, 5), null,
+							new TestRenderableMapObjectsDrawSettingsFinder(), new TestMapLoadingHandler());
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -117,7 +119,7 @@ public class SectoredMapTest
 	{
 		DefenitionTags someNoteEmptyTags = new DefenitionTags();
 		someNoteEmptyTags.add(new Tag("k1", "v1"));
-		
+
 		TestMapDataSource testMapDataSource = new TestMapDataSource();
 
 		testMapDataSource.storingIds.add(new Long(15));
@@ -159,7 +161,8 @@ public class SectoredMapTest
 	public void loadingWithEmptyZeroTests() throws IllegalArgumentException, FetchingErrorException
 	{
 		SectoredMap map = new SectoredMap();
-		map.loadObjectsInArea(new MapBounds(0, 0, 0, 0), createTestDataSource(), new TestRenderableMapObjectsDrawSettingsFinder());
+		map.loadObjectsInArea(new MapBounds(0, 0, 0, 0), createTestDataSource(),
+						new TestRenderableMapObjectsDrawSettingsFinder(), new TestMapLoadingHandler());
 		assertEquals(0, map.getObjectsCount());
 	}
 
@@ -168,13 +171,17 @@ public class SectoredMapTest
 	 *
 	 * @throws IllegalArgumentException
 	 * @throws FetchingErrorException
+	 * @throws InterruptedException
 	 */
 	@Test
-	public void loadingObjectsInFirstSectorTests() throws IllegalArgumentException, FetchingErrorException
+	public void loadingObjectsInFirstSectorTests() throws IllegalArgumentException, FetchingErrorException, InterruptedException
 	{
 		SectoredMap map = new SectoredMap();
 		map.loadObjectsInArea(new MapBounds(0, MapSector.LATITUDE_SIZE * 0.8, 0, MapSector.LONGITUDE_SIZE * 0.8), createTestDataSource(),
-						new TestRenderableMapObjectsDrawSettingsFinder());
+						new TestRenderableMapObjectsDrawSettingsFinder(), new TestMapLoadingHandler());
+
+		Thread.sleep(100);
+
 		assertEquals(1, map.getObjectsCount());
 	}
 
@@ -183,14 +190,18 @@ public class SectoredMapTest
 	 *
 	 * @throws IllegalArgumentException
 	 * @throws FetchingErrorException
+	 * @throws InterruptedException
 	 */
 	@Test
-	public void loadingObjectsInSecondSectorTests() throws IllegalArgumentException, FetchingErrorException
+	public void loadingObjectsInSecondSectorTests() throws IllegalArgumentException, FetchingErrorException, InterruptedException
 	{
 		SectoredMap map = new SectoredMap();
 		map.loadObjectsInArea(new MapBounds(MapSector.LATITUDE_SIZE, MapSector.LATITUDE_SIZE * 2,
 						MapSector.LONGITUDE_SIZE, MapSector.LONGITUDE_SIZE * 2), createTestDataSource(),
-						new TestRenderableMapObjectsDrawSettingsFinder());
+						new TestRenderableMapObjectsDrawSettingsFinder(), new TestMapLoadingHandler());
+
+		Thread.sleep(100);
+
 		assertEquals(1, map.getObjectsCount());
 	}
 
@@ -199,14 +210,18 @@ public class SectoredMapTest
 	 *
 	 * @throws IllegalArgumentException
 	 * @throws FetchingErrorException
+	 * @throws InterruptedException
 	 */
 	@Test
-	public void loadingObjectsInThirdSectorTests() throws IllegalArgumentException, FetchingErrorException
+	public void loadingObjectsInThirdSectorTests() throws IllegalArgumentException, FetchingErrorException, InterruptedException
 	{
 		SectoredMap map = new SectoredMap();
 		map.loadObjectsInArea(new MapBounds(-MapSector.LATITUDE_SIZE * 0.8, -0.1,
 						-MapSector.LONGITUDE_SIZE * 0.8, -0.1), createTestDataSource(),
-						new TestRenderableMapObjectsDrawSettingsFinder());
+						new TestRenderableMapObjectsDrawSettingsFinder(), new TestMapLoadingHandler());
+
+		Thread.sleep(100);
+
 		assertEquals(1, map.getObjectsCount());
 	}
 
@@ -223,7 +238,7 @@ public class SectoredMapTest
 		SectoredMap map = new SectoredMap();
 		map.loadObjectsInArea(new MapBounds(40 * MapSector.LATITUDE_SIZE, 50 * MapSector.LATITUDE_SIZE,
 						-MapSector.LONGITUDE_SIZE * 40, -MapSector.LONGITUDE_SIZE * 30), createTestDataSource(),
-						new TestRenderableMapObjectsDrawSettingsFinder());
+						new TestRenderableMapObjectsDrawSettingsFinder(), new TestMapLoadingHandler());
 		assertEquals(0, map.getObjectsCount());
 	}
 
@@ -233,14 +248,18 @@ public class SectoredMapTest
 	 *
 	 * @throws IllegalArgumentException
 	 * @throws FetchingErrorException
+	 * @throws InterruptedException  
 	 */
 	@Test
-	public void loadingWhenAreaLessThanSectorTests() throws IllegalArgumentException, FetchingErrorException
+	public void loadingWhenAreaLessThanSectorTests() throws IllegalArgumentException, FetchingErrorException, InterruptedException
 	{
 		SectoredMap map = new SectoredMap();
 		map.loadObjectsInArea(new MapBounds(0.001, MapSector.LATITUDE_SIZE / 2,
 						0.001, MapSector.LONGITUDE_SIZE / 2), createTestDataSource(),
-						new TestRenderableMapObjectsDrawSettingsFinder());
+						new TestRenderableMapObjectsDrawSettingsFinder(), new TestMapLoadingHandler());
+		
+		Thread.sleep(100);
+		
 		assertEquals(1, map.getObjectsCount());
 	}
 
@@ -257,7 +276,7 @@ public class SectoredMapTest
 		SectoredMap map = new SectoredMap();
 		map.loadObjectsInArea(new MapBounds(-5 * MapSector.LATITUDE_SIZE, 5 * MapSector.LATITUDE_SIZE,
 						-5 * MapSector.LONGITUDE_SIZE, 5 * MapSector.LONGITUDE_SIZE), createTestDataSource(),
-						new TestRenderableMapObjectsDrawSettingsFinder());
+						new TestRenderableMapObjectsDrawSettingsFinder(), new TestMapLoadingHandler());
 		assertEquals(3, map.getObjectsCount());
 	}
 }

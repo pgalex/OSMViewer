@@ -276,13 +276,20 @@ public class MapController implements DrawableOnPanel
 	 * level and view area size), from current data source. If map data source not
 	 * set, no object will be loaded
 	 *
+	 * @param loadingHandler hanlder of map loading results
+	 * @throws IllegalArgumentException loadingHandler is null
 	 * @throws FetchingErrorException error while loading map objects
 	 */
-	public void loadMapByCurrentViewPosition() throws FetchingErrorException
+	public void loadMapByCurrentViewPosition(MapLoadingHandler loadingHandler) throws IllegalArgumentException, FetchingErrorException
 	{
+		if (loadingHandler == null)
+		{
+			throw new IllegalArgumentException("loadingHandler is null");
+		}
+		
 		if (mapDataSource != null)
 		{
-			map.loadObjectsInArea(renderer.getViewArea(), mapDataSource, styleViewer);
+			map.loadObjectsInArea(renderer.getViewArea(), mapDataSource, styleViewer, loadingHandler);
 		}
 	}
 }

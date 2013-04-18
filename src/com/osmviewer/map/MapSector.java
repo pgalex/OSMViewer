@@ -139,11 +139,14 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	 *
 	 * @param mapDataSource data source, using to fetch map objects, in given
 	 * @param objectsDrawSettingsFinder finder of loading objects draw settings
-	 * @throws IllegalArgumentException mapDataSource or objectsDrawSettingsFinder
-	 * is null
+	 * @param loadingHandler loading results handler
+	 * @throws IllegalArgumentException mapDataSource, loadingHandler or
+	 * objectsDrawSettingsFinder is null
 	 * @throws FetchingErrorException error while loading
 	 */
-	public void loadObjects(final MapDataSource mapDataSource, RenderableMapObjectsDrawSettingsFinder objectsDrawSettingsFinder) throws IllegalArgumentException, FetchingErrorException
+	public void loadObjects(final MapDataSource mapDataSource,
+					RenderableMapObjectsDrawSettingsFinder objectsDrawSettingsFinder,
+					final MapLoadingHandler loadingHandler) throws IllegalArgumentException, FetchingErrorException
 	{
 		if (mapDataSource == null)
 		{
@@ -152,6 +155,10 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 		if (objectsDrawSettingsFinder == null)
 		{
 			throw new IllegalArgumentException("objectsDrawSettingsFinder is null");
+		}
+		if (loadingHandler == null)
+		{
+			throw new IllegalArgumentException("loadingHandler is null");
 		}
 
 		loaded = false;
@@ -167,6 +174,7 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 				{
 					mapDataSource.fetchMapObjectsInArea(getBounds(), resultsHandler);
 					loaded = true;
+					loadingHandler.mapLoaded();
 				}
 				catch (Exception ex)
 				{
