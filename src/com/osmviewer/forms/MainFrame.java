@@ -3,6 +3,7 @@ package com.osmviewer.forms;
 import com.osmviewer.drawingStyles.forms.EditDrawingStylesFrame;
 import com.osmviewer.map.MapController;
 import com.osmviewer.map.MapLoadingHandler;
+import com.osmviewer.map.SectoredMap;
 import com.osmviewer.map.exceptions.FetchingErrorException;
 import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.rendering.RenderableMapObject;
@@ -49,7 +50,7 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 		initComponents();
 
 		mapController = new MapController(new Location(55.0905, 38.7788), 16,
-						jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
+						jPanelCanvas.getWidth(), jPanelCanvas.getHeight(), this);
 
 		convertOsmDialog = new ConvertOsmXmlToSQLiteDialog(this, ModalityType.MODELESS);
 		convertOsmDialog.setLocationRelativeTo(null);
@@ -66,11 +67,23 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 	}
 
 	/**
-	 * Map or part of finish loading
+	 * All parts of map finished loading
+	 *
 	 */
 	@Override
-	public synchronized void mapLoaded()
+	public void wholeMapLoaded()
 	{
+
+		jPanelCanvas.repaint();
+	}
+
+	/**
+	 * Part of map finished loading 
+	 */
+	@Override
+	public void partOfMapLoaded()
+	{
+
 		jPanelCanvas.repaint();
 	}
 
@@ -221,7 +234,7 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 		try
 		{
 			mapController.setCanvasSize(jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
-			mapController.loadMapByCurrentViewPosition(this);
+			mapController.loadMapByCurrentViewPosition();
 			jPanelCanvas.repaint();
 		}
 		catch (FetchingErrorException ex)
@@ -270,7 +283,7 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 		{
 			mapController.setScaleLevel(scaleByWheel);
 			jSliderScaleLevel.setValue(scaleByWheel);
-			mapController.loadMapByCurrentViewPosition(this);
+			mapController.loadMapByCurrentViewPosition();
 			jPanelCanvas.repaint();
 		}
 		catch (FetchingErrorException ex)
@@ -323,7 +336,7 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 			try
 			{
 				mapController.setScaleLevel(jSliderScaleLevel.getValue());
-				mapController.loadMapByCurrentViewPosition(this);
+				mapController.loadMapByCurrentViewPosition();
 				jPanelCanvas.repaint();
 			}
 			catch (FetchingErrorException ex)
@@ -350,7 +363,7 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 				File databaseFile = databaseFileChooser.getSelectedFile();
 
 				mapController.setMapDataSourceByDatabase(databaseFile.getPath());
-				mapController.loadMapByCurrentViewPosition(this);
+				mapController.loadMapByCurrentViewPosition();
 				jPanelCanvas.repaint();
 			}
 		}
@@ -369,7 +382,7 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
   {//GEN-HEADEREND:event_jPanelCanvasMouseReleased
 		try
 		{
-			mapController.loadMapByCurrentViewPosition(this);
+			mapController.loadMapByCurrentViewPosition();
 			jPanelCanvas.repaint();
 		}
 		catch (FetchingErrorException ex)

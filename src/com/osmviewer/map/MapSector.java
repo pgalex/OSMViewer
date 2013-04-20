@@ -7,6 +7,7 @@ import com.osmviewer.mapDefenitionUtilities.MapBounds;
 import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Sector of sectored map
@@ -47,7 +48,7 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	/**
 	 * Is sector already loaded (with load method), using for multithreading work
 	 */
-	private boolean loaded;
+	private AtomicBoolean loaded;
 
 	/**
 	 * Create empty
@@ -63,7 +64,7 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 		longitudeIndex = sectorLongitudeIndex;
 		bounds = new MapBounds(latitudeIndex * LATITUDE_SIZE, latitudeIndex * LATITUDE_SIZE + LATITUDE_SIZE,
 						longitudeIndex * LONGITUDE_SIZE, longitudeIndex * LONGITUDE_SIZE + LONGITUDE_SIZE);
-		loaded = false;
+		loaded = new AtomicBoolean(false);
 	}
 
 	/**
@@ -79,7 +80,7 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 			throw new IllegalArgumentException("list is null");
 		}
 
-		if (!loaded)
+		if (!loaded.get())
 		{
 			return;
 		}
@@ -94,7 +95,7 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	 */
 	public int getStoringObjectsCount()
 	{
-		if (loaded)
+		if (loaded.get())
 		{
 			return objects.size();
 		}
@@ -135,6 +136,16 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	}
 
 	/**
+	 * Is finished loading
+	 *
+	 * @return is sector finished loading
+	 */
+	public boolean isLoaded()
+	{
+		return loaded.get();
+	}
+
+	/**
 	 * Load object by given map data source in sector bounds
 	 *
 	 * @param mapDataSource data source, using to fetch map objects, in given
@@ -146,7 +157,7 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	 */
 	public void loadObjects(final MapDataSource mapDataSource,
 					RenderableMapObjectsDrawSettingsFinder objectsDrawSettingsFinder,
-					final MapLoadingHandler loadingHandler) throws IllegalArgumentException, FetchingErrorException
+					final MapSectorLoadingHandler loadingHandler) throws IllegalArgumentException, FetchingErrorException
 	{
 		if (mapDataSource == null)
 		{
@@ -161,7 +172,7 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 			throw new IllegalArgumentException("loadingHandler is null");
 		}
 
-		loaded = false;
+		loaded.set(false);
 		drawSettingsFinder = objectsDrawSettingsFinder;
 
 		final MapDataSourceFetchResultsHandler resultsHandler = this;
@@ -173,8 +184,8 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 				try
 				{
 					mapDataSource.fetchMapObjectsInArea(getBounds(), resultsHandler);
-					loaded = true;
-					loadingHandler.mapLoaded();
+					loaded.set(true);
+					loadingHandler.sectorLoaded();
 				}
 				catch (Exception ex)
 				{

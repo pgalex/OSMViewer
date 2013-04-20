@@ -15,7 +15,7 @@ import java.util.LinkedList;
  *
  * @author pgalex
  */
-public class SectoredMap implements RenderableMap
+public class SectoredMap implements RenderableMap, MapSectorLoadingHandler
 {
 	/**
 	 * Maximum count of storing invisible sectors
@@ -25,13 +25,26 @@ public class SectoredMap implements RenderableMap
 	 * Sectors of map
 	 */
 	private LinkedList<MapSector> sectors;
+	/**
+	 * Handler of map loading results
+	 */
+	private MapLoadingHandler loadingResultsHandler;
 
 	/**
 	 * Create empty
+	 *
+	 * @param loadingHandler hander of map loading results
+	 * @throws IllegalArgumentException loadingHandler is null
 	 */
-	public SectoredMap()
+	public SectoredMap(MapLoadingHandler loadingHandler) throws IllegalArgumentException
 	{
+		if (loadingHandler == null)
+		{
+			throw new IllegalArgumentException("loadingHandler is null");
+		}
+
 		sectors = new LinkedList<MapSector>();
+		loadingResultsHandler = loadingHandler;
 	}
 
 	/**
@@ -40,15 +53,13 @@ public class SectoredMap implements RenderableMap
 	 * @param area area, determining which objects need to load
 	 * @param mapDataSource map data source using for loading
 	 * @param objectsDrawSettingsFinder loading objects draw settings finder
-	 * @param loadingHandler handler of map loading results
 	 * @throws IllegalArgumentException area is null, mapDataSource is null,
-	 * objectsDrawSettingsFinder is null, loadingHandler is null
+	 * objectsDrawSettingsFinder is null
 	 *
 	 * @throws FetchingErrorException error while loading
 	 */
 	public void loadObjectsInArea(MapBounds area, MapDataSource mapDataSource,
-					RenderableMapObjectsDrawSettingsFinder objectsDrawSettingsFinder,
-					MapLoadingHandler loadingHandler) throws IllegalArgumentException, FetchingErrorException
+					RenderableMapObjectsDrawSettingsFinder objectsDrawSettingsFinder) throws IllegalArgumentException, FetchingErrorException
 	{
 		if (area == null)
 		{
@@ -57,10 +68,6 @@ public class SectoredMap implements RenderableMap
 		if (mapDataSource == null)
 		{
 			throw new IllegalArgumentException("mapDataSource is null");
-		}
-		if (loadingHandler == null)
-		{
-			throw new IllegalArgumentException("loadingHandler is null");
 		}
 
 		if (area.isZero())
@@ -84,7 +91,7 @@ public class SectoredMap implements RenderableMap
 					continue;
 				}
 				MapSector newSector = new MapSector(latitudeIndex, longitudeIndex);
-				newSector.loadObjects(mapDataSource, objectsDrawSettingsFinder, loadingHandler);
+				newSector.loadObjects(mapDataSource, objectsDrawSettingsFinder, this);
 				sectors.add(newSector);
 			}
 		}
@@ -233,6 +240,30 @@ public class SectoredMap implements RenderableMap
 			{
 				mapObject.acceptRenderingVisitor(objectsRenderingVisitor);
 			}
+		}
+	}
+
+	/**
+	 * Sector of map finished loading
+	 */
+	@Override
+	public void sectorLoaded()
+	{
+		loadingResultsHandler.partOfMapLoaded();
+
+		boolean allSectorsLoaded = true;
+		for (MapSector mapSector : sectors)
+		{
+			if (!mapSector.isLoaded())
+			{
+				allSectorsLoaded = false;
+				break;
+			}
+		}
+
+		if (allSectorsLoaded)
+		{
+			loadingResultsHandler.wholeMapLoaded();
 		}
 	}
 }

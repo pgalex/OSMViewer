@@ -8,7 +8,14 @@ package com.osmviewer.map;
 public interface MapLoadingHandler
 {
 	/**
-	 * Map or part of finish loading
+	 * All parts of map finished loading
+	 *
 	 */
-	public void mapLoaded();
+	public void wholeMapLoaded();
+
+	/**
+	 * Part of map finished loading
+	 *
+	 */
+	public void partOfMapLoaded();
 }

@@ -59,11 +59,12 @@ public class MapController implements DrawableOnPanel
 	 * @param startScaleLevel start scale level
 	 * @param startCanvasWidth start target canvas width
 	 * @param startCanvasHeight start target canvas height
+	 * @param loadingHandler map loading results handler
 	 */
 	public MapController(Location startViewPosition, int startScaleLevel,
-					int startCanvasWidth, int startCanvasHeight)
+					int startCanvasWidth, int startCanvasHeight, MapLoadingHandler loadingHandler)
 	{
-		map = new SectoredMap();
+		map = new SectoredMap(loadingHandler);
 		mapDataSource = null;
 
 		renderer = new MapRenderer(MINIMUM_SCALE_LEVEL, MAXIMUM_SCALE_LEVEL, startScaleLevel);
@@ -276,20 +277,15 @@ public class MapController implements DrawableOnPanel
 	 * level and view area size), from current data source. If map data source not
 	 * set, no object will be loaded
 	 *
-	 * @param loadingHandler hanlder of map loading results
 	 * @throws IllegalArgumentException loadingHandler is null
 	 * @throws FetchingErrorException error while loading map objects
 	 */
-	public void loadMapByCurrentViewPosition(MapLoadingHandler loadingHandler) throws IllegalArgumentException, FetchingErrorException
+	public void loadMapByCurrentViewPosition() throws FetchingErrorException
 	{
-		if (loadingHandler == null)
-		{
-			throw new IllegalArgumentException("loadingHandler is null");
-		}
-		
+
 		if (mapDataSource != null)
 		{
-			map.loadObjectsInArea(renderer.getViewArea(), mapDataSource, styleViewer, loadingHandler);
+			map.loadObjectsInArea(renderer.getViewArea(), mapDataSource, styleViewer);
 		}
 	}
 }
