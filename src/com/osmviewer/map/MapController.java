@@ -273,6 +273,16 @@ public class MapController implements DrawableOnPanel
 	}
 
 	/**
+	 * Is any map data source set
+	 *
+	 * @return Is any map data source set
+	 */
+	private boolean isMapDataSourceSet()
+	{
+		return mapDataSource != null;
+	}
+
+	/**
 	 * Load map objects, that exists in current view position (including scale
 	 * level and view area size), from current data source. If map data source not
 	 * set, no object will be loaded
@@ -283,7 +293,7 @@ public class MapController implements DrawableOnPanel
 	public void loadMapByCurrentViewPosition() throws FetchingErrorException
 	{
 
-		if (mapDataSource != null)
+		if (isMapDataSourceSet())
 		{
 			map.loadObjectsInArea(renderer.getViewArea(), mapDataSource, styleViewer);
 		}

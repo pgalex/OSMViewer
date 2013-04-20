@@ -3,7 +3,6 @@ package com.osmviewer.forms;
 import com.osmviewer.drawingStyles.forms.EditDrawingStylesFrame;
 import com.osmviewer.map.MapController;
 import com.osmviewer.map.MapLoadingHandler;
-import com.osmviewer.map.SectoredMap;
 import com.osmviewer.map.exceptions.FetchingErrorException;
 import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.rendering.RenderableMapObject;
@@ -14,6 +13,7 @@ import java.awt.Point;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -40,7 +40,7 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 	/**
 	 * Osm conversion dialog
 	 */
-	ConvertOsmXmlToSQLiteDialog convertOsmDialog;
+	private ConvertOsmXmlToSQLiteDialog convertOsmDialog;
 
 	/**
 	 * Creates new main form
@@ -48,6 +48,10 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 	public MainFrame()
 	{
 		initComponents();
+
+		ImageIcon mapLoadingIcon = new ImageIcon("resources/ajax-loader-2.gif");
+		jLabelLoadingIcon.setIcon(mapLoadingIcon);
+		jLabelLoadingIcon.setVisible(false);
 
 		mapController = new MapController(new Location(55.0905, 38.7788), 16,
 						jPanelCanvas.getWidth(), jPanelCanvas.getHeight(), this);
@@ -71,20 +75,44 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 	 *
 	 */
 	@Override
-	public void wholeMapLoaded()
+	public void wholeMapFinishedLoading()
 	{
-
+		jLabelLoadingIcon.setVisible(false);
 		jPanelCanvas.repaint();
 	}
 
 	/**
-	 * Part of map finished loading 
+	 * Part of map finished loading
 	 */
 	@Override
-	public void partOfMapLoaded()
+	public void partOfMapFinisheLoading()
 	{
-
 		jPanelCanvas.repaint();
+	}
+
+	/**
+	 * Part of map start loading
+	 */
+	@Override
+	public void partOfMapStartsLoading()
+	{
+		jLabelLoadingIcon.setVisible(true);
+	}
+
+	/**
+	 * Start loading map by current view position
+	 */
+	private void startMapLoading()
+	{
+		try
+		{
+			mapController.loadMapByCurrentViewPosition();
+			jPanelCanvas.repaint();
+		}
+		catch (FetchingErrorException ex)
+		{
+			Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 
 	/**
@@ -102,6 +130,7 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
     jButtonEditDrawingStyles = new javax.swing.JButton();
     jButtonConvertOsmToSQLite = new javax.swing.JButton();
     jButtonChooseMapDataSource = new javax.swing.JButton();
+    jLabelLoadingIcon = new javax.swing.JLabel();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setTitle("OpenStreetMap Viewer");
@@ -199,7 +228,8 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
             .addComponent(jButtonConvertOsmToSQLite)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(jButtonChooseMapDataSource))
-          .addComponent(jSliderScaleLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addComponent(jSliderScaleLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(jLabelLoadingIcon))
         .addContainerGap(98, Short.MAX_VALUE))
     );
     jPanelCanvasLayout.setVerticalGroup(
@@ -212,7 +242,9 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
           .addComponent(jButtonChooseMapDataSource))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(jSliderScaleLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(318, Short.MAX_VALUE))
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 312, Short.MAX_VALUE)
+        .addComponent(jLabelLoadingIcon)
+        .addContainerGap())
     );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -231,16 +263,8 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 
   private void jPanelCanvasComponentResized(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_jPanelCanvasComponentResized
   {//GEN-HEADEREND:event_jPanelCanvasComponentResized
-		try
-		{
-			mapController.setCanvasSize(jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
-			mapController.loadMapByCurrentViewPosition();
-			jPanelCanvas.repaint();
-		}
-		catch (FetchingErrorException ex)
-		{
-			Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		mapController.setCanvasSize(jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
+		startMapLoading();
   }//GEN-LAST:event_jPanelCanvasComponentResized
 
   private void jButtonEditDrawingStylesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonEditDrawingStylesActionPerformed
@@ -279,18 +303,9 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 			scaleByWheel = mapController.getMaximumScaleLevel();
 		}
 
-		try
-		{
-			mapController.setScaleLevel(scaleByWheel);
-			jSliderScaleLevel.setValue(scaleByWheel);
-			mapController.loadMapByCurrentViewPosition();
-			jPanelCanvas.repaint();
-		}
-		catch (FetchingErrorException ex)
-		{
-			Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-		}
-
+		mapController.setScaleLevel(scaleByWheel);
+		jSliderScaleLevel.setValue(scaleByWheel);
+		startMapLoading();
   }//GEN-LAST:event_jPanelCanvasMouseWheelMoved
 
   private void jPanelCanvasMouseMoved(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jPanelCanvasMouseMoved
@@ -333,16 +348,8 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
   {//GEN-HEADEREND:event_jSliderScaleLevelStateChanged
 		if (jSliderScaleLevel.getValue() >= mapController.getMinimumScaleLevel() && jSliderScaleLevel.getValue() <= mapController.getMaximumScaleLevel())
 		{
-			try
-			{
-				mapController.setScaleLevel(jSliderScaleLevel.getValue());
-				mapController.loadMapByCurrentViewPosition();
-				jPanelCanvas.repaint();
-			}
-			catch (FetchingErrorException ex)
-			{
-				Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-			}
+			mapController.setScaleLevel(jSliderScaleLevel.getValue());
+			startMapLoading();
 		}
   }//GEN-LAST:event_jSliderScaleLevelStateChanged
 
@@ -363,32 +370,18 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 				File databaseFile = databaseFileChooser.getSelectedFile();
 
 				mapController.setMapDataSourceByDatabase(databaseFile.getPath());
-				mapController.loadMapByCurrentViewPosition();
-				jPanelCanvas.repaint();
+				startMapLoading();
 			}
 		}
 		catch (DatabaseErrorExcetion ex)
 		{
 			JOptionPane.showMessageDialog(this, "Невозможно открыть карту", "Ошибка", JOptionPane.ERROR_MESSAGE);
 		}
-		catch (FetchingErrorException ex)
-		{
-			JOptionPane.showMessageDialog(this, "Невозможно загрузить объекты из карты", "Ошибка", JOptionPane.ERROR_MESSAGE);
-
-		}
   }//GEN-LAST:event_jButtonChooseMapDataSourceActionPerformed
 
   private void jPanelCanvasMouseReleased(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jPanelCanvasMouseReleased
   {//GEN-HEADEREND:event_jPanelCanvasMouseReleased
-		try
-		{
-			mapController.loadMapByCurrentViewPosition();
-			jPanelCanvas.repaint();
-		}
-		catch (FetchingErrorException ex)
-		{
-			Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		startMapLoading();
   }//GEN-LAST:event_jPanelCanvasMouseReleased
 
 	/**
@@ -452,6 +445,7 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
   private javax.swing.JButton jButtonChooseMapDataSource;
   private javax.swing.JButton jButtonConvertOsmToSQLite;
   private javax.swing.JButton jButtonEditDrawingStyles;
+  private javax.swing.JLabel jLabelLoadingIcon;
   private javax.swing.JPanel jPanelCanvas;
   private javax.swing.JSlider jSliderScaleLevel;
   // End of variables declaration//GEN-END:variables

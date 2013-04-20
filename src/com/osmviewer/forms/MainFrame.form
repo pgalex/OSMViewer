@@ -70,6 +70,7 @@
                           <Component id="jButtonChooseMapDataSource" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jSliderScaleLevel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelLoadingIcon" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="98" max="32767" attributes="0"/>
               </Group>
@@ -86,7 +87,9 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jSliderScaleLevel" min="-2" pref="121" max="-2" attributes="0"/>
-                  <EmptySpace pref="318" max="32767" attributes="0"/>
+                  <EmptySpace pref="312" max="32767" attributes="0"/>
+                  <Component id="jLabelLoadingIcon" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -124,6 +127,8 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonChooseMapDataSourceActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelLoadingIcon">
         </Component>
       </SubComponents>
     </Container>

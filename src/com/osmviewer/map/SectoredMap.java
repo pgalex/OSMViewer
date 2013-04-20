@@ -91,6 +91,7 @@ public class SectoredMap implements RenderableMap, MapSectorLoadingHandler
 					continue;
 				}
 				MapSector newSector = new MapSector(latitudeIndex, longitudeIndex);
+				loadingResultsHandler.partOfMapStartsLoading();
 				newSector.loadObjects(mapDataSource, objectsDrawSettingsFinder, this);
 				sectors.add(newSector);
 			}
@@ -249,7 +250,7 @@ public class SectoredMap implements RenderableMap, MapSectorLoadingHandler
 	@Override
 	public void sectorLoaded()
 	{
-		loadingResultsHandler.partOfMapLoaded();
+		loadingResultsHandler.partOfMapFinisheLoading();
 
 		boolean allSectorsLoaded = true;
 		for (MapSector mapSector : sectors)
@@ -263,7 +264,7 @@ public class SectoredMap implements RenderableMap, MapSectorLoadingHandler
 
 		if (allSectorsLoaded)
 		{
-			loadingResultsHandler.wholeMapLoaded();
+			loadingResultsHandler.wholeMapFinishedLoading();
 		}
 	}
 }

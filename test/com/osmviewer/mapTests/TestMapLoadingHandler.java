@@ -10,12 +10,17 @@ import com.osmviewer.map.MapLoadingHandler;
 public class TestMapLoadingHandler implements MapLoadingHandler
 {
 	@Override
-	public void wholeMapLoaded()
+	public void wholeMapFinishedLoading()
 	{
 	}
 
 	@Override
-	public void partOfMapLoaded()
+	public void partOfMapFinisheLoading()
+	{
+	}
+
+	@Override
+	public void partOfMapStartsLoading()
 	{
 	}
 }
