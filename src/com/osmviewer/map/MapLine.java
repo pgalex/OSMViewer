@@ -18,7 +18,7 @@ import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
  *
  * @author pgalex
  */
-public class MapLine extends MapObject implements RenderableMapLine
+public class MapLine extends MapWay implements RenderableMapLine
 {
 	/**
 	 * Minimum points count that can be using for lineString
@@ -32,7 +32,7 @@ public class MapLine extends MapObject implements RenderableMapLine
 	/**
 	 * Create with parameters
 	 *
-	 * @param lineId global OpenStreetMap id of object
+	 * @param lineId id of line(non-closed way) from OpenStreetMap
 	 * @param lineDefenitionTags Tags, describes the lineString
 	 * @param linePoints points of lineString
 	 * @throws IllegalArgumentException linePoints, null, contains less than 2

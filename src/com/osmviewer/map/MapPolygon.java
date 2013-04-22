@@ -17,7 +17,7 @@ import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
  *
  * @author pgalex
  */
-public class MapPolygon extends MapObject implements RenderableMapPolygon
+public class MapPolygon extends MapWay implements RenderableMapPolygon
 {
 	/**
 	 * Minimum points count that can be using for polygon
@@ -31,7 +31,7 @@ public class MapPolygon extends MapObject implements RenderableMapPolygon
 	/**
 	 * Create with parameters
 	 *
-	 * @param polygonId global OpenStreetMap id of object
+	 * @param polygonId id of polygon(closed way) from openstreetmap
 	 * @param polygonDefenitionTags Tags, describes the polygon
 	 * @param polygonPoints point of polygon. Last and first point should be same
 	 * @throws IllegalArgumentException polygonPoints null, contains less than 4

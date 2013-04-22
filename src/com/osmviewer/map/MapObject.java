@@ -13,10 +13,6 @@ import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
 public abstract class MapObject implements RenderableMapObject
 {
 	/**
-	 * ID of object, comes from OpenStreetMap
-	 */
-	private long id;
-	/**
 	 * Tags, describes the object.Can be empty ( cuz in openstreetmap can be
 	 * object without tags )
 	 */
@@ -27,32 +23,20 @@ public abstract class MapObject implements RenderableMapObject
 	private RenderableMapObjectDrawSettings drawSettings;
 
 	/**
-	 * Create with parameters
+	 * Initialize with parameters
 	 *
-	 * @param objectId global OpenStreetMap id of object
 	 * @param objectDefenitionTags Tags, describes the object
 	 * @throws IllegalArgumentException objectDefenitionTags is null
 	 */
-	public MapObject(long objectId, DefenitionTags objectDefenitionTags) throws IllegalArgumentException
+	public MapObject(DefenitionTags objectDefenitionTags) throws IllegalArgumentException
 	{
 		if (objectDefenitionTags == null)
 		{
 			throw new IllegalArgumentException("objectDefenitionTags is null");
 		}
 
-		id = objectId;
 		defenitionTags = objectDefenitionTags;
 		drawSettings = null;
-	}
-
-	/**
-	 * Get ID
-	 *
-	 * @return ID of object, comes from OpenStreetMap
-	 */
-	public long getId()
-	{
-		return id;
 	}
 
 	/**

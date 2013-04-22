@@ -16,6 +16,10 @@ import java.awt.geom.Rectangle2D;
 public class MapPoint extends MapObject implements RenderableMapPoint
 {
 	/**
+	 * ID, comes from OpenStreetMap
+	 */
+	private long id;
+	/**
 	 * Position of object on a map (spheric coords)
 	 */
 	private Location position;
@@ -24,13 +28,13 @@ public class MapPoint extends MapObject implements RenderableMapPoint
 	 * Create with parameters
 	 *
 	 * @param pointPosition position on a map (spheric coords)
-	 * @param pointId global unique id from OpenStreetMap
+	 * @param pointId point(node) id from OpenStreetMap
 	 * @param pointDefenitionTags defenition tags
 	 * @throws IllegalArgumentException position is null
 	 */
 	public MapPoint(Location pointPosition, long pointId, DefenitionTags pointDefenitionTags) throws IllegalArgumentException
 	{
-		super(pointId, pointDefenitionTags);
+		super(pointDefenitionTags);
 
 		if (pointPosition == null)
 		{
@@ -127,5 +131,15 @@ public class MapPoint extends MapObject implements RenderableMapPoint
 		}
 
 		return objectDrawStyle.isCanBePoint();
+	}
+
+	/**
+	 * Get ID
+	 *
+	 * @return ID of object, comes from OpenStreetMap
+	 */
+	public long getId()
+	{
+		return id;
 	}
 }
