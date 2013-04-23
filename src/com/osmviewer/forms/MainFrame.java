@@ -10,12 +10,15 @@ import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
 import com.osmviewer.sqliteMapDataSource.exceptions.DatabaseErrorExcetion;
 import java.awt.Dialog.ModalityType;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 /**
@@ -48,6 +51,7 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 	public MainFrame()
 	{
 		initComponents();
+		fillCommandsPopupMenu();
 
 		ImageIcon mapLoadingIcon = new ImageIcon("resources/ajax-loader-2.gif");
 		jLabelLoadingIcon.setIcon(mapLoadingIcon);
@@ -68,6 +72,118 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 		jSliderScaleLevel.setMinimum(mapController.getMinimumScaleLevel());
 		jSliderScaleLevel.setMaximum(mapController.getMaximumScaleLevel());
 		jSliderScaleLevel.setValue(mapController.getScaleLevel());
+	}
+
+	/**
+	 * Fill commands popup menu with items
+	 */
+	private void fillCommandsPopupMenu()
+	{
+		jPopupMenuCommands.add(createOpenMapItem());
+		jPopupMenuCommands.add(createConvertOsmItem());
+		jPopupMenuCommands.add(createDrawStylesEditorItem());
+	}
+
+	/**
+	 * Create "Map style editor" commands menu item
+	 *
+	 * @return "Map style editor" commands menu item
+	 */
+	private JMenuItem createDrawStylesEditorItem()
+	{
+		JMenuItem drawStylesEditItem = new JMenuItem("Редактор стилей ...");
+		drawStylesEditItem.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent ae)
+			{
+				drawStylesEditorItemPressed();
+			}
+		});
+
+		return drawStylesEditItem;
+	}
+
+	/**
+	 * Create "Convert .osm" commands menu item
+	 *
+	 * @return "Convert .osm" commands menu item
+	 */
+	private JMenuItem createConvertOsmItem()
+	{
+		JMenuItem convertOsmItem = new JMenuItem("Конвертировать .osm ...");
+		convertOsmItem.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent ae)
+			{
+				convertOsmItemPressed();
+			}
+		});
+
+		return convertOsmItem;
+	}
+
+	/**
+	 * Create "Open Map" commands menu item
+	 *
+	 * @return "Open Map" commands menu item
+	 */
+	private JMenuItem createOpenMapItem()
+	{
+		JMenuItem openMapItem = new JMenuItem("Открыть карту ...");
+		openMapItem.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent ae)
+			{
+				openMapMenuItemPressed();
+			}
+		});
+
+		return openMapItem;
+	}
+
+	/**
+	 * Actions on pressing "Map style editor" commands menu item
+	 */
+	private void drawStylesEditorItemPressed()
+	{
+		EditDrawingStylesFrame editDrawingStylesDialog = new EditDrawingStylesFrame();
+		editDrawingStylesDialog.setLocationRelativeTo(this);
+		editDrawingStylesDialog.setVisible(true);
+		editDrawingStylesDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	}
+
+	/**
+	 * Actions on pressing "Convert osm." commands menu item
+	 */
+	private void convertOsmItemPressed()
+	{
+		convertOsmDialog.setVisible(true);
+	}
+
+	/**
+	 * Actions on pressing "Open Map" commands menu item
+	 */
+	private void openMapMenuItemPressed()
+	{
+		try
+		{
+			JFileChooser databaseFileChooser = new JFileChooser();
+			int databaseFileShowDialogResult = databaseFileChooser.showOpenDialog(this);
+			if (databaseFileShowDialogResult == JFileChooser.APPROVE_OPTION)
+			{
+				File databaseFile = databaseFileChooser.getSelectedFile();
+
+				mapController.setMapDataSourceByDatabase(databaseFile.getPath());
+				startMapLoading();
+			}
+		}
+		catch (DatabaseErrorExcetion ex)
+		{
+			JOptionPane.showMessageDialog(this, "Невозможно открыть карту", "Ошибка", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	/**
@@ -125,12 +241,26 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
   private void initComponents()
   {
 
+    jPopupMenuCommands = new javax.swing.JPopupMenu();
     jPanelCanvas = new com.osmviewer.forms.DrawingPanel(null);
     jSliderScaleLevel = new javax.swing.JSlider();
-    jButtonEditDrawingStyles = new javax.swing.JButton();
-    jButtonConvertOsmToSQLite = new javax.swing.JButton();
-    jButtonChooseMapDataSource = new javax.swing.JButton();
     jLabelLoadingIcon = new javax.swing.JLabel();
+    jToggleButtonMenu = new javax.swing.JToggleButton();
+
+    jPopupMenuCommands.addPopupMenuListener(new javax.swing.event.PopupMenuListener()
+    {
+      public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt)
+      {
+        jPopupMenuCommandsPopupMenuWillBecomeVisible(evt);
+      }
+      public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt)
+      {
+        jPopupMenuCommandsPopupMenuWillBecomeInvisible(evt);
+      }
+      public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt)
+      {
+      }
+    });
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setTitle("OpenStreetMap Viewer");
@@ -188,30 +318,12 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
       }
     });
 
-    jButtonEditDrawingStyles.setText("Редактор стилей ...");
-    jButtonEditDrawingStyles.addActionListener(new java.awt.event.ActionListener()
+    jToggleButtonMenu.setText("Меню");
+    jToggleButtonMenu.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
       {
-        jButtonEditDrawingStylesActionPerformed(evt);
-      }
-    });
-
-    jButtonConvertOsmToSQLite.setText("Конвертировать .osm...");
-    jButtonConvertOsmToSQLite.addActionListener(new java.awt.event.ActionListener()
-    {
-      public void actionPerformed(java.awt.event.ActionEvent evt)
-      {
-        jButtonConvertOsmToSQLiteActionPerformed(evt);
-      }
-    });
-
-    jButtonChooseMapDataSource.setText("Открыть карту...");
-    jButtonChooseMapDataSource.addActionListener(new java.awt.event.ActionListener()
-    {
-      public void actionPerformed(java.awt.event.ActionEvent evt)
-      {
-        jButtonChooseMapDataSourceActionPerformed(evt);
+        jToggleButtonMenuActionPerformed(evt);
       }
     });
 
@@ -222,24 +334,16 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
       .addGroup(jPanelCanvasLayout.createSequentialGroup()
         .addContainerGap()
         .addGroup(jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addGroup(jPanelCanvasLayout.createSequentialGroup()
-            .addComponent(jButtonEditDrawingStyles)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jButtonConvertOsmToSQLite)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jButtonChooseMapDataSource))
           .addComponent(jSliderScaleLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addComponent(jLabelLoadingIcon))
-        .addContainerGap(98, Short.MAX_VALUE))
+          .addComponent(jLabelLoadingIcon)
+          .addComponent(jToggleButtonMenu))
+        .addContainerGap(538, Short.MAX_VALUE))
     );
     jPanelCanvasLayout.setVerticalGroup(
       jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(jPanelCanvasLayout.createSequentialGroup()
         .addContainerGap()
-        .addGroup(jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(jButtonEditDrawingStyles)
-          .addComponent(jButtonConvertOsmToSQLite)
-          .addComponent(jButtonChooseMapDataSource))
+        .addComponent(jToggleButtonMenu)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(jSliderScaleLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 312, Short.MAX_VALUE)
@@ -266,14 +370,6 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 		mapController.setCanvasSize(jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
 		startMapLoading();
   }//GEN-LAST:event_jPanelCanvasComponentResized
-
-  private void jButtonEditDrawingStylesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonEditDrawingStylesActionPerformed
-  {//GEN-HEADEREND:event_jButtonEditDrawingStylesActionPerformed
-		EditDrawingStylesFrame editDrawingStylesDialog = new EditDrawingStylesFrame();
-		editDrawingStylesDialog.setLocationRelativeTo(this);
-		editDrawingStylesDialog.setVisible(true);
-		editDrawingStylesDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-  }//GEN-LAST:event_jButtonEditDrawingStylesActionPerformed
 
   private void jPanelCanvasMouseDragged(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jPanelCanvasMouseDragged
   {//GEN-HEADEREND:event_jPanelCanvasMouseDragged
@@ -353,36 +449,26 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 		}
   }//GEN-LAST:event_jSliderScaleLevelStateChanged
 
-  private void jButtonConvertOsmToSQLiteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonConvertOsmToSQLiteActionPerformed
-  {//GEN-HEADEREND:event_jButtonConvertOsmToSQLiteActionPerformed
-
-		convertOsmDialog.setVisible(true);
-  }//GEN-LAST:event_jButtonConvertOsmToSQLiteActionPerformed
-
-  private void jButtonChooseMapDataSourceActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButtonChooseMapDataSourceActionPerformed
-  {//GEN-HEADEREND:event_jButtonChooseMapDataSourceActionPerformed
-		try
-		{
-			JFileChooser databaseFileChooser = new JFileChooser();
-			int databaseFileShowDialogResult = databaseFileChooser.showOpenDialog(this);
-			if (databaseFileShowDialogResult == JFileChooser.APPROVE_OPTION)
-			{
-				File databaseFile = databaseFileChooser.getSelectedFile();
-
-				mapController.setMapDataSourceByDatabase(databaseFile.getPath());
-				startMapLoading();
-			}
-		}
-		catch (DatabaseErrorExcetion ex)
-		{
-			JOptionPane.showMessageDialog(this, "Невозможно открыть карту", "Ошибка", JOptionPane.ERROR_MESSAGE);
-		}
-  }//GEN-LAST:event_jButtonChooseMapDataSourceActionPerformed
-
   private void jPanelCanvasMouseReleased(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jPanelCanvasMouseReleased
   {//GEN-HEADEREND:event_jPanelCanvasMouseReleased
 		startMapLoading();
   }//GEN-LAST:event_jPanelCanvasMouseReleased
+
+  private void jPopupMenuCommandsPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt)//GEN-FIRST:event_jPopupMenuCommandsPopupMenuWillBecomeInvisible
+  {//GEN-HEADEREND:event_jPopupMenuCommandsPopupMenuWillBecomeInvisible
+		jToggleButtonMenu.setSelected(false);
+  }//GEN-LAST:event_jPopupMenuCommandsPopupMenuWillBecomeInvisible
+
+  private void jPopupMenuCommandsPopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt)//GEN-FIRST:event_jPopupMenuCommandsPopupMenuWillBecomeVisible
+  {//GEN-HEADEREND:event_jPopupMenuCommandsPopupMenuWillBecomeVisible
+		jToggleButtonMenu.setSelected(true);
+  }//GEN-LAST:event_jPopupMenuCommandsPopupMenuWillBecomeVisible
+
+  private void jToggleButtonMenuActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jToggleButtonMenuActionPerformed
+  {//GEN-HEADEREND:event_jToggleButtonMenuActionPerformed
+		jPopupMenuCommands.show(jToggleButtonMenu, jToggleButtonMenu.getLocation().x,
+						jToggleButtonMenu.getLocation().y + jToggleButtonMenu.getHeight());
+  }//GEN-LAST:event_jToggleButtonMenuActionPerformed
 
 	/**
 	 * @param args the command line arguments
@@ -442,11 +528,10 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 		});
 	}
   // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.JButton jButtonChooseMapDataSource;
-  private javax.swing.JButton jButtonConvertOsmToSQLite;
-  private javax.swing.JButton jButtonEditDrawingStyles;
   private javax.swing.JLabel jLabelLoadingIcon;
   private javax.swing.JPanel jPanelCanvas;
+  private javax.swing.JPopupMenu jPopupMenuCommands;
   private javax.swing.JSlider jSliderScaleLevel;
+  private javax.swing.JToggleButton jToggleButtonMenu;
   // End of variables declaration//GEN-END:variables
 }
