@@ -5,6 +5,7 @@ import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
 import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -68,16 +69,16 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	}
 
 	/**
-	 * Add all storing map objects to end of given list
+	 * Add all storing map objects to end of given collection
 	 *
-	 * @param list list to add map objects to
-	 * @throws IllegalArgumentException list is null
+	 * @param collection collection to add map objects to
+	 * @throws IllegalArgumentException collection is null
 	 */
-	public void addAllStoringObjectsToList(List<MapObject> list) throws IllegalArgumentException
+	public void addAllStoringObjectsTo(Collection<MapObject> collection) throws IllegalArgumentException
 	{
-		if (list == null)
+		if (collection == null)
 		{
-			throw new IllegalArgumentException("list is null");
+			throw new IllegalArgumentException("collection is null");
 		}
 
 		if (!loaded.get())
@@ -85,7 +86,7 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 			return;
 		}
 
-		list.addAll(objects);
+		collection.addAll(objects);
 	}
 
 	/**
@@ -243,11 +244,8 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 			RenderableMapObjectDrawSettings drawSettings = drawSettingsFinder.findMapObjectDrawSettings(createdMapObject.getDefenitionTags());
 			if (drawSettings != null)
 			{
-				if (createdMapObject.isVisibleInArea(getBounds()))
-				{
-					createdMapObject.setDrawSettings(drawSettings);
-					objects.add(createdMapObject);
-				}
+				createdMapObject.setDrawSettings(drawSettings);
+				objects.add(createdMapObject);
 			}
 		}
 	}

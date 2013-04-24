@@ -7,7 +7,13 @@ import com.osmviewer.rendering.RenderableMapObjectsDrawPriorityComparator;
 import com.osmviewer.rendering.RenderableMapObjectsVisitor;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * Map, storing and processings map objects by sectors. Map area separating by
@@ -24,7 +30,7 @@ public class SectoredMap implements RenderableMap, MapSectorLoadingHandler
 	/**
 	 * Sectors of map
 	 */
-	private LinkedList<MapSector> sectors;
+	private List<MapSector> sectors;
 	/**
 	 * Handler of map loading results
 	 */
@@ -42,8 +48,8 @@ public class SectoredMap implements RenderableMap, MapSectorLoadingHandler
 		{
 			throw new IllegalArgumentException("loadingHandler is null");
 		}
-
-		sectors = new LinkedList<MapSector>();
+		
+		sectors = Collections.synchronizedList(new LinkedList<MapSector>());
 		loadingResultsHandler = loadingHandler;
 	}
 
@@ -69,19 +75,19 @@ public class SectoredMap implements RenderableMap, MapSectorLoadingHandler
 		{
 			throw new IllegalArgumentException("mapDataSource is null");
 		}
-
+		
 		if (area.isZero())
 		{
 			sectors.clear();
 			return;
 		}
-
+		
 		int minLatitudeSectorIndex = MapSector.findSectorLatitudeIndex(area.getLatitudeMinimum());
 		int minLongitudeSectorIndex = MapSector.findSectorLongitudeIndex(area.getLongitudeMinimum());
-
+		
 		int maxLatitudeSectorIndex = MapSector.findSectorLatitudeIndex(area.getLatitudeMaximum());
 		int maxLongitudeSectorIndex = MapSector.findSectorLongitudeIndex(area.getLongitudeMaximum());
-
+		
 		for (int latitudeIndex = minLatitudeSectorIndex; latitudeIndex <= maxLatitudeSectorIndex; latitudeIndex++)
 		{
 			for (int longitudeIndex = minLongitudeSectorIndex; longitudeIndex <= maxLongitudeSectorIndex; longitudeIndex++)
@@ -96,7 +102,7 @@ public class SectoredMap implements RenderableMap, MapSectorLoadingHandler
 				sectors.add(newSector);
 			}
 		}
-
+		
 		keepAndRemoveInvisibleSectors(area);
 	}
 
@@ -113,7 +119,7 @@ public class SectoredMap implements RenderableMap, MapSectorLoadingHandler
 		{
 			throw new IllegalArgumentException("area is null");
 		}
-
+		
 		ArrayList<MapSector> invisibleSectors = new ArrayList<MapSector>();
 		for (MapSector mapSector : sectors)
 		{
@@ -122,7 +128,7 @@ public class SectoredMap implements RenderableMap, MapSectorLoadingHandler
 				invisibleSectors.add(mapSector);
 			}
 		}
-
+		
 		for (int i = MAXIMUM_INVISIBLE_SECTOR_COUNT; i < invisibleSectors.size(); i++)
 		{
 			sectors.remove(invisibleSectors.get(i));
@@ -146,7 +152,7 @@ public class SectoredMap implements RenderableMap, MapSectorLoadingHandler
 				return true;
 			}
 		}
-
+		
 		return false;
 	}
 
@@ -158,12 +164,12 @@ public class SectoredMap implements RenderableMap, MapSectorLoadingHandler
 	public int getObjectsCount()
 	{
 		int storingObjectsCount = 0;
-
+		
 		for (MapSector mapSector : sectors)
 		{
 			storingObjectsCount += mapSector.getStoringObjectsCount();
 		}
-
+		
 		return storingObjectsCount;
 	}
 
@@ -194,52 +200,28 @@ public class SectoredMap implements RenderableMap, MapSectorLoadingHandler
 		{
 			throw new IllegalArgumentException("objectsDrawPriorityComparator is null");
 		}
-
+		
 		if (renderingArea.isZero())
 		{
 			return;
 		}
-
-		// определить сектора, которые следует нарисовать
-		// добавить в массив объекты этих секторов с учетом повторов
-		// сортировать массив
-		// нарисовать объекты
-
-		ArrayList<MapSector> renderedSectors = new ArrayList<MapSector>();
-		LinkedList<MapObject> objectsToRender = new LinkedList<MapObject>();
+		
+		Set<MapObject> objectsToRender = new HashSet<MapObject>();
 		for (MapSector renderingSector : sectors)
 		{
 			if (renderingArea.intersects(renderingSector.getBounds()))
 			{
-				ArrayList<MapObject> renderingSectorObjects = new ArrayList<MapObject>(renderingSector.getStoringObjectsCount());
-				renderingSector.addAllStoringObjectsToList(renderingSectorObjects);
-				for (MapObject mapObject : renderingSectorObjects)
-				{
-					boolean objectAlreadyRendered = false;
-					for (int i = 0; i < renderedSectors.size(); i++)
-					{
-						if (mapObject.isVisibleInArea(renderedSectors.get(i).getBounds()))
-						{
-							objectAlreadyRendered = true;
-						}
-					}
-					if (!objectAlreadyRendered)
-					{
-						objectsToRender.add(mapObject);
-					}
-				}
-
-				renderedSectors.add(renderingSector);
+				renderingSector.addAllStoringObjectsTo(objectsToRender);
 			}
 		}
-
-		Collections.sort(objectsToRender, objectsDrawPriorityComparator);
-
-		for (MapObject mapObject : objectsToRender)
+		
+		ArrayList<MapObject> sortedObjectsToRender = new ArrayList<MapObject>(objectsToRender);
+		Collections.sort(sortedObjectsToRender, objectsDrawPriorityComparator);
+		for (MapObject renderingObject : sortedObjectsToRender)
 		{
-			if (mapObject.isVisibleInArea(renderingArea))
+			if (renderingObject.isVisibleInArea(renderingArea))
 			{
-				mapObject.acceptRenderingVisitor(objectsRenderingVisitor);
+				renderingObject.acceptRenderingVisitor(objectsRenderingVisitor);
 			}
 		}
 	}
@@ -251,7 +233,7 @@ public class SectoredMap implements RenderableMap, MapSectorLoadingHandler
 	public void sectorLoaded()
 	{
 		loadingResultsHandler.partOfMapFinisheLoading();
-
+		
 		boolean allSectorsLoaded = true;
 		for (MapSector mapSector : sectors)
 		{
@@ -261,7 +243,7 @@ public class SectoredMap implements RenderableMap, MapSectorLoadingHandler
 				break;
 			}
 		}
-
+		
 		if (allSectorsLoaded)
 		{
 			loadingResultsHandler.wholeMapFinishedLoading();
