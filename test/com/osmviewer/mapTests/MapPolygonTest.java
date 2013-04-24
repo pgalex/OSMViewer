@@ -1,5 +1,8 @@
 package com.osmviewer.mapTests;
 
+import com.osmviewer.map.MapLine;
+import com.osmviewer.map.MapObject;
+import com.osmviewer.map.MapPoint;
 import com.osmviewer.map.MapPolygon;
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
@@ -14,6 +17,106 @@ import org.junit.Test;
  */
 public class MapPolygonTest
 {
+	/**
+	 * Test polygon equals to other polygon and their ids are same
+	 */
+	@Test
+	public void equalsToPolygonSameIdTest()
+	{
+		Location[] points = new Location[5];
+		points[0] = new Location(-1, -2);
+		points[1] = new Location(1, 0);
+		points[2] = new Location(3, 3);
+		points[3] = new Location(7, 7);
+		points[4] = points[0];
+		MapPolygon polygon1 = new MapPolygon(12, new DefenitionTags(), points);
+
+		MapPolygon polygon2 = new MapPolygon(12, new DefenitionTags(), points);
+
+		assertTrue(polygon1.equals(polygon2));
+	}
+
+	/**
+	 * Test polygon equals to other polygon and their ids are not same
+	 */
+	@Test
+	public void equalsToPolygonNotSameIdTest()
+	{
+		Location[] points = new Location[5];
+		points[0] = new Location(-1, -2);
+		points[1] = new Location(1, 0);
+		points[2] = new Location(3, 3);
+		points[3] = new Location(7, 7);
+		points[4] = points[0];
+		MapPolygon polygon1 = new MapPolygon(12, new DefenitionTags(), points);
+
+		MapPolygon polygon2 = new MapPolygon(15, new DefenitionTags(), points);
+
+		assertFalse(polygon1.equals(polygon2));
+	}
+
+	/**
+	 * Test polygon equals to other MapLine and their ids are same
+	 */
+	@Test
+	public void equalsToLineSameIdTest()
+	{
+		Location[] polygonPoints = new Location[5];
+		polygonPoints[0] = new Location(-1, -2);
+		polygonPoints[1] = new Location(1, 0);
+		polygonPoints[2] = new Location(3, 3);
+		polygonPoints[3] = new Location(7, 7);
+		polygonPoints[4] = polygonPoints[0];
+		MapPolygon testPolygon = new MapPolygon(12, new DefenitionTags(), polygonPoints);
+
+		Location[] linePoints = new Location[2];
+		linePoints[0] = new Location(0, 0);
+		linePoints[1] = new Location(5, 5);
+		MapLine testLine = new MapLine(12, new DefenitionTags(), linePoints);
+
+		assertTrue(testPolygon.equals((MapObject) testLine));
+	}
+	
+	/**
+	 * Test polygon equals to other MapLine and their ids are not same
+	 */
+	@Test
+	public void equalsToLineNotSameIdTest()
+	{
+		Location[] polygonPoints = new Location[5];
+		polygonPoints[0] = new Location(-1, -2);
+		polygonPoints[1] = new Location(1, 0);
+		polygonPoints[2] = new Location(3, 3);
+		polygonPoints[3] = new Location(7, 7);
+		polygonPoints[4] = polygonPoints[0];
+		MapPolygon testPolygon = new MapPolygon(12, new DefenitionTags(), polygonPoints);
+
+		Location[] linePoints = new Location[2];
+		linePoints[0] = new Location(0, 0);
+		linePoints[1] = new Location(5, 5);
+		MapLine testLine = new MapLine(15, new DefenitionTags(), linePoints);
+
+		assertFalse(testPolygon.equals((MapObject) testLine));
+	}
+/**
+	 * Test polygon equals to other MapPoint and their ids are same
+	 */
+	@Test
+	public void equalsToPointSameIdTest()
+	{
+		Location[] polygonPoints = new Location[5];
+		polygonPoints[0] = new Location(-1, -2);
+		polygonPoints[1] = new Location(1, 0);
+		polygonPoints[2] = new Location(3, 3);
+		polygonPoints[3] = new Location(7, 7);
+		polygonPoints[4] = polygonPoints[0];
+		MapPolygon testPolygon = new MapPolygon(12, new DefenitionTags(), polygonPoints);
+
+		MapPoint testPoint = new MapPoint(new Location(), 12, new DefenitionTags());
+
+		assertFalse(testPolygon.equals((MapObject) testPoint));
+	}
+	
 	/**
 	 * Test determining draw priotiry of draw settings not set
 	 */

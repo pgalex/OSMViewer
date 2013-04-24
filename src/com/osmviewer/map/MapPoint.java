@@ -41,6 +41,7 @@ public class MapPoint extends MapObject implements RenderableMapPoint
 			throw new IllegalArgumentException("pointPosition is null");
 		}
 
+		id = pointId;
 		position = pointPosition;
 	}
 
@@ -141,5 +142,39 @@ public class MapPoint extends MapObject implements RenderableMapPoint
 	public long getId()
 	{
 		return id;
+	}
+
+	/**
+	 * Is equals to objects.
+	 *
+	 * @param objectToCompare object for comparing
+	 * @return is equals to given objects. node-like objects is equal to other
+	 * node-like if thier ids equals, and to equals to other types of map objects
+	 */
+	@Override
+	public boolean equals(Object objectToCompare)
+	{
+		if (objectToCompare instanceof MapPoint)
+		{
+			MapPoint comparingPoint = (MapPoint) objectToCompare;
+			return comparingPoint.id == id;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * Get hash code
+	 *
+	 * @return hash code
+	 */
+	@Override
+	public int hashCode()
+	{
+		int hash = 7;
+		hash = 79 * hash + (int) (this.id ^ (this.id >>> 32));
+		return hash;
 	}
 }

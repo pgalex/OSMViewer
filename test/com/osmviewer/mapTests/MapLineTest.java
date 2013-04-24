@@ -1,7 +1,6 @@
 package com.osmviewer.mapTests;
 
 import com.osmviewer.map.MapLine;
-import com.osmviewer.map.MapPoint;
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
 import com.osmviewer.mapDefenitionUtilities.Location;

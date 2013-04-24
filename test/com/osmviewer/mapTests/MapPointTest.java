@@ -1,6 +1,9 @@
 package com.osmviewer.mapTests;
 
+import com.osmviewer.map.MapLine;
+import com.osmviewer.map.MapObject;
 import com.osmviewer.map.MapPoint;
+import com.osmviewer.map.MapPolygon;
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
 import com.osmviewer.mapDefenitionUtilities.Location;
@@ -14,6 +17,73 @@ import org.junit.Test;
  */
 public class MapPointTest
 {
+	/**
+	 * Test setting id after creating
+	 */
+	@Test
+	public void creatingWithIdTest()
+	{
+		MapPoint point1 = new MapPoint(new Location(), 12, new DefenitionTags());
+		assertEquals(12, point1.getId());
+	}
+
+	/**
+	 * Test MapPoint equals to other MapPoint object and their ids are same
+	 */
+	@Test
+	public void equalsToOtherPointSameIdObjectTest()
+	{
+		MapPoint point1 = new MapPoint(new Location(), 12, new DefenitionTags());
+		MapPoint point2 = new MapPoint(new Location(), 12, new DefenitionTags());
+		assertTrue(point1.equals(point2));
+	}
+
+	/**
+	 * Test MapPoint equals to other MapPoint object and their ids are not same
+	 */
+	@Test
+	public void equalsToOtherPointNotSameIdObjectTest()
+	{
+		MapPoint point1 = new MapPoint(new Location(), 12, new DefenitionTags());
+		MapPoint point2 = new MapPoint(new Location(), 8, new DefenitionTags());
+		assertFalse(point1.equals(point2));
+	}
+
+	/**
+	 * Test MapPoint equals to other MapLine object and their ids are same
+	 */
+	@Test
+	public void equalsToMapLineSameIdObjectTest()
+	{
+		Location[] points = new Location[2];
+		points[0] = new Location(0, 0);
+		points[1] = new Location(5, 5);
+		MapLine testLine = new MapLine(12, new DefenitionTags(), points);
+
+		MapPoint testPoint = new MapPoint(new Location(), 12, new DefenitionTags());
+
+		assertFalse(testPoint.equals((MapObject) testLine));
+	}
+
+	/**
+	 * Test MapPoint equals to other MapPolygon object and their ids are same
+	 */
+	@Test
+	public void equalsToMapPolygonSameIdObjectTest()
+	{
+		Location[] points = new Location[5];
+		points[0] = new Location(-1, -2);
+		points[1] = new Location(1, 0);
+		points[2] = new Location(3, 3);
+		points[3] = new Location(7, 7);
+		points[4] = points[0];
+		MapPolygon testPolygon = new MapPolygon(12, new DefenitionTags(), points);
+
+		MapPoint testPoint = new MapPoint(new Location(), 12, new DefenitionTags());
+
+		assertFalse(testPoint.equals((MapObject) testPolygon));
+	}
+
 	/**
 	 * Test determining draw priotiry of draw settings not set
 	 */
@@ -42,7 +112,7 @@ public class MapPointTest
 		TestRenderableMapObjectDrawSettings testDawSettings = new TestRenderableMapObjectDrawSettings();
 		testDawSettings.pointDrawPriority = 5;
 		testPoint.setDrawSettings(testDawSettings);
-		
+
 		assertEquals(testDawSettings.pointDrawPriority, testPoint.determineDrawPriotity());
 	}
 

@@ -39,4 +39,38 @@ public abstract class MapWay extends MapObject
 	{
 		return id;
 	}
+
+	/**
+	 * Is equals to objects.
+	 *
+	 * @param objectToCompare object for comparing
+	 * @return is equals to given objects. way-like objects is equal to other
+	 * way-like if thier ids equals, and to equals to other types of map objects
+	 */
+	@Override
+	public boolean equals(Object objectToCompare)
+	{
+		if (objectToCompare instanceof MapWay)
+		{
+			MapWay comparingWay = (MapWay) objectToCompare;
+			return comparingWay.id == id;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * Get hash code
+	 *
+	 * @return hash code
+	 */
+	@Override
+	public int hashCode()
+	{
+		int hash = 3;
+		hash = 97 * hash + (int) (this.id ^ (this.id >>> 32));
+		return hash;
+	}
 }
