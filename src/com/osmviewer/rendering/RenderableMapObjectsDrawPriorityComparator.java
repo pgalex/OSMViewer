@@ -22,15 +22,7 @@ public class RenderableMapObjectsDrawPriorityComparator implements Comparator<Re
 		RenderableMapObjectDrawSettings object1Style = object1.getDrawSettings();
 		RenderableMapObjectDrawSettings object2Style = object2.getDrawSettings();
 
-		if (object1Style == null && object2Style != null)
-		{
-			return -1;
-		}
-		if (object1Style != null && object2Style == null)
-		{
-			return 1;
-		}
-		if (object1Style == null && object2Style == null)
+		if (object1Style == null || object2Style == null)
 		{
 			return 0;
 		}
