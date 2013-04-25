@@ -23,7 +23,7 @@ public class SectoredMap implements RenderableMap, MapSectorLoadingHandler
 	/**
 	 * Maximum count of storing invisible sectors
 	 */
-	private int MAXIMUM_INVISIBLE_SECTOR_COUNT = 5;
+	private int MAXIMUM_INVISIBLE_SECTOR_COUNT = 10;
 	/**
 	 * Sectors of map
 	 */

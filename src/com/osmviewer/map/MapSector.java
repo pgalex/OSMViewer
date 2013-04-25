@@ -7,7 +7,6 @@ import com.osmviewer.mapDefenitionUtilities.MapBounds;
 import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -296,6 +295,6 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	 */
 	public static int findSectorLongitudeIndex(double longitude)
 	{
-		return (int) Math.floor(longitude / LATITUDE_SIZE);
+		return (int) Math.floor(longitude / LONGITUDE_SIZE);
 	}
 }
