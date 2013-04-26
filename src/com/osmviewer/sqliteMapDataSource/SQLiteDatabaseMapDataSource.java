@@ -27,14 +27,6 @@ import java.sql.Statement;
 public class SQLiteDatabaseMapDataSource implements MapDataSource
 {
 	/**
-	 * Sector size by latitude
-	 */
-	private static double SECTOR_LATITUDE_SIZE = 2.00;
-	/**
-	 * Sector size by longitude
-	 */
-	private static double SECTOR_LONGITUDE_SIZE = 2.00;
-	/**
 	 * Maximum number of insert commands in adding map objects statement bactch
 	 */
 	private static int ADD_MAP_OBJECTS_MAXIMUM_BATCH_SIZE = 8000;
@@ -79,13 +71,11 @@ public class SQLiteDatabaseMapDataSource implements MapDataSource
 			Statement createMapObjectsTableStatement = databaseConnection.createStatement();
 			createMapObjectsTableStatement.executeUpdate("CREATE TABLE IF NOT EXISTS MapObjects ("
 							+ "osmId INTEGER, tags BLOB, points BLOB,"
-							+ "minLatitudeSector INTEGER, maxLatitudeSector INTEGER,"
-							+ "minLongitudeSector INTEGER, maxLongitudeSector INTEGER,"
 							+ "minLatitude REAL, maxLatitude REAL, minLongitude REAL, maxLongitude REAL )");
 			databaseConnection.commit();
 			createMapObjectsTableStatement.close();
 
-			insertMapObjectStatement = databaseConnection.prepareStatement("INSERT INTO MapObjects VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+			insertMapObjectStatement = databaseConnection.prepareStatement("INSERT INTO MapObjects VALUES (?,?,?,?,?,?,?)");
 			addingMapObjectsCurrentBatchSize = 0;
 		}
 		catch (ClassNotFoundException ex)
@@ -124,14 +114,10 @@ public class SQLiteDatabaseMapDataSource implements MapDataSource
 			insertMapObjectStatement.setBytes(2, convertTagsToBLOB(tags));
 			insertMapObjectStatement.setBytes(3, convertPointsToBLOB(points));
 			MapBounds pointsBounds = findPointsBounds(points);
-			insertMapObjectStatement.setInt(4, findSectorLatitudeIndex(pointsBounds.getLatitudeMinimum()));
-			insertMapObjectStatement.setInt(5, findSectorLatitudeIndex(pointsBounds.getLatitudeMaximum()));
-			insertMapObjectStatement.setInt(6, findSectorLongitudeIndex(pointsBounds.getLongitudeMinimum()));
-			insertMapObjectStatement.setInt(7, findSectorLongitudeIndex(pointsBounds.getLongitudeMaximum()));
-			insertMapObjectStatement.setDouble(8, pointsBounds.getLatitudeMinimum());
-			insertMapObjectStatement.setDouble(9, pointsBounds.getLatitudeMaximum());
-			insertMapObjectStatement.setDouble(10, pointsBounds.getLongitudeMinimum());
-			insertMapObjectStatement.setDouble(11, pointsBounds.getLongitudeMaximum());
+			insertMapObjectStatement.setDouble(4, pointsBounds.getLatitudeMinimum());
+			insertMapObjectStatement.setDouble(5, pointsBounds.getLatitudeMaximum());
+			insertMapObjectStatement.setDouble(6, pointsBounds.getLongitudeMinimum());
+			insertMapObjectStatement.setDouble(7, pointsBounds.getLongitudeMaximum());
 			insertMapObjectStatement.addBatch();
 			addingMapObjectsCurrentBatchSize++;
 			if (addingMapObjectsCurrentBatchSize >= ADD_MAP_OBJECTS_MAXIMUM_BATCH_SIZE)
@@ -148,28 +134,6 @@ public class SQLiteDatabaseMapDataSource implements MapDataSource
 		{
 			throw new DatabaseErrorExcetion(ex);
 		}
-	}
-
-	/**
-	 * Find latitude index of sector for latitude value
-	 *
-	 * @param latitude latitude to find index by
-	 * @return found sector latitude index
-	 */
-	private int findSectorLatitudeIndex(double latitude)
-	{
-		return (int) Math.floor(latitude / SECTOR_LATITUDE_SIZE);
-	}
-
-	/**
-	 * Find longitude index of sector for longitude value
-	 *
-	 * @param longitude longitude to find index by
-	 * @return found sector longitude index
-	 */
-	private int findSectorLongitudeIndex(double longitude)
-	{
-		return (int) Math.floor(longitude / SECTOR_LONGITUDE_SIZE);
 	}
 
 	/**
@@ -377,18 +341,12 @@ public class SQLiteDatabaseMapDataSource implements MapDataSource
 			}
 
 			PreparedStatement selectMapObjectsStatement = databaseConnection.prepareStatement("SELECT * FROM MapObjects "
-							+ "WHERE minLatitudeSector<=? AND maxLatitudeSector>=? AND "
-							+ "minLongitudeSector<=? AND maxLongitudeSector>=? AND "
-							+ "minLatitude<=? AND maxLatitude>=? AND "
-							+ "minLongitude<=? AND maxLongitude>=?");
-			selectMapObjectsStatement.setDouble(1, findSectorLatitudeIndex(area.getLatitudeMaximum()));
-			selectMapObjectsStatement.setDouble(2, findSectorLatitudeIndex(area.getLatitudeMinimum()));
-			selectMapObjectsStatement.setDouble(3, findSectorLongitudeIndex(area.getLongitudeMaximum()));
-			selectMapObjectsStatement.setDouble(4, findSectorLongitudeIndex(area.getLongitudeMinimum()));
-			selectMapObjectsStatement.setDouble(5, area.getLatitudeMaximum());
-			selectMapObjectsStatement.setDouble(6, area.getLatitudeMinimum());
-			selectMapObjectsStatement.setDouble(7, area.getLongitudeMaximum());
-			selectMapObjectsStatement.setDouble(8, area.getLongitudeMinimum());
+							+ "WHERE minLatitude<=? AND maxLatitude>=? "
+							+ "AND minLongitude<=? AND maxLongitude>=?");
+			selectMapObjectsStatement.setDouble(1, area.getLatitudeMaximum());
+			selectMapObjectsStatement.setDouble(2, area.getLatitudeMinimum());
+			selectMapObjectsStatement.setDouble(3, area.getLongitudeMaximum());
+			selectMapObjectsStatement.setDouble(4, area.getLongitudeMinimum());
 			ResultSet selectedMapObjectsResultSet = selectMapObjectsStatement.executeQuery();
 
 			while (selectedMapObjectsResultSet.next())
@@ -422,8 +380,7 @@ public class SQLiteDatabaseMapDataSource implements MapDataSource
 		{
 			Statement createIndexStatement = databaseConnection.createStatement();
 			createIndexStatement.executeUpdate("CREATE INDEX IF NOT EXISTS MapObjectBoundsIndex ON "
-							+ "MapObjects (minLatitudeSector, maxLatitudeSector, minLongitudeSector, maxLongitudeSector, "
-							+ "minLatitude, maxLatitude, minLongitude, maxLongitude)");
+							+ "MapObjects (minLatitude, maxLatitude, minLongitude, maxLongitude)");
 			databaseConnection.commit();
 			createIndexStatement.close();
 		}
