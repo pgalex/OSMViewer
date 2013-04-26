@@ -82,6 +82,7 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 		jPopupMenuCommands.add(createOpenMapItem());
 		jPopupMenuCommands.add(createConvertOsmItem());
 		jPopupMenuCommands.add(createDrawStylesEditorItem());
+		jPopupMenuCommands.add(createGoToCoordinatesItem());
 	}
 
 	/**
@@ -142,6 +143,45 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 		});
 
 		return openMapItem;
+	}
+
+	/**
+	 * Create "Go to coordinates" commands menu item
+	 *
+	 * @return "Go to coordinates" commands menu item
+	 */
+	private JMenuItem createGoToCoordinatesItem()
+	{
+		JMenuItem goToItem = new JMenuItem("Перейти к координатам ...");
+		goToItem.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent ae)
+			{
+				goToCoordinatesItemPressed();
+			}
+		});
+
+		return goToItem;
+	}
+
+	/**
+	 * Actions on pressing "Go to coordinates" commands menu item
+	 */
+	private void goToCoordinatesItemPressed()
+	{
+		GoToCoordinatesDialog goToCoordinatesDialog = new GoToCoordinatesDialog(this, ModalityType.DOCUMENT_MODAL,
+						mapController.getViewPosition());
+		goToCoordinatesDialog.setVisible(true);
+
+
+		if (goToCoordinatesDialog.isGoToButtonPressed())
+		{
+			Location newViewPosition = goToCoordinatesDialog.getGoToLocation();
+			mapController.setViewPosition(newViewPosition);
+			startMapLoading();
+			jPanelCanvas.repaint();
+		}
 	}
 
 	/**

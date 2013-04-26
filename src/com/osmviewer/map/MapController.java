@@ -88,14 +88,23 @@ public class MapController implements DrawableOnPanel
 	}
 
 	/**
-	 * Set new view position (center point of rendering map area) using position
-	 * on map
+	 * Set new view position (center point of rendering map area)
 	 *
 	 * @param positionOnMap new view position
 	 */
 	public void setViewPosition(Location positionOnMap)
 	{
 		renderer.setViewPosition(positionOnMap);
+	}
+
+	/**
+	 * Get current view position (center point of rendering map area)
+	 *
+	 * @return current view position
+	 */
+	public Location getViewPosition()
+	{
+		return renderer.getViewPosition();
 	}
 
 	/**
