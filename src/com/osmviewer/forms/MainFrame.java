@@ -13,6 +13,7 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -57,7 +58,7 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 		jLabelLoadingIcon.setIcon(mapLoadingIcon);
 		jLabelLoadingIcon.setVisible(false);
 
-		mapController = new MapController(new Location(55.0905, 38.7788), 16,
+		mapController = new MapController(UserSettings.getInstance().getViewPosition(), 16,
 						jPanelCanvas.getWidth(), jPanelCanvas.getHeight(), this);
 
 		convertOsmDialog = new ConvertOsmXmlToSQLiteDialog(this, ModalityType.MODELESS);
@@ -304,6 +305,13 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setTitle("OpenStreetMap Viewer");
+    addWindowListener(new java.awt.event.WindowAdapter()
+    {
+      public void windowClosing(java.awt.event.WindowEvent evt)
+      {
+        formWindowClosing(evt);
+      }
+    });
 
     jPanelCanvas.setBackground(new java.awt.Color(204, 204, 204));
     jPanelCanvas.setForeground(new java.awt.Color(255, 255, 255));
@@ -509,6 +517,19 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 		jPopupMenuCommands.show(jToggleButtonMenu, jToggleButtonMenu.getLocation().x,
 						jToggleButtonMenu.getLocation().y + jToggleButtonMenu.getHeight());
   }//GEN-LAST:event_jToggleButtonMenuActionPerformed
+
+  private void formWindowClosing(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowClosing
+  {//GEN-HEADEREND:event_formWindowClosing
+    try
+		{
+			UserSettings.getInstance().setViewPosition(mapController.getViewPosition());
+			UserSettings.getInstance().saveToSettingsFile();
+		}
+		catch (IOException ex)
+		{
+			Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+		}
+  }//GEN-LAST:event_formWindowClosing
 
 	/**
 	 * @param args the command line arguments
