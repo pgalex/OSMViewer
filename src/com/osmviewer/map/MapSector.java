@@ -19,11 +19,11 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	/**
 	 * Sector area size by latitude
 	 */
-	public static double LATITUDE_SIZE = 0.05;
+	public static double LATITUDE_SIZE = 0.2;
 	/**
 	 * Sector area size by longitude
 	 */
-	public static double LONGITUDE_SIZE = 0.05;
+	public static double LONGITUDE_SIZE = 0.2;
 	/**
 	 * Index by latitude
 	 */
@@ -49,6 +49,10 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	 * Is sector already loaded (with load method), using for multithreading work
 	 */
 	private AtomicBoolean loaded;
+	/**
+	 * Map objects loading thread. Using to manually stop loading
+	 */
+	private Thread objectsLoadingThread;
 
 	/**
 	 * Create empty
@@ -65,6 +69,7 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 		bounds = new MapBounds(latitudeIndex * LATITUDE_SIZE, latitudeIndex * LATITUDE_SIZE + LATITUDE_SIZE,
 						longitudeIndex * LONGITUDE_SIZE, longitudeIndex * LONGITUDE_SIZE + LONGITUDE_SIZE);
 		loaded = new AtomicBoolean(false);
+		objectsLoadingThread = null;
 	}
 
 	/**
@@ -146,6 +151,18 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 	}
 
 	/**
+	 * Stop map objects loading
+	 */
+	public void stopLoading()
+	{
+		if (objectsLoadingThread != null)
+		{
+			objectsLoadingThread.interrupt();
+			objectsLoadingThread = null;
+		}
+	}
+
+	/**
 	 * Load object by given map data source in sector bounds
 	 *
 	 * @param mapDataSource data source, using to fetch map objects, in given
@@ -176,7 +193,8 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 		drawSettingsFinder = objectsDrawSettingsFinder;
 
 		final MapDataSourceFetchResultsHandler resultsHandler = this;
-		Thread loadingObjectsThread = new Thread(new Runnable()
+		stopLoading();
+		objectsLoadingThread = new Thread(new Runnable()
 		{
 			@Override
 			public void run()
@@ -185,15 +203,18 @@ public class MapSector implements MapDataSourceFetchResultsHandler
 				{
 					mapDataSource.fetchMapObjectsInArea(getBounds(), resultsHandler);
 					loaded.set(true);
-					loadingHandler.sectorLoaded();
 				}
 				catch (Exception ex)
 				{
 					objects.clear();
 				}
+				finally
+				{
+					loadingHandler.sectorLoaded();
+				}
 			}
 		});
-		loadingObjectsThread.start();
+		objectsLoadingThread.start();
 	}
 
 	/**

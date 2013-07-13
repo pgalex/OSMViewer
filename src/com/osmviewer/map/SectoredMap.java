@@ -100,7 +100,7 @@ public class SectoredMap implements RenderableMap, MapSectorLoadingHandler
 			}
 		}
 		
-		keepAndRemoveInvisibleSectors(area);
+		removeInvisibleSectors(area);
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class SectoredMap implements RenderableMap, MapSectorLoadingHandler
 	 * @param area area to determine sectors visiblity in
 	 * @throws IllegalArgumentException area is null
 	 */
-	private void keepAndRemoveInvisibleSectors(MapBounds area) throws IllegalArgumentException
+	private void removeInvisibleSectors(MapBounds area) throws IllegalArgumentException
 	{
 		if (area == null)
 		{
@@ -128,6 +128,7 @@ public class SectoredMap implements RenderableMap, MapSectorLoadingHandler
 		
 		for (int i = MAXIMUM_INVISIBLE_SECTOR_COUNT; i < invisibleSectors.size(); i++)
 		{
+			invisibleSectors.get(i).stopLoading();
 			sectors.remove(invisibleSectors.get(i));
 		}
 	}
