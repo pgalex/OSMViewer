@@ -3,6 +3,7 @@ package com.osmviewer.sqliteMapDataSource;
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
+import com.osmviewer.mapDefenitionUtilities.Tag;
 import com.osmviewer.sqliteMapDataSource.exceptions.DatabaseErrorExcetion;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -24,7 +25,7 @@ public class SQLiteDatabaseFiller
 	/**
 	 * Maximum number of insert commands in adding map objects statement bactch
 	 */
-	private static int ADD_MAP_OBJECTS_MAXIMUM_BATCH_SIZE = 8000;
+	private static int ADD_MAP_OBJECTS_MAXIMUM_BATCH_SIZE = 1000;
 	/**
 	 * Connection to database
 	 */
@@ -34,9 +35,21 @@ public class SQLiteDatabaseFiller
 	 */
 	private PreparedStatement insertMapObjectStatement;
 	/**
+	 * Statement using for adding points of map object
+	 */
+	private PreparedStatement insertPointStatement;
+	/**
+	 * Statement using for adding tags of map object
+	 */
+	private PreparedStatement insertTagStatement;
+	/**
 	 * Currently batch size of adding map objects statement
 	 */
 	private int addingMapObjectsCurrentBatchSize;
+	/**
+	 * Counter of adding map objects index (ROWID) in database
+	 */
+	private int mapObjectIndex;
 
 	/**
 	 * Create with path to database. Database file must be not exists. Database
@@ -51,6 +64,7 @@ public class SQLiteDatabaseFiller
 	 */
 	public SQLiteDatabaseFiller(String databasePath) throws IllegalArgumentException, DatabaseErrorExcetion
 	{
+		// database must be added fully at one time cuz of adding rules (mapObjectIndex)
 		if (databasePath == null)
 		{
 			throw new IllegalArgumentException("databasePath is null");
@@ -73,13 +87,26 @@ public class SQLiteDatabaseFiller
 
 			Statement createMapObjectsTableStatement = databaseConnection.createStatement();
 			createMapObjectsTableStatement.executeUpdate("CREATE TABLE IF NOT EXISTS MapObjects ("
-							+ "osmId INTEGER, tags BLOB, points BLOB,"
+							+ "osmId INTEGER, "
 							+ "minLatitude REAL, maxLatitude REAL, minLongitude REAL, maxLongitude REAL )");
 			databaseConnection.commit();
 			createMapObjectsTableStatement.close();
 
-			insertMapObjectStatement = databaseConnection.prepareStatement("INSERT INTO MapObjects VALUES (?,?,?,?,?,?,?)");
+			Statement createPointsTableStatement = databaseConnection.createStatement();
+			createPointsTableStatement.executeUpdate("CREATE TABLE IF NOT EXISTS Points (objectId INTEGER, latitude REAL, longitude REAL)");
+			databaseConnection.commit();
+			createPointsTableStatement.close();
+
+			Statement createTagsTableStatement = databaseConnection.createStatement();
+			createTagsTableStatement.executeUpdate("CREATE TABLE IF NOT EXISTS Tags (objectId INTEGER, key TEXT, value TEXT)");
+			databaseConnection.commit();
+			createTagsTableStatement.close();
+
+			insertMapObjectStatement = databaseConnection.prepareStatement("INSERT INTO MapObjects VALUES (?,?,?,?,?)");
+			insertPointStatement = databaseConnection.prepareStatement("INSERT INTO Points VALUES (?,?,?)");
+			insertTagStatement = databaseConnection.prepareStatement("INSERT INTO Tags VALUES (?,?,?)");
 			addingMapObjectsCurrentBatchSize = 0;
+			mapObjectIndex = 1;
 		}
 		catch (ClassNotFoundException ex)
 		{
@@ -113,16 +140,17 @@ public class SQLiteDatabaseFiller
 
 		try
 		{
+			insertPoints(points);
+			insertTags(tags);
 			insertMapObjectStatement.setLong(1, id);
-			insertMapObjectStatement.setBytes(2, convertTagsToBLOB(tags));
-			insertMapObjectStatement.setBytes(3, convertPointsToBLOB(points));
 			MapBounds pointsBounds = findPointsBounds(points);
-			insertMapObjectStatement.setDouble(4, pointsBounds.getLatitudeMinimum());
-			insertMapObjectStatement.setDouble(5, pointsBounds.getLatitudeMaximum());
-			insertMapObjectStatement.setDouble(6, pointsBounds.getLongitudeMinimum());
-			insertMapObjectStatement.setDouble(7, pointsBounds.getLongitudeMaximum());
+			insertMapObjectStatement.setDouble(2, pointsBounds.getLatitudeMinimum());
+			insertMapObjectStatement.setDouble(3, pointsBounds.getLatitudeMaximum());
+			insertMapObjectStatement.setDouble(4, pointsBounds.getLongitudeMinimum());
+			insertMapObjectStatement.setDouble(5, pointsBounds.getLongitudeMaximum());
 			insertMapObjectStatement.addBatch();
 			addingMapObjectsCurrentBatchSize++;
+			mapObjectIndex++;
 			if (addingMapObjectsCurrentBatchSize >= ADD_MAP_OBJECTS_MAXIMUM_BATCH_SIZE)
 			{
 				commitAddedMapObjects();
@@ -133,9 +161,66 @@ public class SQLiteDatabaseFiller
 		{
 			throw new DatabaseErrorExcetion(ex);
 		}
-		catch (IOException ex)
+	}
+
+	/**
+	 * Insert points link with currently adding map object by mapObjectIndex
+	 *
+	 * @param points points of map object to add. Must be not null
+	 * @throws IllegalArgumentException points is null
+	 * @throws DatabaseErrorExcetion error while adding points
+	 */
+	private void insertPoints(Location[] points) throws IllegalArgumentException, DatabaseErrorExcetion
+	{
+		if (points == null)
 		{
-			throw new DatabaseErrorExcetion(ex);
+			throw new IllegalArgumentException("points is null");
+		}
+
+		for (int i = 0; i < points.length; i++)
+		{
+			try
+			{
+				insertPointStatement.setLong(1, mapObjectIndex);
+				insertPointStatement.setDouble(2, points[i].getLatitude());
+				insertPointStatement.setDouble(3, points[i].getLongitude());
+				insertPointStatement.addBatch();
+			}
+			catch (SQLException ex)
+			{
+				throw new DatabaseErrorExcetion(ex);
+			}
+		}
+	}
+
+	/**
+	 * Insert tags link with currently adding map object by mapObjectIndex
+	 *
+	 * @param tags tags of map object to add. Must be not null
+	 * @throws IllegalArgumentException tags is null
+	 * @throws DatabaseErrorExcetion error while addding
+	 */
+	private void insertTags(DefenitionTags tags) throws IllegalArgumentException, DatabaseErrorExcetion
+	{
+		if (tags == null)
+		{
+			throw new IllegalArgumentException("tags is null");
+		}
+
+		for (int i = 0; i < tags.count(); i++)
+		{
+			try
+			{
+				Tag tag = tags.get(i);
+				insertTagStatement.setLong(1, mapObjectIndex);
+				insertTagStatement.setString(2, tag.getKey());
+				insertTagStatement.setString(3, tag.getValue());
+				insertTagStatement.addBatch();
+			}
+			catch (SQLException ex)
+			{
+				throw new DatabaseErrorExcetion(ex);
+			}
 		}
 	}
 
@@ -149,6 +234,8 @@ public class SQLiteDatabaseFiller
 		try
 		{
 			insertMapObjectStatement.executeBatch();
+			insertPointStatement.executeBatch();
+			insertTagStatement.executeBatch();
 			databaseConnection.commit();
 		}
 		catch (SQLException ex)
@@ -168,63 +255,6 @@ public class SQLiteDatabaseFiller
 		{
 			commitAddedMapObjects();
 		}
-	}
-
-	/**
-	 * Convert map object points to bytes array
-	 *
-	 * @param points map object points for converting
-	 * @return bytes array of points
-	 * @throws IllegalArgumentException points is null, empty or contains null
-	 * @throws IOException error while converting
-	 */
-	private byte[] convertPointsToBLOB(Location[] points) throws IllegalArgumentException, IOException
-	{
-		if (!isMapObjectPointsCorrect(points))
-		{
-			throw new IllegalArgumentException("point incorrect");
-		}
-
-		ByteArrayOutputStream pointsByteArrayOutputStream = new ByteArrayOutputStream();
-		DataOutputStream pointsDataOutputStream = new DataOutputStream(pointsByteArrayOutputStream);
-		pointsDataOutputStream.writeInt(points.length);
-		for (int i = 0; i < points.length; i++)
-		{
-			points[i].writeToStream(pointsDataOutputStream);
-		}
-		byte[] pointsBLOB = pointsByteArrayOutputStream.toByteArray();
-
-		pointsByteArrayOutputStream.close();
-		pointsDataOutputStream.close();
-
-		return pointsBLOB;
-	}
-
-	/**
-	 * Convert map object tags to array of bytes
-	 *
-	 * @param tags tags for converting
-	 * @return bytes array of tags. Not null
-	 * @throws IllegalArgumentException tags is null
-	 * @throws IOException error while converting
-	 */
-	private byte[] convertTagsToBLOB(DefenitionTags tags) throws IllegalArgumentException, IOException
-	{
-		if (tags == null)
-		{
-			throw new IllegalArgumentException("tags is null");
-		}
-
-		ByteArrayOutputStream tagsByteArrayOutputStream = new ByteArrayOutputStream();
-		DataOutputStream tagsDataOutputStream = new DataOutputStream(tagsByteArrayOutputStream);
-
-		tags.writeToStream(tagsDataOutputStream);
-		byte[] tagsBLOB = tagsByteArrayOutputStream.toByteArray();
-
-		tagsByteArrayOutputStream.close();
-		tagsDataOutputStream.close();
-
-		return tagsBLOB;
 	}
 
 	/**
@@ -307,6 +337,8 @@ public class SQLiteDatabaseFiller
 		try
 		{
 			insertMapObjectStatement.close();
+			insertPointStatement.close();
+			insertTagStatement.close();
 			databaseConnection.close();
 		}
 		catch (SQLException ex)
@@ -324,11 +356,23 @@ public class SQLiteDatabaseFiller
 	{
 		try
 		{
-			Statement createIndexStatement = databaseConnection.createStatement();
-			createIndexStatement.executeUpdate("CREATE INDEX IF NOT EXISTS MapObjectBoundsIndex ON "
+			Statement createMapObjectsIndexStatement = databaseConnection.createStatement();
+			createMapObjectsIndexStatement.executeUpdate("CREATE INDEX IF NOT EXISTS MapObjectBoundsIndex ON "
 							+ "MapObjects (minLatitude, maxLatitude, minLongitude, maxLongitude)");
 			databaseConnection.commit();
-			createIndexStatement.close();
+			createMapObjectsIndexStatement.close();
+
+			Statement createTagsIndexStatement = databaseConnection.createStatement();
+			createTagsIndexStatement.executeUpdate("CREATE INDEX IF NOT EXISTS TagsObjectIdIndex ON "
+							+ "Tags (objectId)");
+			databaseConnection.commit();
+			createTagsIndexStatement.close();
+
+			Statement createPointsIndexStatement = databaseConnection.createStatement();
+			createPointsIndexStatement.executeUpdate("CREATE INDEX IF NOT EXISTS pointsObjectIdIndex ON "
+							+ "Points (objectId)");
+			databaseConnection.commit();
+			createPointsIndexStatement.close();
 		}
 		catch (SQLException ex)
 		{

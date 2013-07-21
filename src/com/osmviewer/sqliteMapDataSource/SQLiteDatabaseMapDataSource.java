@@ -6,16 +6,15 @@ import com.osmviewer.map.exceptions.FetchingErrorException;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.Location;
+import com.osmviewer.mapDefenitionUtilities.Tag;
 import com.osmviewer.sqliteMapDataSource.exceptions.DatabaseErrorExcetion;
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  * Map data source by SQLite database
@@ -116,9 +115,10 @@ public class SQLiteDatabaseMapDataSource implements MapDataSource
 				return;
 			}
 
-			PreparedStatement selectMapObjectsStatement = databaseConnection.prepareStatement("SELECT * FROM MapObjects "
-							+ "WHERE minLatitude<=? AND maxLatitude>=? "
-							+ "AND minLongitude<=? AND maxLongitude>=?");
+			PreparedStatement selectMapObjectsStatement = databaseConnection.prepareStatement("SELECT "
+							+ "ROWID, osmId "
+							+ "FROM MapObjects "
+							+ "WHERE minLatitude<=? AND maxLatitude>=? AND minLongitude<=? AND maxLongitude>=?");
 			selectMapObjectsStatement.setDouble(1, area.getLatitudeMaximum());
 			selectMapObjectsStatement.setDouble(2, area.getLatitudeMinimum());
 			selectMapObjectsStatement.setDouble(3, area.getLongitudeMaximum());
@@ -127,12 +127,14 @@ public class SQLiteDatabaseMapDataSource implements MapDataSource
 
 			while (selectedMapObjectsResultSet.next())
 			{
-				long id = selectedMapObjectsResultSet.getLong(1);
-				DefenitionTags tags = readTagFromBLOB(selectedMapObjectsResultSet.getBytes(2));
-				Location[] points = readPointsFromBLOB(selectedMapObjectsResultSet.getBytes(3));
+				long rowId = selectedMapObjectsResultSet.getLong(1);
+				long osmId = selectedMapObjectsResultSet.getLong(2);
+
+				DefenitionTags tags = selectTags(rowId);
+				Location[] points = selectPoints(rowId);
 				if (tags != null && points != null)
 				{
-					fetchResultsHandler.takeMapObjectData(id, tags, points);
+					fetchResultsHandler.takeMapObjectData(osmId, tags, points);
 				}
 			}
 
@@ -143,60 +145,78 @@ public class SQLiteDatabaseMapDataSource implements MapDataSource
 		{
 			throw new FetchingErrorException(ex);
 		}
-	}
-
-	/**
-	 * Read map object tags from BLOB
-	 *
-	 * @param tagsBLOB map object tags BLOB
-	 * @return tags read from BLOB. null if can not read
-	 */
-	private DefenitionTags readTagFromBLOB(byte[] tagsBLOB)
-	{
-		try
+		catch (DatabaseErrorExcetion ex)
 		{
-			DefenitionTags tagFromBLOB = new DefenitionTags();
-
-			ByteArrayInputStream tagsByteArrayInputStream = new ByteArrayInputStream(tagsBLOB);
-			DataInputStream tagsDataInputStream = new DataInputStream(tagsByteArrayInputStream);
-			tagFromBLOB.readFromStream(tagsDataInputStream);
-			tagsByteArrayInputStream.close();
-
-			return tagFromBLOB;
-		}
-		catch (Exception ex)
-		{
-			return null;
+			throw new FetchingErrorException(ex);
 		}
 	}
 
 	/**
-	 * Read map object points from BLOB
+	 * Select points of map objects by its id (ROWID) in database
 	 *
-	 * @param pointsBLOB map object points BLOB
-	 * @return points read from BLOB. null if can not read
+	 * @param mapObjectId map object id (ROWID)
+	 * @return points of map object
+	 * @throws DatabaseErrorExcetion error wile getting points
 	 */
-	private Location[] readPointsFromBLOB(byte[] pointsBLOB)
+	private Location[] selectPoints(long mapObjectId) throws DatabaseErrorExcetion
 	{
 		try
 		{
-			ByteArrayInputStream pointsByteArrayInputStream = new ByteArrayInputStream(pointsBLOB);
-			DataInputStream pointDataInputStream = new DataInputStream(pointsByteArrayInputStream);
-			int pointsCount = pointDataInputStream.readInt();
-			Location[] pointsFromBLOB = new Location[pointsCount];
-			for (int i = 0; i < pointsCount; i++)
+			PreparedStatement selectPointsStatement = databaseConnection.prepareStatement("SELECT latitude,longitude FROM Points "
+							+ "WHERE objectId = ?");
+			selectPointsStatement.setLong(1, mapObjectId);
+
+			ArrayList<Location> selectedPoints = new ArrayList<Location>();
+
+			ResultSet pointsResultSet = selectPointsStatement.executeQuery();
+			while (pointsResultSet.next())
 			{
-				pointsFromBLOB[i] = new Location();
-				pointsFromBLOB[i].readFromStream(pointDataInputStream);
+				double latitude = pointsResultSet.getDouble(1);
+				double longitude = pointsResultSet.getDouble(2);
+				selectedPoints.add(new Location(latitude, longitude));
 			}
-			pointsByteArrayInputStream.close();
-			pointDataInputStream.close();
+			pointsResultSet.close();
+			selectPointsStatement.close();
 
-			return pointsFromBLOB;
+			return (Location[]) selectedPoints.toArray(new Location[0]);
 		}
-		catch (Exception ex)
+		catch (SQLException ex)
 		{
-			return null;
+			throw new DatabaseErrorExcetion(ex);
+		}
+	}
+
+	/**
+	 * Select tags of map objects by its id (ROWID) in database
+	 *
+	 * @param mapObjectId map object id (ROWID)
+	 * @return tags of map object
+	 * @throws DatabaseErrorExcetion error while getting tags
+	 */
+	private DefenitionTags selectTags(long mapObjectId) throws DatabaseErrorExcetion
+	{
+		try
+		{
+			PreparedStatement selectTagsStatement = databaseConnection.prepareStatement("SELECT key,value FROM Tags "
+							+ "WHERE objectId = ?");
+			selectTagsStatement.setLong(1, mapObjectId);
+
+			DefenitionTags selectedTags = new DefenitionTags();
+			ResultSet tagsResultSet = selectTagsStatement.executeQuery();
+			while (tagsResultSet.next())
+			{
+				String key = tagsResultSet.getString(1);
+				String value = tagsResultSet.getString(2);
+				selectedTags.add(new Tag(key, value));
+			}
+			tagsResultSet.close();
+			selectTagsStatement.close();
+
+			return selectedTags;
+		}
+		catch (SQLException ex)
+		{
+			throw new DatabaseErrorExcetion(ex);
 		}
 	}
 }

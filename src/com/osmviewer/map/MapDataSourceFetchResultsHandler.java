@@ -15,7 +15,7 @@ public interface MapDataSourceFetchResultsHandler
 	 *
 	 * @param uniqueId unique openstreetmap id of fetched map objects
 	 * @param tags tags of fetched map object
-	 * @param points points on map, defining map object
+	 * @param points points on map, defining map object position
 	 * @throws IllegalArgumentException tags is null; points is null, empty or
 	 * contains null
 	 */
