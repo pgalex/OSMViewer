@@ -29,7 +29,7 @@ public class OsmXmlToSQLiteDatabaseConverterTest
 		try
 		{
 			OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter();
-			converter.convert(null, IOTester.TEST_FILE_NAME);
+			converter.convert(null, IOTester.TEST_FILE_NAME, null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -61,7 +61,7 @@ public class OsmXmlToSQLiteDatabaseConverterTest
 		try
 		{
 			OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter();
-			converter.convert("", IOTester.TEST_FILE_NAME);
+			converter.convert("", IOTester.TEST_FILE_NAME, null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -91,7 +91,7 @@ public class OsmXmlToSQLiteDatabaseConverterTest
 		try
 		{
 			OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter();
-			converter.convert(IOTester.TEST_FILE_NAME, null);
+			converter.convert(IOTester.TEST_FILE_NAME, null, null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -125,7 +125,7 @@ public class OsmXmlToSQLiteDatabaseConverterTest
 		try
 		{
 			OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter();
-			converter.convert(TEST_MAP_FILE, "");
+			converter.convert(TEST_MAP_FILE, "", null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -161,7 +161,7 @@ public class OsmXmlToSQLiteDatabaseConverterTest
 		try
 		{
 			OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter();
-			converter.convert(IOTester.TEST_FILE_NAME, IOTester.TEST_FILE_NAME);
+			converter.convert(IOTester.TEST_FILE_NAME, IOTester.TEST_FILE_NAME, null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
