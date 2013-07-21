@@ -20,4 +20,13 @@ public class IOTester
 	{
 		return new DataInputStream(new FileInputStream(IOTester.TEST_FILE_NAME));
 	}
+	
+	public static void deleteTestFile()
+	{
+		File testFile = new File(IOTester.TEST_FILE_NAME);
+		if (testFile.exists())
+		{
+			testFile.delete();
+		}
+	}
 }
