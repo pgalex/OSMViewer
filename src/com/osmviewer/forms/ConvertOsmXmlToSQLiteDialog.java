@@ -1,7 +1,5 @@
 package com.osmviewer.forms;
 
-import com.osmviewer.drawingStyles.DrawSettingsViewer;
-import com.osmviewer.drawingStyles.DrawingStylesFactory;
 import com.osmviewer.mapObjectsXmlIdentification.XmlMapObjectsDrawingIdFinder;
 import com.osmviewer.osmXml.exceptions.ParsingOsmErrorException;
 import com.osmviewer.sqliteMapDataSource.OsmXmlToSQLiteDatabaseConverter;
@@ -10,7 +8,6 @@ import com.osmviewer.sqliteMapDataSource.exceptions.DeletingExistsDatabaseFileEr
 import java.awt.Window;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -84,8 +81,6 @@ public class ConvertOsmXmlToSQLiteDialog extends javax.swing.JDialog
 		OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter();
 		try
 		{
-			DrawSettingsViewer drawSettingsViewer = DrawingStylesFactory.createStandartDrawSettingsViewer();
-			drawSettingsViewer.readFromFile(new File("standartDrawStyles/defaultMapStyle.dat"));
 			converter.convert(sourceFile.getPath(), destenationFile.getPath(), new XmlMapObjectsDrawingIdFinder());
 		}
 		catch (FileNotFoundException ex)
@@ -103,10 +98,6 @@ public class ConvertOsmXmlToSQLiteDialog extends javax.swing.JDialog
 		catch (DatabaseErrorExcetion ex)
 		{
 			JOptionPane.showMessageDialog(this, "Ошибка работы с базой данных", "Ошибка", JOptionPane.ERROR_MESSAGE);
-		}
-		catch (IOException ex)
-		{
-			JOptionPane.showMessageDialog(this, "Ошибка чтения стиля карты", "Ошибка", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 

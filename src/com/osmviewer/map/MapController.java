@@ -73,7 +73,7 @@ public class MapController implements DrawableOnPanel
 
 		styleViewer = DrawingStylesFactory.createStandartDrawSettingsViewer();
 
-		testSetupStyleViewer();
+		//testSetupStyleViewer();
 	}
 
 	/**
