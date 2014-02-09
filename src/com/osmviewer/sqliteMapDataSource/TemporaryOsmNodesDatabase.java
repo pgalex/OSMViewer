@@ -21,7 +21,7 @@ public class TemporaryOsmNodesDatabase
 	/**
 	 * Maximum number of insert commands in adding statement bactch
 	 */
-	private static int ADD_NODES_MAXIMUM_BATCH_SIZE = 1000;
+	private static final int ADD_NODES_MAXIMUM_BATCH_SIZE = 1000;
 	/**
 	 * Connection to temponary SQLite database
 	 */
@@ -53,25 +53,17 @@ public class TemporaryOsmNodesDatabase
 			databaseFile = File.createTempFile("osmViewer", "TempDatabase");
 			databaseConnection = DriverManager.getConnection("jdbc:sqlite:" + databaseFile.getPath());
 			databaseConnection.setAutoCommit(false);
-
-			Statement createNodesTableStatement = databaseConnection.createStatement();
-			createNodesTableStatement.executeUpdate("CREATE TABLE IF NOT EXISTS Nodes ( id INTEGER PRIMARY KEY, "
-							+ "latitude REAL, longitude REAL )");
-			databaseConnection.commit();
-			createNodesTableStatement.close();
+			try (Statement createNodesTableStatement = databaseConnection.createStatement())
+			{
+				createNodesTableStatement.executeUpdate("CREATE TABLE IF NOT EXISTS Nodes ( id INTEGER PRIMARY KEY, "
+								+ "latitude REAL, longitude REAL )");
+				databaseConnection.commit();
+			}
 
 			addNodeStatement = databaseConnection.prepareStatement("INSERT INTO Nodes VALUES (?,?,?)");
 			addingNodesCurrentBatchSize = 0;
 		}
-		catch (ClassNotFoundException ex)
-		{
-			throw new DatabaseErrorExcetion(ex);
-		}
-		catch (SQLException ex)
-		{
-			throw new DatabaseErrorExcetion(ex);
-		}
-		catch (IOException ex)
+		catch (ClassNotFoundException | SQLException | IOException ex)
 		{
 			throw new DatabaseErrorExcetion(ex);
 		}
@@ -100,7 +92,7 @@ public class TemporaryOsmNodesDatabase
 			databaseConnection.close();
 			databaseFile.delete();
 		}
-		catch (Exception ex)
+		catch (SQLException ex)
 		{
 			throw new DatabaseErrorExcetion(ex);
 		}
@@ -169,19 +161,20 @@ public class TemporaryOsmNodesDatabase
 	{
 		try
 		{
-			PreparedStatement selectNodeStatement = databaseConnection.prepareStatement("SELECT * FROM Nodes WHERE id=?");
-			selectNodeStatement.setLong(1, nodeId);
-			ResultSet selectedNodeResultSet = selectNodeStatement.executeQuery();
-
-			boolean isResultsExists = selectedNodeResultSet.next();
-			TemporaryDatabaseOsmNode foundNode = null;
-			if (isResultsExists)
+			TemporaryDatabaseOsmNode foundNode;
+			try (PreparedStatement selectNodeStatement = databaseConnection.prepareStatement("SELECT * FROM Nodes WHERE id=?"))
 			{
-				foundNode = new TemporaryDatabaseOsmNode(selectedNodeResultSet);
+				selectNodeStatement.setLong(1, nodeId);
+				try (ResultSet selectedNodeResultSet = selectNodeStatement.executeQuery())
+				{
+					boolean isResultsExists = selectedNodeResultSet.next();
+					foundNode = null;
+					if (isResultsExists)
+					{
+						foundNode = new TemporaryDatabaseOsmNode(selectedNodeResultSet);
+					}
+				}
 			}
-
-			selectedNodeResultSet.close();
-			selectNodeStatement.close();
 
 			return foundNode;
 		}
@@ -213,10 +206,11 @@ public class TemporaryOsmNodesDatabase
 	{
 		try
 		{
-			Statement createIndexStatement = databaseConnection.createStatement();
-			createIndexStatement.executeUpdate("CREATE INDEX IF NOT EXISTS NodesIdsIndex ON Nodes (id)");
-			databaseConnection.commit();
-			createIndexStatement.close();
+			try (Statement createIndexStatement = databaseConnection.createStatement())
+			{
+				createIndexStatement.executeUpdate("CREATE INDEX IF NOT EXISTS NodesIdsIndex ON Nodes (id)");
+				databaseConnection.commit();
+			}
 		}
 		catch (SQLException ex)
 		{

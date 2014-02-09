@@ -20,14 +20,14 @@ public class SAXOsmXmlParserHandler extends DefaultHandler
 	/**
 	 * Handler, taking osm map objects created while parsing
 	 */
-	private OsmXmlParsingResultsHandler osmParsingHandler;
+	private final OsmXmlParsingResultsHandler osmParsingHandler;
 
 	/**
 	 * Create with handler, taking parsing results
 	 *
 	 * @param handler handler, taking parsing results
 	 */
-	public SAXOsmXmlParserHandler(OsmXmlParsingResultsHandler handler)
+	public SAXOsmXmlParserHandler(OsmXmlParsingResultsHandler handler) // todo handler is null
 	{
 		currentlyObjectCreator = null;
 		osmParsingHandler = handler;
@@ -91,8 +91,9 @@ public class SAXOsmXmlParserHandler extends DefaultHandler
 	/**
 	 * Receive notification of the end of an element.
 	 *
-	 * <p>By default, do nothing. Application writers may override this method in
-	 * a subclass to take specific actions at the end of each element (such as
+	 * <p>
+	 * By default, do nothing. Application writers may override this method in a
+	 * subclass to take specific actions at the end of each element (such as
 	 * finalising a tree node or writing output to a file).</p>
 	 *
 	 * @param uri The Namespace URI, or the empty string if the element has no

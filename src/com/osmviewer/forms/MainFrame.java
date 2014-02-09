@@ -1,6 +1,5 @@
 package com.osmviewer.forms;
 
-import com.osmviewer.drawingStyles.forms.EditDrawingStylesFrame;
 import com.osmviewer.map.MapController;
 import com.osmviewer.map.exceptions.FetchingErrorException;
 import com.osmviewer.mapDefenitionUtilities.Location;
@@ -15,7 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
@@ -187,10 +185,6 @@ public class MainFrame extends javax.swing.JFrame
 	 */
 	private void drawStylesEditorItemPressed()
 	{
-		EditDrawingStylesFrame editDrawingStylesDialog = new EditDrawingStylesFrame();
-		editDrawingStylesDialog.setLocationRelativeTo(this);
-		editDrawingStylesDialog.setVisible(true);
-		editDrawingStylesDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
 	/**

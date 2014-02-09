@@ -40,7 +40,7 @@ public class OsmSAXNode extends OsmSAXMapObject implements OsmNode
 			latitude = Double.valueOf(attributes.getValue("lat"));
 			longitude = Double.valueOf(attributes.getValue("lon"));
 		}
-		catch (Exception ex)
+		catch (NumberFormatException ex)
 		{
 			throw new SAXException(ex);
 		}

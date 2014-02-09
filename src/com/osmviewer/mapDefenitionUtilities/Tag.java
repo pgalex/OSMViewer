@@ -86,15 +86,7 @@ public class Tag
 		}
 
 		Tag tagToCompare = (Tag) objectToCompare;
-
-		if ((tagToCompare.key.compareToIgnoreCase(key) == 0) && (tagToCompare.value.compareToIgnoreCase(value) == 0))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return (tagToCompare.key.compareToIgnoreCase(key) == 0) && (tagToCompare.value.compareToIgnoreCase(value) == 0);
 	}
 
 	/**
@@ -119,15 +111,8 @@ public class Tag
 	 */
 	public void writeToStream(DataOutputStream output) throws IOException
 	{
-		try
-		{
-			output.writeUTF(key);
-			output.writeUTF(value);
-		}
-		catch (Exception e)
-		{
-			throw new IOException(e);
-		}
+		output.writeUTF(key);
+		output.writeUTF(value);
 	}
 
 	/**
@@ -138,14 +123,7 @@ public class Tag
 	 */
 	public void readFromStream(DataInputStream input) throws IOException
 	{
-		try
-		{
-			key = input.readUTF();
-			value = input.readUTF();
-		}
-		catch (Exception e)
-		{
-			throw new IOException(e);
-		}
+		key = input.readUTF();
+		value = input.readUTF();
 	}
 }

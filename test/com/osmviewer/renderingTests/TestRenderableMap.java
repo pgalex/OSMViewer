@@ -2,8 +2,8 @@ package com.osmviewer.renderingTests;
 
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
 import com.osmviewer.rendering.RenderableMap;
-import com.osmviewer.rendering.RenderableMapObjectsDrawPriorityComparator;
 import com.osmviewer.rendering.MapObjectsRenderer;
+import com.osmviewer.rendering.RenderableMapObjectsDrawPriorityComparator;
 
 /**
  * Fake implementation of renderable map

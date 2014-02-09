@@ -5,7 +5,6 @@ import com.vividsolutions.jts.geom.LineSegment;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 
 /**
  * Canvas using for text drawing
@@ -44,7 +43,7 @@ public class TextCanvas
 	 * @param textTop text top bound on canvas
 	 * @throws IllegalArgumentException textToDraw or drawSettings is null
 	 */
-	public void drawTextUnderPoint(String textToDraw, TextDrawSettings drawSettings,
+	/*public void drawTextUnderPoint(String textToDraw, TextDrawSettings drawSettings,
 					double textCenterX, double textTop) throws IllegalArgumentException
 	{
 		if (textToDraw == null)
@@ -69,7 +68,7 @@ public class TextCanvas
 		int textHeight = textFontMetrics.getHeight();
 
 		canvas.drawString(textToDraw, (int) textCenterX - textWidth / 2, (int) textTop + textHeight / 2);
-	}
+	}*/
 
 	/**
 	 * Draw text on canvas by center point of text (text center will be in given
@@ -81,7 +80,7 @@ public class TextCanvas
 	 * @param textCenterY text center y on canvas
 	 * @throws IllegalArgumentException textToDraw or drawSettings is null
 	 */
-	public void drawTextAtPoint(String textToDraw, TextDrawSettings drawSettings,
+	/*public void drawTextAtPoint(String textToDraw, TextDrawSettings drawSettings,
 					double textCenterX, double textCenterY) throws IllegalArgumentException
 	{
 		if (textToDraw == null)
@@ -109,7 +108,7 @@ public class TextCanvas
 						(int) (textCenterX - textWidth / 2),
 						(int) (textCenterY + textAscent / 2));
 	}
-
+*/
 	/**
 	 * Compute text, drawen at point, bounds on text canvas
 	 *
@@ -120,7 +119,7 @@ public class TextCanvas
 	 * @return text bounds on target text canvas
 	 * @throws IllegalArgumentException textToDraw or drawSettings is null
 	 */
-	public Rectangle2D computeTextAtPointBounds(String text, TextDrawSettings drawSettings,
+	/*public Rectangle2D computeTextAtPointBounds(String text, TextDrawSettings drawSettings,
 					double textCenterX, double textCenterY) throws IllegalArgumentException
 	{
 		if (text == null)
@@ -138,7 +137,7 @@ public class TextCanvas
 						textCenterY - textBoundsAtZeroPosition.getHeight() / 2,
 						textBoundsAtZeroPosition.getWidth(),
 						textBoundsAtZeroPosition.getHeight());
-	}
+	}*/
 
 	/**
 	 * Draw text on canvas by multiline defined by points array
@@ -150,7 +149,7 @@ public class TextCanvas
 	 * multilinePoints is null, multilinePoints contains less than 2 points or
 	 * contains null points
 	 */
-	public void drawTextOnMultiline(String textToDraw, TextDrawSettings drawSettings,
+	/*public void drawTextOnMultiline(String textToDraw, TextDrawSettings drawSettings,
 					Point2D[] multilinePoints) throws IllegalArgumentException
 	{
 		if (textToDraw == null)
@@ -187,7 +186,7 @@ public class TextCanvas
 				drawTextOnLine(textToDraw, firstPoint, secondPoint);
 			}
 		}
-	}
+	}*/
 
 	/**
 	 * Is points of multiline correct: not null, contains 2 or more points and not
@@ -207,10 +206,9 @@ public class TextCanvas
 		{
 			return false;
 		}
-
-		for (int i = 0; i < multilinePoints.length; i++)
+		for (Point2D multilinePoint : multilinePoints)
 		{
-			if (multilinePoints[i] == null)
+			if (multilinePoint == null)
 			{
 				return false;
 			}

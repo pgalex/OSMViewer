@@ -98,17 +98,17 @@ public class SelectingLine extends SelectingObject
 			return false;
 		}
 
-		for (int i = 0; i < linePoints.length; i++)
-		{
-			if (linePoints[i] == null)
-			{
-				return false;
-			}
-		}
-
 		if (linePoints.length < MINIMUM_POINTS_COUNT)
 		{
 			return false;
+		}
+
+		for (Point2D linePoint : linePoints)
+		{
+			if (linePoint == null)
+			{
+				return false;
+			}
 		}
 
 		return true;

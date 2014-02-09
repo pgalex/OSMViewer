@@ -4,9 +4,10 @@ import com.osmviewer.map.exceptions.FetchingErrorException;
 import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
 import com.osmviewer.rendering.RenderableMap;
-import com.osmviewer.rendering.RenderableMapObjectsDrawPriorityComparator;
 import com.osmviewer.rendering.MapObjectsRenderer;
+import com.osmviewer.rendering.RenderableMapObjectsDrawPriorityComparator;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Stores map objects
@@ -16,16 +17,16 @@ import java.util.ArrayList;
 public class SimpleMap implements MapDataSourceFetchResultsHandler, RenderableMap
 {
 	/**
-	 * Object of map
+	 * Objects of map
 	 */
-	private ArrayList<MapObject> mapObjects;
+	private final ArrayList<MapObject> mapObjects;
 
 	/**
 	 * Create empty
 	 */
 	public SimpleMap()
 	{
-		mapObjects = new ArrayList<MapObject>();
+		mapObjects = new ArrayList<>();
 	}
 
 	/**
@@ -92,15 +93,13 @@ public class SimpleMap implements MapDataSourceFetchResultsHandler, RenderableMa
 		{
 			return false;
 		}
-
 		if (pointsToTest.length == 0)
 		{
 			return false;
 		}
-
-		for (int i = 0; i < pointsToTest.length; i++)
+		for (Location point : pointsToTest)
 		{
-			if (pointsToTest[i] == null)
+			if (point == null)
 			{
 				return false;
 			}
@@ -136,11 +135,23 @@ public class SimpleMap implements MapDataSourceFetchResultsHandler, RenderableMa
 		{
 			throw new IllegalArgumentException("objectsDrawPriorityComparator is null");
 		}
-		// todo draw priority, is Visisble in area
+		
+		Collections.sort(mapObjects, objectsDrawPriorityComparator);
+		// todo  is Visisble in area
 
 		for (MapObject mapObject : mapObjects)
 		{
 			mapObjectsRenderer.renderMapObject(mapObject);
 		}
+	}
+
+	/**
+	 * Get count of storing map objects
+	 *
+	 * @return count of storing map objects
+	 */
+	public int getStoringObjectsCount()
+	{
+		return mapObjects.size();
 	}
 }

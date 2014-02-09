@@ -1,29 +1,29 @@
 package com.osmviewer.sqliteMapDataSourceTests;
 
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
-import com.osmviewer.sqliteMapDataSource.MapObjectsIdentifierFinder;
+import com.osmviewer.sqliteMapDataSource.MapObjectsDrawingIdFinder;
 
 /**
  * Test implementation of MapObjectsIdentifiersFinder
  *
  * @author preobrazhentsev
  */
-public class TestMapObjectsIdentifiersFinder implements MapObjectsIdentifierFinder
+public class TestMapObjectsIdentifiersFinder implements MapObjectsDrawingIdFinder
 {
 	@Override
-	public String findClosedWayIdentifier(DefenitionTags polygonTags) throws IllegalArgumentException
+	public String findClosedWayDrawingId(DefenitionTags polygonTags) throws IllegalArgumentException
 	{
 		return "";
 	}
 
 	@Override
-	public String findNonClosedIdentifier(DefenitionTags lineTags) throws IllegalArgumentException
+	public String findNonClosedDrawingId(DefenitionTags lineTags) throws IllegalArgumentException
 	{
 		return "";
 	}
 
 	@Override
-	public String findNodeIdentifier(DefenitionTags pointTags) throws IllegalArgumentException
+	public String findNodeDrawingId(DefenitionTags pointTags) throws IllegalArgumentException
 	{
 		return "";
 	}

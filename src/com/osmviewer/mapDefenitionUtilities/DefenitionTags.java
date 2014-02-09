@@ -22,7 +22,7 @@ public class DefenitionTags
 	 */
 	public DefenitionTags()
 	{
-		tags = new ArrayList<Tag>();
+		tags = new ArrayList<>();
 	}
 
 	/**
@@ -176,20 +176,13 @@ public class DefenitionTags
 	 */
 	public void readFromStream(DataInputStream input) throws IOException
 	{
-		try
+		int tagsCount = input.readInt();
+		tags = new ArrayList<>(tagsCount);
+		for (int i = 0; i < tagsCount; i++)
 		{
-			int tagsCount = input.readInt();
-			tags = new ArrayList<Tag>(tagsCount);
-			for (int i = 0; i < tagsCount; i++)
-			{
-				Tag readingTag = new Tag();
-				readingTag.readFromStream(input);
-				tags.add(readingTag);
-			}
-		}
-		catch (Exception e)
-		{
-			throw new IOException(e);
+			Tag readingTag = new Tag();
+			readingTag.readFromStream(input);
+			tags.add(readingTag);
 		}
 	}
 
@@ -201,17 +194,10 @@ public class DefenitionTags
 	 */
 	public void writeToStream(DataOutputStream output) throws IOException
 	{
-		try
+		output.writeInt(tags.size());
+		for (Tag tag : tags)
 		{
-			output.writeInt(tags.size());
-			for (Tag tag : tags)
-			{
-				tag.writeToStream(output);
-			}
-		}
-		catch (Exception e)
-		{
-			throw new IOException(e);
+			tag.writeToStream(output);
 		}
 	}
 }

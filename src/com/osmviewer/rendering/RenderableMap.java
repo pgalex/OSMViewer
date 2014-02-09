@@ -16,7 +16,7 @@ public interface RenderableMap
 	 * @param renderingArea area to determine which object need to render. Must be
 	 * not null
 	 * @param objectsDrawPriorityComparator comparator for sorting rendering
-	 * objects by its draw priority. Must ne not null
+	 * objects by its draw priority. Must be not null
 	 * @throws IllegalArgumentException mapObjectsRenderer, renderingArea or
 	 * objectsDrawPriorityComparator is null
 	 */

@@ -1,42 +1,38 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.osmviewer.sqliteMapDataSource;
 
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
-import com.osmviewer.mapDefenitionUtilities.Tag;
 
 /**
+ * Finds drawing id for map object
  *
  * @author preobrazhentsev
  */
-public interface MapObjectsIdentifierFinder
+public interface MapObjectsDrawingIdFinder
 {
 	/**
-	 * Find id for closed way
+	 * Find drawing id for closed way
 	 *
 	 * @param wayTags tags of closed way to find id of. Must be not null
 	 * @return found id. Null if not found
 	 * @throws IllegalArgumentException wayTags is null
 	 */
-	public String findClosedWayIdentifier(DefenitionTags wayTags) throws IllegalArgumentException;
+	public String findClosedWayDrawingId(DefenitionTags wayTags) throws IllegalArgumentException;
 
 	/**
-	 * Find id for non-closed way
+	 * Find drawing id for non-closed way
 	 *
 	 * @param wayTags tags of non-closed way to find id of. Must be not null
 	 * @return found id. Null if not found
 	 * @throws IllegalArgumentException wayTags is null
 	 */
-	public String findNonClosedIdentifier(DefenitionTags wayTags) throws IllegalArgumentException;
+	public String findNonClosedDrawingId(DefenitionTags wayTags) throws IllegalArgumentException;
 
 	/**
-	 * Find id for node
+	 * Find drawing id for node
 	 *
 	 * @param nodeTags tags of node to find id of. Must be not null
 	 * @return found id. Null if not found
 	 * @throws IllegalArgumentException nodeTags is null
 	 */
-	public String findNodeIdentifier(DefenitionTags nodeTags) throws IllegalArgumentException;
+	public String findNodeDrawingId(DefenitionTags nodeTags) throws IllegalArgumentException;
 }

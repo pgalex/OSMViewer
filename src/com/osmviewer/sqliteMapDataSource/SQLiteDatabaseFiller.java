@@ -22,7 +22,7 @@ public class SQLiteDatabaseFiller
 	/**
 	 * Maximum number of insert commands in adding map objects statement bactch
 	 */
-	private static int ADD_MAP_OBJECTS_MAXIMUM_BATCH_SIZE = 1000;
+	private static final int ADD_MAP_OBJECTS_MAXIMUM_BATCH_SIZE = 1000;
 	/**
 	 * Connection to database
 	 */
@@ -81,23 +81,23 @@ public class SQLiteDatabaseFiller
 			Class.forName("org.sqlite.JDBC");
 			databaseConnection = DriverManager.getConnection("jdbc:sqlite:" + databasePath);
 			databaseConnection.setAutoCommit(false);
-
-			Statement createMapObjectsTableStatement = databaseConnection.createStatement();
-			createMapObjectsTableStatement.executeUpdate("CREATE TABLE IF NOT EXISTS MapObjects ("
-							+ "drawingId TEXT, "
-							+ "minLatitude REAL, maxLatitude REAL, minLongitude REAL, maxLongitude REAL )");
-			databaseConnection.commit();
-			createMapObjectsTableStatement.close();
-
-			Statement createPointsTableStatement = databaseConnection.createStatement();
-			createPointsTableStatement.executeUpdate("CREATE TABLE IF NOT EXISTS Points (objectId INTEGER, latitude REAL, longitude REAL)");
-			databaseConnection.commit();
-			createPointsTableStatement.close();
-
-			Statement createTagsTableStatement = databaseConnection.createStatement();
-			createTagsTableStatement.executeUpdate("CREATE TABLE IF NOT EXISTS Tags (objectId INTEGER, key TEXT, value TEXT)");
-			databaseConnection.commit();
-			createTagsTableStatement.close();
+			try (Statement createMapObjectsTableStatement = databaseConnection.createStatement())
+			{
+				createMapObjectsTableStatement.executeUpdate("CREATE TABLE IF NOT EXISTS MapObjects ("
+								+ "drawingId TEXT, "
+								+ "minLatitude REAL, maxLatitude REAL, minLongitude REAL, maxLongitude REAL )");
+				databaseConnection.commit();
+			}
+			try (Statement createPointsTableStatement = databaseConnection.createStatement())
+			{
+				createPointsTableStatement.executeUpdate("CREATE TABLE IF NOT EXISTS Points (objectId INTEGER, latitude REAL, longitude REAL)");
+				databaseConnection.commit();
+			}
+			try (Statement createTagsTableStatement = databaseConnection.createStatement())
+			{
+				createTagsTableStatement.executeUpdate("CREATE TABLE IF NOT EXISTS Tags (objectId INTEGER, key TEXT, value TEXT)");
+				databaseConnection.commit();
+			}
 
 			insertMapObjectStatement = databaseConnection.prepareStatement("INSERT INTO MapObjects VALUES (?,?,?,?,?)");
 			insertPointStatement = databaseConnection.prepareStatement("INSERT INTO Points VALUES (?,?,?)");
@@ -105,11 +105,7 @@ public class SQLiteDatabaseFiller
 			addingMapObjectsCurrentBatchSize = 0;
 			mapObjectIndex = 1;
 		}
-		catch (ClassNotFoundException ex)
-		{
-			throw new DatabaseErrorExcetion(ex);
-		}
-		catch (SQLException ex)
+		catch (ClassNotFoundException | SQLException ex)
 		{
 			throw new DatabaseErrorExcetion(ex);
 		}
@@ -178,17 +174,15 @@ public class SQLiteDatabaseFiller
 		{
 			throw new IllegalArgumentException("points is null");
 		}
-
-		for (int i = 0; i < points.length; i++)
+		for (Location point : points)
 		{
 			try
 			{
 				insertPointStatement.setLong(1, mapObjectIndex);
-				insertPointStatement.setDouble(2, points[i].getLatitude());
-				insertPointStatement.setDouble(3, points[i].getLongitude());
+				insertPointStatement.setDouble(2, point.getLatitude());
+				insertPointStatement.setDouble(3, point.getLongitude());
 				insertPointStatement.addBatch();
-			}
-			catch (SQLException ex)
+			}catch (SQLException ex)
 			{
 				throw new DatabaseErrorExcetion(ex);
 			}
@@ -278,10 +272,8 @@ public class SQLiteDatabaseFiller
 		double minLongitude = points[0].getLongitude();
 		double maxLatitude = points[0].getLatitude();
 		double maxLongitude = points[0].getLongitude();
-
-		for (int i = 0; i < points.length; i++)
+		for (Location mapPosition : points)
 		{
-			Location mapPosition = points[i];
 			if (mapPosition.getLatitude() < minLatitude)
 			{
 				minLatitude = mapPosition.getLatitude();
@@ -320,9 +312,9 @@ public class SQLiteDatabaseFiller
 		{
 			return false;
 		}
-		for (int i = 0; i < points.length; i++)
+		for (Location point : points)
 		{
-			if (points[i] == null)
+			if (point == null)
 			{
 				return false;
 			}
@@ -359,23 +351,24 @@ public class SQLiteDatabaseFiller
 	{
 		try
 		{
-			Statement createMapObjectsIndexStatement = databaseConnection.createStatement();
-			createMapObjectsIndexStatement.executeUpdate("CREATE INDEX IF NOT EXISTS MapObjectBoundsIndex ON "
-							+ "MapObjects (minLatitude, maxLatitude, minLongitude, maxLongitude)");
-			databaseConnection.commit();
-			createMapObjectsIndexStatement.close();
-
-			Statement createTagsIndexStatement = databaseConnection.createStatement();
-			createTagsIndexStatement.executeUpdate("CREATE INDEX IF NOT EXISTS TagsObjectIdIndex ON "
-							+ "Tags (objectId)");
-			databaseConnection.commit();
-			createTagsIndexStatement.close();
-
-			Statement createPointsIndexStatement = databaseConnection.createStatement();
-			createPointsIndexStatement.executeUpdate("CREATE INDEX IF NOT EXISTS pointsObjectIdIndex ON "
-							+ "Points (objectId)");
-			databaseConnection.commit();
-			createPointsIndexStatement.close();
+			try (Statement createMapObjectsIndexStatement = databaseConnection.createStatement())
+			{
+				createMapObjectsIndexStatement.executeUpdate("CREATE INDEX IF NOT EXISTS MapObjectBoundsIndex ON "
+								+ "MapObjects (minLatitude, maxLatitude, minLongitude, maxLongitude)");
+				databaseConnection.commit();
+			}
+			try (Statement createTagsIndexStatement = databaseConnection.createStatement())
+			{
+				createTagsIndexStatement.executeUpdate("CREATE INDEX IF NOT EXISTS TagsObjectIdIndex ON "
+								+ "Tags (objectId)");
+				databaseConnection.commit();
+			}
+			try (Statement createPointsIndexStatement = databaseConnection.createStatement())
+			{
+				createPointsIndexStatement.executeUpdate("CREATE INDEX IF NOT EXISTS pointsObjectIdIndex ON "
+								+ "Points (objectId)");
+				databaseConnection.commit();
+			}
 		}
 		catch (SQLException ex)
 		{

@@ -4,7 +4,7 @@
 
 <!-- Id of each map object must be unique. descriptionId linked with MapObjectsDescription -->
 
-<mapObject id="natural-wood" descriptionId = "0"/>
+<mapObject drawinId="natural-wood" descriptionId = "wood"/>
 	<drawingParameters type="polygon">
 		<filling>
 			<scale from="2" to="18">

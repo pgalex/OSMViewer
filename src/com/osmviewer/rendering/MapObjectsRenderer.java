@@ -3,7 +3,7 @@ package com.osmviewer.rendering;
 import com.osmviewer.map.MapObject;
 
 /**
- * Renderer of map object
+ * Renderer of map objects
  *
  * @author pgalex
  */

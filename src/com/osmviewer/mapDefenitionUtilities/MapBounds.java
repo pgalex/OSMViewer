@@ -1,6 +1,5 @@
 package com.osmviewer.mapDefenitionUtilities;
 
-import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 
 /**
@@ -28,20 +27,30 @@ public class MapBounds
 	private double longitudeMaximum;
 
 	/**
-	 * Create with values
-	 *
-	 * @param boundsLatitudeMinimum Latitude minimum
-	 * @param boundsLatitudeMaximum Latitude maximum
-	 * @param boundsLongitudeMinimum Longitude minimum
-	 * @param boundsLongitudeMaximum Longitude maximum
+	 * Create zero. All bounds values will be 0
 	 */
-	public MapBounds(double boundsLatitudeMinimum, double boundsLatitudeMaximum, double boundsLongitudeMinimum,
-					double boundsLongitudeMaximum)
+	public MapBounds()
 	{
-		latitudeMinimum = boundsLatitudeMinimum;
-		latitudeMaximum = boundsLatitudeMaximum;
-		longitudeMinimum = boundsLongitudeMinimum;
-		longitudeMaximum = boundsLongitudeMaximum;
+		this.latitudeMinimum = 0;
+		this.latitudeMaximum = 0;
+		this.longitudeMinimum = 0;
+		this.longitudeMaximum = 0;
+	}
+
+	/**
+	 * Create with given bounds values
+	 *
+	 * @param latitudeMinimum Latitude minimum
+	 * @param latitudeMaximum Latitude maximum
+	 * @param longitudeMinimum Longitude minimum
+	 * @param longitudeMaximum Longitude maximum
+	 */
+	public MapBounds(double latitudeMinimum, double latitudeMaximum, double longitudeMinimum, double longitudeMaximum)
+	{
+		this.latitudeMinimum = latitudeMinimum;
+		this.latitudeMaximum = latitudeMaximum;
+		this.longitudeMinimum = longitudeMinimum;
+		this.longitudeMaximum = longitudeMaximum;
 		invertBoundsIfNeed();
 	}
 
@@ -130,15 +139,7 @@ public class MapBounds
 	{
 		boolean isLatitudeEquals = Double.compare(latitudeMinimum, latitudeMaximum) == 0;
 		boolean isLongitudeEquals = Double.compare(longitudeMinimum, longitudeMaximum) == 0;
-
-		if (isLatitudeEquals || isLongitudeEquals)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return isLatitudeEquals || isLongitudeEquals;
 	}
 
 	/**
@@ -170,9 +171,10 @@ public class MapBounds
 	 */
 	public boolean intersects(MapBounds bounds) throws IllegalArgumentException
 	{
-		Rectangle2D thisBoundsRectangle = new Rectangle2D.Double(latitudeMinimum, longitudeMinimum, 
+		// todo bounds=null, other tests
+		Rectangle2D thisBoundsRectangle = new Rectangle2D.Double(latitudeMinimum, longitudeMinimum,
 						getLatitudeSize(), getLongitudeSize());
-		Rectangle2D givenBoundsRectangle = new Rectangle2D.Double(bounds.getLatitudeMinimum(), 
+		Rectangle2D givenBoundsRectangle = new Rectangle2D.Double(bounds.getLatitudeMinimum(),
 						bounds.getLongitudeMinimum(), bounds.getLatitudeSize(), bounds.getLongitudeSize());
 		return thisBoundsRectangle.intersects(givenBoundsRectangle);
 	}

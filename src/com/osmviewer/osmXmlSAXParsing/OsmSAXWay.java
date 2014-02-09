@@ -33,13 +33,13 @@ public class OsmSAXWay extends OsmSAXMapObject implements OsmWay
 			throw new IllegalArgumentException("attributes is null");
 		}
 
-		nodesIds = new ArrayList<Long>();
+		nodesIds = new ArrayList<>();
 
 		try
 		{
 			setId(Long.valueOf(attributes.getValue("id")));
 		}
-		catch (Exception ex)
+		catch (NumberFormatException ex)
 		{
 			throw new SAXException(ex);
 		}

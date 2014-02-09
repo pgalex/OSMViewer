@@ -2,7 +2,7 @@ package com.osmviewer.forms;
 
 import com.osmviewer.drawingStyles.DrawSettingsViewer;
 import com.osmviewer.drawingStyles.DrawingStylesFactory;
-import com.osmviewer.mapObjectsIdentification.XmlMapObjectsIdentifierFinder;
+import com.osmviewer.mapObjectsXmlIdentification.XmlMapObjectsDrawingIdFinder;
 import com.osmviewer.osmXml.exceptions.ParsingOsmErrorException;
 import com.osmviewer.sqliteMapDataSource.OsmXmlToSQLiteDatabaseConverter;
 import com.osmviewer.sqliteMapDataSource.exceptions.DatabaseErrorExcetion;
@@ -86,7 +86,7 @@ public class ConvertOsmXmlToSQLiteDialog extends javax.swing.JDialog
 		{
 			DrawSettingsViewer drawSettingsViewer = DrawingStylesFactory.createStandartDrawSettingsViewer();
 			drawSettingsViewer.readFromFile(new File("standartDrawStyles/defaultMapStyle.dat"));
-			converter.convert(sourceFile.getPath(), destenationFile.getPath(), new XmlMapObjectsIdentifierFinder());
+			converter.convert(sourceFile.getPath(), destenationFile.getPath(), new XmlMapObjectsDrawingIdFinder());
 		}
 		catch (FileNotFoundException ex)
 		{

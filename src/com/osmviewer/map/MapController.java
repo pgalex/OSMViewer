@@ -38,15 +38,15 @@ public class MapController implements DrawableOnPanel
 	/**
 	 * Map
 	 */
-	private SimpleMap map;
+	private final SimpleMap map;
 	/**
 	 * MapByOsmXmlData renderer - drawes object
 	 */
-	private MapRenderer renderer;
+	private final MapRenderer renderer;
 	/**
 	 * Drawing styles currently uses to render map
 	 */
-	private DrawSettingsViewer styleViewer;
+	private final DrawSettingsViewer styleViewer;
 	/**
 	 * Currently using map data source for map loading. Null if data source not
 	 * set
@@ -164,7 +164,7 @@ public class MapController implements DrawableOnPanel
 			throw new IllegalArgumentException("pointOnTargetCanvas is null");
 		}
 
-		RenderableMapObject[] objectsUnderPoint = renderer.findObjectsAtPoint(pointOnTargetCanvas);
+		/*RenderableMapObject[] objectsUnderPoint = renderer.findObjectsAtPoint(pointOnTargetCanvas);
 		if (objectsUnderPoint.length > 0)
 		{
 			renderer.setObjectToDrawAsHighlighted(objectsUnderPoint[0]);
@@ -172,7 +172,7 @@ public class MapController implements DrawableOnPanel
 		else
 		{
 			renderer.resetHighlightedObject();
-		}
+		}*/
 	}
 
 	/**
@@ -188,7 +188,7 @@ public class MapController implements DrawableOnPanel
 			throw new IllegalArgumentException("selectingObject is null");
 		}
 
-		renderer.setObjectToDrawAsSelected(selectingObject);
+		//renderer.setObjectToDrawAsSelected(selectingObject);
 	}
 
 	/**
@@ -196,7 +196,7 @@ public class MapController implements DrawableOnPanel
 	 */
 	public void resetSelectedObject()
 	{
-		renderer.resetSelectedObject();
+		//renderer.resetSelectedObject();
 	}
 
 	/**
@@ -207,7 +207,7 @@ public class MapController implements DrawableOnPanel
 	 * priority of drawen objects. Empty if no objects found.
 	 * @throws IllegalArgumentException pointOnCanvas is null
 	 */
-	public RenderableMapObject[] findObjectsAtPoint(Point2D pointOnCanvas) throws IllegalArgumentException
+	/*public RenderableMapObject[] findObjectsAtPoint(Point2D pointOnCanvas) throws IllegalArgumentException
 	{
 		if (pointOnCanvas == null)
 		{
@@ -215,7 +215,7 @@ public class MapController implements DrawableOnPanel
 		}
 
 		return renderer.findObjectsAtPoint(pointOnCanvas);
-	}
+	}*/
 
 	/**
 	 * Draw objects on drawing panel

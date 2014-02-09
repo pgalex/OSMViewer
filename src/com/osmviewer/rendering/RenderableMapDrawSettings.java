@@ -3,7 +3,7 @@ package com.osmviewer.rendering;
 import java.awt.Color;
 
 /**
- * Common draw setting of renderable map
+ * Common draw setting for map rendering
  *
  * @author pgalex
  */

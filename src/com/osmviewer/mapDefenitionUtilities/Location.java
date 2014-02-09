@@ -89,15 +89,8 @@ public class Location
 	 */
 	public void writeToStream(DataOutputStream output) throws IOException
 	{
-		try
-		{
-			output.writeDouble(latitude);
-			output.writeDouble(longitude);
-		}
-		catch (Exception e)
-		{
-			throw new IOException(e);
-		}
+		output.writeDouble(latitude);
+		output.writeDouble(longitude);
 	}
 
 	/**
@@ -108,17 +101,10 @@ public class Location
 	 */
 	public void readFromStream(DataInputStream input) throws IOException
 	{
-		try
-		{
-			latitude = input.readDouble();
-			longitude = input.readDouble();
-		}
-		catch (Exception e)
-		{
-			throw new IOException(e);
-		}
+		latitude = input.readDouble();
+		longitude = input.readDouble();
 	}
-	
+
 	/**
 	 * Is equals to object
 	 *

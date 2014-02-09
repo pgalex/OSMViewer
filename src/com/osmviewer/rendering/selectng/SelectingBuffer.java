@@ -17,14 +17,14 @@ public class SelectingBuffer
 	/**
 	 * Selecting objects of buffer
 	 */
-	private LinkedList<SelectingObject> selectingObjects;
+	private final LinkedList<SelectingObject> selectingObjects;
 
 	/**
 	 * Create empty
 	 */
 	public SelectingBuffer()
 	{
-		selectingObjects = new LinkedList<SelectingObject>();
+		selectingObjects = new LinkedList<>();
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class SelectingBuffer
 			throw new IllegalArgumentException("point is null");
 		}
 
-		ArrayList<SelectingObject> selectingObjectsAtPoint = new ArrayList<SelectingObject>();
+		ArrayList<SelectingObject> selectingObjectsAtPoint = new ArrayList<>();
 		for (SelectingObject selectingObject : selectingObjects)
 		{
 			if (selectingObject.isHitsByPoint(point))

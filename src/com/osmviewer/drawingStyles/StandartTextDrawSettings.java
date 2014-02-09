@@ -5,14 +5,13 @@ import java.awt.Font;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import com.osmviewer.rendering.TextDrawSettings;
 
 /**
  * How to draw text
  *
  * @author pgalex
  */
-public class StandartTextDrawSettings implements TextDrawSettings
+public class StandartTextDrawSettings //implements TextDrawSettings
 {
 	/**
 	 * Text font
@@ -59,12 +58,11 @@ public class StandartTextDrawSettings implements TextDrawSettings
 	 *
 	 * @return text color
 	 */
-	@Override
-	public Color getColor()
-	{
-		return color.getStoringColor();
-	}
-
+	/*@Override
+	 public Color getColor()
+	 {
+	 return color.getStoringColor();
+	 }*/
 	/**
 	 * Set new text color
 	 *
@@ -86,12 +84,11 @@ public class StandartTextDrawSettings implements TextDrawSettings
 	 *
 	 * @return text font
 	 */
-	@Override
-	public Font getFont()
-	{
-		return font.getStoringFont();
-	}
-
+	/*@Override
+	 public Font getFont()
+	 {
+	 return font.getStoringFont();
+	 }*/
 	/**
 	 * Set new text font
 	 *
@@ -154,18 +151,18 @@ public class StandartTextDrawSettings implements TextDrawSettings
 	 * @throws IllegalArgumentException sourceTextDrawSettings or newTextColor is
 	 * null
 	 */
-	@Override
-	public TextDrawSettings createCopyWithColor(Color newTextColor) throws IllegalArgumentException
-	{
-		if (newTextColor == null)
-		{
-			throw new IllegalArgumentException("newTextColor is null");
-		}
+	/*	@Override
+	 public TextDrawSettings createCopyWithColor(Color newTextColor) throws IllegalArgumentException
+	 {
+	 if (newTextColor == null)
+	 {
+	 throw new IllegalArgumentException("newTextColor is null");
+	 }
 
-		StandartTextDrawSettings textDrawSettingsWithOtherColor = new StandartTextDrawSettings();
-		textDrawSettingsWithOtherColor.setFont(getFont());
-		textDrawSettingsWithOtherColor.setColor(newTextColor);
+	 StandartTextDrawSettings textDrawSettingsWithOtherColor = new StandartTextDrawSettings();
+	 textDrawSettingsWithOtherColor.setFont(getFont());
+	 textDrawSettingsWithOtherColor.setColor(newTextColor);
 
-		return textDrawSettingsWithOtherColor;
-	}
+	 return textDrawSettingsWithOtherColor;
+	 }*/
 }

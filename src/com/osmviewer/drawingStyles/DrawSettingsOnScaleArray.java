@@ -3,7 +3,6 @@ package com.osmviewer.drawingStyles;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import com.osmviewer.rendering.TextDrawSettings;
 
 /**
  * Array of DrawSettingsOnScale
@@ -238,7 +237,7 @@ public class DrawSettingsOnScaleArray
 	 * @param scaleLevel scale level
 	 * @return text draw style on scale level. Null if not found
 	 */
-	public TextDrawSettings findTextDrawSettings(int scaleLevel)
+	/*public TextDrawSettings findTextDrawSettings(int scaleLevel)
 	{
 		DrawSettingsOnScale drawSettingsOnScale = getDrawSettingsOnScale(scaleLevel);
 		if (drawSettingsOnScale == null)
@@ -254,7 +253,7 @@ public class DrawSettingsOnScaleArray
 		{
 			return null;
 		}
-	}
+	}*/
 
 	/**
 	 * Read from stream

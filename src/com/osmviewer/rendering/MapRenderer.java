@@ -7,6 +7,7 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
 import com.osmviewer.mapDefenitionUtilities.Location;
+import com.osmviewer.mapObjectsXmlIdentification.XmlDrawSettingsFinder;
 import com.osmviewer.rendering.selectng.SelectingBuffer;
 
 /**
@@ -41,54 +42,44 @@ public class MapRenderer implements CoordinatesConverter
 	 */
 	private int maximumScaleLevel;
 	/**
-	 * Object of rendering map, to draw it as highlighted. Can be null - no
-	 * highlighted objects
-	 */
-	private RenderableMapObject objectToDrawAsHighlighted;
-	/**
-	 * Object of rendering map, to draw it as selected. Can be null - no selected
-	 * objects
-	 */
-	private RenderableMapObject objectToDrawAsSelected;
-	/**
 	 * Buffer, contains intpertation of drawen objects using for finding objects
 	 * under point, for selecting
 	 */
 	private SelectingBuffer selectingBuffer;
 
+	private DrawSettingsFinder drawSettingsFinder;
+
 	/**
 	 * Create map renderer
 	 *
-	 * @param renderingMinimumScaleLevel minimun scale level
-	 * @param renderingMaximumScaleLevel maximum scale level
+	 * @param minimumScaleLevel minimun scale level
+	 * @param maximumScaleLevel maximum scale level
 	 * @param startScaleLevel scale level that will be set as current after
 	 * creating
-	 * @throws IllegalArgumentException renderingMinimumScaleLevel more than
-	 * renderingMaximumScaleLevel, or startScaleLevel out of minimum/maximum
-	 * bounds
+	 * @throws IllegalArgumentException minimumScaleLevel more than
+	 * maximumScaleLevel, or startScaleLevel out of minimum/maximum bounds
 	 */
-	public MapRenderer(int renderingMinimumScaleLevel, int renderingMaximumScaleLevel,
+	public MapRenderer(int minimumScaleLevel, int maximumScaleLevel,
 					int startScaleLevel) throws IllegalArgumentException
 	{
-		if (renderingMinimumScaleLevel > renderingMaximumScaleLevel)
+		if (minimumScaleLevel > maximumScaleLevel)
 		{
-			throw new IllegalArgumentException("renderingMinimumScaleLevel is more than renderingMaximumScaleLevel");
+			throw new IllegalArgumentException("minimumScaleLevel is more than renderingMaximumScaleLevel");
 		}
-		if (startScaleLevel < renderingMinimumScaleLevel || startScaleLevel > renderingMaximumScaleLevel)
+		if (startScaleLevel < minimumScaleLevel || startScaleLevel > maximumScaleLevel)
 		{
 			throw new IllegalArgumentException("startScaleLevel is out of bounds");
 		}
 
-		targetCanvasDrawingArea = DEFAULT_DRAWING_AREA;
-		viewPosition = new Location();
+		this.targetCanvasDrawingArea = DEFAULT_DRAWING_AREA;
+		this.viewPosition = new Location();
 
-		scaleLevel = startScaleLevel;
-		minimumScaleLevel = renderingMinimumScaleLevel;
-		maximumScaleLevel = renderingMaximumScaleLevel;
+		this.scaleLevel = startScaleLevel;
+		this.minimumScaleLevel = minimumScaleLevel;
+		this.maximumScaleLevel = maximumScaleLevel;
 
-		objectToDrawAsHighlighted = null;
-		objectToDrawAsSelected = null;
-		selectingBuffer = new SelectingBuffer();
+		this.selectingBuffer = new SelectingBuffer();
+		this.drawSettingsFinder = new XmlDrawSettingsFinder();
 	}
 
 	/**
@@ -189,72 +180,6 @@ public class MapRenderer implements CoordinatesConverter
 	}
 
 	/**
-	 * Set object of rendering map to draw as highlighted
-	 *
-	 * @param highlightingObject object to draw as highlighted
-	 * @throws IllegalArgumentException highlightingObject is null
-	 */
-	public void setObjectToDrawAsHighlighted(RenderableMapObject highlightingObject) throws IllegalArgumentException
-	{
-		if (highlightingObject == null)
-		{
-			throw new IllegalArgumentException("highlightingObject is null");
-		}
-
-		objectToDrawAsHighlighted = highlightingObject;
-	}
-
-	/**
-	 * Reset highlighting (do not highlight)
-	 */
-	public void resetHighlightedObject()
-	{
-		objectToDrawAsHighlighted = null;
-	}
-
-	/**
-	 * Set object of rendering map to draw as selected
-	 *
-	 * @param selectingObject object to draw as selected
-	 * @throws IllegalArgumentException selectingObject is null
-	 */
-	public void setObjectToDrawAsSelected(RenderableMapObject selectingObject) throws IllegalArgumentException
-	{
-		if (selectingObject == null)
-		{
-			throw new IllegalArgumentException("selectingObject is null");
-		}
-
-		objectToDrawAsSelected = selectingObject;
-	}
-
-	/**
-	 * Reset selecting
-	 */
-	public void resetSelectedObject()
-	{
-		objectToDrawAsSelected = null;
-	}
-
-	/**
-	 * Find map objects at point among map objects drawen on target canvas
-	 *
-	 * @param pointOnCanvas point on canvas to find map object at it
-	 * @return objects at point among drawen on target canvas, sorted by draw its
-	 * priority. Empty if no objects found.
-	 * @throws IllegalArgumentException pointOnCanvas is null
-	 */
-	public RenderableMapObject[] findObjectsAtPoint(Point2D pointOnCanvas) throws IllegalArgumentException
-	{
-		if (pointOnCanvas == null)
-		{
-			throw new IllegalArgumentException("pointOnCanvas is null");
-		}
-
-		return selectingBuffer.findObjectsAtPoint(pointOnCanvas);
-	}
-
-	/**
 	 * Render map
 	 *
 	 * @param targetCanvas canvas to draw map on
@@ -266,6 +191,7 @@ public class MapRenderer implements CoordinatesConverter
 	public void renderMap(RenderableMap mapToRender, Graphics2D targetCanvas,
 					RenderableMapDrawSettings mapDrawSettings) throws IllegalArgumentException
 	{
+		// todo move mapDrawSettings to contructor and set.. method
 		if (mapToRender == null)
 		{
 			throw new IllegalArgumentException("mapToRender is null");
@@ -288,22 +214,21 @@ public class MapRenderer implements CoordinatesConverter
 		setupRenderingHints(targetCanvas);
 
 		targetCanvas.setBackground(mapDrawSettings.getMapBackgroundColor());
-
 		targetCanvas.clearRect(targetCanvasDrawingArea.x, targetCanvasDrawingArea.y,
 						targetCanvasDrawingArea.width, targetCanvasDrawingArea.height);
 
 		BufferedImage textCanvasImage = new BufferedImage(targetCanvasDrawingArea.width, targetCanvasDrawingArea.height,
 						BufferedImage.TYPE_INT_ARGB);
+
 		Graphics2D textCanvasGraphics = textCanvasImage.createGraphics();
 		setupRenderingHints(textCanvasGraphics);
 
 		selectingBuffer.clear();
 
-		DrawingIdBasedMapObjectsRenderer objectsRenderer = new DrawingIdBasedMapObjectsRenderer(targetCanvas,
-						 this, scaleLevel, selectingBuffer);
+		SeparatingByDrawingIdMapObjectsRenderer objectsRenderer = new SeparatingByDrawingIdMapObjectsRenderer(new Graphics2DDrawingTool(textCanvasGraphics),
+						this, scaleLevel, selectingBuffer, drawSettingsFinder);
 
-		mapToRender.renderObjectsByDrawPriority(objectsRenderer, getViewArea(),
-						new RenderableMapObjectsDrawPriorityComparator());
+		mapToRender.renderObjectsByDrawPriority(objectsRenderer, getViewArea(), new DrawSettingsBasedDrawPriorityComparator(drawSettingsFinder));
 
 		targetCanvas.drawImage(textCanvasImage, 0, 0, null);
 	}
@@ -311,7 +236,8 @@ public class MapRenderer implements CoordinatesConverter
 	/**
 	 * Set graphics rendering hints for map drawing
 	 *
-	 * @param graphics graphics to setup setting on
+	 * @param graphics graphics to setup setting on. Must be not null
+	 * @throws IllegalArgumentException graphics is null
 	 */
 	private void setupRenderingHints(Graphics2D graphics) throws IllegalArgumentException
 	{

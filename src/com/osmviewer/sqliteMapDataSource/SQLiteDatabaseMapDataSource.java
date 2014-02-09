@@ -60,11 +60,7 @@ public class SQLiteDatabaseMapDataSource implements MapDataSource
 			databaseConnection = DriverManager.getConnection("jdbc:sqlite:" + databasePath);
 			databaseConnection.setAutoCommit(false);
 		}
-		catch (ClassNotFoundException ex)
-		{
-			throw new DatabaseErrorExcetion(ex);
-		}
-		catch (SQLException ex)
+		catch (ClassNotFoundException | SQLException ex)
 		{
 			throw new DatabaseErrorExcetion(ex);
 		}
@@ -115,36 +111,32 @@ public class SQLiteDatabaseMapDataSource implements MapDataSource
 				return;
 			}
 
-			PreparedStatement selectMapObjectsStatement = databaseConnection.prepareStatement("SELECT "
+			try (PreparedStatement selectMapObjectsStatement = databaseConnection.prepareStatement("SELECT "
 							+ "ROWID, drawingId "
 							+ "FROM MapObjects "
-							+ "WHERE minLatitude<=? AND maxLatitude>=? AND minLongitude<=? AND maxLongitude>=?");
-			selectMapObjectsStatement.setDouble(1, area.getLatitudeMaximum());
-			selectMapObjectsStatement.setDouble(2, area.getLatitudeMinimum());
-			selectMapObjectsStatement.setDouble(3, area.getLongitudeMaximum());
-			selectMapObjectsStatement.setDouble(4, area.getLongitudeMinimum());
-			ResultSet selectedMapObjectsResultSet = selectMapObjectsStatement.executeQuery();
-
-			while (selectedMapObjectsResultSet.next())
+							+ "WHERE minLatitude<=? AND maxLatitude>=? AND minLongitude<=? AND maxLongitude>=?"))
 			{
-				long rowId = selectedMapObjectsResultSet.getLong(1);
-				String drawingId = selectedMapObjectsResultSet.getString(2);
-
-				Location[] points = selectPoints(rowId);
-				if (points != null)
+				selectMapObjectsStatement.setDouble(1, area.getLatitudeMaximum());
+				selectMapObjectsStatement.setDouble(2, area.getLatitudeMinimum());
+				selectMapObjectsStatement.setDouble(3, area.getLongitudeMaximum());
+				selectMapObjectsStatement.setDouble(4, area.getLongitudeMinimum());
+				try (ResultSet selectedMapObjectsResultSet = selectMapObjectsStatement.executeQuery())
 				{
-					fetchResultsHandler.takeMapObjectData(rowId, drawingId, points);
+					while (selectedMapObjectsResultSet.next())
+					{
+						long rowId = selectedMapObjectsResultSet.getLong(1);
+						String drawingId = selectedMapObjectsResultSet.getString(2);
+
+						Location[] points = selectPoints(rowId);
+						if (points != null)
+						{
+							fetchResultsHandler.takeMapObjectData(rowId, drawingId, points);
+						}
+					}
 				}
 			}
-
-			selectedMapObjectsResultSet.close();
-			selectMapObjectsStatement.close();
 		}
-		catch (SQLException ex)
-		{
-			throw new FetchingErrorException(ex);
-		}
-		catch (DatabaseErrorExcetion ex)
+		catch (SQLException | DatabaseErrorExcetion ex)
 		{
 			throw new FetchingErrorException(ex);
 		}
@@ -161,21 +153,22 @@ public class SQLiteDatabaseMapDataSource implements MapDataSource
 	{
 		try
 		{
-			PreparedStatement selectPointsStatement = databaseConnection.prepareStatement("SELECT latitude,longitude FROM Points "
-							+ "WHERE objectId = ?");
-			selectPointsStatement.setLong(1, mapObjectRowId);
-
-			ArrayList<Location> selectedPoints = new ArrayList<Location>();
-
-			ResultSet pointsResultSet = selectPointsStatement.executeQuery();
-			while (pointsResultSet.next())
+			ArrayList<Location> selectedPoints;
+			try (PreparedStatement selectPointsStatement = databaseConnection.prepareStatement("SELECT latitude,longitude FROM Points "
+							+ "WHERE objectId = ?"))
 			{
-				double latitude = pointsResultSet.getDouble(1);
-				double longitude = pointsResultSet.getDouble(2);
-				selectedPoints.add(new Location(latitude, longitude));
+				selectPointsStatement.setLong(1, mapObjectRowId);
+				selectedPoints = new ArrayList<>();
+				try (ResultSet pointsResultSet = selectPointsStatement.executeQuery())
+				{
+					while (pointsResultSet.next())
+					{
+						double latitude = pointsResultSet.getDouble(1);
+						double longitude = pointsResultSet.getDouble(2);
+						selectedPoints.add(new Location(latitude, longitude));
+					}
+				}
 			}
-			pointsResultSet.close();
-			selectPointsStatement.close();
 
 			return (Location[]) selectedPoints.toArray(new Location[0]);
 		}
@@ -196,20 +189,21 @@ public class SQLiteDatabaseMapDataSource implements MapDataSource
 	{
 		try
 		{
-			PreparedStatement selectTagsStatement = databaseConnection.prepareStatement("SELECT key,value FROM Tags "
-							+ "WHERE objectId = ?");
-			selectTagsStatement.setLong(1, mapObjectRowId);
-
-			DefenitionTags selectedTags = new DefenitionTags();
-			ResultSet tagsResultSet = selectTagsStatement.executeQuery();
-			while (tagsResultSet.next())
+			DefenitionTags selectedTags;
+			try (PreparedStatement selectTagsStatement = databaseConnection.prepareStatement("SELECT key,value FROM Tags " + "WHERE objectId = ?"))
 			{
-				String key = tagsResultSet.getString(1);
-				String value = tagsResultSet.getString(2);
-				selectedTags.add(new Tag(key, value));
+				selectTagsStatement.setLong(1, mapObjectRowId);
+				selectedTags = new DefenitionTags();
+				try (ResultSet tagsResultSet = selectTagsStatement.executeQuery())
+				{
+					while (tagsResultSet.next())
+					{
+						String key = tagsResultSet.getString(1);
+						String value = tagsResultSet.getString(2);
+						selectedTags.add(new Tag(key, value));
+					}
+				}
 			}
-			tagsResultSet.close();
-			selectTagsStatement.close();
 
 			return selectedTags;
 		}

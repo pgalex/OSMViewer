@@ -7,9 +7,6 @@
 
 <!-- Id of each map object must be unique-->
 <mapObjectType id="wood">
-	
-	<!-- Short name of map object -->
-	<name>Лес</name>
 
 	<!-- Description of map object. Empty means that there is no description -->
 	<description>Лесные массивы и скопления деревьев за исключением территорий лесничеств и охотохозяйств</description>

@@ -3,9 +3,12 @@ package com.osmviewer.osmXmlSAXParsing;
 import com.osmviewer.osmXml.OsmXmlParser;
 import com.osmviewer.osmXml.OsmXmlParsingResultsHandler;
 import com.osmviewer.osmXml.exceptions.ParsingOsmErrorException;
+import java.io.IOException;
 import java.io.InputStream;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import org.xml.sax.SAXException;
 
 /**
  * SAX .osm xml map data parser
@@ -55,7 +58,7 @@ public class SAXOsmXmlParser implements OsmXmlParser
 
 			parser.parse(input, saxParsingHandler);
 		}
-		catch (Exception ex)
+		catch (IOException | ParserConfigurationException | SAXException ex)
 		{
 			throw new ParsingOsmErrorException(ex);
 		}

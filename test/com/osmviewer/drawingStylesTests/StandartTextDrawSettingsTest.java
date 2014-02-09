@@ -83,29 +83,5 @@ public class StandartTextDrawSettingsTest
 		}
 	}
 
-	/**
-	 * Reading/writing test
-	 */
-	@Test
-	public void readingWritingTest()
-	{
-		try
-		{
-			StandartTextDrawSettings writingSettings = new StandartTextDrawSettings(Color.ORANGE, new Font("Arial", Font.BOLD, 14));
-			writingSettings.writeToStream(IOTester.createTestOutputStream());
-			
-			StandartTextDrawSettings readingSettings = new StandartTextDrawSettings();
-			readingSettings.readFromStream(IOTester.createTestInputStream());
-			
-			assertEquals(writingSettings.getColor(), readingSettings.getColor());
-			assertEquals(writingSettings.getFont().getFamily(), readingSettings.getFont().getFamily());
-			assertEquals(writingSettings.getFont().getSize(), readingSettings.getFont().getSize());
-			assertEquals(writingSettings.getFont().getStyle(), readingSettings.getFont().getStyle());
-		}
-		catch (Exception ex)
-		{
-			fail();
-		}
-		
-	}
+	
 }

@@ -3,18 +3,18 @@ package com.osmviewer.renderingTests;
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.Tag;
 import com.osmviewer.rendering.RenderableMapObject;
-import com.osmviewer.rendering.RenderableMapObjectsDrawPriorityComparator;
+import com.osmviewer.rendering.DrawSettingsBasedDrawPriorityComparator;
 import java.util.ArrayList;
 import java.util.Collections;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * RenderableMapObjectsDrawPriorityComparator tests
+ * DrawSettingsBasedDrawPriorityComparator tests
  *
  * @author pgalex
  */
-public class RenderableMapObjectsDrawPriorityComparatorTest
+public class DrawSettingsBasedDrawPriorityComparatorTest
 {
 	/**
 	 * Testing sorting with comparator
@@ -54,7 +54,7 @@ public class RenderableMapObjectsDrawPriorityComparatorTest
 		object3.drawSettings = style3;
 		objects.add(object3);
 
-		RenderableMapObjectsDrawPriorityComparator testComparator = new RenderableMapObjectsDrawPriorityComparator();
+		DrawSettingsBasedDrawPriorityComparator testComparator = new DrawSettingsBasedDrawPriorityComparator();
 		Collections.sort(objects, testComparator);
 		assertEquals(object3, objects.get(0));
 		assertEquals(object1, objects.get(1));

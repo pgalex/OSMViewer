@@ -28,7 +28,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 	/**
 	 * Parser of osm xml data
 	 */
-	private OsmXmlParser osmXmlParser;
+	private final OsmXmlParser osmXmlParser;
 	/**
 	 * Database for temporary storing parsed osm nodes
 	 */
@@ -40,7 +40,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 	/**
 	 * Using to find map objects ids
 	 */
-	private MapObjectsIdentifierFinder identifierFinder;
+	private MapObjectsDrawingIdFinder identifierFinder;
 	/**
 	 * Is first osm way found while handling converting results
 	 */
@@ -73,7 +73,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 	 * @throws DatabaseErrorExcetion error while working with database
 	 * @throws FileNotFoundException source file not found
 	 */
-	public void convert(String sourceFilePath, String databaseFilePath, MapObjectsIdentifierFinder identifierFinder) throws IllegalArgumentException, ParsingOsmErrorException,
+	public void convert(String sourceFilePath, String databaseFilePath, MapObjectsDrawingIdFinder identifierFinder) throws IllegalArgumentException, ParsingOsmErrorException,
 					DeletingExistsDatabaseFileErrorException, DatabaseErrorExcetion, FileNotFoundException
 	{
 		if (identifierFinder == null)
@@ -179,7 +179,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 			nodeTags.add(createMapTagByOsmTag(nodeToAdd.getTag(i)));
 		}
 
-		String drawingId = identifierFinder.findNodeIdentifier(nodeTags);
+		String drawingId = identifierFinder.findNodeDrawingId(nodeTags);
 		if (drawingId != null)
 		{
 			Location[] nodePoints = new Location[1];
@@ -261,14 +261,14 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 				wayTags.add(createMapTagByOsmTag(parsedWay.getTag(i)));
 			}
 
-			String drawingId = null;
+			String drawingId;
 			if (parsedWay.isClosed())
 			{
-				drawingId = identifierFinder.findClosedWayIdentifier(wayTags);
+				drawingId = identifierFinder.findClosedWayDrawingId(wayTags);
 			}
 			else
 			{
-				drawingId = identifierFinder.findNonClosedIdentifier(wayTags);
+				drawingId = identifierFinder.findNonClosedDrawingId(wayTags);
 			}
 
 			Location[] wayPoints = findWayPointsInNodesTemporaryDatabase(parsedWay);
