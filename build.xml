@@ -4,7 +4,6 @@
     <import file="nbproject/build-impl.xml"/>
 
    <target name="-post-jar">
-     <copy file="standartDrawStyles/defaultMapStyle.dat" tofile="dist/standartDrawStyles/defaultMapStyle.dat" />
      <copy file="resources/ajax-loader-2.gif" tofile="dist/resources/ajax-loader-2.gif" />
    </target>
 </project>
