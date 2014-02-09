@@ -1,7 +1,6 @@
 package com.osmviewer.sqliteMapDataSourceTests;
 
 import com.osmviewer.map.MapDataSourceFetchResultsHandler;
-import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.Location;
 import java.util.ArrayList;
 
@@ -12,22 +11,22 @@ import java.util.ArrayList;
  */
 public class TestMapDataSourceFetchResultsHandler implements MapDataSourceFetchResultsHandler
 {
-	public ArrayList<Long> fetchedIds;
-	public ArrayList<DefenitionTags> fetchedTags;
+	public ArrayList<Long> fetchedUniqueIds;
+	public ArrayList<String> fetchedDrawingIds;
 	public ArrayList<Location[]> fetchedPoints;
-	
+
 	public TestMapDataSourceFetchResultsHandler()
 	{
-		fetchedIds = new ArrayList<Long>();
-		fetchedTags = new ArrayList<DefenitionTags>();
+		fetchedUniqueIds = new ArrayList<Long>();
+		fetchedDrawingIds = new ArrayList<String>();
 		fetchedPoints = new ArrayList<Location[]>();
 	}
-	
+
 	@Override
-	public void takeMapObjectData(long uniqueId, DefenitionTags tags, Location[] points) throws IllegalArgumentException
+	public void takeMapObjectData(long uniqueId, String drawingId, Location[] points) throws IllegalArgumentException
 	{
-		fetchedIds.add(uniqueId);
-		fetchedTags.add(tags);
+		fetchedUniqueIds.add(uniqueId);
+		fetchedDrawingIds.add(drawingId);
 		fetchedPoints.add(points);
 	}
 }

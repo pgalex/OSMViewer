@@ -4,18 +4,13 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
-import com.osmviewer.rendering.RenderableMapLineDrawSettings;
-import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
-import com.osmviewer.rendering.RenderableMapPointDrawSettings;
-import com.osmviewer.rendering.RenderableMapPolygonDrawSettings;
-import com.osmviewer.rendering.TextDrawSettings;
 
 /**
  * How to draw any object on a map
  *
  * @author abc
  */
-public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSettings
+public class StandartMapObjectDrawSettings
 {
 	/**
 	 * Can be object with this tags a point (single node)
@@ -86,7 +81,6 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 	 *
 	 * @return Can object be a point on a map
 	 */
-	@Override
 	public boolean isCanBePoint()
 	{
 		return canBePoint;
@@ -97,7 +91,6 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 	 *
 	 * @return Can object be a line(non-closed way) on a map
 	 */
-	@Override
 	public boolean isCanBeLine()
 	{
 		return canBeLine;
@@ -108,7 +101,6 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 	 *
 	 * @return Can object be a polygon(closed way) on a map
 	 */
-	@Override
 	public boolean isCanBePolygon()
 	{
 		return canBePolygon;
@@ -177,7 +169,6 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 	 *
 	 * @return draw priority
 	 */
-	@Override
 	public int getPointDrawPriority()
 	{
 		return pointDrawPriority;
@@ -198,7 +189,6 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 	 *
 	 * @return line draw priority
 	 */
-	@Override
 	public int getLineDrawPriority()
 	{
 		return lineDrawPriority;
@@ -219,7 +209,6 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 	 *
 	 * @return polygon draw priority
 	 */
-	@Override
 	public int getPolygonDrawPriority()
 	{
 		return polygonDrawPriority;
@@ -240,7 +229,6 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 	 *
 	 * @return object description
 	 */
-	@Override
 	public String getDescription()
 	{
 		return description;
@@ -319,7 +307,6 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 	 *
 	 * @return simple name
 	 */
-	@Override
 	public String getName()
 	{
 		return name;
@@ -347,8 +334,7 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 	 * @param scaleLevel scale level
 	 * @return point draw style on scale level. Null if not found
 	 */
-	@Override
-	public RenderableMapPointDrawSettings findPointDrawSettings(int scaleLevel)
+	/*public RenderableMapPointDrawSettings findPointDrawSettings(int scaleLevel)
 	{
 		if (canBePoint)
 		{
@@ -358,7 +344,7 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 		{
 			return null;
 		}
-	}
+	}*/
 
 	/**
 	 * Find line style on scale level
@@ -366,8 +352,7 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 	 * @param scaleLevel scale level
 	 * @return line draw style on scale level. Null if not found
 	 */
-	@Override
-	public RenderableMapLineDrawSettings findLineDrawSettings(int scaleLevel)
+	/*public RenderableMapLineDrawSettings findLineDrawSettings(int scaleLevel)
 	{
 		if (canBeLine)
 		{
@@ -377,7 +362,7 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 		{
 			return null;
 		}
-	}
+	}*/
 
 	/**
 	 * Find polygon style on scale level
@@ -385,7 +370,7 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 	 * @param scaleLevel scale level
 	 * @return polygon draw style on scale level. Null if not found
 	 */
-	@Override
+	/*@Override
 	public RenderableMapPolygonDrawSettings findPolygonDrawSettings(int scaleLevel)
 	{
 		if (canBePolygon)
@@ -396,7 +381,7 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 		{
 			return null;
 		}
-	}
+	}*/
 
 	/**
 	 * Find text style on scale level
@@ -404,11 +389,11 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 	 * @param scaleLevel scale level
 	 * @return text draw style on scale level. Null if not found
 	 */
-	@Override
+	/*@Override
 	public TextDrawSettings findTextDrawSettings(int scaleLevel)
 	{
 		return drawSettingsOnScales.findTextDrawSettings(scaleLevel);
-	}
+	}*/
 
 	/**
 	 * Find value of tag in tags that means text description of object
@@ -416,11 +401,11 @@ public class StandartMapObjectDrawSettings implements RenderableMapObjectDrawSet
 	 * @param tagsWhereFindText tags of object where to find text description
 	 * @return text description of object founded in tags. Empty if not found
 	 */
-	@Override
+	/*verride
 	public String findTextInTags(DefenitionTags tagsWhereFindText)
 	{
 		return textTagKeys.findTextInTags(tagsWhereFindText);
-	}
+	}*/
 
 	/**
 	 * Get string representation

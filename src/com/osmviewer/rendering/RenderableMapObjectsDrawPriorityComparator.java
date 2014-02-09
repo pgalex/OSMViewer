@@ -19,7 +19,7 @@ public class RenderableMapObjectsDrawPriorityComparator implements Comparator<Re
 	@Override
 	public int compare(RenderableMapObject object1, RenderableMapObject object2)
 	{
-		RenderableMapObjectDrawSettings object1Style = object1.getDrawSettings();
+		/*RenderableMapObjectDrawSettings object1Style = object1.getDrawSettings();
 		RenderableMapObjectDrawSettings object2Style = object2.getDrawSettings();
 
 		if (object1Style == null || object2Style == null)
@@ -34,7 +34,7 @@ public class RenderableMapObjectsDrawPriorityComparator implements Comparator<Re
 		if (object1.determineDrawPriotity() > object2.determineDrawPriotity())
 		{
 			return 1;
-		}
+		}*/
 
 		return 0;
 	}

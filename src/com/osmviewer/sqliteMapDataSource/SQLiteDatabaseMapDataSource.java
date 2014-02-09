@@ -116,7 +116,7 @@ public class SQLiteDatabaseMapDataSource implements MapDataSource
 			}
 
 			PreparedStatement selectMapObjectsStatement = databaseConnection.prepareStatement("SELECT "
-							+ "ROWID, osmId "
+							+ "ROWID, drawingId "
 							+ "FROM MapObjects "
 							+ "WHERE minLatitude<=? AND maxLatitude>=? AND minLongitude<=? AND maxLongitude>=?");
 			selectMapObjectsStatement.setDouble(1, area.getLatitudeMaximum());
@@ -128,13 +128,12 @@ public class SQLiteDatabaseMapDataSource implements MapDataSource
 			while (selectedMapObjectsResultSet.next())
 			{
 				long rowId = selectedMapObjectsResultSet.getLong(1);
-				long osmId = selectedMapObjectsResultSet.getLong(2);
+				String drawingId = selectedMapObjectsResultSet.getString(2);
 
-				DefenitionTags tags = selectTags(rowId);
 				Location[] points = selectPoints(rowId);
-				if (tags != null && points != null)
+				if (points != null)
 				{
-					fetchResultsHandler.takeMapObjectData(osmId, tags, points);
+					fetchResultsHandler.takeMapObjectData(rowId, drawingId, points);
 				}
 			}
 
@@ -154,17 +153,17 @@ public class SQLiteDatabaseMapDataSource implements MapDataSource
 	/**
 	 * Select points of map objects by its id (ROWID) in database
 	 *
-	 * @param mapObjectId map object id (ROWID)
+	 * @param mapObjectRowId map object id (ROWID)
 	 * @return points of map object
 	 * @throws DatabaseErrorExcetion error wile getting points
 	 */
-	private Location[] selectPoints(long mapObjectId) throws DatabaseErrorExcetion
+	private Location[] selectPoints(long mapObjectRowId) throws DatabaseErrorExcetion
 	{
 		try
 		{
 			PreparedStatement selectPointsStatement = databaseConnection.prepareStatement("SELECT latitude,longitude FROM Points "
 							+ "WHERE objectId = ?");
-			selectPointsStatement.setLong(1, mapObjectId);
+			selectPointsStatement.setLong(1, mapObjectRowId);
 
 			ArrayList<Location> selectedPoints = new ArrayList<Location>();
 
@@ -189,17 +188,17 @@ public class SQLiteDatabaseMapDataSource implements MapDataSource
 	/**
 	 * Select tags of map objects by its id (ROWID) in database
 	 *
-	 * @param mapObjectId map object id (ROWID)
+	 * @param mapObjectRowId map object id (ROWID)
 	 * @return tags of map object
 	 * @throws DatabaseErrorExcetion error while getting tags
 	 */
-	private DefenitionTags selectTags(long mapObjectId) throws DatabaseErrorExcetion
+	private DefenitionTags selectTags(long mapObjectRowId) throws DatabaseErrorExcetion
 	{
 		try
 		{
 			PreparedStatement selectTagsStatement = databaseConnection.prepareStatement("SELECT key,value FROM Tags "
 							+ "WHERE objectId = ?");
-			selectTagsStatement.setLong(1, mapObjectId);
+			selectTagsStatement.setLong(1, mapObjectRowId);
 
 			DefenitionTags selectedTags = new DefenitionTags();
 			ResultSet tagsResultSet = selectTagsStatement.executeQuery();

@@ -83,4 +83,26 @@ public class OsmSAXWay extends OsmSAXMapObject implements OsmWay
 	{
 		nodesIds.add(nodeIdToAdd);
 	}
+
+	/**
+	 * Is way closed
+	 *
+	 * @return Is way closed
+	 * @throws IllegalStateException can not determine way closing
+	 */
+	@Override
+	public boolean isClosed() throws IllegalStateException
+	{
+		if (nodesIds.isEmpty())
+		{
+			throw new IllegalStateException("way have not enough nodes");
+		}
+
+		if (nodesIds.size() < 4)
+		{
+			return false;
+		}
+
+		return nodesIds.get(0).equals(nodesIds.get(nodesIds.size() - 1));
+	}
 }

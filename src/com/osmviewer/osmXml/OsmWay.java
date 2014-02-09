@@ -46,4 +46,12 @@ public interface OsmWay
 	 * @throws IllegalArgumentException index is out of bounds
 	 */
 	public long getNodeId(int index) throws IllegalArgumentException;
+
+	/**
+	 * Is way closed
+	 *
+	 * @return Is way closed
+	 * @throws IllegalStateException can not determine way closing
+	 */
+	public boolean isClosed() throws IllegalStateException;
 }

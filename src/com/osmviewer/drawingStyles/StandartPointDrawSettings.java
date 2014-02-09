@@ -4,14 +4,13 @@ import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import com.osmviewer.rendering.RenderableMapPointDrawSettings;
 
 /**
  * How to object if its one node
  *
  * @author abc
  */
-public class StandartPointDrawSettings implements RenderableMapPointDrawSettings
+public class StandartPointDrawSettings
 {
 	/**
 	 * Icon
@@ -31,7 +30,6 @@ public class StandartPointDrawSettings implements RenderableMapPointDrawSettings
 	 *
 	 * @return icon
 	 */
-	@Override
 	public BufferedImage getIcon()
 	{
 		return icon.getImage();

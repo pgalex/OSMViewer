@@ -15,7 +15,7 @@ public class DefenitionTags
 	/**
 	 * Array of tags
 	 */
-	protected ArrayList<Tag> tags;
+	private ArrayList<Tag> tags;
 
 	/**
 	 * Create empty defenition tags
@@ -135,26 +135,37 @@ public class DefenitionTags
 
 		for (Tag thisTag : tags)
 		{
-			boolean thisTagFoundInCompatingTags = false;
-
-			for (int i = 0; i < tagsForComparing.count(); i++)
-			{
-				Tag comparingTag = tagsForComparing.get(i);
-
-				if (thisTag.equals(comparingTag))
-				{
-					thisTagFoundInCompatingTags = true;
-					break;
-				}
-			}
-
-			if (!thisTagFoundInCompatingTags)
+			if (!tagsForComparing.contains(thisTag))
 			{
 				return false;
 			}
 		}
 
 		return true;
+	}
+
+	/**
+	 * Is contains tag
+	 *
+	 * @param tagToFind tag to find. Must be not null
+	 * @return is contains given tag
+	 * @throws IllegalArgumentException tagToFind is null
+	 */
+	public boolean contains(Tag tagToFind) throws IllegalArgumentException
+	{
+		if (tagToFind == null)
+		{
+			throw new IllegalArgumentException("tagToFind is null");
+		}
+
+		for (Tag tag : tags)
+		{
+			if (tag.equals(tagToFind))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**

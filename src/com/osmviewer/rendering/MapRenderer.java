@@ -299,16 +299,8 @@ public class MapRenderer implements CoordinatesConverter
 
 		selectingBuffer.clear();
 
-		MapObjectsRendererSeparatingText objectsRenderer = new MapObjectsRendererSeparatingText(targetCanvas,
-						textCanvasGraphics, this, scaleLevel, selectingBuffer);
-		if (objectToDrawAsHighlighted != null)
-		{
-			objectsRenderer.setObjectToDrawAsHighlighted(objectToDrawAsHighlighted);
-		}
-		if (objectToDrawAsSelected != null)
-		{
-			objectsRenderer.setObjectToDrawAsSelected(objectToDrawAsSelected);
-		}
+		DrawingIdBasedMapObjectsRenderer objectsRenderer = new DrawingIdBasedMapObjectsRenderer(targetCanvas,
+						 this, scaleLevel, selectingBuffer);
 
 		mapToRender.renderObjectsByDrawPriority(objectsRenderer, getViewArea(),
 						new RenderableMapObjectsDrawPriorityComparator());

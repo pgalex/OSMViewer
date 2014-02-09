@@ -5,6 +5,7 @@ import com.osmviewer.drawingStyles.DrawingStylesFactory;
 import com.osmviewer.forms.DrawableOnPanel;
 import com.osmviewer.map.exceptions.FetchingErrorException;
 import com.osmviewer.mapDefenitionUtilities.Location;
+import com.osmviewer.mapDefenitionUtilities.MapBounds;
 import com.osmviewer.rendering.MapRenderer;
 import com.osmviewer.rendering.RenderableMapObject;
 import com.osmviewer.sqliteMapDataSource.SQLiteDatabaseMapDataSource;
@@ -37,7 +38,7 @@ public class MapController implements DrawableOnPanel
 	/**
 	 * Map
 	 */
-	private SectoredMap map;
+	private SimpleMap map;
 	/**
 	 * MapByOsmXmlData renderer - drawes object
 	 */
@@ -59,12 +60,11 @@ public class MapController implements DrawableOnPanel
 	 * @param startScaleLevel start scale level
 	 * @param startCanvasWidth start target canvas width
 	 * @param startCanvasHeight start target canvas height
-	 * @param loadingHandler map loading results handler
 	 */
 	public MapController(Location startViewPosition, int startScaleLevel,
-					int startCanvasWidth, int startCanvasHeight, MapLoadingHandler loadingHandler)
+					int startCanvasWidth, int startCanvasHeight)
 	{
-		map = new SectoredMap(loadingHandler);
+		map = new SimpleMap();
 		mapDataSource = null;
 
 		renderer = new MapRenderer(MINIMUM_SCALE_LEVEL, MAXIMUM_SCALE_LEVEL, startScaleLevel);
@@ -301,10 +301,9 @@ public class MapController implements DrawableOnPanel
 	 */
 	public void loadMapByCurrentViewPosition() throws FetchingErrorException
 	{
-
 		if (isMapDataSourceSet())
 		{
-			map.loadObjectsInArea(renderer.getViewArea(), mapDataSource, styleViewer);
+			map.loadObjectsInArea(new MapBounds(-180, 180, -90, 90), mapDataSource);
 		}
 	}
 }

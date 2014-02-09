@@ -2,7 +2,6 @@ package com.osmviewer.drawingStyles;
 
 import java.io.File;
 import java.io.IOException;
-import com.osmviewer.map.RenderableMapObjectsDrawSettingsFinder;
 
 /**
  * Draw settings viewer. Provides information about how to draw map and map
@@ -10,7 +9,7 @@ import com.osmviewer.map.RenderableMapObjectsDrawSettingsFinder;
  *
  * @author pgalex
  */
-public interface DrawSettingsViewer extends RenderableMapObjectsDrawSettingsFinder
+public interface DrawSettingsViewer
 {
 	/**
 	 * Get map drawing settings

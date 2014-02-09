@@ -5,15 +5,13 @@ import java.awt.Paint;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import com.osmviewer.rendering.RenderableMapLineDrawSettings;
-import com.osmviewer.rendering.RenderableMapPolygonDrawSettings;
 
 /**
  * How to draw polygon (closed way)
  *
  * @author abc
  */
-public class StandartPolygonDrawSettings implements RenderableMapPolygonDrawSettings
+public class StandartPolygonDrawSettings
 {
 	/**
 	 * Default polygon filler
@@ -104,7 +102,6 @@ public class StandartPolygonDrawSettings implements RenderableMapPolygonDrawSett
 	 *
 	 * @return is need to draw inner part
 	 */
-	@Override
 	public boolean isDrawInnerPart()
 	{
 		return needDrawInnerPart;
@@ -131,7 +128,6 @@ public class StandartPolygonDrawSettings implements RenderableMapPolygonDrawSett
 	 *
 	 * @return is need to draw border
 	 */
-	@Override
 	public boolean isDrawBorder()
 	{
 		return needDrawBorder;
@@ -158,7 +154,6 @@ public class StandartPolygonDrawSettings implements RenderableMapPolygonDrawSett
 	 *
 	 * @return paint for drawing polygon
 	 */
-	@Override
 	public Paint getPaint()
 	{
 		return filler.getPaint();
@@ -211,9 +206,8 @@ public class StandartPolygonDrawSettings implements RenderableMapPolygonDrawSett
 	 *
 	 * @return draw settings of polygon border
 	 */
-	@Override
-	public RenderableMapLineDrawSettings findBorderDrawSettings()
+	/*public RenderableMapLineDrawSettings findBorderDrawSettings()
 	{
 		return borderDrawSettings;
-	}
+	}*/
 }

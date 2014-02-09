@@ -3,9 +3,6 @@ package com.osmviewer.drawingStyles;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import com.osmviewer.rendering.RenderableMapLineDrawSettings;
-import com.osmviewer.rendering.RenderableMapPointDrawSettings;
-import com.osmviewer.rendering.RenderableMapPolygonDrawSettings;
 import com.osmviewer.rendering.TextDrawSettings;
 
 /**
@@ -169,7 +166,7 @@ public class DrawSettingsOnScaleArray
 	 * @param scaleLevel scale level
 	 * @return point draw style on scale level. Null if not found
 	 */
-	public RenderableMapPointDrawSettings findPointDrawSettings(int scaleLevel)
+	/*public RenderableMapPointDrawSettings findPointDrawSettings(int scaleLevel)
 	{
 		DrawSettingsOnScale drawSettingsOnScale = getDrawSettingsOnScale(scaleLevel);
 		if (drawSettingsOnScale == null)
@@ -185,7 +182,7 @@ public class DrawSettingsOnScaleArray
 		{
 			return null;
 		}
-	}
+	}*/
 
 	/**
 	 * Find line style on scale level
@@ -193,7 +190,7 @@ public class DrawSettingsOnScaleArray
 	 * @param scaleLevel scale level
 	 * @return line draw style on scale level. Null if not found
 	 */
-	public RenderableMapLineDrawSettings findLineDrawSettings(int scaleLevel)
+	/*public RenderableMapLineDrawSettings findLineDrawSettings(int scaleLevel)
 	{
 		DrawSettingsOnScale drawSettingsOnScale = getDrawSettingsOnScale(scaleLevel);
 		if (drawSettingsOnScale == null)
@@ -209,7 +206,7 @@ public class DrawSettingsOnScaleArray
 		{
 			return null;
 		}
-	}
+	}*/
 
 	/**
 	 * Find polygon style on scale level
@@ -217,7 +214,7 @@ public class DrawSettingsOnScaleArray
 	 * @param scaleLevel scale level
 	 * @return polygon draw style on scale level. Null if not found
 	 */
-	public RenderableMapPolygonDrawSettings findPolygonDrawSettings(int scaleLevel)
+	/*public RenderableMapPolygonDrawSettings findPolygonDrawSettings(int scaleLevel)
 	{
 		DrawSettingsOnScale drawSettingsOnScale = getDrawSettingsOnScale(scaleLevel);
 		if (drawSettingsOnScale == null)
@@ -233,7 +230,7 @@ public class DrawSettingsOnScaleArray
 		{
 			return null;
 		}
-	}
+	}*/
 
 	/**
 	 * Find text style on scale level

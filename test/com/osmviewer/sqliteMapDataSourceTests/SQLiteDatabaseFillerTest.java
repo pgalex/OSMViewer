@@ -61,7 +61,7 @@ public class SQLiteDatabaseFillerTest
 	 *
 	 * @throws DatabaseErrorExcetion
 	 * @throws FileNotFoundException
-	 * @throws IOException  
+	 * @throws IOException
 	 */
 	@Test
 	public void creatingWithExistsDatabaseTest() throws DatabaseErrorExcetion, FileNotFoundException, IOException
@@ -94,7 +94,25 @@ public class SQLiteDatabaseFillerTest
 			SQLiteDatabaseFiller databaseFiller = new SQLiteDatabaseFiller(IOTester.TEST_FILE_NAME);
 			Location[] points = new Location[1];
 			points[0] = new Location(10.0, 20.0);
-			databaseFiller.addMapObject(1, null, points);
+			databaseFiller.addMapObject("1", null, points);
+			fail();
+		}
+		catch (IllegalArgumentException ex)
+		{
+			// ok
+		}
+	}
+
+	@Test
+	public void addingMapObjectWithNullIdTest() throws DatabaseErrorExcetion
+	{
+		try
+		{
+			IOTester.deleteTestFile();
+			SQLiteDatabaseFiller databaseFiller = new SQLiteDatabaseFiller(IOTester.TEST_FILE_NAME);
+			Location[] points = new Location[1];
+			points[0] = new Location(10.0, 20.0);
+			databaseFiller.addMapObject(null, new DefenitionTags(), points);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -115,7 +133,7 @@ public class SQLiteDatabaseFillerTest
 		{
 			IOTester.deleteTestFile();
 			SQLiteDatabaseFiller databaseFiller = new SQLiteDatabaseFiller(IOTester.TEST_FILE_NAME);
-			databaseFiller.addMapObject(1, new DefenitionTags(), null);
+			databaseFiller.addMapObject("1", new DefenitionTags(), null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -138,7 +156,7 @@ public class SQLiteDatabaseFillerTest
 			SQLiteDatabaseFiller databaseFiller = new SQLiteDatabaseFiller(IOTester.TEST_FILE_NAME);
 			Location[] points = new Location[3];
 			points[0] = new Location(10.0, 20.0);
-			databaseFiller.addMapObject(1, new DefenitionTags(), points);
+			databaseFiller.addMapObject("1", new DefenitionTags(), points);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -159,7 +177,7 @@ public class SQLiteDatabaseFillerTest
 		{
 			IOTester.deleteTestFile();
 			SQLiteDatabaseFiller databaseFiller = new SQLiteDatabaseFiller(IOTester.TEST_FILE_NAME);
-			databaseFiller.addMapObject(1, new DefenitionTags(), new Location[3]);
+			databaseFiller.addMapObject("1", new DefenitionTags(), new Location[3]);
 			fail();
 		}
 		catch (IllegalArgumentException ex)

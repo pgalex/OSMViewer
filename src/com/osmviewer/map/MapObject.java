@@ -1,96 +1,85 @@
 package com.osmviewer.map;
 
-import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
-import com.osmviewer.mapDefenitionUtilities.MapBounds;
+import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.rendering.RenderableMapObject;
-import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
 
 /**
  * Some object on a map
  *
  * @author pgalex
  */
-public abstract class MapObject implements RenderableMapObject
+public class MapObject implements RenderableMapObject
 {
 	/**
-	 * Tags, describes the object.Can be empty ( cuz in openstreetmap can be
-	 * object without tags )
+	 * Identifier help to find kind of map object and how to draw them
 	 */
-	private DefenitionTags defenitionTags;
+	private String drawingId;
 	/**
-	 * Draw settings of map object. If null - not defined
+	 * Points defining map object position
 	 */
-	private RenderableMapObjectDrawSettings drawSettings;
+	private Location[] points;
 
 	/**
 	 * Initialize with parameters
 	 *
-	 * @param objectDefenitionTags Tags, describes the object
-	 * @throws IllegalArgumentException objectDefenitionTags is null
+	 * @param identifier map object id. Describes kind of map object. Must be not
+	 * null
+	 * @param points points, defining map object position. Must be not null, not
+	 * empty, not contains null
+	 * @throws IllegalArgumentException identifier is null
 	 */
-	public MapObject(DefenitionTags objectDefenitionTags) throws IllegalArgumentException
+	public MapObject(String identifier, Location[] points) throws IllegalArgumentException
 	{
-		if (objectDefenitionTags == null)
+		if (identifier == null)
 		{
-			throw new IllegalArgumentException("objectDefenitionTags is null");
+			throw new IllegalArgumentException("identifier is null");
+		}
+		if (!isPointsCorrect(points))
+		{
+			throw new IllegalArgumentException("points incorrect");
+		}
+		this.drawingId = identifier;
+		this.points = points;
+	}
+
+	private boolean isPointsCorrect(Location[] pointsToTest)
+	{
+		if (pointsToTest == null)
+		{
+			return false;
 		}
 
-		defenitionTags = objectDefenitionTags;
-		drawSettings = null;
-	}
-
-	/**
-	 * Get defenition tags
-	 *
-	 * @return defenition tags
-	 */
-	@Override
-	public DefenitionTags getDefenitionTags()
-	{
-		return defenitionTags;
-	}
-
-	/**
-	 * Get draw settings
-	 *
-	 * @return draw settings of map object. Null if not defined
-	 */
-	@Override
-	public RenderableMapObjectDrawSettings getDrawSettings()
-	{
-		return drawSettings;
-	}
-
-	/**
-	 * Set draw settings
-	 *
-	 * @param drawSettingsToSet new draw settings
-	 * @throws IllegalArgumentException drawSettingsToSet is null
-	 */
-	public void setDrawSettings(RenderableMapObjectDrawSettings drawSettingsToSet) throws IllegalArgumentException
-	{
-		if (drawSettingsToSet == null)
+		if (pointsToTest.length == 0)
 		{
-			throw new IllegalArgumentException("drawSettingsToSet is null");
+			return false;
 		}
 
-		drawSettings = drawSettingsToSet;
+		for (int i = 0; i < pointsToTest.length; i++)
+		{
+			if (pointsToTest[i] == null)
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 
-	/**
-	 * Is object visible in given area
-	 *
-	 * @param area area to test visibility in
-	 * @return is object visible in area
-	 * @throws IllegalArgumentException area is null
-	 */
-	public abstract boolean isVisibleInArea(MapBounds area) throws IllegalArgumentException;
+	@Override
+	public String getDrawingId()
+	{
+		return drawingId;
+	}
 
-	/**
-	 * Can this type of map object be drawen with this style
-	 *
-	 * @param drawSettings drawing style of object
-	 * @return Can this type of map object be drawen with this style
-	 */
-	public abstract boolean canBeDrawenWithStyle(RenderableMapObjectDrawSettings drawSettings);
+	@Override
+	public int getPointsCount()
+	{
+		return points.length;
+	}
+
+	@Override
+	public Location getPoint(int pointIndex) throws IllegalArgumentException
+	{
+		return points[pointIndex];
+	}
 }

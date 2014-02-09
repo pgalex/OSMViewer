@@ -2,11 +2,8 @@ package com.osmviewer.forms;
 
 import com.osmviewer.drawingStyles.forms.EditDrawingStylesFrame;
 import com.osmviewer.map.MapController;
-import com.osmviewer.map.MapLoadingHandler;
 import com.osmviewer.map.exceptions.FetchingErrorException;
 import com.osmviewer.mapDefenitionUtilities.Location;
-import com.osmviewer.rendering.RenderableMapObject;
-import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
 import com.osmviewer.sqliteMapDataSource.exceptions.DatabaseErrorExcetion;
 import java.awt.Dialog.ModalityType;
 import java.awt.Point;
@@ -27,7 +24,7 @@ import javax.swing.JOptionPane;
  *
  * @author preobrazhentsev
  */
-public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
+public class MainFrame extends javax.swing.JFrame
 {
 	/**
 	 * Dialog using to show information about objects on map
@@ -59,7 +56,7 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 		jLabelLoadingIcon.setVisible(false);
 
 		mapController = new MapController(UserSettings.getInstance().getViewPosition(), 16,
-						jPanelCanvas.getWidth(), jPanelCanvas.getHeight(), this);
+						jPanelCanvas.getWidth(), jPanelCanvas.getHeight());
 
 		convertOsmDialog = new ConvertOsmXmlToSQLiteDialog(this, ModalityType.MODELESS);
 		convertOsmDialog.setLocationRelativeTo(null);
@@ -225,35 +222,6 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 		{
 			JOptionPane.showMessageDialog(this, "Невозможно открыть карту", "Ошибка", JOptionPane.ERROR_MESSAGE);
 		}
-	}
-
-	/**
-	 * All parts of map finished loading
-	 *
-	 */
-	@Override
-	public void wholeMapFinishedLoading()
-	{
-		jLabelLoadingIcon.setVisible(false);
-		jPanelCanvas.repaint();
-	}
-
-	/**
-	 * Part of map finished loading
-	 */
-	@Override
-	public void partOfMapFinisheLoading()
-	{
-		jPanelCanvas.repaint();
-	}
-
-	/**
-	 * Part of map start loading
-	 */
-	@Override
-	public void partOfMapStartsLoading()
-	{
-		jLabelLoadingIcon.setVisible(true);
 	}
 
 	/**
@@ -460,7 +428,7 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 
   private void jPanelCanvasMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jPanelCanvasMouseClicked
   {//GEN-HEADEREND:event_jPanelCanvasMouseClicked
-		RenderableMapObject[] objectsAtMousePosition = mapController.findObjectsAtPoint(evt.getPoint());
+		/*RenderableMapObject[] objectsAtMousePosition = mapController.findObjectsAtPoint(evt.getPoint());
 
 		if (objectsAtMousePosition.length > 0)
 		{
@@ -485,7 +453,7 @@ public class MainFrame extends javax.swing.JFrame implements MapLoadingHandler
 			mapObjectInformationDialog.setVisible(false);
 		}
 
-		jPanelCanvas.repaint();
+		jPanelCanvas.repaint();*/
   }//GEN-LAST:event_jPanelCanvasMouseClicked
 
   private void jSliderScaleLevelStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_jSliderScaleLevelStateChanged

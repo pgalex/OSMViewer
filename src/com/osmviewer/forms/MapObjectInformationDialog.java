@@ -1,8 +1,6 @@
 package com.osmviewer.forms;
 
 import java.awt.Window;
-import com.osmviewer.rendering.RenderableMapObject;
-import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
 
 /**
  * Dialog, showes informatoin about map object
@@ -41,7 +39,7 @@ public class MapObjectInformationDialog extends javax.swing.JDialog
 	 * @throws IllegalArgumentException objectToShowInformationAbout or
 	 * objectDrawSettings is null
 	 */
-	public void showMapObjectInformation(RenderableMapObject objectToShowInformationAbout,
+	/*public void showMapObjectInformation(RenderableMapObject objectToShowInformationAbout,
 					RenderableMapObjectDrawSettings objectDrawSettings) throws IllegalArgumentException
 	{
 		if (objectToShowInformationAbout == null)
@@ -56,7 +54,7 @@ public class MapObjectInformationDialog extends javax.swing.JDialog
 		jLabelName.setText(objectDrawSettings.getName());
 		jTextAreaDescription.setText(objectDrawSettings.getDescription());
 		defenitionTagsTableModel.fillWithDefenitionTags(objectToShowInformationAbout.getDefenitionTags());
-	}
+	}*/
 
 	/**
 	 * Clear showing information

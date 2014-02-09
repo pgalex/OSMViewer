@@ -10,17 +10,16 @@ import com.osmviewer.mapDefenitionUtilities.MapBounds;
 public interface RenderableMap
 {
 	/**
-	 * Accept visitor for all map objects visible in area. Object should be given
-	 * to objectsVisitor by its draw priority
+	 * Render map objects, that visible in area, with given renderer
 	 *
-	 * @param objectsRenderingVisitor objects renderer
-	 * @param renderingArea area to determine which object need give to
-	 * objectsVisitor
+	 * @param mapObjectsRenderer objects renderer. Must be not null
+	 * @param renderingArea area to determine which object need to render. Must be
+	 * not null
 	 * @param objectsDrawPriorityComparator comparator for sorting rendering
-	 * objects by its draw priority
-	 * @throws IllegalArgumentException objectsVisitor, area or
+	 * objects by its draw priority. Must ne not null
+	 * @throws IllegalArgumentException mapObjectsRenderer, renderingArea or
 	 * objectsDrawPriorityComparator is null
 	 */
-	public void renderObjectsByDrawPriority(RenderableMapObjectsVisitor objectsRenderingVisitor,
+	public void renderObjectsByDrawPriority(MapObjectsRenderer mapObjectsRenderer,
 					MapBounds renderingArea, RenderableMapObjectsDrawPriorityComparator objectsDrawPriorityComparator) throws IllegalArgumentException;
 }

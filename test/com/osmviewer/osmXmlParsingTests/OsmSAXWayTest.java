@@ -15,7 +15,7 @@ public class OsmSAXWayTest
 {
 	private final Long ID = new Long(123456789);
 	private TreeMap<String, String> testAttributesMap;
-	
+
 	public OsmSAXWayTest()
 	{
 		testAttributesMap = new TreeMap<String, String>();
@@ -51,9 +51,9 @@ public class OsmSAXWayTest
 	{
 		TestAttributes testAttributes = new TestAttributes();
 		testAttributes.attributesData = testAttributesMap;
-		
+
 		OsmSAXWay osmSAXWay = new OsmSAXWay(testAttributes);
-		
+
 		assertEquals((long) ID, osmSAXWay.getId());
 	}
 
@@ -92,7 +92,7 @@ public class OsmSAXWayTest
 		TestAttributes testAttributes = new TestAttributes();
 		testAttributes.attributesData = testAttributesMap;
 		OsmSAXWay osmSAXWay = new OsmSAXWay(testAttributes);
-		
+
 		TestOsmTag addingTag = new TestOsmTag();
 		osmSAXWay.addTag(addingTag);
 		assertEquals(1, osmSAXWay.getTagsCount());
@@ -209,5 +209,64 @@ public class OsmSAXWayTest
 		OsmSAXWay osmSAXWay = new OsmSAXWay(testAttributes);
 		osmSAXWay.addNodeId(11);
 		assertEquals(11, osmSAXWay.getNodeId(0));
+	}
+
+	@Test
+	public void isClosedEmptyWayTest() throws SAXException
+	{
+		TestAttributes testAttributes = new TestAttributes();
+		testAttributes.attributesData = testAttributesMap;
+		OsmSAXWay osmSAXWay = new OsmSAXWay(testAttributes);
+		try
+		{
+			osmSAXWay.isClosed();
+			fail();
+		}
+		catch (IllegalStateException ex)
+		{
+			// ok
+		}
+	}
+
+	@Test
+	public void isClosedNotEnoughNodesTest() throws SAXException
+	{
+		TestAttributes testAttributes = new TestAttributes();
+		testAttributes.attributesData = testAttributesMap;
+		OsmSAXWay osmSAXWay = new OsmSAXWay(testAttributes);
+		osmSAXWay.addNodeId(13);
+		osmSAXWay.addNodeId(14);
+		osmSAXWay.addNodeId(13);
+		assertFalse(osmSAXWay.isClosed());
+	}
+
+	@Test
+	public void isClosedFirstLastNodesEqualsTest() throws SAXException
+	{
+		TestAttributes testAttributes = new TestAttributes();
+		testAttributes.attributesData = testAttributesMap;
+		OsmSAXWay osmSAXWay = new OsmSAXWay(testAttributes);
+		osmSAXWay.addNodeId(13);
+		osmSAXWay.addNodeId(14);
+		osmSAXWay.addNodeId(15);
+		osmSAXWay.addNodeId(13);
+		osmSAXWay.addNodeId(16);
+		osmSAXWay.addNodeId(13);
+		assertTrue(osmSAXWay.isClosed());
+	}
+
+	@Test
+	public void isClosedFirstLastNodesNotEqualsTest() throws SAXException
+	{
+		TestAttributes testAttributes = new TestAttributes();
+		testAttributes.attributesData = testAttributesMap;
+		OsmSAXWay osmSAXWay = new OsmSAXWay(testAttributes);
+		osmSAXWay.addNodeId(13);
+		osmSAXWay.addNodeId(14);
+		osmSAXWay.addNodeId(15);
+		osmSAXWay.addNodeId(13);
+		osmSAXWay.addNodeId(16);
+		osmSAXWay.addNodeId(17);
+		assertFalse(osmSAXWay.isClosed());
 	}
 }

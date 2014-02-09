@@ -5,10 +5,7 @@ import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
 import com.osmviewer.mapDefenitionUtilities.Tag;
 import com.osmviewer.sqliteMapDataSource.exceptions.DatabaseErrorExcetion;
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -87,7 +84,7 @@ public class SQLiteDatabaseFiller
 
 			Statement createMapObjectsTableStatement = databaseConnection.createStatement();
 			createMapObjectsTableStatement.executeUpdate("CREATE TABLE IF NOT EXISTS MapObjects ("
-							+ "osmId INTEGER, "
+							+ "drawingId TEXT, "
 							+ "minLatitude REAL, maxLatitude REAL, minLongitude REAL, maxLongitude REAL )");
 			databaseConnection.commit();
 			createMapObjectsTableStatement.close();
@@ -121,14 +118,19 @@ public class SQLiteDatabaseFiller
 	/**
 	 * Add map object to database
 	 *
-	 * @param id adding map object id
+	 * @param drawingId adding map object id. Must be not null
 	 * @param tags adding map object tags
 	 * @param points points, defines map objects position on map
-	 * @throws IllegalArgumentException tags is null, points is null or empty
+	 * @throws IllegalArgumentException tags is null, points is null or empty;
+	 * drawingId is null
 	 * @throws DatabaseErrorExcetion error while adding map object
 	 */
-	public synchronized void addMapObject(long id, DefenitionTags tags, Location[] points) throws IllegalArgumentException, DatabaseErrorExcetion
+	public synchronized void addMapObject(String drawingId, DefenitionTags tags, Location[] points) throws IllegalArgumentException, DatabaseErrorExcetion
 	{
+		if (drawingId == null)
+		{
+			throw new IllegalArgumentException("drawingId is null");
+		}
 		if (tags == null)
 		{
 			throw new IllegalArgumentException("tags is null");
@@ -142,7 +144,7 @@ public class SQLiteDatabaseFiller
 		{
 			insertPoints(points);
 			insertTags(tags);
-			insertMapObjectStatement.setLong(1, id);
+			insertMapObjectStatement.setString(1, drawingId);
 			MapBounds pointsBounds = findPointsBounds(points);
 			insertMapObjectStatement.setDouble(2, pointsBounds.getLatitudeMinimum());
 			insertMapObjectStatement.setDouble(3, pointsBounds.getLatitudeMaximum());
@@ -266,6 +268,7 @@ public class SQLiteDatabaseFiller
 	 */
 	private MapBounds findPointsBounds(Location[] points) throws IllegalArgumentException
 	{
+		// todo move in MapBounds
 		if (!isMapObjectPointsCorrect(points))
 		{
 			throw new IllegalArgumentException("points incorrect");

@@ -5,14 +5,13 @@ import java.awt.Color;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import com.osmviewer.rendering.RenderableMapLineDrawSettings;
 
 /**
  * How to draw line (non closed way)
  *
  * @author abc
  */
-public class StandartLineDrawSettings implements RenderableMapLineDrawSettings
+public class StandartLineDrawSettings
 {
 	/**
 	 * Default line width
@@ -62,7 +61,6 @@ public class StandartLineDrawSettings implements RenderableMapLineDrawSettings
 	 *
 	 * @return line color
 	 */
-	@Override
 	public Color getColor()
 	{
 		return color.getStoringColor();
@@ -73,7 +71,6 @@ public class StandartLineDrawSettings implements RenderableMapLineDrawSettings
 	 *
 	 * @return line width
 	 */
-	@Override
 	public float getWidth()
 	{
 		return width;
@@ -124,7 +121,6 @@ public class StandartLineDrawSettings implements RenderableMapLineDrawSettings
 	 *
 	 * @return stroke for line drawing
 	 */
-	@Override
 	public BasicStroke getStroke()
 	{
 		return new BasicStroke(getWidth(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,

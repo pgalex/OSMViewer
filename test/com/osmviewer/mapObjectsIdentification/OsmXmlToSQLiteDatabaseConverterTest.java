@@ -1,10 +1,11 @@
-package com.osmviewer.sqliteMapDataSourceTests;
+package com.osmviewer.mapObjectsIdentification;
 
 import com.osmviewer.IOTesting.IOTester;
 import com.osmviewer.osmXml.exceptions.ParsingOsmErrorException;
 import com.osmviewer.sqliteMapDataSource.OsmXmlToSQLiteDatabaseConverter;
 import com.osmviewer.sqliteMapDataSource.exceptions.DatabaseErrorExcetion;
 import com.osmviewer.sqliteMapDataSource.exceptions.DeletingExistsDatabaseFileErrorException;
+import com.osmviewer.sqliteMapDataSourceTests.TestMapObjectsIdentifiersFinder;
 import java.io.FileNotFoundException;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -29,7 +30,7 @@ public class OsmXmlToSQLiteDatabaseConverterTest
 		try
 		{
 			OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter();
-			converter.convert(null, IOTester.TEST_FILE_NAME, null);
+			converter.convert(null, IOTester.TEST_FILE_NAME, new TestMapObjectsIdentifiersFinder());
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -61,7 +62,7 @@ public class OsmXmlToSQLiteDatabaseConverterTest
 		try
 		{
 			OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter();
-			converter.convert("", IOTester.TEST_FILE_NAME, null);
+			converter.convert("", IOTester.TEST_FILE_NAME, new TestMapObjectsIdentifiersFinder());
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -91,7 +92,7 @@ public class OsmXmlToSQLiteDatabaseConverterTest
 		try
 		{
 			OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter();
-			converter.convert(IOTester.TEST_FILE_NAME, null, null);
+			converter.convert(IOTester.TEST_FILE_NAME, null, new TestMapObjectsIdentifiersFinder());
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -125,7 +126,7 @@ public class OsmXmlToSQLiteDatabaseConverterTest
 		try
 		{
 			OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter();
-			converter.convert(TEST_MAP_FILE, "", null);
+			converter.convert(TEST_MAP_FILE, "", new TestMapObjectsIdentifiersFinder());
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -161,7 +162,7 @@ public class OsmXmlToSQLiteDatabaseConverterTest
 		try
 		{
 			OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter();
-			converter.convert(IOTester.TEST_FILE_NAME, IOTester.TEST_FILE_NAME, null);
+			converter.convert(IOTester.TEST_FILE_NAME, IOTester.TEST_FILE_NAME, new TestMapObjectsIdentifiersFinder());
 			fail();
 		}
 		catch (IllegalArgumentException ex)

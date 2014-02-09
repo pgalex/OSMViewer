@@ -1,7 +1,6 @@
 package com.osmviewer.drawingStyles;
 
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
-import com.osmviewer.rendering.RenderableMapObjectDrawSettings;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -53,8 +52,7 @@ public class StandartDrawSettingsContainer implements DrawSettingsViewer
 	 * to find
 	 * @return draw settings of map object. null if not found
 	 */
-	@Override
-	public RenderableMapObjectDrawSettings findMapObjectDrawSettings(DefenitionTags mapObjectDefenitionTags)
+	/*public RenderableMapObjectDrawSettings findMapObjectDrawSettings(DefenitionTags mapObjectDefenitionTags)
 	{
 		if (mapObjectDefenitionTags == null)
 		{
@@ -81,7 +79,7 @@ public class StandartDrawSettingsContainer implements DrawSettingsViewer
 		{
 			return null;
 		}
-	}
+	}*/
 
 	/**
 	 * Get map object draw settings by index
