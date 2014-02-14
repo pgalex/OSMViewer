@@ -1,5 +1,6 @@
 package com.osmviewer.drawingStyles;
 
+import com.osmviewer.xmlDrawSettings.StandartMapDrawSettings;
 import java.io.File;
 import java.io.IOException;
 

@@ -1,5 +1,6 @@
 package com.osmviewer.drawingStyles;
 
+import com.osmviewer.xmlDrawSettings.StandartMapDrawSettings;
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -151,7 +152,7 @@ public class StandartDrawSettingsContainer implements DrawSettingsViewer
 	{
 		try
 		{
-			mapDrawSettings.writeToStream(output);
+			//mapDrawSettings.writeToStream(output);
 
 			output.writeInt(mapObjectsDrawSettings.size());
 			for (int i = 0; i < mapObjectsDrawSettings.size(); i++)
@@ -195,7 +196,7 @@ public class StandartDrawSettingsContainer implements DrawSettingsViewer
 	{
 		try
 		{
-			mapDrawSettings.readFromStream(input);
+			//mapDrawSettings.readFromStream(input);
 
 			int drawSettingsCount = input.readInt();
 			mapObjectsDrawSettings = new ArrayList<StandartMapObjectDrawSettings>(drawSettingsCount);

@@ -1,0 +1,22 @@
+<drawingParameters type>
+
+if type =
+
+"polygon"
+	<filling> // if not exists - there is no filling (inner part of polygon)
+		<scale from to>
+			<color r g b a/> or <texture fileName/>
+		</scale>
+	</filling>
+	<border> // if not exists - there is no border
+		<scale from to>
+		</scale>
+	</border>
+	<text> // if not exists - there is no text
+		<scale from to>
+			<color r g b a/> // if not exists - using default
+			<font name size bold italic underline/> // if not exists - using default
+		</scale>
+	</text>
+
+</<drawingParameters>

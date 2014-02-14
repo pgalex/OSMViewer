@@ -21,7 +21,7 @@ public class TemporaryOsmNodesDatabase
 	/**
 	 * Maximum number of insert commands in adding statement bactch
 	 */
-	private static final int ADD_NODES_MAXIMUM_BATCH_SIZE = 1000;
+	private static final int ADD_NODES_MAXIMUM_BATCH_SIZE = 1500;
 	/**
 	 * Connection to temponary SQLite database
 	 */

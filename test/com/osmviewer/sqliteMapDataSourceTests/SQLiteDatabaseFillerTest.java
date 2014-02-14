@@ -68,9 +68,10 @@ public class SQLiteDatabaseFillerTest
 	{
 		try
 		{
-			DataOutputStream output = IOTester.createTestOutputStream();
-			output.writeBoolean(true);
-			output.close();
+			try (DataOutputStream output = IOTester.createTestOutputStream())
+			{
+				output.writeBoolean(true);
+			}
 			SQLiteDatabaseFiller databaseFiller = new SQLiteDatabaseFiller(IOTester.TEST_FILE_NAME);
 			fail();
 		}

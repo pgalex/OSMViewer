@@ -20,7 +20,7 @@ import java.sql.Statement;
 public class SQLiteDatabaseFiller
 {
 	/**
-	 * Maximum number of insert commands in adding map objects statement bactch
+	 * Maximum number of insert commands in adding map objects statement batch
 	 */
 	private static final int ADD_MAP_OBJECTS_MAXIMUM_BATCH_SIZE = 1000;
 	/**

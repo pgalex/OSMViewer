@@ -24,15 +24,15 @@ public class MapRendererTest
 	public void findObjectAtNullPointTest()
 	{
 		/*try
-		{
-			MapRenderer renderer = new MapRenderer(5, 10, 5);
-			renderer.findObjectsAtPoint(null);
-			fail();
-		}
-		catch (IllegalArgumentException ex)
-		{
-			// ok
-		}*/
+		 {
+		 MapRenderer renderer = new MapRenderer(5, 10, 5);
+		 renderer.findObjectsAtPoint(null);
+		 fail();
+		 }
+		 catch (IllegalArgumentException ex)
+		 {
+		 // ok
+		 }*/
 	}
 
 	/**
@@ -42,9 +42,9 @@ public class MapRendererTest
 	public void findObjectInEmptyRendererTest()
 	{
 		/*MapRenderer renderer = new MapRenderer(5, 10, 5);
-		RenderableMapObject[] foundObjects = renderer.findObjectsAtPoint(new Point2D.Double(0, 0));
-		assertNotNull(foundObjects);
-		assertEquals(0, foundObjects.length);*/
+		 RenderableMapObject[] foundObjects = renderer.findObjectsAtPoint(new Point2D.Double(0, 0));
+		 assertNotNull(foundObjects);
+		 assertEquals(0, foundObjects.length);*/
 	}
 
 	/**
@@ -123,15 +123,15 @@ public class MapRendererTest
 	public void setNullObjectToHighlightTest()
 	{
 		/*try
-		{
-			MapRenderer renderer = new MapRenderer(5, 10, 5);
-			renderer.setObjectToDrawAsHighlighted(null);
-			fail();
-		}
-		catch (IllegalArgumentException ex)
-		{
-			// ok
-		}&*/
+		 {
+		 MapRenderer renderer = new MapRenderer(5, 10, 5);
+		 renderer.setObjectToDrawAsHighlighted(null);
+		 fail();
+		 }
+		 catch (IllegalArgumentException ex)
+		 {
+		 // ok
+		 }&*/
 	}
 
 	/**
@@ -141,15 +141,15 @@ public class MapRendererTest
 	public void setNullObjectToSelectTest()
 	{
 		/*try
-		{
-			MapRenderer renderer = new MapRenderer(5, 10, 5);
-			renderer.setObjectToDrawAsSelected(null);
-			fail();
-		}
-		catch (IllegalArgumentException ex)
-		{
-			// ok
-		}*/
+		 {
+		 MapRenderer renderer = new MapRenderer(5, 10, 5);
+		 renderer.setObjectToDrawAsSelected(null);
+		 fail();
+		 }
+		 catch (IllegalArgumentException ex)
+		 {
+		 // ok
+		 }*/
 	}
 
 	/**
@@ -181,7 +181,7 @@ public class MapRendererTest
 			MapRenderer renderer = new MapRenderer(5, 10, 5);
 
 			BufferedImage someImage = new BufferedImage(10, 10, BufferedImage.TYPE_INT_ARGB);
-			renderer.renderMap(null, someImage.createGraphics(), new TestRenderableMapDrawSettings());
+			renderer.renderMap(null, someImage.createGraphics(), new TestDrawSettingsFinder());
 
 			fail();
 		}
@@ -202,7 +202,7 @@ public class MapRendererTest
 			MapRenderer renderer = new MapRenderer(5, 10, 5);
 
 			RenderableMap map = new TestRenderableMap();
-			renderer.renderMap(map, null, new TestRenderableMapDrawSettings());
+			renderer.renderMap(map, null, new TestDrawSettingsFinder());
 
 			fail();
 		}

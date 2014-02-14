@@ -1,6 +1,6 @@
 package com.osmviewer.forms;
 
-import com.osmviewer.mapObjectsXmlIdentification.XmlMapObjectsDrawingIdFinder;
+import com.osmviewer.xmlDrawSettings.XmlMapObjectsDrawingIdFinder;
 import com.osmviewer.osmXml.exceptions.ParsingOsmErrorException;
 import com.osmviewer.sqliteMapDataSource.OsmXmlToSQLiteDatabaseConverter;
 import com.osmviewer.sqliteMapDataSource.exceptions.DatabaseErrorExcetion;

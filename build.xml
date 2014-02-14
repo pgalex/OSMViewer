@@ -4,6 +4,9 @@
     <import file="nbproject/build-impl.xml"/>
 
    <target name="-post-jar">
-     <copy file="resources/ajax-loader-2.gif" tofile="dist/resources/ajax-loader-2.gif" />
+	<copy file="resources/ajax-loader-2.gif" tofile="dist/resources/ajax-loader-2.gif" />
+	<copy file="drawSettings/drawPriority.xml" tofile="dist/drawSettings/drawPriority.xml" />
+	<copy file="drawSettings/mapObjects.xml" tofile="dist/drawSettings/mapObjects.xml" />
+	<copy file="drawSettings/mapObjectsDescription.xml" tofile="dist/drawSettings/mapObjectsDescription.xml" />
    </target>
 </project>

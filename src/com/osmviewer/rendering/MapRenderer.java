@@ -7,7 +7,6 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
 import com.osmviewer.mapDefenitionUtilities.Location;
-import com.osmviewer.mapObjectsXmlIdentification.XmlDrawSettingsFinder;
 import com.osmviewer.rendering.selectng.SelectingBuffer;
 
 /**
@@ -47,8 +46,6 @@ public class MapRenderer implements CoordinatesConverter
 	 */
 	private SelectingBuffer selectingBuffer;
 
-	private DrawSettingsFinder drawSettingsFinder;
-
 	/**
 	 * Create map renderer
 	 *
@@ -79,7 +76,6 @@ public class MapRenderer implements CoordinatesConverter
 		this.maximumScaleLevel = maximumScaleLevel;
 
 		this.selectingBuffer = new SelectingBuffer();
-		this.drawSettingsFinder = new XmlDrawSettingsFinder();
 	}
 
 	/**
@@ -184,12 +180,11 @@ public class MapRenderer implements CoordinatesConverter
 	 *
 	 * @param targetCanvas canvas to draw map on
 	 * @param mapToRender rendering map
-	 * @param mapDrawSettings common map draw settings
+	 * @param drawSettingsFinder
 	 * @throws IllegalArgumentException targetCanvas, mapToRender or
-	 * mapDrawSettings is null
+	 * drawSettingsFinder is null
 	 */
-	public void renderMap(RenderableMap mapToRender, Graphics2D targetCanvas,
-					RenderableMapDrawSettings mapDrawSettings) throws IllegalArgumentException
+	public void renderMap(RenderableMap mapToRender, Graphics2D targetCanvas, DrawSettingsFinder drawSettingsFinder) throws IllegalArgumentException
 	{
 		// todo move mapDrawSettings to contructor and set.. method
 		if (mapToRender == null)
@@ -200,9 +195,9 @@ public class MapRenderer implements CoordinatesConverter
 		{
 			throw new IllegalArgumentException("targetCanvas is null");
 		}
-		if (mapDrawSettings == null)
+		if (drawSettingsFinder == null)
 		{
-			throw new IllegalArgumentException("mapDrawSettings is null");
+			throw new IllegalArgumentException("drawSettingsFinder is null");
 		}
 
 		if (targetCanvasDrawingArea.isEmpty())
@@ -213,7 +208,7 @@ public class MapRenderer implements CoordinatesConverter
 
 		setupRenderingHints(targetCanvas);
 
-		targetCanvas.setBackground(mapDrawSettings.getMapBackgroundColor());
+		targetCanvas.setBackground(drawSettingsFinder.getMapDrawSettings().getMapBackgroundColor());
 		targetCanvas.clearRect(targetCanvasDrawingArea.x, targetCanvasDrawingArea.y,
 						targetCanvasDrawingArea.width, targetCanvasDrawingArea.height);
 

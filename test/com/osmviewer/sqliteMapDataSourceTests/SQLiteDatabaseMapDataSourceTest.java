@@ -62,10 +62,10 @@ public class SQLiteDatabaseMapDataSourceTest
 	 *
 	 * @throws DatabaseErrorExcetion
 	 */
-	@Test
+	/*@Test
 	public void creatingWithNotExistsDatabaseTest() throws DatabaseErrorExcetion
 	{
-		/*try
+		try
 		{
 			IOTester.deleteTestFile();
 			SQLiteDatabaseMapDataSource database = new SQLiteDatabaseMapDataSource(IOTester.TEST_FILE_NAME);
@@ -74,8 +74,8 @@ public class SQLiteDatabaseMapDataSourceTest
 		catch (IllegalArgumentException ex)
 		{
 			// ok
-		}*/
-	}
+		}
+	}*/
 
 	/**
 	 * Test fetching map objects in area normal work
@@ -118,9 +118,8 @@ public class SQLiteDatabaseMapDataSourceTest
 		assertEquals(2, resultsHandler.fetchedUniqueIds.size());
 		assertEquals(2, resultsHandler.fetchedDrawingIds.size());
 		assertEquals(2, resultsHandler.fetchedPoints.size());
-		
-		// todo проверка на уникальность fetchedUniqueIds
 
+		// todo проверка на уникальность fetchedUniqueIds
 		assertEquals("15", resultsHandler.fetchedDrawingIds.get(0));
 		assertEquals(1, resultsHandler.fetchedPoints.get(0).length);
 		assertEquals(15, resultsHandler.fetchedPoints.get(0)[0].getLatitude(), 0.0001);

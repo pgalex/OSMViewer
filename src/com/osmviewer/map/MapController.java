@@ -1,22 +1,16 @@
 package com.osmviewer.map;
 
-import com.osmviewer.drawingStyles.DrawSettingsViewer;
-import com.osmviewer.drawingStyles.DrawingStylesFactory;
 import com.osmviewer.forms.DrawableOnPanel;
 import com.osmviewer.map.exceptions.FetchingErrorException;
 import com.osmviewer.mapDefenitionUtilities.Location;
-import com.osmviewer.mapDefenitionUtilities.MapBounds;
 import com.osmviewer.rendering.MapRenderer;
 import com.osmviewer.rendering.RenderableMapObject;
 import com.osmviewer.sqliteMapDataSource.SQLiteDatabaseMapDataSource;
 import com.osmviewer.sqliteMapDataSource.exceptions.DatabaseErrorExcetion;
+import com.osmviewer.xmlDrawSettings.XmlDrawSettingsContainer;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Organize work between other components and process user's input
@@ -44,9 +38,9 @@ public class MapController implements DrawableOnPanel
 	 */
 	private final MapRenderer renderer;
 	/**
-	 * Drawing styles currently uses to render map
+	 * Container of draw settings
 	 */
-	private final DrawSettingsViewer styleViewer;
+	private final XmlDrawSettingsContainer drawSettingsContainer;
 	/**
 	 * Currently using map data source for map loading. Null if data source not
 	 * set
@@ -71,7 +65,7 @@ public class MapController implements DrawableOnPanel
 		renderer.setViewPosition(startViewPosition);
 		renderer.setTargetCanvasDrawingArea(new Rectangle(0, 0, startCanvasWidth, startCanvasHeight));
 
-		styleViewer = DrawingStylesFactory.createStandartDrawSettingsViewer();
+		drawSettingsContainer = new XmlDrawSettingsContainer();
 
 		//testSetupStyleViewer();
 	}
@@ -165,14 +159,14 @@ public class MapController implements DrawableOnPanel
 		}
 
 		/*RenderableMapObject[] objectsUnderPoint = renderer.findObjectsAtPoint(pointOnTargetCanvas);
-		if (objectsUnderPoint.length > 0)
-		{
-			renderer.setObjectToDrawAsHighlighted(objectsUnderPoint[0]);
-		}
-		else
-		{
-			renderer.resetHighlightedObject();
-		}*/
+		 if (objectsUnderPoint.length > 0)
+		 {
+		 renderer.setObjectToDrawAsHighlighted(objectsUnderPoint[0]);
+		 }
+		 else
+		 {
+		 renderer.resetHighlightedObject();
+		 }*/
 	}
 
 	/**
@@ -208,15 +202,14 @@ public class MapController implements DrawableOnPanel
 	 * @throws IllegalArgumentException pointOnCanvas is null
 	 */
 	/*public RenderableMapObject[] findObjectsAtPoint(Point2D pointOnCanvas) throws IllegalArgumentException
-	{
-		if (pointOnCanvas == null)
-		{
-			throw new IllegalArgumentException("pointOnCanvas is null");
-		}
+	 {
+	 if (pointOnCanvas == null)
+	 {
+	 throw new IllegalArgumentException("pointOnCanvas is null");
+	 }
 
-		return renderer.findObjectsAtPoint(pointOnCanvas);
-	}*/
-
+	 return renderer.findObjectsAtPoint(pointOnCanvas);
+	 }*/
 	/**
 	 * Draw objects on drawing panel
 	 *
@@ -225,19 +218,7 @@ public class MapController implements DrawableOnPanel
 	@Override
 	public void drawOnPanel(Graphics2D panelGraphics)
 	{
-		renderer.renderMap(map, panelGraphics, styleViewer.getMapDrawSettings());
-	}
-
-	private void testSetupStyleViewer()
-	{
-		try
-		{
-			styleViewer.readFromFile(new File("standartDrawStyles/defaultMapStyle.dat"));
-		}
-		catch (IOException ex)
-		{
-			Logger.getLogger(MapController.class.getName()).log(Level.SEVERE, null, ex);
-		}
+		renderer.renderMap(map, panelGraphics, drawSettingsContainer);
 	}
 
 	/**
@@ -303,7 +284,7 @@ public class MapController implements DrawableOnPanel
 	{
 		if (isMapDataSourceSet())
 		{
-			map.loadObjectsInArea(new MapBounds(-180, 180, -90, 90), mapDataSource);
+			map.loadObjectsInArea(renderer.getViewArea(), mapDataSource);
 		}
 	}
 }

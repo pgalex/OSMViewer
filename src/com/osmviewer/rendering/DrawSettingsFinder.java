@@ -36,4 +36,11 @@ public interface DrawSettingsFinder
 	 * @throws IllegalArgumentException drawingId is null
 	 */
 	public PolygonDrawSettings findPolygonDrawSettings(String drawingId) throws IllegalArgumentException;
+
+	/**
+	 * Get common map draw settings
+	 *
+	 * @return map draw settings
+	 */
+	public RenderableMapDrawSettings getMapDrawSettings();
 }

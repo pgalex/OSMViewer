@@ -271,10 +271,13 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 				drawingId = identifierFinder.findNonClosedDrawingId(wayTags);
 			}
 
-			Location[] wayPoints = findWayPointsInNodesTemporaryDatabase(parsedWay);
-			if (drawingId != null && wayPoints.length > 0)
+			if (drawingId != null)
 			{
-				mapObjectsDatabase.addMapObject(drawingId, wayTags, wayPoints);
+				Location[] wayPoints = findWayPointsInNodesTemporaryDatabase(parsedWay);
+				if (wayPoints.length > 0)
+				{
+					mapObjectsDatabase.addMapObject(drawingId, wayTags, wayPoints);
+				}
 			}
 		}
 	}
