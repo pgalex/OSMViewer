@@ -28,7 +28,7 @@ public class XmlMapObjectsDrawingIdFinder implements MapObjectsDrawingIdFinder
 
 		if (wayTags.contains(new Tag("natural", "wood")))
 		{
-			return "natural-wood";
+			return "natural-wood-closed-way";
 		}
 
 		return null;

@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Stores map objects
+ * Collection of vector map objects
  *
  * @author preobrazhentsev
  */
-public class SimpleMap implements MapDataSourceFetchResultsHandler, RenderableMap
+public class VectorMap implements MapDataSourceFetchResultsHandler, RenderableMap
 {
 	/**
 	 * Objects of map
@@ -24,7 +24,7 @@ public class SimpleMap implements MapDataSourceFetchResultsHandler, RenderableMa
 	/**
 	 * Create empty
 	 */
-	public SimpleMap()
+	public VectorMap()
 	{
 		mapObjects = new ArrayList<>();
 	}
@@ -135,7 +135,7 @@ public class SimpleMap implements MapDataSourceFetchResultsHandler, RenderableMa
 		{
 			throw new IllegalArgumentException("objectsDrawPriorityComparator is null");
 		}
-		
+
 		Collections.sort(mapObjects, objectsDrawPriorityComparator);
 		// todo  is Visisble in area
 

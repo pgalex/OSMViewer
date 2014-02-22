@@ -7,6 +7,7 @@ import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
 import com.osmviewer.mapDefenitionUtilities.Location;
+import com.osmviewer.xmlDrawSettings.XmlDrawSettingsContainer;
 import com.osmviewer.rendering.selectng.SelectingBuffer;
 
 /**

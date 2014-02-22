@@ -81,7 +81,7 @@
                       <Component id="jLabelLoadingIcon" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="jToggleButtonMenu" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="538" max="32767" attributes="0"/>
+                  <EmptySpace pref="540" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -113,7 +113,7 @@
         </Component>
         <Component class="javax.swing.JToggleButton" name="jToggleButtonMenu">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#x41c;&#x435;&#x43d;&#x44e;"/>
+            <Property name="text" type="java.lang.String" value="Menu"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButtonMenuActionPerformed"/>

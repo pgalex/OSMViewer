@@ -27,11 +27,11 @@ public class MainFrame extends javax.swing.JFrame
 	/**
 	 * Dialog using to show information about objects on map
 	 */
-	private MapObjectInformationDialog mapObjectInformationDialog;
+	private final MapObjectInformationDialog mapObjectInformationDialog;
 	/**
 	 * Current map processor
 	 */
-	private MapController mapController;
+	private final MapController mapController;
 	/**
 	 * Previous mouse position while dragging
 	 */
@@ -39,7 +39,7 @@ public class MainFrame extends javax.swing.JFrame
 	/**
 	 * Osm conversion dialog
 	 */
-	private ConvertOsmXmlToSQLiteDialog convertOsmDialog;
+	private final ConvertOsmXmlToSQLiteDialog convertOsmDialog;
 
 	/**
 	 * Creates new main form
@@ -77,28 +77,7 @@ public class MainFrame extends javax.swing.JFrame
 	{
 		jPopupMenuCommands.add(createOpenMapItem());
 		jPopupMenuCommands.add(createConvertOsmItem());
-		jPopupMenuCommands.add(createDrawStylesEditorItem());
 		jPopupMenuCommands.add(createGoToCoordinatesItem());
-	}
-
-	/**
-	 * Create "Map style editor" commands menu item
-	 *
-	 * @return "Map style editor" commands menu item
-	 */
-	private JMenuItem createDrawStylesEditorItem()
-	{
-		JMenuItem drawStylesEditItem = new JMenuItem("Редактор стилей ...");
-		drawStylesEditItem.addActionListener(new ActionListener()
-		{
-			@Override
-			public void actionPerformed(ActionEvent ae)
-			{
-				drawStylesEditorItemPressed();
-			}
-		});
-
-		return drawStylesEditItem;
 	}
 
 	/**
@@ -108,7 +87,7 @@ public class MainFrame extends javax.swing.JFrame
 	 */
 	private JMenuItem createConvertOsmItem()
 	{
-		JMenuItem convertOsmItem = new JMenuItem("Конвертировать .osm ...");
+		JMenuItem convertOsmItem = new JMenuItem("Convert .osm ...");
 		convertOsmItem.addActionListener(new ActionListener()
 		{
 			@Override
@@ -128,7 +107,7 @@ public class MainFrame extends javax.swing.JFrame
 	 */
 	private JMenuItem createOpenMapItem()
 	{
-		JMenuItem openMapItem = new JMenuItem("Открыть карту ...");
+		JMenuItem openMapItem = new JMenuItem("Open map ...");
 		openMapItem.addActionListener(new ActionListener()
 		{
 			@Override
@@ -148,7 +127,7 @@ public class MainFrame extends javax.swing.JFrame
 	 */
 	private JMenuItem createGoToCoordinatesItem()
 	{
-		JMenuItem goToItem = new JMenuItem("Перейти к координатам ...");
+		JMenuItem goToItem = new JMenuItem("Go to coordinates ...");
 		goToItem.addActionListener(new ActionListener()
 		{
 			@Override
@@ -170,7 +149,6 @@ public class MainFrame extends javax.swing.JFrame
 						mapController.getViewPosition());
 		goToCoordinatesDialog.setVisible(true);
 
-
 		if (goToCoordinatesDialog.isGoToButtonPressed())
 		{
 			Location newViewPosition = goToCoordinatesDialog.getGoToLocation();
@@ -178,13 +156,6 @@ public class MainFrame extends javax.swing.JFrame
 			startMapLoading();
 			jPanelCanvas.repaint();
 		}
-	}
-
-	/**
-	 * Actions on pressing "Map style editor" commands menu item
-	 */
-	private void drawStylesEditorItemPressed()
-	{
 	}
 
 	/**
@@ -214,7 +185,7 @@ public class MainFrame extends javax.swing.JFrame
 		}
 		catch (DatabaseErrorExcetion ex)
 		{
-			JOptionPane.showMessageDialog(this, "Невозможно открыть карту", "Ошибка", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Can not open map", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -252,16 +223,16 @@ public class MainFrame extends javax.swing.JFrame
 
     jPopupMenuCommands.addPopupMenuListener(new javax.swing.event.PopupMenuListener()
     {
-      public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt)
+      public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt)
       {
-        jPopupMenuCommandsPopupMenuWillBecomeVisible(evt);
       }
       public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt)
       {
         jPopupMenuCommandsPopupMenuWillBecomeInvisible(evt);
       }
-      public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt)
+      public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt)
       {
+        jPopupMenuCommandsPopupMenuWillBecomeVisible(evt);
       }
     });
 
@@ -328,7 +299,7 @@ public class MainFrame extends javax.swing.JFrame
       }
     });
 
-    jToggleButtonMenu.setText("Меню");
+    jToggleButtonMenu.setText("Menu");
     jToggleButtonMenu.addActionListener(new java.awt.event.ActionListener()
     {
       public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -347,7 +318,7 @@ public class MainFrame extends javax.swing.JFrame
           .addComponent(jSliderScaleLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(jLabelLoadingIcon)
           .addComponent(jToggleButtonMenu))
-        .addContainerGap(538, Short.MAX_VALUE))
+        .addContainerGap(540, Short.MAX_VALUE))
     );
     jPanelCanvasLayout.setVerticalGroup(
       jPanelCanvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -424,30 +395,30 @@ public class MainFrame extends javax.swing.JFrame
   {//GEN-HEADEREND:event_jPanelCanvasMouseClicked
 		/*RenderableMapObject[] objectsAtMousePosition = mapController.findObjectsAtPoint(evt.getPoint());
 
-		if (objectsAtMousePosition.length > 0)
-		{
-			RenderableMapObject topDrawenObject = objectsAtMousePosition[0];
-			RenderableMapObjectDrawSettings topDrawenObjectDrawSettings = topDrawenObject.getDrawSettings();
-			if (topDrawenObjectDrawSettings != null)
-			{
-				mapController.setObjectToDrawAsSelected(topDrawenObject);
-				mapObjectInformationDialog.showMapObjectInformation(topDrawenObject, topDrawenObjectDrawSettings);
-			}
-			else
-			{
-				mapObjectInformationDialog.clearInformation();
-			}
+		 if (objectsAtMousePosition.length > 0)
+		 {
+		 RenderableMapObject topDrawenObject = objectsAtMousePosition[0];
+		 RenderableMapObjectDrawSettings topDrawenObjectDrawSettings = topDrawenObject.getDrawSettings();
+		 if (topDrawenObjectDrawSettings != null)
+		 {
+		 mapController.setObjectToDrawAsSelected(topDrawenObject);
+		 mapObjectInformationDialog.showMapObjectInformation(topDrawenObject, topDrawenObjectDrawSettings);
+		 }
+		 else
+		 {
+		 mapObjectInformationDialog.clearInformation();
+		 }
 
-			mapObjectInformationDialog.setVisible(true);
-		}
-		else
-		{
-			mapController.resetSelectedObject();
-			mapObjectInformationDialog.clearInformation();
-			mapObjectInformationDialog.setVisible(false);
-		}
+		 mapObjectInformationDialog.setVisible(true);
+		 }
+		 else
+		 {
+		 mapController.resetSelectedObject();
+		 mapObjectInformationDialog.clearInformation();
+		 mapObjectInformationDialog.setVisible(false);
+		 }
 
-		jPanelCanvas.repaint();*/
+		 jPanelCanvas.repaint();*/
   }//GEN-LAST:event_jPanelCanvasMouseClicked
 
   private void jSliderScaleLevelStateChanged(javax.swing.event.ChangeEvent evt)//GEN-FIRST:event_jSliderScaleLevelStateChanged
@@ -482,7 +453,7 @@ public class MainFrame extends javax.swing.JFrame
 
   private void formWindowClosing(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowClosing
   {//GEN-HEADEREND:event_formWindowClosing
-    try
+		try
 		{
 			UserSettings.getInstance().setViewPosition(mapController.getViewPosition());
 			UserSettings.getInstance().saveToSettingsFile();
@@ -518,19 +489,7 @@ public class MainFrame extends javax.swing.JFrame
 				}
 			}
 		}
-		catch (ClassNotFoundException ex)
-		{
-			java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		}
-		catch (InstantiationException ex)
-		{
-			java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		}
-		catch (IllegalAccessException ex)
-		{
-			java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		}
-		catch (javax.swing.UnsupportedLookAndFeelException ex)
+		catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex)
 		{
 			java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		}

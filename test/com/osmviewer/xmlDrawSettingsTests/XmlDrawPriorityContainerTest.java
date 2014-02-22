@@ -14,15 +14,15 @@ import static org.junit.Assert.*;
  */
 public class XmlDrawPriorityContainerTest
 {
-	private void fillContainerWithTestData(XmlDrawPriorityContainer drawPriorityContainer) throws UnsupportedEncodingException, IOException
+	private void readTestXmlDataToContainer(XmlDrawPriorityContainer drawPriorityContainer) throws UnsupportedEncodingException, IOException
 	{
-		final String testXmlDrawPriorityDocumnet = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+		final String testXmlDrawPriorityDocument = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 						+ "<drawPriority>\n"
 						+ "	<mapObject drawingId=\"first\"/>\n"
 						+ "	<mapObject drawingId=\"second\"/>\n"
 						+ "	<mapObject drawingId=\"third\"/>\n"
 						+ "</drawPriority>";
-		try (ByteArrayInputStream testDocumentInputStream = new ByteArrayInputStream(testXmlDrawPriorityDocumnet.getBytes("UTF-8")))
+		try (ByteArrayInputStream testDocumentInputStream = new ByteArrayInputStream(testXmlDrawPriorityDocument.getBytes("UTF-8")))
 		{
 			drawPriorityContainer.readFromStream(testDocumentInputStream);
 		}
@@ -32,7 +32,7 @@ public class XmlDrawPriorityContainerTest
 	public void parsingTestDocument() throws UnsupportedEncodingException, IOException
 	{
 		XmlDrawPriorityContainer drawPriorityContainer = new XmlDrawPriorityContainer();
-		fillContainerWithTestData(drawPriorityContainer);
+		readTestXmlDataToContainer(drawPriorityContainer);
 		assertEquals(0, (int) drawPriorityContainer.getDrawPriorityOf("first"));
 		assertEquals(1, (int) drawPriorityContainer.getDrawPriorityOf("second"));
 		assertEquals(2, (int) drawPriorityContainer.getDrawPriorityOf("third"));
@@ -57,7 +57,7 @@ public class XmlDrawPriorityContainerTest
 	public void gettingPriorityByUnexistsDrawingId() throws IOException
 	{
 		XmlDrawPriorityContainer drawPriorityContainer = new XmlDrawPriorityContainer();
-		fillContainerWithTestData(drawPriorityContainer);
+		readTestXmlDataToContainer(drawPriorityContainer);
 		assertNull(drawPriorityContainer.getDrawPriorityOf("abc"));
 	}
 

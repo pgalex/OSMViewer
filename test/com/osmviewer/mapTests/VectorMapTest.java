@@ -1,6 +1,6 @@
 package com.osmviewer.mapTests;
 
-import com.osmviewer.map.SimpleMap;
+import com.osmviewer.map.VectorMap;
 import com.osmviewer.map.exceptions.FetchingErrorException;
 import com.osmviewer.mapDefenitionUtilities.Location;
 import com.osmviewer.mapDefenitionUtilities.MapBounds;
@@ -8,15 +8,15 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Tests of SimpleMap class
+ * Tests of VectorMap class
  *
  * @author preobrazhentsev
  */
-public class SimpleMapTest
+public class VectorMapTest
 {
 	private final Location[] somePoints;
 
-	public SimpleMapTest()
+	public VectorMapTest()
 	{
 		somePoints = new Location[4];
 		somePoints[0] = new Location(1, 2);
@@ -28,7 +28,7 @@ public class SimpleMapTest
 	@Test
 	public void loadingWithNullArea() throws FetchingErrorException
 	{
-		SimpleMap map = new SimpleMap();
+		VectorMap map = new VectorMap();
 		try
 		{
 			map.loadObjectsInArea(null, new TestMapDataSource());
@@ -43,7 +43,7 @@ public class SimpleMapTest
 	@Test
 	public void loadingWithNullDataSource() throws FetchingErrorException
 	{
-		SimpleMap map = new SimpleMap();
+		VectorMap map = new VectorMap();
 		try
 		{
 			map.loadObjectsInArea(new MapBounds(), null);
@@ -72,7 +72,7 @@ public class SimpleMapTest
 		testMapDataSource.points.add(somePoints);
 		testMapDataSource.points.add(somePoints);
 
-		SimpleMap map = new SimpleMap();
+		VectorMap map = new VectorMap();
 		map.loadObjectsInArea(new MapBounds(1, 2, 10, 15), testMapDataSource);
 		assertEquals(3, map.getStoringObjectsCount());
 	}
@@ -80,7 +80,7 @@ public class SimpleMapTest
 	@Test
 	public void takeMapObjectDataNullDrawingId() throws FetchingErrorException
 	{
-		SimpleMap map = new SimpleMap();
+		VectorMap map = new VectorMap();
 		try
 		{
 			map.takeMapObjectData(0, null, somePoints);
@@ -95,7 +95,7 @@ public class SimpleMapTest
 	@Test
 	public void takeMapObjectDataNullPoints() throws FetchingErrorException
 	{
-		SimpleMap map = new SimpleMap();
+		VectorMap map = new VectorMap();
 		try
 		{
 			map.takeMapObjectData(0, "1", null);
@@ -110,7 +110,7 @@ public class SimpleMapTest
 	@Test
 	public void takeMapObjectDataEmptyPoints() throws FetchingErrorException
 	{
-		SimpleMap map = new SimpleMap();
+		VectorMap map = new VectorMap();
 		try
 		{
 			map.takeMapObjectData(0, "1", new Location[0]);
@@ -130,7 +130,7 @@ public class SimpleMapTest
 		pointsContainsNull[1] = null;
 		pointsContainsNull[2] = new Location(15, 16);
 
-		SimpleMap map = new SimpleMap();
+		VectorMap map = new VectorMap();
 		try
 		{
 			map.takeMapObjectData(0, "1", pointsContainsNull);
@@ -145,7 +145,7 @@ public class SimpleMapTest
 	@Test
 	public void renderingNullRenderer() throws FetchingErrorException
 	{
-		SimpleMap map = new SimpleMap();
+		VectorMap map = new VectorMap();
 		try
 		{
 			map.renderObjectsByDrawPriority(null, new MapBounds(), new TestRenderableMapObjectsDrawPriorityComparator());
@@ -160,7 +160,7 @@ public class SimpleMapTest
 	@Test
 	public void renderingNullArea() throws FetchingErrorException
 	{
-		SimpleMap map = new SimpleMap();
+		VectorMap map = new VectorMap();
 		try
 		{
 			map.renderObjectsByDrawPriority(new TestMapObjectsRenderer(), null, new TestRenderableMapObjectsDrawPriorityComparator());
@@ -175,7 +175,7 @@ public class SimpleMapTest
 	@Test
 	public void renderingNullComparator() throws FetchingErrorException
 	{
-		SimpleMap map = new SimpleMap();
+		VectorMap map = new VectorMap();
 		try
 		{
 			map.renderObjectsByDrawPriority(new TestMapObjectsRenderer(), new MapBounds(), null);
@@ -190,7 +190,7 @@ public class SimpleMapTest
 	@Test
 	public void renderingNormalWork() throws FetchingErrorException
 	{
-		SimpleMap map = new SimpleMap();
+		VectorMap map = new VectorMap();
 		map.takeMapObjectData(0, "0", somePoints);
 		map.takeMapObjectData(1, "1", somePoints);
 		map.takeMapObjectData(2, "2", somePoints);

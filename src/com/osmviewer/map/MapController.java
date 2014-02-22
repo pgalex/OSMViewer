@@ -11,6 +11,9 @@ import com.osmviewer.xmlDrawSettings.XmlDrawSettingsContainer;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Organize work between other components and process user's input
@@ -32,7 +35,7 @@ public class MapController implements DrawableOnPanel
 	/**
 	 * Map
 	 */
-	private final SimpleMap map;
+	private final VectorMap map;
 	/**
 	 * MapByOsmXmlData renderer - drawes object
 	 */
@@ -58,7 +61,7 @@ public class MapController implements DrawableOnPanel
 	public MapController(Location startViewPosition, int startScaleLevel,
 					int startCanvasWidth, int startCanvasHeight)
 	{
-		map = new SimpleMap();
+		map = new VectorMap();
 		mapDataSource = null;
 
 		renderer = new MapRenderer(MINIMUM_SCALE_LEVEL, MAXIMUM_SCALE_LEVEL, startScaleLevel);
@@ -66,8 +69,19 @@ public class MapController implements DrawableOnPanel
 		renderer.setTargetCanvasDrawingArea(new Rectangle(0, 0, startCanvasWidth, startCanvasHeight));
 
 		drawSettingsContainer = new XmlDrawSettingsContainer();
+		testLoadDrawSettings();
+	}
 
-		//testSetupStyleViewer();
+	private void testLoadDrawSettings()
+	{
+		try
+		{
+			drawSettingsContainer.readFromFiles("drawSettings/drawPriority.xml", "drawSettings/mapObjects.xml");
+		}
+		catch (IOException ex)
+		{
+			Logger.getLogger(MapController.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 
 	/**

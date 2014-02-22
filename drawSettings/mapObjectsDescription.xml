@@ -9,5 +9,5 @@
 <mapObjectType id="wood">
 
 	<!-- Description of map object. Empty means that there is no description -->
-	<description>Лесные массивы и скопления деревьев за исключением территорий лесничеств и охотохозяйств</description>
+	<description>Woodland where timber production does not dominate use.</description>
 </mapObjectType>

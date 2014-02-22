@@ -37,7 +37,7 @@ public class ConvertOsmXmlToSQLiteDialog extends javax.swing.JDialog
 	{
 		super(parentWindow, modalityType);
 		initComponents();
-		setTitle("Конвертирование osm xml");
+		setTitle("Creating map by converting .osm xml file");
 
 		sourceFile = null;
 		destenationFile = null;
@@ -85,19 +85,19 @@ public class ConvertOsmXmlToSQLiteDialog extends javax.swing.JDialog
 		}
 		catch (FileNotFoundException ex)
 		{
-			JOptionPane.showMessageDialog(this, "Невозможно прочитать исходный файл", "Ошибка", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Can not read source file", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		catch (ParsingOsmErrorException ex)
 		{
-			JOptionPane.showMessageDialog(this, "Ошибка разбора xml", "Ошибка", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Error while parsing xml", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		catch (DeletingExistsDatabaseFileErrorException ex)
 		{
-			JOptionPane.showMessageDialog(this, "Существующая БД не может быть удалена", "Ошибка", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Can not delete exists destenation file", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		catch (DatabaseErrorExcetion ex)
 		{
-			JOptionPane.showMessageDialog(this, "Ошибка работы с базой данных", "Ошибка", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Database error", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
