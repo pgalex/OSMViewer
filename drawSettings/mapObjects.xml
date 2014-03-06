@@ -1,0 +1,25 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<!-- Description of all objects that can be on map (can be drawn on map) and how to draw them. Linked with map drawing procedure -->
+<!-- Id of each map object must be unique. descriptionId linked with MapObjectsDescription -->
+<mapObjects>
+
+<mapObject drawingId="natural-wood" descriptionId = "wood"/>
+	<visibleOnScaleLevels from="2" to "18"/>
+	<drawingParameters type="polygon">
+		<filling>
+			<onScales from="2" to="18">
+				<color r="0" g="255" b="0" a="255"/>
+			</onScales>
+		</filling>
+		<text>
+			<textTagKey key="name"/>
+			<textTagKey key="description"/>
+			<onScales from="2" to="18">
+				<color r="0" g="0" b="0" a="255"/>
+				<font name="Arial" size="10" bold="false" italic="false" underline="false"/>
+			</onScales>
+		</text>
+	</<drawingParameters>
+</drawPriority>
+
+</mapObjects>

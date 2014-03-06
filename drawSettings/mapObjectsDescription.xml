@@ -1,0 +1,7 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<!-- Description of kinds of objects that can be on a map. Coordinated with OSM Map features -->
+<!-- Id of each map object must be unique-->
+
+<mapObjectsDescription>
+<mapObjectType id="wood" description=«Лесные массивы и скопления деревьев за исключением территорий лесничеств и охотохозяйств»/>
+</mapObjectsDescription>
