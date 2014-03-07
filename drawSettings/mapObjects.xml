@@ -3,7 +3,7 @@
 <!-- Id of each map object must be unique. descriptionId linked with MapObjectsDescription -->
 <mapObjects>
 
-<mapObject drawingId="natural-wood" descriptionId = "wood"/>
+<mapObject drawingId="natural-wood-closed-way" descriptionId = "wood"/>
 	<visibleOnScaleLevels from="2" to "18"/>
 	<drawingParameters type="polygon">
 		<filling>
@@ -19,7 +19,22 @@
 				<font name="Arial" size="10" bold="false" italic="false" underline="false"/>
 			</onScales>
 		</text>
-	</<drawingParameters>
-</drawPriority>
+	</drawingParameters>
+</mapObject>
+
+
+<mapObject drawingId="place-village-node" descriptionId = "village"/>
+	<visibleOnScaleLevels from="2" to "18"/>
+	<drawingParameters type="icon">
+		<text>
+			<textTagKey key="name"/>
+			<textTagKey key="description"/>
+			<onScales from="2" to="18">
+				<color r="0" g="0" b="0" a="255"/>
+				<font name="Arial" size="10" bold="false" italic="false" underline="false"/>
+			</onScales>
+		</text>
+	</drawingParameters>
+</mapObject>
 
 </mapObjects>

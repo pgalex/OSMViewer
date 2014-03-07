@@ -3,5 +3,6 @@
 <!-- Id of each map object must be unique-->
 
 <mapObjectsDescription>
-<mapObjectType id="wood" description=«Лесные массивы и скопления деревьев за исключением территорий лесничеств и охотохозяйств»/>
+<mapObjectType id="wood" description="Лесные массивы и скопления деревьев за исключением территорий лесничеств и охотохозяйств"/>
+<mapObjectType id="village" description="—"/>
 </mapObjectsDescription>
