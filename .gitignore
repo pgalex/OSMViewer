@@ -12,7 +12,7 @@
 /OSMViewer/!default.mode2v3
 /OSMViewer/*.perspectivev3
 /OSMViewer/!default.perspectivev3
-/OSMViewer/xcuserdata
+/OSMViewer/*/xcuserdata/
 /OSMViewer/profile
 /OSMViewer/*.moved-aside
 /OSMViewer/DerivedData
@@ -20,3 +20,5 @@
 /OSMViewer/*.hmap
 /OSMViewer/*.xccheckout
 /OSMViewer/Pods
+
+OSMViewer/OSMViewer.xcodeproj/project.xcworkspace/xcuserdata/pgalex.xcuserdatad/UserInterfaceState.xcuserstate
