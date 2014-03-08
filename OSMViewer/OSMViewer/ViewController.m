@@ -16,8 +16,11 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+  [super viewDidLoad];
+  
+  mapDataSource = [[SQLiteDatabaseMapDataSource alloc] init];
+  [mapDataSource connectToDatabase:@"/users/pgalex/documents/temp/RU-MOS.db"];
+  [mapDataSource closeConnection];
 }
 
 - (void)didReceiveMemoryWarning
