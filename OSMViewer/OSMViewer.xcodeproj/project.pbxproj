@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2409036118DDCF63006A0CD4 /* MapBoundsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2409036018DDCF63006A0CD4 /* MapBoundsTests.m */; };
 		248E2D1718CA0D2E00E55838 /* SQLiteDatabaseMapDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 248E2D1618CA0D2E00E55838 /* SQLiteDatabaseMapDataSource.m */; };
 		248E2D1C18CA0E3200E55838 /* MapBounds.m in Sources */ = {isa = PBXBuildFile; fileRef = 248E2D1B18CA0E3200E55838 /* MapBounds.m */; };
 		248E2D1E18CA1BA300E55838 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 248E2D1D18CA1BA300E55838 /* libsqlite3.0.dylib */; };
@@ -24,7 +25,6 @@
 		24FFED2718C8F06F001D22FE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FFED0318C8F06E001D22FE /* Foundation.framework */; };
 		24FFED2818C8F06F001D22FE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FFED0718C8F06E001D22FE /* UIKit.framework */; };
 		24FFED3018C8F06F001D22FE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 24FFED2E18C8F06F001D22FE /* InfoPlist.strings */; };
-		24FFED3218C8F06F001D22FE /* OSMViewerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24FFED3118C8F06F001D22FE /* OSMViewerTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2409036018DDCF63006A0CD4 /* MapBoundsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapBoundsTests.m; path = MapDefenitionUtilitiesTests/MapBoundsTests.m; sourceTree = "<group>"; };
 		248E2D1418CA0CEA00E55838 /* MapDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MapDataSource.h; path = OSMViewer/Map/MapDataSource.h; sourceTree = "<group>"; };
 		248E2D1518CA0D2E00E55838 /* SQLiteDatabaseMapDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SQLiteDatabaseMapDataSource.h; path = OSMViewer/SQLiteMapDataSource/SQLiteDatabaseMapDataSource.h; sourceTree = "<group>"; };
 		248E2D1618CA0D2E00E55838 /* SQLiteDatabaseMapDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SQLiteDatabaseMapDataSource.m; path = OSMViewer/SQLiteMapDataSource/SQLiteDatabaseMapDataSource.m; sourceTree = "<group>"; };
@@ -64,7 +65,6 @@
 		24FFED2518C8F06F001D22FE /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		24FFED2D18C8F06F001D22FE /* OSMViewerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OSMViewerTests-Info.plist"; sourceTree = "<group>"; };
 		24FFED2F18C8F06F001D22FE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		24FFED3118C8F06F001D22FE /* OSMViewerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OSMViewerTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +92,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2409035D18DDCEDE006A0CD4 /* MapDefenitionUtilitiesTests */ = {
+			isa = PBXGroup;
+			children = (
+				2409036018DDCF63006A0CD4 /* MapBoundsTests.m */,
+			);
+			name = MapDefenitionUtilitiesTests;
+			sourceTree = "<group>";
+		};
+		2409035E18DDCEF1006A0CD4 /* SQLiteMapDataSourceTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = SQLiteMapDataSourceTests;
+			sourceTree = "<group>";
+		};
+		2409035F18DDCEFF006A0CD4 /* MapTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = MapTests;
+			sourceTree = "<group>";
+		};
 		248E2D1218CA0CC000E55838 /* Map */ = {
 			isa = PBXGroup;
 			children = (
@@ -185,7 +207,9 @@
 		24FFED2B18C8F06F001D22FE /* OSMViewerTests */ = {
 			isa = PBXGroup;
 			children = (
-				24FFED3118C8F06F001D22FE /* OSMViewerTests.m */,
+				2409035F18DDCEFF006A0CD4 /* MapTests */,
+				2409035E18DDCEF1006A0CD4 /* SQLiteMapDataSourceTests */,
+				2409035D18DDCEDE006A0CD4 /* MapDefenitionUtilitiesTests */,
 				24FFED2C18C8F06F001D22FE /* Supporting Files */,
 			);
 			path = OSMViewerTests;
@@ -244,7 +268,7 @@
 		24FFECF818C8F06E001D22FE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Александр Преображенцев";
 				TargetAttributes = {
 					24FFED2318C8F06F001D22FE = {
@@ -310,7 +334,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24FFED3218C8F06F001D22FE /* OSMViewerTests.m in Sources */,
+				2409036118DDCF63006A0CD4 /* MapBoundsTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,7 +388,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -404,7 +427,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -442,6 +464,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OSMViewer/OSMViewer-Prefix.pch";
 				INFOPLIST_FILE = "OSMViewer/OSMViewer-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -455,6 +478,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OSMViewer/OSMViewer-Prefix.pch";
 				INFOPLIST_FILE = "OSMViewer/OSMViewer-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -463,7 +487,6 @@
 		24FFED3918C8F06F001D22FE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/OSMViewer.app/OSMViewer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -486,7 +509,6 @@
 		24FFED3A18C8F06F001D22FE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/OSMViewer.app/OSMViewer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

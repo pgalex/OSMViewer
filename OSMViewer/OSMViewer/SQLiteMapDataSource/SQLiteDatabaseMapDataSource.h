@@ -2,6 +2,9 @@
 #import <sqlite3.h>
 #import "MapDataSource.h"
 
+/**
+ Map data source, getting information from SQLite database
+ */
 @interface SQLiteDatabaseMapDataSource : NSObject <MapDataSource>
 {
   @private

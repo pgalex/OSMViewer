@@ -62,11 +62,15 @@
   {
     @throw [NSException exceptionWithName:@"fetchResultsHandler is nil" reason:nil userInfo:nil];
   }
+  
   if (![self isConnectionOpen])
   {
     return;
   }
-  // zero area
+  if ([area isZero])
+  {
+    return;
+  }
   
   NSString * fetchQeury = [NSString stringWithFormat:@"SELECT ROWID, drawingId FROM MapObjects WHERE minLatitude<=%f AND maxLatitude>=%f AND minLongitude<=%f AND maxLongitude>=%f", [area latitudeMaximum], [area latitudeMinimum], [area longitudeMaximum], [area longitudeMinimum] ];
 }

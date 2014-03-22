@@ -1,11 +1,3 @@
-//
-//  ViewController.m
-//  OSMViewer
-//
-//  Created by Александр Преображенцев on 06.03.14.
-//  Copyright (c) 2014 Александр Преображенцев. All rights reserved.
-//
-
 #import "ViewController.h"
 
 @interface ViewController ()
