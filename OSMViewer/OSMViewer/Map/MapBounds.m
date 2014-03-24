@@ -10,13 +10,43 @@
   self = [super init];
   if (self != nil)
   {
-    //todo swap if needed
     latitudeMinimum = latMin;
     latitudeMaximum = latMax;
     longitudeMinimum = lonMin;
     longitudeMaximum = lonMax;
+    
+    [self swapBoundsIfNeeded];
   }
   return self;
+}
+
+
+-(void) swapBoundsIfNeeded
+{
+  if (latitudeMinimum > latitudeMaximum)
+  {
+    [self swapLatitude];
+  }
+  if (longitudeMinimum > longitudeMaximum)
+  {
+    [self swapLongitude];
+  }
+}
+
+
+-(void) swapLatitude
+{
+  double temp = latitudeMinimum;
+  latitudeMinimum = latitudeMaximum;
+  latitudeMaximum = temp;
+}
+
+
+-(void) swapLongitude
+{
+  double temp = longitudeMinimum;
+  longitudeMinimum = longitudeMaximum;
+  longitudeMaximum = temp;
 }
 
 
@@ -28,8 +58,7 @@
 
 -(BOOL) isZero
 {
-  // todo tests
-  return (fabs(latitudeMinimum - latitudeMaximum) < 0.00001) || (fabs(longitudeMinimum - longitudeMaximum) < 0.00001);
+  return (fabs(latitudeMinimum - latitudeMaximum) < 0.0000001) || (fabs(longitudeMinimum - longitudeMaximum) < 0.0000001);
 }
 
 @end
