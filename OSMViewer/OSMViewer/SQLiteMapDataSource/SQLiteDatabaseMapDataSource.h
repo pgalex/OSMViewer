@@ -13,7 +13,7 @@
 }
 
 /**
- Initializer an not connected to database
+ Initialize as not connected to database
  */
 -(id) init;
 
@@ -32,7 +32,7 @@
 
 
 /**
- Fetch all map objects that exists in area and give them to result handler
+ Fetch all map objects that exists in area and give them to fetch result handler
  \param area - area using to deterimine which map objects need to fetch. Must be not nil
  \param fetchResultsHandler - handler of fetching results. Must be not nil
  */

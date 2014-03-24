@@ -14,14 +14,13 @@
 }
 
 
-
 -(void) connectToDatabase:(NSString * )pathToDatabase
 {
   if (pathToDatabase == nil)
   {
     @throw [NSException exceptionWithName:@"pathToDatabase is nil" reason:nil userInfo:nil];
   }
-  // db not found
+  // file not found
   
   if ([self isConnectionOpen])
   {
