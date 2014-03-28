@@ -1,5 +1,6 @@
 #import "SQLiteDatabaseMapDataSource.h"
 #import "MapBounds.h"
+#import "SimpleLocation.h"
 
 @implementation SQLiteDatabaseMapDataSource
 
@@ -51,7 +52,7 @@
 }
 
 
--(void) fetchMapObjectsInArea:(MapBounds *)area toResultHandler:(MapDataSourceFetchResultsHandler *)fetchResultsHandler
+-(void) fetchMapObjectsInArea:(MapBounds *)area toResultHandler:(id<MapDataSourceFetchResultsHandler>)fetchResultsHandler
 {
   if (area == nil)
   {
@@ -71,7 +72,60 @@
     return;
   }
   
+  sqlite3_stmt * fetchMapObjectsStatement;
   NSString * fetchQeury = [NSString stringWithFormat:@"SELECT ROWID, drawingId FROM MapObjects WHERE minLatitude<=%f AND maxLatitude>=%f AND minLongitude<=%f AND maxLongitude>=%f", [area latitudeMaximum], [area latitudeMinimum], [area longitudeMaximum], [area longitudeMinimum] ];
+  int statementPrepareResult = sqlite3_prepare_v2(database, [fetchQeury UTF8String], -1, &fetchMapObjectsStatement, NULL);
+  if (statementPrepareResult == SQLITE_OK)
+  {
+    while (sqlite3_step(fetchMapObjectsStatement) == SQLITE_ROW)
+    {
+      //todo use long type for rowId
+      int rowId = sqlite3_column_int(fetchMapObjectsStatement, 0);
+      NSString * drawingId = [[NSString alloc] initWithUTF8String:(const char *) sqlite3_column_text(fetchMapObjectsStatement, 1)];
+      NSArray * points = [self selectPointsOfMapObjectWithRowId:rowId];
+      if ([points count] > 0)
+      {
+        [fetchResultsHandler takeMapObjectWithUniqueId:rowId drawingId:drawingId points:points];
+      }
+    }
+    sqlite3_finalize(fetchMapObjectsStatement);
+  }
+  else
+  {
+    @throw [NSException exceptionWithName:@"Error while fetching map objects" reason:@"Can not prepare statement" userInfo:nil];
+  }
+}
+
+
+/**
+ Select points, defining map objects position, by its ROWID.
+ Connection to database must be open.
+ \return array of SimpleLocation defining map object position. Empty if there is no points found
+ */
+-(NSArray *) selectPointsOfMapObjectWithRowId:(long)mapObjectRowId
+{
+  if (![self isConnectionOpen])
+  {
+    @throw [NSException exceptionWithName:@"No connection to database" reason:nil userInfo:nil];
+  }
+  
+  NSMutableArray * mapObjectPoints = [[NSMutableArray alloc] init];
+  
+  sqlite3_stmt * fetchPointsStatement;
+  NSString * fetchQeury = [NSString stringWithFormat:@"SELECT latitude,longitude FROM Points WHERE objectId=%ld", mapObjectRowId];
+  int statementPrepareResult = sqlite3_prepare_v2(database, [fetchQeury UTF8String], -1, &fetchPointsStatement, NULL);
+  if (statementPrepareResult == SQLITE_OK)
+  {
+    while (sqlite3_step(fetchPointsStatement) == SQLITE_ROW)
+    {
+      double latitude = sqlite3_column_double(fetchPointsStatement, 0);
+      double longitude = sqlite3_column_double(fetchPointsStatement, 1);
+      SimpleLocation * fetchedPoint = [[SimpleLocation alloc] initWithLatitude:latitude longitude:longitude];
+      [mapObjectPoints addObject:fetchedPoint];
+    }
+    sqlite3_finalize(fetchPointsStatement);
+  }
+  return mapObjectPoints;
 }
 
 @end

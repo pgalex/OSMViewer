@@ -17,7 +17,7 @@
 
 
 /**
- Init with zero bounds values
+ Init with 0.0 bounds values
  */
 -(id) init;
 
