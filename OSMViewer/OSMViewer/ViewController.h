@@ -2,7 +2,7 @@
 #import "SQLiteDatabaseMapDataSource.h"
 #import "MapDataSourceFetchResultsHandler.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController<MapDataSourceFetchResultsHandler>
 {
   @private
   SQLiteDatabaseMapDataSource * mapDataSource;
