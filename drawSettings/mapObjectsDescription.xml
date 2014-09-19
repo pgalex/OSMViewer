@@ -4,5 +4,5 @@
 
 <mapObjectsDescription>
 <mapObjectType id="wood" description="Лесные массивы и скопления деревьев за исключением территорий лесничеств и охотохозяйств"/>
-<mapObjectType id="village" description="—"/>
+<mapObjectType id="village" description="посёлок сельского типа, деревня, село, станица или иной сельский населённый пункт"/>
 </mapObjectsDescription>
