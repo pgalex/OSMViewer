@@ -24,8 +24,8 @@
 
 
 <mapObject drawingId="place-village-node" descriptionId = "village"/>
-	<visibleOnScaleLevels from="2" to "18"/>
-	<drawingParameters type="icon">
+	<visibleOnScaleLevels from="2" to="18"/>
+	<drawingParameters type="text">
 		<text>
 			<textTagKey key="name"/>
 			<textTagKey key="description"/>
