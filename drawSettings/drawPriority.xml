@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <drawPriority>
-	<mapObject drawingId="natual-wood">
-
+	<mapObject drawingId="natural-wood-closed-way"/>
+	<mapObject drawingId="place-village-node"/>
 </drawPriority>
