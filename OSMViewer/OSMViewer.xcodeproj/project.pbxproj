@@ -14,6 +14,7 @@
 		248E2D1718CA0D2E00E55838 /* SQLiteDatabaseMapDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 248E2D1618CA0D2E00E55838 /* SQLiteDatabaseMapDataSource.m */; };
 		248E2D1E18CA1BA300E55838 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 248E2D1D18CA1BA300E55838 /* libsqlite3.0.dylib */; };
 		24BDBF2E18E6B686007CF7C3 /* testDatabase.db in Resources */ = {isa = PBXBuildFile; fileRef = 24BDBF2D18E6B686007CF7C3 /* testDatabase.db */; };
+		24E9C1FE19CDB96600D5A65A /* SQLiteDatabaseMapDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 24E9C1FD19CDB96600D5A65A /* SQLiteDatabaseMapDataSourceTests.m */; };
 		24FFED0418C8F06E001D22FE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FFED0318C8F06E001D22FE /* Foundation.framework */; };
 		24FFED0618C8F06E001D22FE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FFED0518C8F06E001D22FE /* CoreGraphics.framework */; };
 		24FFED0818C8F06E001D22FE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24FFED0718C8F06E001D22FE /* UIKit.framework */; };
@@ -53,6 +54,7 @@
 		248E2D1818CA0DF200E55838 /* MapDataSourceFetchResultsHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MapDataSourceFetchResultsHandler.h; path = OSMViewer/Map/MapDataSourceFetchResultsHandler.h; sourceTree = "<group>"; };
 		248E2D1D18CA1BA300E55838 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		24BDBF2D18E6B686007CF7C3 /* testDatabase.db */ = {isa = PBXFileReference; lastKnownFileType = file; name = testDatabase.db; path = SQLiteMapDataSourceTests/testDatabase.db; sourceTree = "<group>"; };
+		24E9C1FD19CDB96600D5A65A /* SQLiteDatabaseMapDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SQLiteDatabaseMapDataSourceTests.m; path = SQLiteMapDataSourceTests/SQLiteDatabaseMapDataSourceTests.m; sourceTree = "<group>"; };
 		24FFED0018C8F06E001D22FE /* OSMViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OSMViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24FFED0318C8F06E001D22FE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		24FFED0518C8F06E001D22FE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -110,6 +112,7 @@
 		2409035E18DDCEF1006A0CD4 /* SQLiteMapDataSourceTests */ = {
 			isa = PBXGroup;
 			children = (
+				24E9C1FD19CDB96600D5A65A /* SQLiteDatabaseMapDataSourceTests.m */,
 				24BDBF2D18E6B686007CF7C3 /* testDatabase.db */,
 			);
 			name = SQLiteMapDataSourceTests;
@@ -348,6 +351,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				24E9C1FE19CDB96600D5A65A /* SQLiteDatabaseMapDataSourceTests.m in Sources */,
 				2409036118DDCF63006A0CD4 /* MapBoundsTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

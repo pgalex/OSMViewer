@@ -38,4 +38,10 @@
  */
 -(void) fetchMapObjectsInArea:(MapBounds *)area toResultHandler:(id<MapDataSourceFetchResultsHandler>)fetchResultsHandler;
 
+
+/**
+ Is exists connection to database
+ */
+-(BOOL) isConnectionOpen;
+
 @end

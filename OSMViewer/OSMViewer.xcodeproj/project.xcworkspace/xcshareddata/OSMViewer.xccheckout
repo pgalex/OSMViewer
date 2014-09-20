@@ -10,29 +10,29 @@
 	<string>OSMViewer</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>C9155E33-F31C-4607-904D-6B516AA3A438</key>
+		<key>F93A9F019680ED89B15017B1A9AC27B52AAFBEBE</key>
 		<string>https://github.com/pgalex/OSMViewer.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>OSMViewer/OSMViewer.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>C9155E33-F31C-4607-904D-6B516AA3A438</key>
+		<key>F93A9F019680ED89B15017B1A9AC27B52AAFBEBE</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/pgalex/OSMViewer.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>C9155E33-F31C-4607-904D-6B516AA3A438</string>
+	<string>F93A9F019680ED89B15017B1A9AC27B52AAFBEBE</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>C9155E33-F31C-4607-904D-6B516AA3A438</string>
+			<string>F93A9F019680ED89B15017B1A9AC27B52AAFBEBE</string>
 			<key>IDESourceControlWCCName</key>
 			<string>OSMViewer</string>
 		</dict>
