@@ -161,14 +161,13 @@ public class TemporaryOsmNodesDatabase
 	{
 		try
 		{
-			TemporaryDatabaseOsmNode foundNode;
+			TemporaryDatabaseOsmNode foundNode = null;
 			try (PreparedStatement selectNodeStatement = databaseConnection.prepareStatement("SELECT * FROM Nodes WHERE id=?"))
 			{
 				selectNodeStatement.setLong(1, nodeId);
 				try (ResultSet selectedNodeResultSet = selectNodeStatement.executeQuery())
 				{
 					boolean isResultsExists = selectedNodeResultSet.next();
-					foundNode = null;
 					if (isResultsExists)
 					{
 						foundNode = new TemporaryDatabaseOsmNode(selectedNodeResultSet);
