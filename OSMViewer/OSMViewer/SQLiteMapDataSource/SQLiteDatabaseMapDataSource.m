@@ -32,6 +32,7 @@
   if (openDatabaseResult != SQLITE_OK)
   {
     // throw special type of expection
+    database = nil;
   }
 }
 
