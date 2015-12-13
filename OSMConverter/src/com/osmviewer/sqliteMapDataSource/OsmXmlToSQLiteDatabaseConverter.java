@@ -26,9 +26,9 @@ import java.util.logging.Logger;
 public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHandler
 {
 	/**
-	 * Parser of osm xml data
+	 * Parser of source osm xml data
 	 */
-	private final OsmXmlParser osmXmlParser;
+	private final OsmXmlParser sourceOsmXmlDataParser;
 	/**
 	 * Database for temporary storing parsed osm nodes
 	 */
@@ -36,11 +36,11 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 	/**
 	 * Destenation map objects database
 	 */
-	private SQLiteDatabaseFiller mapObjectsDatabase;
+	private SQLiteDatabaseFiller destenationMapObjectsDatabase;
 	/**
 	 * Using to find map objects ids
 	 */
-	private MapObjectsDrawingIdFinder identifierFinder;
+	private MapObjectsDrawingIdFinder mapObjectsIdFinder;
 	/**
 	 * Is first osm way found while handling converting results
 	 */
@@ -49,65 +49,65 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 	/**
 	 * Create converter
 	 *
-	 * @param identifierFinder finder of map objects ids. Must be not null
-	 * @throws IllegalArgumentException identifierFinder is null
+	 * @param mapObjectsIdFinder finder of map objects ids. Must be not null
+	 * @throws IllegalArgumentException mapObjectsIdFinder is null
 	 */
-	public OsmXmlToSQLiteDatabaseConverter(MapObjectsDrawingIdFinder identifierFinder) throws IllegalArgumentException
+	public OsmXmlToSQLiteDatabaseConverter(MapObjectsDrawingIdFinder mapObjectsIdFinder) throws IllegalArgumentException
 	{
-		if (identifierFinder == null)
+		if (mapObjectsIdFinder == null)
 		{
 			throw new IllegalArgumentException("identifierFinder is null");
 		}
 
-		this.identifierFinder = identifierFinder;
-		osmXmlParser = new SAXOsmXmlParser();
-		nodesTemporaryDatabase = null;
-		mapObjectsDatabase = null;
-		firstWayFoundWhileConverting = false;
+		this.mapObjectsIdFinder = mapObjectsIdFinder;
+		this.sourceOsmXmlDataParser = new SAXOsmXmlParser();
+		this.nodesTemporaryDatabase = null;
+		this.destenationMapObjectsDatabase = null;
+		this.firstWayFoundWhileConverting = false;
 	}
 
 	/**
 	 * Create and fill database with converted from osm xml input data
 	 *
-	 * @param sourceFilePath path to source osm xml map data file
-	 * @param databaseFilePath path to result database. If database not exists it
+	 * @param sourceOsmXmlFilePath path to source osm xml map data file
+	 * @param destenationDatabaseFilePath path to result database. If database not exists it
 	 * will be created, if exists - overwrited
-	 * @throws IllegalArgumentException sourceFilePath is null or empty,
-	 * databaseFileName is null or empty; sourceFilePath equals databaseFilePath;
+	 * @throws IllegalArgumentException sourceOsmXmlFilePath is null or empty,
+ databaseFileName is null or empty; sourceOsmXmlFilePath equals destenationDatabaseFilePath;
 	 * @throws ParsingOsmErrorException error while parsing osm xml data
 	 * @throws DeletingExistsDatabaseFileErrorException can not delete exists
 	 * database file
 	 * @throws DatabaseErrorExcetion error while working with database
 	 * @throws FileNotFoundException source file not found
 	 */
-	public void convert(String sourceFilePath, String databaseFilePath) throws IllegalArgumentException, ParsingOsmErrorException,
+	public void convert(String sourceOsmXmlFilePath, String destenationDatabaseFilePath) throws IllegalArgumentException, ParsingOsmErrorException,
 					DeletingExistsDatabaseFileErrorException, DatabaseErrorExcetion, FileNotFoundException
 	{
-		if (sourceFilePath == null)
+		if (sourceOsmXmlFilePath == null)
 		{
 			throw new IllegalArgumentException("sourceFilePath is null");
 		}
-		if (sourceFilePath.isEmpty())
+		if (sourceOsmXmlFilePath.isEmpty())
 		{
 			throw new IllegalArgumentException("sourceFilePath is empty");
 		}
-		if (databaseFilePath == null)
+		if (destenationDatabaseFilePath == null)
 		{
 			throw new IllegalArgumentException("databaseFileName is null");
 		}
-		if (databaseFilePath.isEmpty())
+		if (destenationDatabaseFilePath.isEmpty())
 		{
 			throw new IllegalArgumentException("databaseFileName is empty");
 		}
-		if (sourceFilePath.equalsIgnoreCase(databaseFilePath))
+		if (sourceOsmXmlFilePath.equalsIgnoreCase(destenationDatabaseFilePath))
 		{
 			throw new IllegalArgumentException("sourceFilePath and databaseFilePath are same");
 		}
 
-		File databaseFile = new File(databaseFilePath);
-		if (databaseFile.exists())
+		File destenationDatabseFile = new File(destenationDatabaseFilePath);
+		if (destenationDatabseFile.exists())
 		{
-			boolean existsDatabaseDeleted = databaseFile.delete();
+			boolean existsDatabaseDeleted = destenationDatabseFile.delete();
 			if (!existsDatabaseDeleted)
 			{
 				throw new DeletingExistsDatabaseFileErrorException("Can not delete exists database file");
@@ -115,15 +115,15 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 		}
 
 		nodesTemporaryDatabase = new TemporaryOsmNodesDatabase();
-		mapObjectsDatabase = new SQLiteDatabaseFiller(databaseFilePath);
+		destenationMapObjectsDatabase = new SQLiteDatabaseFiller(destenationDatabaseFilePath);
 
 		firstWayFoundWhileConverting = false;
-		osmXmlParser.parse(new FileInputStream(sourceFilePath), this);
-		mapObjectsDatabase.commitLastBatchedMapObjects();
-		mapObjectsDatabase.createIndexes();
+		sourceOsmXmlDataParser.parse(new FileInputStream(sourceOsmXmlFilePath), this);
+		destenationMapObjectsDatabase.commitLastBatchedMapObjects();
+		destenationMapObjectsDatabase.createIndexes();
 
 		nodesTemporaryDatabase.closeAndDeleteDatabaseFile();
-		mapObjectsDatabase.close();
+		destenationMapObjectsDatabase.close();
 	}
 
 	/**
@@ -181,12 +181,12 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 			nodeTags.add(createMapTagByOsmTag(nodeToAdd.getTag(i)));
 		}
 
-		String drawingId = identifierFinder.findNodeDrawingId(nodeTags);
+		String drawingId = mapObjectsIdFinder.findNodeDrawingId(nodeTags);
 		if (drawingId != null)
 		{
 			Location[] nodePoints = new Location[1];
 			nodePoints[0] = new Location(nodeToAdd.getLatitude(), nodeToAdd.getLongitude());
-			mapObjectsDatabase.addMapObject(drawingId, nodeTags, nodePoints);
+			destenationMapObjectsDatabase.addMapObject(drawingId, nodeTags, nodePoints);
 		}
 	}
 
@@ -266,11 +266,11 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 			String drawingId;
 			if (parsedWay.isClosed())
 			{
-				drawingId = identifierFinder.findClosedWayDrawingId(wayTags);
+				drawingId = mapObjectsIdFinder.findClosedWayDrawingId(wayTags);
 			}
 			else
 			{
-				drawingId = identifierFinder.findNonClosedWayDrawingId(wayTags);
+				drawingId = mapObjectsIdFinder.findNonClosedWayDrawingId(wayTags);
 			}
 
 			if (drawingId != null)
@@ -278,7 +278,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 				Location[] wayPoints = findWayPointsInNodesTemporaryDatabase(parsedWay);
 				if (wayPoints.length > 0)
 				{
-					mapObjectsDatabase.addMapObject(drawingId, wayTags, wayPoints);
+					destenationMapObjectsDatabase.addMapObject(drawingId, wayTags, wayPoints);
 				}
 			}
 		}

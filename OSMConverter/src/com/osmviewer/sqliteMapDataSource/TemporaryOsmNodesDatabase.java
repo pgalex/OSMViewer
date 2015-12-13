@@ -12,14 +12,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * Database, using for temporary storing and searching nodes form osm xml
+ * Database, using for temporary storing and searching nodes (point-like objects from .osm xml file)
  *
  * @author pgalex
  */
 public class TemporaryOsmNodesDatabase
 {
 	/**
-	 * Maximum number of insert commands in adding statement bactch
+	 * Maximum number of insert commands in adding statement batch
 	 */
 	private static final int ADD_NODES_MAXIMUM_BATCH_SIZE = 2500;
 	/**
@@ -47,6 +47,7 @@ public class TemporaryOsmNodesDatabase
 	 */
 	public TemporaryOsmNodesDatabase() throws DatabaseErrorExcetion
 	{
+		//todo overwrite exists file; take database file path in constuctor, and not use createTempFile
 		try
 		{
 			Class.forName("org.sqlite.JDBC");
@@ -150,8 +151,7 @@ public class TemporaryOsmNodesDatabase
 	}
 
 	/**
-	 * Find osm node in database by its openstreetmap unique id. Call
-	 * commitAddedNodes before using finding
+	 * Find osm node in database by its unique id
 	 *
 	 * @param nodeId openstreetmap id of node to find
 	 * @return found node. Null if not found
@@ -161,14 +161,13 @@ public class TemporaryOsmNodesDatabase
 	{
 		try
 		{
-			TemporaryDatabaseOsmNode foundNode;
+			TemporaryDatabaseOsmNode foundNode = null;
 			try (PreparedStatement selectNodeStatement = databaseConnection.prepareStatement("SELECT * FROM Nodes WHERE id=?"))
 			{
 				selectNodeStatement.setLong(1, nodeId);
 				try (ResultSet selectedNodeResultSet = selectNodeStatement.executeQuery())
 				{
 					boolean isResultsExists = selectedNodeResultSet.next();
-					foundNode = null;
 					if (isResultsExists)
 					{
 						foundNode = new TemporaryDatabaseOsmNode(selectedNodeResultSet);
