@@ -104,10 +104,10 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 			throw new IllegalArgumentException("sourceFilePath and databaseFilePath are same");
 		}
 
-		File destenationDatabseFile = new File(destenationDatabaseFilePath);
-		if (destenationDatabseFile.exists())
+		File destenationDatabaseFile = new File(destenationDatabaseFilePath);
+		if (destenationDatabaseFile.exists())
 		{
-			boolean existsDatabaseDeleted = destenationDatabseFile.delete();
+			boolean existsDatabaseDeleted = destenationDatabaseFile.delete();
 			if (!existsDatabaseDeleted)
 			{
 				throw new DeletingExistsDatabaseFileErrorException("Can not delete exists database file");

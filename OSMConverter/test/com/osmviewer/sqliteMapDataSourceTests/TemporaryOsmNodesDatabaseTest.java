@@ -15,14 +15,28 @@ import static org.junit.Assert.*;
 public class TemporaryOsmNodesDatabaseTest
 {
 	/**
-	 * Test adding null node
+	 * Test creating temporary database file
 	 *
 	 * @throws DatabaseErrorExcetion
 	 */
 	@Test
-	public void addingNullNodeTest() throws DatabaseErrorExcetion
+	public void creatingDatabaseFileInContructorTest() throws DatabaseErrorExcetion
 	{
-		/*TemporaryOsmNodesDatabase database = new TemporaryOsmNodesDatabase();
+		TemporaryOsmNodesDatabase database = new TemporaryOsmNodesDatabase();
+		File databaseFile = new File(database.getDatabaseFilePath());
+
+		assertTrue(databaseFile.exists());
+	}
+
+	/**
+	 * Test throwing exception when adding null node
+	 *
+	 * @throws DatabaseErrorExcetion
+	 */
+	@Test
+	public void exceptionAddingNullNodeTest() throws DatabaseErrorExcetion
+	{
+		TemporaryOsmNodesDatabase database = new TemporaryOsmNodesDatabase();
 
 		try
 		{
@@ -33,20 +47,19 @@ public class TemporaryOsmNodesDatabaseTest
 		{
 			// ok
 		}
-		
-		database.closeAndDeleteDatabaseFile();*/
+
+		database.closeAndDeleteDatabaseFile();
 	}
 
 	/**
-	 * Test adding and finding nodes
+	 * Test finding node in database
 	 *
 	 * @throws DatabaseErrorExcetion
 	 */
 	@Test
-	public void findingNodesNormalWorkTest() throws DatabaseErrorExcetion
+	public void findingNodeTest() throws DatabaseErrorExcetion
 	{
-		/*TemporaryOsmNodesDatabase database = new TemporaryOsmNodesDatabase();
-
+		TemporaryOsmNodesDatabase database = new TemporaryOsmNodesDatabase();
 		TestOsmNode addingNode = new TestOsmNode();
 		addingNode.id = 123456789;
 		addingNode.latitude = 12.15;
@@ -54,13 +67,35 @@ public class TemporaryOsmNodesDatabaseTest
 		database.addNode(addingNode);
 		database.commitLastBatchedNodes();
 
-		TemporaryDatabaseOsmNode gettedNode = database.findNodeById(addingNode.id);
+		TemporaryDatabaseOsmNode foundNode = database.findNodeById(addingNode.id);
 		database.closeAndDeleteDatabaseFile();
 
-		assertNotNull(gettedNode);
-		assertEquals(addingNode.id, gettedNode.getId());
-		assertEquals(addingNode.latitude, gettedNode.getLatitude(), 0.00001);
-		assertEquals(addingNode.longitude, gettedNode.getLongitude(), 0.00001);*/
+		assertNotNull(foundNode);
+		assertEquals(addingNode.id, foundNode.getId());
+		assertEquals(addingNode.latitude, foundNode.getLatitude(), 0.00001);
+		assertEquals(addingNode.longitude, foundNode.getLongitude(), 0.00001);
+	}
+
+	/**
+	 * Test finding node which not exists in database
+	 *
+	 * @throws DatabaseErrorExcetion
+	 */
+	@Test
+	public void findingUnexistsNodeTest() throws DatabaseErrorExcetion
+	{
+		TemporaryOsmNodesDatabase database = new TemporaryOsmNodesDatabase();
+		TestOsmNode addingNode = new TestOsmNode();
+		addingNode.id = 123456789;
+		addingNode.latitude = 12.15;
+		addingNode.longitude = -5.5;
+		database.addNode(addingNode);
+		database.commitLastBatchedNodes();
+
+		TemporaryDatabaseOsmNode foundNode = database.findNodeById(123);
+		database.closeAndDeleteDatabaseFile();
+
+		assertNull(foundNode);
 	}
 
 	/**
@@ -73,42 +108,19 @@ public class TemporaryOsmNodesDatabaseTest
 	{
 		/*TemporaryOsmNodesDatabase database = new TemporaryOsmNodesDatabase();
 
-		TestOsmNode addingNode = new TestOsmNode();
-		addingNode.id = 10;
-		database.addNode(addingNode);
+		 TestOsmNode addingNode = new TestOsmNode();
+		 addingNode.id = 10;
+		 database.addNode(addingNode);
 
-		TemporaryDatabaseOsmNode gettedNodeBeforeCommiting = database.findNodeById(addingNode.id);
-		assertNull(gettedNodeBeforeCommiting);
+		 TemporaryDatabaseOsmNode gettedNodeBeforeCommiting = database.findNodeById(addingNode.id);
+		 assertNull(gettedNodeBeforeCommiting);
 
-		database.commitLastBatchedNodes();
+		 database.commitLastBatchedNodes();
 
-		TemporaryDatabaseOsmNode gettedNodeAfterCommiting = database.findNodeById(addingNode.id);
-		assertNotNull(gettedNodeAfterCommiting);
+		 TemporaryDatabaseOsmNode gettedNodeAfterCommiting = database.findNodeById(addingNode.id);
+		 assertNotNull(gettedNodeAfterCommiting);
 
-		database.closeAndDeleteDatabaseFile();*/
-	}
-
-	/**
-	 * Test node which id no exists in database
-	 *
-	 * @throws DatabaseErrorExcetion
-	 */
-	@Test
-	public void findingUnexistsNodeTest() throws DatabaseErrorExcetion
-	{
-		/*TemporaryOsmNodesDatabase database = new TemporaryOsmNodesDatabase();
-
-		TestOsmNode addingNode = new TestOsmNode();
-		addingNode.id = 123456789;
-		addingNode.latitude = 12.15;
-		addingNode.longitude = -5.5;
-		database.addNode(addingNode);
-		database.commitLastBatchedNodes();
-
-		TemporaryDatabaseOsmNode gettedNode = database.findNodeById(123);
-		database.closeAndDeleteDatabaseFile();
-
-		assertNull(gettedNode);*/
+		 database.closeAndDeleteDatabaseFile();*/
 	}
 
 	/**
@@ -121,10 +133,10 @@ public class TemporaryOsmNodesDatabaseTest
 	public void deletingDatabaseFileTest() throws DatabaseErrorExcetion
 	{
 		/*TemporaryOsmNodesDatabase database = new TemporaryOsmNodesDatabase();
-		File databaseFile = new File(database.getDatabaseFilePath());
-		assertTrue(databaseFile.exists());
+		 File databaseFile = new File(database.getDatabaseFilePath());
+		 assertTrue(databaseFile.exists());
 
-		database.closeAndDeleteDatabaseFile();
-		assertFalse(databaseFile.exists());*/
+		 database.closeAndDeleteDatabaseFile();
+		 assertFalse(databaseFile.exists());*/
 	}
 }

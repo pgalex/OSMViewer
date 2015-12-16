@@ -12,7 +12,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * Database, using for temporary storing and searching nodes (point-like objects from .osm xml file)
+ * Database, using for temporary storing and searching nodes (point-like objects
+ * from .osm xml file)
  *
  * @author pgalex
  */
