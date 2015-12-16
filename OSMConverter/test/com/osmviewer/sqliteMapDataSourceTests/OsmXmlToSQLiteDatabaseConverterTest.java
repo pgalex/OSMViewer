@@ -122,7 +122,7 @@ public class OsmXmlToSQLiteDatabaseConverterTest
 	{
 		try
 		{
-			OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter(new TestMapObjectsIdentifiersFinder());
+			OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter(new MapObjectsIdentifiersFinderFake());
 			converter.takeNode(null);
 			fail();
 		}
@@ -140,7 +140,7 @@ public class OsmXmlToSQLiteDatabaseConverterTest
 	{
 		try
 		{
-			OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter(new TestMapObjectsIdentifiersFinder());
+			OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter(new MapObjectsIdentifiersFinderFake());
 			converter.takeWay(null);
 			fail();
 		}

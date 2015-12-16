@@ -60,7 +60,7 @@ public class TemporaryOsmNodesDatabaseTest
 	public void findingNodeTest() throws DatabaseErrorExcetion
 	{
 		TemporaryOsmNodesDatabase database = new TemporaryOsmNodesDatabase();
-		TestOsmNode addingNode = new TestOsmNode();
+		OsmNodeFake addingNode = new OsmNodeFake();
 		addingNode.id = 123456789;
 		addingNode.latitude = 12.15;
 		addingNode.longitude = -5.5;
@@ -85,7 +85,7 @@ public class TemporaryOsmNodesDatabaseTest
 	public void findingUnexistsNodeTest() throws DatabaseErrorExcetion
 	{
 		TemporaryOsmNodesDatabase database = new TemporaryOsmNodesDatabase();
-		TestOsmNode addingNode = new TestOsmNode();
+		OsmNodeFake addingNode = new OsmNodeFake();
 		addingNode.id = 123456789;
 		addingNode.latitude = 12.15;
 		addingNode.longitude = -5.5;

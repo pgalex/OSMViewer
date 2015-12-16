@@ -4,11 +4,11 @@ import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.sqliteMapDataSource.MapObjectsDrawingIdFinder;
 
 /**
- * Test implementation of MapObjectsIdentifiersFinder
+ * Implementation of MapObjectsIdentifiersFinder for testing
  *
  * @author preobrazhentsev
  */
-public class TestMapObjectsIdentifiersFinder implements MapObjectsDrawingIdFinder
+public class MapObjectsIdentifiersFinderFake implements MapObjectsDrawingIdFinder
 {
 	@Override
 	public String findClosedWayDrawingId(DefenitionTags polygonTags) throws IllegalArgumentException

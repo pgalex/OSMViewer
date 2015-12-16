@@ -4,11 +4,11 @@ import com.osmviewer.osmXml.OsmNode;
 import com.osmviewer.osmXml.OsmTag;
 
 /**
- * Implementation of osmNode using for temporary nodes database test
+ * Implementation of osmNode using for testing
  *
  * @author pgalex
  */
-public class TestOsmNode implements OsmNode
+public class OsmNodeFake implements OsmNode
 {
 	public long id;
 	public double latitude;
