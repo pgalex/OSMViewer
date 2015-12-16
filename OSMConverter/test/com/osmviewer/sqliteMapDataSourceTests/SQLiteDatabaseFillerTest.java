@@ -2,7 +2,7 @@ package com.osmviewer.sqliteMapDataSourceTests;
 
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.Location;
-import com.osmviewer.sqliteMapDataSource.SQLiteDatabaseFiller;
+import com.osmviewer.sqliteMapDataSource.SQLiteMapDatabaseFiller;
 import com.osmviewer.sqliteMapDataSource.exceptions.DatabaseErrorExcetion;
 import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
@@ -27,7 +27,7 @@ public class SQLiteDatabaseFillerTest
 	{
 		try
 		{
-			SQLiteDatabaseFiller databaseFiller = new SQLiteDatabaseFiller(null);
+			SQLiteMapDatabaseFiller databaseFiller = new SQLiteMapDatabaseFiller(null);
 			fail();
 		}
 		catch (IllegalArgumentException ex)
@@ -46,7 +46,7 @@ public class SQLiteDatabaseFillerTest
 	{
 		try
 		{
-			SQLiteDatabaseFiller databaseFiller = new SQLiteDatabaseFiller("");
+			SQLiteMapDatabaseFiller databaseFiller = new SQLiteMapDatabaseFiller("");
 			fail();
 		}
 		catch (IllegalArgumentException ex)

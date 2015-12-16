@@ -36,7 +36,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 	/**
 	 * Destenation map objects database
 	 */
-	private SQLiteDatabaseFiller destenationMapObjectsDatabase;
+	private SQLiteMapDatabaseFiller destenationMapObjectsDatabase;
 	/**
 	 * Using to find map objects ids
 	 */
@@ -115,7 +115,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 		}
 
 		nodesTemporaryDatabase = new TemporaryOsmNodesDatabase();
-		destenationMapObjectsDatabase = new SQLiteDatabaseFiller(destenationDatabaseFilePath);
+		destenationMapObjectsDatabase = new SQLiteMapDatabaseFiller(destenationDatabaseFilePath);
 
 		firstWayFoundWhileConverting = false;
 		sourceOsmXmlDataParser.parse(new FileInputStream(sourceOsmXmlFilePath), this);

@@ -17,7 +17,7 @@ import java.sql.Statement;
  *
  * @author pgalex
  */
-public class SQLiteDatabaseFiller
+public class SQLiteMapDatabaseFiller
 {
 	/**
 	 * Maximum number of insert commands in adding map objects statement batch
@@ -59,7 +59,7 @@ public class SQLiteDatabaseFiller
 	 * @throws DatabaseErrorExcetion error while creating and getting connect to
 	 * database
 	 */
-	public SQLiteDatabaseFiller(String databasePath) throws IllegalArgumentException, DatabaseErrorExcetion
+	public SQLiteMapDatabaseFiller(String databasePath) throws IllegalArgumentException, DatabaseErrorExcetion
 	{
 		if (databasePath == null)
 		{
