@@ -3,7 +3,6 @@ package com.osmviewer.xmlDrawSettingsTests;
 import com.osmviewer.xmlDrawSettings.XmlDrawPriorityContainer;
 import com.osmviewer.xmlDrawSettings.exceptions.ParsingXmlErrorException;
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 import static org.junit.Assert.*;
