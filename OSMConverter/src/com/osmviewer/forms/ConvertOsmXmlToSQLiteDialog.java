@@ -1,6 +1,6 @@
 package com.osmviewer.forms;
 
-import com.osmviewer.xmlDrawSettings.XmlMapObjectsDrawingIdFinder;
+import com.osmviewer.xmlDrawSettings.XmlMapObjectsIdFinder;
 import com.osmviewer.osmXml.exceptions.ParsingOsmErrorException;
 import com.osmviewer.sqliteMapDataSource.OsmXmlToSQLiteDatabaseConverter;
 import com.osmviewer.sqliteMapDataSource.exceptions.DatabaseErrorExcetion;
@@ -74,7 +74,7 @@ public class ConvertOsmXmlToSQLiteDialog extends javax.swing.JDialog
 			throw new IllegalArgumentException("destenationFile is null");
 		}
 
-		OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter(new XmlMapObjectsDrawingIdFinder());
+		OsmXmlToSQLiteDatabaseConverter converter = new OsmXmlToSQLiteDatabaseConverter(new XmlMapObjectsIdFinder());
 		try
 		{
 			converter.convert(sourceFile.getPath(), destenationFile.getPath());

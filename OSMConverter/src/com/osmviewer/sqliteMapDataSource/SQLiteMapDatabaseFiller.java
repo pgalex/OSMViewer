@@ -83,7 +83,7 @@ public class SQLiteMapDatabaseFiller
 			try (Statement createMapObjectsTableStatement = databaseConnection.createStatement())
 			{
 				createMapObjectsTableStatement.executeUpdate("CREATE TABLE IF NOT EXISTS MapObjects ("
-								+ "drawingId TEXT, "
+								+ "id TEXT, "
 								+ "minLatitude REAL, maxLatitude REAL, minLongitude REAL, maxLongitude REAL )");
 				databaseConnection.commit();
 			}
@@ -113,18 +113,18 @@ public class SQLiteMapDatabaseFiller
 	/**
 	 * Add map object to database
 	 *
-	 * @param drawingId adding map object id. Must be not null
+	 * @param id adding map object id. Must be not null
 	 * @param tags adding map object tags
 	 * @param points points, defines map objects position on map
 	 * @throws IllegalArgumentException tags is null, points is null or empty;
-	 * drawingId is null
+	 * id is null
 	 * @throws DatabaseErrorExcetion error while adding map object
 	 */
-	public synchronized void addMapObject(String drawingId, DefenitionTags tags, Location[] points) throws IllegalArgumentException, DatabaseErrorExcetion
+	public synchronized void addMapObject(String id, DefenitionTags tags, Location[] points) throws IllegalArgumentException, DatabaseErrorExcetion
 	{
-		if (drawingId == null)
+		if (id == null)
 		{
-			throw new IllegalArgumentException("drawingId is null");
+			throw new IllegalArgumentException("id is null");
 		}
 		if (tags == null)
 		{
@@ -139,7 +139,7 @@ public class SQLiteMapDatabaseFiller
 		{
 			insertPoints(points);
 			insertTags(tags);
-			insertMapObjectStatement.setString(1, drawingId);
+			insertMapObjectStatement.setString(1, id);
 			MapBounds pointsBounds = new MapBounds(points);
 			insertMapObjectStatement.setDouble(2, pointsBounds.getLatitudeMinimum());
 			insertMapObjectStatement.setDouble(3, pointsBounds.getLatitudeMaximum());

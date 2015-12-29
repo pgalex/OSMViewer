@@ -14,28 +14,28 @@ import org.xml.sax.helpers.DefaultHandler;
 public class DrawPrioritySAXParsingHandler extends DefaultHandler
 {
 	/**
-	 * Drawing ids found while parsing draw priority order. Order of elements in
+	 * Map objects ids found while parsing draw priority order. Order of elements in
 	 * array equals to nodes order in xml document
 	 */
-	private final ArrayList<String> parsedDrawingIds;
+	private final ArrayList<String> parsedMapObjectsIds;
 
 	/**
-	 * Create with empty parsed drawing ids list
+	 * Create with empty parsed map objects ids list
 	 */
 	public DrawPrioritySAXParsingHandler()
 	{
-		parsedDrawingIds = new ArrayList<>();
+		parsedMapObjectsIds = new ArrayList<>();
 	}
 
 	/**
-	 * Get drawing ids list found while parsing.
+	 * Get map objects ids list found while parsing.
 	 *
-	 * @return drawing ids list found while parsing. Order of elements in list
+	 * @return map objects ids list found while parsing. Order of elements in list
 	 * equals to nodes order in xml document
 	 */
-	public List<String> getParsedDrawingIds()
+	public List<String> getParsedMapObjectsIds()
 	{
-		return parsedDrawingIds;
+		return parsedMapObjectsIds;
 	}
 
 	/**
@@ -56,24 +56,24 @@ public class DrawPrioritySAXParsingHandler extends DefaultHandler
 	{
 		if (qualifiedName.compareToIgnoreCase("mapObject") == 0)
 		{
-			parsedDrawingIds.add(getDrawingIdFromAttributes(attributes));
+			parsedMapObjectsIds.add(getMapObjectIdFromAttributes(attributes));
 		}
 	}
 
 	/**
-	 * Get drawing id from draw priority xml node attributes
+	 * Get map object id from draw priority xml node attributes
 	 *
-	 * @param attributes attributes to get drawing id from. Must be not null
-	 * @return drawing id from node attributes
+	 * @param attributes attributes to get map object id from. Must be not null
+	 * @return map object id from node attributes
 	 * @throws IllegalArgumentException attributes is null
 	 */
-	private String getDrawingIdFromAttributes(Attributes attributes) throws IllegalArgumentException
+	private String getMapObjectIdFromAttributes(Attributes attributes) throws IllegalArgumentException
 	{
 		if (attributes == null)
 		{
 			throw new IllegalArgumentException("attributes is null");
 		}
 
-		return attributes.getValue("drawingId");
+		return attributes.getValue("id");
 	}
 }

@@ -10,7 +10,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.SAXException;
 
 /**
- * Contains draw priority values for each drawing id, by reading it from xml
+ * Contains draw priority values for each map object id, by reading it from xml
  * file
  *
  * @author preobrazhentsev
@@ -18,16 +18,16 @@ import org.xml.sax.SAXException;
 public class XmlDrawPriorityContainer
 {
 	/**
-	 * Drawing ids sorted in draw order
+	 * Map objects ids sorted in draw order
 	 */
-	private final ArrayList<String> drawingIdsInDrawOrder;
+	private final ArrayList<String> mapObjectsIdsInDrawOrder;
 
 	/**
 	 * Create empty
 	 */
 	public XmlDrawPriorityContainer()
 	{
-		drawingIdsInDrawOrder = new ArrayList<>();
+		mapObjectsIdsInDrawOrder = new ArrayList<>();
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class XmlDrawPriorityContainer
 			throw new IllegalArgumentException("input is null");
 		}
 
-		drawingIdsInDrawOrder.clear();
+		mapObjectsIdsInDrawOrder.clear();
 
 		try
 		{
@@ -53,7 +53,7 @@ public class XmlDrawPriorityContainer
 
 			DrawPrioritySAXParsingHandler parsingHandler = new DrawPrioritySAXParsingHandler();
 			parser.parse(input, parsingHandler);
-			drawingIdsInDrawOrder.addAll(parsingHandler.getParsedDrawingIds());
+			mapObjectsIdsInDrawOrder.addAll(parsingHandler.getParsedMapObjectsIds());
 		}
 		catch (IOException | ParserConfigurationException | SAXException ex)
 		{
@@ -62,20 +62,20 @@ public class XmlDrawPriorityContainer
 	}
 
 	/**
-	 * Get draw priority by drawing id
+	 * Get draw priority by map object id
 	 *
-	 * @param drawingId drawing id to get draw priority by. Must be not null
+	 * @param mapObjectId map object id to get draw priority by. Must be not null
 	 * @return draw priority for given drawing id. Null if not found
-	 * @throws IllegalArgumentException drawingId is null
+	 * @throws IllegalArgumentException mapObjectId is null
 	 */
-	public Integer getDrawPriorityOf(String drawingId) throws IllegalArgumentException
+	public Integer getDrawPriorityOf(String mapObjectId) throws IllegalArgumentException
 	{
-		if (drawingId == null)
+		if (mapObjectId == null)
 		{
-			throw new IllegalArgumentException("drawingId is null");
+			throw new IllegalArgumentException("mapObjectId is null");
 		}
 
-		int indexInDrawOrder = drawingIdsInDrawOrder.indexOf(drawingId);
+		int indexInDrawOrder = mapObjectsIdsInDrawOrder.indexOf(mapObjectId);
 		if (indexInDrawOrder != -1)
 		{
 			return indexInDrawOrder;

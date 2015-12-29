@@ -40,7 +40,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 	/**
 	 * Using to find map objects ids
 	 */
-	private MapObjectsDrawingIdFinder mapObjectsIdFinder;
+	private MapObjectsIdFinder mapObjectsIdFinder;
 	/**
 	 * Is first osm way found while handling converting results
 	 */
@@ -52,7 +52,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 	 * @param mapObjectsIdFinder finder of map objects ids. Must be not null
 	 * @throws IllegalArgumentException mapObjectsIdFinder is null
 	 */
-	public OsmXmlToSQLiteDatabaseConverter(MapObjectsDrawingIdFinder mapObjectsIdFinder) throws IllegalArgumentException
+	public OsmXmlToSQLiteDatabaseConverter(MapObjectsIdFinder mapObjectsIdFinder) throws IllegalArgumentException
 	{
 		if (mapObjectsIdFinder == null)
 		{
@@ -160,7 +160,7 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 	/**
 	 * Add osm node to map objects database
 	 *
-	 * @param nodeToAdd adding node
+	 * @param nodeToAdd adding node. Must be not null, must have tags
 	 * @throws IllegalArgumentException nodeToAdd is null or have not tags
 	 * @throws DatabaseErrorExcetion error while adding
 	 */
@@ -181,12 +181,12 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 			nodeTags.add(createMapTagByOsmTag(nodeToAdd.getTag(i)));
 		}
 
-		String drawingId = mapObjectsIdFinder.findNodeDrawingId(nodeTags);
-		if (drawingId != null)
+		String mapObjectId = mapObjectsIdFinder.findNodeMapObjectId(nodeTags);
+		if (mapObjectId != null)
 		{
 			Location[] nodePoints = new Location[1];
 			nodePoints[0] = new Location(nodeToAdd.getLatitude(), nodeToAdd.getLongitude());
-			destenationMapObjectsDatabase.addMapObject(drawingId, nodeTags, nodePoints);
+			destenationMapObjectsDatabase.addMapObject(mapObjectId, nodeTags, nodePoints);
 		}
 	}
 
@@ -263,22 +263,22 @@ public class OsmXmlToSQLiteDatabaseConverter implements OsmXmlParsingResultsHand
 				wayTags.add(createMapTagByOsmTag(parsedWay.getTag(i)));
 			}
 
-			String drawingId;
+			String mapObjectId;
 			if (parsedWay.isClosed())
 			{
-				drawingId = mapObjectsIdFinder.findClosedWayDrawingId(wayTags);
+				mapObjectId = mapObjectsIdFinder.findClosedWayMapObjectId(wayTags);
 			}
 			else
 			{
-				drawingId = mapObjectsIdFinder.findNonClosedWayDrawingId(wayTags);
+				mapObjectId = mapObjectsIdFinder.findNonClosedWayMapObjectId(wayTags);
 			}
 
-			if (drawingId != null)
+			if (mapObjectId != null)
 			{
 				Location[] wayPoints = findWayPointsInNodesTemporaryDatabase(parsedWay);
 				if (wayPoints.length > 0)
 				{
-					destenationMapObjectsDatabase.addMapObject(drawingId, wayTags, wayPoints);
+					destenationMapObjectsDatabase.addMapObject(mapObjectId, wayTags, wayPoints);
 				}
 			}
 		}

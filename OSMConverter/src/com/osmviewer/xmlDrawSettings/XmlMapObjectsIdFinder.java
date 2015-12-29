@@ -2,24 +2,25 @@ package com.osmviewer.xmlDrawSettings;
 
 import com.osmviewer.mapDefenitionUtilities.DefenitionTags;
 import com.osmviewer.mapDefenitionUtilities.Tag;
-import com.osmviewer.sqliteMapDataSource.MapObjectsDrawingIdFinder;
+import com.osmviewer.sqliteMapDataSource.MapObjectsIdFinder;
 
 /**
- * Finds drawing id synchronized with xml description file
+ * Finds map object id synchronized with xml description file
  *
  * @author preobrazhentsev
  */
-public class XmlMapObjectsDrawingIdFinder implements MapObjectsDrawingIdFinder
+public class XmlMapObjectsIdFinder implements MapObjectsIdFinder
 {
 	/**
-	 * Find drawing id for closed way
+	 * Find map object id for closed way
 	 *
-	 * @param wayTags tags of closed way to find drawing id of. Must be not null
-	 * @return found drawing id. Null if not found
+	 * @param wayTags tags of closed way to find map object id of. Must be not
+	 * null
+	 * @return found map object id. Null if not found
 	 * @throws IllegalArgumentException wayTags is null
 	 */
 	@Override
-	public String findClosedWayDrawingId(DefenitionTags wayTags) throws IllegalArgumentException
+	public String findClosedWayMapObjectId(DefenitionTags wayTags) throws IllegalArgumentException
 	{
 		if (wayTags == null)
 		{
@@ -35,15 +36,15 @@ public class XmlMapObjectsDrawingIdFinder implements MapObjectsDrawingIdFinder
 	}
 
 	/**
-	 * Find drawing id for non-closed way
+	 * Find map object id for non-closed way
 	 *
-	 * @param wayTags tags of non-closed way to find drawing id of. Must be not
+	 * @param wayTags tags of non-closed way to find map object id of. Must be not
 	 * null
-	 * @return found drawing id. Null if not found
+	 * @return found id. Null if not found
 	 * @throws IllegalArgumentException wayTags is null
 	 */
 	@Override
-	public String findNonClosedWayDrawingId(DefenitionTags wayTags) throws IllegalArgumentException
+	public String findNonClosedWayMapObjectId(DefenitionTags wayTags) throws IllegalArgumentException
 	{
 		if (wayTags == null)
 		{
@@ -54,14 +55,14 @@ public class XmlMapObjectsDrawingIdFinder implements MapObjectsDrawingIdFinder
 	}
 
 	/**
-	 * Find drawing id for node
+	 * Find map object id for node
 	 *
-	 * @param nodeTags tags of node to find drawing id of. Must be not null
-	 * @return found drawing id. Null if not found
+	 * @param nodeTags tags of node to find map object id of. Must be not null
+	 * @return found id. Null if not found
 	 * @throws IllegalArgumentException nodeTags is null
 	 */
 	@Override
-	public String findNodeDrawingId(DefenitionTags nodeTags) throws IllegalArgumentException
+	public String findNodeMapObjectId(DefenitionTags nodeTags) throws IllegalArgumentException
 	{
 		if (nodeTags == null)
 		{
