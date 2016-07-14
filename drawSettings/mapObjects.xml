@@ -3,35 +3,24 @@
 <!-- Id of each map object must be unique. descriptionId linked with MapObjectsDescription -->
 <mapObjects>
 
-<mapObject id="natural-wood-closed-way" descriptionId = "wood" visibleFromScaleLevel="2" visibleToScaleLevel="18"/>
+<mapObject id="natural-wood-closed-way" descriptionId="wood" visibleFromScaleLevel="2" visibleToScaleLevel="18"/>
 	<drawingParameters type="polygon">
 		<filling>
-			<onScales from="2" to="18">
-				<color r="0" g="255" b="0" a="255"/>
-			</onScales>
+			<color r="0" g="255" b="0" a="255"/>
 		</filling>
 		<text>
-			<textTagKey key="name"/>
-			<textTagKey key="description"/>
-			<onScales from="2" to="18">
-				<color r="0" g="0" b="0" a="255"/>
-				<font name="Arial" size="10" bold="false" italic="false" underline="false"/>
-			</onScales>
+			<color r="0" g="0" b="0" a="255"/>
+			<font name="Arial" size="10" bold="false" italic="false" underline="false"/>
 		</text>
 	</drawingParameters>
 </mapObject>
 
 
-<mapObject id="place-village-node" descriptionId = "village" visibleFromScaleLevel="2" visibleToScaleLevel="18"/>
-	<visibleOnScaleLevels from="2" to="18"/>
+<mapObject id="place-village-node" descriptionId="village" visibleFromScaleLevel="2" visibleToScaleLevel="18"/>
 	<drawingParameters type="text">
 		<text>
-			<textTagKey key="name"/>
-			<textTagKey key="description"/>
-			<onScales from="2" to="18">
-				<color r="0" g="0" b="0" a="255"/>
-				<font name="Arial" size="10" bold="false" italic="false" underline="false"/>
-			</onScales>
+			<color r="0" g="0" b="0" a="255"/>
+			<font name="Arial" size="10" bold="false" italic="false" underline="false"/>
 		</text>
 	</drawingParameters>
 </mapObject>
